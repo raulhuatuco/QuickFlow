@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/cursor.png</file>
+        <file>img/ico-line.png</file>
+        <file>img/ico-trans.png</file>
+        <file>img/ico-trans-s.png</file>
+        <file>img/ico-pq.png</file>
+        <file>img/ico-pq-s.png</file>
+        <file>img/ico-pv.png</file>
+        <file>img/ico-pv-s.png</file>
+        <file>img/ico-slack.png</file>
+        <file>img/ico-slack-s.png</file>
+    </qresource>
+</RCC>
