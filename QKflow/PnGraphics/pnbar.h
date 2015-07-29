@@ -5,9 +5,13 @@
 #include <QGraphicsObject>
 #include <QByteArray>
 #include <QList>
+#include <QToolTip>
 #include <complex>
+#include <stdint.h>
+
 
 #include "PnGraphics/pnline.h"
+#include "PnGraphics/pninfobox.h"
 
 QT_BEGIN_NAMESPACE
 class PnLine;
@@ -22,10 +26,10 @@ class PnBar : public QGraphicsObject
 public:
 
 
-  PnBar();
+  PnBar(uint32_t id);
   ~PnBar();
 
-  u_int32_t getId();
+  uint32_t getId();
   complex<double> getV();
   complex<double> getSg();
   complex<double> getSl();
@@ -41,12 +45,14 @@ public:
   void removeLine(PnLine *line);
   void removeLines();
 
-  virtual QByteArray generateKflowData() = 0 Q_DECL_OVERRIDE;
+  virtual QString barType() = 0 Q_DECL_OVERRIDE;
   virtual QRectF boundingRect() const = 0 Q_DECL_OVERRIDE;
 
 protected:
   virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                      QWidget *widget) = 0 Q_DECL_OVERRIDE;
+
+  virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
 
   unsigned int id_;
   complex<double> v_;
@@ -55,6 +61,7 @@ protected:
 
 private:
   QList<PnLine *> lines_;
+  PnInfoBox *infobox_;
 
 
 };

@@ -8,13 +8,15 @@ class PnPv : public PnBar
   Q_OBJECT
 
 public:
+  static const int kIconSize = 10;
+
   static QPixmap *ico;
   static QPixmap *icoSelected;
 
-  PnPv();
+  PnPv(uint32_t id);
   ~PnPv();
 
-  virtual QByteArray generateKflowData() Q_DECL_OVERRIDE;
+  virtual QString barType() Q_DECL_OVERRIDE;
   virtual QRectF boundingRect() const Q_DECL_OVERRIDE;
 
 protected:

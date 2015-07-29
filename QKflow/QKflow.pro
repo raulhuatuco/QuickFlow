@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     PnGraphics/pnpq.cpp \
     PnGraphics/pnpv.cpp \
     PnGraphics/pnline.cpp \
-    PnGraphics/pncable.cpp
+    PnGraphics/pncable.cpp \
+    PnGraphics/pninfobox.cpp
 
 HEADERS  += qkflow.h \
     PnGraphics/pnbar.h \
@@ -29,7 +30,8 @@ HEADERS  += qkflow.h \
     PnGraphics/pnpq.h \
     PnGraphics/pnpv.h \
     PnGraphics/pnline.h \
-    PnGraphics/pncable.h
+    PnGraphics/pncable.h \
+    PnGraphics/pninfobox.h
 
 FORMS    += qkflow.ui
 

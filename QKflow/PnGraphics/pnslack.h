@@ -12,13 +12,15 @@ class PnSlack : public PnBar
   Q_OBJECT
 
 public:
+  static const int kIconSize = 15 ;
+
   static QPixmap *ico;
   static QPixmap *icoSelected;
 
   PnSlack();
   ~PnSlack();
 
-  virtual QByteArray generateKflowData() Q_DECL_OVERRIDE;
+  virtual QString barType() Q_DECL_OVERRIDE;
   virtual QRectF boundingRect() const Q_DECL_OVERRIDE;
 
 protected:

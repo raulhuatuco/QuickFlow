@@ -1,6 +1,8 @@
 #ifndef PNPQ_H
 #define PNPQ_H
 
+#include <stdint.h>
+
 #include"pnbar.h"
 
 class PnPq : public PnBar
@@ -8,13 +10,15 @@ class PnPq : public PnBar
   Q_OBJECT
 
 public:
+  static const int kIconSize = 10;
+
   static QPixmap *ico;
   static QPixmap *icoSelected;
 
-  PnPq();
+  PnPq(uint32_t id);
   ~PnPq();
 
-  virtual QByteArray generateKflowData() Q_DECL_OVERRIDE;
+  virtual QString barType() Q_DECL_OVERRIDE;
   virtual QRectF boundingRect() const Q_DECL_OVERRIDE;
 
 protected:

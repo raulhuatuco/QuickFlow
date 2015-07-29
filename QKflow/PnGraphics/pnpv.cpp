@@ -5,7 +5,8 @@
 QPixmap *PnPv::ico;
 QPixmap *PnPv::icoSelected;
 
-PnPv::PnPv()
+PnPv::PnPv(uint32_t id)
+    : PnBar(id)
 {
 
 }
@@ -15,16 +16,14 @@ PnPv::~PnPv()
 
 }
 
-QByteArray PnPv::generateKflowData()
-{
-  QByteArray KflowData = "slack";
 
-  return KflowData;
+QString PnPv::barType() {
+   return QString("pv");
 }
 
 QRectF PnPv::boundingRect() const
 {
-  return QRectF(0, 0, 30, 30);
+  return QRectF(-kIconSize/2, -kIconSize/2, kIconSize, kIconSize);
 }
 
 void PnPv::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
@@ -33,8 +32,8 @@ void PnPv::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
   Q_UNUSED(widget);
 
   if (isSelected())
-          painter->drawPixmap(0, 0, 30, 30, *icoSelected);
+          painter->drawPixmap(-kIconSize/2, -kIconSize/2, kIconSize, kIconSize, *icoSelected);
   else
-          painter->drawPixmap(0, 0, 30, 30, *ico);
+          painter->drawPixmap(-kIconSize/2, -kIconSize/2, kIconSize, kIconSize, *ico);
 }
 

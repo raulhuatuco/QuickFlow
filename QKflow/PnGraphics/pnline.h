@@ -5,6 +5,7 @@
 #include <QPen>
 
 #include "PnGraphics/pnbar.h"
+#include "PnGraphics/pninfobox.h"
 
 QT_BEGIN_NAMESPACE
 class PnBar;
@@ -15,23 +16,26 @@ class PnLine : public QGraphicsObject
   Q_OBJECT
 
 public:
-  PnLine();
+  PnLine(PnBar *noI, PnBar *noF);
   ~PnLine();
 
   PnBar *getNoI() {return noI_;}
   PnBar *getNoF() {return noF_;}
 
-  virtual void setNodes(PnBar *noI, PnBar *noF);
-  virtual QByteArray generateKflowData() = 0 Q_DECL_OVERRIDE;
+
+  virtual QString lineType() = 0 Q_DECL_OVERRIDE;
   virtual QRectF boundingRect() const = 0 Q_DECL_OVERRIDE;
+  virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
 
 protected:
+  PnBar *noI_;
+  PnBar *noF_;
+
   virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                      QWidget *widget) = 0 Q_DECL_OVERRIDE;
 
 private:
-  PnBar *noI_;
-  PnBar *noF_;
+  PnInfoBox *infobox_;
 };
 
 #endif // PNLINE_H

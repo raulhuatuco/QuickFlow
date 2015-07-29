@@ -5,84 +5,58 @@
 #include <QPainter>
 
 
-PnCable::PnCable()
-  : cableColor_(Qt::white),cablePen_(cableColor_, 6,Qt::SolidLine)
+PnCable::PnCable(PnBar *noI, PnBar *noF)
+    : PnLine(noI, noF)
 {
 
+    qreal pi = 3.141592653589793238463;
+    QLineF line(noI->pos(), noF->pos());
+
+    qreal radAngle = line.angle()* pi / 180;
+    qreal dx = kCableWidth * sin(radAngle);
+    qreal dy = kCableWidth * cos(radAngle);
+    QPointF offset1 = QPointF(dx, dy);
+    QPointF offset2 = QPointF(-dx, -dy);
+    selectionArea << line.p1() + offset1
+             << line.p1() + offset2
+             << line.p2() + offset2
+             << line.p2() + offset1;
+    update();
 }
 
 PnCable::~PnCable()
 {
-
 }
 
-void PnCable::setNodes(PnBar *noI, PnBar *noF)
+QString PnCable::lineType()
 {
-  QRectF noIRect = noI->boundingRect ();
-  QRectF noFRect = noF->boundingRect ();
-
-  cablePos_ = QLineF(mapFromItem(noI, noIRect.width ()/2, noIRect.height ()/2),
-                     mapFromItem(noF, noFRect.width ()/2, noFRect.height ()/2));
-  PnLine::setNodes (noI, noF);
-
-}
-
-QByteArray PnCable::generateKflowData()
-{
-  QByteArray KFlowData;
-  return KFlowData;
+    QString type = "cable";
+    return type;
 }
 
 QRectF PnCable::boundingRect() const
 {
-  qreal extra = (cablePen_.width() + 50) / 2.0;
+    return selectionArea.boundingRect();
+}
 
-  return QRectF(cablePos_.p1(), QSizeF(cablePos_.p2().x() - cablePos_.p1().x(),
-                                    cablePos_.p2().y() - cablePos_.p1().y()))
-      .normalized()
-      .adjusted(-extra, -extra, extra, extra);
+QPainterPath PnCable::shape() const
+{
+    QPainterPath path;
+    path.addPolygon(selectionArea);
+    return path;
 }
 
 void PnCable::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-  Q_UNUSED(option);
-  Q_UNUSED(widget);
+    Q_UNUSED(option);
+    Q_UNUSED(widget);
 
-  if(isSelected ())
-  painter->setPen(QPen(Qt::red, 6, Qt::SolidLine));
-  else
-  painter->setPen(cablePen_);
+    if(isSelected ())
+        painter->setPen(QPen(Qt::red, kCableWidth, Qt::SolidLine));
+    else
+        painter->setPen(QPen(Qt::black, kCableWidth, Qt::SolidLine));
 
-  painter->drawLine(cablePos_);
-}
-QLineF PnCable::cablePos() const
-{
-  return cablePos_;
-}
-
-void PnCable::setCablePos(const QLineF &cablePos)
-{
-  cablePos_ = cablePos;
-}
-
-QPen PnCable::cablePen() const
-{
-  return cablePen_;
-}
-
-void PnCable::setCablePen(const QPen &cablePen)
-{
-  cablePen_ = cablePen;
-}
-
-QColor PnCable::cableColor() const
-{
-  return cableColor_;
-}
-
-void PnCable::setCableColor(const QColor &cableColor)
-{
-  cableColor_ = cableColor;
+    painter->drawLine(noI_->pos(),noF_->pos());
 }
 
 
