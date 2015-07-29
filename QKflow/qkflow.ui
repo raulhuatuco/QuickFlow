@@ -128,7 +128,8 @@
    </attribute>
    <addaction name="separator"/>
    <addaction name="actionSlack"/>
-   <addaction name="actionBar"/>
+   <addaction name="actionPQBar"/>
+   <addaction name="actionPVBar"/>
    <addaction name="separator"/>
    <addaction name="actionCable"/>
    <addaction name="actionTransformer"/>
@@ -307,16 +308,16 @@
     <string>Add Slack</string>
    </property>
   </action>
-  <action name="actionBar">
+  <action name="actionPQBar">
    <property name="icon">
     <iconset resource="PnGraphics/pnrc.qrc">
      <normaloff>:/img/ico-pq.png</normaloff>:/img/ico-pq.png</iconset>
    </property>
    <property name="text">
-    <string>Bar</string>
+    <string>PQBar</string>
    </property>
    <property name="toolTip">
-    <string>Add Bar</string>
+    <string>Add PQBar</string>
    </property>
   </action>
   <action name="actionTransformer">
@@ -346,6 +347,18 @@
     <string>Ctrl+W</string>
    </property>
   </action>
+  <action name="actionPVBar">
+   <property name="icon">
+    <iconset resource="PnGraphics/pnrc.qrc">
+     <normaloff>:/img/ico-pv.png</normaloff>:/img/ico-pv.png</iconset>
+   </property>
+   <property name="text">
+    <string>PVBar</string>
+   </property>
+   <property name="toolTip">
+    <string>Add PVBar</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -357,8 +370,8 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="img.qrc"/>
   <include location="PnGraphics/pnrc.qrc"/>
+  <include location="img.qrc"/>
  </resources>
  <connections/>
 </ui>

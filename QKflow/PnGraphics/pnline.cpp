@@ -15,8 +15,6 @@ PnLine::PnLine(PnBar *noI, PnBar *noF)
 
 PnLine::~PnLine()
 {
-    if (infobox_ != NULL)
-        scene()->removeItem(infobox_);
 }
 
 QVariant PnLine::itemChange(QGraphicsItem::GraphicsItemChange change, const QVariant &value)

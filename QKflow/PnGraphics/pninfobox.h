@@ -8,8 +8,9 @@ class PnInfoBox : public QGraphicsItem
 {
 public:
 
-  static const int kBoxWidth = 150;
-  static const int kBoxHeight = 100;
+  static const int kBoxWidth = 180;
+  static const int kBoxHeight = 140;
+  static const int kMargin = 10;
 
   PnInfoBox(qreal px, qreal py, QString txt);
   ~PnInfoBox();

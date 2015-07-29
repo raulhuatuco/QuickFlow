@@ -30,7 +30,7 @@ void PnInfoBox::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
     QPolygonF pol_base;
     pol_base << QPointF(-10.0, -10.0) << QPointF(0.0,0.0) << QPointF(10.0,-10.0);
     painter->drawPolygon(pol_base);
-   painter->drawText(-kBoxWidth/2 +2, -kBoxHeight+2, kBoxWidth -2, kBoxHeight-2, Qt::AlignLeft, txt_);
+   painter->drawText(-kBoxWidth/2 + kMargin, -kBoxHeight + kMargin, kBoxWidth - kMargin, kBoxHeight - kMargin, Qt::AlignLeft, txt_);
 
 
 
