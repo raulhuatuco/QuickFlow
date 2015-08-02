@@ -10,9 +10,6 @@ class PnPv : public PnBar
 public:
   static const int kIconSize = 10;
 
-  static QPixmap *ico;
-  static QPixmap *icoSelected;
-
   PnPv(uint32_t id);
   ~PnPv();
 

@@ -21,7 +21,10 @@ SOURCES += main.cpp\
     PnGraphics/pnpv.cpp \
     PnGraphics/pnline.cpp \
     PnGraphics/pncable.cpp \
-    PnGraphics/pninfobox.cpp
+    PnGraphics/pninfobox.cpp \
+    PnGraphics/pnnetwork.cpp \
+    windowaddslack.cpp \
+    windowaddpq.cpp \
 
 HEADERS  += qkflow.h \
     PnGraphics/pnbar.h \
@@ -31,9 +34,14 @@ HEADERS  += qkflow.h \
     PnGraphics/pnpv.h \
     PnGraphics/pnline.h \
     PnGraphics/pncable.h \
-    PnGraphics/pninfobox.h
+    PnGraphics/pninfobox.h \
+    PnGraphics/pnnetwork.h \
+    windowaddslack.h \
+    windowaddpq.h \
 
-FORMS    += qkflow.ui
+FORMS    += qkflow.ui \
+    windowaddslack.ui \
+    windowaddpq.ui
 
 RESOURCES += \
     img.qrc \

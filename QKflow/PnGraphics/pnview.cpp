@@ -6,30 +6,46 @@
 #include "PnGraphics/pninfobox.h"
 
 PnView::PnView(QWidget *parent)
-  : QGraphicsView(parent) {
-
-    /* Adjust Scene options */
-      // Create Scene
-      QGraphicsScene *scene = new QGraphicsScene(this);
-
-      // Set background to black
-
-      QBrush bkbrush;
-      bkbrush.setColor(QColor::fromRgbF(0.0,1.0,0.0, 0.2));
-      bkbrush.setStyle(Qt::SolidPattern);
-
-      scene->setBackgroundBrush (bkbrush);
-
-      // Enable antialiasing
-      setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-
-      // Set scene
-      setScene(scene);
-
+    : QGraphicsView(parent), pnNetwork_(NULL) {
 }
 
-PnView::~PnView()
-{
+PnView::~PnView() {
+}
 
+void PnView::zoomIn() {
+    scale(1.0+kZoomStep, 1.0+kZoomStep);
+}
+
+void PnView::zoomOut() {
+    scale(1.0-kZoomStep, 1.0-kZoomStep);
+}
+
+void PnView::zoomFit() {
+    fitInView(sceneRect(),Qt::KeepAspectRatio);
+}
+
+void PnView::setPnNetwork(PnNetwork *pnNetwork) {
+
+    pnNetwork_ = pnNetwork;
+
+    // Enable antialiasing
+    setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+
+    // Set scene
+    setScene(pnNetwork_);
+}
+
+PnNetwork *PnView::getPnNetwork() {
+    return pnNetwork_;
+}
+
+void PnView::wheelEvent(QWheelEvent *event)
+{
+    setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+    if(event->delta() > 0) {
+        scale(1.0 + kZoomStep, 1.0 + kZoomStep);
+    } else {
+        scale(1.0 - kZoomStep, 1.0 - kZoomStep);
+    }
 }
 

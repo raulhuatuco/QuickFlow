@@ -14,9 +14,6 @@ class PnSlack : public PnBar
 public:
   static const int kIconSize = 15 ;
 
-  static QPixmap *ico;
-  static QPixmap *icoSelected;
-
   PnSlack();
   ~PnSlack();
 

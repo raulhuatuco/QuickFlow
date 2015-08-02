@@ -25,7 +25,7 @@ class PnBar : public QGraphicsObject
 
 public:
 
-
+    static const uint32_t kInvalidId = 0xFFFFFFFFU;
   PnBar(uint32_t id);
   ~PnBar();
 
@@ -36,7 +36,7 @@ public:
   complex<double> getI();
 
 
-  void setId(unsigned int id);
+  void setId(uint32_t id);
   void setV(complex<double> v);
   void setSg(complex<double> sg);
   void setSl(complex<double>sl);
@@ -54,7 +54,7 @@ protected:
 
   virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
 
-  unsigned int id_;
+  uint32_t id_;
   complex<double> v_;
   complex<double> sg_;
   complex<double> sl_;

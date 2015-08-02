@@ -1,10 +1,13 @@
 #include "qkflow.h"
 #include "ui_qkflow.h"
 
+#include <QMessageBox>
+
 #include "PnGraphics/pnslack.h"
 #include "PnGraphics/pnpq.h"
 #include "PnGraphics/pnpv.h"
 #include "PnGraphics/pncable.h"
+#include "PnGraphics/pnnetwork.h"
 
 QKflow::QKflow(QWidget *parent) :
     QMainWindow(parent),
@@ -16,33 +19,38 @@ QKflow::QKflow(QWidget *parent) :
     ui->actionStop->setDisabled(true);
 
 
-    PnSlack::ico = new QPixmap(":/img/ico-slack.png");
-    PnSlack::icoSelected = new QPixmap(":/img/ico-slack-s.png");
+    // Create network
+    pnNetwork_ = new PnNetwork;
+    ui->pnView->setPnNetwork(pnNetwork_);
+
+    // Set background color
+    QBrush bkbrush;
+    bkbrush.setColor(QColor::fromRgbF(0.0,1.0,0.0, 0.15));
+    bkbrush.setStyle(Qt::SolidPattern);
+    ui->pnView->setBackgroundBrush(bkbrush);
+
+
+    // Add some items
     PnSlack *slack = new PnSlack();
-    ui->pnView->scene ()->addItem (slack);
+    pnNetwork_->addSlack(slack);
 
-    PnPq::ico = new QPixmap(":/img/ico-pq.png");
-    PnPq::icoSelected = new QPixmap(":/img/ico-pq-s.png");
     PnPq *pq = new PnPq(1);
-    pq->setX(100);
-    pq->setY(100);
-    ui->pnView->scene ()->addItem (pq);
+    pq->setPos(100,100);
+    pnNetwork_->addPq(pq);
 
-    PnPv::ico = new QPixmap(":/img/ico-pv.png");
-    PnPv::icoSelected = new QPixmap(":/img/ico-pv-s.png");
     PnPv *pv = new PnPv(2);
     pv->setX (200);
     pv->setY(-50);
-    ui->pnView->scene ()->addItem (pv);
+    pnNetwork_->addPv(pv);
 
     PnCable *cable1 = new PnCable(slack, pq);
-    ui->pnView->scene ()->addItem (cable1);
+    pnNetwork_->addItem (cable1);
 
     PnCable *cable2 = new PnCable(slack, pv);
-    ui->pnView->scene ()->addItem (cable2);
+    pnNetwork_->addItem (cable2);
 
     PnCable *cable3 = new PnCable(pq, pv);
-    ui->pnView->scene ()->addItem (cable3);
+    pnNetwork_->addItem (cable3);
 
 
 }
@@ -50,4 +58,53 @@ QKflow::QKflow(QWidget *parent) :
 QKflow::~QKflow()
 {
     delete ui;
+}
+
+void QKflow::on_actionZoomIn_triggered()
+{
+    ui->pnView->zoomIn();
+}
+
+void QKflow::on_actionZoomOut_triggered()
+{
+    ui->pnView->zoomOut();
+}
+
+void QKflow::on_actionZoomFit_triggered()
+{
+    ui->pnView->zoomFit();
+}
+
+void QKflow::on_actionSlack_triggered()
+{
+    PnSlack *slack = new PnSlack();
+    windowAddSlack = new WindowAddSlack(this, slack);
+
+    if(windowAddSlack->exec() == QDialog::Accepted) {
+        if(pnNetwork_->addSlack(slack) == false){
+            delete slack;
+            QMessageBox::critical(this, tr("Failed to add Slack Bar"), tr("Only 1 slack bar is allowed."), QMessageBox::Ok);
+        }
+    }else{
+        delete slack;
+    }
+
+    delete windowAddSlack;
+}
+
+void QKflow::on_actionPQBar_triggered()
+{
+    PnPq *pq = new PnPq();
+    windowAddPq = new WindowAddPq(this, pq);
+
+    if(windowAddPq->exec() == QDialog::Accepted) {
+        if(pnNetwork_->addPq(pq) == false){
+            delete pq;
+            QMessageBox::critical(this, tr("Failed to add PQ Bar"), tr("Bars must have an unique identifier."), QMessageBox::Ok);
+        }
+    }else{
+        delete pq;
+    }
+
+    delete windowAddPq;
 }

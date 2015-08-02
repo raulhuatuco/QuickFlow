@@ -40,6 +40,11 @@ complex<double> PnBar::getI()
     return I;
 }
 
+void PnBar::setId(uint32_t id)
+{
+    id_ = id;
+}
+
 void PnBar::setV(complex<double> v)
 {
     v_ = v;

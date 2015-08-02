@@ -2,9 +2,6 @@
 
 #include <QPainter>
 
-QPixmap *PnPv::ico;
-QPixmap *PnPv::icoSelected;
-
 PnPv::PnPv(uint32_t id)
     : PnBar(id)
 {
@@ -31,9 +28,15 @@ void PnPv::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWid
   Q_UNUSED(option);
   Q_UNUSED(widget);
 
-  if (isSelected())
-          painter->drawPixmap(-kIconSize/2, -kIconSize/2, kIconSize, kIconSize, *icoSelected);
-  else
-          painter->drawPixmap(-kIconSize/2, -kIconSize/2, kIconSize, kIconSize, *ico);
+    painter->setPen(Qt::gray);
+
+    if (isSelected()) {
+        painter->setBrush(Qt::red);
+        painter->drawEllipse(-kIconSize/2, -kIconSize/2, kIconSize, kIconSize);
+    }
+    else {
+        painter->setBrush(Qt::blue);
+        painter->drawEllipse(-kIconSize/2, -kIconSize/2, kIconSize, kIconSize);
+    }
 }
 
