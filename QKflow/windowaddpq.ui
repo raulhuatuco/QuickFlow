@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>415</width>
-    <height>313</height>
+    <width>489</width>
+    <height>197</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -28,7 +28,7 @@
   <property name="modal">
    <bool>false</bool>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QFormLayout" name="formLayout">
    <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
@@ -39,7 +39,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QSpinBox" name="spbId">
+      <widget class="QSpinBox" name="id">
        <property name="minimum">
         <number>1</number>
        </property>
@@ -58,122 +58,140 @@
      <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
-        <string>Pgenetared: </string>
+        <string>Generated</string>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer_2">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QLineEdit" name="Pgen">
+       <property name="toolTip">
+        <string>Comsumed power</string>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
+       <property name="toolTipDuration">
+        <number>1</number>
        </property>
-      </spacer>
+      </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit"/>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>+</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox_2"/>
+      <widget class="QLineEdit" name="Qgen">
+       <property name="toolTip">
+        <string>Consumed reactive power</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>1</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>i</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="GenerationUnity">
+       <item>
+        <property name="text">
+         <string>VA</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>KVA</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>MVA</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>GVA</string>
+        </property>
+       </item>
+      </widget>
      </item>
     </layout>
    </item>
    <item row="2" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout_4">
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
      <item>
-      <widget class="QLabel" name="label_3">
+      <widget class="QLabel" name="label_9">
        <property name="text">
-        <string>Qenerated: </string>
+        <string>Load           </string>
        </property>
       </widget>
      </item>
      <item>
-      <spacer name="horizontalSpacer">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
+      <widget class="QLineEdit" name="Pload">
+       <property name="toolTip">
+        <string>Comsumed power</string>
        </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
+       <property name="toolTipDuration">
+        <number>1</number>
        </property>
-      </spacer>
+      </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="lineEdit_2"/>
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>+</string>
+       </property>
+      </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBox_3"/>
+      <widget class="QLineEdit" name="Qload">
+       <property name="toolTip">
+        <string>Consumed reactive power</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>1</number>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>i</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="LoadUnity">
+       <item>
+        <property name="text">
+         <string>VA</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>KVA</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>MVA</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>GVA</string>
+        </property>
+       </item>
+      </widget>
      </item>
     </layout>
    </item>
    <item row="3" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout_5">
-     <item>
-      <widget class="QLabel" name="label_4">
-       <property name="text">
-        <string>PLoad: </string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_3">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_3"/>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBox_4"/>
-     </item>
-    </layout>
-   </item>
-   <item row="4" column="0" colspan="2">
-    <layout class="QHBoxLayout" name="horizontalLayout_6">
-     <item>
-      <widget class="QLabel" name="label_5">
-       <property name="text">
-        <string>Qload: </string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <spacer name="horizontalSpacer_4">
-       <property name="orientation">
-        <enum>Qt::Horizontal</enum>
-       </property>
-       <property name="sizeHint" stdset="0">
-        <size>
-         <width>40</width>
-         <height>20</height>
-        </size>
-       </property>
-      </spacer>
-     </item>
-     <item>
-      <widget class="QLineEdit" name="lineEdit_4"/>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBox_5"/>
-     </item>
-    </layout>
-   </item>
-   <item row="5" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_7">
      <item>
       <widget class="QLabel" name="label_6">
@@ -183,7 +201,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="ledPx"/>
+      <widget class="QLineEdit" name="Px"/>
      </item>
      <item>
       <widget class="QLabel" name="label_7">
@@ -193,7 +211,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QLineEdit" name="ledPy"/>
+      <widget class="QLineEdit" name="Py"/>
      </item>
      <item>
       <widget class="QLabel" name="label_8">
@@ -204,12 +222,24 @@
      </item>
     </layout>
    </item>
-   <item row="6" column="1">
+   <item row="4" column="1">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="btnCancel">
+       <property name="focusPolicy">
+        <enum>Qt::TabFocus</enum>
+       </property>
        <property name="text">
         <string>Cancel</string>
+       </property>
+       <property name="autoDefault">
+        <bool>false</bool>
+       </property>
+       <property name="default">
+        <bool>false</bool>
+       </property>
+       <property name="flat">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
@@ -217,6 +247,9 @@
       <widget class="QPushButton" name="btnOk">
        <property name="text">
         <string>OK</string>
+       </property>
+       <property name="default">
+        <bool>true</bool>
        </property>
       </widget>
      </item>

@@ -9,20 +9,19 @@
 #include "PnGraphics/pnpq.h"
 #include "PnGraphics/pnpv.h"
 
-class PnNetwork : public QGraphicsScene
-{
-public:
-    PnNetwork();
-    ~PnNetwork();
+class PnNetwork : public QGraphicsScene {
+ public:
+  PnNetwork();
+  ~PnNetwork();
 
-    bool addSlack(PnSlack *slack);
-    bool addPq(PnPq *pq);
-    bool addPv(PnPv *pv);
+  bool addSlack(PnSlack *slack);
+  bool addPq(PnPq *pq);
+  bool addPv(PnPv *pv);
 
-    PnBar *getBarById(unsigned int id);
+  PnBar *getBarById(unsigned int id);
 
-private:
-    QHash<uint32_t, PnBar *> pnHash_;
+ private:
+  QHash<uint32_t, PnBar *> pnHash_;
 };
 
 #endif // PNNETWORK_H

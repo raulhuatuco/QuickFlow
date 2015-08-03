@@ -7,11 +7,10 @@
 
 #include "PnGraphics/pnnetwork.h"
 
-class PnView : public QGraphicsView
-{
+class PnView : public QGraphicsView {
   Q_OBJECT
 
-public:
+ public:
   PnView(QWidget *parent);
   ~PnView();
 
@@ -22,13 +21,13 @@ public:
   void setPnNetwork(PnNetwork *pnNetwork);
   PnNetwork *getPnNetwork();
 
-protected:
-    void wheelEvent(QWheelEvent* event) Q_DECL_OVERRIDE;
+ protected:
+  void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
 
-private:
-    static const qreal kZoomStep = 0.05;
+ private:
+  static const qreal kZoomStep = 0.05;
 
-    PnNetwork *pnNetwork_;
+  PnNetwork *pnNetwork_;
 
 
 };

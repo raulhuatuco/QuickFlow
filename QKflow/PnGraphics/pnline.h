@@ -11,30 +11,35 @@ QT_BEGIN_NAMESPACE
 class PnBar;
 QT_END_NAMESPACE
 
-class PnLine : public QGraphicsObject
-{
+class PnLine : public QGraphicsObject {
   Q_OBJECT
 
-public:
+ public:
   PnLine(PnBar *noI, PnBar *noF);
   ~PnLine();
 
-  PnBar *getNoI() {return noI_;}
-  PnBar *getNoF() {return noF_;}
+  PnBar *getNoI() {
+    return noI_;
+  }
+  PnBar *getNoF() {
+    return noF_;
+  }
 
 
   virtual QString lineType() = 0 Q_DECL_OVERRIDE;
   virtual QRectF boundingRect() const = 0 Q_DECL_OVERRIDE;
-  virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
+  virtual QVariant itemChange(GraphicsItemChange change,
+                              const QVariant &value) Q_DECL_OVERRIDE;
 
-protected:
+ protected:
   PnBar *noI_;
   PnBar *noF_;
 
-  virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+  virtual void paint(QPainter *painter,
+                     const QStyleOptionGraphicsItem *option,
                      QWidget *widget) = 0 Q_DECL_OVERRIDE;
 
-private:
+ private:
   PnInfoBox *infobox_;
 };
 

@@ -7,21 +7,26 @@
 
 #include "pnbar.h"
 
-class PnSlack : public PnBar
-{
+class PnSlack : public PnBar {
   Q_OBJECT
 
-public:
+ public:
   static const int kIconSize = 15 ;
 
   PnSlack();
   ~PnSlack();
 
+  void setMaxGeneration(double maxGeneration);
+  double getMaxGeneration();
+
   virtual QString barType() Q_DECL_OVERRIDE;
   virtual QRectF boundingRect() const Q_DECL_OVERRIDE;
 
-protected:
-  virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+ protected:
+  double maxGeneration_;
+
+  virtual void paint(QPainter *painter,
+                     const QStyleOptionGraphicsItem *option,
                      QWidget *widget) Q_DECL_OVERRIDE;
 };
 

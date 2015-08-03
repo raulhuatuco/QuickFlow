@@ -25,6 +25,7 @@ SOURCES += main.cpp\
     PnGraphics/pnnetwork.cpp \
     windowaddslack.cpp \
     windowaddpq.cpp \
+    windowaddpv.cpp
 
 HEADERS  += qkflow.h \
     PnGraphics/pnbar.h \
@@ -38,6 +39,7 @@ HEADERS  += qkflow.h \
     PnGraphics/pnnetwork.h \
     windowaddslack.h \
     windowaddpq.h \
+    windowaddpv.h
 
 FORMS    += qkflow.ui \
     windowaddslack.ui \

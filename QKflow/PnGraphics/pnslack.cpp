@@ -3,38 +3,47 @@
 #include <QPainter>
 
 PnSlack::PnSlack()
-    : PnBar(0)
-{
+  : PnBar(0) {
 
 }
 
-PnSlack::~PnSlack()
-{
+PnSlack::~PnSlack() {
 
+}
+
+void PnSlack::setMaxGeneration(double maxGeneration) {
+  maxGeneration_ = maxGeneration;
+}
+
+double PnSlack::getMaxGeneration() {
+  return maxGeneration_;
 }
 
 QString PnSlack::barType() {
-    return QString("slack");
+  return QString("slack");
 }
 
-QRectF PnSlack::boundingRect() const
-{
-    return QRectF(-kIconSize/2, -kIconSize/2, kIconSize, kIconSize);
+QRectF PnSlack::boundingRect() const {
+  return QRectF(-kIconSize/2, -kIconSize/2, kIconSize,
+                kIconSize);
 }
 
-void PnSlack::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
-{
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
+void PnSlack::paint(QPainter *painter,
+                    const QStyleOptionGraphicsItem *option,
+                    QWidget *widget) {
+  Q_UNUSED(option);
+  Q_UNUSED(widget);
 
-    painter->setPen(Qt::gray);
-    if (isSelected()) {
-        painter->setBrush(Qt::red);
-        painter->drawRect(-kIconSize/2, -kIconSize/2, kIconSize, kIconSize);
-    }
-    else {
-        painter->setBrush(Qt::green);
-        painter->drawRect(-kIconSize/2, -kIconSize/2, kIconSize, kIconSize);
-    }
+  painter->setPen(Qt::gray);
+
+  if (isSelected()) {
+    painter->setBrush(Qt::red);
+    painter->drawRect(-kIconSize/2, -kIconSize/2, kIconSize,
+                      kIconSize);
+  } else {
+    painter->setBrush(Qt::green);
+    painter->drawRect(-kIconSize/2, -kIconSize/2, kIconSize,
+                      kIconSize);
+  }
 }
 

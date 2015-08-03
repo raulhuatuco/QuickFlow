@@ -38,3 +38,4 @@ build*/
 
 # backup files
 ~*
+*.orig

@@ -19,13 +19,12 @@ QT_END_NAMESPACE
 
 using std::complex;
 
-class PnBar : public QGraphicsObject
-{
+class PnBar : public QGraphicsObject {
   Q_OBJECT
 
-public:
+ public:
 
-    static const uint32_t kInvalidId = 0xFFFFFFFFU;
+  static const uint32_t kInvalidId = 0xFFFFFFFFU;
   PnBar(uint32_t id);
   ~PnBar();
 
@@ -48,18 +47,20 @@ public:
   virtual QString barType() = 0 Q_DECL_OVERRIDE;
   virtual QRectF boundingRect() const = 0 Q_DECL_OVERRIDE;
 
-protected:
-  virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+ protected:
+  virtual void paint(QPainter *painter,
+                     const QStyleOptionGraphicsItem *option,
                      QWidget *widget) = 0 Q_DECL_OVERRIDE;
 
-  virtual QVariant itemChange(GraphicsItemChange change, const QVariant &value) Q_DECL_OVERRIDE;
+  virtual QVariant itemChange(GraphicsItemChange change,
+                              const QVariant &value) Q_DECL_OVERRIDE;
 
   uint32_t id_;
   complex<double> v_;
   complex<double> sg_;
   complex<double> sl_;
 
-private:
+ private:
   QList<PnLine *> lines_;
   PnInfoBox *infobox_;
 

@@ -12,31 +12,32 @@ namespace Ui {
 class QKflow;
 }
 
-class QKflow : public QMainWindow
-{
-    Q_OBJECT
+class QKflow : public QMainWindow {
+  Q_OBJECT
 
-public:
-    explicit QKflow(QWidget *parent = 0);
-    ~QKflow();
+ public:
+  explicit QKflow(QWidget *parent = 0);
+  ~QKflow();
 
-private slots:
-    void on_actionZoomIn_triggered();
+ private slots:
+  void on_actionZoomIn_triggered();
 
-    void on_actionZoomOut_triggered();
+  void on_actionZoomOut_triggered();
 
-    void on_actionZoomFit_triggered();
+  void on_actionZoomFit_triggered();
 
-    void on_actionSlack_triggered();
+  void on_actionSlack_triggered();
 
-    void on_actionPQBar_triggered();
+  void on_actionPQBar_triggered();
 
-private:
-    Ui::QKflow *ui;
-    WindowAddSlack *windowAddSlack;
-    WindowAddPq *windowAddPq;
+  void on_actionPVBar_triggered();
 
-    PnNetwork *pnNetwork_;
+ private:
+  Ui::QKflow *ui;
+  WindowAddSlack *windowAddSlack;
+  WindowAddPq *windowAddPq;
+
+  PnNetwork *pnNetwork_;
 };
 
 #endif // QKFLOW_H
