@@ -28,8 +28,6 @@ class PnView : public QGraphicsView {
   static const qreal kZoomStep = 0.05;
 
   PnNetwork *pnNetwork_;
-
-
 };
 
-#endif // PNVIEW_H
+#endif  // PNVIEW_H

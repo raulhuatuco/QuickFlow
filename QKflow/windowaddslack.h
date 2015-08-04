@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-#include "PnGraphics/pnslack.h"
+#include "PnGraphics/pnnetwork.h"
 
 namespace Ui {
 class WindowAddSlack;
@@ -13,9 +13,10 @@ class WindowAddSlack : public QDialog {
   Q_OBJECT
 
  public:
-  explicit WindowAddSlack(QWidget *parent = 0,
-                          PnSlack *slack = NULL);
+  explicit WindowAddSlack(QWidget *parent = 0);
   ~WindowAddSlack();
+
+  void setNetwork(PnNetwork *pnNetwork);
 
  private slots:
   void on_btnCancel_clicked();
@@ -24,8 +25,7 @@ class WindowAddSlack : public QDialog {
 
  private:
   Ui::WindowAddSlack *ui;
-  PnSlack *slack_;
-
+  PnNetwork *pnNetwork_;
 };
 
-#endif // WINDOWADDSLACK_H
+#endif  // WINDOWADDSLACK_H

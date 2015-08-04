@@ -11,7 +11,7 @@ class PnSlack : public PnBar {
   Q_OBJECT
 
  public:
-  static const int kIconSize = 15 ;
+  static const int kIconSize = 15;
 
   PnSlack();
   ~PnSlack();
@@ -25,9 +25,8 @@ class PnSlack : public PnBar {
  protected:
   double maxGeneration_;
 
-  virtual void paint(QPainter *painter,
-                     const QStyleOptionGraphicsItem *option,
+  virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                      QWidget *widget) Q_DECL_OVERRIDE;
 };
 
-#endif // PNSLACK_H
+#endif  // PNSLACK_H

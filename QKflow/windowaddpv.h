@@ -2,38 +2,29 @@
 #define WINDOWADDPV_H
 
 #include <QDialog>
-#include <QPushButton>
-#include <QLineEdit>
 
 #include "PnGraphics/pnnetwork.h"
+
+namespace Ui {
+class WindowAddPv;
+}
 
 class WindowAddPv : public QDialog {
   Q_OBJECT
 
  public:
-
-  WindowAddPv(QWidget *parent);
+  explicit WindowAddPv(QWidget *parent = 0);
   ~WindowAddPv();
+  void setNetwork(PnNetwork *pnNetwork);
 
-  void setNetwork(PnNetwork *network);
-
- private slots:
-  void on_btnOk_clicked();
-
+private slots:
   void on_btnCancel_clicked();
 
- private:
-  PnNetwork *network_;
+  void on_btnOk_clicked();
 
-  QLineEdit *Pgen;
-  QLineEdit *Pload;
-  QLineEdit *Qload;
-  QLineEdit *MaxQGeneration;
-  QLineEdit *Px;
-  QLineEdit *Py;
-  QPushButton *btnOk;
-  QPushButton *btnCancel;
-
+private:
+  Ui::WindowAddPv *ui;
+  PnNetwork *pnNetwork_;
 };
 
-#endif // WINDOWADDPV_H
+#endif  // WINDOWADDPV_H

@@ -3,7 +3,7 @@
 
 #include <QDialog>
 
-#include "PnGraphics/pnpq.h"
+#include "PnGraphics/pnnetwork.h"
 
 namespace Ui {
 class WindowAddPq;
@@ -13,8 +13,10 @@ class WindowAddPq : public QDialog {
   Q_OBJECT
 
  public:
-  explicit WindowAddPq(QWidget *parent = 0, PnPq *pq = NULL);
+  explicit WindowAddPq(QWidget *parent = 0);
   ~WindowAddPq();
+
+  void setNetwork(PnNetwork *pnNetwork);
 
  private slots:
   void on_btnOk_clicked();
@@ -23,7 +25,7 @@ class WindowAddPq : public QDialog {
 
  private:
   Ui::WindowAddPq *ui;
-  PnPq *pq_;
+  PnNetwork *pnNetwork_;
 };
 
-#endif // WINDOWSADDPQ_H
+#endif  // WINDOWSADDPQ_H

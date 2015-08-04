@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#include"pnbar.h"
+#include "pnbar.h"
 
 class PnPq : public PnBar {
   Q_OBJECT
@@ -19,9 +19,8 @@ class PnPq : public PnBar {
   virtual QRectF boundingRect() const Q_DECL_OVERRIDE;
 
  protected:
-  virtual void paint(QPainter *painter,
-                     const QStyleOptionGraphicsItem *option,
+  virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                      QWidget *widget) Q_DECL_OVERRIDE;
 };
 
-#endif // PNPQ_H
+#endif  // PNPQ_H

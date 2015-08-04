@@ -5,7 +5,6 @@
 
 #include "PnGraphics/pnnetwork.h"
 
-#include "windowaddslack.h"
 #include "windowaddpq.h"
 
 namespace Ui {
@@ -32,12 +31,13 @@ class QKflow : public QMainWindow {
 
   void on_actionPVBar_triggered();
 
- private:
-  Ui::QKflow *ui;
-  WindowAddSlack *windowAddSlack;
-  WindowAddPq *windowAddPq;
+  void on_actionCable_triggered();
 
+  void on_actionRun_triggered();
+
+private:
+  Ui::QKflow *ui;
   PnNetwork *pnNetwork_;
 };
 
-#endif // QKFLOW_H
+#endif  // QKFLOW_H

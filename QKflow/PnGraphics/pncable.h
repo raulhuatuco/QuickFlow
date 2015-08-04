@@ -9,19 +9,20 @@ class PnCable : public PnLine {
  public:
   static const int kCableWidth = 2;
 
+  PnCable();
   PnCable(PnBar *noI, PnBar *noF);
   ~PnCable();
 
   QString lineType() Q_DECL_OVERRIDE;
   QRectF boundingRect() const Q_DECL_OVERRIDE;
   QPainterPath shape() const Q_DECL_OVERRIDE;
+
  protected:
-  virtual void paint(QPainter *painter,
-                     const QStyleOptionGraphicsItem *option,
+  virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                      QWidget *widget);
 
  private:
   QPolygonF selectionArea;
 };
 
-#endif // PNCABLE_H
+#endif  // PNCABLE_H

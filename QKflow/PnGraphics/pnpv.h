@@ -9,17 +9,24 @@ class PnPv : public PnBar {
  public:
   static const int kIconSize = 10;
 
+  PnPv();
   PnPv(uint32_t id);
   ~PnPv();
+
+  void setMaxQGenerated(double maxQGenerated);
+  double getMaxQGenerated();
+
+  void setMinQGenerated(double minQGenerated);
+  double getMinQGenerated();
 
   virtual QString barType() Q_DECL_OVERRIDE;
   virtual QRectF boundingRect() const Q_DECL_OVERRIDE;
 
  protected:
-  virtual void paint(QPainter *painter,
-                     const QStyleOptionGraphicsItem *option,
+  double maxQGenerated_;
+  double minQGenerated_;
+  virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                      QWidget *widget) Q_DECL_OVERRIDE;
-
 };
 
-#endif // PNPV_H
+#endif  // PNPV_H

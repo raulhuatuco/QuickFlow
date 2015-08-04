@@ -6,7 +6,6 @@
 
 class PnInfoBox : public QGraphicsItem {
  public:
-
   static const int kBoxWidth = 180;
   static const int kBoxHeight = 140;
   static const int kMargin = 10;
@@ -17,12 +16,11 @@ class PnInfoBox : public QGraphicsItem {
   QRectF boundingRect() const Q_DECL_OVERRIDE;
 
  protected:
-  void paint(QPainter *painter,
-             const QStyleOptionGraphicsItem *option,
-             QWidget *widget)Q_DECL_OVERRIDE;
+  void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+             QWidget *widget) Q_DECL_OVERRIDE;
 
  private:
   QString txt_;
 };
 
-#endif // PNINFOBOX_H
+#endif  // PNINFOBOX_H

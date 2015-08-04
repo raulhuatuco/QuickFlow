@@ -4,24 +4,47 @@
 #include <QValidator>
 #include <QMessageBox>
 
-WindowAddPq::WindowAddPq(QWidget *parent, PnPq *pq) :
-  QDialog(parent),
-  ui(new Ui::WindowAddPq), pq_(pq) {
+#include "PnGraphics/pnpq.h"
+
+WindowAddPq::WindowAddPq(QWidget *parent)
+    : QDialog(parent), ui(new Ui::WindowAddPq), pnNetwork_(NULL) {
   ui->setupUi(this);
 
   ui->Pgen->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
-  ui->Qgen->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
+  ui->Qgen->setValidator(new QDoubleValidator(this));
   ui->Pload->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
-  ui->Qload->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
-  ui->Px->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
-  ui->Py->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
+  ui->Qload->setValidator(new QDoubleValidator(this));
+  ui->Px->setValidator(new QDoubleValidator(this));
+  ui->Py->setValidator(new QDoubleValidator(this));
+
+  ui->GenerationUnity->addItem("VA", 1.0);
+  ui->GenerationUnity->addItem("KVA", 1.0e3);
+  ui->GenerationUnity->addItem("MVA", 1.0e6);
+  ui->GenerationUnity->addItem("GVA", 1.0e9);
+
+  ui->LoadUnity->addItem("VA", 1.0);
+  ui->LoadUnity->addItem("KVA", 1.0e3);
+  ui->LoadUnity->addItem("MVA", 1.0e6);
 }
 
-WindowAddPq::~WindowAddPq() {
-  delete ui;
-}
+WindowAddPq::~WindowAddPq() { delete ui; }
+
+void WindowAddPq::setNetwork(PnNetwork *pnNetwork) { pnNetwork_ = pnNetwork; }
 
 void WindowAddPq::on_btnOk_clicked() {
+  if (pnNetwork_ == NULL) {
+    QMessageBox::critical(this, tr("Invalid Network"),
+                          tr("Invalid Network parameter!"), QMessageBox::Ok);
+    reject();
+  }
+
+  if (pnNetwork_->getBarById(ui->id->value()) != NULL) {
+    QMessageBox::information(this, tr("Id already exist"),
+                             tr("Another bar is using this ID."),
+                             QMessageBox::Ok);
+    ui->id->setFocus();
+    return;
+  }
 
   if (ui->Pgen->text().isEmpty()) {
     QMessageBox::information(this, tr("Missing Parameter"),
@@ -32,7 +55,8 @@ void WindowAddPq::on_btnOk_clicked() {
 
   if (ui->Qgen->text().isEmpty()) {
     QMessageBox::information(this, tr("Missing Parameter"),
-                             tr("Empty Generated Reactive Power."), QMessageBox::Ok);
+                             tr("Empty Generated Reactive Power."),
+                             QMessageBox::Ok);
     ui->Qgen->setFocus();
     return;
   }
@@ -65,23 +89,28 @@ void WindowAddPq::on_btnOk_clicked() {
     return;
   }
 
-  pq_->setId(ui->id->value());
+  PnPq *pq = new PnPq;
+  pq->setId(ui->id->value());
 
   std::complex<double> sg;
   sg.real(ui->Pgen->text().toDouble());
   sg.imag(ui->Qgen->text().toDouble());
-  pq_->setSl(sg);
-
+  double sgUnity = ui->GenerationUnity->currentData().toDouble();
+  sg *= sgUnity;
+  pq->setInputSl(sg);
 
   std::complex<double> sl;
   sl.real(ui->Pload->text().toDouble());
   sl.imag(ui->Qload->text().toDouble());
-  pq_->setSl(sl);
+  double slUnity = ui->LoadUnity->currentData().toDouble();
+  sl *= slUnity;
+  pq->setInputSl(sl);
 
-  pq_->setPos(ui->Px->text().toDouble(), ui->Py->text().toDouble());
+  pq->setPos(ui->Px->text().toDouble(), ui->Py->text().toDouble());
+
+  pnNetwork_->addPq(pq);
+
   accept();
 }
 
-void WindowAddPq::on_btnCancel_clicked() {
-  reject();
-}
+void WindowAddPq::on_btnCancel_clicked() { reject(); }
