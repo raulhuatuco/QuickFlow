@@ -2,20 +2,32 @@
 
 #include <QFile>
 #include <QTextStream>
+#include <QStringList>
+#include <QMessageBox>
+#include <complex>
 
 #include "PnGraphics/pnbar.h"
 #include "PnGraphics/pnslack.h"
 #include "PnGraphics/pnpq.h"
 #include "PnGraphics/pnpv.h"
 #include "PnGraphics/pnline.h"
+#include "PnGraphics/pncable.h"
 
-Kflow::Kflow()
-    : verbose(false),
-      printIterations(false),
-      minError_(0.0001),
-      maxIterations_(1000),
-      workingDir_(""),
-      kFlowLocation_("kflow/kflow") {}
+Kflow::Kflow() : QProcess() {
+  verbose = false;
+  printIterations = false;
+  minError_ = 0.0001;
+  maxIterations_ = 1000;
+  setProgram("KFlow");
+}
+
+Kflow::Kflow(QWidget *parent) : QProcess(parent) {
+  verbose = false;
+  printIterations = false;
+  minError_ = 0.0001;
+  maxIterations_ = 1000;
+  setProgram("KFlow");
+}
 
 Kflow::~Kflow() {}
 
@@ -33,18 +45,14 @@ bool Kflow::setMaxIterations(unsigned int maxIterations) {
   return true;
 }
 
-QString Kflow::workingDir() { return workingDir_; }
-
-void Kflow::setWorkingDir(QString workingDir) { workingDir_ = workingDir; }
-
-QString Kflow::kFlowLocation() { return kFlowLocation_; }
+QString Kflow::kFlowLocation() { return program(); }
 
 void Kflow::setKflowLocation(QString kFlowLocation) {
-  kFlowLocation_ = kFlowLocation;
+  setProgram(kFlowLocation);
 }
 
 bool Kflow::generateInputFile(PnNetwork *pnNetwork) {
-  QFile inputFile(workingDir_ + "/network.pdn");
+  QFile inputFile(workingDirectory() + "/network.pnd");
 
   if (!inputFile.open(QIODevice::WriteOnly)) return false;
 
@@ -101,7 +109,18 @@ bool Kflow::generateInputFile(PnNetwork *pnNetwork) {
   }
 
   foreach (PnLine *line, pnNetwork->lineMap) {
+    if (line->lineType() == "Cable") {
+      PnCable *cable = dynamic_cast<PnCable *>(line);
 
+      netData << "line\t";
+      netData << QString::number(cable->Id()) << "\t";
+      netData << QString::number(cable->NoI()->Id()) << "\t";
+      netData << QString::number(cable->NoF()->Id()) << "\t";
+      netData << "(" << QString::number(cable->Impedance().real());
+      netData << "," << QString::number(cable->Impedance().imag());
+      netData << ")\t";
+      netData << QString::number(cable->MaxLoad());
+    }
   }
 
   netData.flush();
@@ -109,6 +128,101 @@ bool Kflow::generateInputFile(PnNetwork *pnNetwork) {
   return true;
 }
 
-bool Kflow::runSimulation() { return true; }
+bool Kflow::runSimulation() {
+  QStringList args;
 
-bool Kflow::loadResults(PnNetwork *PnNetwork) { return true; }
+  args << "-i";
+  args << workingDirectory() + "/network.pnd";
+  args << "-o";
+  args << "network.result";
+
+  setArguments(args);
+
+  start();
+  return true;
+}
+
+bool Kflow::loadResults(PnNetwork *PnNetwork) {
+  QFile outputFile(workingDirectory() + "/network.result");
+
+  if (!outputFile.open(QIODevice::ReadOnly)) return false;
+
+  QTextStream resultData(&outputFile);
+
+  QString trash;
+
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+
+  unsigned int numBar;
+  resultData >> trash >> trash >> trash >> numBar;
+  unsigned int numLine;
+  resultData >> trash >> trash >> trash >> numLine;
+
+  resultData >> trash >> trash >> trash >> trash >> usedIterations_;
+  resultData >> trash >> trash >> duration_;
+
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+
+  unsigned int barId;
+  double absI;
+  double argI;
+  double absV;
+  double argV;
+  PnBar *bar;
+
+  for (unsigned int i = 0; i < numBar; i++) {
+    resultData >> trash >> barId;
+    resultData >> trash >> absI;
+    resultData >> trash >> argI;
+    resultData >> trash >> absV;
+    resultData >> trash >> argV;
+
+    resultData.readLine();
+    resultData.readLine();
+
+    bar = PnNetwork->getBarById(barId);
+    if (bar == NULL) continue;
+    bar->setOutputV(std::polar(absV, argV * M_PI / 180.0));
+    bar->setOutputI(std::polar(absI, argI * M_PI / 180.0));
+  }
+
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+  resultData.readLine();
+
+  unsigned int lineId;
+  PnLine *line;
+  for (unsigned int i = 0; i < numLine; i++) {
+    resultData >> trash >> lineId;
+
+    resultData >> trash >> absI;
+    resultData >> trash >> argI;
+
+    resultData.readLine();
+    resultData.readLine();
+
+    line = PnNetwork->getLineById(lineId);
+    if (line == NULL) continue;
+
+    line->setCurrent(std::polar(absI, argI * M_PI / 180.0));
+  }
+
+  return true;
+}
+
+double Kflow::duration() { return duration_; }
+
+unsigned int Kflow::usedIterations() { return usedIterations_; }

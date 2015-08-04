@@ -86,13 +86,13 @@ QVariant PnBar::itemChange(QGraphicsItem::GraphicsItemChange change,
       txt.append("Voltage: ")
           .append(QString::number(abs(outputV_)))
           .append(" | ")
-          .append(QString::number(arg(outputV_)))
+          .append(QString::number(arg(outputV_) * 180.0 / M_PI))
           .append("º [V]\n");
 
       txt.append(tr("Current: "))
           .append(QString::number(abs(outputI())))
           .append(" | ")
-          .append(QString::number(arg(outputI())))
+          .append(QString::number(arg(outputI()) * 180.0 / M_PI))
           .append("º [A]\n");
 
       txt.append("Genetared: ").append(QString::number(outputSg_.real()));

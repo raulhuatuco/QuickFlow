@@ -2,10 +2,11 @@
 #define QKFLOW_H
 
 #include <QMainWindow>
+#include <QSettings>
+#include <QString>
 
 #include "PnGraphics/pnnetwork.h"
-
-#include "windowaddpq.h"
+#include "kflow.h"
 
 namespace Ui {
 class QKflow;
@@ -15,6 +16,8 @@ class QKflow : public QMainWindow {
   Q_OBJECT
 
  public:
+  static const QString kVersion;
+
   explicit QKflow(QWidget *parent = 0);
   ~QKflow();
 
@@ -35,9 +38,23 @@ class QKflow : public QMainWindow {
 
   void on_actionRun_triggered();
 
-private:
+  void on_actionSettings_triggered();
+
+  void on_actionNew_triggered();
+
+  void on_actionOpen_triggered();
+
+ private:
   Ui::QKflow *ui;
+
+  QSettings *settings;
   PnNetwork *pnNetwork_;
+  Kflow *kflow;
+
+  void loadSettings();
+  void saveSettings();
+  void createSettings();
+  void upgradeSettings();
 };
 
 #endif  // QKFLOW_H

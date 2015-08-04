@@ -3,13 +3,16 @@
 
 #include <QString>
 #include <QProcess>
+#include <QObject>
+#include <QWidget>
 
 #include "PnGraphics/pnnetwork.h"
 
-class Kflow {
+class Kflow : public QProcess {
  public:
   Kflow();
-  ~Kflow();
+  Kflow(QWidget *parent);
+  virtual ~Kflow();
 
   bool verbose;
   bool printIterations;
@@ -20,9 +23,6 @@ class Kflow {
   unsigned int maxIterations();
   bool setMaxIterations(unsigned int maxIterations);
 
-  QString workingDir();
-  void setWorkingDir(QString workingDir);
-
   QString kFlowLocation();
   void setKflowLocation(QString kFlowLocation);
 
@@ -30,12 +30,14 @@ class Kflow {
   bool runSimulation();
   bool loadResults(PnNetwork *PnNetwork);
 
+  double duration();
+  unsigned int usedIterations();
+
  private:
   double minError_;
   unsigned int maxIterations_;
-  QString workingDir_;
-  QString kFlowLocation_;
-
+  double duration_;
+  unsigned int usedIterations_;
 };
 
 #endif  // KFLOW_H

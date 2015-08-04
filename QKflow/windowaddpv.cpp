@@ -10,6 +10,7 @@ WindowAddPv::WindowAddPv(QWidget *parent)
     : QDialog(parent), ui(new Ui::WindowAddPv), pnNetwork_(NULL) {
   ui->setupUi(this);
 
+  ui->V->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
   ui->Pgen->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
   ui->QgenMax->setValidator(new QDoubleValidator(this));
   ui->QgenMin->setValidator(new QDoubleValidator(this));
@@ -17,6 +18,10 @@ WindowAddPv::WindowAddPv(QWidget *parent)
   ui->Qload->setValidator(new QDoubleValidator(this));
   ui->Px->setValidator(new QDoubleValidator(this));
   ui->Py->setValidator(new QDoubleValidator(this));
+
+  ui->VUnity->addItem("V", 1.0);
+  ui->VUnity->addItem("KV", 1.0e3);
+  ui->VUnity->addItem("MV", 1.0e6);
 
   ui->GenerationUnity->addItem("VA", 1.0);
   ui->GenerationUnity->addItem("KVA", 1.0e3);
@@ -47,6 +52,13 @@ void WindowAddPv::on_btnOk_clicked() {
                              tr("Another bar is using this ID."),
                              QMessageBox::Ok);
     ui->id->setFocus();
+    return;
+  }
+
+  if (ui->V->text().isEmpty()) {
+    QMessageBox::information(this, tr("Missing Parameter"),
+                             tr("Empty voltage."), QMessageBox::Ok);
+    ui->V->setFocus();
     return;
   }
 
@@ -103,6 +115,9 @@ void WindowAddPv::on_btnOk_clicked() {
 
   PnPv *pv = new PnPv;
   pv->setId(ui->id->value());
+
+  double V = ui->V->text().toDouble() * ui->VUnity->currentData().toDouble();
+  pv->setInputV(std::polar(V, 0.0));
 
   std::complex<double> sg;
   sg.real(ui->Pgen->text().toDouble());

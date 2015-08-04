@@ -24,7 +24,6 @@ WindowAddSlack::WindowAddSlack(QWidget *parent)
   ui->VUnity->addItem("V", 1.0);
   ui->VUnity->addItem("KV", 1.0e3);
   ui->VUnity->addItem("MV", 1.0e6);
-  ui->VUnity->addItem("GV", 1.0e9);
 
   ui->GenerationUnity->addItem("W", 1.0);
   ui->GenerationUnity->addItem("KW", 1.0e3);
