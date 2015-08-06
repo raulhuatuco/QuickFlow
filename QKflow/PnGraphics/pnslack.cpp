@@ -10,9 +10,13 @@ void PnSlack::setMaxGeneration(double maxGeneration) {
   maxGeneration_ = maxGeneration;
 }
 
-double PnSlack::getMaxGeneration() { return maxGeneration_; }
+double PnSlack::maxGeneration() {
+  return maxGeneration_;
+}
 
-QString PnSlack::barType() { return QString("Slack"); }
+QString PnSlack::barType() {
+  return QString("Slack");
+}
 
 QRectF PnSlack::boundingRect() const {
   return QRectF(-kIconSize / 2, -kIconSize / 2, kIconSize, kIconSize);

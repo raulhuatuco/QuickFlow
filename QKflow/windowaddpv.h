@@ -17,12 +17,12 @@ class WindowAddPv : public QDialog {
   ~WindowAddPv();
   void setNetwork(PnNetwork *pnNetwork);
 
-private slots:
+ private slots:
   void on_btnCancel_clicked();
 
   void on_btnOk_clicked();
 
-private:
+ private:
   Ui::WindowAddPv *ui;
   PnNetwork *pnNetwork_;
 };

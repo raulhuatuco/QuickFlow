@@ -58,10 +58,10 @@ class QKflow : public QMainWindow {
 
   void on_actionExit_triggered();
 
-protected:
-     void closeEvent(QCloseEvent *event);
+ protected:
+  void closeEvent(QCloseEvent *event);
 
-private:
+ private:
   Ui::QKflow *ui;
 
   QSettings *settings;

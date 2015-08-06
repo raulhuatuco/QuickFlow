@@ -8,7 +8,9 @@ PnPq::PnPq(uint32_t id) : PnBar(id) {}
 
 PnPq::~PnPq() {}
 
-QString PnPq::barType() { return QString("PQ"); }
+QString PnPq::barType() {
+  return QString("PQ");
+}
 
 QRectF PnPq::boundingRect() const {
   return QRectF(-kIconSize / 2, -kIconSize / 2, kIconSize, kIconSize);

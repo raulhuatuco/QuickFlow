@@ -5,15 +5,21 @@
 #include <QFileDialog>
 
 WindowNewProject::WindowNewProject(QWidget *parent)
-    : QDialog(parent), ui(new Ui::WindowNewProject) {
+  : QDialog(parent), ui(new Ui::WindowNewProject) {
   ui->setupUi(this);
 }
 
-WindowNewProject::~WindowNewProject() { delete ui; }
+WindowNewProject::~WindowNewProject() {
+  delete ui;
+}
 
-QString WindowNewProject::name() { return name_; }
+QString WindowNewProject::name() {
+  return name_;
+}
 
-QString WindowNewProject::path() { return path_.absolutePath(); }
+QString WindowNewProject::path() {
+  return path_.absolutePath();
+}
 
 void WindowNewProject::on_name_textChanged(const QString &arg1) {
   name_ = arg1;
@@ -33,6 +39,7 @@ void WindowNewProject::on_buttonBox_accepted() {
     ui->name->setFocus();
     return;
   }
+
   if (ui->path->text().isEmpty()) {
     QMessageBox::information(this, "Invalid path", "Invalid project path",
                              QMessageBox::Ok);
@@ -60,4 +67,6 @@ void WindowNewProject::on_toolButton_clicked() {
   if (directory.exec()) ui->path->setText(directory.selectedFiles()[0]);
 }
 
-void WindowNewProject::on_buttonBox_rejected() { reject(); }
+void WindowNewProject::on_buttonBox_rejected() {
+  reject();
+}

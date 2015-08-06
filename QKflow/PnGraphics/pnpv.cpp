@@ -12,15 +12,21 @@ void PnPv::setMaxQGenerated(double maxQGenerated) {
   maxQGenerated_ = maxQGenerated;
 }
 
-double PnPv::getMaxQGenerated() { return maxQGenerated_; }
+double PnPv::maxQGenerated() {
+  return maxQGenerated_;
+}
 
 void PnPv::setMinQGenerated(double minQGenerated) {
   minQGenerated_ = minQGenerated;
 }
 
-double PnPv::getMinQGenerated() { return minQGenerated_; }
+double PnPv::minQGenerated() {
+  return minQGenerated_;
+}
 
-QString PnPv::barType() { return QString("PV"); }
+QString PnPv::barType() {
+  return QString("PV");
+}
 
 QRectF PnPv::boundingRect() const {
   return QRectF(-kIconSize / 2, -kIconSize / 2, kIconSize, kIconSize);

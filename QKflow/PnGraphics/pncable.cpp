@@ -27,7 +27,9 @@ QString PnCable::lineType() {
   return type;
 }
 
-QRectF PnCable::boundingRect() const { return selectionArea.boundingRect(); }
+QRectF PnCable::boundingRect() const {
+  return selectionArea.boundingRect();
+}
 
 QPainterPath PnCable::shape() const {
   QPainterPath path;

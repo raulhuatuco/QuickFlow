@@ -18,14 +18,14 @@ class WindowKflowSettings : public QDialog {
 
   void setKflow(Kflow *kflow);
 
-private slots:
+ private slots:
   void on_btnCancel_clicked();
 
   void on_btnPath_clicked();
 
   void on_btnOk_clicked();
 
-private:
+ private:
   Ui::windowKflowSettings *ui;
   Kflow *kflow_;
 };

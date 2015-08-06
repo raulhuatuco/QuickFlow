@@ -11,11 +11,17 @@ PnView::PnView(QWidget *parent) : QGraphicsView(parent), pnNetwork_(NULL) {
 
 PnView::~PnView() {}
 
-void PnView::zoomIn() { scale(1.0 + kZoomStep, 1.0 + kZoomStep); }
+void PnView::zoomIn() {
+  scale(1.0 + kZoomStep, 1.0 + kZoomStep);
+}
 
-void PnView::zoomOut() { scale(1.0 - kZoomStep, 1.0 - kZoomStep); }
+void PnView::zoomOut() {
+  scale(1.0 - kZoomStep, 1.0 - kZoomStep);
+}
 
-void PnView::zoomFit() { fitInView(sceneRect(), Qt::KeepAspectRatio); }
+void PnView::zoomFit() {
+  fitInView(sceneRect(), Qt::KeepAspectRatio);
+}
 
 void PnView::setPnNetwork(PnNetwork *pnNetwork) {
   pnNetwork_ = pnNetwork;
@@ -27,7 +33,9 @@ void PnView::setPnNetwork(PnNetwork *pnNetwork) {
   setScene(pnNetwork_);
 }
 
-PnNetwork *PnView::getPnNetwork() { return pnNetwork_; }
+PnNetwork *PnView::getPnNetwork() {
+  return pnNetwork_;
+}
 
 void PnView::wheelEvent(QWheelEvent *event) {
   setTransformationAnchor(QGraphicsView::AnchorUnderMouse);

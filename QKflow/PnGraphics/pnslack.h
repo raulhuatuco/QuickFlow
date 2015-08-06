@@ -17,7 +17,7 @@ class PnSlack : public PnBar {
   ~PnSlack();
 
   void setMaxGeneration(double maxGeneration);
-  double getMaxGeneration();
+  double maxGeneration();
 
   virtual QString barType() Q_DECL_OVERRIDE;
   virtual QRectF boundingRect() const Q_DECL_OVERRIDE;

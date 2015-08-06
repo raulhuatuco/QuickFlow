@@ -28,7 +28,9 @@ bool PnNetwork::addCable(PnCable *cable) {
   return true;
 }
 
-PnBar *PnNetwork::getBarById(unsigned int id) { return barMap.value(id, NULL); }
+PnBar *PnNetwork::getBarById(unsigned int id) {
+  return barMap.value(id, NULL);
+}
 
 PnLine *PnNetwork::getLineById(unsigned int id) {
   return lineMap.value(id, NULL);
@@ -38,6 +40,7 @@ PnLine *PnNetwork::getLineByNodes(unsigned int noI, unsigned int noF) {
   foreach (PnLine *line, lineMap) {
     unsigned int NoIid = line->NoI()->Id();
     unsigned int NoFid = line->NoF()->Id();
+
     if ((NoIid == noI) || (NoIid == noF))
       if ((NoFid == noI) || (NoFid == noF)) return line;
   }

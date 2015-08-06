@@ -16,13 +16,21 @@ PnLine::PnLine(PnBar *noI, PnBar *noF) : noI_(noI), noF_(noF), infobox_(NULL) {
 
 PnLine::~PnLine() {}
 
-void PnLine::setId(unsigned int id) { id_ = id; }
+void PnLine::setId(unsigned int id) {
+  id_ = id;
+}
 
-PnBar *PnLine::NoI() { return noI_; }
+PnBar *PnLine::NoI() {
+  return noI_;
+}
 
-PnBar *PnLine::NoF() { return noF_; }
+PnBar *PnLine::NoF() {
+  return noF_;
+}
 
-unsigned int PnLine::Id() { return id_; }
+unsigned int PnLine::Id() {
+  return id_;
+}
 
 void PnLine::setNodes(PnBar *noI, PnBar *noF) {
   noI_ = noI;
@@ -34,9 +42,13 @@ void PnLine::setNodes(PnBar *noI, PnBar *noF) {
   }
 }
 
-void PnLine::setImpedance(std::complex<double> z) { z_ = z; }
+void PnLine::setImpedance(std::complex<double> z) {
+  z_ = z;
+}
 
-std::complex<double> PnLine::Impedance() { return z_; }
+std::complex<double> PnLine::Impedance() {
+  return z_;
+}
 
 void PnLine::setAdmittance(std::complex<double> y) {
   z_ = (std::complex<double>(1.0, 0.0) / y);
@@ -46,15 +58,25 @@ std::complex<double> PnLine::Admittance() {
   return (std::complex<double>(1.0, 0.0) / z_);
 }
 
-void PnLine::setCurrent(std::complex<double> i) { i_ = i; }
+void PnLine::setCurrent(std::complex<double> i) {
+  i_ = i;
+}
 
-std::complex<double> PnLine::Current() { return i_; }
+std::complex<double> PnLine::Current() {
+  return i_;
+}
 
-std::complex<double> PnLine::Load() { return i_ * conj(i_) * z_; }
+std::complex<double> PnLine::Load() {
+  return i_ * conj(i_) * z_;
+}
 
-void PnLine::setMaxLoad(double maxLoad) { maxLoad_ = maxLoad; }
+void PnLine::setMaxLoad(double maxLoad) {
+  maxLoad_ = maxLoad;
+}
 
-double PnLine::MaxLoad() { return maxLoad_; }
+double PnLine::MaxLoad() {
+  return maxLoad_;
+}
 
 QVariant PnLine::itemChange(QGraphicsItem::GraphicsItemChange change,
                             const QVariant &value) {

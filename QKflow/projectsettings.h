@@ -27,6 +27,8 @@ class ProjectSettings {
 
   QJsonObject barToJson(PnBar *bar);
   PnBar *barFromJson(QJsonObject &jsonBar);
+  QJsonObject lineToJson(PnLine *line);
+  PnLine *lineFromJson(QJsonObject &jsonline);
 };
 
 #endif  // PROJECTSETTINGS_H

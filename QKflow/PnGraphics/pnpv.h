@@ -14,10 +14,10 @@ class PnPv : public PnBar {
   ~PnPv();
 
   void setMaxQGenerated(double maxQGenerated);
-  double getMaxQGenerated();
+  double maxQGenerated();
 
   void setMinQGenerated(double minQGenerated);
-  double getMinQGenerated();
+  double minQGenerated();
 
   virtual QString barType() Q_DECL_OVERRIDE;
   virtual QRectF boundingRect() const Q_DECL_OVERRIDE;

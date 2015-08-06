@@ -3,48 +3,74 @@
 #include <QGraphicsScene>
 
 PnBar::PnBar(uint32_t id)
-    : id_(id),
-      inputV_(0, 0),
-      inputSg_(0, 0),
-      inputSl_(0, 0),
-      outputV_(0, 0),
-      outputSg_(0, 0),
-      infobox_(NULL) {
+  : id_(id),
+    inputV_(0, 0),
+    inputSg_(0, 0),
+    inputSl_(0, 0),
+    outputV_(0, 0),
+    outputSg_(0, 0),
+    infobox_(NULL) {
   setFlag(ItemIsSelectable);
   setZValue(1);
 }
 
-PnBar::~PnBar() { removeLines(); }
+PnBar::~PnBar() {
+  removeLines();
+}
 
 // Id
-uint32_t PnBar::Id() { return id_; }
+uint32_t PnBar::Id() {
+  return id_;
+}
 
-void PnBar::setId(uint32_t id) { id_ = id; }
+void PnBar::setId(uint32_t id) {
+  id_ = id;
+}
 
 // Input Voltage
-complex<double> PnBar::inputV() { return inputV_; }
+complex<double> PnBar::inputV() {
+  return inputV_;
+}
 
-void PnBar::setInputV(complex<double> v) { inputV_ = v; }
+void PnBar::setInputV(complex<double> v) {
+  inputV_ = v;
+}
 
 // Input Sg
-complex<double> PnBar::inputSg() { return inputSg_; }
+complex<double> PnBar::inputSg() {
+  return inputSg_;
+}
 
-void PnBar::setInputSg(complex<double> sg) { inputSg_ = sg; }
+void PnBar::setInputSg(complex<double> sg) {
+  inputSg_ = sg;
+}
 
 // Input Sl
-complex<double> PnBar::inputSl() { return inputSl_; }
+complex<double> PnBar::inputSl() {
+  return inputSl_;
+}
 
-void PnBar::setInputSl(complex<double> sl) { inputSl_ = sl; }
+void PnBar::setInputSl(complex<double> sl) {
+  inputSl_ = sl;
+}
 
 // Output V
-complex<double> PnBar::outputV() { return outputV_; }
+complex<double> PnBar::outputV() {
+  return outputV_;
+}
 
-void PnBar::setOutputV(complex<double> v) { outputV_ = v; }
+void PnBar::setOutputV(complex<double> v) {
+  outputV_ = v;
+}
 
 // Output Sg
-complex<double> PnBar::outputSg() { return outputSg_; }
+complex<double> PnBar::outputSg() {
+  return outputSg_;
+}
 
-void PnBar::setOutputSg(complex<double> sg) { outputSg_ = sg; }
+void PnBar::setOutputSg(complex<double> sg) {
+  outputSg_ = sg;
+}
 
 complex<double> PnBar::outputI() {
   complex<double> I;
@@ -56,7 +82,9 @@ void PnBar::setOutputI(complex<double> i) {
   outputSg_ = conj(i * conj(outputV_) - inputSl_);
 }
 
-void PnBar::addLine(PnLine *line) { lines_.append(line); }
+void PnBar::addLine(PnLine *line) {
+  lines_.append(line);
+}
 
 void PnBar::removeLine(PnLine *line) {
   int index = lines_.indexOf(line);
@@ -84,16 +112,16 @@ QVariant PnBar::itemChange(QGraphicsItem::GraphicsItemChange change,
       txt.append(tr("Id: ")).append(QString::number(id_)).append(tr("\n"));
 
       txt.append("Voltage: ")
-          .append(QString::number(abs(outputV_)))
-          .append(" | ")
-          .append(QString::number(arg(outputV_) * 180.0 / M_PI))
-          .append("º [V]\n");
+      .append(QString::number(abs(outputV_)))
+      .append(" | ")
+      .append(QString::number(arg(outputV_) * 180.0 / M_PI))
+      .append("º [V]\n");
 
       txt.append(tr("Current: "))
-          .append(QString::number(abs(outputI())))
-          .append(" | ")
-          .append(QString::number(arg(outputI()) * 180.0 / M_PI))
-          .append("º [A]\n");
+      .append(QString::number(abs(outputI())))
+      .append(" | ")
+      .append(QString::number(arg(outputI()) * 180.0 / M_PI))
+      .append("º [A]\n");
 
       txt.append("Genetared: ").append(QString::number(outputSg_.real()));
 

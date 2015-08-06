@@ -9,7 +9,7 @@
 #include "PnGraphics/pnslack.h"
 
 WindowAddSlack::WindowAddSlack(QWidget *parent)
-    : QDialog(parent), ui(new Ui::WindowAddSlack), pnNetwork_(NULL) {
+  : QDialog(parent), ui(new Ui::WindowAddSlack), pnNetwork_(NULL) {
   ui->setupUi(this);
 
   ui->MaxCapacity->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
@@ -36,13 +36,17 @@ WindowAddSlack::WindowAddSlack(QWidget *parent)
   ui->LoadUnity->addItem("GVA", 1.0e9);
 }
 
-WindowAddSlack::~WindowAddSlack() { delete ui; }
+WindowAddSlack::~WindowAddSlack() {
+  delete ui;
+}
 
 void WindowAddSlack::setNetwork(PnNetwork *pnNetwork) {
   pnNetwork_ = pnNetwork;
 }
 
-void WindowAddSlack::on_btnCancel_clicked() { reject(); }
+void WindowAddSlack::on_btnCancel_clicked() {
+  reject();
+}
 
 void WindowAddSlack::on_btnOk_clicked() {
   if (pnNetwork_ == NULL) {

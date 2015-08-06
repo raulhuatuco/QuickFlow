@@ -7,7 +7,7 @@
 #include "PnGraphics/pnpv.h"
 
 WindowAddPv::WindowAddPv(QWidget *parent)
-    : QDialog(parent), ui(new Ui::WindowAddPv), pnNetwork_(NULL) {
+  : QDialog(parent), ui(new Ui::WindowAddPv), pnNetwork_(NULL) {
   ui->setupUi(this);
 
   ui->V->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
@@ -34,11 +34,17 @@ WindowAddPv::WindowAddPv(QWidget *parent)
   ui->LoadUnity->addItem("GVA", 1.0e9);
 }
 
-WindowAddPv::~WindowAddPv() { delete ui; }
+WindowAddPv::~WindowAddPv() {
+  delete ui;
+}
 
-void WindowAddPv::setNetwork(PnNetwork *pnNetwork) { pnNetwork_ = pnNetwork; }
+void WindowAddPv::setNetwork(PnNetwork *pnNetwork) {
+  pnNetwork_ = pnNetwork;
+}
 
-void WindowAddPv::on_btnCancel_clicked() { reject(); }
+void WindowAddPv::on_btnCancel_clicked() {
+  reject();
+}
 
 void WindowAddPv::on_btnOk_clicked() {
   if (pnNetwork_ == NULL) {

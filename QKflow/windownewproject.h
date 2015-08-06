@@ -30,7 +30,7 @@ class WindowNewProject : public QDialog {
 
   void on_buttonBox_rejected();
 
-private:
+ private:
   Ui::WindowNewProject *ui;
   QString name_;
   QDir path_;

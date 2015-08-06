@@ -29,21 +29,27 @@ Kflow::Kflow(QWidget *parent) : QProcess(parent) {
 
 Kflow::~Kflow() {}
 
-double Kflow::minError() { return minError_; }
+double Kflow::minError() {
+  return minError_;
+}
 
 bool Kflow::setMinError(double minError) {
   minError_ = minError;
   return true;
 }
 
-unsigned int Kflow::maxIterations() { return maxIterations_; }
+unsigned int Kflow::maxIterations() {
+  return maxIterations_;
+}
 
 bool Kflow::setMaxIterations(unsigned int maxIterations) {
   maxIterations_ = maxIterations;
   return true;
 }
 
-QString Kflow::kFlowLocation() { return program(); }
+QString Kflow::kFlowLocation() {
+  return program();
+}
 
 void Kflow::setKflowLocation(QString kFlowLocation) {
   setProgram(kFlowLocation);
@@ -68,7 +74,7 @@ bool Kflow::generateInputFile(PnNetwork *pnNetwork) {
       netData << "(" << QString::number(slack->inputSl().real()) << ","
               << QString::number(slack->inputSl().imag()) << ")\t";
 
-      netData << QString::number(slack->getMaxGeneration()) << endl;
+      netData << QString::number(slack->maxGeneration()) << endl;
 
     } else if (bar->barType() == "PQ") {
       PnPq *pq = dynamic_cast<PnPq *>(bar);
@@ -98,9 +104,9 @@ bool Kflow::generateInputFile(PnNetwork *pnNetwork) {
       netData << "(" << QString::number(pv->inputSl().real()) << ","
               << QString::number(pv->inputSl().imag()) << ")\t";
 
-      netData << QString::number(pv->getMaxQGenerated()) << "\t";
+      netData << QString::number(pv->maxQGenerated()) << "\t";
 
-      netData << QString::number(pv->getMinQGenerated());
+      netData << QString::number(pv->minQGenerated());
 
       netData << endl;
     }
@@ -189,7 +195,9 @@ bool Kflow::loadResults(PnNetwork *PnNetwork) {
     resultData.readLine();
 
     bar = PnNetwork->getBarById(barId);
+
     if (bar == NULL) continue;
+
     bar->setOutputV(std::polar(absV, argV * M_PI / 180.0));
     bar->setOutputI(std::polar(absI, argI * M_PI / 180.0));
   }
@@ -203,6 +211,7 @@ bool Kflow::loadResults(PnNetwork *PnNetwork) {
 
   unsigned int lineId;
   PnLine *line;
+
   for (unsigned int i = 0; i < numLine; i++) {
     resultData >> trash >> lineId;
 
@@ -213,6 +222,7 @@ bool Kflow::loadResults(PnNetwork *PnNetwork) {
     resultData.readLine();
 
     line = PnNetwork->getLineById(lineId);
+
     if (line == NULL) continue;
 
     line->setCurrent(std::polar(absI, argI * M_PI / 180.0));
@@ -221,6 +231,10 @@ bool Kflow::loadResults(PnNetwork *PnNetwork) {
   return true;
 }
 
-double Kflow::duration() { return duration_; }
+double Kflow::duration() {
+  return duration_;
+}
 
-unsigned int Kflow::usedIterations() { return usedIterations_; }
+unsigned int Kflow::usedIterations() {
+  return usedIterations_;
+}

@@ -7,7 +7,7 @@
 #include "PnGraphics/pnpq.h"
 
 WindowAddPq::WindowAddPq(QWidget *parent)
-    : QDialog(parent), ui(new Ui::WindowAddPq), pnNetwork_(NULL) {
+  : QDialog(parent), ui(new Ui::WindowAddPq), pnNetwork_(NULL) {
   ui->setupUi(this);
 
   ui->Pgen->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
@@ -27,9 +27,13 @@ WindowAddPq::WindowAddPq(QWidget *parent)
   ui->LoadUnity->addItem("MVA", 1.0e6);
 }
 
-WindowAddPq::~WindowAddPq() { delete ui; }
+WindowAddPq::~WindowAddPq() {
+  delete ui;
+}
 
-void WindowAddPq::setNetwork(PnNetwork *pnNetwork) { pnNetwork_ = pnNetwork; }
+void WindowAddPq::setNetwork(PnNetwork *pnNetwork) {
+  pnNetwork_ = pnNetwork;
+}
 
 void WindowAddPq::on_btnOk_clicked() {
   if (pnNetwork_ == NULL) {
@@ -113,4 +117,6 @@ void WindowAddPq::on_btnOk_clicked() {
   accept();
 }
 
-void WindowAddPq::on_btnCancel_clicked() { reject(); }
+void WindowAddPq::on_btnCancel_clicked() {
+  reject();
+}

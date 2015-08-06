@@ -7,7 +7,7 @@
 #include "PnGraphics/pncable.h"
 
 WindowAddCable::WindowAddCable(QWidget *parent)
-    : QDialog(parent), ui(new Ui::WindowAddCable), pnNetwork_(NULL) {
+  : QDialog(parent), ui(new Ui::WindowAddCable), pnNetwork_(NULL) {
   ui->setupUi(this);
 
   ui->R->setValidator(new QDoubleValidator(this));
@@ -34,7 +34,9 @@ WindowAddCable::WindowAddCable(QWidget *parent)
   ui->LengthUnit->addItem("mile", 0.000621371);
 }
 
-WindowAddCable::~WindowAddCable() { delete ui; }
+WindowAddCable::~WindowAddCable() {
+  delete ui;
+}
 
 void WindowAddCable::setNetwork(PnNetwork *pnNetwork) {
   pnNetwork_ = pnNetwork;
@@ -45,7 +47,9 @@ void WindowAddCable::setNetwork(PnNetwork *pnNetwork) {
   }
 }
 
-void WindowAddCable::on_btnCancel_clicked() { reject(); }
+void WindowAddCable::on_btnCancel_clicked() {
+  reject();
+}
 
 void WindowAddCable::on_btnOk_clicked() {
   if (pnNetwork_ == NULL) {
@@ -78,8 +82,8 @@ void WindowAddCable::on_btnOk_clicked() {
 
   if (ui->NoI->currentText() == ui->NoF->currentText()) {
     QMessageBox::information(
-        this, tr("Invalid Parameter"),
-        tr("Initial node must be diferent from final node."), QMessageBox::Ok);
+      this, tr("Invalid Parameter"),
+      tr("Initial node must be diferent from final node."), QMessageBox::Ok);
     ui->NoI->setFocus();
     return;
   }

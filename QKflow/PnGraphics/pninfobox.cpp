@@ -18,7 +18,7 @@ void PnInfoBox::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   painter->setBrush(QColor::fromRgbF(1.0, 1.0, 1.0));
 
   QRectF main_rect =
-      QRectF(-kBoxWidth / 2, -kBoxHeight - 10, kBoxWidth, kBoxHeight);
+    QRectF(-kBoxWidth / 2, -kBoxHeight - 10, kBoxWidth, kBoxHeight);
 
   painter->drawRoundRect(main_rect, 10, 10);
 
