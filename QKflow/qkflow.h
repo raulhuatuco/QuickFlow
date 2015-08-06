@@ -5,8 +5,8 @@
 #include <QSettings>
 #include <QString>
 
-#include "PnGraphics/pnnetwork.h"
 #include "kflow.h"
+#include "projectsettings.h"
 
 namespace Ui {
 class QKflow;
@@ -20,6 +20,12 @@ class QKflow : public QMainWindow {
 
   explicit QKflow(QWidget *parent = 0);
   ~QKflow();
+
+  bool isAltered();
+  void setAltered(bool altered);
+
+  void noProjectInterface();
+  void workInterface();
 
  private slots:
   void on_actionZoomIn_triggered();
@@ -44,12 +50,25 @@ class QKflow : public QMainWindow {
 
   void on_actionOpen_triggered();
 
- private:
+  void on_actionSave_triggered();
+
+  void on_actionSave_as_triggered();
+
+  void on_actionClose_triggered();
+
+  void on_actionExit_triggered();
+
+protected:
+     void closeEvent(QCloseEvent *event);
+
+private:
   Ui::QKflow *ui;
 
   QSettings *settings;
-  PnNetwork *pnNetwork_;
   Kflow *kflow;
+  ProjectSettings *projectSettings_;
+
+  bool altered_;
 
   void loadSettings();
   void saveSettings();

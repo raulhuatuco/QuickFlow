@@ -2,12 +2,15 @@
 #include "ui_qkflow.h"
 
 #include <QMessageBox>
+#include <QDir>
+#include <QFileDialog>
 
 #include "windowaddpq.h"
 #include "windowaddpv.h"
 #include "windowaddslack.h"
 #include "windowaddcable.h"
 #include "windowkflowsettings.h"
+#include "windownewproject.h"
 
 #include "PnGraphics/pnslack.h"
 #include "PnGraphics/pnpq.h"
@@ -22,19 +25,7 @@ QKflow::QKflow(QWidget *parent)
   ui->setupUi(this);
 
   // Adjust initial interface
-  ui->actionCable->setDisabled(true);
-  ui->actionPause->setDisabled(true);
-  ui->actionPQBar->setDisabled(true);
-  ui->actionPVBar->setDisabled(true);
-  ui->actionRun->setDisabled(true);
-  ui->actionSave->setDisabled(true);
-  ui->actionSlack->setDisabled(true);
-  ui->actionStop->setDisabled(true);
-  ui->actionTransformer->setDisabled(true);
-  ui->actionZoomFit->setDisabled(true);
-  ui->actionZoomIn->setDisabled(true);
-  ui->actionZoomOut->setDisabled(true);
-  ui->pnView->setDisabled(true);
+  noProjectInterface();
 
   // Set application info
   QCoreApplication::setOrganizationName("DKrepsky");
@@ -55,11 +46,49 @@ QKflow::QKflow(QWidget *parent)
   } else {
     createSettings();
   }
+
+  // Project has not beed altered
+  altered_ = false;
+  projectSettings_ = NULL;
 }
 
-QKflow::~QKflow() {
-  saveSettings();
-  delete ui;
+QKflow::~QKflow() { delete ui; }
+
+bool QKflow::isAltered() { return altered_; }
+
+void QKflow::setAltered(bool altered) { altered_ = altered; }
+
+void QKflow::noProjectInterface() {
+  ui->actionCable->setDisabled(true);
+  ui->actionClose->setDisabled(true);
+  ui->actionPause->setDisabled(true);
+  ui->actionPQBar->setDisabled(true);
+  ui->actionPVBar->setDisabled(true);
+  ui->actionRun->setDisabled(true);
+  ui->actionSave->setDisabled(true);
+  ui->actionSave_as->setDisabled(true);
+  ui->actionSlack->setDisabled(true);
+  ui->actionStop->setDisabled(true);
+  ui->actionTransformer->setDisabled(true);
+  ui->actionZoomFit->setDisabled(true);
+  ui->actionZoomIn->setDisabled(true);
+  ui->actionZoomOut->setDisabled(true);
+  ui->pnView->setDisabled(true);
+}
+
+void QKflow::workInterface() {
+  ui->actionCable->setDisabled(false);
+  ui->actionClose->setDisabled(false);
+  ui->actionPQBar->setDisabled(false);
+  ui->actionPVBar->setDisabled(false);
+  ui->actionRun->setDisabled(false);
+  ui->actionSave_as->setDisabled(false);
+  ui->actionSlack->setDisabled(false);
+  ui->actionTransformer->setDisabled(false);
+  ui->actionZoomFit->setDisabled(false);
+  ui->actionZoomIn->setDisabled(false);
+  ui->actionZoomOut->setDisabled(false);
+  ui->pnView->setDisabled(false);
 }
 
 void QKflow::on_actionZoomIn_triggered() { ui->pnView->zoomIn(); }
@@ -70,28 +99,28 @@ void QKflow::on_actionZoomFit_triggered() { ui->pnView->zoomFit(); }
 
 void QKflow::on_actionSlack_triggered() {
   WindowAddSlack *windowAddSlack = new WindowAddSlack(this);
-  windowAddSlack->setNetwork(pnNetwork_);
+  windowAddSlack->setNetwork(projectSettings_->pnNetwork());
   windowAddSlack->exec();
   delete windowAddSlack;
 }
 
 void QKflow::on_actionPQBar_triggered() {
   WindowAddPq *windowAddPq = new WindowAddPq(this);
-  windowAddPq->setNetwork(pnNetwork_);
+  windowAddPq->setNetwork(projectSettings_->pnNetwork());
   windowAddPq->exec();
   delete windowAddPq;
 }
 
 void QKflow::on_actionPVBar_triggered() {
   WindowAddPv *windowAddPv = new WindowAddPv(this);
-  windowAddPv->setNetwork(pnNetwork_);
+  windowAddPv->setNetwork(projectSettings_->pnNetwork());
   windowAddPv->exec();
   delete windowAddPv;
 }
 
 void QKflow::on_actionCable_triggered() {
   WindowAddCable *windowAddCable = new WindowAddCable(this);
-  windowAddCable->setNetwork(pnNetwork_);
+  windowAddCable->setNetwork(projectSettings_->pnNetwork());
   windowAddCable->exec();
   delete windowAddCable;
 }
@@ -99,7 +128,7 @@ void QKflow::on_actionCable_triggered() {
 void QKflow::on_actionRun_triggered() {
   if (kflow == NULL) return;
 
-  kflow->generateInputFile(pnNetwork_);
+  kflow->generateInputFile(projectSettings_->pnNetwork());
   kflow->runSimulation();
 
   while (!kflow->waitForFinished()) {
@@ -110,7 +139,7 @@ void QKflow::on_actionRun_triggered() {
                           kflow->readAll(), QMessageBox::Ok);
     return;
   } else {
-    kflow->loadResults(pnNetwork_);
+    kflow->loadResults(projectSettings_->pnNetwork());
     QMessageBox::information(
         this, tr("Simulation duration"),
         "Simulation time: " + QString::number(kflow->duration()) + "s",
@@ -127,12 +156,107 @@ void QKflow::on_actionSettings_triggered() {
 }
 
 void QKflow::on_actionNew_triggered() {
-  // Create network
-  pnNetwork_ = new PnNetwork;
-  ui->pnView->setPnNetwork(pnNetwork_);
+  // Check if there is a project already opened
+  if (projectSettings_ != NULL) {
+    // Close project
+    ui->actionClose->trigger();
+
+    // If close didnt succed, cancel new project.
+    if (projectSettings_ != NULL) return;
+  }
+
+  // Open New Project window.
+  WindowNewProject *windowNewProject = new WindowNewProject(this);
+
+  // If canceled return
+  // windowNewProject MUST provide valid data
+  if (windowNewProject->exec() != QDialog::Accepted) {
+    delete windowNewProject;
+    return;
+  }
+
+  // Create project object
+  projectSettings_ = new ProjectSettings;
+  projectSettings_->setName(windowNewProject->name());
+
+  // Try to save project settings
+  bool save_ok =
+      projectSettings_->save(windowNewProject->path() + QDir::separator() +
+                             windowNewProject->name() + ".qkflow");
+
+  if (!save_ok) {
+    QMessageBox::critical(this, "File write error",
+                          "Cannot write .qkflow file.", QMessageBox::Ok);
+    delete projectSettings_;
+    projectSettings_ = NULL;
+    delete windowNewProject;
+    return;
+  }
+
+  // New project is Ok
+  // Change window title to indicate that the project is open
+  setWindowTitle("QkFlow - " + windowNewProject->name());
+
+  // Set working directory
+  kflow->setWorkingDirectory(windowNewProject->path());
+
+  // Enable interface
+  workInterface();
+
+  // Set screne
+  ui->pnView->setPnNetwork(projectSettings_->pnNetwork());
+
+  // Delete window
+  delete windowNewProject;
 }
 
-void QKflow::on_actionOpen_triggered() {}
+void QKflow::on_actionOpen_triggered() {
+  // Check if there is a project already opened
+  if (projectSettings_ != NULL) {
+    // Close project
+    ui->actionClose->trigger();
+
+    // If close didnt succed, cancel new project.
+    if (projectSettings_ != NULL) return;
+  }
+
+  // Open file dialog to select the project file.
+  QFileDialog project(this);
+  project.setFileMode(QFileDialog::ExistingFile);
+  project.setAcceptMode(QFileDialog::AcceptOpen);
+  project.setNameFilter(tr("QkFlow Project (*.qkflow)"));
+
+  // Check if user has canceled the opening
+  if (project.exec() != QDialog::Accepted) {
+    return;
+  }
+
+  // Grab filename
+  QString fileName = project.selectedFiles()[0];
+
+  // Create project object
+  projectSettings_ = new ProjectSettings;
+  if (projectSettings_->load(fileName) != true) {
+    QMessageBox::critical(this, "File read error", "Cannot read .qkflow file.",
+                          QMessageBox::Ok);
+    delete projectSettings_;
+    return;
+  }
+
+  // New project is Ok
+  // Change window title to indicate that the project is open
+  setWindowTitle("QkFlow - " + projectSettings_->name());
+
+  // Set working directory
+  QDir workingDirectory;
+  kflow->setWorkingDirectory(workingDirectory.filePath(fileName));
+
+  // Enable interface
+  workInterface();
+
+  // Set screne
+  ui->pnView->setPnNetwork(projectSettings_->pnNetwork());
+}
 
 void QKflow::loadSettings() {
   // kFlow Settings
@@ -169,9 +293,11 @@ void QKflow::createSettings() {
 
   // kFlow Settings
   if (QSysInfo::productType() == "windows")
-    kflow->setKflowLocation("kflow/KFlow.exe");
+    kflow->setKflowLocation(qApp->applicationDirPath() + QDir::separator() +
+                            "kflow/KFlow.exe");
   else
-    kflow->setKflowLocation("kflow/KFlow");
+    kflow->setKflowLocation(qApp->applicationDirPath() + QDir::separator() +
+                            "kflow/KFlow");
 
   kflow->setMaxIterations(1000);
   kflow->setMinError(0.00001);
@@ -188,3 +314,111 @@ void QKflow::createSettings() {
 }
 
 void QKflow::upgradeSettings() {}
+
+void QKflow::on_actionSave_triggered() {
+  // Check for alterations
+  if (altered_) {
+    // If altered, save.
+    QString fileName = kflow->workingDirectory() + QDir::separator() +
+                       projectSettings_->name() + ".qkflow";
+
+    if (projectSettings_->save(fileName) != true) {
+      QMessageBox::critical(this, "Write to file failed",
+                            "Cannot save project.", QMessageBox::Ok);
+      return;
+    }
+  }
+
+  // Disable save button
+  ui->actionSave->setEnabled(false);
+  altered_ = false;
+}
+
+void QKflow::on_actionSave_as_triggered() {
+  // Get file location
+  QFileDialog directory(this);
+  directory.setFileMode(QFileDialog::Directory);
+  directory.setOption(QFileDialog::ShowDirsOnly);
+  directory.setAcceptMode(QFileDialog::AcceptSave);
+  directory.setWindowTitle("Project path");
+
+  if (directory.exec() != QDialog::Accepted) return;
+
+  QString newdir = directory.selectedFiles()[0];
+
+  // Try to save
+  // On error, return
+  if (projectSettings_->save(newdir + QDir::separator() +
+                             projectSettings_->name() + tr(".qkflow")) !=
+      true) {
+    QMessageBox::critical(this, "Write to file failed", "Cannot save project.",
+                          QMessageBox::Ok);
+    return;
+  }
+
+  // Save is ok, set the new path
+  kflow->setWorkingDirectory(newdir);
+
+  // Disable save
+  altered_ = false;
+  ui->actionSave->setEnabled(false);
+}
+
+void QKflow::on_actionClose_triggered() {
+  // Check if project is open
+  if (projectSettings_ == NULL) {
+    // Disable interface and return
+    noProjectInterface();
+    return;
+  }
+
+  // Check whether it does need to save the project or not
+  if (altered_) {
+    // Ask user to discard changes
+    int button = QMessageBox::question(
+        this, "Save", "There are unsaved changes, save it?",
+        QMessageBox::Discard | QMessageBox::Cancel | QMessageBox::Save);
+
+    // User wants to save
+    if (button == QMessageBox::Save) {
+      // Try to save
+      ui->actionSave->trigger();
+
+      // Check if save is Ok
+      if (altered_) {
+        // User canceled
+        return;
+      }
+    } else if (button == QMessageBox::Cancel) {
+      // User canceled
+      return;
+    }
+  }
+
+  delete projectSettings_;
+  projectSettings_ = NULL;
+  kflow->setWorkingDirectory(tr(""));
+  altered_ = false;
+  noProjectInterface();
+}
+
+// Hook to application exit
+void QKflow::closeEvent(QCloseEvent *event) {
+  // Check for unsaved changes
+  if (altered_) {
+    // Try to close project, saving the changes
+    ui->actionClose->trigger();
+
+    // Check for a  cancel
+    if (altered_) {
+      // User doesnt want to quit
+      event->ignore();
+      return;
+    }
+  }
+
+  saveSettings();
+  event->accept();
+}
+
+void QKflow::on_actionExit_triggered() { close(); }

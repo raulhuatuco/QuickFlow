@@ -18,7 +18,6 @@ Kflow::Kflow() : QProcess() {
   printIterations = false;
   minError_ = 0.0001;
   maxIterations_ = 1000;
-  setProgram("KFlow");
 }
 
 Kflow::Kflow(QWidget *parent) : QProcess(parent) {
@@ -26,7 +25,6 @@ Kflow::Kflow(QWidget *parent) : QProcess(parent) {
   printIterations = false;
   minError_ = 0.0001;
   maxIterations_ = 1000;
-  setProgram("KFlow");
 }
 
 Kflow::~Kflow() {}
@@ -132,7 +130,7 @@ bool Kflow::runSimulation() {
   QStringList args;
 
   args << "-i";
-  args << workingDirectory() + "/network.pnd";
+  args << "network.pnd";
   args << "-o";
   args << "network.result";
 

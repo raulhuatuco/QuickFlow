@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     windowaddcable.cpp \
     projectsettings.cpp \
     kflow.cpp \
-    windowkflowsettings.cpp
+    windowkflowsettings.cpp \
+    windownewproject.cpp
 
 HEADERS  += qkflow.h \
     PnGraphics/pnbar.h \
@@ -47,14 +48,16 @@ HEADERS  += qkflow.h \
     windowaddcable.h \
     projectsettings.h \
     kflow.h \
-    windowkflowsettings.h
+    windowkflowsettings.h \
+    windownewproject.h
 
 FORMS    += qkflow.ui \
     windowaddslack.ui \
     windowaddpq.ui \
     windowaddpv.ui \
     windowaddcable.ui \
-    windowkflowsettings.ui
+    windowkflowsettings.ui \
+    windownewproject.ui
 
 RESOURCES += \
     img.qrc \
