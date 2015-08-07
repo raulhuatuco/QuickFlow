@@ -6,30 +6,33 @@
 
 PnCable::PnCable() : PnLine(NULL, NULL) {}
 
-PnCable::PnCable(PnBar *noI, PnBar *noF) : PnLine(noI, noF) {
-  qreal pi = 3.141592653589793238463;
+PnCable::PnCable(PnBar *noI, PnBar *noF) : PnLine(NULL, NULL) {
+  setNodes(noI, noF);
+}
+
+PnCable::~PnCable() {}
+
+void PnCable::setNodes(PnBar *noI, PnBar *noF) {
   QLineF line(noI->pos(), noF->pos());
 
-  qreal radAngle = line.angle() * pi / 180;
+  qreal radAngle = line.angle() * M_PI / 180.0;
   qreal dx = kCableWidth * sin(radAngle);
   qreal dy = kCableWidth * cos(radAngle);
   QPointF offset1 = QPointF(dx, dy);
   QPointF offset2 = QPointF(-dx, -dy);
   selectionArea << line.p1() + offset1 << line.p1() + offset2
                 << line.p2() + offset2 << line.p2() + offset1;
+
+  PnLine::setNodes(noI, noF);
   update();
 }
-
-PnCable::~PnCable() {}
 
 QString PnCable::lineType() {
   QString type = "Cable";
   return type;
 }
 
-QRectF PnCable::boundingRect() const {
-  return selectionArea.boundingRect();
-}
+QRectF PnCable::boundingRect() const { return selectionArea.boundingRect(); }
 
 QPainterPath PnCable::shape() const {
   QPainterPath path;

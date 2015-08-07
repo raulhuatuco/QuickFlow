@@ -7,11 +7,13 @@ class PnCable : public PnLine {
   Q_OBJECT
 
  public:
-  static const int kCableWidth = 2;
+  static const int kCableWidth = 3;
 
   PnCable();
   PnCable(PnBar *noI, PnBar *noF);
   ~PnCable();
+
+  void setNodes(PnBar *noI, PnBar *noF);
 
   QString lineType() Q_DECL_OVERRIDE;
   QRectF boundingRect() const Q_DECL_OVERRIDE;

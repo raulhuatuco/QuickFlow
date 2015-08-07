@@ -5,6 +5,7 @@
 #include <QDir>
 #include <QFileDialog>
 #include <QFileInfo>
+#include <QStandardPaths>
 
 #include "windowaddpq.h"
 #include "windowaddpv.h"
@@ -253,6 +254,7 @@ void QKflow::on_actionOpen_triggered() {
   project.setFileMode(QFileDialog::ExistingFile);
   project.setAcceptMode(QFileDialog::AcceptOpen);
   project.setNameFilter(tr("QkFlow Project (*.qkflow)"));
+  project.setDirectory(QStandardPaths::standardLocations(QStandardPaths::HomeLocation)[0]);
 
   // Check if user has canceled the opening
   if (project.exec() != QDialog::Accepted) {

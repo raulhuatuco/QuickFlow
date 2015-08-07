@@ -6,7 +6,7 @@
 #include "PnGraphics/pninfobox.h"
 
 PnView::PnView(QWidget *parent) : QGraphicsView(parent), pnNetwork_(NULL) {
-  setDragMode(ScrollHandDrag);
+  setDragMode(RubberBandDrag);
 }
 
 PnView::~PnView() {}

@@ -1,0 +1,41 @@
+{
+    "barArray": [
+        {
+            "id": 0,
+            "maxGen": 1000000,
+            "sgimag": 0,
+            "sgreal": 0,
+            "slimag": 0,
+            "slreal": 0,
+            "type": "Slack",
+            "vimag": 0,
+            "vreal": 23000,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "id": 1,
+            "sgimag": 0,
+            "sgreal": 0,
+            "slimag": 2500000,
+            "slreal": 1250000,
+            "type": "PQ",
+            "vimag": 0,
+            "vreal": 0,
+            "x": 100,
+            "y": 0
+        }
+    ],
+    "lineArray": [
+        {
+            "id": 1,
+            "maxLoad": 1,
+            "nof": 1,
+            "noi": 0,
+            "type": "Cable",
+            "zimag": 0,
+            "zreal": 0
+        }
+    ],
+    "name": "2bar"
+}

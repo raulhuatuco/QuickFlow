@@ -9,25 +9,15 @@
 #include "PnGraphics/pnpv.h"
 #include "PnGraphics/pncable.h"
 
-ProjectSettings::ProjectSettings() : name_("") {
-  pnNetwork_ = new PnNetwork();
-}
+ProjectSettings::ProjectSettings() : name_("") { pnNetwork_ = new PnNetwork(); }
 
-ProjectSettings::~ProjectSettings() {
-  delete pnNetwork_;
-}
+ProjectSettings::~ProjectSettings() { delete pnNetwork_; }
 
-PnNetwork *ProjectSettings::pnNetwork() {
-  return pnNetwork_;
-}
+PnNetwork *ProjectSettings::pnNetwork() { return pnNetwork_; }
 
-QString ProjectSettings::name() {
-  return name_;
-}
+QString ProjectSettings::name() { return name_; }
 
-void ProjectSettings::setName(QString name) {
-  name_ = name;
-}
+void ProjectSettings::setName(QString name) { name_ = name; }
 
 bool ProjectSettings::save(QString fileName) {
   // Try to open file
@@ -45,18 +35,14 @@ bool ProjectSettings::save(QString fileName) {
   // Add Bars Array
   QJsonArray barArray;
 
-  foreach (PnBar *bar, pnNetwork_->barMap) {
-    barArray << barToJson(bar);
-  }
+  foreach (PnBar *bar, pnNetwork_->barMap) { barArray << barToJson(bar); }
 
   projectJson.insert("barArray", barArray);
 
   // Add Lines Array
   QJsonArray lineArray;
 
-  foreach (PnLine *line, pnNetwork_->lineMap) {
-    lineArray << lineToJson(line);
-  }
+  foreach (PnLine *line, pnNetwork_->lineMap) { lineArray << lineToJson(line); }
 
   projectJson.insert("lineArray", lineArray);
 
@@ -96,18 +82,18 @@ bool ProjectSettings::load(QString fileName) {
   foreach (QJsonValue arrayValue, barArray) {
     QJsonObject barJson(arrayValue.toObject());
 
-    if(barJson.value("type").toString() == "Slack") {
-      PnSlack *slack = dynamic_cast<PnSlack *> (barFromJson(barJson));
+    if (barJson.value("type").toString() == "Slack") {
+      PnSlack *slack = dynamic_cast<PnSlack *>(barFromJson(barJson));
       pnNetwork_->addSlack(slack);
     }
 
-    if(barJson.value("type").toString() == "PQ") {
-      PnPq *pq = dynamic_cast<PnPq *> (barFromJson(barJson));
+    if (barJson.value("type").toString() == "PQ") {
+      PnPq *pq = dynamic_cast<PnPq *>(barFromJson(barJson));
       pnNetwork_->addPq(pq);
     }
 
-    if(barJson.value("type").toString() == "PV") {
-      PnPv *pv = dynamic_cast<PnPv *> (barFromJson(barJson));
+    if (barJson.value("type").toString() == "PV") {
+      PnPv *pv = dynamic_cast<PnPv *>(barFromJson(barJson));
       pnNetwork_->addPv(pv);
     }
   }
@@ -118,8 +104,8 @@ bool ProjectSettings::load(QString fileName) {
   foreach (QJsonValue arrayValue, lineArray) {
     QJsonObject lineJson(arrayValue.toObject());
 
-    if(lineJson.value("type").toString() == "Cable") {
-      PnCable *cable = dynamic_cast<PnCable *> (lineFromJson(lineJson));
+    if (lineJson.value("type").toString() == "Cable") {
+      PnCable *cable = dynamic_cast<PnCable *>(lineFromJson(lineJson));
       pnNetwork_->addCable(cable);
     }
   }
@@ -145,10 +131,10 @@ QJsonObject ProjectSettings::barToJson(PnBar *bar) {
   jsonBar.insert("y", bar->y());
 
   if (bar->barType() == "Slack") {
-    PnSlack *slack = dynamic_cast<PnSlack *> (bar);
+    PnSlack *slack = dynamic_cast<PnSlack *>(bar);
     jsonBar.insert("maxGen", slack->maxGeneration());
   } else if (bar->barType() == "PV") {
-    PnPv *pv = dynamic_cast<PnPv *> (bar);
+    PnPv *pv = dynamic_cast<PnPv *>(bar);
     jsonBar.insert("maxQGen", pv->maxQGenerated());
     jsonBar.insert("minQGen", pv->minQGenerated());
   }
@@ -199,7 +185,7 @@ PnBar *ProjectSettings::barFromJson(QJsonObject &jsonBar) {
   slimag = jsonBar.value("slimag").toDouble();
   bar->setInputSl(std::complex<double>(slreal, slimag));
 
-// Get Position
+  // Get Position
   bar->setX(jsonBar.value("x").toDouble());
   bar->setY(jsonBar.value("y").toDouble());
 
@@ -207,9 +193,49 @@ PnBar *ProjectSettings::barFromJson(QJsonObject &jsonBar) {
 }
 
 QJsonObject ProjectSettings::lineToJson(PnLine *line) {
+  // Save bar data
+  QJsonObject jsonLine;
 
+  jsonLine.insert("id", static_cast<int>(line->Id()));
+  jsonLine.insert("noi", static_cast<int>(line->NoI()->Id()));
+  jsonLine.insert("nof", static_cast<int>(line->NoF()->Id()));
+  jsonLine.insert("zreal", line->Impedance().real());
+  jsonLine.insert("zimag", line->Impedance().imag());
+  jsonLine.insert("maxLoad", line->MaxLoad());
+  jsonLine.insert("type", line->lineType());
+
+  return jsonLine;
 }
 
 PnLine *ProjectSettings::lineFromJson(QJsonObject &jsonline) {
+  // Check for type
+  QString type;
+  type = jsonline.value("type").toString();
 
+  // Create Bar according to type
+  PnLine *line;
+
+  if (type == "Cable") {
+    PnCable *cable = new PnCable;
+    line = cable;
+  }
+
+  // Get Id
+  line->setId(static_cast<unsigned int>(jsonline.value("id").toInt()));
+
+  // Get NoI & NoF
+  unsigned int noI = static_cast<unsigned int>(jsonline.value("noi").toInt());
+  unsigned int noF = static_cast<unsigned int>(jsonline.value("nof").toInt());
+  line->setNodes(pnNetwork_->getBarById(noI), pnNetwork_->getBarById(noF));
+
+  // Get Z
+  double zreal, zimag;
+  zreal = jsonline.value("zreal").toDouble();
+  zimag = jsonline.value("zimag").toDouble();
+  line->setAdmittance(std::complex<double>(zreal, zimag));
+
+  // Get Position
+  line->setMaxLoad(jsonline.value("maxLoad").toDouble());
+
+  return line;
 }

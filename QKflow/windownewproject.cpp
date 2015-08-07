@@ -3,6 +3,7 @@
 
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QStandardPaths>
 
 WindowNewProject::WindowNewProject(QWidget *parent)
   : QDialog(parent), ui(new Ui::WindowNewProject) {
@@ -23,7 +24,7 @@ QString WindowNewProject::path() {
 
 void WindowNewProject::on_name_textChanged(const QString &arg1) {
   name_ = arg1;
-  ui->outputFile->setText(path_.dirName() + QDir::separator() + arg1 +
+  ui->outputFile->setText(path_.absolutePath() + QDir::separator() + arg1 +
                           ".qkflow");
 }
 
@@ -62,6 +63,7 @@ void WindowNewProject::on_toolButton_clicked() {
   directory.setFileMode(QFileDialog::Directory);
   directory.setOption(QFileDialog::ShowDirsOnly);
   directory.setAcceptMode(QFileDialog::AcceptSave);
+  directory.setDirectory(QStandardPaths::standardLocations(QStandardPaths::HomeLocation)[0]);
   directory.setWindowTitle("Project path");
 
   if (directory.exec()) ui->path->setText(directory.selectedFiles()[0]);

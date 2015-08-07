@@ -25,7 +25,8 @@ class PnLine : public QGraphicsObject {
 
   PnBar *NoI();
   PnBar *NoF();
-  void setNodes(PnBar *noI, PnBar *noF);
+
+  virtual void setNodes(PnBar *noI, PnBar *noF);
 
   std::complex<double> Impedance();
   void setImpedance(std::complex<double> z);
