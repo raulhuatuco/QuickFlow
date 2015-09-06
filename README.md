@@ -1,2 +1,2 @@
-# QKflow
-Graphical interface for KFlow
+# QiKflow
+Graphical User Interface for kFlow
