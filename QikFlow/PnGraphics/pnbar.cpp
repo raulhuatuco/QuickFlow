@@ -1,15 +1,29 @@
 #include "pnbar.h"
 
 #include <QGraphicsScene>
+#include <QPainter>
 
-PnBar::PnBar(uint32_t id)
-  : id_(id),
-    inputV_(0, 0),
-    inputSg_(0, 0),
-    inputSl_(0, 0),
-    outputV_(0, 0),
-    outputSg_(0, 0),
-    infobox_(NULL) {
+PnBar::PnBar()
+  : QGraphicsObject(),
+    id(kInvalidId),
+    Va(0, 0),
+    Vb(0, 0),
+    Vc(0, 0),
+    Sga(0, 0),
+    Sgb(0, 0),
+    Sgc(0, 0),
+    Sla(0, 0),
+    Slb(0, 0),
+    Slc(0, 0),
+    rVa(0, 0),
+    rVb(0, 0),
+    rVc(0, 0),
+    rSga(0, 0),
+    rSgb(0, 0),
+    rSgc(0, 0),
+    rSla(0, 0),
+    rSlb(0, 0),
+    rSlc(0, 0) {
   setFlag(ItemIsSelectable);
   setZValue(1);
 }
@@ -18,137 +32,77 @@ PnBar::~PnBar() {
   removeLines();
 }
 
-// Id
-uint32_t PnBar::Id() {
-  return id_;
-}
-
-void PnBar::setId(uint32_t id) {
-  id_ = id;
-}
-
-// Input Voltage
-complex<double> PnBar::inputV() {
-  return inputV_;
-}
-
-void PnBar::setInputV(complex<double> v) {
-  inputV_ = v;
-}
-
-// Input Sg
-complex<double> PnBar::inputSg() {
-  return inputSg_;
-}
-
-void PnBar::setInputSg(complex<double> sg) {
-  inputSg_ = sg;
-}
-
-// Input Sl
-complex<double> PnBar::inputSl() {
-  return inputSl_;
-}
-
-void PnBar::setInputSl(complex<double> sl) {
-  inputSl_ = sl;
-}
-
-// Output V
-complex<double> PnBar::outputV() {
-  return outputV_;
-}
-
-void PnBar::setOutputV(complex<double> v) {
-  outputV_ = v;
-}
-
-// Output Sg
-complex<double> PnBar::outputSg() {
-  return outputSg_;
-}
-
-void PnBar::setOutputSg(complex<double> sg) {
-  outputSg_ = sg;
-}
-
-complex<double> PnBar::outputI() {
+complex<double> PnBar:: Ia() {
   complex<double> I;
-  I = conj(outputSg_ - inputSl_) / conj(outputV_);
+  I = conj(Sga - Sla) / conj(Va);
   return I;
 }
 
-void PnBar::setOutputI(complex<double> i) {
-  outputSg_ = conj(i * conj(outputV_) - inputSl_);
+complex<double> PnBar:: Ib() {
+  complex<double> I;
+  I = conj(Sgb - Slb) / conj(Vb);
+  return I;
+}
+
+complex<double> PnBar:: Ic() {
+  complex<double> I;
+  I = conj(Sgc - Slc) / conj(Vc);
+  return I;
+}
+
+complex<double> PnBar:: rIa() {
+  complex<double> I;
+  I = conj(rSga - rSla) / conj(rVa);
+  return I;
+}
+
+complex<double> PnBar:: rIb() {
+  complex<double> I;
+  I = conj(rSgb - rSlb) / conj(rVb);
+  return I;
+}
+
+complex<double> PnBar:: rIc() {
+  complex<double> I;
+  I = conj(rSgc - rSlc) / conj(rVc);
+  return I;
 }
 
 void PnBar::addLine(PnLine *line) {
-  lines_.append(line);
+  lines.append(line);
 }
 
 void PnBar::removeLine(PnLine *line) {
-  int index = lines_.indexOf(line);
+  int index = lines.indexOf(line);
 
-  if (index != -1) lines_.removeAt(index);
+  if (index != -1) lines.removeAt(index);
 }
 
 void PnBar::removeLines() {
-  foreach (PnLine *line, lines_) {
-    line->NoI()->removeLine(line);
-    line->NoF()->removeLine(line);
+  foreach (PnLine *line, lines) {
+    line->noI()->removeLine(line);
+    line->noF()->removeLine(line);
     scene()->removeItem(line);
     delete line;
   }
 }
 
-QVariant PnBar::itemChange(QGraphicsItem::GraphicsItemChange change,
-                           const QVariant &value) {
-  if (change == ItemSelectedChange) {
-    if (value == true) {
-      qreal px = pos().x();
-      qreal py = pos().y() - boundingRect().height() / 2;
+QRectF PnBar::boundingRect() const {
+  return QRectF(-kIconSize / 2, -kIconSize / 2, kIconSize, kIconSize);
+}
 
-      QString txt;
-      txt.append(tr("Id: ")).append(QString::number(id_)).append(tr("\n"));
+void PnBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+                  QWidget *widget) {
+  Q_UNUSED(option);
+  Q_UNUSED(widget);
 
-      txt.append("Voltage: ")
-      .append(QString::number(abs(outputV_)))
-      .append(" | ")
-      .append(QString::number(arg(outputV_) * 180.0 / M_PI))
-      .append("º [V]\n");
+  painter->setPen(Qt::gray);
 
-      txt.append(tr("Current: "))
-      .append(QString::number(abs(outputI())))
-      .append(" | ")
-      .append(QString::number(arg(outputI()) * 180.0 / M_PI))
-      .append("º [A]\n");
-
-      txt.append("Genetared: ").append(QString::number(outputSg_.real()));
-
-      if (outputSg_.imag() >= 0)
-        txt.append(" + ");
-      else
-        txt.append(" - ");
-
-      txt.append(QString::number(outputSg_.imag())).append("i [VA]\n");
-
-      txt.append("Consumed: ").append(QString::number(inputSl_.real()));
-
-      if (inputSl_.imag() >= 0)
-        txt.append(" + ");
-      else
-        txt.append(" - ");
-
-      txt.append(QString::number(inputSl_.imag())).append("i [VA]\n");
-
-      infobox_ = new PnInfoBox(px, py, txt);
-      scene()->addItem(infobox_);
-
-    } else {
-      scene()->removeItem(infobox_);
-      infobox_ = NULL;
-    }
+  if (isSelected()) {
+    painter->setBrush(Qt::red);
+    painter->drawEllipse(-kIconSize / 2, -kIconSize / 2, kIconSize, kIconSize);
+  } else {
+    painter->setBrush(Qt::blue);
+    painter->drawEllipse(-kIconSize / 2, -kIconSize / 2, kIconSize, kIconSize);
   }
-
-  return QGraphicsObject::itemChange(change, value);
 }

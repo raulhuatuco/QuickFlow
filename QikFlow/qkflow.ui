@@ -102,6 +102,7 @@
    <addaction name="actionNew"/>
    <addaction name="actionOpen"/>
    <addaction name="actionSave"/>
+   <addaction name="actionClose"/>
    <addaction name="separator"/>
    <addaction name="actionRun"/>
    <addaction name="actionPause"/>
@@ -111,36 +112,14 @@
    <addaction name="actionZoomOut"/>
    <addaction name="actionZoomFit"/>
    <addaction name="separator"/>
+   <addaction name="actionAddBar"/>
+   <addaction name="actionAddLine"/>
+   <addaction name="separator"/>
    <addaction name="actionSettings"/>
    <addaction name="separator"/>
    <addaction name="actionHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QToolBar" name="toolBar">
-   <property name="windowTitle">
-    <string>toolBar</string>
-   </property>
-   <property name="toolButtonStyle">
-    <enum>Qt::ToolButtonTextUnderIcon</enum>
-   </property>
-   <property name="floatable">
-    <bool>false</bool>
-   </property>
-   <attribute name="toolBarArea">
-    <enum>LeftToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
-   <addaction name="separator"/>
-   <addaction name="actionSlack"/>
-   <addaction name="actionPQBar"/>
-   <addaction name="actionPVBar"/>
-   <addaction name="separator"/>
-   <addaction name="actionCable"/>
-   <addaction name="actionTransformer"/>
-   <addaction name="separator"/>
-  </widget>
   <action name="actionNew">
    <property name="icon">
     <iconset resource="img.qrc">
@@ -302,69 +281,6 @@
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionSlack">
-   <property name="icon">
-    <iconset resource="PnGraphics/pnrc.qrc">
-     <normaloff>:/img/ico-slack.png</normaloff>:/img/ico-slack.png</iconset>
-   </property>
-   <property name="text">
-    <string>Slack</string>
-   </property>
-   <property name="toolTip">
-    <string>Add Slack</string>
-   </property>
-  </action>
-  <action name="actionPQBar">
-   <property name="icon">
-    <iconset resource="PnGraphics/pnrc.qrc">
-     <normaloff>:/img/ico-pq.png</normaloff>:/img/ico-pq.png</iconset>
-   </property>
-   <property name="text">
-    <string>PQBar</string>
-   </property>
-   <property name="toolTip">
-    <string>Add PQBar</string>
-   </property>
-  </action>
-  <action name="actionTransformer">
-   <property name="icon">
-    <iconset resource="PnGraphics/pnrc.qrc">
-     <normaloff>:/img/ico-trans.png</normaloff>:/img/ico-trans.png</iconset>
-   </property>
-   <property name="text">
-    <string>Trans...</string>
-   </property>
-   <property name="toolTip">
-    <string>Add Transformer</string>
-   </property>
-  </action>
-  <action name="actionCable">
-   <property name="icon">
-    <iconset resource="PnGraphics/pnrc.qrc">
-     <normaloff>:/img/ico-line.png</normaloff>:/img/ico-line.png</iconset>
-   </property>
-   <property name="text">
-    <string>Cable</string>
-   </property>
-   <property name="toolTip">
-    <string>Add Cable</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+W</string>
-   </property>
-  </action>
-  <action name="actionPVBar">
-   <property name="icon">
-    <iconset resource="PnGraphics/pnrc.qrc">
-     <normaloff>:/img/ico-pv.png</normaloff>:/img/ico-pv.png</iconset>
-   </property>
-   <property name="text">
-    <string>PVBar</string>
-   </property>
-   <property name="toolTip">
-    <string>Add PVBar</string>
-   </property>
-  </action>
   <action name="actionSave_as">
    <property name="text">
     <string>Save as...</string>
@@ -374,8 +290,42 @@
    </property>
   </action>
   <action name="actionClose">
+   <property name="icon">
+    <iconset resource="img.qrc">
+     <normaloff>:/img/close.png</normaloff>:/img/close.png</iconset>
+   </property>
    <property name="text">
     <string>Close</string>
+   </property>
+  </action>
+  <action name="actionAddBar">
+   <property name="icon">
+    <iconset resource="img.qrc">
+     <normaloff>:/img/Add.png</normaloff>:/img/Add.png</iconset>
+   </property>
+   <property name="text">
+    <string>Bar</string>
+   </property>
+   <property name="toolTip">
+    <string>Add Bar</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="actionAddLine">
+   <property name="icon">
+    <iconset resource="img.qrc">
+     <normaloff>:/img/ico-line.png</normaloff>:/img/ico-line.png</iconset>
+   </property>
+   <property name="text">
+    <string>Line</string>
+   </property>
+   <property name="toolTip">
+    <string>Add Line</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+L</string>
    </property>
   </action>
  </widget>
@@ -389,7 +339,6 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="PnGraphics/pnrc.qrc"/>
   <include location="img.qrc"/>
  </resources>
  <connections/>

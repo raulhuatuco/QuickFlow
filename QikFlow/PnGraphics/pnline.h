@@ -6,7 +6,6 @@
 #include <complex>
 
 #include "PnGraphics/pnbar.h"
-#include "PnGraphics/pninfobox.h"
 
 QT_BEGIN_NAMESPACE
 class PnBar;
@@ -15,52 +14,76 @@ QT_END_NAMESPACE
 class PnLine : public QGraphicsObject {
   Q_OBJECT
 
+  static const int kCableWidth = 3;
+
  public:
-  PnLine(PnBar *noI, PnBar *noF);
+  PnLine();
   ~PnLine();
 
-  // Input
-  unsigned int Id();
-  void setId(unsigned int id);
-
-  PnBar *NoI();
-  PnBar *NoF();
+// Parent bars
+  PnBar *noI();
+  PnBar *noF();
 
   virtual void setNodes(PnBar *noI, PnBar *noF);
 
-  std::complex<double> Impedance();
-  void setImpedance(std::complex<double> z);
+  // Impedance
+  std::complex<double> Zaa;
+  std::complex<double> Zab;
+  std::complex<double> Zac;
+  std::complex<double> Zan;
 
-  std::complex<double> Admittance();
-  void setAdmittance(std::complex<double> y);
+  std::complex<double> Zbb;
+  std::complex<double> Zbc;
+  std::complex<double> Zbn;
 
-  double MaxLoad();
-  void setMaxLoad(double maxLoad);
+  std::complex<double> Zcc;
+  std::complex<double> Zcn;
 
-  // Output
-  std::complex<double> Current();
-  void setCurrent(std::complex<double> i);
+  std::complex<double> Znn;
 
-  std::complex<double> Load();
+  // Admittance
+  std::complex<double> Yaa();
+  std::complex<double> Yab();
+  std::complex<double> Yac();
+  std::complex<double> Yan();
 
-  virtual QString lineType() = 0 Q_DECL_OVERRIDE;
-  virtual QRectF boundingRect() const = 0 Q_DECL_OVERRIDE;
+  std::complex<double> Ybb();
+  std::complex<double> Ybc();
+  std::complex<double> Ybn();
+
+  std::complex<double> Ycc();
+  std::complex<double> Ycn();
+
+  std::complex<double> Ynn();
+
+  // Current
+  std::complex<double> Ia;
+  std::complex<double> Ib;
+  std::complex<double> Ic;
+  std::complex<double> In;
+
+  // Loss
+  std::complex<double> La();
+  std::complex<double> Lb();
+  std::complex<double> Lc();
+  std::complex<double> Ln();
+
+  // Length
+  double length;
+
+  virtual QRectF boundingRect() const Q_DECL_OVERRIDE;
+  QPainterPath shape() const Q_DECL_OVERRIDE;
   virtual QVariant itemChange(GraphicsItemChange change,
                               const QVariant &value) Q_DECL_OVERRIDE;
 
  protected:
-  unsigned int id_;
   PnBar *noI_;
   PnBar *noF_;
-  std::complex<double> z_;
-  std::complex<double> i_;
-  double maxLoad_;
-
   virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                     QWidget *widget) = 0 Q_DECL_OVERRIDE;
+                     QWidget *widget) Q_DECL_OVERRIDE;
 
  private:
-  PnInfoBox *infobox_;
+  QPolygonF selectionArea;
 };
 
 #endif  // PNLINE_H

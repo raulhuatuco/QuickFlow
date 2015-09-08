@@ -5,8 +5,7 @@
 #include <QSettings>
 #include <QString>
 
-#include "kflow.h"
-#include "projectsettings.h"
+#include "project.h"
 
 namespace Ui {
 class QKflow;
@@ -16,7 +15,6 @@ class QKflow : public QMainWindow {
   Q_OBJECT
 
  public:
-  static const QString kVersion;
 
   explicit QKflow(QWidget *parent = 0);
   ~QKflow();
@@ -34,17 +32,7 @@ class QKflow : public QMainWindow {
 
   void on_actionZoomFit_triggered();
 
-  void on_actionSlack_triggered();
-
-  void on_actionPQBar_triggered();
-
-  void on_actionPVBar_triggered();
-
-  void on_actionCable_triggered();
-
-  void on_actionRun_triggered();
-
-  void on_actionSettings_triggered();
+  void on_actionExit_triggered();
 
   void on_actionNew_triggered();
 
@@ -56,17 +44,16 @@ class QKflow : public QMainWindow {
 
   void on_actionClose_triggered();
 
-  void on_actionExit_triggered();
+  void on_actionAddBar_triggered();
 
  protected:
-  void closeEvent(QCloseEvent *event);
+  void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
  private:
   Ui::QKflow *ui;
 
   QSettings *settings;
-  Kflow *kflow;
-  ProjectSettings *projectSettings_;
+  Project *project;
 
   bool altered_;
 

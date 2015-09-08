@@ -16,49 +16,27 @@ SOURCES += main.cpp\
         qkflow.cpp \
     PnGraphics/pnbar.cpp \
     PnGraphics/pnview.cpp \
-    PnGraphics/pnslack.cpp \
-    PnGraphics/pnpq.cpp \
-    PnGraphics/pnpv.cpp \
     PnGraphics/pnline.cpp \
-    PnGraphics/pncable.cpp \
-    PnGraphics/pninfobox.cpp \
     PnGraphics/pnnetwork.cpp \
-    windowaddslack.cpp \
-    windowaddpq.cpp \
-    windowaddpv.cpp \
-    windowaddcable.cpp \
-    projectsettings.cpp \
-    kflow.cpp \
-    windowkflowsettings.cpp \
-    windownewproject.cpp
+    project.cpp \
+    window/lineproperties.cpp \
+    window/newproject.cpp \
+    window/barproperties.cpp
 
 HEADERS  += qkflow.h \
     PnGraphics/pnbar.h \
     PnGraphics/pnview.h \
-    PnGraphics/pnslack.h \
-    PnGraphics/pnpq.h \
-    PnGraphics/pnpv.h \
     PnGraphics/pnline.h \
-    PnGraphics/pncable.h \
-    PnGraphics/pninfobox.h \
     PnGraphics/pnnetwork.h \
-    windowaddslack.h \
-    windowaddpq.h \
-    windowaddpv.h \
-    windowaddcable.h \
-    projectsettings.h \
-    kflow.h \
-    windowkflowsettings.h \
-    windownewproject.h
+    project.h \
+    window/lineproperties.h \
+    window/newproject.h \
+    window/barproperties.h
 
 FORMS    += qkflow.ui \
-    windowaddslack.ui \
-    windowaddpq.ui \
-    windowaddpv.ui \
-    windowaddcable.ui \
-    windowkflowsettings.ui \
-    windownewproject.ui
+    window/lineproperties.ui \
+    window/barproperties.ui \
+    window/newproject.ui
 
 RESOURCES += \
     img.qrc \
-    PnGraphics/pnrc.qrc

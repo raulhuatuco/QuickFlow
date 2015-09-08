@@ -2,31 +2,35 @@
 #define PNNETWORK_H
 
 #include <QGraphicsScene>
+#include <QGraphicsObject>
 #include <QMap>
 
 #include "PnGraphics/pnbar.h"
-#include "PnGraphics/pnslack.h"
-#include "PnGraphics/pnpq.h"
-#include "PnGraphics/pnpv.h"
-#include "PnGraphics/pncable.h"
+#include "PnGraphics/pnline.h"
 
 class PnNetwork : public QGraphicsScene {
  public:
   PnNetwork();
   ~PnNetwork();
 
+  double voltageBase;
+  double powerBase;
+  double currentBase;
+
+  double lengthUnit;
+  double impedanceUnit;
+  double voltageUnit;
+  double powerUnit;
+
   QMap<uint32_t, PnBar *> barMap;
-  QMap<uint32_t, PnLine *> lineMap;
+  QMap<uint32_t, PnLine *> lineIMap;
+  QMap<uint32_t, PnLine *> lineFMap;
 
-  bool addSlack(PnSlack *slack);
-  bool addPq(PnPq *pq);
-  bool addPv(PnPv *pv);
+  bool addBar(PnBar *bar);
+  bool addLine(PnLine *line);
 
-  bool addCable(PnCable *cable);
-
-  PnBar *getBarById(unsigned int id);
-  PnLine *getLineById(unsigned int id);
-  PnLine *getLineByNodes(unsigned int noI, unsigned int noF);
+  PnBar *getBarById(uint32_t id);
+  PnLine *getLineByNodes(uint32_t noI, uint32_t noF);
 
  private:
 };

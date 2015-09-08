@@ -4,12 +4,10 @@
 #include <QGraphicsObject>
 #include <QByteArray>
 #include <QList>
-#include <QToolTip>
 #include <complex>
 #include <stdint.h>
 
 #include "PnGraphics/pnline.h"
-#include "PnGraphics/pninfobox.h"
 
 QT_BEGIN_NAMESPACE
 class PnLine;
@@ -22,59 +20,61 @@ class PnBar : public QGraphicsObject {
 
  public:
   static const uint32_t kInvalidId = 0xFFFFFFFFU;
+  static const uint32_t kIconSize = 15;
 
-  PnBar(uint32_t id);
+  PnBar();
   ~PnBar();
 
   // Input parameters.
-  uint32_t Id();
-  void setId(uint32_t id);
+  uint32_t id;
 
-  complex<double> inputV();
-  void setInputV(complex<double> v);
+  complex<double> Va;
+  complex<double> Vb;
+  complex<double> Vc;
 
-  complex<double> inputSg();
-  void setInputSg(complex<double> sg);
+  complex<double> Sga;
+  complex<double> Sgb;
+  complex<double> Sgc;
 
-  complex<double> inputSl();
-  void setInputSl(complex<double> sl);
+  complex<double> Sla;
+  complex<double> Slb;
+  complex<double> Slc;
+
+  complex<double> Ia();
+  complex<double> Ib();
+  complex<double> Ic();
 
   // Output parameters.
-  complex<double> outputV();
-  void setOutputV(complex<double> v);
+  complex<double> rVa;
+  complex<double> rVb;
+  complex<double> rVc;
 
-  complex<double> outputSg();
-  void setOutputSg(complex<double> sg);
+  complex<double> rSga;
+  complex<double> rSgb;
+  complex<double> rSgc;
 
-  complex<double> outputI();
-  void setOutputI(complex<double> i);
+  complex<double> rSla;
+  complex<double> rSlb;
+  complex<double> rSlc;
+
+  complex<double> rIa();
+  complex<double> rIb();
+  complex<double> rIc();
 
   // Lines
   void addLine(PnLine *line);
   void removeLine(PnLine *line);
   void removeLines();
 
-  virtual QString barType() = 0 Q_DECL_OVERRIDE;
-  virtual QRectF boundingRect() const = 0 Q_DECL_OVERRIDE;
+// Graphics
+  QRectF boundingRect() const Q_DECL_OVERRIDE;
 
  protected:
-  virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                     QWidget *widget) = 0 Q_DECL_OVERRIDE;
-
-  virtual QVariant itemChange(GraphicsItemChange change,
-                              const QVariant &value) Q_DECL_OVERRIDE;
-
-  uint32_t id_;
-  complex<double> inputV_;
-  complex<double> inputSg_;
-  complex<double> inputSl_;
-
-  complex<double> outputV_;
-  complex<double> outputSg_;
+  void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+             QWidget *widget) Q_DECL_OVERRIDE;
 
  private:
-  QList<PnLine *> lines_;
-  PnInfoBox *infobox_;
+  QList<PnLine *> lines;
 };
 
 #endif  // PNBAR_H

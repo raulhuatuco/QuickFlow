@@ -35,6 +35,8 @@ Makefile*
 
 # binaries
 build*/
+Release/
+Debug/
 
 # backup files
 ~*

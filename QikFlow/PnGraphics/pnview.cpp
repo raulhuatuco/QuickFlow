@@ -3,8 +3,6 @@
 #include <QColor>
 #include <QBrush>
 
-#include "PnGraphics/pninfobox.h"
-
 PnView::PnView(QWidget *parent) : QGraphicsView(parent), pnNetwork_(NULL) {
   setDragMode(RubberBandDrag);
 }
