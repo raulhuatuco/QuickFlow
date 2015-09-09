@@ -6,6 +6,8 @@
 #include <QStandardPaths>
 #include <QValidator>
 
+#include "unit.h"
+
 /*******************************************************************************
  * WindowNewProject
  ******************************************************************************/
@@ -22,27 +24,23 @@ NewProject::NewProject(QWidget *parent)
   ui->powerBase->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
 
   // Populate comboboxes.
-  ui->lengthUnit->addItem("m", 1.0);
-  ui->lengthUnit->addItem("km", 1.0e3);
-  ui->lengthUnit->addItem("in", 39.3701);
-  ui->lengthUnit->addItem("ft", 3.28084);
-  ui->lengthUnit->addItem("mile", 0.000621371);
+  ui->lengthUnit->addItem("m", qVariantFromValue(Unit::kMeter));
+  ui->lengthUnit->addItem("km", qVariantFromValue(Unit::kKiloMeter));
+  ui->lengthUnit->addItem("ft", qVariantFromValue(Unit::kFeet));
+  ui->lengthUnit->addItem("mile", qVariantFromValue(Unit::kMile));
 
-  ui->impedanceUnit->addItem("Ohm");
-  ui->impedanceUnit->addItem("Ohm/m");
-  ui->impedanceUnit->addItem("Ohm/km");
-  ui->impedanceUnit->addItem("Ohm/in");
-  ui->impedanceUnit->addItem("Ohm/ft");
-  ui->impedanceUnit->addItem("Ohm/mile");
+  ui->impedanceUnit->addItem("Ohm", qVariantFromValue(Unit::kOhm));
+  ui->impedanceUnit->addItem("Ohm/m", qVariantFromValue(Unit::kOhmPerMeter));
+  ui->impedanceUnit->addItem("Ohm/km", qVariantFromValue(Unit::kOhmPerKilometer));
+  ui->impedanceUnit->addItem("Ohm/ft", qVariantFromValue(Unit::kOhmPerFeet));
+  ui->impedanceUnit->addItem("Ohm/mile", qVariantFromValue(Unit::kOhmPerMile));
 
-  ui->voltageUnit->addItem("V", 1.0);
-  ui->voltageUnit->addItem("kV", 1.0e3);
-  ui->voltageUnit->addItem("MV", 1.0e6);
+  ui->voltageUnit->addItem("V", qVariantFromValue(Unit::kVolts));
+  ui->voltageUnit->addItem("kV", qVariantFromValue(Unit::kKiloVolts));
 
-  ui->powerUnit->addItem("VA", 1.0);
-  ui->powerUnit->addItem("kVA", 1.0e3);
-  ui->powerUnit->addItem("MVA", 1.0e6);
-  ui->powerUnit->addItem("GVA", 1.0e9);
+  ui->powerUnit->addItem("VA", qVariantFromValue(Unit::kVA));
+  ui->powerUnit->addItem("kVA", qVariantFromValue(Unit::kKiloVA));
+  ui->powerUnit->addItem("MVA", qVariantFromValue(Unit::kMegaVa));
 }
 
 /*******************************************************************************
@@ -144,6 +142,20 @@ void NewProject::on_buttonBox_accepted() {
     ui->powerBase->setFocus();
     return;
   }
+
+  dataName = ui->name->text();
+  dataPath = ui->path->text();
+
+  dataMaxIterations = ui->maxIterations->text().toUInt();
+  dataMinError = ui->minError->text().toDouble();
+  dataVoltageBase = ui->voltageBase->text().toDouble();
+  dataPowerBase = ui->powerBase->text().toDouble();
+
+  dataLengthUnit = ui->lengthUnit->currentData().value<Unit::LengthUnit>();
+  dataImpedanceUnit =
+    ui->impedanceUnit->currentData().value<Unit::ImpedanceUnit>();
+  dataVoltageUnit = ui->voltageUnit->currentData().value<Unit::VoltageUnit>();
+  dataPowerUnit = ui->powerUnit->currentData().value<Unit::PowerUnit>();
 
 // Return to parent window.
   accept();

@@ -28,28 +28,28 @@ Project::~Project() {
  * maxIterations.
  ******************************************************************************/
 uint32_t Project::maxIterations() {
-  return maxIterations_;
+  return pnNetwork->maxIterations;
 }
 
 /*******************************************************************************
  * setMaxIterations.
  ******************************************************************************/
 void Project::setMaxIterations(uint32_t maxIterations) {
-  maxIterations_ = maxIterations;
+  pnNetwork->maxIterations = maxIterations;
 }
 
 /*******************************************************************************
  * minError.
  ******************************************************************************/
 double Project::minError() {
-  return minError_;
+  return pnNetwork->minError;
 }
 
 /*******************************************************************************
  * setMinError.
  ******************************************************************************/
 void Project::setMinError(double minError) {
-  minError_ = minError;
+  pnNetwork->minError = minError;
 }
 
 /*******************************************************************************
@@ -83,56 +83,56 @@ void Project::setPowerBase(double powerBase) {
 /*******************************************************************************
  * lengthUn.
  ******************************************************************************/
-double Project::lengthUn() {
+Unit::LengthUnit Project::lengthUn() {
   return pnNetwork->lengthUnit;
 }
 
 /*******************************************************************************
  * setLengthUn.
  ******************************************************************************/
-void Project::setLengthUn(double lengthUn) {
+void Project::setLengthUn(Unit::LengthUnit lengthUn) {
   pnNetwork->lengthUnit = lengthUn;
 }
 
 /*******************************************************************************
  * impedanceUn.
  ******************************************************************************/
-double Project::impedanceUn() {
+Unit::ImpedanceUnit Project::impedanceUn() {
   return pnNetwork->impedanceUnit;
 }
 
 /*******************************************************************************
  * setImpedanceUn.
  ******************************************************************************/
-void Project::setImpedanceUn(double impedanceUn) {
+void Project::setImpedanceUn(Unit::ImpedanceUnit impedanceUn) {
   pnNetwork->impedanceUnit = impedanceUn;
 }
 
 /*******************************************************************************
  * voltageUn.
  ******************************************************************************/
-double Project::voltageUn() {
+Unit::VoltageUnit Project::voltageUn() {
   return pnNetwork->voltageUnit;
 }
 
 /*******************************************************************************
  * setVoltageUn.
  ******************************************************************************/
-void Project::setVoltageUn(double voltageUn) {
+void Project::setVoltageUn(Unit::VoltageUnit voltageUn) {
   pnNetwork->voltageUnit = voltageUn;
 }
 
 /*******************************************************************************
  * powerUn.
  ******************************************************************************/
-double Project::powerUn() {
+Unit::PowerUnit Project::powerUn() {
   return pnNetwork->powerUnit;
 }
 
 /*******************************************************************************
  * setPowerUn.
  ******************************************************************************/
-void Project::setPowerUn(double powerUn) {
+void Project::setPowerUn(Unit::PowerUnit powerUn) {
   pnNetwork->powerUnit = powerUn;
 }
 
@@ -153,8 +153,6 @@ bool Project::save() {
 
   // Add project settings.
   projectJson.insert("name", name);
-  projectJson.insert("maxIterations", static_cast<int32_t> (maxIterations_));
-  projectJson.insert("minError", minError_);
 
   // Add network settings.
   projectJson.insert("voltageBase", pnNetwork->voltageBase);
@@ -163,6 +161,9 @@ bool Project::save() {
   projectJson.insert("impedanceUnit", pnNetwork->impedanceUnit);
   projectJson.insert("voltageUnit", pnNetwork->voltageUnit);
   projectJson.insert("powerUnit", pnNetwork->powerUnit);
+  projectJson.insert("maxIterations",
+                     static_cast<int32_t> (pnNetwork->maxIterations));
+  projectJson.insert("minError", pnNetwork->minError);
 
   // Creates a QJsonArray filled with Bar data.
   QJsonArray barArray;
@@ -205,8 +206,9 @@ bool Project::saveAs(QString fileName) {
 
   // Add project settings.
   projectJson.insert("name", name);
-  projectJson.insert("maxIterations", static_cast<int32_t> (maxIterations_));
-  projectJson.insert("minError", minError_);
+  projectJson.insert("maxIterations",
+                     static_cast<int32_t> (pnNetwork->maxIterations));
+  projectJson.insert("minError", pnNetwork->minError);
 
   // Add network settings.
   projectJson.insert("voltageBase", pnNetwork->voltageBase);
@@ -265,16 +267,20 @@ bool Project::load() {
 
   // Extract project info.
   name = projectJson.value("name").toString();
-  maxIterations_ = projectJson.value("maxIterations").toDouble();
-  minError_ = projectJson.value("minError").toDouble();
+  pnNetwork->maxIterations = projectJson.value("maxIterations").toDouble();
+  pnNetwork->minError = projectJson.value("minError").toDouble();
 
   // Extract network info.
   pnNetwork->voltageBase = projectJson.value("voltageBase").toDouble();
   pnNetwork->powerBase = projectJson.value("powerBase").toDouble();
-  pnNetwork->lengthUnit = projectJson.value("lengthUnit").toDouble();
-  pnNetwork->impedanceUnit = projectJson.value("impedanceUnit").toDouble();
-  pnNetwork->voltageUnit = projectJson.value("voltageUnit").toDouble();
-  pnNetwork->powerUnit = projectJson.value("powerUnit").toDouble();
+  pnNetwork->lengthUnit =
+    static_cast<Unit::LengthUnit> (projectJson.value("lengthUnit").toInt());
+  pnNetwork->impedanceUnit =
+    static_cast<Unit::ImpedanceUnit> (projectJson.value("impedanceUnit").toInt());
+  pnNetwork->voltageUnit =
+    static_cast<Unit::VoltageUnit> (projectJson.value("voltageUnit").toInt());
+  pnNetwork->powerUnit =
+    static_cast<Unit::PowerUnit> (projectJson.value("powerUnit").toInt());
 
   // Extract Bar data from a QJsonArray.
   QJsonArray barArray(projectJson.value("barArray").toArray());

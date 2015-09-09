@@ -5,6 +5,8 @@
 #include <QString>
 #include <QDir>
 
+#include "unit.h"
+
 namespace Ui {
 class NewProject;
 }
@@ -16,7 +18,18 @@ class NewProject : public QDialog {
   explicit NewProject(QWidget *parent = 0);
   ~NewProject();
 
-  Ui::NewProject *ui;
+  QString dataName;
+  QString dataPath;
+
+  u_int32_t dataMaxIterations;
+  double dataMinError;
+  double dataVoltageBase;
+  double dataPowerBase;
+
+  Unit::LengthUnit dataLengthUnit;
+  Unit::ImpedanceUnit dataImpedanceUnit;
+  Unit::VoltageUnit dataVoltageUnit;
+  Unit::PowerUnit dataPowerUnit;
 
  private slots:
   void on_name_textChanged(const QString &arg1);
@@ -30,6 +43,7 @@ class NewProject : public QDialog {
   void on_buttonBox_rejected();
 
  private:
+  Ui::NewProject *ui;
 };
 
 #endif  // WINDOWNEWPROJECT_H

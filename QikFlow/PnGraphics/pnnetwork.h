@@ -5,6 +5,8 @@
 #include <QGraphicsObject>
 #include <QMap>
 
+#include "unit.h"
+
 #include "PnGraphics/pnbar.h"
 #include "PnGraphics/pnline.h"
 
@@ -13,14 +15,17 @@ class PnNetwork : public QGraphicsScene {
   PnNetwork();
   ~PnNetwork();
 
+  uint32_t maxIterations;
+  double minError;
+
   double voltageBase;
   double powerBase;
   double currentBase;
 
-  double lengthUnit;
-  double impedanceUnit;
-  double voltageUnit;
-  double powerUnit;
+  Unit::LengthUnit lengthUnit;
+  Unit::ImpedanceUnit impedanceUnit;
+  Unit::VoltageUnit voltageUnit;
+  Unit::PowerUnit powerUnit;
 
   QMap<uint32_t, PnBar *> barMap;
   QMap<uint32_t, PnLine *> lineIMap;

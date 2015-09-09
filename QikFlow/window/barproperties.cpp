@@ -87,43 +87,20 @@ void BarProperties::setBar(PnBar *bar, bool newBar) {
 /*******************************************************************************
  * setUnit.
  ******************************************************************************/
-void BarProperties::setUnit(double voltageUnit, double powerUnit) {
-  if (voltageUnit <= 1.1) {
-    ui->VaUn->setText(tr("[V]"));
-    ui->VbUn->setText(tr("[V]"));
-    ui->VcUn->setText(tr("[V]"));
-  } else if (voltageUnit <= 1.1e3) {
-    ui->VaUn->setText(tr("[kV]"));
-    ui->VbUn->setText(tr("[kV]"));
-    ui->VcUn->setText(tr("[kV]"));
-  } else if (voltageUnit <= 1.1e6) {
-    ui->VaUn->setText(tr("[MV]"));
-    ui->VbUn->setText(tr("[MV]"));
-    ui->VcUn->setText(tr("[MV]"));
-  }
+void BarProperties::setUnit(Unit::VoltageUnit voltageUnit,
+                            Unit::PowerUnit powerUnit) {
+  // Voltage.
+  ui->VaUn->setText(tr("[") + Unit::voltageUnitToStr(voltageUnit) + tr("]"));
+  ui->VbUn->setText(tr("[") + Unit::voltageUnitToStr(voltageUnit) + tr("]"));
+  ui->VcUn->setText(tr("[") + Unit::voltageUnitToStr(voltageUnit) + tr("]"));
 
-  if (powerUnit <= 1.1) {
-    ui->SgaUn->setText("[VA]");
-    ui->SlaUn->setText("[VA]");
-    ui->SgbUn->setText("[VA]");
-    ui->SlbUn->setText("[VA]");
-    ui->SgcUn->setText("[VA]");
-    ui->SlcUn->setText("[VA]");
-  } else if (powerUnit <= 1.1e3) {
-    ui->SgaUn->setText("[kVA]");
-    ui->SlaUn->setText("[kVA]");
-    ui->SgbUn->setText("[kVA]");
-    ui->SlbUn->setText("[kVA]");
-    ui->SgcUn->setText("[kVA]");
-    ui->SlcUn->setText("[kVA]");
-  } else if (powerUnit <= 1.1e6) {
-    ui->SgaUn->setText("[MVA]");
-    ui->SlaUn->setText("[MVA]");
-    ui->SgbUn->setText("[MVA]");
-    ui->SlbUn->setText("[MVA]");
-    ui->SgcUn->setText("[MVA]");
-    ui->SlcUn->setText("[MVA]");
-  }
+  // Power.
+  ui->SgaUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
+  ui->SlaUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
+  ui->SgbUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
+  ui->SlbUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
+  ui->SgcUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
+  ui->SlcUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
 }
 
 /*******************************************************************************

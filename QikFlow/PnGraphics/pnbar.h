@@ -20,7 +20,7 @@ class PnBar : public QGraphicsObject {
 
  public:
   static const uint32_t kInvalidId = 0xFFFFFFFFU;
-  static const uint32_t kIconSize = 15;
+  static const int32_t kIconSize = 15;
 
   PnBar();
   ~PnBar();

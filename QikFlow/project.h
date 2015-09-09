@@ -4,6 +4,8 @@
 #include <QString>
 #include <QJsonObject>
 
+#include "unit.h"
+
 #include "PnGraphics/pnnetwork.h"
 #include "PnGraphics/pnbar.h"
 #include "PnGraphics/pnline.h"
@@ -28,23 +30,20 @@ class Project {
   void setVoltageBase(double voltageBase);
   double powerBase();
   void setPowerBase(double powerBase);
-  double lengthUn();
-  void setLengthUn(double lengthUn);
-  double impedanceUn();
-  void setImpedanceUn(double impedanceUn);
-  double voltageUn();
-  void setVoltageUn(double voltageUn);
-  double powerUn();
-  void setPowerUn(double powerUn);
+  Unit::LengthUnit lengthUn();
+  void setLengthUn(Unit::LengthUnit lengthUn);
+  Unit::ImpedanceUnit impedanceUn();
+  void setImpedanceUn(Unit::ImpedanceUnit impedanceUn);
+  Unit::VoltageUnit voltageUn();
+  void setVoltageUn(Unit::VoltageUnit voltageUn);
+  Unit::PowerUnit powerUn();
+  void setPowerUn(Unit::PowerUnit powerUn);
 
   bool save();
   bool saveAs(QString fileName);
   bool load();
 
  private:
-  uint32_t maxIterations_;
-  double minError_;
-
   QJsonObject barToJson(PnBar *bar);
   PnBar *barFromJson(QJsonObject &jsonBar);
   QJsonObject lineToJson(PnLine *line);

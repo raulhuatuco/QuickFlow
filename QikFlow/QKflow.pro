@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     project.cpp \
     window/lineproperties.cpp \
     window/newproject.cpp \
-    window/barproperties.cpp
+    window/barproperties.cpp \
+    unit.cpp
 
 HEADERS  += qkflow.h \
     PnGraphics/pnbar.h \
@@ -31,7 +32,8 @@ HEADERS  += qkflow.h \
     project.h \
     window/lineproperties.h \
     window/newproject.h \
-    window/barproperties.h
+    window/barproperties.h \
+    unit.h
 
 FORMS    += qkflow.ui \
     window/lineproperties.ui \

@@ -46,6 +46,8 @@ class QKflow : public QMainWindow {
 
   void on_actionAddBar_triggered();
 
+  void on_actionAddLine_triggered();
+
  protected:
   void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 

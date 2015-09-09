@@ -1,0 +1,93 @@
+#include "unit.h"
+
+QString Unit::lengthUnitToStr(LengthUnit lengthUnit) {
+  switch (lengthUnit) {
+  case kMeter:
+    return "m";
+    break;
+
+  case kKiloMeter:
+    return "km";
+    break;
+
+  case kFeet:
+    return "ft";
+    break;
+
+  case kMile:
+    return "mi";
+    break;
+
+  default:
+    return "Unknow";
+    break;
+  }
+}
+
+
+QString Unit::impedanceUnitToStr(ImpedanceUnit impedanceUnit) {
+  switch (impedanceUnit) {
+  case kOhm:
+    return "ohm";
+    break;
+
+  case kOhmPerMeter:
+    return "ohm/m";
+    break;
+
+  case kOhmPerKilometer:
+    return "ohm/km";
+    break;
+
+  case kOhmPerFeet:
+    return "ohm/ft";
+    break;
+
+  case kOhmPerMile:
+    return "ohm/mi";
+    break;
+
+  default:
+    return "Unknow";
+    break;
+  }
+}
+
+
+QString Unit::powerUnitToStr(PowerUnit powerUnit) {
+  switch (powerUnit) {
+  case kVA:
+    return "VA";
+    break;
+
+  case kKiloVA:
+    return "kVA";
+    break;
+
+  case kMegaVa:
+    return "MVA";
+    break;
+
+  default:
+    return "Unknow";
+    break;
+  }
+}
+
+
+
+QString Unit::voltageUnitToStr(VoltageUnit voltageUnit) {
+  switch (voltageUnit) {
+  case kVolts:
+    return "V";
+    break;
+
+  case kKiloVolts:
+    return "kV";
+    break;
+
+  default:
+    return "Unknow";
+    break;
+  }
+}

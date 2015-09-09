@@ -5,20 +5,21 @@
 #include <QPainter>
 
 PnLine::PnLine() :
-  Zaa(0,0),
-  Zab(0,0),
-  Zac(0,0),
-  Zan(0,0),
-  Zbb(0,0),
-  Zbc(0,0),
-  Zbn(0,0),
-  Zcc(0,0),
-  Zcn(0,0),
-  Znn(0,0),
+  Zaa(qInf(),qInf()),
+  Zab(qInf(),qInf()),
+  Zac(qInf(),qInf()),
+  Zan(qInf(),qInf()),
+  Zbb(qInf(),qInf()),
+  Zbc(qInf(),qInf()),
+  Zbn(qInf(),qInf()),
+  Zcc(qInf(),qInf()),
+  Zcn(qInf(),qInf()),
+  Znn(qInf(),qInf()),
   Ia(0,0),
   Ib(0,0),
   Ic(0,0),
   In(0,0),
+  length(0),
   noI_(NULL),
   noF_(NULL) {
   setFlag(ItemIsSelectable);

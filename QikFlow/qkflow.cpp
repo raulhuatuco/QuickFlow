@@ -12,9 +12,8 @@
 #include "PnGraphics/pnnetwork.h"
 
 #include "window/newproject.h"
-#include "ui_newproject.h"
-
 #include "window/barproperties.h"
+#include "window/lineproperties.h"
 
 QString const kVersion = "0.0.3";
 
@@ -88,6 +87,7 @@ void QKflow::noProjectInterface() {
   ui->actionSave->setEnabled(false);
   ui->actionSave_as->setEnabled(false);
   ui->actionClose->setEnabled(false);
+  ui->actionSettings->setEnabled(false);
 
   // Simulation actions.
   ui->actionPause->setEnabled(false);
@@ -117,6 +117,7 @@ void QKflow::workInterface() {
   ui->actionSave->setEnabled(false);
   ui->actionSave_as->setEnabled(true);
   ui->actionClose->setEnabled(true);
+  ui->actionSettings->setEnabled(true);
 
   // Simulation actions.
   ui->actionPause->setEnabled(true);
@@ -199,30 +200,36 @@ void QKflow::on_actionNew_triggered() {
 
   // Open New Project window and gather the project settings.
   // NOTE: windowNewProject MUST provide valid data.
-  NewProject *windowNewProject = new NewProject(this);
+  NewProject *newProject = new NewProject(this);
 
   // If canceled return
-  if (windowNewProject->exec() != QDialog::Accepted) {
-    delete windowNewProject;
+  if (newProject->exec() != QDialog::Accepted) {
+    delete newProject;
     return;
   }
 
   // Create project object and fill settings.
   project = new Project;
-  project->name =windowNewProject->ui->name->text();
-  project->filepath = windowNewProject->ui->path->text() + QDir::separator() +
-                      windowNewProject->ui->name->text() + ".qkflow";
-  project->setMaxIterations(windowNewProject->ui->maxIterations->text().toUInt());
-  project->setMinError(windowNewProject->ui->minError->text().toDouble());
-  project->setVoltageBase(windowNewProject->ui->voltageBase->text().toDouble());
-  project->setPowerBase(windowNewProject->ui->powerBase->text().toDouble());
+  project->name = newProject->dataName;
+  project->filepath = newProject->dataPath + QDir::separator() +
+                      newProject->dataName + ".qkflow";
+
+  // Simulation data.
+  project->setMaxIterations(newProject->dataMaxIterations);
+  project->setMinError(newProject->dataMinError);
+  project->setVoltageBase(newProject->dataVoltageBase);
+  project->setPowerBase(newProject->dataPowerBase);
+
+  // Units.
   project->setLengthUn(
-    windowNewProject->ui->lengthUnit->currentData().toDouble());
+    newProject->dataLengthUnit);
+
   project->setImpedanceUn(
-    windowNewProject->ui->impedanceUnit->currentData().toDouble());
+    newProject->dataImpedanceUnit);
   project->setVoltageUn(
-    windowNewProject->ui->voltageUnit->currentData().toDouble());
-  project->setPowerUn(windowNewProject->ui->powerUnit->currentData().toDouble());
+    newProject->dataVoltageUnit);
+  project->setPowerUn(
+    newProject->dataPowerUnit);
 
   // Try to save project.
   bool save_ok =
@@ -233,20 +240,20 @@ void QKflow::on_actionNew_triggered() {
                           "Cannot write .qkflow file.", QMessageBox::Ok);
     delete project;
     project = NULL;
-    delete windowNewProject;
+    delete newProject;
     return;
   }
 
   // New project is Ok
   // Change window title to indicate that the project is open
-  setWindowTitle("QkFlow - " + windowNewProject->ui->name->text());
+  setWindowTitle("QkFlow - " + newProject->dataName);
   // Enable interface
   workInterface();
   // Set screne
   ui->pnView->setPnNetwork(project->pnNetwork);
 
   // Delete window
-  delete windowNewProject;
+  delete newProject;
 }
 
 /*******************************************************************************
@@ -298,7 +305,6 @@ void QKflow::on_actionOpen_triggered() {
 
   // Set screne.
   ui->pnView->setPnNetwork(project->pnNetwork);
-  ui->pnView->update();
 }
 
 /*******************************************************************************
@@ -424,19 +430,38 @@ void QKflow::on_actionAddBar_triggered() {
   // Create a new bar that will be used by bar properties window.
   PnBar *bar = new PnBar;
 
-  BarProperties *windowBarProperties = new BarProperties(this);
-  windowBarProperties->setBar(bar, true);
-  windowBarProperties->setUnit(project->pnNetwork->voltageUnit,
-                               project->pnNetwork->powerUnit);
+  BarProperties *barProperties = new BarProperties(this);
+  barProperties->setBar(bar, true);
+  barProperties->setUnit(project->pnNetwork->voltageUnit,
+                         project->pnNetwork->powerUnit);
 
-  if (windowBarProperties->exec() == QDialog::Accepted) {
+  if (barProperties->exec() == QDialog::Accepted) {
     setAltered(true);
     project->pnNetwork->addBar(bar);
   } else {
     delete bar;
   }
 
-  delete windowBarProperties;
+  delete barProperties;
+}
+
+/*******************************************************************************
+ * Action Add Line triggered.
+ ******************************************************************************/
+void QKflow::on_actionAddLine_triggered() {
+  PnLine *line = new PnLine;
+
+  LineProperties lineProperties(this);
+  lineProperties.setLine(line, true);
+  lineProperties.setBarMap(project->pnNetwork->barMap);
+  lineProperties.setUnit(project->lengthUn(), project->impedanceUn());
+
+  if (lineProperties.exec() == QDialog::Accepted) {
+    setAltered(true);
+    project->pnNetwork->addLine(line);
+  } else {
+    delete line;
+  }
 }
 
 /*******************************************************************************

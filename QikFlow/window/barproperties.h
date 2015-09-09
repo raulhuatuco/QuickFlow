@@ -3,7 +3,8 @@
 
 #include <QDialog>
 
-#include <PnGraphics/pnbar.h>
+#include "unit.h"
+#include "PnGraphics/pnbar.h"
 
 namespace Ui {
 class BarProperties;
@@ -17,7 +18,7 @@ class BarProperties : public QDialog {
   ~BarProperties();
 
   void setBar(PnBar *bar, bool newBar);
-  void setUnit(double voltageUnit, double powerUnit);
+  void setUnit(Unit::VoltageUnit voltageUnit, Unit::PowerUnit powerUnit);
 
  private slots:
   void on_buttonBox_accepted();

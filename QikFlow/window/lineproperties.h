@@ -2,6 +2,12 @@
 #define LINEPROPERTIES_H
 
 #include <QDialog>
+#include <QMap>
+
+#include "unit.h"
+
+#include "PnGraphics/pnline.h"
+#include "PnGraphics/pnbar.h"
 
 namespace Ui {
 class LineProperties;
@@ -14,8 +20,19 @@ class LineProperties : public QDialog {
   explicit LineProperties(QWidget *parent = 0);
   ~LineProperties();
 
- private:
   Ui::LineProperties *ui;
+
+  void setLine(PnLine *line, bool newLine);
+  void setBarMap(QMap<uint32_t, PnBar *> &barMap);
+  void setUnit(Unit::LengthUnit lengthUnit, Unit::ImpedanceUnit impedanceUnit);
+
+ private slots:
+  void on_buttonBox_accepted();
+
+  void on_buttonBox_rejected();
+
+ private:
+  PnLine *line_;
 };
 
 #endif // LINEPROPERTIES_H
