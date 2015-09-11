@@ -1,5 +1,7 @@
 #include "pnnetwork.h"
 
+#include <QStack>
+
 /*******************************************************************************
  * PnNetwork.
  ******************************************************************************/
@@ -78,4 +80,51 @@ PnLine *PnNetwork::getLineByNodes(uint32_t noI, uint32_t noF)
         return line;
   }
   return NULL;
+}
+
+/*******************************************************************************
+ * redrawAlgorithm1.
+ ******************************************************************************/
+void PnNetwork::redrawAlgorithm1()
+{
+  double dx = 100;
+  double dy = 0;
+  double px = 0;
+  double py = 0;
+
+  QStack<PnBar *> stack;
+  stack.push(getBarById(0));
+
+  int32_t cnt = 0;
+  int32_t layer = 0;
+  while(cnt < barMap.size()) {
+    // Set current pos.
+
+    do {
+      PnBar *current = stack.pop();
+      current->setPos(px,py);
+
+      switch (current->lines.size()) {
+      case 1:
+        py += 0;
+        break;
+
+      case 2:
+        py += -200;
+        dy = 400;
+        break;
+
+      case 3:
+        py = -200;
+        dy = 200;
+        break;
+
+      default:
+        continue;
+        break;
+      }
+
+    } while(!stack.isEmpty());
+  }
+
 }

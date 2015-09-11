@@ -42,6 +42,8 @@ public:
   PnBar *getBarById(uint32_t id);
   PnLine *getLineByNodes(uint32_t noI, uint32_t noF);
 
+  void redrawAlgorithm1();
+
 signals:
   void barProperties(QObject *);
   void lineProperties(QObject *);

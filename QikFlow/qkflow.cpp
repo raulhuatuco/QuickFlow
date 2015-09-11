@@ -678,14 +678,14 @@ bool QKflow::import1(QString &fileName)
 //------------------------------------------------------------------------------
   QTextStream stream(&qfile); // Text stream used to read lines.
   int32_t lineCnt = 0; // Current line counter, used to report errors.
-  QString line; // Line text.
+  QString lineTxt; // Line text.
   QString dummy; // Use to dump useless data.
 
 // Read Number of bars.
 //------------------------------------------------------------------------------
   // Loop until NumBarras is found or EoF.
   do {
-    line = stream.readLine();
+    lineTxt = stream.readLine();
     lineCnt++;
 
     if(stream.atEnd()) {
@@ -694,7 +694,7 @@ bool QKflow::import1(QString &fileName)
                             QMessageBox::Ok);
       return false;
     }
-  } while(!line.contains("NumBarras"));
+  } while(!lineTxt.contains("NumBarras"));
 
   // Get Number of bars.
   uint32_t numBar;
@@ -707,7 +707,7 @@ bool QKflow::import1(QString &fileName)
 //------------------------------------------------------------------------------
   // Loop until NumLinhas is found or EoF.
   do {
-    line = stream.readLine();
+    lineTxt = stream.readLine();
     lineCnt++;
 
     if(stream.atEnd()) {
@@ -716,7 +716,7 @@ bool QKflow::import1(QString &fileName)
                             QMessageBox::Ok);
       return false;
     }
-  } while(!line.contains("NumLinhas"));
+  } while(!lineTxt.contains("NumLinhas"));
 
   // Get Number of lines.
   uint32_t numLine;
@@ -728,7 +728,7 @@ bool QKflow::import1(QString &fileName)
 // Get Base Voltage.
 //------------------------------------------------------------------------------
   do {
-    line = stream.readLine();
+    lineTxt = stream.readLine();
     lineCnt++;
 
     if(stream.atEnd()) {
@@ -737,7 +737,7 @@ bool QKflow::import1(QString &fileName)
                             QMessageBox::Ok);
       return false;
     }
-  } while(!line.contains("Voltagem_base_da_rede"));
+  } while(!lineTxt.contains("Voltagem_base_da_rede"));
 
   // Get VBase.
   double VBase;
@@ -752,7 +752,7 @@ bool QKflow::import1(QString &fileName)
 // Get Length Unit.
 //------------------------------------------------------------------------------
   do {
-    line = stream.readLine();
+    lineTxt = stream.readLine();
     lineCnt++;
 
     if(stream.atEnd()) {
@@ -761,7 +761,7 @@ bool QKflow::import1(QString &fileName)
                             QMessageBox::Ok);
       return false;
     }
-  } while(!line.contains("comprimento_das_linhas"));
+  } while(!lineTxt.contains("comprimento_das_linhas"));
 
   // Get Length Unit.
   uint32_t LenUn;
@@ -797,7 +797,7 @@ bool QKflow::import1(QString &fileName)
 // Get Impedance Unit.
 //------------------------------------------------------------------------------
   do {
-    line = stream.readLine();
+    lineTxt = stream.readLine();
     lineCnt++;
 
     if(stream.atEnd()) {
@@ -806,7 +806,7 @@ bool QKflow::import1(QString &fileName)
                             QMessageBox::Ok);
       return false;
     }
-  } while(!line.contains("impedancia"));
+  } while(!lineTxt.contains("impedancia"));
 
   // Get Impedance Unit.
   uint32_t ImpUn;
@@ -846,7 +846,7 @@ bool QKflow::import1(QString &fileName)
 // Get power Unit.
 //------------------------------------------------------------------------------
   do {
-    line = stream.readLine();
+    lineTxt = stream.readLine();
     lineCnt++;
 
     if(stream.atEnd()) {
@@ -855,7 +855,7 @@ bool QKflow::import1(QString &fileName)
                             QMessageBox::Ok);
       return false;
     }
-  } while(!line.contains("Demanda"));
+  } while(!lineTxt.contains("Demanda"));
 
   // Get power Unit.
   uint32_t powerUn;
@@ -891,7 +891,7 @@ bool QKflow::import1(QString &fileName)
 // Get Base Power.
 //------------------------------------------------------------------------------
   do {
-    line = stream.readLine();
+    lineTxt = stream.readLine();
     lineCnt++;
 
     if(stream.atEnd()) {
@@ -900,7 +900,7 @@ bool QKflow::import1(QString &fileName)
                             QMessageBox::Ok);
       return false;
     }
-  } while(!line.contains("kVA    kV_hihg "));
+  } while(!lineTxt.contains("kVA    kV_hihg "));
 
   // Get PBase.
   double PBase;
@@ -915,7 +915,7 @@ bool QKflow::import1(QString &fileName)
 // Get Bars.
 //------------------------------------------------------------------------------
   do {
-    line = stream.readLine();
+    lineTxt = stream.readLine();
     lineCnt++;
 
     if(stream.atEnd()) {
@@ -924,7 +924,7 @@ bool QKflow::import1(QString &fileName)
                             QMessageBox::Ok);
       return false;
     }
-  } while(!line.contains("[n"));
+  } while(!lineTxt.contains("[n"));
 
   uint32_t id;
   double Sla, Slai;
@@ -936,14 +936,14 @@ bool QKflow::import1(QString &fileName)
 
   PnBar *bar;
 
-  for(int i=0; i<numBar; i++) {
-    line = stream.readLine();
+  for(uint32_t i=0; i<numBar; i++) {
+    lineTxt = stream.readLine();
     lineCnt++;
 
     stream >> id >> dummy >> Sla >> Slai >> Slb >> Slbi >> Slc >> Slci;
     stream >> Sga >> Sgai >> Sgb >> Sgbi >> Sgc >>Sgci;
     bar = new PnBar;
-    bar->id = id;
+    bar->id = id - 1;
     bar->Sga.real(Sga);
     bar->Sga.imag(Sgai);
     bar->Sgb.real(Sgb);
@@ -962,14 +962,92 @@ bool QKflow::import1(QString &fileName)
                             "Invalid Bar " + QString::number(id) + "at line " +
                             QString::number(lineCnt) + ".",
                             QMessageBox::Ok);
+      delete bar;
       return false;
     }
   }
 
+// Get Lines.
+//------------------------------------------------------------------------------
+  do {
+    lineTxt = stream.readLine();
+    lineCnt++;
+
+    if(stream.atEnd()) {
+      QMessageBox::critical(this, "Invalid File.",
+                            "The file " + fileName + " is invalid.",
+                            QMessageBox::Ok);
+      return false;
+    }
+  } while(!lineTxt.contains("Tipo_Cir"));
+
+  uint32_t noI, noF;
+  double Zaa, Zaai;
+  double Zab, Zabi;
+  double Zac, Zaci;
+  double Zan, Zani;
+  double Zbb, Zbbi;
+  double Zbc, Zbci;
+  double Zbn, Zbni;
+  double Zcc, Zcci;
+  double Zcn, Zcni;
+  double Znn, Znni;
+  double length;
+
+  PnLine *line;
+
+  for(uint32_t i=0; i<numBar; i++) {
+    lineTxt = stream.readLine();
+    lineCnt++;
+
+    stream >> dummy >> noI >> noF >> Zaa >> Zaai >> Zab >> Zabi >> Zac;
+    stream >> Zaci >> Zan >> Zani >> Zbb >> Zbbi >> Zbc >> Zbci >> Zbn >> Zbni;
+    stream >> Zcc >> Zcci >> Zcn >> Zcni >> Znn >> Znni >> dummy >> length;
+
+    line = new PnLine;
+    line->setNodes(project->pnNetwork->getBarById(noI - 1),
+                   project->pnNetwork->getBarById(noF - 1));
+
+    line->length = length;
+    line->Zaa.real(Zaa);
+    line->Zaa.imag(Zaai);
+    line->Zab.real(Zab);
+    line->Zab.imag(Zabi);
+    line->Zac.real(Zac);
+    line->Zac.imag(Zaci);
+    line->Zan.real(Zan);
+    line->Zan.imag(Zani);
+    line->Zbb.real(Zbb);
+    line->Zbb.imag(Zbbi);
+    line->Zbc.real(Zbc);
+    line->Zbc.imag(Zbci);
+    line->Zbn.real(Zbn);
+    line->Zbn.imag(Zbni);
+    line->Zcc.real(Zcc);
+    line->Zcc.imag(Zcci);
+    line->Zcn.real(Zcn);
+    line->Zcn.imag(Zcni);
+    line->Znn.real(Znn);
+    line->Znn.imag(Znni);
+
+    if (!project->pnNetwork->addLine(line)) {
+      QMessageBox::critical(this, "Invalid Line.",
+                            "Invalid Line at line " +
+                            QString::number(lineCnt) + ".",
+                            QMessageBox::Ok);
+      delete line;
+      return false;
+    }
+  }
+
+  project->pnNetwork->redrawAlgorithm1();
+
   qfile.close();
+  return true;
 }
 
 bool QKflow::import2(QString &fileName)
 {
-
+  Q_UNUSED(fileName);
+  return false;
 }

@@ -65,6 +65,7 @@ public:
   complex<double> rIc();
 
   // Lines
+  QList<PnLine *> lines;
   void addLine(PnLine *line);
   void removeLine(PnLine *line);
   void removeLines();
@@ -84,7 +85,6 @@ protected:
              QWidget *widget) Q_DECL_OVERRIDE;
 
 private:
-  QList<PnLine *> lines;
   PnInfoBar *pnInfoBar_;
 
   void drawSlack(QPainter *painter);
