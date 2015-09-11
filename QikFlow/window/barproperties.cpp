@@ -9,7 +9,8 @@
  ******************************************************************************/
 BarProperties::BarProperties(QWidget *parent) :
   QDialog(parent),
-  ui(new Ui::BarProperties) {
+  ui(new Ui::BarProperties)
+{
   ui->setupUi(this);
 
   // Create input validators.
@@ -41,14 +42,16 @@ BarProperties::BarProperties(QWidget *parent) :
 /*******************************************************************************
  * ~WindowBarProperties.
  ******************************************************************************/
-BarProperties::~BarProperties() {
+BarProperties::~BarProperties()
+{
   delete ui;
 }
 
 /*******************************************************************************
  * setBar.
  ******************************************************************************/
-void BarProperties::setBar(PnBar *bar, bool newBar) {
+void BarProperties::setBar(PnBar *bar, bool newBar)
+{
   // Adjust apearance according to bar.
   if (newBar) {
     setWindowTitle(tr("New Bar"));
@@ -88,7 +91,8 @@ void BarProperties::setBar(PnBar *bar, bool newBar) {
  * setUnit.
  ******************************************************************************/
 void BarProperties::setUnit(Unit::VoltageUnit voltageUnit,
-                            Unit::PowerUnit powerUnit) {
+                            Unit::PowerUnit powerUnit)
+{
   // Voltage.
   ui->VaUn->setText(tr("[") + Unit::voltageUnitToStr(voltageUnit) + tr("]"));
   ui->VbUn->setText(tr("[") + Unit::voltageUnitToStr(voltageUnit) + tr("]"));
@@ -106,7 +110,8 @@ void BarProperties::setUnit(Unit::VoltageUnit voltageUnit,
 /*******************************************************************************
  * Botton Box Accepted.
  ******************************************************************************/
-void BarProperties::on_buttonBox_accepted() {
+void BarProperties::on_buttonBox_accepted()
+{
   // Check for empty fields.
   // Voltages.
   // Real Part.
@@ -287,7 +292,10 @@ void BarProperties::on_buttonBox_accepted() {
   bar_->Slc.imag(ui->Slci->text().toDouble());
 
   // Position
-  bar_->setPos(ui->px->text().toDouble(), ui->py->text().toDouble());
+  if((ui->px->text().toDouble() != bar_->x()) ||
+      (ui->py->text().toDouble() != bar_->y())) {
+    bar_->setPos(ui->px->text().toDouble(), ui->py->text().toDouble());
+  }
 
   accept();
 }
@@ -295,6 +303,7 @@ void BarProperties::on_buttonBox_accepted() {
 /*******************************************************************************
  * Botton Box Rejected.
  ******************************************************************************/
-void BarProperties::on_buttonBox_rejected() {
+void BarProperties::on_buttonBox_rejected()
+{
   reject();
 }

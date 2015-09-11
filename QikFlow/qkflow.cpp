@@ -3,9 +3,11 @@
 
 #include <QMessageBox>
 #include <QDir>
+#include <QFile>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QStandardPaths>
+#include <QTextStream>
 
 #include "PnGraphics/pnbar.h"
 #include "PnGraphics/pnline.h"
@@ -18,13 +20,14 @@
 QString const kVersion = "0.0.3";
 
 /*******************************************************************************
- * QKflow
+ * QKflow.
  ******************************************************************************/
 QKflow::QKflow(QWidget *parent)
   : QMainWindow(parent),
     ui(new Ui::QKflow),
     project(NULL),
-    altered_ (false) {
+    altered_ (false)
+{
   // Set-up user interface.
   ui->setupUi(this);
 
@@ -54,23 +57,26 @@ QKflow::QKflow(QWidget *parent)
 }
 
 /*******************************************************************************
- * ~QKflow
+ * ~QKflow.
  ******************************************************************************/
-QKflow::~QKflow() {
+QKflow::~QKflow()
+{
   delete ui;
 }
 
 /*******************************************************************************
- * isAltered
+ * isAltered.
  ******************************************************************************/
-bool QKflow::isAltered() {
+bool QKflow::isAltered()
+{
   return altered_;
 }
 
 /*******************************************************************************
- * setAltered
+ * setAltered.
  ******************************************************************************/
-void QKflow::setAltered(bool altered) {
+void QKflow::setAltered(bool altered)
+{
   altered_ = altered;
 
   if(altered_)
@@ -78,9 +84,10 @@ void QKflow::setAltered(bool altered) {
 }
 
 /*******************************************************************************
- * noProjectInterface
+ * noProjectInterface.
  ******************************************************************************/
-void QKflow::noProjectInterface() {
+void QKflow::noProjectInterface()
+{
   // Project actions.
   ui->actionNew->setEnabled(true);
   ui->actionOpen->setEnabled(true);
@@ -104,13 +111,14 @@ void QKflow::noProjectInterface() {
   ui->actionAddLine->setEnabled(false);
 
   // Disable viewer
-//  ui->pnView->setEnabled(false);
+  ui->pnView->setEnabled(false);
 }
 
 /*******************************************************************************
- * workInterface
+ * workInterface.
  ******************************************************************************/
-void QKflow::workInterface() {
+void QKflow::workInterface()
+{
   // Project actions.
   ui->actionNew->setEnabled(true);
   ui->actionOpen->setEnabled(true);
@@ -134,13 +142,14 @@ void QKflow::workInterface() {
   ui->actionAddLine->setEnabled(true);
 
   // Enable viewer
-//  ui->pnView->setEnabled(true);
+  ui->pnView->setEnabled(true);
 }
 
 /*******************************************************************************
- * loadSettings
+ * loadSettings.
  ******************************************************************************/
-void QKflow::loadSettings() {
+void QKflow::loadSettings()
+{
   // pnView background.
   QBrush bkbrush;
   bkbrush.setColor(settings->value("pnView_background").value<QColor>());
@@ -149,9 +158,10 @@ void QKflow::loadSettings() {
 }
 
 /*******************************************************************************
- * saveSettings
+ * saveSettings.
  ******************************************************************************/
-void QKflow::saveSettings() {
+void QKflow::saveSettings()
+{
   // pnView background.
   settings->setValue("pnView_background", ui->pnView->backgroundBrush());
 
@@ -160,9 +170,10 @@ void QKflow::saveSettings() {
 }
 
 /*******************************************************************************
- * createSettings
+ * createSettings.
  ******************************************************************************/
-void QKflow::createSettings() {
+void QKflow::createSettings()
+{
   // Save version.
   settings->setValue("version", kVersion);
 
@@ -177,18 +188,44 @@ void QKflow::createSettings() {
 }
 
 /*******************************************************************************
- * upgradeSettings
+ * upgradeSettings.
  ******************************************************************************/
-void QKflow::upgradeSettings() {
+void QKflow::upgradeSettings()
+{
   // Remove everything and create a default.
   settings->clear();
   createSettings();
 }
 
 /*******************************************************************************
+ * Connect Project.
+ ******************************************************************************/
+void QKflow::connectProject()
+{
+  connect(project->pnNetwork, SIGNAL(barProperties(QObject *)), this,
+          SLOT(on_editBar(QObject *)));
+
+  connect(project->pnNetwork, SIGNAL(lineProperties(QObject *)), this,
+          SLOT(on_editLine(QObject *)));
+}
+
+/*******************************************************************************
+ * Disconnect Project.
+ ******************************************************************************/
+void QKflow::disconnectProject()
+{
+  disconnect(project->pnNetwork, SIGNAL(barProperties(QObject *)), this,
+             SLOT(on_editBar(QObject *)));
+
+  disconnect(project->pnNetwork, SIGNAL(lineProperties(QObject *)), this,
+             SLOT(on_editLine(QObject *)));
+}
+
+/*******************************************************************************
  * Action New Project triggered.
  ******************************************************************************/
-void QKflow::on_actionNew_triggered() {
+void QKflow::on_actionNew_triggered()
+{
   // Check if there is a project already opened.
   if (project != NULL) {
     // Close project
@@ -200,36 +237,30 @@ void QKflow::on_actionNew_triggered() {
 
   // Open New Project window and gather the project settings.
   // NOTE: windowNewProject MUST provide valid data.
-  NewProject *newProject = new NewProject(this);
+  NewProject newProject(this);
 
   // If canceled return
-  if (newProject->exec() != QDialog::Accepted) {
-    delete newProject;
+  if (newProject.exec() != QDialog::Accepted) {
     return;
   }
 
   // Create project object and fill settings.
   project = new Project;
-  project->name = newProject->dataName;
-  project->filepath = newProject->dataPath + QDir::separator() +
-                      newProject->dataName + ".qkflow";
+  project->name = newProject.dataName;
+  project->filepath = newProject.dataPath + QDir::separator() +
+                      newProject.dataName + ".qkflow";
 
   // Simulation data.
-  project->setMaxIterations(newProject->dataMaxIterations);
-  project->setMinError(newProject->dataMinError);
-  project->setVoltageBase(newProject->dataVoltageBase);
-  project->setPowerBase(newProject->dataPowerBase);
+  project->setMaxIterations(newProject.dataMaxIterations);
+  project->setMinError(newProject.dataMinError);
+  project->setVoltageBase(newProject.dataVoltageBase);
+  project->setPowerBase(newProject.dataPowerBase);
 
   // Units.
-  project->setLengthUn(
-    newProject->dataLengthUnit);
-
-  project->setImpedanceUn(
-    newProject->dataImpedanceUnit);
-  project->setVoltageUn(
-    newProject->dataVoltageUnit);
-  project->setPowerUn(
-    newProject->dataPowerUnit);
+  project->setLengthUn(newProject.dataLengthUnit);
+  project->setImpedanceUn(newProject.dataImpedanceUnit);
+  project->setVoltageUn(newProject.dataVoltageUnit);
+  project->setPowerUn(newProject.dataPowerUnit);
 
   // Try to save project.
   bool save_ok =
@@ -240,26 +271,26 @@ void QKflow::on_actionNew_triggered() {
                           "Cannot write .qkflow file.", QMessageBox::Ok);
     delete project;
     project = NULL;
-    delete newProject;
     return;
   }
 
   // New project is Ok
   // Change window title to indicate that the project is open
-  setWindowTitle("QkFlow - " + newProject->dataName);
+  setWindowTitle("QkFlow - " + newProject.dataName);
   // Enable interface
   workInterface();
   // Set screne
   ui->pnView->setPnNetwork(project->pnNetwork);
 
-  // Delete window
-  delete newProject;
+  // Connect signals.
+  connectProject();
 }
 
 /*******************************************************************************
  * Action Open triggered.
  ******************************************************************************/
-void QKflow::on_actionOpen_triggered() {
+void QKflow::on_actionOpen_triggered()
+{
   // Check if there is a project already opened.
   if (project != NULL) {
     // Close project.
@@ -305,12 +336,16 @@ void QKflow::on_actionOpen_triggered() {
 
   // Set screne.
   ui->pnView->setPnNetwork(project->pnNetwork);
+
+  // Connect signals.
+  connectProject();
 }
 
 /*******************************************************************************
  * Action Save triggered.
  ******************************************************************************/
-void QKflow::on_actionSave_triggered() {
+void QKflow::on_actionSave_triggered()
+{
   // Check for alterations
   if (altered_) {
     if (project->save() != true) {
@@ -329,7 +364,8 @@ void QKflow::on_actionSave_triggered() {
 /*******************************************************************************
  * Action Save As triggered.
  ******************************************************************************/
-void QKflow::on_actionSave_as_triggered() {
+void QKflow::on_actionSave_as_triggered()
+{
   // Get file location from user.
   QFileDialog projectFile(this);
   projectFile.setAcceptMode(QFileDialog::AcceptSave);
@@ -364,7 +400,8 @@ void QKflow::on_actionSave_as_triggered() {
 /*******************************************************************************
 * Action Close triggered.
 ******************************************************************************/
-void QKflow::on_actionClose_triggered() {
+void QKflow::on_actionClose_triggered()
+{
   // Check if project is open
   if (project == NULL) {
     // Disable interface and return
@@ -396,6 +433,9 @@ void QKflow::on_actionClose_triggered() {
     }
   }
 
+  // Disconnect signals.
+  disconnectProject();
+
   delete project;
   project = NULL;
   altered_ = false;
@@ -405,50 +445,58 @@ void QKflow::on_actionClose_triggered() {
 /*******************************************************************************
  * Action ZoomIn triggered.
  ******************************************************************************/
-void QKflow::on_actionZoomIn_triggered() {
+void QKflow::on_actionZoomIn_triggered()
+{
   ui->pnView->zoomIn();
 }
 
 /*******************************************************************************
  * Action ZoomOut triggered.
  ******************************************************************************/
-void QKflow::on_actionZoomOut_triggered() {
+void QKflow::on_actionZoomOut_triggered()
+{
   ui->pnView->zoomOut();
 }
 
 /*******************************************************************************
  * Action ZoomFit triggered.
  ******************************************************************************/
-void QKflow::on_actionZoomFit_triggered() {
+void QKflow::on_actionZoomFit_triggered()
+{
   ui->pnView->zoomFit();
 }
 
 /*******************************************************************************
  * Action Add Bar triggered.
  ******************************************************************************/
-void QKflow::on_actionAddBar_triggered() {
+void QKflow::on_actionAddBar_triggered()
+{
   // Create a new bar that will be used by bar properties window.
   PnBar *bar = new PnBar;
 
-  BarProperties *barProperties = new BarProperties(this);
-  barProperties->setBar(bar, true);
-  barProperties->setUnit(project->pnNetwork->voltageUnit,
-                         project->pnNetwork->powerUnit);
+  BarProperties barProperties(this);
+  barProperties.setBar(bar, true);
+  barProperties.setUnit(project->pnNetwork->voltageUnit,
+                        project->pnNetwork->powerUnit);
 
-  if (barProperties->exec() == QDialog::Accepted) {
+  if (barProperties.exec() == QDialog::Accepted) {
     setAltered(true);
-    project->pnNetwork->addBar(bar);
+
+    if(!project->pnNetwork->addBar(bar)) {
+      QMessageBox::critical(this, "Invalid Bar", "Bar id already in use.",
+                            QMessageBox::Ok);
+      delete bar;
+    }
   } else {
     delete bar;
   }
-
-  delete barProperties;
 }
 
 /*******************************************************************************
  * Action Add Line triggered.
  ******************************************************************************/
-void QKflow::on_actionAddLine_triggered() {
+void QKflow::on_actionAddLine_triggered()
+{
   PnLine *line = new PnLine;
 
   LineProperties lineProperties(this);
@@ -458,7 +506,13 @@ void QKflow::on_actionAddLine_triggered() {
 
   if (lineProperties.exec() == QDialog::Accepted) {
     setAltered(true);
-    project->pnNetwork->addLine(line);
+
+    if(!project->pnNetwork->addLine(line)) {
+      QMessageBox::critical(this, "Invalid line",
+                            "A line is already connected to this nodes.",
+                            QMessageBox::Ok);
+      delete line;
+    }
   } else {
     delete line;
   }
@@ -467,14 +521,16 @@ void QKflow::on_actionAddLine_triggered() {
 /*******************************************************************************
  * Action Exit triggered.
  ******************************************************************************/
-void QKflow::on_actionExit_triggered() {
+void QKflow::on_actionExit_triggered()
+{
   close();
 }
 
 /*******************************************************************************
  * closeEvent.
  ******************************************************************************/
-void QKflow::closeEvent(QCloseEvent *event) {
+void QKflow::closeEvent(QCloseEvent *event)
+{
   // Hook to application exit.
   // Check for unsaved changes.
   if (altered_) {
@@ -491,4 +547,429 @@ void QKflow::closeEvent(QCloseEvent *event) {
 
   saveSettings();
   event->accept();
+}
+
+/*******************************************************************************
+ * Bar Double Click.
+ ******************************************************************************/
+void QKflow::on_editBar(QObject *bar)
+{
+  BarProperties barProperties(this);
+  barProperties.setBar(static_cast<PnBar *>(bar), false);
+  barProperties.setUnit(project->voltageUn(), project->powerUn());
+
+  if (barProperties.exec() == QDialog::Accepted) {
+    setAltered(true);
+  }
+}
+
+/*******************************************************************************
+ * Line Double Click.
+ ******************************************************************************/
+void QKflow::on_editLine(QObject *line)
+{
+  LineProperties lineProperties(this);
+  lineProperties.setLine(static_cast<PnLine *>(line), false);
+  lineProperties.setUnit(project->lengthUn(), project->impedanceUn());
+
+  if (lineProperties.exec() == QDialog::Accepted) {
+    setAltered(true);
+  }
+}
+
+void QKflow::on_action_txt_type_1_triggered()
+{
+// Check if there is a project already opened.
+  if (project != NULL) {
+    // Close project.
+    ui->actionClose->trigger();
+
+    // If close didnt succed, cancel new project.
+    if (project != NULL) return;
+  }
+
+  // Get file location from user.
+  QFileDialog txtFile(this);
+  txtFile.setAcceptMode(QFileDialog::AcceptOpen);
+  txtFile.setFileMode(QFileDialog::ExistingFile);
+  txtFile.setNameFilter(tr("Text File Type 1(*.txt)"));
+  txtFile.setDirectory(QStandardPaths::standardLocations(
+                         QStandardPaths::HomeLocation)[0]);
+
+  // Check if user has canceled the opening.
+  if (txtFile.exec() != QDialog::Accepted) {
+    return;
+  }
+
+  // Grab filename.
+  QString fileName = txtFile.selectedFiles()[0];
+
+
+  // Create Project.
+  project = new Project;
+
+  // Try to import.
+  if(!import1(fileName)) {
+    delete project;
+    project = NULL;
+  } else {
+    workInterface();
+    setAltered(true);
+  }
+
+}
+
+void QKflow::on_action_txt_type_2_triggered()
+{
+// Check if there is a project already opened.
+  if (project != NULL) {
+    // Close project.
+    ui->actionClose->trigger();
+
+    // If close didnt succed, cancel new project.
+    if (project != NULL) return;
+  }
+
+//------------------------------------------------------------------------------
+// Get file location from user.
+  QFileDialog txtFile(this);
+  txtFile.setAcceptMode(QFileDialog::AcceptOpen);
+  txtFile.setFileMode(QFileDialog::ExistingFile);
+  txtFile.setNameFilter(tr("Text File Type 2(*.txt)"));
+  txtFile.setDirectory(QStandardPaths::standardLocations(
+                         QStandardPaths::HomeLocation)[0]);
+
+  // Check if user has canceled the opening.
+  if (txtFile.exec() != QDialog::Accepted) {
+    return;
+  }
+
+  // Grab filename.
+  QString fileName = txtFile.selectedFiles()[0];
+
+  // Try to import.
+  import2(fileName);
+}
+
+bool QKflow::import1(QString &fileName)
+{
+// Open File.
+//------------------------------------------------------------------------------
+  QFile qfile(fileName);
+
+  if(!qfile.open(QFile::ReadOnly)) {
+    QMessageBox::critical(this, "File read error.",
+                          "Can\'t read " + fileName + ".",
+                          QMessageBox::Ok);
+    return false;
+  }
+
+// Get project name.
+//------------------------------------------------------------------------------
+  int32_t nameInit = fileName.lastIndexOf(QDir::separator());
+  int32_t nameFinal = fileName.lastIndexOf('.');
+  project->name = fileName.mid(nameInit+1, nameFinal- nameInit -1);
+
+// Get project path.
+//------------------------------------------------------------------------------
+  project->filepath = fileName;
+
+// Auxiliaty variables.
+//------------------------------------------------------------------------------
+  QTextStream stream(&qfile); // Text stream used to read lines.
+  int32_t lineCnt = 0; // Current line counter, used to report errors.
+  QString line; // Line text.
+  QString dummy; // Use to dump useless data.
+
+// Read Number of bars.
+//------------------------------------------------------------------------------
+  // Loop until NumBarras is found or EoF.
+  do {
+    line = stream.readLine();
+    lineCnt++;
+
+    if(stream.atEnd()) {
+      QMessageBox::critical(this, "Invalid File.",
+                            "The file " + fileName + " is invalid.",
+                            QMessageBox::Ok);
+      return false;
+    }
+  } while(!line.contains("NumBarras"));
+
+  // Get Number of bars.
+  uint32_t numBar;
+  stream >> numBar;
+  // Go to the next line.
+  stream.readLine();
+  lineCnt++;
+
+// Read Number of lines.
+//------------------------------------------------------------------------------
+  // Loop until NumLinhas is found or EoF.
+  do {
+    line = stream.readLine();
+    lineCnt++;
+
+    if(stream.atEnd()) {
+      QMessageBox::critical(this, "Invalid File.",
+                            "The file " + fileName + " is invalid.",
+                            QMessageBox::Ok);
+      return false;
+    }
+  } while(!line.contains("NumLinhas"));
+
+  // Get Number of lines.
+  uint32_t numLine;
+  stream >> numLine;
+  // Go to the next line.
+  stream.readLine();
+  lineCnt++;
+
+// Get Base Voltage.
+//------------------------------------------------------------------------------
+  do {
+    line = stream.readLine();
+    lineCnt++;
+
+    if(stream.atEnd()) {
+      QMessageBox::critical(this, "Invalid File.",
+                            "The file " + fileName + " is invalid.",
+                            QMessageBox::Ok);
+      return false;
+    }
+  } while(!line.contains("Voltagem_base_da_rede"));
+
+  // Get VBase.
+  double VBase;
+  stream >> VBase;
+  // Save to project.
+  project->setVoltageBase(VBase);
+
+  // Go to the next line.
+  stream.readLine();
+  lineCnt++;
+
+// Get Length Unit.
+//------------------------------------------------------------------------------
+  do {
+    line = stream.readLine();
+    lineCnt++;
+
+    if(stream.atEnd()) {
+      QMessageBox::critical(this, "Invalid File.",
+                            "The file " + fileName + " is invalid.",
+                            QMessageBox::Ok);
+      return false;
+    }
+  } while(!line.contains("comprimento_das_linhas"));
+
+  // Get Length Unit.
+  uint32_t LenUn;
+  stream >> LenUn;
+
+  // Cast to Unit enum.
+  switch (LenUn) {
+  case 1:
+    project->setLengthUn(Unit::kMeter);
+    break;
+
+  case 2:
+    project->setLengthUn(Unit::kKiloMeter);
+    break;
+
+  case 3:
+    project->setLengthUn(Unit::kFeet);
+    break;
+
+  case 4:
+    project->setLengthUn(Unit::kMile);
+    break;
+
+  default:
+    project->setLengthUn(Unit::kMeter);
+    break;
+  }
+
+  // Go to the next line.
+  stream.readLine();
+  lineCnt++;
+
+// Get Impedance Unit.
+//------------------------------------------------------------------------------
+  do {
+    line = stream.readLine();
+    lineCnt++;
+
+    if(stream.atEnd()) {
+      QMessageBox::critical(this, "Invalid File.",
+                            "The file " + fileName + " is invalid.",
+                            QMessageBox::Ok);
+      return false;
+    }
+  } while(!line.contains("impedancia"));
+
+  // Get Impedance Unit.
+  uint32_t ImpUn;
+  stream >> ImpUn;
+
+  // Save to project.
+  switch (ImpUn) {
+  case 1:
+    project->setImpedanceUn(Unit::kOhm);
+    break;
+
+  case 2:
+    project->setImpedanceUn(Unit::kOhmPerMeter);
+    break;
+
+  case 3:
+    project->setImpedanceUn(Unit::kOhmPerKilometer);
+    break;
+
+  case 4:
+    project->setImpedanceUn(Unit::kOhmPerFeet);
+    break;
+
+  case 5:
+    project->setImpedanceUn(Unit::kOhmPerMile);
+    break;
+
+  default:
+    project->setImpedanceUn(Unit::kOhm);
+    break;
+  }
+
+  // Go to the next line.
+  stream.readLine();
+  lineCnt++;
+
+// Get power Unit.
+//------------------------------------------------------------------------------
+  do {
+    line = stream.readLine();
+    lineCnt++;
+
+    if(stream.atEnd()) {
+      QMessageBox::critical(this, "Invalid File.",
+                            "The file " + fileName + " is invalid.",
+                            QMessageBox::Ok);
+      return false;
+    }
+  } while(!line.contains("Demanda"));
+
+  // Get power Unit.
+  uint32_t powerUn;
+  stream >> powerUn;
+
+  // Save to project.
+  switch (powerUn) {
+  case 1:
+    project->setPowerUn(Unit::kVA);
+    break;
+
+  case 2:
+    project->setPowerUn(Unit::kKiloVA);
+    break;
+
+  case 3:
+    project->setPowerUn(Unit::kMegaVa);
+    break;
+
+  default:
+    project->setPowerUn(Unit::kKiloVA);
+    break;
+  }
+
+  // Go to the next line.
+  stream.readLine();
+  lineCnt++;
+
+// Get Voltage Unit.
+//------------------------------------------------------------------------------
+  project->setVoltageUn(Unit::kKiloVolts);
+
+// Get Base Power.
+//------------------------------------------------------------------------------
+  do {
+    line = stream.readLine();
+    lineCnt++;
+
+    if(stream.atEnd()) {
+      QMessageBox::critical(this, "Invalid File.",
+                            "The file " + fileName + " is invalid.",
+                            QMessageBox::Ok);
+      return false;
+    }
+  } while(!line.contains("kVA    kV_hihg "));
+
+  // Get PBase.
+  double PBase;
+  stream >> dummy >> PBase;
+  // Save.
+  project->setPowerBase(PBase);
+
+  // Go to the next line.
+  stream.readLine();
+  lineCnt++;
+
+// Get Bars.
+//------------------------------------------------------------------------------
+  do {
+    line = stream.readLine();
+    lineCnt++;
+
+    if(stream.atEnd()) {
+      QMessageBox::critical(this, "Invalid File.",
+                            "The file " + fileName + " is invalid.",
+                            QMessageBox::Ok);
+      return false;
+    }
+  } while(!line.contains("[n"));
+
+  uint32_t id;
+  double Sla, Slai;
+  double Slb, Slbi;
+  double Slc, Slci;
+  double Sga, Sgai;
+  double Sgb, Sgbi;
+  double Sgc, Sgci;
+
+  PnBar *bar;
+
+  for(int i=0; i<numBar; i++) {
+    line = stream.readLine();
+    lineCnt++;
+
+    stream >> id >> dummy >> Sla >> Slai >> Slb >> Slbi >> Slc >> Slci;
+    stream >> Sga >> Sgai >> Sgb >> Sgbi >> Sgc >>Sgci;
+    bar = new PnBar;
+    bar->id = id;
+    bar->Sga.real(Sga);
+    bar->Sga.imag(Sgai);
+    bar->Sgb.real(Sgb);
+    bar->Sgb.imag(Sgbi);
+    bar->Sgc.real(Sgc);
+    bar->Sgc.imag(Sgci);
+    bar->Sla.real(Sla);
+    bar->Sla.imag(Slai);
+    bar->Slb.real(Slb);
+    bar->Slb.imag(Slbi);
+    bar->Slc.real(Slc);
+    bar->Slc.imag(Slci);
+
+    if (!project->pnNetwork->addBar(bar)) {
+      QMessageBox::critical(this, "Invalid Bar.",
+                            "Invalid Bar " + QString::number(id) + "at line " +
+                            QString::number(lineCnt) + ".",
+                            QMessageBox::Ok);
+      return false;
+    }
+  }
+
+  qfile.close();
+}
+
+bool QKflow::import2(QString &fileName)
+{
+
 }

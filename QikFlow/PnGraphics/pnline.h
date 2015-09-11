@@ -6,17 +6,20 @@
 #include <complex>
 
 #include "PnGraphics/pnbar.h"
+#include "PnGraphics/pninfoline.h"
 
 QT_BEGIN_NAMESPACE
 class PnBar;
+class PnInfoLine;
 QT_END_NAMESPACE
 
-class PnLine : public QGraphicsObject {
+class PnLine : public QGraphicsObject
+{
   Q_OBJECT
 
-  static const int kCableWidth = 3;
+  static const qreal kCableWidth = 3;
 
- public:
+public:
   PnLine();
   ~PnLine();
 
@@ -71,19 +74,28 @@ class PnLine : public QGraphicsObject {
   // Length
   double length;
 
+  void updatePosition();
+
   virtual QRectF boundingRect() const Q_DECL_OVERRIDE;
   QPainterPath shape() const Q_DECL_OVERRIDE;
   virtual QVariant itemChange(GraphicsItemChange change,
                               const QVariant &value) Q_DECL_OVERRIDE;
 
- protected:
+signals:
+
+  void eventDoubleClick();
+
+protected:
+  void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
   PnBar *noI_;
   PnBar *noF_;
   virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                      QWidget *widget) Q_DECL_OVERRIDE;
 
- private:
+private:
   QPolygonF selectionArea;
+  QLineF coords;
+  PnInfoLine *pnInfoLine_;
 };
 
 #endif  // PNLINE_H

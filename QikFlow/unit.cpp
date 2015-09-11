@@ -1,6 +1,10 @@
 #include "unit.h"
 
-QString Unit::lengthUnitToStr(LengthUnit lengthUnit) {
+/*******************************************************************************
+ * lengthUnitToStr.
+ ******************************************************************************/
+QString Unit::lengthUnitToStr(LengthUnit lengthUnit)
+{
   switch (lengthUnit) {
   case kMeter:
     return "m";
@@ -24,8 +28,11 @@ QString Unit::lengthUnitToStr(LengthUnit lengthUnit) {
   }
 }
 
-
-QString Unit::impedanceUnitToStr(ImpedanceUnit impedanceUnit) {
+/*******************************************************************************
+ * impedanceUnitToStr.
+ ******************************************************************************/
+QString Unit::impedanceUnitToStr(ImpedanceUnit impedanceUnit)
+{
   switch (impedanceUnit) {
   case kOhm:
     return "ohm";
@@ -53,8 +60,11 @@ QString Unit::impedanceUnitToStr(ImpedanceUnit impedanceUnit) {
   }
 }
 
-
-QString Unit::powerUnitToStr(PowerUnit powerUnit) {
+/*******************************************************************************
+ * powerUnitToStr.
+ ******************************************************************************/
+QString Unit::powerUnitToStr(PowerUnit powerUnit)
+{
   switch (powerUnit) {
   case kVA:
     return "VA";
@@ -75,8 +85,11 @@ QString Unit::powerUnitToStr(PowerUnit powerUnit) {
 }
 
 
-
-QString Unit::voltageUnitToStr(VoltageUnit voltageUnit) {
+/*******************************************************************************
+ * voltageUnitToStr.
+ ******************************************************************************/
+QString Unit::voltageUnitToStr(VoltageUnit voltageUnit)
+{
   switch (voltageUnit) {
   case kVolts:
     return "V";

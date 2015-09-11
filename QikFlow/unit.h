@@ -5,8 +5,9 @@
 #include <QMetaType>
 #include <QVariant>
 
-class Unit {
- public:
+class Unit
+{
+public:
   Unit() {}
   ~Unit() {}
 

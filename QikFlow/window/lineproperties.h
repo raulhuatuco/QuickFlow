@@ -3,20 +3,23 @@
 
 #include <QDialog>
 #include <QMap>
+#include <QLineEdit>
 
 #include "unit.h"
 
 #include "PnGraphics/pnline.h"
 #include "PnGraphics/pnbar.h"
 
-namespace Ui {
+namespace Ui
+{
 class LineProperties;
 }
 
-class LineProperties : public QDialog {
+class LineProperties : public QDialog
+{
   Q_OBJECT
 
- public:
+public:
   explicit LineProperties(QWidget *parent = 0);
   ~LineProperties();
 
@@ -26,13 +29,17 @@ class LineProperties : public QDialog {
   void setBarMap(QMap<uint32_t, PnBar *> &barMap);
   void setUnit(Unit::LengthUnit lengthUnit, Unit::ImpedanceUnit impedanceUnit);
 
- private slots:
+private slots:
   void on_buttonBox_accepted();
 
   void on_buttonBox_rejected();
 
- private:
+private:
   PnLine *line_;
+  bool newLine_;
+  QMap<uint32_t, PnBar *> *barMap_;
+
+  bool validImpedance(QLineEdit *input);
 };
 
 #endif // LINEPROPERTIES_H

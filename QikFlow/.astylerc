@@ -1,0 +1,26 @@
+# recursive
+-r
+
+# no backup file
+-n
+
+# K&R style
+--style=kr
+
+# tab is 2 spaces
+-s2
+
+# break blocks
+-f
+
+# pointer and reference at name
+-k3
+-W3
+
+# tab2space
+-c
+
+# Max line length
+--max-code-length=80
+-xL
+--min-conditional-indent=2

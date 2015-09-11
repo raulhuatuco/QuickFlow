@@ -13,7 +13,8 @@
  ******************************************************************************/
 NewProject::NewProject(QWidget *parent)
   : QDialog(parent),
-    ui(new Ui::NewProject) {
+    ui(new Ui::NewProject)
+{
   // Set-up user interface.
   ui->setupUi(this);
 
@@ -46,14 +47,16 @@ NewProject::NewProject(QWidget *parent)
 /*******************************************************************************
  * ~WindowNewProject
  ******************************************************************************/
-NewProject::~NewProject() {
+NewProject::~NewProject()
+{
   delete ui;
 }
 
 /*******************************************************************************
  * Text Changed.
  ******************************************************************************/
-void NewProject::on_name_textChanged(const QString &arg1) {
+void NewProject::on_name_textChanged(const QString &arg1)
+{
   // Display new name.
   ui->outputFile->setText(ui->path->text() + QDir::separator() + arg1 +
                           ".qkflow");
@@ -62,7 +65,8 @@ void NewProject::on_name_textChanged(const QString &arg1) {
 /*******************************************************************************
  * Path Changed.
  ******************************************************************************/
-void NewProject::on_path_textChanged(const QString &arg1) {
+void NewProject::on_path_textChanged(const QString &arg1)
+{
   // Display new path.
   ui->outputFile->setText(arg1 + QDir::separator() + ui->name->text() +
                           ".qkflow");
@@ -71,7 +75,8 @@ void NewProject::on_path_textChanged(const QString &arg1) {
 /*******************************************************************************
  * Search Path Button clicked.
  ******************************************************************************/
-void NewProject::on_toolButton_clicked() {
+void NewProject::on_toolButton_clicked()
+{
   // Set file dialog options.
   QFileDialog directory(this);
   directory.setFileMode(QFileDialog::Directory);
@@ -90,7 +95,8 @@ void NewProject::on_toolButton_clicked() {
 /*******************************************************************************
  * Button Box accepted.
  ******************************************************************************/
-void NewProject::on_buttonBox_accepted() {
+void NewProject::on_buttonBox_accepted()
+{
   // Check for empty name.
   if (ui->name->text().isEmpty()) {
     QMessageBox::information(this, "Invalid name", "Invalid project name",
@@ -164,7 +170,8 @@ void NewProject::on_buttonBox_accepted() {
 /*******************************************************************************
  * Button Box rejected.
  ******************************************************************************/
-void NewProject::on_buttonBox_rejected() {
+void NewProject::on_buttonBox_rejected()
+{
 // Return to parent window.
   reject();
 }

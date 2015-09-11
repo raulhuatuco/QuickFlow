@@ -7,14 +7,16 @@
 
 #include "unit.h"
 
-namespace Ui {
+namespace Ui
+{
 class NewProject;
 }
 
-class NewProject : public QDialog {
+class NewProject : public QDialog
+{
   Q_OBJECT
 
- public:
+public:
   explicit NewProject(QWidget *parent = 0);
   ~NewProject();
 
@@ -31,7 +33,7 @@ class NewProject : public QDialog {
   Unit::VoltageUnit dataVoltageUnit;
   Unit::PowerUnit dataPowerUnit;
 
- private slots:
+private slots:
   void on_name_textChanged(const QString &arg1);
 
   void on_path_textChanged(const QString &arg1);
@@ -42,7 +44,7 @@ class NewProject : public QDialog {
 
   void on_buttonBox_rejected();
 
- private:
+private:
   Ui::NewProject *ui;
 };
 

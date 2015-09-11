@@ -10,8 +10,9 @@
 #include "PnGraphics/pnbar.h"
 #include "PnGraphics/pnline.h"
 
-class Project {
- public:
+class Project
+{
+public:
   Project();
   ~Project();
 
@@ -43,7 +44,7 @@ class Project {
   bool saveAs(QString fileName);
   bool load();
 
- private:
+private:
   QJsonObject barToJson(PnBar *bar);
   PnBar *barFromJson(QJsonObject &jsonBar);
   QJsonObject lineToJson(PnLine *line);

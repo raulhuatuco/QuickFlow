@@ -6,26 +6,28 @@
 #include "unit.h"
 #include "PnGraphics/pnbar.h"
 
-namespace Ui {
+namespace Ui
+{
 class BarProperties;
 }
 
-class BarProperties : public QDialog {
+class BarProperties : public QDialog
+{
   Q_OBJECT
 
- public:
+public:
   explicit BarProperties(QWidget *parent = 0);
   ~BarProperties();
 
   void setBar(PnBar *bar, bool newBar);
   void setUnit(Unit::VoltageUnit voltageUnit, Unit::PowerUnit powerUnit);
 
- private slots:
+private slots:
   void on_buttonBox_accepted();
 
   void on_buttonBox_rejected();
 
- private:
+private:
   Ui::BarProperties *ui;
   PnBar *bar_;
 };

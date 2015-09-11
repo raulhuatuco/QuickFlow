@@ -4,6 +4,9 @@
 #include <QGraphicsItem>
 #include <QPainter>
 
+/*******************************************************************************
+ * PnLine.
+ ******************************************************************************/
 PnLine::PnLine() :
   Zaa(qInf(),qInf()),
   Zab(qInf(),qInf()),
@@ -21,35 +24,40 @@ PnLine::PnLine() :
   In(0,0),
   length(0),
   noI_(NULL),
-  noF_(NULL) {
+  noF_(NULL),
+  pnInfoLine_(NULL)
+{
   setFlag(ItemIsSelectable);
+  setFlag(ItemSendsGeometryChanges);
   setZValue(0.0);
 }
 
+/*******************************************************************************
+ * ~PnLine.
+ ******************************************************************************/
 PnLine::~PnLine() {}
 
-PnBar *PnLine::noI() {
+/*******************************************************************************
+ * noI.
+ ******************************************************************************/
+PnBar *PnLine::noI()
+{
   return noI_;
 }
 
-PnBar *PnLine::noF() {
+/*******************************************************************************
+ * noF.
+ ******************************************************************************/
+PnBar *PnLine::noF()
+{
   return noF_;
 }
 
-void PnLine::setNodes(PnBar *noI, PnBar *noF) {
-  QLineF line(noI->pos(), noF->pos());
-
-  qreal radAngle = line.angle() * M_PI / 180.0;
-  qreal dx = kCableWidth * sin(radAngle);
-  qreal dy = kCableWidth * cos(radAngle);
-  QPointF offset1 = QPointF(dx, dy);
-  QPointF offset2 = QPointF(-dx, -dy);
-  selectionArea << line.p1() + offset1 << line.p1() + offset2
-                << line.p2() + offset2 << line.p2() + offset1;
-
-  PnLine::setNodes(noI, noF);
-  update();
-
+/*******************************************************************************
+ * setNodes.
+ ******************************************************************************/
+void PnLine::setNodes(PnBar *noI, PnBar *noF)
+{
   noI_ = noI;
   noF_ = noF;
 
@@ -57,93 +65,196 @@ void PnLine::setNodes(PnBar *noI, PnBar *noF) {
     noI->addLine(this);
     noF->addLine(this);
   }
+
+  updatePosition();
 }
 
-std::complex<double> PnLine::Yaa() {
+/*******************************************************************************
+ * Yaa.
+ ******************************************************************************/
+std::complex<double> PnLine::Yaa()
+{
   return std::complex<double>(1.0, 0.0) / Zaa;
 }
 
-std::complex<double> PnLine::Yab() {
+/*******************************************************************************
+ * Yab.
+ ******************************************************************************/
+std::complex<double> PnLine::Yab()
+{
   return std::complex<double>(1.0, 0.0) / Zab;
 }
 
-std::complex<double> PnLine::Yac() {
+/*******************************************************************************
+ * Yac.
+ ******************************************************************************/
+std::complex<double> PnLine::Yac()
+{
   return std::complex<double>(1.0, 0.0) / Zac;
 }
 
-std::complex<double> PnLine::Yan() {
+/*******************************************************************************
+ * Yan.
+ ******************************************************************************/
+std::complex<double> PnLine::Yan()
+{
   return std::complex<double>(1.0, 0.0) / Zan;
 }
 
-std::complex<double> PnLine::Ybb() {
+/*******************************************************************************
+ * Ybb.
+ ******************************************************************************/
+std::complex<double> PnLine::Ybb()
+{
   return std::complex<double>(1.0, 0.0) / Zbb;
 }
 
-std::complex<double> PnLine::Ybc() {
+/*******************************************************************************
+ * Ybc.
+ ******************************************************************************/
+std::complex<double> PnLine::Ybc()
+{
   return std::complex<double>(1.0, 0.0) / Zbc;
 }
 
-std::complex<double> PnLine::Ybn() {
+/*******************************************************************************
+ * Ybn.
+ ******************************************************************************/
+std::complex<double> PnLine::Ybn()
+{
   return std::complex<double>(1.0, 0.0) / Zbn;
 }
 
-std::complex<double> PnLine::Ycc() {
+/*******************************************************************************
+ * Ycc.
+ ******************************************************************************/
+std::complex<double> PnLine::Ycc()
+{
   return std::complex<double>(1.0, 0.0) / Zcc;
 }
 
-std::complex<double> PnLine::Ycn() {
+/*******************************************************************************
+ * Ycn.
+ ******************************************************************************/
+std::complex<double> PnLine::Ycn()
+{
   return std::complex<double>(1.0, 0.0) / Zcn;
 }
 
-std::complex<double> PnLine::Ynn() {
+/*******************************************************************************
+ * Ynn.
+ ******************************************************************************/
+std::complex<double> PnLine::Ynn()
+{
   return std::complex<double>(1.0, 0.0) / Znn;
 }
 
-std::complex<double> PnLine::La() {
+/*******************************************************************************
+ * La.
+ ******************************************************************************/
+std::complex<double> PnLine::La()
+{
   return Ia * conj(Ia) * Zaa;
 }
 
-std::complex<double> PnLine::Lb() {
+/*******************************************************************************
+ * Lb.
+ ******************************************************************************/
+std::complex<double> PnLine::Lb()
+{
   return Ib * conj(Ib) * Zbb;
 }
 
-std::complex<double> PnLine::Lc() {
+/*******************************************************************************
+ * Lc.
+ ******************************************************************************/
+std::complex<double> PnLine::Lc()
+{
   return Ic * conj(Ic) * Zcc;
 }
 
-std::complex<double> PnLine::Ln() {
+/*******************************************************************************
+ * Ln.
+ ******************************************************************************/
+std::complex<double> PnLine::Ln()
+{
   return In * conj(In) * Znn;
 }
 
+/*******************************************************************************
+ * updatePosition.
+ ******************************************************************************/
+void PnLine::updatePosition()
+{
+  prepareGeometryChange();
+
+  coords = QLineF(noI_->pos(), noF_->pos());
+
+  qreal radAngle = coords.angle() * M_PI / 180.0;
+  qreal dx = kCableWidth * sin(radAngle);
+  qreal dy = kCableWidth * cos(radAngle);
+  QPointF offset1 = QPointF(dx, dy);
+  QPointF offset2 = QPointF(-dx, -dy);
+  selectionArea.clear();
+  selectionArea << coords.p1() + offset1 << coords.p1() + offset2
+                << coords.p2() + offset2 << coords.p2() + offset1;
+}
+
+/*******************************************************************************
+ * itemChange.
+ ******************************************************************************/
 QVariant PnLine::itemChange(QGraphicsItem::GraphicsItemChange change,
-                            const QVariant &value) {
-//  if (change == ItemSelectedChange) {
-//    if (value == true) {
-//      showInfo = true;
-//      setZValue(2);
-//      update(sceneBoundingRect());
-//    } else {
-//      showInfo = false;
-//      setZValue(1);
-//      update(sceneBoundingRect());
-//    }
-//  }
+                            const QVariant &value)
+{
+  if (change == ItemSelectedChange) {
+    if (value == true) {
+      if (pnInfoLine_ == NULL) {
+        pnInfoLine_ = new PnInfoLine(this);
+        scene()->addItem(pnInfoLine_);
+      }
+    } else {
+      scene()->removeItem(pnInfoLine_);
+      delete pnInfoLine_;
+      pnInfoLine_ = NULL;
+    }
+  }
 
   return QGraphicsObject::itemChange(change, value);
 }
 
-QRectF PnLine::boundingRect() const {
+/*******************************************************************************
+ * mouseDoubleClickEvent.
+ ******************************************************************************/
+void PnLine::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+  Q_UNUSED(event);
+  emit eventDoubleClick();
+}
+
+/*******************************************************************************
+ * boundingRect.
+ ******************************************************************************/
+QRectF PnLine::boundingRect() const
+{
   return selectionArea.boundingRect();
 }
 
-QPainterPath PnLine::shape() const {
+/*******************************************************************************
+ * shape.
+ ******************************************************************************/
+QPainterPath PnLine::shape() const
+{
   QPainterPath path;
   path.addPolygon(selectionArea);
   return path;
 }
 
+/*******************************************************************************
+ * paint.
+ ******************************************************************************/
 void PnLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                   QWidget *widget) {
+                   QWidget *widget)
+{
   Q_UNUSED(option);
   Q_UNUSED(widget);
 
@@ -152,5 +263,5 @@ void PnLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   else
     painter->setPen(QPen(Qt::black, kCableWidth, Qt::SolidLine));
 
-  painter->drawLine(noI_->pos(), noF_->pos());
+  painter->drawLine(coords.p1(), coords.p2());
 }

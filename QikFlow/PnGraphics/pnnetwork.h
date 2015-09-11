@@ -3,15 +3,21 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsObject>
+#include <QSignalMapper>
+#include <QObject>
 #include <QMap>
+#include <QVector>
 
 #include "unit.h"
 
 #include "PnGraphics/pnbar.h"
 #include "PnGraphics/pnline.h"
 
-class PnNetwork : public QGraphicsScene {
- public:
+class PnNetwork : public QGraphicsScene
+{
+  Q_OBJECT
+
+public:
   PnNetwork();
   ~PnNetwork();
 
@@ -28,8 +34,7 @@ class PnNetwork : public QGraphicsScene {
   Unit::PowerUnit powerUnit;
 
   QMap<uint32_t, PnBar *> barMap;
-  QMap<uint32_t, PnLine *> lineIMap;
-  QMap<uint32_t, PnLine *> lineFMap;
+  QVector<PnLine *> lineVector;
 
   bool addBar(PnBar *bar);
   bool addLine(PnLine *line);
@@ -37,7 +42,13 @@ class PnNetwork : public QGraphicsScene {
   PnBar *getBarById(uint32_t id);
   PnLine *getLineByNodes(uint32_t noI, uint32_t noF);
 
- private:
+signals:
+  void barProperties(QObject *);
+  void lineProperties(QObject *);
+
+private:
+  QSignalMapper *barDoubleClick;
+  QSignalMapper *lineDoubleClick;
 };
 
 #endif  // PNNETWORK_H

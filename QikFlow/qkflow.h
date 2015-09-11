@@ -7,14 +7,16 @@
 
 #include "project.h"
 
-namespace Ui {
+namespace Ui
+{
 class QKflow;
 }
 
-class QKflow : public QMainWindow {
+class QKflow : public QMainWindow
+{
   Q_OBJECT
 
- public:
+public:
 
   explicit QKflow(QWidget *parent = 0);
   ~QKflow();
@@ -25,7 +27,7 @@ class QKflow : public QMainWindow {
   void noProjectInterface();
   void workInterface();
 
- private slots:
+private slots:
   void on_actionZoomIn_triggered();
 
   void on_actionZoomOut_triggered();
@@ -48,10 +50,18 @@ class QKflow : public QMainWindow {
 
   void on_actionAddLine_triggered();
 
- protected:
+  void on_editBar(QObject *bar);
+
+  void on_editLine(QObject *line);
+
+  void on_action_txt_type_1_triggered();
+  
+  void on_action_txt_type_2_triggered();
+  
+protected:
   void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
- private:
+private:
   Ui::QKflow *ui;
 
   QSettings *settings;
@@ -63,6 +73,10 @@ class QKflow : public QMainWindow {
   void saveSettings();
   void createSettings();
   void upgradeSettings();
+  void connectProject();
+  void disconnectProject();
+  bool import1(QString &fileName);
+  bool import2(QString &fileName);
 };
 
 #endif  // QKFLOW_H

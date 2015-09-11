@@ -3,14 +3,16 @@
 
 #include <QWidget>
 #include <QWheelEvent>
+#include <QMouseEvent>
 #include <QGraphicsView>
 
 #include "PnGraphics/pnnetwork.h"
 
-class PnView : public QGraphicsView {
+class PnView : public QGraphicsView
+{
   Q_OBJECT
 
- public:
+public:
   PnView(QWidget *parent);
   ~PnView();
 
@@ -21,10 +23,12 @@ class PnView : public QGraphicsView {
   void setPnNetwork(PnNetwork *pnNetwork);
   PnNetwork *getPnNetwork();
 
- protected:
+protected:
   void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
+//  void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+//  void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 
- private:
+private:
   static const qreal kZoomStep = 0.05;
 
   PnNetwork *pnNetwork_;

@@ -3,6 +3,9 @@
 #include <QGraphicsScene>
 #include <QPainter>
 
+/*******************************************************************************
+ * PnBar.
+ ******************************************************************************/
 PnBar::PnBar()
   : QGraphicsObject(),
     id(kInvalidId),
@@ -23,62 +26,105 @@ PnBar::PnBar()
     rSgc(0, 0),
     rSla(0, 0),
     rSlb(0, 0),
-    rSlc(0, 0) {
+    rSlc(0, 0),
+    pnInfoBar_(NULL)
+{
   setFlag(ItemIsSelectable);
+  setFlag(ItemSendsGeometryChanges);
   setZValue(1);
 }
 
-PnBar::~PnBar() {
-  removeLines();
+/*******************************************************************************
+ * ~PnBar.
+ ******************************************************************************/
+PnBar::~PnBar()
+{
+
 }
 
-complex<double> PnBar:: Ia() {
+/*******************************************************************************
+ * Ia.
+ ******************************************************************************/
+complex<double> PnBar:: Ia()
+{
   complex<double> I;
   I = conj(Sga - Sla) / conj(Va);
   return I;
 }
 
-complex<double> PnBar:: Ib() {
+/*******************************************************************************
+ * Ib.
+ ******************************************************************************/
+complex<double> PnBar:: Ib()
+{
   complex<double> I;
   I = conj(Sgb - Slb) / conj(Vb);
   return I;
 }
 
-complex<double> PnBar:: Ic() {
+/*******************************************************************************
+ * Ic.
+ ******************************************************************************/
+complex<double> PnBar:: Ic()
+{
   complex<double> I;
   I = conj(Sgc - Slc) / conj(Vc);
   return I;
 }
 
-complex<double> PnBar:: rIa() {
+/*******************************************************************************
+ * rIa.
+ ******************************************************************************/
+complex<double> PnBar:: rIa()
+{
   complex<double> I;
   I = conj(rSga - rSla) / conj(rVa);
   return I;
 }
 
-complex<double> PnBar:: rIb() {
+/*******************************************************************************
+ * rIb.
+ ******************************************************************************/
+complex<double> PnBar:: rIb()
+{
   complex<double> I;
   I = conj(rSgb - rSlb) / conj(rVb);
   return I;
 }
 
-complex<double> PnBar:: rIc() {
+/*******************************************************************************
+ * rIc.
+ ******************************************************************************/
+complex<double> PnBar:: rIc()
+{
   complex<double> I;
   I = conj(rSgc - rSlc) / conj(rVc);
   return I;
 }
 
-void PnBar::addLine(PnLine *line) {
+/*******************************************************************************
+ * addLine.
+ ******************************************************************************/
+void PnBar::addLine(PnLine *line)
+{
   lines.append(line);
 }
 
-void PnBar::removeLine(PnLine *line) {
+/*******************************************************************************
+ * removeLine.
+ ******************************************************************************/
+void PnBar::removeLine(PnLine *line)
+{
   int index = lines.indexOf(line);
 
   if (index != -1) lines.removeAt(index);
 }
 
-void PnBar::removeLines() {
+/*******************************************************************************
+ * removeLines.
+ ******************************************************************************/
+void PnBar::removeLines()
+{
   foreach (PnLine *line, lines) {
     line->noI()->removeLine(line);
     line->noF()->removeLine(line);
@@ -87,17 +133,87 @@ void PnBar::removeLines() {
   }
 }
 
-QRectF PnBar::boundingRect() const {
+/*******************************************************************************
+ * boundingRect.
+ ******************************************************************************/
+QRectF PnBar::boundingRect() const
+{
   return QRectF(-kIconSize / 2, -kIconSize / 2, kIconSize, kIconSize);
 }
 
+/*******************************************************************************
+ * mouseDoubleClickEvent.
+ ******************************************************************************/
+void PnBar::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
+{
+  Q_UNUSED(event);
+  emit eventDoubleClick();
+}
+
+/*******************************************************************************
+ * itemChange.
+ ******************************************************************************/
+QVariant PnBar::itemChange(QGraphicsItem::GraphicsItemChange change,
+                           const QVariant &value)
+{
+  if (change == ItemPositionHasChanged) {
+    foreach (PnLine *line, lines) {
+
+      line->updatePosition();
+    }
+  } else   if (change == ItemSelectedChange) {
+    if (value == true) {
+      if (pnInfoBar_ == NULL) {
+        pnInfoBar_ = new PnInfoBar(this);
+        scene()->addItem(pnInfoBar_);
+      }
+    } else {
+      scene()->removeItem(pnInfoBar_);
+      delete pnInfoBar_;
+      pnInfoBar_ = NULL;
+    }
+  }
+
+  return QGraphicsObject::itemChange(change, value);
+}
+
+/*******************************************************************************
+ * paint.
+ ******************************************************************************/
 void PnBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                  QWidget *widget) {
+                  QWidget *widget)
+{
   Q_UNUSED(option);
   Q_UNUSED(widget);
 
   painter->setPen(Qt::gray);
 
+  if(id > 0)
+    drawPq(painter);
+  else
+    drawSlack(painter);
+
+}
+
+/*******************************************************************************
+ * drawSlack.
+ ******************************************************************************/
+void PnBar::drawSlack(QPainter *painter)
+{
+  if (isSelected()) {
+    painter->setBrush(Qt::red);
+    painter->drawRect(-kIconSize / 2, -kIconSize / 2, kIconSize, kIconSize);
+  } else {
+    painter->setBrush(Qt::green);
+    painter->drawRect(-kIconSize / 2, -kIconSize / 2, kIconSize, kIconSize);
+  }
+}
+
+/*******************************************************************************
+ * drawPq.
+ ******************************************************************************/
+void PnBar::drawPq(QPainter *painter)
+{
   if (isSelected()) {
     painter->setBrush(Qt::red);
     painter->drawEllipse(-kIconSize / 2, -kIconSize / 2, kIconSize, kIconSize);

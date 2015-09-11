@@ -3,39 +3,69 @@
 #include <QColor>
 #include <QBrush>
 
-PnView::PnView(QWidget *parent) : QGraphicsView(parent), pnNetwork_(NULL) {
+/*******************************************************************************
+ * PnView.
+ ******************************************************************************/
+PnView::PnView(QWidget *parent) : QGraphicsView(parent), pnNetwork_(NULL)
+{
   setDragMode(RubberBandDrag);
 }
 
+/*******************************************************************************
+ * ~PnView.
+ ******************************************************************************/
 PnView::~PnView() {}
 
-void PnView::zoomIn() {
+/*******************************************************************************
+ * zoomIn.
+ ******************************************************************************/
+void PnView::zoomIn()
+{
   scale(1.0 + kZoomStep, 1.0 + kZoomStep);
 }
 
-void PnView::zoomOut() {
+/*******************************************************************************
+ * zoomOut.
+ ******************************************************************************/
+void PnView::zoomOut()
+{
   scale(1.0 - kZoomStep, 1.0 - kZoomStep);
 }
 
-void PnView::zoomFit() {
+/*******************************************************************************
+ * zoomFit.
+ ******************************************************************************/
+void PnView::zoomFit()
+{
   fitInView(sceneRect(), Qt::KeepAspectRatio);
 }
 
-void PnView::setPnNetwork(PnNetwork *pnNetwork) {
+/*******************************************************************************
+ * setPnNetwork.
+ ******************************************************************************/
+void PnView::setPnNetwork(PnNetwork *pnNetwork)
+{
   pnNetwork_ = pnNetwork;
 
   // Enable antialiasing
   setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
 
-  // Set scene
   setScene(pnNetwork_);
 }
 
-PnNetwork *PnView::getPnNetwork() {
+/*******************************************************************************
+ * getPnNetwork.
+ ******************************************************************************/
+PnNetwork *PnView::getPnNetwork()
+{
   return pnNetwork_;
 }
 
-void PnView::wheelEvent(QWheelEvent *event) {
+/*******************************************************************************
+ * wheelEvent.
+ ******************************************************************************/
+void PnView::wheelEvent(QWheelEvent *event)
+{
   setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 
   if (event->delta() > 0) {
@@ -44,3 +74,29 @@ void PnView::wheelEvent(QWheelEvent *event) {
     scale(1.0 - kZoomStep, 1.0 - kZoomStep);
   }
 }
+
+/*******************************************************************************
+ * mousePressEvent.
+ ******************************************************************************/
+//void PnView::mousePressEvent(QMouseEvent *event)
+//{
+//  if(event->button() == Qt::MiddleButton) {
+//    event->accept();
+//    setDragMode(ScrollHandDrag);
+//  } else {
+//    event->ignore();
+//  }
+//}
+
+/*******************************************************************************
+ * mouseReleaseEvent.
+ ******************************************************************************/
+//void PnView::mouseReleaseEvent(QMouseEvent *event)
+//{
+//  if(event->button() == Qt::MiddleButton) {
+//    event->accept();
+//    setDragMode(RubberBandDrag);
+//  } else {
+//    event->ignore();
+//  }
+//}

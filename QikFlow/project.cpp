@@ -14,132 +14,151 @@
 Project::Project() :
   pnNetwork(new PnNetwork),
   name(""),
-  filepath("") {
+  filepath("")
+{
 }
 
 /*******************************************************************************
  * ~Project.
  ******************************************************************************/
-Project::~Project() {
+Project::~Project()
+{
   delete pnNetwork;
 }
 
 /*******************************************************************************
  * maxIterations.
  ******************************************************************************/
-uint32_t Project::maxIterations() {
+uint32_t Project::maxIterations()
+{
   return pnNetwork->maxIterations;
 }
 
 /*******************************************************************************
  * setMaxIterations.
  ******************************************************************************/
-void Project::setMaxIterations(uint32_t maxIterations) {
+void Project::setMaxIterations(uint32_t maxIterations)
+{
   pnNetwork->maxIterations = maxIterations;
 }
 
 /*******************************************************************************
  * minError.
  ******************************************************************************/
-double Project::minError() {
+double Project::minError()
+{
   return pnNetwork->minError;
 }
 
 /*******************************************************************************
  * setMinError.
  ******************************************************************************/
-void Project::setMinError(double minError) {
+void Project::setMinError(double minError)
+{
   pnNetwork->minError = minError;
 }
 
 /*******************************************************************************
  * voltageBase.
  ******************************************************************************/
-double Project::voltageBase() {
+double Project::voltageBase()
+{
   return pnNetwork->voltageBase;
 }
 
 /*******************************************************************************
  * setVoltageBase.
  ******************************************************************************/
-void Project::setVoltageBase(double voltageBase) {
+void Project::setVoltageBase(double voltageBase)
+{
   pnNetwork->voltageBase = voltageBase;
 }
 
 /*******************************************************************************
  * powerBase.
  ******************************************************************************/
-double Project::powerBase() {
+double Project::powerBase()
+{
   return pnNetwork->powerBase;
 }
 
 /*******************************************************************************
  * setPowerBase.
  ******************************************************************************/
-void Project::setPowerBase(double powerBase) {
+void Project::setPowerBase(double powerBase)
+{
   pnNetwork->powerBase = powerBase;
 }
 
 /*******************************************************************************
  * lengthUn.
  ******************************************************************************/
-Unit::LengthUnit Project::lengthUn() {
+Unit::LengthUnit Project::lengthUn()
+{
   return pnNetwork->lengthUnit;
 }
 
 /*******************************************************************************
  * setLengthUn.
  ******************************************************************************/
-void Project::setLengthUn(Unit::LengthUnit lengthUn) {
+void Project::setLengthUn(Unit::LengthUnit lengthUn)
+{
   pnNetwork->lengthUnit = lengthUn;
 }
 
 /*******************************************************************************
  * impedanceUn.
  ******************************************************************************/
-Unit::ImpedanceUnit Project::impedanceUn() {
+Unit::ImpedanceUnit Project::impedanceUn()
+{
   return pnNetwork->impedanceUnit;
 }
 
 /*******************************************************************************
  * setImpedanceUn.
  ******************************************************************************/
-void Project::setImpedanceUn(Unit::ImpedanceUnit impedanceUn) {
+void Project::setImpedanceUn(Unit::ImpedanceUnit impedanceUn)
+{
   pnNetwork->impedanceUnit = impedanceUn;
 }
 
 /*******************************************************************************
  * voltageUn.
  ******************************************************************************/
-Unit::VoltageUnit Project::voltageUn() {
+Unit::VoltageUnit Project::voltageUn()
+{
   return pnNetwork->voltageUnit;
 }
 
 /*******************************************************************************
  * setVoltageUn.
  ******************************************************************************/
-void Project::setVoltageUn(Unit::VoltageUnit voltageUn) {
+void Project::setVoltageUn(Unit::VoltageUnit voltageUn)
+{
   pnNetwork->voltageUnit = voltageUn;
 }
 
 /*******************************************************************************
  * powerUn.
  ******************************************************************************/
-Unit::PowerUnit Project::powerUn() {
+Unit::PowerUnit Project::powerUn()
+{
   return pnNetwork->powerUnit;
 }
 
 /*******************************************************************************
  * setPowerUn.
  ******************************************************************************/
-void Project::setPowerUn(Unit::PowerUnit powerUn) {
+void Project::setPowerUn(Unit::PowerUnit powerUn)
+{
   pnNetwork->powerUnit = powerUn;
 }
 
 /*******************************************************************************
  * save.
  ******************************************************************************/
-bool Project::save() {
+bool Project::save()
+{
   // Try to open file.
   QFile file;
   file.setFileName(filepath);
@@ -174,7 +193,7 @@ bool Project::save() {
 
   // Creates a QJsonArray filled with Line data.
   QJsonArray lineArray;
-  foreach (PnLine *line, pnNetwork->lineIMap) {
+  foreach (PnLine *line, pnNetwork->lineVector) {
     lineArray << lineToJson(line);
   }
   projectJson.insert("lineArray", lineArray);
@@ -192,7 +211,8 @@ bool Project::save() {
 /*******************************************************************************
  * saveAs.
  ******************************************************************************/
-bool Project::saveAs(QString fileName) {
+bool Project::saveAs(QString fileName)
+{
   // Try to open file.
   QFile file;
   file.setFileName(fileName);
@@ -227,7 +247,7 @@ bool Project::saveAs(QString fileName) {
 
   // Creates a QJsonArray filled with Line data.
   QJsonArray lineArray;
-  foreach (PnLine *line, pnNetwork->lineIMap) {
+  foreach (PnLine *line, pnNetwork->lineVector) {
     lineArray << lineToJson(line);
   }
   projectJson.insert("lineArray", lineArray);
@@ -245,7 +265,8 @@ bool Project::saveAs(QString fileName) {
 /*******************************************************************************
  * load.
  ******************************************************************************/
-bool Project::load() {
+bool Project::load()
+{
   // Try to open file.
   QFile file;
   file.setFileName(filepath);
@@ -267,8 +288,6 @@ bool Project::load() {
 
   // Extract project info.
   name = projectJson.value("name").toString();
-  pnNetwork->maxIterations = projectJson.value("maxIterations").toDouble();
-  pnNetwork->minError = projectJson.value("minError").toDouble();
 
   // Extract network info.
   pnNetwork->voltageBase = projectJson.value("voltageBase").toDouble();
@@ -281,6 +300,8 @@ bool Project::load() {
     static_cast<Unit::VoltageUnit> (projectJson.value("voltageUnit").toInt());
   pnNetwork->powerUnit =
     static_cast<Unit::PowerUnit> (projectJson.value("powerUnit").toInt());
+  pnNetwork->maxIterations = projectJson.value("maxIterations").toDouble();
+  pnNetwork->minError = projectJson.value("minError").toDouble();
 
   // Extract Bar data from a QJsonArray.
   QJsonArray barArray(projectJson.value("barArray").toArray());
@@ -294,6 +315,7 @@ bool Project::load() {
 
 // Extract Lines data from a QJsonArray.
   QJsonArray lineArray(projectJson.value("lineArray").toArray());
+
   foreach (QJsonValue arrayValue, lineArray) {
     QJsonObject lineJson(arrayValue.toObject());
 
@@ -310,7 +332,8 @@ bool Project::load() {
 /*******************************************************************************
  * barToJson.
  ******************************************************************************/
-QJsonObject Project::barToJson(PnBar *bar) {
+QJsonObject Project::barToJson(PnBar *bar)
+{
   // Transform Bar to Json Object.
   QJsonObject jsonBar;
 
@@ -320,50 +343,50 @@ QJsonObject Project::barToJson(PnBar *bar) {
   // Voltage
   jsonBar.insert("Va", bar->Va.real());
   jsonBar.insert("Vai", bar->Va.imag());
-  jsonBar.insert("Vb", bar->Va.real());
-  jsonBar.insert("Vbi", bar->Va.imag());
-  jsonBar.insert("Vc", bar->Va.real());
-  jsonBar.insert("Vci", bar->Va.imag());
+  jsonBar.insert("Vb", bar->Vb.real());
+  jsonBar.insert("Vbi", bar->Vb.imag());
+  jsonBar.insert("Vc", bar->Vc.real());
+  jsonBar.insert("Vci", bar->Vc.imag());
 
   // Generated Power
-  jsonBar.insert("Sga", bar->Va.real());
-  jsonBar.insert("Sgai", bar->Va.imag());
-  jsonBar.insert("Sgb", bar->Va.real());
-  jsonBar.insert("Sgbi", bar->Va.imag());
-  jsonBar.insert("Sgc", bar->Va.real());
-  jsonBar.insert("Sgci", bar->Va.imag());
+  jsonBar.insert("Sga", bar->Sga.real());
+  jsonBar.insert("Sgai", bar->Sga.imag());
+  jsonBar.insert("Sgb", bar->Sgb.real());
+  jsonBar.insert("Sgbi", bar->Sgb.imag());
+  jsonBar.insert("Sgc", bar->Sgc.real());
+  jsonBar.insert("Sgci", bar->Sgc.imag());
 
   // Load Power
-  jsonBar.insert("Sla", bar->Va.real());
-  jsonBar.insert("Slai", bar->Va.imag());
-  jsonBar.insert("Slb", bar->Va.real());
-  jsonBar.insert("Slbi", bar->Va.imag());
-  jsonBar.insert("Slc", bar->Va.real());
-  jsonBar.insert("Slci", bar->Va.imag());
+  jsonBar.insert("Sla", bar->Sla.real());
+  jsonBar.insert("Slai", bar->Sla.imag());
+  jsonBar.insert("Slb", bar->Slb.real());
+  jsonBar.insert("Slbi", bar->Slb.imag());
+  jsonBar.insert("Slc", bar->Slc.real());
+  jsonBar.insert("Slci", bar->Slc.imag());
 
   // Result Voltage
-  jsonBar.insert("rVa", bar->Va.real());
-  jsonBar.insert("rVai", bar->Va.imag());
-  jsonBar.insert("rVb", bar->Va.real());
-  jsonBar.insert("rVbi", bar->Va.imag());
-  jsonBar.insert("rVc", bar->Va.real());
-  jsonBar.insert("rVci", bar->Va.imag());
+  jsonBar.insert("rVa", bar->rVa.real());
+  jsonBar.insert("rVai", bar->rVa.imag());
+  jsonBar.insert("rVb", bar->rVb.real());
+  jsonBar.insert("rVbi", bar->rVb.imag());
+  jsonBar.insert("rVc", bar->rVc.real());
+  jsonBar.insert("rVci", bar->rVc.imag());
 
   // Result Generated Power
-  jsonBar.insert("rSga", bar->Va.real());
-  jsonBar.insert("rSgai", bar->Va.imag());
-  jsonBar.insert("rSgb", bar->Va.real());
-  jsonBar.insert("rSgbi", bar->Va.imag());
-  jsonBar.insert("rSgc", bar->Va.real());
-  jsonBar.insert("rSgci", bar->Va.imag());
+  jsonBar.insert("rSga", bar->rSga.real());
+  jsonBar.insert("rSgai", bar->rSga.imag());
+  jsonBar.insert("rSgb", bar->rSgb.real());
+  jsonBar.insert("rSgbi", bar->rSgb.imag());
+  jsonBar.insert("rSgc", bar->rSgc.real());
+  jsonBar.insert("rSgci", bar->rSgc.imag());
 
   // Result Load Power
-  jsonBar.insert("rSla", bar->Va.real());
-  jsonBar.insert("rSlai", bar->Va.imag());
-  jsonBar.insert("rSlb", bar->Va.real());
-  jsonBar.insert("rSlbi", bar->Va.imag());
-  jsonBar.insert("rSlc", bar->Va.real());
-  jsonBar.insert("rSlci", bar->Va.imag());
+  jsonBar.insert("rSla", bar->rSla.real());
+  jsonBar.insert("rSlai", bar->rSla.imag());
+  jsonBar.insert("rSlb", bar->rSlb.real());
+  jsonBar.insert("rSlbi", bar->rSlb.imag());
+  jsonBar.insert("rSlc", bar->rSlc.real());
+  jsonBar.insert("rSlci", bar->rSlc.imag());
 
   // Position
   jsonBar.insert("x", bar->x());
@@ -376,7 +399,8 @@ QJsonObject Project::barToJson(PnBar *bar) {
 /*******************************************************************************
  * barFromJson.
  ******************************************************************************/
-PnBar *Project::barFromJson(QJsonObject &jsonBar) {
+PnBar *Project::barFromJson(QJsonObject &jsonBar)
+{
   // Create Bar according to type
   PnBar *bar = new PnBar;
 
@@ -386,50 +410,50 @@ PnBar *Project::barFromJson(QJsonObject &jsonBar) {
   // Voltage
   bar->Va.real(jsonBar.value("Va").toDouble());
   bar->Va.imag(jsonBar.value("Vai").toDouble());
-  bar->Va.real(jsonBar.value("Vb").toDouble());
-  bar->Va.imag(jsonBar.value("Vbi").toDouble());
-  bar->Va.real(jsonBar.value("Vc").toDouble());
-  bar->Va.imag(jsonBar.value("Vci").toDouble());
+  bar->Vb.real(jsonBar.value("Vb").toDouble());
+  bar->Vb.imag(jsonBar.value("Vbi").toDouble());
+  bar->Vc.real(jsonBar.value("Vc").toDouble());
+  bar->Vc.imag(jsonBar.value("Vci").toDouble());
 
   // Generated Power
-  bar->Va.real(jsonBar.value("Sga").toDouble());
-  bar->Va.imag(jsonBar.value("Sgai").toDouble());
-  bar->Va.real(jsonBar.value("Sgb").toDouble()) ;
-  bar->Va.imag(jsonBar.value("Sgbi").toDouble());
-  bar->Va.real(jsonBar.value("Sgc").toDouble());
-  bar->Va.imag(jsonBar.value("Sgci").toDouble());
+  bar->Sga.real(jsonBar.value("Sga").toDouble());
+  bar->Sga.imag(jsonBar.value("Sgai").toDouble());
+  bar->Sgb.real(jsonBar.value("Sgb").toDouble()) ;
+  bar->Sgb.imag(jsonBar.value("Sgbi").toDouble());
+  bar->Sgc.real(jsonBar.value("Sgc").toDouble());
+  bar->Sgc.imag(jsonBar.value("Sgci").toDouble());
 
   // Load Power
-  bar->Va.real(jsonBar.value("Sla").toDouble());
-  bar->Va.imag(jsonBar.value("Slai").toDouble());
-  bar->Va.real(jsonBar.value("Slb").toDouble());
-  bar->Va.imag(jsonBar.value("Slbi").toDouble());
-  bar->Va.real(jsonBar.value("Slc").toDouble());
-  bar->Va.imag(jsonBar.value("Slci").toDouble());
+  bar->Sla.real(jsonBar.value("Sla").toDouble());
+  bar->Sla.imag(jsonBar.value("Slai").toDouble());
+  bar->Slb.real(jsonBar.value("Slb").toDouble());
+  bar->Slb.imag(jsonBar.value("Slbi").toDouble());
+  bar->Slc.real(jsonBar.value("Slc").toDouble());
+  bar->Slc.imag(jsonBar.value("Slci").toDouble());
 
   // Result Voltage
-  bar->Va.real(jsonBar.value("rVa").toDouble());
-  bar->Va.imag(jsonBar.value("rVai").toDouble());
-  bar->Va.real(jsonBar.value("rVb").toDouble());
-  bar->Va.imag(jsonBar.value("rVbi").toDouble());
-  bar->Va.real(jsonBar.value("rVc").toDouble());
-  bar->Va.imag(jsonBar.value("rVci").toDouble());
+  bar->rVa.real(jsonBar.value("rVa").toDouble());
+  bar->rVa.imag(jsonBar.value("rVai").toDouble());
+  bar->rVb.real(jsonBar.value("rVb").toDouble());
+  bar->rVb.imag(jsonBar.value("rVbi").toDouble());
+  bar->rVc.real(jsonBar.value("rVc").toDouble());
+  bar->rVc.imag(jsonBar.value("rVci").toDouble());
 
   // Result Generated Power
-  bar->Va.real(jsonBar.value("rSga").toDouble());
-  bar->Va.imag(jsonBar.value("rSgai").toDouble());
-  bar->Va.real(jsonBar.value("rSgb").toDouble());
-  bar->Va.imag(jsonBar.value("rSgbi").toDouble());
-  bar->Va.real(jsonBar.value("rSgc").toDouble());
-  bar->Va.imag(jsonBar.value("rSgci").toDouble());
+  bar->rSga.real(jsonBar.value("rSga").toDouble());
+  bar->rSga.imag(jsonBar.value("rSgai").toDouble());
+  bar->rSgb.real(jsonBar.value("rSgb").toDouble());
+  bar->rSgb.imag(jsonBar.value("rSgbi").toDouble());
+  bar->rSgc.real(jsonBar.value("rSgc").toDouble());
+  bar->rSgc.imag(jsonBar.value("rSgci").toDouble());
 
   // Result Load Power
-  bar->Va.real(jsonBar.value("rSla").toDouble());
-  bar->Va.imag(jsonBar.value("rSlai").toDouble());
-  bar->Va.real(jsonBar.value("rSlb").toDouble());
-  bar->Va.imag(jsonBar.value("rSlbi").toDouble());
-  bar->Va.real(jsonBar.value("rSlc").toDouble());
-  bar->Va.imag(jsonBar.value("rSlci").toDouble());
+  bar->rSla.real(jsonBar.value("rSla").toDouble());
+  bar->rSla.imag(jsonBar.value("rSlai").toDouble());
+  bar->rSlb.real(jsonBar.value("rSlb").toDouble());
+  bar->rSlb.imag(jsonBar.value("rSlbi").toDouble());
+  bar->rSlc.real(jsonBar.value("rSlc").toDouble());
+  bar->rSlc.imag(jsonBar.value("rSlci").toDouble());
 
   // Get Position
   bar->setX(jsonBar.value("x").toDouble());
@@ -441,7 +465,8 @@ PnBar *Project::barFromJson(QJsonObject &jsonBar) {
 /*******************************************************************************
  * lineToJson.
  ******************************************************************************/
-QJsonObject Project::lineToJson(PnLine *line) {
+QJsonObject Project::lineToJson(PnLine *line)
+{
   // Transform line data to Json object.
   QJsonObject jsonLine;
 
@@ -487,7 +512,8 @@ QJsonObject Project::lineToJson(PnLine *line) {
 /*******************************************************************************
  * lineFromJson.
  ******************************************************************************/
-PnLine *Project::lineFromJson(QJsonObject &jsonLine) {
+PnLine *Project::lineFromJson(QJsonObject &jsonLine)
+{
   PnLine *line = new PnLine;
 
   // Get NoI & NoF

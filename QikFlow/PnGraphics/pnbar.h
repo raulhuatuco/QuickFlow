@@ -8,17 +8,20 @@
 #include <stdint.h>
 
 #include "PnGraphics/pnline.h"
+#include "PnGraphics/pninfobar.h"
 
 QT_BEGIN_NAMESPACE
 class PnLine;
+class PnInfoBar;
 QT_END_NAMESPACE
 
 using std::complex;
 
-class PnBar : public QGraphicsObject {
+class PnBar : public QGraphicsObject
+{
   Q_OBJECT
 
- public:
+public:
   static const uint32_t kInvalidId = 0xFFFFFFFFU;
   static const int32_t kIconSize = 15;
 
@@ -69,12 +72,23 @@ class PnBar : public QGraphicsObject {
 // Graphics
   QRectF boundingRect() const Q_DECL_OVERRIDE;
 
- protected:
+signals:
+
+  void eventDoubleClick();
+
+protected:
+  void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
+  QVariant itemChange(GraphicsItemChange change,
+                      const QVariant &value) Q_DECL_OVERRIDE;
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
              QWidget *widget) Q_DECL_OVERRIDE;
 
- private:
+private:
   QList<PnLine *> lines;
+  PnInfoBar *pnInfoBar_;
+
+  void drawSlack(QPainter *painter);
+  void drawPq(QPainter *painter);
 };
 
 #endif  // PNBAR_H
