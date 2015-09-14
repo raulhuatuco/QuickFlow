@@ -14,30 +14,34 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         qkflow.cpp \
-    PnGraphics/pnbar.cpp \
-    PnGraphics/pninfobar.cpp\
-    PnGraphics/pnview.cpp \
-    PnGraphics/pnline.cpp \
-    PnGraphics/pninfoline.cpp\
-    PnGraphics/pnnetwork.cpp \
+    graphics/pnbar.cpp \
+    graphics/pninfobar.cpp\
+    graphics/pnview.cpp \
+    graphics/pnline.cpp \
+    graphics/pninfoline.cpp\
+    graphics/pnnetwork.cpp \
     project.cpp \
     window/lineproperties.cpp \
     window/newproject.cpp \
     window/barproperties.cpp \
-    unit.cpp
+    unit.cpp \
+    solver/shirmoharmnadi.cpp \
+    graphics/pnlayer.cpp
 
 HEADERS  += qkflow.h \
-    PnGraphics/pnbar.h \
-    PnGraphics/pninfobar.h\
-    PnGraphics/pnview.h \
-    PnGraphics/pnline.h \
-    PnGraphics/pninfoline.h\
-    PnGraphics/pnnetwork.h \
+    graphics/pnbar.h \
+    graphics/pninfobar.h\
+    graphics/pnview.h \
+    graphics/pnline.h \
+    graphics/pninfoline.h\
+    graphics/pnnetwork.h \
     project.h \
     window/lineproperties.h \
     window/newproject.h \
     window/barproperties.h \
-    unit.h
+    unit.h \
+    solver/shirmoharmnadi.h \
+    graphics/pnlayer.h
 
 FORMS    += qkflow.ui \
     window/lineproperties.ui \
@@ -47,6 +51,6 @@ FORMS    += qkflow.ui \
 RESOURCES += \
     img.qrc \
 
-
+LIBS+= -llapack -lblas -larmadillo
 
 DISTFILES+=.astylerc

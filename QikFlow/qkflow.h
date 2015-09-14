@@ -58,6 +58,10 @@ private slots:
   
   void on_action_txt_type_2_triggered();
   
+  void on_actionCespedes_triggered();
+  
+  void on_actionShirmoharmnadi_triggered();
+  
 protected:
   void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 

@@ -9,9 +9,9 @@
 #include <QStandardPaths>
 #include <QTextStream>
 
-#include "PnGraphics/pnbar.h"
-#include "PnGraphics/pnline.h"
-#include "PnGraphics/pnnetwork.h"
+#include "graphics/pnbar.h"
+#include "graphics/pnline.h"
+#include "graphics/pnnetwork.h"
 
 #include "window/newproject.h"
 #include "window/barproperties.h"
@@ -501,7 +501,7 @@ void QKflow::on_actionAddLine_triggered()
 
   LineProperties lineProperties(this);
   lineProperties.setLine(line, true);
-  lineProperties.setBarMap(project->pnNetwork->barMap);
+  lineProperties.setBarMap(project->pnNetwork->bars);
   lineProperties.setUnit(project->lengthUn(), project->impedanceUn());
 
   if (lineProperties.exec() == QDialog::Accepted) {
@@ -1050,4 +1050,18 @@ bool QKflow::import2(QString &fileName)
 {
   Q_UNUSED(fileName);
   return false;
+}
+
+void QKflow::on_actionCespedes_triggered()
+{
+  if(ui->actionShirmoharmnadi->isChecked()) {
+    ui->actionShirmoharmnadi->setChecked(false);
+  }
+}
+
+void QKflow::on_actionShirmoharmnadi_triggered()
+{
+  if(ui->actionCespedes->isChecked()) {
+    ui->actionCespedes->setChecked(false);
+  }
 }

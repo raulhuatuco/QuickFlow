@@ -4,7 +4,7 @@
 #include <QGraphicsItem>
 #include <QPoint>
 
-#include <PnGraphics/pnbar.h>
+#include "graphics/pnbar.h"
 QT_BEGIN_NAMESPACE
 class PnBar;
 QT_END_NAMESPACE

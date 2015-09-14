@@ -2,6 +2,8 @@
 
 #include <QStack>
 
+#include "graphics/pnlayer.h"
+
 /*******************************************************************************
  * PnNetwork.
  ******************************************************************************/
@@ -33,7 +35,7 @@ bool PnNetwork::addBar(PnBar *bar)
     return false;
 
   addItem(bar);
-  barMap.insert(bar->id, bar);
+  bars.insert(bar->id, bar);
 
   connect(bar, SIGNAL(eventDoubleClick()), barDoubleClick, SLOT(map()));
   barDoubleClick->setMapping(bar, bar);
@@ -50,7 +52,7 @@ bool PnNetwork::addLine(PnLine *line)
     return false;
 
   addItem(line);
-  lineVector.append(line);
+  lines.append(line);
 
   connect(line, SIGNAL(eventDoubleClick()), lineDoubleClick, SLOT(map()));
   lineDoubleClick->setMapping(line, line);
@@ -63,7 +65,7 @@ bool PnNetwork::addLine(PnLine *line)
  ******************************************************************************/
 PnBar *PnNetwork::getBarById(uint32_t id)
 {
-  return barMap.value(id, NULL);
+  return bars.value(id, NULL);
 }
 
 /*******************************************************************************
@@ -71,7 +73,7 @@ PnBar *PnNetwork::getBarById(uint32_t id)
  ******************************************************************************/
 PnLine *PnNetwork::getLineByNodes(uint32_t noI, uint32_t noF)
 {
-  foreach (PnLine *line, lineVector) {
+  foreach (PnLine *line, lines) {
     uint32_t NoIid = line->noI()->id;
     uint32_t NoFid = line->noF()->id;
 
@@ -87,44 +89,6 @@ PnLine *PnNetwork::getLineByNodes(uint32_t noI, uint32_t noF)
  ******************************************************************************/
 void PnNetwork::redrawAlgorithm1()
 {
-  double dx = 100;
-  double dy = 0;
-  double px = 0;
-  double py = 0;
-
-  QStack<PnBar *> stack;
-  stack.push(getBarById(0));
-
-  int32_t cnt = 0;
-  int32_t layer = 0;
-  while(cnt < barMap.size()) {
-    // Set current pos.
-
-    do {
-      PnBar *current = stack.pop();
-      current->setPos(px,py);
-
-      switch (current->lines.size()) {
-      case 1:
-        py += 0;
-        break;
-
-      case 2:
-        py += -200;
-        dy = 400;
-        break;
-
-      case 3:
-        py = -200;
-        dy = 200;
-        break;
-
-      default:
-        continue;
-        break;
-      }
-
-    } while(!stack.isEmpty());
-  }
+  PnLayer layers(PnNetwork);
 
 }

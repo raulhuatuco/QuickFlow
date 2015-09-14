@@ -7,8 +7,8 @@
 
 #include "unit.h"
 
-#include "PnGraphics/pnline.h"
-#include "PnGraphics/pnbar.h"
+#include "graphics/pnline.h"
+#include "graphics/pnbar.h"
 
 namespace Ui
 {

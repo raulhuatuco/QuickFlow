@@ -6,7 +6,7 @@
 #include <QMouseEvent>
 #include <QGraphicsView>
 
-#include "PnGraphics/pnnetwork.h"
+#include "graphics/pnnetwork.h"
 
 class PnView : public QGraphicsView
 {

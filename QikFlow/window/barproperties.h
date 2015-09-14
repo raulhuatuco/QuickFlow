@@ -4,7 +4,7 @@
 #include <QDialog>
 
 #include "unit.h"
-#include "PnGraphics/pnbar.h"
+#include "graphics/pnbar.h"
 
 namespace Ui
 {

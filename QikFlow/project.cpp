@@ -5,8 +5,8 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 
-#include "PnGraphics/pnbar.h"
-#include "PnGraphics/pnline.h"
+#include "graphics/pnbar.h"
+#include "graphics/pnline.h"
 
 /*******************************************************************************
  * Project.
@@ -186,14 +186,14 @@ bool Project::save()
 
   // Creates a QJsonArray filled with Bar data.
   QJsonArray barArray;
-  foreach (PnBar *bar, pnNetwork->barMap) {
+  foreach (PnBar *bar, pnNetwork->bars) {
     barArray << barToJson(bar);
   }
   projectJson.insert("barArray", barArray);
 
   // Creates a QJsonArray filled with Line data.
   QJsonArray lineArray;
-  foreach (PnLine *line, pnNetwork->lineVector) {
+  foreach (PnLine *line, pnNetwork->lines) {
     lineArray << lineToJson(line);
   }
   projectJson.insert("lineArray", lineArray);
@@ -240,14 +240,14 @@ bool Project::saveAs(QString fileName)
 
   // Creates a QJsonArray filled with Bar data.
   QJsonArray barArray;
-  foreach (PnBar *bar, pnNetwork->barMap) {
+  foreach (PnBar *bar, pnNetwork->bars) {
     barArray << barToJson(bar);
   }
   projectJson.insert("barArray", barArray);
 
   // Creates a QJsonArray filled with Line data.
   QJsonArray lineArray;
-  foreach (PnLine *line, pnNetwork->lineVector) {
+  foreach (PnLine *line, pnNetwork->lines) {
     lineArray << lineToJson(line);
   }
   projectJson.insert("lineArray", lineArray);

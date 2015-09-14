@@ -6,9 +6,9 @@
 
 #include "unit.h"
 
-#include "PnGraphics/pnnetwork.h"
-#include "PnGraphics/pnbar.h"
-#include "PnGraphics/pnline.h"
+#include "graphics/pnnetwork.h"
+#include "graphics/pnbar.h"
+#include "graphics/pnline.h"
 
 class Project
 {

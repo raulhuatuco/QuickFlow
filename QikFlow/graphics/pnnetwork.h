@@ -10,8 +10,8 @@
 
 #include "unit.h"
 
-#include "PnGraphics/pnbar.h"
-#include "PnGraphics/pnline.h"
+#include "graphics/pnbar.h"
+#include "graphics/pnline.h"
 
 class PnNetwork : public QGraphicsScene
 {
@@ -33,14 +33,18 @@ public:
   Unit::VoltageUnit voltageUnit;
   Unit::PowerUnit powerUnit;
 
-  QMap<uint32_t, PnBar *> barMap;
-  QVector<PnLine *> lineVector;
+  QMap<uint32_t, PnBar *> bars;
+  QVector<PnLine *> lines;
 
   bool addBar(PnBar *bar);
   bool addLine(PnLine *line);
 
   PnBar *getBarById(uint32_t id);
   PnLine *getLineByNodes(uint32_t noI, uint32_t noF);
+
+  void toPu();
+  void fromPu();
+  bool isPu();
 
   void redrawAlgorithm1();
 

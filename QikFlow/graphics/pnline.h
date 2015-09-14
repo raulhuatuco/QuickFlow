@@ -5,8 +5,8 @@
 #include <QPen>
 #include <complex>
 
-#include "PnGraphics/pnbar.h"
-#include "PnGraphics/pninfoline.h"
+#include "graphics/pnbar.h"
+#include "graphics/pninfoline.h"
 
 QT_BEGIN_NAMESPACE
 class PnBar;

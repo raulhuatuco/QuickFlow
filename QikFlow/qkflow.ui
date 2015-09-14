@@ -79,9 +79,18 @@
     <property name="title">
      <string>Tools</string>
     </property>
+    <widget class="QMenu" name="menuSolver">
+     <property name="title">
+      <string>Solver</string>
+     </property>
+     <addaction name="actionShirmoharmnadi"/>
+     <addaction name="actionCespedes"/>
+    </widget>
     <addaction name="actionRun"/>
     <addaction name="actionPause"/>
     <addaction name="actionStop"/>
+    <addaction name="separator"/>
+    <addaction name="menuSolver"/>
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
    </widget>
@@ -99,6 +108,15 @@
   <widget class="QToolBar" name="mainToolBar">
    <property name="movable">
     <bool>false</bool>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>15</width>
+     <height>15</height>
+    </size>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonIconOnly</enum>
    </property>
    <property name="floatable">
     <bool>false</bool>
@@ -353,13 +371,32 @@
     <string>Export</string>
    </property>
   </action>
+  <action name="actionShirmoharmnadi">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="checked">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Shirmoharmnadi</string>
+   </property>
+  </action>
+  <action name="actionCespedes">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Cespedes</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
    <class>PnView</class>
    <extends>QWidget</extends>
-   <header location="global">PnGraphics/pnview.h</header>
+   <header location="global">graphics/pnview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

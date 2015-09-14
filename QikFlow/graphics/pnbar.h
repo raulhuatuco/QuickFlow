@@ -6,9 +6,10 @@
 #include <QList>
 #include <complex>
 #include <stdint.h>
+#include <armadillo>
 
-#include "PnGraphics/pnline.h"
-#include "PnGraphics/pninfobar.h"
+#include "graphics/pnline.h"
+#include "graphics/pninfobar.h"
 
 QT_BEGIN_NAMESPACE
 class PnLine;
