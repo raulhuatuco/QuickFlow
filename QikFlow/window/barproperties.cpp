@@ -48,63 +48,72 @@ BarProperties::~BarProperties()
 }
 
 /*******************************************************************************
- * setBar.
+ * setOptions.
  ******************************************************************************/
-void BarProperties::setBar(PnBar *bar, bool newBar)
+void BarProperties::setOptions(Project *project, PnBar *bar)
 {
   // Adjust apearance according to bar.
-  if (newBar) {
+  if (bar == NULL) {
     setWindowTitle(tr("New Bar"));
+    // Create a new bar.
+    bar_ = new PnBar;
+    isNew = true;
   } else {
     setWindowTitle(tr("Edit Bar ") + QString::number(bar->id));
     ui->id->setEnabled(false);
+    // Store parameters.
+    bar_ = bar;
+    isNew = false;
   }
 
-  // Store parameters.
-  bar_ = bar;
+  // Store project parameters.
+  project_ = project;
 
   // Fill Bar data.
-  ui->id->setValue(bar->id);
-  ui->Va->setText(QString::number(bar->Va.real()));
-  ui->Vb->setText(QString::number(bar->Vb.real()));
-  ui->Vc->setText(QString::number(bar->Vc.real()));
-  ui->Vai->setText(QString::number(bar->Va.imag()));
-  ui->Vbi->setText(QString::number(bar->Vb.imag()));
-  ui->Vci->setText(QString::number(bar->Vc.imag()));
-  ui->Sga->setText(QString::number(bar->Sga.real()));
-  ui->Sgb->setText(QString::number(bar->Sgb.real()));
-  ui->Sgc->setText(QString::number(bar->Sgc.real()));
-  ui->Sgai->setText(QString::number(bar->Sga.imag()));
-  ui->Sgbi->setText(QString::number(bar->Sgb.imag()));
-  ui->Sgci->setText(QString::number(bar->Sgc.imag()));
-  ui->Sla->setText(QString::number(bar->Sla.real()));
-  ui->Slb->setText(QString::number(bar->Slb.real()));
-  ui->Slc->setText(QString::number(bar->Slc.real()));
-  ui->Slai->setText(QString::number(bar->Sla.imag()));
-  ui->Slbi->setText(QString::number(bar->Slb.imag()));
-  ui->Slci->setText(QString::number(bar->Slc.imag()));
-  ui->px->setText(QString::number(bar->x()));
-  ui->py->setText(QString::number(bar->y()));
-}
+  ui->id->setValue(bar_->id);
+  ui->Va->setText(QString::number(bar_->Va.real()));
+  ui->Vb->setText(QString::number(bar_->Vb.real()));
+  ui->Vc->setText(QString::number(bar_->Vc.real()));
+  ui->Vai->setText(QString::number(bar_->Va.imag()));
+  ui->Vbi->setText(QString::number(bar_->Vb.imag()));
+  ui->Vci->setText(QString::number(bar_->Vc.imag()));
+  ui->Sga->setText(QString::number(bar_->Sga.real()));
+  ui->Sgb->setText(QString::number(bar_->Sgb.real()));
+  ui->Sgc->setText(QString::number(bar_->Sgc.real()));
+  ui->Sgai->setText(QString::number(bar_->Sga.imag()));
+  ui->Sgbi->setText(QString::number(bar_->Sgb.imag()));
+  ui->Sgci->setText(QString::number(bar_->Sgc.imag()));
+  ui->Sla->setText(QString::number(bar_->Sla.real()));
+  ui->Slb->setText(QString::number(bar_->Slb.real()));
+  ui->Slc->setText(QString::number(bar_->Slc.real()));
+  ui->Slai->setText(QString::number(bar_->Sla.imag()));
+  ui->Slbi->setText(QString::number(bar_->Slb.imag()));
+  ui->Slci->setText(QString::number(bar_->Slc.imag()));
+  ui->px->setText(QString::number(bar_->x()));
+  ui->py->setText(QString::number(bar_->y()));
 
-/*******************************************************************************
- * setUnit.
- ******************************************************************************/
-void BarProperties::setUnit(Unit::VoltageUnit voltageUnit,
-                            Unit::PowerUnit powerUnit)
-{
+  // Set units.
   // Voltage.
-  ui->VaUn->setText(tr("[") + Unit::voltageUnitToStr(voltageUnit) + tr("]"));
-  ui->VbUn->setText(tr("[") + Unit::voltageUnitToStr(voltageUnit) + tr("]"));
-  ui->VcUn->setText(tr("[") + Unit::voltageUnitToStr(voltageUnit) + tr("]"));
+  ui->VaUn->setText(tr("[") + Unit::voltageUnitToStr(project->voltageUnit()) +
+                    tr("]"));
+  ui->VbUn->setText(tr("[") + Unit::voltageUnitToStr(project->voltageUnit()) +
+                    tr("]"));
+  ui->VcUn->setText(tr("[") + Unit::voltageUnitToStr(project->voltageUnit()) +
+                    tr("]"));
 
   // Power.
-  ui->SgaUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
-  ui->SlaUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
-  ui->SgbUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
-  ui->SlbUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
-  ui->SgcUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
-  ui->SlcUn->setText(tr("[") + Unit::powerUnitToStr(powerUnit) + tr("]"));
+  ui->SgaUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+                     tr("]"));
+  ui->SlaUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+                     tr("]"));
+  ui->SgbUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+                     tr("]"));
+  ui->SlbUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+                     tr("]"));
+  ui->SgcUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+                     tr("]"));
+  ui->SlcUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+                     tr("]"));
 }
 
 /*******************************************************************************
@@ -112,6 +121,16 @@ void BarProperties::setUnit(Unit::VoltageUnit voltageUnit,
  ******************************************************************************/
 void BarProperties::on_buttonBox_accepted()
 {
+  // Check for valid id.
+  if(isNew) {
+    if (project_->pnNetwork->getBarById(ui->id->value()) != NULL) {
+      QMessageBox::information(this, "Invalid parameter", "Id already in use.",
+                               QMessageBox::Ok);
+      ui->id->setFocus();
+      return;
+    }
+  }
+
   // Check for empty fields.
   // Voltages.
   // Real Part.
@@ -295,6 +314,16 @@ void BarProperties::on_buttonBox_accepted()
   if((ui->px->text().toDouble() != bar_->x()) ||
       (ui->py->text().toDouble() != bar_->y())) {
     bar_->setPos(ui->px->text().toDouble(), ui->py->text().toDouble());
+  }
+
+  // Add Bar to project.
+  if (isNew) {
+    if(!project_->pnNetwork->addBar(bar_)) {
+      QMessageBox::critical(this, "Invalid Bar", "Can't add new bar to project.",
+                            QMessageBox::Ok);
+      delete bar_;
+      reject();
+    }
   }
 
   accept();

@@ -77,8 +77,8 @@ private:
   void saveSettings();
   void createSettings();
   void upgradeSettings();
-  void connectProject();
-  void disconnectProject();
+  void connectSignals();
+  void disconnectSignals();
   bool import1(QString &fileName);
   bool import2(QString &fileName);
 };

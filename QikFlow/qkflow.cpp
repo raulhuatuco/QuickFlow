@@ -9,9 +9,9 @@
 #include <QStandardPaths>
 #include <QTextStream>
 
-#include "graphics/pnbar.h"
-#include "graphics/pnline.h"
-#include "graphics/pnnetwork.h"
+#include "pn/bar.h"
+#include "pn/line.h"
+#include "pn/network.h"
 
 #include "window/newproject.h"
 #include "window/barproperties.h"
@@ -81,6 +81,8 @@ void QKflow::setAltered(bool altered)
 
   if(altered_)
     ui->actionSave->setEnabled(true);
+  else
+    ui->actionSave->setEnabled(false);
 }
 
 /*******************************************************************************
@@ -198,9 +200,9 @@ void QKflow::upgradeSettings()
 }
 
 /*******************************************************************************
- * Connect Project.
+ * Connect Signals.
  ******************************************************************************/
-void QKflow::connectProject()
+void QKflow::connectSignals()
 {
   connect(project->pnNetwork, SIGNAL(barProperties(QObject *)), this,
           SLOT(on_editBar(QObject *)));
@@ -210,9 +212,9 @@ void QKflow::connectProject()
 }
 
 /*******************************************************************************
- * Disconnect Project.
+ * Disconnect Signals.
  ******************************************************************************/
-void QKflow::disconnectProject()
+void QKflow::disconnectSignals()
 {
   disconnect(project->pnNetwork, SIGNAL(barProperties(QObject *)), this,
              SLOT(on_editBar(QObject *)));
@@ -247,7 +249,7 @@ void QKflow::on_actionNew_triggered()
   // Create project object and fill settings.
   project = new Project;
   project->name = newProject.dataName;
-  project->filepath = newProject.dataPath + QDir::separator() +
+  project->filePath = newProject.dataPath + QDir::separator() +
                       newProject.dataName + ".qkflow";
 
   // Simulation data.
@@ -283,7 +285,7 @@ void QKflow::on_actionNew_triggered()
   ui->pnView->setPnNetwork(project->pnNetwork);
 
   // Connect signals.
-  connectProject();
+  connectSignals();
 }
 
 /*******************************************************************************
@@ -318,7 +320,7 @@ void QKflow::on_actionOpen_triggered()
 
   // Create project object and load from file.
   project = new Project;
-  project->filepath = fileName;
+  project->filePath = fileName;
 
   if (project->load() != true) {
     QMessageBox::critical(this, "File read error", "Cannot read .qkflow file.",
@@ -338,7 +340,7 @@ void QKflow::on_actionOpen_triggered()
   ui->pnView->setPnNetwork(project->pnNetwork);
 
   // Connect signals.
-  connectProject();
+  connectSignals();
 }
 
 /*******************************************************************************
@@ -389,7 +391,7 @@ void QKflow::on_actionSave_as_triggered()
   }
 
   // Adjust Project settings.
-  project->filepath = filePath;
+  project->filePath = filePath;
 
   // Project doesnt have any new modifications now.
   // Disable save button.
@@ -434,7 +436,7 @@ void QKflow::on_actionClose_triggered()
   }
 
   // Disconnect signals.
-  disconnectProject();
+  disconnectSignals();
 
   delete project;
   project = NULL;
@@ -471,24 +473,11 @@ void QKflow::on_actionZoomFit_triggered()
  ******************************************************************************/
 void QKflow::on_actionAddBar_triggered()
 {
-  // Create a new bar that will be used by bar properties window.
-  PnBar *bar = new PnBar;
-
   BarProperties barProperties(this);
-  barProperties.setBar(bar, true);
-  barProperties.setUnit(project->pnNetwork->voltageUnit,
-                        project->pnNetwork->powerUnit);
+  barProperties.setOptions(project, NULL);
 
   if (barProperties.exec() == QDialog::Accepted) {
     setAltered(true);
-
-    if(!project->pnNetwork->addBar(bar)) {
-      QMessageBox::critical(this, "Invalid Bar", "Bar id already in use.",
-                            QMessageBox::Ok);
-      delete bar;
-    }
-  } else {
-    delete bar;
   }
 }
 
@@ -497,24 +486,11 @@ void QKflow::on_actionAddBar_triggered()
  ******************************************************************************/
 void QKflow::on_actionAddLine_triggered()
 {
-  PnLine *line = new PnLine;
-
   LineProperties lineProperties(this);
-  lineProperties.setLine(line, true);
-  lineProperties.setBarMap(project->pnNetwork->bars);
-  lineProperties.setUnit(project->lengthUn(), project->impedanceUn());
+  lineProperties.setOptions(project, NULL);
 
   if (lineProperties.exec() == QDialog::Accepted) {
     setAltered(true);
-
-    if(!project->pnNetwork->addLine(line)) {
-      QMessageBox::critical(this, "Invalid line",
-                            "A line is already connected to this nodes.",
-                            QMessageBox::Ok);
-      delete line;
-    }
-  } else {
-    delete line;
   }
 }
 
@@ -555,8 +531,7 @@ void QKflow::closeEvent(QCloseEvent *event)
 void QKflow::on_editBar(QObject *bar)
 {
   BarProperties barProperties(this);
-  barProperties.setBar(static_cast<PnBar *>(bar), false);
-  barProperties.setUnit(project->voltageUn(), project->powerUn());
+  barProperties.setOptions(project, static_cast<PnBar *>(bar));
 
   if (barProperties.exec() == QDialog::Accepted) {
     setAltered(true);
@@ -569,8 +544,7 @@ void QKflow::on_editBar(QObject *bar)
 void QKflow::on_editLine(QObject *line)
 {
   LineProperties lineProperties(this);
-  lineProperties.setLine(static_cast<PnLine *>(line), false);
-  lineProperties.setUnit(project->lengthUn(), project->impedanceUn());
+  lineProperties.setOptions(project, static_cast<PnLine *>(line));
 
   if (lineProperties.exec() == QDialog::Accepted) {
     setAltered(true);
@@ -672,7 +646,7 @@ bool QKflow::import1(QString &fileName)
 
 // Get project path.
 //------------------------------------------------------------------------------
-  project->filepath = fileName;
+  project->filePath = fileName;
 
 // Auxiliaty variables.
 //------------------------------------------------------------------------------

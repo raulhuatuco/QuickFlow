@@ -1,4 +1,4 @@
-#include "pnview.h"
+#include "view.h"
 
 #include <QColor>
 #include <QBrush>

@@ -1,7 +1,7 @@
 #include "lineproperties.h"
 #include "ui_lineproperties.h"
 
-#include <QString>
+#include <QJsonObject>
 #include <QMessageBox>
 
 /*******************************************************************************
@@ -26,100 +26,91 @@ LineProperties::~LineProperties()
 }
 
 /*******************************************************************************
- * setLine.
+ * setOptions.
  ******************************************************************************/
-void LineProperties::setLine(PnLine *line, bool newLine)
+void LineProperties::setOptions(Project *project, PnLine *line)
 {
-// Adjust apearance according to line.
-  if (newLine) {
+  // Adjust apearance according to line.
+  if (line == NULL) {
     setWindowTitle(tr("New Line"));
+    line_ = new PnLine;
+    isNew = true;
+
+    // Fill line ids combobox.
+    foreach (PnBar *bar, project->pnNetwork->bars) {
+      ui->noI->addItem(QString::number(bar->id));
+      ui->noF->addItem(QString::number(bar->id));
+    }
 
   } else {
     setWindowTitle(tr("Edit Line from node ") + QString::number(
-                     line->noI()->id) + tr(" to node ") \
-                   + QString::number(line->noF()->id));
+                     line->noI) + tr(" to node ") \
+                   + QString::number(line->noF));
+    line_ = line;
+    isNew = false;
 
-    ui->noI->addItem(QString::number(line->noI()->id));
-    ui->noF->addItem(QString::number(line->noF()->id));
+    // Fill line ids combobox.
+    ui->noI->addItem(QString::number(line->noI));
+    ui->noF->addItem(QString::number(line->noF));
     ui->noI->setEnabled(false);
     ui->noF->setEnabled(false);
   }
 
+  // Store project parameters.
+  project_ = project;
+
   // Store parameters.
   // Length.
-  ui->length->setText(QString::number(line->length));
+  ui->length->setText(QString::number(line_->length));
 
   // Impedance.
-  ui->Zaa->setText(QString::number(line->Zaa.real()));
-  ui->Zaai->setText(QString::number(line->Zaa.imag()));
-  ui->Zab->setText(QString::number(line->Zab.real()));
-  ui->Zabi->setText(QString::number(line->Zab.imag()));
-  ui->Zac->setText(QString::number(line->Zac.real()));
-  ui->Zaci->setText(QString::number(line->Zac.imag()));
-  ui->Zan->setText(QString::number(line->Zan.real()));
-  ui->Zani->setText(QString::number(line->Zan.imag()));
-  ui->Zbb->setText(QString::number(line->Zbb.real()));
-  ui->Zbbi->setText(QString::number(line->Zbb.imag()));
-  ui->Zbc->setText(QString::number(line->Zbc.real()));
-  ui->Zbci->setText(QString::number(line->Zbc.imag()));
-  ui->Zbn->setText(QString::number(line->Zbn.real()));
-  ui->Zbni->setText(QString::number(line->Zbn.imag()));
-  ui->Zcc->setText(QString::number(line->Zcc.real()));
-  ui->Zcci->setText(QString::number(line->Zcc.imag()));
-  ui->Zcn->setText(QString::number(line->Zcn.real()));
-  ui->Zcni->setText(QString::number(line->Zcn.imag()));
-  ui->Znn->setText(QString::number(line->Znn.real()));
-  ui->Znni->setText(QString::number(line->Znn.imag()));
+  ui->Zaa->setText(QString::number(line_->Zaa.real()));
+  ui->Zaai->setText(QString::number(line_->Zaa.imag()));
+  ui->Zab->setText(QString::number(line_->Zab.real()));
+  ui->Zabi->setText(QString::number(line_->Zab.imag()));
+  ui->Zac->setText(QString::number(line_->Zac.real()));
+  ui->Zaci->setText(QString::number(line_->Zac.imag()));
+  ui->Zan->setText(QString::number(line_->Zan.real()));
+  ui->Zani->setText(QString::number(line_->Zan.imag()));
+  ui->Zbb->setText(QString::number(line_->Zbb.real()));
+  ui->Zbbi->setText(QString::number(line_->Zbb.imag()));
+  ui->Zbc->setText(QString::number(line_->Zbc.real()));
+  ui->Zbci->setText(QString::number(line_->Zbc.imag()));
+  ui->Zbn->setText(QString::number(line_->Zbn.real()));
+  ui->Zbni->setText(QString::number(line_->Zbn.imag()));
+  ui->Zcc->setText(QString::number(line_->Zcc.real()));
+  ui->Zcci->setText(QString::number(line_->Zcc.imag()));
+  ui->Zcn->setText(QString::number(line_->Zcn.real()));
+  ui->Zcni->setText(QString::number(line_->Zcn.imag()));
+  ui->Znn->setText(QString::number(line_->Znn.real()));
+  ui->Znni->setText(QString::number(line_->Znn.imag()));
 
-  // Save line address
-  line_ = line;
-
-  newLine_ = newLine;
-}
-
-/*******************************************************************************
- * setBarMap.
- ******************************************************************************/
-void LineProperties::setBarMap(QMap<uint32_t, PnBar *> &barMap)
-{
-  foreach (PnBar *bar, barMap) {
-    ui->noI->addItem(QString::number(bar->id));
-    ui->noF->addItem(QString::number(bar->id));
-  }
-
-  barMap_ = &barMap;
-}
-
-/*******************************************************************************
- * setUnit.
- ******************************************************************************/
-void LineProperties::setUnit(Unit::LengthUnit lengthUnit,
-                             Unit::ImpedanceUnit impedanceUnit)
-{
+  // Set units.
   // Length.
-  ui->lengthUn->setText(tr("[") + Unit::lengthUnitToStr(lengthUnit) + tr("]"));
+  ui->lengthUn->setText(tr("[") + Unit::lengthUnitToStr(project->lengthUnit()) +
+                        tr("]"));
 
   // Impedance.
   ui->impedanceUn1->setText(tr("[") + Unit::impedanceUnitToStr(
-                              impedanceUnit) + tr("]"));
+                              project->impedanceUnit()) + tr("]"));
   ui->impedanceUn2->setText(tr("[") + Unit::impedanceUnitToStr(
-                              impedanceUnit) + tr("]"));
+                              project->impedanceUnit()) + tr("]"));
   ui->impedanceUn3->setText(tr("[") + Unit::impedanceUnitToStr(
-                              impedanceUnit) + tr("]"));
+                              project->impedanceUnit()) + tr("]"));
   ui->impedanceUn4->setText(tr("[") + Unit::impedanceUnitToStr(
-                              impedanceUnit) + tr("]"));
+                              project->impedanceUnit()) + tr("]"));
   ui->impedanceUn5->setText(tr("[") + Unit::impedanceUnitToStr(
-                              impedanceUnit) + tr("]"));
+                              project->impedanceUnit()) + tr("]"));
   ui->impedanceUn6->setText(tr("[") + Unit::impedanceUnitToStr(
-                              impedanceUnit) + tr("]"));
+                              project->impedanceUnit()) + tr("]"));
   ui->impedanceUn7->setText(tr("[") + Unit::impedanceUnitToStr(
-                              impedanceUnit) + tr("]"));
+                              project->impedanceUnit()) + tr("]"));
   ui->impedanceUn8->setText(tr("[") + Unit::impedanceUnitToStr(
-                              impedanceUnit) + tr("]"));
+                              project->impedanceUnit()) + tr("]"));
   ui->impedanceUn9->setText(tr("[") + Unit::impedanceUnitToStr(
-                              impedanceUnit) + tr("]"));
+                              project->impedanceUnit()) + tr("]"));
   ui->impedanceUn10->setText(tr("[") + Unit::impedanceUnitToStr(
-                               impedanceUnit) + tr("]"));
+                               project->impedanceUnit()) + tr("]"));
 }
 
 /*******************************************************************************
@@ -135,6 +126,18 @@ void LineProperties::on_buttonBox_accepted()
                              QMessageBox::Ok);
     ui->noI->setFocus();
     return;
+  }
+
+  // Check if line already exists for new lines.
+  if(isNew) {
+    if(project_->pnNetwork->getLineByNodes(ui->noI->currentText().toInt(),
+                                           ui->noF->currentText().toInt()) != NULL) {
+      QMessageBox::information(this, "Invalid parameter",
+                               "Line already exist.",
+                               QMessageBox::Ok);
+      ui->noI->setFocus();
+      return;
+    }
   }
 
   // Length.
@@ -227,11 +230,11 @@ void LineProperties::on_buttonBox_accepted()
   if (!validImpedance(ui->Znni))
     return;
 
-  if(newLine_) {
-    PnBar *NodeI = barMap_->value(ui->noI->currentText().toInt(), NULL);
-    PnBar *NodeF = barMap_->value(ui->noF->currentText().toInt(), NULL);
+  // Set nodes if it's a new line.
+  if(isNew) {
     // Set noI and noF.
-    line_->setNodes(NodeI, NodeF);
+    line_->noI = static_cast<uint32_t> (ui->noI->currentText().toInt());
+    line_->noF = static_cast<uint32_t> (ui->noF->currentText().toInt());
   }
 
   // Set impedance.
@@ -264,6 +267,16 @@ void LineProperties::on_buttonBox_accepted()
 
   line_->Znn.real(ui->Znn->text().toDouble());
   line_->Znn.imag(ui->Znni->text().toDouble());
+
+  // Add new line to network.
+  if (isNew) {
+    if(!project_->pnNetwork->addLine(line_)) {
+      QMessageBox::critical(this, "Invalid Line", "Can't add new line to project.",
+                            QMessageBox::Ok);
+      delete line_;
+      reject();
+    }
+  }
 
   accept();
 }

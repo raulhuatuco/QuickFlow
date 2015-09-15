@@ -3,8 +3,8 @@
 
 #include <QVector>
 
-#include "graphics/pnbar.h"
-#include "graphics/pnnetwork.h"
+#include "pn/bar.h"
+#include "pn/network.h"
 
 class PnLayer
 {

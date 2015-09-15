@@ -8,10 +8,15 @@
 #include <QMap>
 #include <QVector>
 
-#include "unit.h"
+#include "pn/types.h"
 
-#include "graphics/pnbar.h"
-#include "graphics/pnline.h"
+#include "pn/bar.h"
+#include "pn/line.h"
+
+QT_BEGIN_NAMESPACE
+class PnBar;
+class PnLine;
+QT_END_NAMESPACE
 
 class PnNetwork : public QGraphicsScene
 {
@@ -42,9 +47,9 @@ public:
   PnBar *getBarById(uint32_t id);
   PnLine *getLineByNodes(uint32_t noI, uint32_t noF);
 
-  void toPu();
-  void fromPu();
-  bool isPu();
+  void toPerUnit();
+  void toBaseUnit();
+  bool isPerUnit();
 
   void redrawAlgorithm1();
 
@@ -55,6 +60,8 @@ signals:
 private:
   QSignalMapper *barDoubleClick;
   QSignalMapper *lineDoubleClick;
+  bool perUnit;
+
 };
 
 #endif  // PNNETWORK_H

@@ -3,8 +3,8 @@
 
 #include <QDialog>
 
-#include "unit.h"
-#include "graphics/pnbar.h"
+#include "pn/types.h"
+#include "project.h"
 
 namespace Ui
 {
@@ -19,8 +19,7 @@ public:
   explicit BarProperties(QWidget *parent = 0);
   ~BarProperties();
 
-  void setBar(PnBar *bar, bool newBar);
-  void setUnit(Unit::VoltageUnit voltageUnit, Unit::PowerUnit powerUnit);
+  void setOptions(Project *project, PnBar *bar);
 
 private slots:
   void on_buttonBox_accepted();
@@ -29,7 +28,9 @@ private slots:
 
 private:
   Ui::BarProperties *ui;
+  Project *project_;
   PnBar *bar_;
+  bool isNew;
 };
 
 #endif // WINDOWBARPROPERTIES_H

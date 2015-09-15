@@ -1,13 +1,14 @@
-#include "pnnetwork.h"
+#include "network.h"
 
 #include <QStack>
 
-#include "graphics/pnlayer.h"
+#include "pn/layer.h"
 
 /*******************************************************************************
  * PnNetwork.
  ******************************************************************************/
-PnNetwork::PnNetwork()
+PnNetwork::PnNetwork() :
+  perUnit(false)
 {
   barDoubleClick = new QSignalMapper(this);
   lineDoubleClick = new QSignalMapper(this);
@@ -34,6 +35,7 @@ bool PnNetwork::addBar(PnBar *bar)
   if(getBarById(bar->id) != NULL)
     return false;
 
+  bar->pnNetwork = this;
   addItem(bar);
   bars.insert(bar->id, bar);
 
@@ -48,8 +50,17 @@ bool PnNetwork::addBar(PnBar *bar)
  ******************************************************************************/
 bool PnNetwork::addLine(PnLine *line)
 {
-  if(getLineByNodes(line->noI()->id, line->noF()->id) != NULL)
+  if(getLineByNodes(line->noI, line->noF) != NULL)
     return false;
+
+  PnBar *pNoI = getBarById(line->noI);
+  PnBar *pNoF = getBarById(line->noF);
+
+  if ((pNoI == NULL) || (pNoF == NULL))
+    return false;
+
+  line->pnNetwork = this;
+  line->setNodes(pNoI, pNoF);
 
   addItem(line);
   lines.append(line);
@@ -74,14 +85,34 @@ PnBar *PnNetwork::getBarById(uint32_t id)
 PnLine *PnNetwork::getLineByNodes(uint32_t noI, uint32_t noF)
 {
   foreach (PnLine *line, lines) {
-    uint32_t NoIid = line->noI()->id;
-    uint32_t NoFid = line->noF()->id;
+    if ((line->noI == noI) && (line->noF == noF))
+      return line;
 
-    if ((NoIid == noI) || (NoIid == noF))
-      if ((NoFid == noI) || (NoFid == noF))
-        return line;
+    if ((line->noF == noI) && (line->noI == noF))
+      return line;
   }
+
   return NULL;
+}
+
+void PnNetwork::toPerUnit()
+{
+  if(perUnit)
+    return;
+
+
+}
+
+void PnNetwork::toBaseUnit()
+{
+  if(!perUnit)
+    return;
+
+}
+
+bool PnNetwork::isPerUnit()
+{
+  return perUnit;
 }
 
 /*******************************************************************************

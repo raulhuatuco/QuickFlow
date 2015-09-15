@@ -4,19 +4,24 @@
 #include <QGraphicsObject>
 #include <QByteArray>
 #include <QList>
-#include <complex>
-#include <stdint.h>
+#include <QJsonObject>
 #include <armadillo>
 
-#include "graphics/pnline.h"
-#include "graphics/pninfobar.h"
+#include <complex>
+#include <stdint.h>
+
+#include "pn/line.h"
+#include "pn/infobar.h"
+#include "pn/network.h"
 
 QT_BEGIN_NAMESPACE
 class PnLine;
 class PnInfoBar;
+class PnNetwork;
 QT_END_NAMESPACE
 
 using std::complex;
+using arma::Col;
 
 class PnBar : public QGraphicsObject
 {
@@ -26,11 +31,13 @@ public:
   static const uint32_t kInvalidId = 0xFFFFFFFFU;
   static const int32_t kIconSize = 15;
 
-  PnBar();
-  ~PnBar();
-
-  // Input parameters.
   uint32_t id;
+
+  PnNetwork *pnNetwork;
+
+// Input parameters.
+
+  Col<cx_double> &V() const;
 
   complex<double> Va;
   complex<double> Vb;
@@ -65,17 +72,30 @@ public:
   complex<double> rIb();
   complex<double> rIc();
 
-  // Lines
   QList<PnLine *> lines;
+
+  PnBar();
+  ~PnBar();
+
+  // Lines.
   void addLine(PnLine *line);
   void removeLine(PnLine *line);
   void removeLines();
 
-// Graphics
+  // Conversion.
+  // PerUnit.
+  void toPerUnit();
+  void toBaseUnit();
+
+  //Json.
+  QJsonObject toJson();
+  void fromJson(QJsonObject &jsonBar);
+
+
+  // Graphics.
   QRectF boundingRect() const Q_DECL_OVERRIDE;
 
 signals:
-
   void eventDoubleClick();
 
 protected:
@@ -86,6 +106,14 @@ protected:
              QWidget *widget) Q_DECL_OVERRIDE;
 
 private:
+  Col<cx_double> V_;
+  Col<cx_double> Sg_;
+  Col<cx_double> Sl_;
+
+  Col<cx_double> rV_;
+  Col<cx_double> rSg_;
+  Col<cx_double> rSl_;
+
   PnInfoBar *pnInfoBar_;
 
   void drawSlack(QPainter *painter);

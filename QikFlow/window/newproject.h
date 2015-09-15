@@ -5,7 +5,7 @@
 #include <QString>
 #include <QDir>
 
-#include "unit.h"
+#include "pn/types.h"
 
 namespace Ui
 {

@@ -1,4 +1,4 @@
-#include "pnlayer.h"
+#include "layer.h"
 
 PnLayer::PnLayer(PnNetwork *pnNetwork) :
   pnNetwork_(pnNetwork)
@@ -51,12 +51,12 @@ void PnLayer::next(PnLayer::Layer *current)
 
   foreach(PnBar *bar, *current) {
     foreach(PnLine *line, bar->lines) {
-      if(line->noI() == bar) {
-        if(line->noF() != NULL)
-          nextLayer->append(line->noF());
+      if(line->pNoI() == bar) {
+        if(line->pNoF() != NULL)
+          nextLayer->append(line->pNoF());
       } else {
-        if(line->noI() != NULL)
-          nextLayer->append(line->noI());
+        if(line->pNoI() != NULL)
+          nextLayer->append(line->pNoI());
       }
     }
   }

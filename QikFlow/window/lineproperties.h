@@ -5,10 +5,11 @@
 #include <QMap>
 #include <QLineEdit>
 
-#include "unit.h"
+#include "pn/types.h"
 
-#include "graphics/pnline.h"
-#include "graphics/pnbar.h"
+#include "project.h"
+#include "pn/line.h"
+#include "pn/bar.h"
 
 namespace Ui
 {
@@ -23,11 +24,7 @@ public:
   explicit LineProperties(QWidget *parent = 0);
   ~LineProperties();
 
-  Ui::LineProperties *ui;
-
-  void setLine(PnLine *line, bool newLine);
-  void setBarMap(QMap<uint32_t, PnBar *> &barMap);
-  void setUnit(Unit::LengthUnit lengthUnit, Unit::ImpedanceUnit impedanceUnit);
+  void setOptions(Project *project, PnLine *line);
 
 private slots:
   void on_buttonBox_accepted();
@@ -35,9 +32,10 @@ private slots:
   void on_buttonBox_rejected();
 
 private:
+  Ui::LineProperties *ui;
+  Project *project_;
   PnLine *line_;
-  bool newLine_;
-  QMap<uint32_t, PnBar *> *barMap_;
+  bool isNew;
 
   bool validImpedance(QLineEdit *input);
 };

@@ -3,31 +3,33 @@
 
 #include <QGraphicsObject>
 #include <QPen>
+#include <QJsonObject>
+
 #include <complex>
 
-#include "graphics/pnbar.h"
-#include "graphics/pninfoline.h"
+#include "pn/bar.h"
+#include "pn/infoline.h"
+#include "pn/network.h"
 
 QT_BEGIN_NAMESPACE
 class PnBar;
 class PnInfoLine;
+class PnNetwork;
 QT_END_NAMESPACE
 
 class PnLine : public QGraphicsObject
 {
   Q_OBJECT
 
+public:
   static const qreal kCableWidth = 3;
 
-public:
-  PnLine();
-  ~PnLine();
+  // Parents Id.
+  uint32_t noI;
+  uint32_t noF;
 
-// Parent bars
-  PnBar *noI();
-  PnBar *noF();
-
-  virtual void setNodes(PnBar *noI, PnBar *noF);
+  // Network.
+  PnNetwork *pnNetwork;
 
   // Impedance
   std::complex<double> Zaa;
@@ -44,6 +46,22 @@ public:
 
   std::complex<double> Znn;
 
+  // Current
+  std::complex<double> Ia;
+  std::complex<double> Ib;
+  std::complex<double> Ic;
+  std::complex<double> In;
+
+  // Length
+  double length;
+
+  PnLine();
+  ~PnLine();
+
+  // Parent bars pointer.
+  PnBar *pNoI();
+  PnBar *pNoF();
+
   // Admittance
   std::complex<double> Yaa();
   std::complex<double> Yab();
@@ -59,20 +77,17 @@ public:
 
   std::complex<double> Ynn();
 
-  // Current
-  std::complex<double> Ia;
-  std::complex<double> Ib;
-  std::complex<double> Ic;
-  std::complex<double> In;
-
   // Loss
   std::complex<double> La();
   std::complex<double> Lb();
   std::complex<double> Lc();
   std::complex<double> Ln();
 
-  // Length
-  double length;
+  void setNodes(PnBar *pNoI, PnBar *pNoF);
+
+  // Cast.
+  QJsonObject toJson();
+  void fromJson(QJsonObject &lineJson);
 
   void updatePosition();
 
@@ -87,8 +102,8 @@ signals:
 
 protected:
   void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
-  PnBar *noI_;
-  PnBar *noF_;
+  PnBar *pNoI_;
+  PnBar *pNoF_;
   virtual void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                      QWidget *widget) Q_DECL_OVERRIDE;
 

@@ -396,7 +396,7 @@
   <customwidget>
    <class>PnView</class>
    <extends>QWidget</extends>
-   <header location="global">graphics/pnview.h</header>
+   <header location="global">pn/view.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

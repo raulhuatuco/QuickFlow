@@ -1,10 +1,10 @@
 #ifndef SHIRMOHARMNADI_H
 #define SHIRMOHARMNADI_H
 
-#include "graphics/pnbar.h"
-#include "graphics/pnlayer.h"
-#include "graphics/pnline.h"
-#include "graphics/pnnetwork.h"
+#include "pn/bar.h"
+#include "pn/layer.h"
+#include "pn/line.h"
+#include "pn/network.h"
 
 class Shirmoharmnadi
 {

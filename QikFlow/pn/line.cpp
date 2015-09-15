@@ -1,4 +1,4 @@
-#include "pnline.h"
+#include "line.h"
 
 #include <QGraphicsScene>
 #include <QGraphicsItem>
@@ -8,6 +8,8 @@
  * PnLine.
  ******************************************************************************/
 PnLine::PnLine() :
+  noI(0),
+  noF(0),
   Zaa(qInf(),qInf()),
   Zab(qInf(),qInf()),
   Zac(qInf(),qInf()),
@@ -23,8 +25,8 @@ PnLine::PnLine() :
   Ic(0,0),
   In(0,0),
   length(0),
-  noI_(NULL),
-  noF_(NULL),
+  pNoI_(NULL),
+  pNoF_(NULL),
   pnInfoLine_(NULL)
 {
   setFlag(ItemIsSelectable);
@@ -38,35 +40,124 @@ PnLine::PnLine() :
 PnLine::~PnLine() {}
 
 /*******************************************************************************
- * noI.
+ * pNoI.
  ******************************************************************************/
-PnBar *PnLine::noI()
+PnBar *PnLine::pNoI()
 {
-  return noI_;
+  return pNoI_;
 }
 
 /*******************************************************************************
- * noF.
+ * pNoF.
  ******************************************************************************/
-PnBar *PnLine::noF()
+PnBar *PnLine::pNoF()
 {
-  return noF_;
+  return pNoF_;
 }
 
 /*******************************************************************************
  * setNodes.
  ******************************************************************************/
-void PnLine::setNodes(PnBar *noI, PnBar *noF)
+void PnLine::setNodes(PnBar *pNoI, PnBar *pNoF)
 {
-  noI_ = noI;
-  noF_ = noF;
+  pNoI_ = pNoI;
+  pNoF_ = pNoF;
 
-  if ((noI != NULL) && (noF != NULL)) {
-    noI->addLine(this);
-    noF->addLine(this);
+  if ((pNoI != NULL) && (pNoF != NULL)) {
+    pNoI->addLine(this);
+    pNoF->addLine(this);
   }
 
   updatePosition();
+}
+
+/*******************************************************************************
+ * toJson.
+ ******************************************************************************/
+QJsonObject PnLine::toJson()
+{
+  // Transform line data to Json object.
+  QJsonObject jsonLine;
+
+  // Nodes
+  jsonLine.insert("noI", static_cast<int>(noI));
+  jsonLine.insert("noF", static_cast<int>(noF));
+
+  // Impedance
+  jsonLine.insert("Zaa", Zaa.real());
+  jsonLine.insert("Zaai", Zaa.imag());
+  jsonLine.insert("Zab", Zab.real());
+  jsonLine.insert("Zabi", Zab.imag());
+  jsonLine.insert("Zac", Zac.real());
+  jsonLine.insert("Zaci", Zac.imag());
+  jsonLine.insert("Zan", Zan.real());
+  jsonLine.insert("Zani", Zan.imag());
+  jsonLine.insert("Zbb", Zbb.real());
+  jsonLine.insert("Zbbi", Zbb.imag());
+  jsonLine.insert("Zbc", Zbc.real());
+  jsonLine.insert("Zbci", Zbc.imag());
+  jsonLine.insert("Zbn", Zbn.real());
+  jsonLine.insert("Zbni", Zbn.imag());
+  jsonLine.insert("Zcc", Zcc.real());
+  jsonLine.insert("Zcci", Zcc.imag());
+  jsonLine.insert("Zcn", Zcn.real());
+  jsonLine.insert("Zcni", Zcn.imag());
+  jsonLine.insert("Znn", Znn.real());
+  jsonLine.insert("Znni", Znn.imag());
+
+  // Current
+  jsonLine.insert("Ia", Ia.real());
+  jsonLine.insert("Iai", Ia.imag());
+  jsonLine.insert("Ib", Ib.real());
+  jsonLine.insert("Ibi", Ib.imag());
+  jsonLine.insert("Ic", Ic.real());
+  jsonLine.insert("Ici", Ic.imag());
+  jsonLine.insert("In", In.real());
+  jsonLine.insert("Ini", In.imag());
+
+  return jsonLine;
+}
+
+/*******************************************************************************
+ * fromJson.
+ ******************************************************************************/
+void PnLine::fromJson(QJsonObject &jsonLine)
+{
+  // Get NoI & NoF
+  noI = static_cast<uint32_t>(jsonLine.value("noI").toInt());
+  noF = static_cast<uint32_t>(jsonLine.value("noF").toInt());
+
+  // Impedance
+  Zaa.real(jsonLine.value("Zaa").toDouble());
+  Zaa.imag(jsonLine.value("Zaai").toDouble());
+  Zab.real(jsonLine.value("Zab").toDouble());
+  Zab.imag(jsonLine.value("Zabi").toDouble());
+  Zac.real(jsonLine.value("Zac").toDouble());
+  Zac.imag(jsonLine.value("Zaci").toDouble());
+  Zan.real(jsonLine.value("Zan").toDouble());
+  Zan.imag(jsonLine.value("Zani").toDouble());
+  Zbb.real(jsonLine.value("Zbb").toDouble());
+  Zbb.imag(jsonLine.value("Zbbi").toDouble());
+  Zbc.real(jsonLine.value("Zbc").toDouble());
+  Zbc.imag(jsonLine.value("Zbci").toDouble());
+  Zbn.real(jsonLine.value("Zbn").toDouble());
+  Zbn.imag(jsonLine.value("Zbni").toDouble());
+  Zcc.real(jsonLine.value("Zcc").toDouble());
+  Zcc.imag(jsonLine.value("Zcci").toDouble());
+  Zcn.real(jsonLine.value("Zcn").toDouble());
+  Zcn.imag(jsonLine.value("Zcni").toDouble());
+  Znn.real(jsonLine.value("Znn").toDouble());
+  Znn.imag(jsonLine.value("Znni").toDouble());
+
+  // Current
+  Ia.real(jsonLine.value("Ia").toDouble());
+  Ia.imag(jsonLine.value("Iai").toDouble());
+  Ib.real(jsonLine.value("Ib").toDouble());
+  Ib.imag(jsonLine.value("Ibi").toDouble());
+  Ic.real(jsonLine.value("Ic").toDouble());
+  Ic.imag(jsonLine.value("Ici").toDouble());
+  In.real(jsonLine.value("In").toDouble());
+  In.imag(jsonLine.value("Ini").toDouble());
 }
 
 /*******************************************************************************
@@ -188,7 +279,7 @@ void PnLine::updatePosition()
 {
   prepareGeometryChange();
 
-  coords = QLineF(noI_->pos(), noF_->pos());
+  coords = QLineF(pNoI_->pos(), pNoF_->pos());
 
   qreal radAngle = coords.angle() * M_PI / 180.0;
   qreal dx = kCableWidth * sin(radAngle);

@@ -2,13 +2,12 @@
 #define PROJECTSETTINGS_H
 
 #include <QString>
-#include <QJsonObject>
 
-#include "unit.h"
+#include "pn/types.h"
 
-#include "graphics/pnnetwork.h"
-#include "graphics/pnbar.h"
-#include "graphics/pnline.h"
+#include "pn/network.h"
+#include "pn/bar.h"
+#include "pn/line.h"
 
 class Project
 {
@@ -20,7 +19,7 @@ public:
 
   // Project options.
   QString name;
-  QString filepath;
+  QString filePath;
   uint32_t maxIterations();
   void setMaxIterations(uint32_t maxIterations);
   double minError();
@@ -31,22 +30,20 @@ public:
   void setVoltageBase(double voltageBase);
   double powerBase();
   void setPowerBase(double powerBase);
-  Unit::LengthUnit lengthUn();
-  void setLengthUn(Unit::LengthUnit lengthUn);
-  Unit::ImpedanceUnit impedanceUn();
-  void setImpedanceUn(Unit::ImpedanceUnit impedanceUn);
-  Unit::VoltageUnit voltageUn();
-  void setVoltageUn(Unit::VoltageUnit voltageUn);
-  Unit::PowerUnit powerUn();
-  void setPowerUn(Unit::PowerUnit powerUn);
+  Unit::LengthUnit lengthUnit();
+  void setLengthUn(Unit::LengthUnit lengthUnit);
+  Unit::ImpedanceUnit impedanceUnit();
+  void setImpedanceUn(Unit::ImpedanceUnit impedanceUnit);
+  Unit::VoltageUnit voltageUnit();
+  void setVoltageUn(Unit::VoltageUnit voltageUnit);
+  Unit::PowerUnit powerUnit();
+  void setPowerUn(Unit::PowerUnit powerUnit);
 
   bool save();
   bool saveAs(QString fileName);
   bool load();
 
 private:
-  QJsonObject barToJson(PnBar *bar);
-  PnBar *barFromJson(QJsonObject &jsonBar);
   QJsonObject lineToJson(PnLine *line);
   PnLine *lineFromJson(QJsonObject &jsonLine);
 };

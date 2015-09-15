@@ -13,35 +13,37 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        qkflow.cpp \
-    graphics/pnbar.cpp \
-    graphics/pninfobar.cpp\
-    graphics/pnview.cpp \
-    graphics/pnline.cpp \
-    graphics/pninfoline.cpp\
-    graphics/pnnetwork.cpp \
+    qkflow.cpp \
     project.cpp \
     window/lineproperties.cpp \
     window/newproject.cpp \
     window/barproperties.cpp \
-    unit.cpp \
     solver/shirmoharmnadi.cpp \
-    graphics/pnlayer.cpp
+    pn/bar.cpp \
+    pn/infobar.cpp \
+    pn/infoline.cpp \
+    pn/layer.cpp \
+    pn/line.cpp \
+    pn/network.cpp \
+    pn/view.cpp \
+    pn/types.cpp
+    
 
 HEADERS  += qkflow.h \
-    graphics/pnbar.h \
-    graphics/pninfobar.h\
-    graphics/pnview.h \
-    graphics/pnline.h \
-    graphics/pninfoline.h\
-    graphics/pnnetwork.h \
     project.h \
     window/lineproperties.h \
     window/newproject.h \
     window/barproperties.h \
-    unit.h \
     solver/shirmoharmnadi.h \
-    graphics/pnlayer.h
+    pn/bar.h \
+    pn/infobar.h \
+    pn/infoline.h \
+    pn/layer.h \
+    pn/line.h \
+    pn/network.h \
+    pn/view.h \
+    pn/types.h
+    
 
 FORMS    += qkflow.ui \
     window/lineproperties.ui \

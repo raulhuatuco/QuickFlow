@@ -6,7 +6,7 @@
 #include <QStandardPaths>
 #include <QValidator>
 
-#include "unit.h"
+#include "pn/types.h"
 
 /*******************************************************************************
  * WindowNewProject

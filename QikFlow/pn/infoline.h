@@ -4,7 +4,7 @@
 #include <QGraphicsItem>
 #include <QPoint>
 
-#include "graphics/pnline.h"
+#include "pn/line.h"
 
 QT_BEGIN_NAMESPACE
 class PnLine;

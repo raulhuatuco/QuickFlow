@@ -1,4 +1,4 @@
-#include "pnbar.h"
+#include "bar.h"
 
 #include <QGraphicsScene>
 #include <QPainter>
@@ -9,6 +9,7 @@
 PnBar::PnBar()
   : QGraphicsObject(),
     id(kInvalidId),
+    pnNetwork(NULL),
     Va(0, 0),
     Vb(0, 0),
     Vc(0, 0),
@@ -126,11 +127,149 @@ void PnBar::removeLine(PnLine *line)
 void PnBar::removeLines()
 {
   foreach (PnLine *line, lines) {
-    line->noI()->removeLine(line);
-    line->noF()->removeLine(line);
+    line->pNoI()->removeLine(line);
+    line->pNoF()->removeLine(line);
     scene()->removeItem(line);
     delete line;
-  }
+    }
+}
+
+void PnBar::toPerUnit()
+{
+  
+}
+
+void PnBar::toBaseUnit()
+{
+  
+}
+
+/*******************************************************************************
+ * toJson.
+ ******************************************************************************/
+QJsonObject PnBar::toJson()
+{
+  // Json Object to be filled with data.
+  QJsonObject jsonBar;
+
+  // Bar Id
+  jsonBar.insert("id", static_cast<int>(id));
+
+  // Voltage
+  jsonBar.insert("Va", Va.real());
+  jsonBar.insert("Vai", Va.imag());
+  jsonBar.insert("Vb", Vb.real());
+  jsonBar.insert("Vbi", Vb.imag());
+  jsonBar.insert("Vc", Vc.real());
+  jsonBar.insert("Vci", Vc.imag());
+
+  // Generated Power
+  jsonBar.insert("Sga", Sga.real());
+  jsonBar.insert("Sgai", Sga.imag());
+  jsonBar.insert("Sgb", Sgb.real());
+  jsonBar.insert("Sgbi", Sgb.imag());
+  jsonBar.insert("Sgc", Sgc.real());
+  jsonBar.insert("Sgci", Sgc.imag());
+
+  // Load Power
+  jsonBar.insert("Sla", Sla.real());
+  jsonBar.insert("Slai", Sla.imag());
+  jsonBar.insert("Slb", Slb.real());
+  jsonBar.insert("Slbi", Slb.imag());
+  jsonBar.insert("Slc", Slc.real());
+  jsonBar.insert("Slci", Slc.imag());
+
+  // Result Voltage
+  jsonBar.insert("rVa", rVa.real());
+  jsonBar.insert("rVai", rVa.imag());
+  jsonBar.insert("rVb", rVb.real());
+  jsonBar.insert("rVbi", rVb.imag());
+  jsonBar.insert("rVc", rVc.real());
+  jsonBar.insert("rVci", rVc.imag());
+
+  // Result Generated Power
+  jsonBar.insert("rSga", rSga.real());
+  jsonBar.insert("rSgai", rSga.imag());
+  jsonBar.insert("rSgb", rSgb.real());
+  jsonBar.insert("rSgbi", rSgb.imag());
+  jsonBar.insert("rSgc", rSgc.real());
+  jsonBar.insert("rSgci", rSgc.imag());
+
+  // Result Load Power
+  jsonBar.insert("rSla", rSla.real());
+  jsonBar.insert("rSlai", rSla.imag());
+  jsonBar.insert("rSlb", rSlb.real());
+  jsonBar.insert("rSlbi", rSlb.imag());
+  jsonBar.insert("rSlc", rSlc.real());
+  jsonBar.insert("rSlci", rSlc.imag());
+
+  // Position
+  jsonBar.insert("x", x());
+  jsonBar.insert("y", y());
+
+  return jsonBar;
+}
+
+
+/*******************************************************************************
+ * fromJson.
+ ******************************************************************************/
+void PnBar::fromJson(QJsonObject &jsonBar)
+{
+  // Get Id
+  id = static_cast<uint32_t> (jsonBar.value("id").toInt());
+
+  // Voltage
+  Va.real(jsonBar.value("Va").toDouble());
+  Va.imag(jsonBar.value("Vai").toDouble());
+  Vb.real(jsonBar.value("Vb").toDouble());
+  Vb.imag(jsonBar.value("Vbi").toDouble());
+  Vc.real(jsonBar.value("Vc").toDouble());
+  Vc.imag(jsonBar.value("Vci").toDouble());
+
+  // Generated Power
+  Sga.real(jsonBar.value("Sga").toDouble());
+  Sga.imag(jsonBar.value("Sgai").toDouble());
+  Sgb.real(jsonBar.value("Sgb").toDouble()) ;
+  Sgb.imag(jsonBar.value("Sgbi").toDouble());
+  Sgc.real(jsonBar.value("Sgc").toDouble());
+  Sgc.imag(jsonBar.value("Sgci").toDouble());
+
+  // Load Power
+  Sla.real(jsonBar.value("Sla").toDouble());
+  Sla.imag(jsonBar.value("Slai").toDouble());
+  Slb.real(jsonBar.value("Slb").toDouble());
+  Slb.imag(jsonBar.value("Slbi").toDouble());
+  Slc.real(jsonBar.value("Slc").toDouble());
+  Slc.imag(jsonBar.value("Slci").toDouble());
+
+  // Result Voltage
+  rVa.real(jsonBar.value("rVa").toDouble());
+  rVa.imag(jsonBar.value("rVai").toDouble());
+  rVb.real(jsonBar.value("rVb").toDouble());
+  rVb.imag(jsonBar.value("rVbi").toDouble());
+  rVc.real(jsonBar.value("rVc").toDouble());
+  rVc.imag(jsonBar.value("rVci").toDouble());
+
+  // Result Generated Power
+  rSga.real(jsonBar.value("rSga").toDouble());
+  rSga.imag(jsonBar.value("rSgai").toDouble());
+  rSgb.real(jsonBar.value("rSgb").toDouble());
+  rSgb.imag(jsonBar.value("rSgbi").toDouble());
+  rSgc.real(jsonBar.value("rSgc").toDouble());
+  rSgc.imag(jsonBar.value("rSgci").toDouble());
+
+  // Result Load Power
+  rSla.real(jsonBar.value("rSla").toDouble());
+  rSla.imag(jsonBar.value("rSlai").toDouble());
+  rSlb.real(jsonBar.value("rSlb").toDouble());
+  rSlb.imag(jsonBar.value("rSlbi").toDouble());
+  rSlc.real(jsonBar.value("rSlc").toDouble());
+  rSlc.imag(jsonBar.value("rSlci").toDouble());
+
+  // Get Position
+  setX(jsonBar.value("x").toDouble());
+  setY(jsonBar.value("y").toDouble());
 }
 
 /*******************************************************************************
