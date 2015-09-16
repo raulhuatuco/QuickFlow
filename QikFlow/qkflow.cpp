@@ -1039,3 +1039,27 @@ void QKflow::on_actionShirmoharmnadi_triggered()
     ui->actionCespedes->setChecked(false);
   }
 }
+
+void QKflow::on_actionPause_triggered()
+{
+  uint32_t cnt = 0;
+  PnBar *bar = new PnBar;
+  bar->id = 0;
+  project->pnNetwork->addBar(bar);
+  cnt++;
+
+  for(int x=0; x< 100; x++) {
+    for (int y = 0; y< 100; y++) {
+      bar = new PnBar;
+      bar->id = cnt;
+      bar->setX(x*50);
+      bar->setY(0);
+      project->pnNetwork->addBar(bar);
+      PnLine *line = new PnLine;
+      line->noI = cnt -1;
+      line->noF = cnt;
+      project->pnNetwork->addLine(line);
+      cnt++;
+    }
+  }
+}

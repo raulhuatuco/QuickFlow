@@ -22,6 +22,7 @@ QT_END_NAMESPACE
 
 using std::complex;
 using arma::Col;
+using arma::cx_double;
 
 class PnBar : public QGraphicsObject
 {

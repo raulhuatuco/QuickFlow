@@ -62,6 +62,8 @@ private slots:
   
   void on_actionShirmoharmnadi_triggered();
   
+  void on_actionPause_triggered();
+  
 protected:
   void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 
