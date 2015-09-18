@@ -7,10 +7,10 @@
 #include "pn/line.h"
 
 QT_BEGIN_NAMESPACE
-class PnLine;
+class Line;
 QT_END_NAMESPACE
 
-class PnInfoLine : public QGraphicsItem
+class InfoLine : public QGraphicsItem
 {
 public:
   // Box options.
@@ -38,8 +38,8 @@ public:
   static const qreal kBoxBaseHeight = 30.0;
   static const qreal kBoxBaseWidth = 60.0;
 
-  PnInfoLine(PnLine *line);
-  ~PnInfoLine();
+  InfoLine(Line *line);
+  ~InfoLine();
 
   QRectF boundingRect() const Q_DECL_OVERRIDE;
 
@@ -48,7 +48,7 @@ protected:
              QWidget *widget) Q_DECL_OVERRIDE;
 
 private:
-  PnLine *line_;
+  Line *line_;
 };
 
 #endif  // PNINFOBOX_H

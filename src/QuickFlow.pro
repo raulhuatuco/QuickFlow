@@ -20,12 +20,12 @@ SOURCES += main.cpp\
     window/newproject.cpp \
     window/barproperties.cpp \
     algorithms/shirmoharmnadi.cpp \
-    pn/bar.cpp \
-    pn/infobar.cpp \
-    pn/infoline.cpp \
-    pn/line.cpp \
-    pn/network.cpp \
-    pn/view.cpp \
+    models/bar.cpp \
+    models/line.cpp \
+    graphics/infobar.cpp \
+    graphics/infoline.cpp \
+    graphics/network.cpp \
+    graphics/view.cpp \
     algorithms/import.cpp \
     algorithms/redraw.cpp
     
@@ -40,12 +40,12 @@ HEADERS  += \
     window/newproject.h \
     window/barproperties.h \
     algorithms/shirmoharmnadi.h \
-    pn/bar.h \
-    pn/infobar.h \
-    pn/infoline.h \
-    pn/line.h \
-    pn/network.h \
-    pn/view.h \
+    models/bar.h \
+    models/line.h \
+    graphics/infobar.h \
+    graphics/infoline.h \
+    graphics/network.h \
+    graphics/view.h \
     algorithms/import.h \
     algorithms/redraw.h
 

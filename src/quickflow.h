@@ -72,6 +72,8 @@ private slots:
 
   void on_actionSearch_Bar_triggered();
 
+  void on_action_txt_type_3_triggered();
+  
 protected:
   void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 

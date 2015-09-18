@@ -599,6 +599,50 @@ void QuickFlow::on_action_txt_type_2_triggered()
 }
 
 /*******************************************************************************
+ * Action Import Txt Type 3 triggered.
+ ******************************************************************************/
+void QuickFlow::on_action_txt_type_3_triggered()
+{
+  // Check if there is a project already opened.
+  if (project != NULL) {
+    // Close project.
+    ui->actionClose->trigger();
+
+    // If close didnt succed, cancel import.
+    if (project != NULL) return;
+  }
+
+  // Get file location from user.
+  QFileDialog txtFile(this);
+  txtFile.setAcceptMode(QFileDialog::AcceptOpen);
+  txtFile.setFileMode(QFileDialog::ExistingFile);
+  txtFile.setNameFilter(tr("Text File Type 2(*.txt)"));
+  txtFile.setDirectory(QStandardPaths::standardLocations(
+                         QStandardPaths::HomeLocation)[0]);
+
+  // Check if user has canceled the opening.
+  if (txtFile.exec() != QDialog::Accepted) {
+    return;
+  }
+
+  // Grab filename.
+  QString fileName = txtFile.selectedFiles()[0];
+
+  // Try to import.
+  project = importTxtType3(fileName);
+
+  if(project == NULL) {
+    noProjectInterface();
+  } else {
+    workInterface();
+    setAltered(true);
+    ui->pnView->setPnNetwork(project->network);
+    connectSignals();
+    ui->pnView->zoomFit();
+  }
+}
+
+/*******************************************************************************
  * Action Cespedes triggered.
  ******************************************************************************/
 void QuickFlow::on_actionCespedes_triggered()
@@ -728,4 +772,5 @@ void QuickFlow::on_editLine(QObject *line)
     setAltered(true);
   }
 }
+
 

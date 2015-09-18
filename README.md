@@ -1,2 +1,2 @@
-# QiKflow
-Graphical User Interface for kFlow
+# QuicKlow
+Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.

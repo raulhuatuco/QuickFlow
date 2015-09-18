@@ -55,6 +55,7 @@
      </property>
      <addaction name="action_txt_type_1"/>
      <addaction name="action_txt_type_2"/>
+     <addaction name="action_txt_type_3"/>
     </widget>
     <addaction name="actionNew"/>
     <addaction name="actionOpen"/>
@@ -420,6 +421,11 @@
   <action name="actionSearch_Bar">
    <property name="text">
     <string>Search Bar</string>
+   </property>
+  </action>
+  <action name="action_txt_type_3">
+   <property name="text">
+    <string>.txt type 3</string>
    </property>
   </action>
  </widget>

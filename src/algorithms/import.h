@@ -5,6 +5,7 @@
 
 Project *importTxtType1(QString &fileName);
 Project *importTxtType2(QString &fileName);
+Project *importTxtType3(QString &fileName);
 
 #endif // IMPORTTXT1_H
 

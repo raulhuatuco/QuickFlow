@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>409</width>
-    <height>428</height>
+    <height>439</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Bar Properties</string>
+   <string>Bar Initial Settings</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_7">
    <item>
@@ -152,7 +152,7 @@ QTabBar::tab:!selected {
 }</string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="phaseA">
       <attribute name="title">
@@ -264,14 +264,14 @@ QTabBar::tab:!selected {
          <item>
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Generated Power:</string>
+            <string>Shunt Elements:</string>
            </property>
           </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QLineEdit" name="Sga">
+            <widget class="QLineEdit" name="Sha">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -300,7 +300,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="Sgai">
+            <widget class="QLineEdit" name="Shai">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -329,7 +329,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="SgaUn">
+            <widget class="QLabel" name="ShaUn">
              <property name="text">
               <string>[kVA]</string>
              </property>
@@ -364,14 +364,14 @@ QTabBar::tab:!selected {
          <item>
           <widget class="QLabel" name="label_4">
            <property name="text">
-            <string>Consumed Power:</string>
+            <string>Power Injected:</string>
            </property>
           </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_4" stretch="0,0,0,0,0,0">
            <item>
-            <widget class="QLineEdit" name="Sla">
+            <widget class="QLineEdit" name="Sia">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -403,7 +403,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="Slai">
+            <widget class="QLineEdit" name="Siai">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -432,7 +432,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="SlaUn">
+            <widget class="QLabel" name="SiaUn">
              <property name="text">
               <string>[kVA]</string>
              </property>
@@ -567,14 +567,14 @@ QTabBar::tab:!selected {
          <item>
           <widget class="QLabel" name="label_14">
            <property name="text">
-            <string>Generated Power:</string>
+            <string>Shunt Elements:</string>
            </property>
           </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_6">
            <item>
-            <widget class="QLineEdit" name="Sgb">
+            <widget class="QLineEdit" name="Shb">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -603,7 +603,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="Sgbi">
+            <widget class="QLineEdit" name="Shbi">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -632,7 +632,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="SgbUn">
+            <widget class="QLabel" name="ShbUn">
              <property name="text">
               <string>[kVA]</string>
              </property>
@@ -667,14 +667,14 @@ QTabBar::tab:!selected {
          <item>
           <widget class="QLabel" name="label_11">
            <property name="text">
-            <string>Consumed Power:</string>
+            <string>Power Injected:</string>
            </property>
           </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_5" stretch="0,0,0,0,0,0">
            <item>
-            <widget class="QLineEdit" name="Slb">
+            <widget class="QLineEdit" name="Sib">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -706,7 +706,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="Slbi">
+            <widget class="QLineEdit" name="Sibi">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -735,7 +735,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="SlbUn">
+            <widget class="QLabel" name="SibUn">
              <property name="text">
               <string>[kVA]</string>
              </property>
@@ -870,14 +870,14 @@ QTabBar::tab:!selected {
          <item>
           <widget class="QLabel" name="label_23">
            <property name="text">
-            <string>Generated Power:</string>
+            <string>Shunt Elements:</string>
            </property>
           </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_9">
            <item>
-            <widget class="QLineEdit" name="Sgc">
+            <widget class="QLineEdit" name="Shc">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -906,7 +906,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="Sgci">
+            <widget class="QLineEdit" name="Shci">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -935,7 +935,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="SgcUn">
+            <widget class="QLabel" name="ShcUn">
              <property name="text">
               <string>[kVA]</string>
              </property>
@@ -970,14 +970,14 @@ QTabBar::tab:!selected {
          <item>
           <widget class="QLabel" name="label_20">
            <property name="text">
-            <string>Consumed Power:</string>
+            <string>Power Injected:</string>
            </property>
           </widget>
          </item>
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="0,0,0,0,0,0">
            <item>
-            <widget class="QLineEdit" name="Slc">
+            <widget class="QLineEdit" name="Sic">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1009,7 +1009,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLineEdit" name="Slci">
+            <widget class="QLineEdit" name="Sici">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                <horstretch>0</horstretch>
@@ -1038,7 +1038,7 @@ QTabBar::tab:!selected {
             </widget>
            </item>
            <item>
-            <widget class="QLabel" name="SlcUn">
+            <widget class="QLabel" name="SicUn">
              <property name="text">
               <string>[kVA]</string>
              </property>

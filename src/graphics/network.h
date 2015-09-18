@@ -15,7 +15,7 @@
 
 QT_BEGIN_NAMESPACE
 class Bar;
-class PnLine;
+class Line;
 QT_END_NAMESPACE
 
 class Network : public QGraphicsScene
@@ -39,13 +39,13 @@ public:
   Unit::PowerUnit powerUnit;
 
   QMap<uint32_t, Bar *> bars;
-  QVector<PnLine *> lines;
+  QVector<Line *> lines;
 
   bool addBar(Bar *bar);
-  bool addLine(PnLine *line);
+  bool addLine(Line *line);
 
   Bar *getBarById(uint32_t id);
-  PnLine *getLineByNodes(uint32_t noI, uint32_t noF);
+  Line *getLineByNodes(uint32_t noI, uint32_t noF);
 
   void toPerUnit();
   void toBaseUnit();
