@@ -46,7 +46,6 @@
 #include <QJsonObject>
 #include <QGraphicsObject>
 #include <complex>
-#include <armadillo>
 #include "models/bar.h"
 #include "graphics/infoline.h"
 #include "graphics/network.h"
@@ -56,8 +55,7 @@ class Bar;
 class InfoLine;
 QT_END_NAMESPACE
 
-using arma::Mat;
-using arma::cx_double;
+using std::complex;
 
 /*!
  * \class Line
@@ -81,21 +79,6 @@ public:
    * \brief kInvalidNode
    */
   static const int32_t kInvalidNode = -1;
-
-  /*!
-   * \brief lineWidth
-   */
-  static double lineWidth;
-
-  /*!
-   * \brief lineColor
-   */
-  static QColor lineColor;
-
-  /*!
-   * \brief selectedLineColor
-   */
-  static QColor selectedLineColor;
 
   /*!
    * \brief noI
@@ -144,71 +127,30 @@ public:
    */
   void setNodes(Bar *pNoI, Bar *pNoF);
 
-  // Impedance
-  /*!
-   * \brief Z
-   */
-  Mat<cx_double> &Z() const;
+  complex<double> Zaa;
+  complex<double> Zab;
+  complex<double> Zac;
+  complex<double> Zbb;
+  complex<double> Zbc;
+  complex<double> Zcc;
 
-  /*!
-   * \brief setZaa
-   * \param Zaa
-   */
-  void setZaa(cx_double Zaa);
-
-  /*!
-   * \brief setZab
-   * \param Zab
-   */
-  void setZab(cx_double Zab);
-
-  /*!
-   * \brief setZac
-   * \param Zac
-   */
-  void setZac(cx_double Zac);
-
-  /*!
-   * \brief setZbb
-   * \param Zbb
-   */
-  void setZbb(cx_double Zbb);
-
-  /*!
-   * \brief setZbc
-   * \param Zbc
-   */
-  void setZbc(cx_double Zbc);
-
-  /*!
-   * \brief setZcc
-   * \param Zcc
-   */
-  void setZcc(cx_double Zcc);
-
-  /*!
-   * \brief Zpu
-   * \return
-   */
-  Mat<cx_double> Z_pu(double impedanceBase) const;
+  complex<double> Zaa_pu(double impedanceBase);
+  complex<double> Zab_pu(double impedanceBase);
+  complex<double> Zac_pu(double impedanceBase);
+  complex<double> Zbb_pu(double impedanceBase);
+  complex<double> Zbc_pu(double impedanceBase);
+  complex<double> Zcc_pu(double impedanceBase);
 
   // Current
-  /*!
-   * \brief Ia
-   * \return
-   */
-  Col<cx_double> &I() const;
-
-  /*!
-   * \brief setI
-   * \param Ia
-   * \param Ib
-   * \param Ic
-   */
-  void setI(cx_double &Ia, cx_double &Ib, cx_double &Ic);
+  complex<double> Ia;
+  complex<double> Ib;
+  complex<double> Ic;
+  complex<double> In;
 
   // Loss
-  Col<cx_double> lineLoss();
+  complex<double> lossA();
+  complex<double> lossB();
+  complex<double> lossC();
 
   // Cast.
   /*!
@@ -280,16 +222,6 @@ private:
    * \brief pNoF_
    */
   Bar *pNoF_;
-
-  /*!
-   * \brief Z_
-   */
-  Mat<cx_double> Z_;
-
-  /*!
-   * \brief I_
-   */
-  Col<cx_double> I_;
 
   /*!
    * \brief coords

@@ -19,7 +19,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="PnView" name="pnView" native="true">
+     <widget class="SystemView" name="systemView" native="true">
       <property name="enabled">
        <bool>true</bool>
       </property>
@@ -432,9 +432,9 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>PnView</class>
+   <class>SystemView</class>
    <extends>QWidget</extends>
-   <header location="global">pn/view.h</header>
+   <header location="global">graphics/systemview.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

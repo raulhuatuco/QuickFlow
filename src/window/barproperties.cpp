@@ -1,6 +1,5 @@
 #include "barproperties.h"
 #include "ui_barproperties.h"
-
 #include <QValidator>
 #include <QMessageBox>
 
@@ -21,19 +20,19 @@ BarProperties::BarProperties(QWidget *parent) :
   ui->Vbi->setValidator(new QDoubleValidator(this));
   ui->Vci->setValidator(new QDoubleValidator(this));
 
-  ui->Sga->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
-  ui->Sgb->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
-  ui->Sgc->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
-  ui->Sgai->setValidator(new QDoubleValidator(this));
-  ui->Sgbi->setValidator(new QDoubleValidator(this));
-  ui->Sgci->setValidator(new QDoubleValidator(this));
+  ui->Sha->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
+  ui->Shb->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
+  ui->Shc->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
+  ui->Shai->setValidator(new QDoubleValidator(this));
+  ui->Shbi->setValidator(new QDoubleValidator(this));
+  ui->Shci->setValidator(new QDoubleValidator(this));
 
-  ui->Sla->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
-  ui->Slb->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
-  ui->Slc->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
-  ui->Slai->setValidator(new QDoubleValidator(this));
-  ui->Slbi->setValidator(new QDoubleValidator(this));
-  ui->Slci->setValidator(new QDoubleValidator(this));
+  ui->Sia->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
+  ui->Sib->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
+  ui->Sic->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
+  ui->Siai->setValidator(new QDoubleValidator(this));
+  ui->Sibi->setValidator(new QDoubleValidator(this));
+  ui->Sici->setValidator(new QDoubleValidator(this));
 
   ui->px->setValidator(new QDoubleValidator(this));
   ui->py->setValidator(new QDoubleValidator(this));
@@ -56,6 +55,7 @@ void BarProperties::setOptions(Project *project, Bar *bar)
   if (bar == NULL) {
     setWindowTitle(tr("New Bar"));
     // Create a new bar.
+    ui->id->setValue(0);
     bar_ = new Bar;
     isNew = true;
   } else {
@@ -63,6 +63,7 @@ void BarProperties::setOptions(Project *project, Bar *bar)
     ui->id->setEnabled(false);
     // Store parameters.
     bar_ = bar;
+    ui->id->setValue(bar_->id);
     isNew = false;
   }
 
@@ -70,25 +71,24 @@ void BarProperties::setOptions(Project *project, Bar *bar)
   project_ = project;
 
   // Fill Bar data.
-  ui->id->setValue(bar_->id);
   ui->Va->setText(QString::number(bar_->Va.real()));
   ui->Vb->setText(QString::number(bar_->Vb.real()));
   ui->Vc->setText(QString::number(bar_->Vc.real()));
   ui->Vai->setText(QString::number(bar_->Va.imag()));
   ui->Vbi->setText(QString::number(bar_->Vb.imag()));
   ui->Vci->setText(QString::number(bar_->Vc.imag()));
-  ui->Sga->setText(QString::number(bar_->Sga.real()));
-  ui->Sgb->setText(QString::number(bar_->Sgb.real()));
-  ui->Sgc->setText(QString::number(bar_->Sgc.real()));
-  ui->Sgai->setText(QString::number(bar_->Sga.imag()));
-  ui->Sgbi->setText(QString::number(bar_->Sgb.imag()));
-  ui->Sgci->setText(QString::number(bar_->Sgc.imag()));
-  ui->Sla->setText(QString::number(bar_->Sla.real()));
-  ui->Slb->setText(QString::number(bar_->Slb.real()));
-  ui->Slc->setText(QString::number(bar_->Slc.real()));
-  ui->Slai->setText(QString::number(bar_->Sla.imag()));
-  ui->Slbi->setText(QString::number(bar_->Slb.imag()));
-  ui->Slci->setText(QString::number(bar_->Slc.imag()));
+  ui->Sha->setText(QString::number(bar_->Sha.real()));
+  ui->Shb->setText(QString::number(bar_->Shb.real()));
+  ui->Shc->setText(QString::number(bar_->Shc.real()));
+  ui->Shai->setText(QString::number(bar_->Sha.imag()));
+  ui->Shbi->setText(QString::number(bar_->Shb.imag()));
+  ui->Shci->setText(QString::number(bar_->Shc.imag()));
+  ui->Sia->setText(QString::number(bar_->Sia.real()));
+  ui->Sib->setText(QString::number(bar_->Sib.real()));
+  ui->Sic->setText(QString::number(bar_->Sic.real()));
+  ui->Siai->setText(QString::number(bar_->Sia.imag()));
+  ui->Sibi->setText(QString::number(bar_->Sib.imag()));
+  ui->Sici->setText(QString::number(bar_->Sic.imag()));
   ui->px->setText(QString::number(bar_->x()));
   ui->py->setText(QString::number(bar_->y()));
 
@@ -102,17 +102,17 @@ void BarProperties::setOptions(Project *project, Bar *bar)
                     tr("]"));
 
   // Power.
-  ui->SgaUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->ShaUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
                      tr("]"));
-  ui->SlaUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->SiaUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
                      tr("]"));
-  ui->SgbUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->ShbUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
                      tr("]"));
-  ui->SlbUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->SibUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
                      tr("]"));
-  ui->SgcUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->ShcUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
                      tr("]"));
-  ui->SlcUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->SicUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
                      tr("]"));
 }
 
@@ -179,91 +179,91 @@ void BarProperties::on_buttonBox_accepted()
 
   // Generated Power.
   // Real Part.
-  if (ui->Sga->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Sga is empty.",
+  if (ui->Sha->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Sha is empty.",
                              QMessageBox::Ok);
-    ui->Sga->setFocus();
+    ui->Sha->setFocus();
     return;
   }
 
-  if (ui->Sgb->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Sgb is empty.",
+  if (ui->Shb->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Shb is empty.",
                              QMessageBox::Ok);
-    ui->Sgb->setFocus();
+    ui->Shb->setFocus();
     return;
   }
 
-  if (ui->Sgc->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Sgc is empty.",
+  if (ui->Shc->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Shc is empty.",
                              QMessageBox::Ok);
-    ui->Sgc->setFocus();
+    ui->Shc->setFocus();
     return;
   }
 
   // Imaginary Part.
-  if (ui->Sgai->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Sga is empty.",
+  if (ui->Shai->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Sha is empty.",
                              QMessageBox::Ok);
-    ui->Sgai->setFocus();
+    ui->Shai->setFocus();
     return;
   }
 
-  if (ui->Sgbi->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Sgb is empty.",
+  if (ui->Shbi->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Shb is empty.",
                              QMessageBox::Ok);
-    ui->Sgbi->setFocus();
+    ui->Shbi->setFocus();
     return;
   }
 
-  if (ui->Sgci->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Sgc is empty.",
+  if (ui->Shci->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Shc is empty.",
                              QMessageBox::Ok);
-    ui->Sgci->setFocus();
+    ui->Shci->setFocus();
     return;
   }
 
   // Consumed Power.
   // Real Part.
-  if (ui->Sla->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Sla is empty.",
+  if (ui->Sia->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Sia is empty.",
                              QMessageBox::Ok);
-    ui->Sla->setFocus();
+    ui->Sia->setFocus();
     return;
   }
 
-  if (ui->Slb->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Slb is empty.",
+  if (ui->Sib->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Sib is empty.",
                              QMessageBox::Ok);
-    ui->Slb->setFocus();
+    ui->Sib->setFocus();
     return;
   }
 
-  if (ui->Slc->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Slc is empty.",
+  if (ui->Sic->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Sic is empty.",
                              QMessageBox::Ok);
-    ui->Slc->setFocus();
+    ui->Sic->setFocus();
     return;
   }
 
   // Imaginary Part.
-  if (ui->Slai->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Sla is empty.",
+  if (ui->Siai->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Sia is empty.",
                              QMessageBox::Ok);
-    ui->Slai->setFocus();
+    ui->Siai->setFocus();
     return;
   }
 
-  if (ui->Slbi->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Slb is empty.",
+  if (ui->Sibi->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Sib is empty.",
                              QMessageBox::Ok);
-    ui->Slbi->setFocus();
+    ui->Sibi->setFocus();
     return;
   }
 
-  if (ui->Slci->text().isEmpty()) {
-    QMessageBox::information(this, "Invalid parameter", "Parameter Slc is empty.",
+  if (ui->Sici->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid parameter", "Parameter Sic is empty.",
                              QMessageBox::Ok);
-    ui->Slci->setFocus();
+    ui->Sici->setFocus();
     return;
   }
 
@@ -295,20 +295,20 @@ void BarProperties::on_buttonBox_accepted()
   bar_->Vc.imag(ui->Vci->text().toDouble());
 
   // Generated power.
-  bar_->Sga.real(ui->Sga->text().toDouble());
-  bar_->Sgb.real(ui->Sgb->text().toDouble());
-  bar_->Sgc.real(ui->Sgc->text().toDouble());
-  bar_->Sga.imag(ui->Sgai->text().toDouble());
-  bar_->Sgb.imag(ui->Sgbi->text().toDouble());
-  bar_->Sgc.imag(ui->Sgci->text().toDouble());
+  bar_->Sha.real(ui->Sha->text().toDouble());
+  bar_->Shb.real(ui->Shb->text().toDouble());
+  bar_->Shc.real(ui->Shc->text().toDouble());
+  bar_->Sha.imag(ui->Shai->text().toDouble());
+  bar_->Shb.imag(ui->Shbi->text().toDouble());
+  bar_->Shc.imag(ui->Shci->text().toDouble());
 
   // Consumed power.
-  bar_->Sla.real(ui->Sla->text().toDouble());
-  bar_->Slb.real(ui->Slb->text().toDouble());
-  bar_->Slc.real(ui->Slc->text().toDouble());
-  bar_->Sla.imag(ui->Slai->text().toDouble());
-  bar_->Slb.imag(ui->Slbi->text().toDouble());
-  bar_->Slc.imag(ui->Slci->text().toDouble());
+  bar_->Sia.real(ui->Sia->text().toDouble());
+  bar_->Sib.real(ui->Sib->text().toDouble());
+  bar_->Sic.real(ui->Sic->text().toDouble());
+  bar_->Sia.imag(ui->Siai->text().toDouble());
+  bar_->Sib.imag(ui->Sibi->text().toDouble());
+  bar_->Sic.imag(ui->Sici->text().toDouble());
 
   // Position
   if((ui->px->text().toDouble() != bar_->x()) ||

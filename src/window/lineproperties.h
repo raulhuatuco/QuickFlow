@@ -4,12 +4,10 @@
 #include <QDialog>
 #include <QMap>
 #include <QLineEdit>
-
 #include "customtypes.h"
-
 #include "project.h"
-#include "pn/line.h"
-#include "pn/bar.h"
+#include "models/line.h"
+#include "models/bar.h"
 
 namespace Ui
 {
@@ -24,7 +22,7 @@ public:
   explicit LineProperties(QWidget *parent = 0);
   ~LineProperties();
 
-  void setOptions(Project *project, PnLine *line);
+  void setOptions(Project *project, Line *line);
 
 private slots:
   void on_buttonBox_accepted();
@@ -34,7 +32,7 @@ private slots:
 private:
   Ui::LineProperties *ui;
   Project *project_;
-  PnLine *line_;
+  Line *line_;
   bool isNew;
 
   bool validImpedance(QLineEdit *input);

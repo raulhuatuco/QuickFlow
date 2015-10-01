@@ -2,12 +2,8 @@
 #define PROJECTSETTINGS_H
 
 #include <QString>
-
 #include "customtypes.h"
-
-#include "pn/network.h"
-#include "pn/bar.h"
-#include "pn/line.h"
+#include "graphics/network.h"
 
 class Project
 {
@@ -44,8 +40,6 @@ public:
   bool load();
 
 private:
-  QJsonObject lineToJson(PnLine *line);
-  PnLine *lineFromJson(QJsonObject &jsonLine);
 };
 
 #endif  // PROJECTSETTINGS_H

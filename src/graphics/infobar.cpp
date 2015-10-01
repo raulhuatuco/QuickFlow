@@ -2,7 +2,7 @@
 
 #include <QPainter>
 
-PnInfoBar::PnInfoBar(Bar *bar) :
+InfoBar::InfoBar(Bar *bar) :
   bar_(bar)
 {
   setZValue(2);
@@ -12,10 +12,10 @@ PnInfoBar::PnInfoBar(Bar *bar) :
   setPos(px,py);
 }
 
-PnInfoBar::~PnInfoBar() {}
+InfoBar::~InfoBar() {}
 
-void PnInfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
-                      QWidget *widget)
+void InfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
+                    QWidget *widget)
 {
   Q_UNUSED(option);
   Q_UNUSED(widget);
@@ -79,7 +79,6 @@ void PnInfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                       y);
   }
 
-
   // Table text is gray.
   painter->setPen(QPen(Qt::gray, kTableLineWidth, Qt::SolidLine));
 
@@ -94,17 +93,7 @@ void PnInfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   //Draw table 0-2 text
   // Current.
   x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Current [A]");
-
-  //Draw table 0-3 text
-  // Generated.
-  x = tableXi + 3*tableDx/static_cast<qreal>(kTableColums);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Generated [VA]");
-
-  //Draw table 0-4 text
-  // Consumed.
-  x = tableXi + 4*tableDx/static_cast<qreal>(kTableColums);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Consumed [VA]");
+  painter->drawText(x,y,w,h, Qt::AlignCenter, "Injected [VA]");
 
   //Draw table 1-0 text
   // Phase A.
@@ -124,22 +113,8 @@ void PnInfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   //Draw table 1-2 text
   // Ia.
   x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(abs(bar_->rIa())) + " / " + QString::number(arg(
-             bar_->rIa())*180.0/M_PI) + "°";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-  //Draw table 1-3 text
-  // Sga.
-  x = tableXi + 3*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(bar_->rSga.real()) + " + " + QString::number(
-             bar_->rSga.imag()) + "i";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-  //Draw table 1-4 text
-  // Sla.
-  x = tableXi + 4*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(bar_->rSla.real()) + " + " + QString::number(
-             bar_->rSla.imag()) + "i";
+  buffer = QString::number(abs(bar_->rSia)) + " / " + QString::number(arg(
+             bar_->rSia)*180.0/M_PI) + "°";
   painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
   //Draw table 2-0 text
@@ -158,22 +133,8 @@ void PnInfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   //Draw table 2-2 text
   // Ib.
   x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(abs(bar_->rIb())) + " / " + QString::number(arg(
-             bar_->rIb())*180.0/M_PI) + "°";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-  //Draw table 2-3 text
-  // Sgb.
-  x = tableXi + 3*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(bar_->rSgb.real()) + " + " + QString::number(
-             bar_->rSgb.imag()) + "i";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-  //Draw table 2-4 text
-  // Slb.
-  x = tableXi + 4*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(bar_->rSlb.real()) + " + " + QString::number(
-             bar_->rSlb.imag()) + "i";
+  buffer = QString::number(abs(bar_->rSib)) + " / " + QString::number(arg(
+             bar_->rSib)*180.0/M_PI) + "°";
   painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
   //Draw table 3-0 text
@@ -192,22 +153,8 @@ void PnInfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   //Draw table 3-2 text
   // Ic.
   x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(abs(bar_->rIc())) + " / " + QString::number(arg(
-             bar_->rIc())*180.0/M_PI) + "°";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-  //Draw table 3-3 text
-  // Sgc.
-  x = tableXi + 3*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(bar_->rSgc.real()) + " + " + QString::number(
-             bar_->rSgc.imag()) + "i";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-  //Draw table 3-4 text
-  // Slc.
-  x = tableXi + 4*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(bar_->rSlc.real()) + " + " + QString::number(
-             bar_->rSlc.imag()) + "i";
+  buffer = QString::number(abs(bar_->rSic)) + " / " + QString::number(arg(
+             bar_->rSic)*180.0/M_PI) + "°";
   painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
   // Draw base.
@@ -220,7 +167,7 @@ void PnInfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
 }
 
-QRectF PnInfoBar::boundingRect() const
+QRectF InfoBar::boundingRect() const
 {
   return QRectF(-kBoxWidth / 2, -kBoxHeight - kBoxBaseHeight, kBoxWidth,
                 kBoxHeight + kBoxBaseHeight);

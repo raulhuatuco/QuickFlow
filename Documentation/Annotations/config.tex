@@ -1,0 +1,54 @@
+\documentclass[12pt,a4paper]{article}%
+
+% Tabelas
+\usepackage{multirow}
+
+% Símbolos Matemáticos
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{commath}
+
+% Figuras
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{subfigure}
+\graphicspath{ {img/} }
+
+% Língua e acentos
+\usepackage[brazil]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+% Espaçamento
+\usepackage[top=3cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage{indentfirst}
+
+% Pagina em branco
+\usepackage{afterpage}
+\newcommand \blankpage{
+	\null
+	\thispagestyle{empty}
+	\addtocounter{page}{-1}
+	\newpage}
+
+% Lista de códigos
+\usepackage{listings}                   % para formatar código-fonte
+\lstset{numbers=left, numberstyle=\tiny, stepnumber=1, numbersep=5pt, basicstyle=\scriptsize , frame=trbl}
+
+% Enumerate
+\usepackage{enumitem}
+
+% Diagramas
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+
+%------------------------------------------------------------------------------
+
+\begin{document}
+
+\input{notes.tex}
+
+\end{document}

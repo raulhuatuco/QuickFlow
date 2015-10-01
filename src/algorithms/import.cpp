@@ -1,140 +1,159 @@
-#include "import.h"
-
+#include "algorithms/import.h"
 #include <QtGui>
 #include <QtCore>
 #include <QtWidgets>
-
-#include "pn/network.h"
+#include "graphics/network.h"
 #include "algorithms/redraw.h"
 
-Project *importTxtType1(QString &fileName)
+static Project *preprocessProject(QFile &file)
 {
-// Open File.
-//------------------------------------------------------------------------------
-  QFile qfile(fileName);
+  // Open File.
+  file.fileName();
 
-  if(!qfile.open(QFile::ReadOnly)) {
+  if(!file.open(QFile::ReadOnly)) {
     QMessageBox::critical(NULL, "File read error.",
-                          "Can\'t read " + fileName + ".",
+                          "Can\'t read " + file.fileName() + ".",
                           QMessageBox::Ok);
     return NULL;
   }
 
-// Create new project.
-//------------------------------------------------------------------------------
+  // Create new project.
   Project *project = new Project;
 
-// Set project name.
-//------------------------------------------------------------------------------
-  int32_t nameInit = fileName.lastIndexOf(QDir::separator());
-  int32_t nameFinal = fileName.lastIndexOf('.');
-  project->name = fileName.mid(nameInit+1, nameFinal- nameInit -1);
+  // Set project name.
+  int32_t nameInit = file.fileName().lastIndexOf(QDir::separator());
+  int32_t nameFinal = file.fileName().lastIndexOf('.');
+  project->name = file.fileName().mid(nameInit+1, nameFinal- nameInit -1);
 
-// Set project path.
-//------------------------------------------------------------------------------
-  project->filePath = fileName;
+  // Set project path.
+  project->filePath = file.fileName().left(nameFinal) + ".qkf";
 
-// Auxiliaty variables.
-//------------------------------------------------------------------------------
-  QTextStream stream(&qfile); // Text stream used to read lines.
-  int32_t lineCnt = 0; // Current line counter, used to report errors.
+  return project;
+}
+
+static int32_t getNextLineInt(QTextStream *stream, QString keyWord,
+                              int32_t *intVal)
+{
   QString lineTxt; // Line text.
-  QString dummy; // Use to dump useless data.
+  int32_t lineCnt = 0; // Count the amount of processed lines.
+
+  // Loop until keyWord is found or EoF.
+  do {
+    if(stream->atEnd())
+      return -1;
+
+    lineTxt = stream->readLine();
+    lineCnt++;
+  } while(!lineTxt.contains(keyWord));
+
+  // Get integer value.
+  *stream >> *intVal;
+  return lineCnt;
+}
+
+static int32_t getNextLineDouble(QTextStream *stream, QString keyWord,
+                                 double *doubleVal)
+{
+  QString lineTxt; // Line text.
+  int32_t lineCnt = 0; // Count the amount of processed lines.
+
+  // Loop until keyWord is found or EoF.
+  do {
+    if(stream->atEnd())
+      return -1;
+
+    lineTxt = stream->readLine();
+    lineCnt++;
+  } while(!lineTxt.contains(keyWord));
+
+  // Get double value.
+  *stream >> *doubleVal;
+  return lineCnt;
+}
+
+Project *importTxtType1(QString &fileName)
+{
+// Create project with file settings.
+//------------------------------------------------------------------------------
+  QFile file(fileName);
+
+  Project *project = preprocessProject(file);
+
+  if (project == NULL)
+    return NULL;
+
+  // Auxiliaty variables.
+  QTextStream stream(&file); // Text stream used to parse lines.
+  int32_t lineCnt = 0; // Current line counter, used to report errors.
+  int32_t processedLines = 0; // Number of lines parsed during get methods.
 
 // Read Number of bars.
 //------------------------------------------------------------------------------
-  // Loop until NumBarras is found or EoF.
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t numBar;
+  processedLines = getNextLineInt(&stream, "NumBarras", &numBar);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide NumBarras.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("NumBarras"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide NumBarras.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Number of bars.
-  uint32_t numBar;
-  stream >> numBar;
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  lineCnt += processedLines;
 
 // Read Number of lines.
 //------------------------------------------------------------------------------
-  // Loop until NumLinhas is found or EoF.
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t numLine;
+  processedLines = getNextLineInt(&stream, "NumLinhas", &numLine);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide NumLinhas.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("NumLinhas"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide NumLinhas.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Number of lines.
-  uint32_t numLine;
-  stream >> numLine;
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  lineCnt += processedLines;
 
 // Get Base Voltage.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
-
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName + " doesn't provide VBase.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("Voltagem_base_da_rede"));
-
-  // Get VBase.
   double VBase;
-  stream >> VBase;
-  // Save to project.
-  project->setVoltageBase(VBase);
+  processedLines = getNextLineDouble(&stream, "Voltagem_base_da_rede", &VBase);
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName + " doesn't provide VBase.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
+
+  lineCnt += processedLines;
+
+// Save to project.
+  project->setVoltageBase(VBase);
 
 // Get Length Unit.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t LenUn;
+  processedLines = getNextLineInt(&stream, "comprimento_das_linhas", &LenUn);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide Length Unit.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("comprimento_das_linhas"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Length Unit.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Length Unit.
-  uint32_t LenUn;
-  stream >> LenUn;
+  lineCnt += processedLines;
 
-  // Cast to Unit enum.
+// Cast to Unit enum.
   switch (LenUn) {
   case 1:
     project->setLengthUn(Unit::kMeter);
@@ -157,31 +176,23 @@ Project *importTxtType1(QString &fileName)
     break;
   }
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
-
 // Get Impedance Unit.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t ImpUn;
+  processedLines = getNextLineInt(&stream, "impedancia", &ImpUn);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide Impedance Unit.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("impedancia"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Impedance Unit.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Impedance Unit.
-  uint32_t ImpUn;
-  stream >> ImpUn;
+  lineCnt += processedLines;
 
-  // Save to project.
+// Save to project.
   switch (ImpUn) {
   case 1:
     project->setImpedanceUn(Unit::kOhm);
@@ -208,31 +219,23 @@ Project *importTxtType1(QString &fileName)
     break;
   }
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
-
 // Get power Unit.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t powerUn;
+  processedLines = getNextLineInt(&stream, "Demanda", &powerUn);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide Power Init.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("Demanda"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Power Init.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get power Unit.
-  uint32_t powerUn;
-  stream >> powerUn;
+  lineCnt += processedLines;
 
-  // Save to project.
+// Save to project.
   switch (powerUn) {
   case 1:
     project->setPowerUn(Unit::kVA);
@@ -251,41 +254,30 @@ Project *importTxtType1(QString &fileName)
     break;
   }
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
-
 // Get Voltage Unit.
 //------------------------------------------------------------------------------
   project->setVoltageUn(Unit::kKiloVolts);
 
 // Get Base Power.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
-
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName + " doesn't provide SBase.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("kVA    kV_hihg "));
-
-  // Get PBase.
   double PBase;
-  stream >> dummy >> PBase;
-  // Save.
-  project->setPowerBase(PBase);
+  processedLines = getNextLineDouble(&stream, "kVA    kV_hihg", &PBase);
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName + " doesn't provide SBase.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
+
+  lineCnt += processedLines;
+  project->setPowerBase(PBase);
 
 // Get Bars.
 //------------------------------------------------------------------------------
+  QString lineTxt;
+
   do {
     lineTxt = stream.readLine();
     lineCnt++;
@@ -299,33 +291,41 @@ Project *importTxtType1(QString &fileName)
     }
   } while(!lineTxt.contains("[n"));
 
-  uint32_t id;
-  double Sla, Slai;
-  double Slb, Slbi;
-  double Slc, Slci;
-  double Sga, Sgai;
-  double Sgb, Sgbi;
-  double Sgc, Sgci;
+  int32_t id;
+  int32_t barType;
+  double Sia, Siai;
+  double Sib, Sibi;
+  double Sic, Sici;
+  double Sha, Shai;
+  double Shb, Shbi;
+  double Shc, Shci;
+
+  int32_t idBase = 0;
 
   Bar *bar;
 
-  for(uint32_t i=0; i<numBar; i++) {
-    stream >> id >> dummy >> Sla >> Slai >> Slb >> Slbi >> Slc >> Slci;
-    stream >> Sga >> Sgai >> Sgb >> Sgbi >> Sgc >>Sgci;
+  for(int32_t i=0; i<numBar; i++) {
+    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;
+    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;
+
+    if(barType == 3)
+      idBase = id;
+
     bar = new Bar;
-    bar->id = id - 1;
-    bar->Sga.real(Sga);
-    bar->Sga.imag(Sgai);
-    bar->Sgb.real(Sgb);
-    bar->Sgb.imag(Sgbi);
-    bar->Sgc.real(Sgc);
-    bar->Sgc.imag(Sgci);
-    bar->Sla.real(Sla);
-    bar->Sla.imag(Slai);
-    bar->Slb.real(Slb);
-    bar->Slb.imag(Slbi);
-    bar->Slc.real(Slc);
-    bar->Slc.imag(Slci);
+    bar->id = id - idBase;
+
+    bar->Sha.real(Sha);
+    bar->Sha.imag(Shai);
+    bar->Shb.real(Shb);
+    bar->Shb.imag(Shbi);
+    bar->Shc.real(Shc);
+    bar->Shc.imag(Shci);
+    bar->Sia.real(Sia);
+    bar->Sia.imag(Siai);
+    bar->Sib.real(Sib);
+    bar->Sib.imag(Sibi);
+    bar->Sic.real(Sic);
+    bar->Sic.imag(Sici);
 
     if (!project->network->addBar(bar)) {
       QMessageBox::critical(NULL, "Invalid Bar.",
@@ -341,8 +341,8 @@ Project *importTxtType1(QString &fileName)
     lineCnt++;
   }
 
-// Get Lines.
-//------------------------------------------------------------------------------
+//// Get Lines.
+////------------------------------------------------------------------------------
   do {
     if(stream.atEnd()) {
       QMessageBox::critical(NULL, "Invalid File.",
@@ -356,51 +356,43 @@ Project *importTxtType1(QString &fileName)
     lineCnt++;
   } while(!lineTxt.contains("Tipo_Cir"));
 
-  uint32_t noI, noF;
+  int32_t noI, noF;
   double Zaa, Zaai;
   double Zab, Zabi;
   double Zac, Zaci;
-  double Zan, Zani;
   double Zbb, Zbbi;
   double Zbc, Zbci;
-  double Zbn, Zbni;
   double Zcc, Zcci;
-  double Zcn, Zcni;
-  double Znn, Znni;
   double length;
+  QString dummy;
 
-  PnLine *line;
+  Line *line;
 
-  for(uint32_t i=0; i<numLine; i++) {
-    stream >> dummy >> noI >> noF >> Zaa >> Zaai >> Zab >> Zabi >> Zac;
-    stream >> Zaci >> Zan >> Zani >> Zbb >> Zbbi >> Zbc >> Zbci >> Zbn >> Zbni;
-    stream >> Zcc >> Zcci >> Zcn >> Zcni >> Znn >> Znni >> dummy >> length;
+  for(int32_t i=0; i<numLine; i++) {
+    stream >> dummy >> noI >> noF >> dummy >> dummy >> dummy >> dummy >> Zaa >> Zaai
+           >> Zbb >> Zbbi >> Zcc;
+    stream >> Zcci >> dummy >> dummy >> Zab >> Zabi >> Zac >> Zaci >> dummy >>
+           dummy;
+    stream >> Zbc >> Zbci >> dummy >> dummy >> dummy >> dummy >> dummy >>   length;
 
-    line = new PnLine;
-    line->noI = noI - 1;
-    line->noF = noF - 1;
+    line = new Line;
+    line->noI = noI - idBase;
+    line->noF = noF - idBase;
 
     line->length = length;
+
     line->Zaa.real(Zaa);
     line->Zaa.imag(Zaai);
     line->Zab.real(Zab);
     line->Zab.imag(Zabi);
     line->Zac.real(Zac);
     line->Zac.imag(Zaci);
-    line->Zan.real(Zan);
-    line->Zan.imag(Zani);
     line->Zbb.real(Zbb);
     line->Zbb.imag(Zbbi);
     line->Zbc.real(Zbc);
     line->Zbc.imag(Zbci);
-    line->Zbn.real(Zbn);
-    line->Zbn.imag(Zbni);
     line->Zcc.real(Zcc);
     line->Zcc.imag(Zcci);
-    line->Zcn.real(Zcn);
-    line->Zcn.imag(Zcni);
-    line->Znn.real(Znn);
-    line->Znn.imag(Znni);
 
     if (!project->network->addLine(line)) {
       QMessageBox::critical(NULL, "Invalid Line.",
@@ -418,138 +410,93 @@ Project *importTxtType1(QString &fileName)
 
   redrawGraph1(project->network);
 
-  qfile.close();
+  file.close();
   return project;
 }
 
 Project *importTxtType2(QString &fileName)
 {
-// Open File.
+// Create project with file settings.
 //------------------------------------------------------------------------------
-  QFile qfile(fileName);
+  QFile file(fileName);
 
-  if(!qfile.open(QFile::ReadOnly)) {
-    QMessageBox::critical(NULL, "File read error.",
-                          "Can\'t read " + fileName + ".",
-                          QMessageBox::Ok);
+  Project *project = preprocessProject(file);
+
+  if (project == NULL)
     return NULL;
-  }
 
-// Create new project.
-//------------------------------------------------------------------------------
-  Project *project = new Project;
-
-// Set project name.
-//------------------------------------------------------------------------------
-  int32_t nameInit = fileName.lastIndexOf(QDir::separator());
-  int32_t nameFinal = fileName.lastIndexOf('.');
-  project->name = fileName.mid(nameInit+1, nameFinal- nameInit -1);
-
-// Set project path.
-//------------------------------------------------------------------------------
-  project->filePath = fileName;
-
-// Auxiliaty variables.
-//------------------------------------------------------------------------------
-  QTextStream stream(&qfile); // Text stream used to read lines.
+  // Auxiliaty variables.
+  QTextStream stream(&file); // Text stream used to parse lines.
   int32_t lineCnt = 0; // Current line counter, used to report errors.
-  QString lineTxt; // Line text.
-  QString dummy; // Use to dump useless data.
+  int32_t processedLines = 0; // Number of lines parsed during get methods.
 
 // Read Number of bars.
 //------------------------------------------------------------------------------
-  // Loop until Numero_barras is found or EoF.
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t numBar;
+  processedLines = getNextLineInt(&stream, "Numero_barras", &numBar);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide Numero_barras.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("Numero_barras"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Numero_barras.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Number of bars.
-  uint32_t numBar;
-  stream >> numBar;
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  lineCnt += processedLines;
 
 // Read Number of lines.
 //------------------------------------------------------------------------------
-  // Loop until Numero_linhas is found or EoF.
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t numLine;
+  processedLines = getNextLineInt(&stream, "Numero_linhas", &numLine);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide Numero_linhas.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("Numero_linhas"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Numero_linhas.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Number of lines.
-  uint32_t numLine;
-  stream >> numLine;
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  lineCnt += processedLines;
 
 // Get Base Voltage.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
-
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName + " doesn't provide VBase.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("Voltagem_base"));
-
-  // Get VBase.
   double VBase;
-  stream >> VBase;
-  // Save to project.
-  project->setVoltageBase(VBase);
+  processedLines = getNextLineDouble(&stream, "Voltagem_base", &VBase);
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName + " doesn't provide VBase.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
+
+  lineCnt += processedLines;
+
+// Save to project.
+  project->setVoltageBase(VBase);
 
 // Get Length Unit.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t LenUn;
+  processedLines = getNextLineInt(&stream, "comprimento_das_linhas", &LenUn);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide Length Unit.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("comprimento"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Length Unit.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Length Unit.
-  uint32_t LenUn;
-  stream >> LenUn;
+  lineCnt += processedLines;
 
-  // Cast to Unit enum.
+// Cast to Unit enum.
   switch (LenUn) {
   case 1:
     project->setLengthUn(Unit::kMeter);
@@ -572,31 +519,23 @@ Project *importTxtType2(QString &fileName)
     break;
   }
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
-
 // Get Impedance Unit.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t ImpUn;
+  processedLines = getNextLineInt(&stream, "impedancia", &ImpUn);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide Impedance Unit.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("impedancia"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Impedance Unit.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Impedance Unit.
-  uint32_t ImpUn;
-  stream >> ImpUn;
+  lineCnt += processedLines;
 
-  // Save to project.
+// Save to project.
   switch (ImpUn) {
   case 1:
     project->setImpedanceUn(Unit::kOhm);
@@ -623,31 +562,23 @@ Project *importTxtType2(QString &fileName)
     break;
   }
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
-
 // Get power Unit.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t powerUn;
+  processedLines = getNextLineInt(&stream, "Demanda", &powerUn);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide Power Init.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("Demanda"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Power Init.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get power Unit.
-  uint32_t powerUn;
-  stream >> powerUn;
+  lineCnt += processedLines;
 
-  // Save to project.
+// Save to project.
   switch (powerUn) {
   case 1:
     project->setPowerUn(Unit::kVA);
@@ -666,41 +597,30 @@ Project *importTxtType2(QString &fileName)
     break;
   }
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
-
 // Get Voltage Unit.
 //------------------------------------------------------------------------------
   project->setVoltageUn(Unit::kKiloVolts);
 
 // Get Base Power.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
-
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName + " doesn't provide SBase.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("kVA    kV_hihg"));
-
-  // Get PBase.
   double PBase;
-  stream >> dummy >> PBase;
-  // Save.
-  project->setPowerBase(PBase);
+  processedLines = getNextLineDouble(&stream, "kVA    kV_hihg", &PBase);
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName + " doesn't provide SBase.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
+
+  lineCnt += processedLines;
+  project->setPowerBase(PBase);
 
 // Get Bars.
 //------------------------------------------------------------------------------
+  QString lineTxt;
+
   do {
     lineTxt = stream.readLine();
     lineCnt++;
@@ -714,33 +634,41 @@ Project *importTxtType2(QString &fileName)
     }
   } while(!lineTxt.contains("Barra"));
 
-  uint32_t id;
-  double Sla, Slai;
-  double Slb, Slbi;
-  double Slc, Slci;
-  double Sga, Sgai;
-  double Sgb, Sgbi;
-  double Sgc, Sgci;
+  int32_t id;
+  int32_t barType;
+  double Sia, Siai;
+  double Sib, Sibi;
+  double Sic, Sici;
+  double Sha, Shai;
+  double Shb, Shbi;
+  double Shc, Shci;
+
+  int32_t idBase = 0;
 
   Bar *bar;
 
-  for(uint32_t i=0; i<numBar; i++) {
-    stream >> id >> dummy >> Sla >> Slai >> Slb >> Slbi >> Slc >> Slci;
-    stream >> Sga >> Sgai >> Sgb >> Sgbi >> Sgc >>Sgci;
+  for(int32_t i=0; i<numBar; i++) {
+    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;
+    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;
+
+    if(barType == 3)
+      idBase = id;
+
     bar = new Bar;
-    bar->id = id - 1;
-    bar->Sga.real(Sga);
-    bar->Sga.imag(Sgai);
-    bar->Sgb.real(Sgb);
-    bar->Sgb.imag(Sgbi);
-    bar->Sgc.real(Sgc);
-    bar->Sgc.imag(Sgci);
-    bar->Sla.real(Sla);
-    bar->Sla.imag(Slai);
-    bar->Slb.real(Slb);
-    bar->Slb.imag(Slbi);
-    bar->Slc.real(Slc);
-    bar->Slc.imag(Slci);
+    bar->id = id - idBase;
+
+    bar->Sha.real(Sha);
+    bar->Sha.imag(Shai);
+    bar->Shb.real(Shb);
+    bar->Shb.imag(Shbi);
+    bar->Shc.real(Shc);
+    bar->Shc.imag(Shci);
+    bar->Sia.real(Sia);
+    bar->Sia.imag(Siai);
+    bar->Sib.real(Sib);
+    bar->Sib.imag(Sibi);
+    bar->Sic.real(Sic);
+    bar->Sic.imag(Sici);
 
     if (!project->network->addBar(bar)) {
       QMessageBox::critical(NULL, "Invalid Bar.",
@@ -756,8 +684,8 @@ Project *importTxtType2(QString &fileName)
     lineCnt++;
   }
 
-// Get Lines.
-//------------------------------------------------------------------------------
+//// Get Lines.
+////------------------------------------------------------------------------------
   do {
     if(stream.atEnd()) {
       QMessageBox::critical(NULL, "Invalid File.",
@@ -771,7 +699,7 @@ Project *importTxtType2(QString &fileName)
     lineCnt++;
   } while(!lineTxt.contains("Tipo_Cir"));
 
-  uint32_t noI, noF;
+  int32_t noI, noF;
   double Zaa, Zaai;
   double Zab, Zabi;
   double Zac, Zaci;
@@ -784,20 +712,21 @@ Project *importTxtType2(QString &fileName)
   double Znn, Znni;
   double length;
 
-  PnLine *line;
+  Line *line;
   QString lineType;
+  QString dummy;
 
-  for(uint32_t i=0; i<numLine; i++) {
-    line = new PnLine;
+  for(int32_t i=0; i<numLine; i++) {
+    line = new Line;
     stream >> lineType >> noI >> noF;
 
-    line->noI = noI - 1;
-    line->noF = noF - 1;
+    line->noI = noI - idBase;
+    line->noF = noF - idBase;
 
     if (lineType.contains("CP")) {
-      stream >> dummy >> dummy >> dummy >> dummy >>Zaa >> Zaai >> Zab >> Zabi >> Zac;
-      stream >> Zaci >> Zan >> Zani >> Zbb >> Zbbi >> Zbc >> Zbci >> Zbn >> Zbni;
-      stream >> Zcc >> Zcci >> Zcn >> Zcni >> Znn >> Znni >> dummy >> length;
+      stream >> Zaa >> Zaai >> Zbb >> Zbbi >> Zcc;
+      stream >> Zcci >> Znn >> Znni >> Zab >> Zabi >> Zac >> Zaci >> Zan >> Zani;
+      stream >> Zbc >> Zbci >> Zbn >> Zbni >> Zcn >> Zcni >> dummy >> length;
       line->length = length;
       line->Zaa.real(Zaa);
       line->Zaa.imag(Zaai);
@@ -805,23 +734,13 @@ Project *importTxtType2(QString &fileName)
       line->Zab.imag(Zabi);
       line->Zac.real(Zac);
       line->Zac.imag(Zaci);
-      line->Zan.real(Zan);
-      line->Zan.imag(Zani);
       line->Zbb.real(Zbb);
       line->Zbb.imag(Zbbi);
       line->Zbc.real(Zbc);
       line->Zbc.imag(Zbci);
-      line->Zbn.real(Zbn);
-      line->Zbn.imag(Zbni);
       line->Zcc.real(Zcc);
       line->Zcc.imag(Zcci);
-      line->Zcn.real(Zcn);
-      line->Zcn.imag(Zcni);
-      line->Znn.real(Znn);
-      line->Znn.imag(Znni);
     }
-
-
 
     if (!project->network->addLine(line)) {
       QMessageBox::critical(NULL, "Invalid Line.",
@@ -839,138 +758,93 @@ Project *importTxtType2(QString &fileName)
 
   redrawGraph1(project->network);
 
-  qfile.close();
+  file.close();
   return project;
 }
 
 Project *importTxtType3(QString &fileName)
 {
-// Open File.
+// Create project with file settings.
 //------------------------------------------------------------------------------
-  QFile qfile(fileName);
+  QFile file(fileName);
 
-  if(!qfile.open(QFile::ReadOnly)) {
-    QMessageBox::critical(NULL, "File read error.",
-                          "Can\'t read " + fileName + ".",
-                          QMessageBox::Ok);
+  Project *project = preprocessProject(file);
+
+  if (project == NULL)
     return NULL;
-  }
 
-// Create new project.
-//------------------------------------------------------------------------------
-  Project *project = new Project;
-
-// Set project name.
-//------------------------------------------------------------------------------
-  int32_t nameInit = fileName.lastIndexOf(QDir::separator());
-  int32_t nameFinal = fileName.lastIndexOf('.');
-  project->name = fileName.mid(nameInit+1, nameFinal- nameInit -1);
-
-// Set project path.
-//------------------------------------------------------------------------------
-  project->filePath = fileName;
-
-// Auxiliaty variables.
-//------------------------------------------------------------------------------
-  QTextStream stream(&qfile); // Text stream used to read lines.
+  // Auxiliaty variables.
+  QTextStream stream(&file); // Text stream used to parse lines.
   int32_t lineCnt = 0; // Current line counter, used to report errors.
-  QString lineTxt; // Line text.
-  QString dummy; // Use to dump useless data.
+  int32_t processedLines = 0; // Number of lines parsed during get methods.
 
 // Read Number of bars.
 //------------------------------------------------------------------------------
-  // Loop until NumBarras is found or EoF.
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t numBar;
+  processedLines = getNextLineInt(&stream, "Numero_barras", &numBar);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide NumBarras.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("NumBarras"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Numero_barras.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Number of bars.
-  uint32_t numBar;
-  stream >> numBar;
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  lineCnt += processedLines;
 
 // Read Number of lines.
 //------------------------------------------------------------------------------
-  // Loop until NumLinhas is found or EoF.
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t numLine;
+  processedLines = getNextLineInt(&stream, "Numero_linhas", &numLine);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide NumLinhas.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("NumLinhas"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Numero_linhas.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Number of lines.
-  uint32_t numLine;
-  stream >> numLine;
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  lineCnt += processedLines;
 
 // Get Base Voltage.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
-
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName + " doesn't provide VBase.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("Voltagem_base_da_rede"));
-
-  // Get VBase.
   double VBase;
-  stream >> VBase;
-  // Save to project.
-  project->setVoltageBase(VBase);
+  processedLines = getNextLineDouble(&stream, "Voltagem_base", &VBase);
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName + " doesn't provide VBase.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
+
+  lineCnt += processedLines;
+
+// Save to project.
+  project->setVoltageBase(VBase);
 
 // Get Length Unit.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t LenUn;
+  processedLines = getNextLineInt(&stream, "comprimento_das_linhas", &LenUn);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide Length Unit.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("comprimento_das_linhas"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Length Unit.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Length Unit.
-  uint32_t LenUn;
-  stream >> LenUn;
+  lineCnt += processedLines;
 
-  // Cast to Unit enum.
+// Cast to Unit enum.
   switch (LenUn) {
   case 1:
     project->setLengthUn(Unit::kMeter);
@@ -993,31 +867,23 @@ Project *importTxtType3(QString &fileName)
     break;
   }
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
-
 // Get Impedance Unit.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t ImpUn;
+  processedLines = getNextLineInt(&stream, "impedancia", &ImpUn);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide Impedance Unit.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("impedancia"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Impedance Unit.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get Impedance Unit.
-  uint32_t ImpUn;
-  stream >> ImpUn;
+  lineCnt += processedLines;
 
-  // Save to project.
+// Save to project.
   switch (ImpUn) {
   case 1:
     project->setImpedanceUn(Unit::kOhm);
@@ -1044,31 +910,23 @@ Project *importTxtType3(QString &fileName)
     break;
   }
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
-
 // Get power Unit.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+  int32_t powerUn;
+  processedLines = getNextLineInt(&stream, "Demanda", &powerUn);
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName +
-                            " doesn't provide Power Init.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("Demanda"));
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName +
+                          " doesn't provide Power Init.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
 
-  // Get power Unit.
-  uint32_t powerUn;
-  stream >> powerUn;
+  lineCnt += processedLines;
 
-  // Save to project.
+// Save to project.
   switch (powerUn) {
   case 1:
     project->setPowerUn(Unit::kVA);
@@ -1087,41 +945,30 @@ Project *importTxtType3(QString &fileName)
     break;
   }
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
-
 // Get Voltage Unit.
 //------------------------------------------------------------------------------
   project->setVoltageUn(Unit::kKiloVolts);
 
 // Get Base Power.
 //------------------------------------------------------------------------------
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
-
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName + " doesn't provide SBase.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("kVA    kV_hihg "));
-
-  // Get PBase.
   double PBase;
-  stream >> dummy >> PBase;
-  // Save.
-  project->setPowerBase(PBase);
+  processedLines = getNextLineDouble(&stream, "kVA    kV_hihg", &PBase);
 
-  // Go to the next line.
-  stream.readLine();
-  lineCnt++;
+  if(processedLines == -1) {
+    QMessageBox::critical(NULL, "Invalid File.",
+                          "The file " + fileName + " doesn't provide SBase.",
+                          QMessageBox::Ok);
+    delete project;
+    return NULL;
+  }
+
+  lineCnt += processedLines;
+  project->setPowerBase(PBase);
 
 // Get Bars.
 //------------------------------------------------------------------------------
+  QString lineTxt;
+
   do {
     lineTxt = stream.readLine();
     lineCnt++;
@@ -1133,35 +980,43 @@ Project *importTxtType3(QString &fileName)
       delete project;
       return NULL;
     }
-  } while(!lineTxt.contains("[n"));
+  } while(!lineTxt.contains("Barra"));
 
-  uint32_t id;
-  double Sla, Slai;
-  double Slb, Slbi;
-  double Slc, Slci;
-  double Sga, Sgai;
-  double Sgb, Sgbi;
-  double Sgc, Sgci;
+  int32_t id;
+  int32_t barType;
+  double Sia, Siai;
+  double Sib, Sibi;
+  double Sic, Sici;
+  double Sha, Shai;
+  double Shb, Shbi;
+  double Shc, Shci;
+
+  int32_t idBase = 0;
 
   Bar *bar;
 
-  for(uint32_t i=0; i<numBar; i++) {
-    stream >> id >> dummy >> Sla >> Slai >> Slb >> Slbi >> Slc >> Slci;
-    stream >> Sga >> Sgai >> Sgb >> Sgbi >> Sgc >>Sgci;
+  for(int32_t i=0; i<numBar; i++) {
+    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;
+    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;
+
+    if(barType == 3)
+      idBase = id;
+
     bar = new Bar;
-    bar->id = id;
-    bar->Sga.real(Sga);
-    bar->Sga.imag(Sgai);
-    bar->Sgb.real(Sgb);
-    bar->Sgb.imag(Sgbi);
-    bar->Sgc.real(Sgc);
-    bar->Sgc.imag(Sgci);
-    bar->Sla.real(Sla);
-    bar->Sla.imag(Slai);
-    bar->Slb.real(Slb);
-    bar->Slb.imag(Slbi);
-    bar->Slc.real(Slc);
-    bar->Slc.imag(Slci);
+    bar->id = id - idBase;
+
+    bar->Sha.real(Sha);
+    bar->Sha.imag(Shai);
+    bar->Shb.real(Shb);
+    bar->Shb.imag(Shbi);
+    bar->Shc.real(Shc);
+    bar->Shc.imag(Shci);
+    bar->Sia.real(Sia);
+    bar->Sia.imag(Siai);
+    bar->Sib.real(Sib);
+    bar->Sib.imag(Sibi);
+    bar->Sic.real(Sic);
+    bar->Sic.imag(Sici);
 
     if (!project->network->addBar(bar)) {
       QMessageBox::critical(NULL, "Invalid Bar.",
@@ -1177,8 +1032,8 @@ Project *importTxtType3(QString &fileName)
     lineCnt++;
   }
 
-// Get Lines.
-//------------------------------------------------------------------------------
+//// Get Lines.
+////------------------------------------------------------------------------------
   do {
     if(stream.atEnd()) {
       QMessageBox::critical(NULL, "Invalid File.",
@@ -1192,7 +1047,7 @@ Project *importTxtType3(QString &fileName)
     lineCnt++;
   } while(!lineTxt.contains("Tipo_Cir"));
 
-  uint32_t noI, noF;
+  int32_t noI, noF;
   double Zaa, Zaai;
   double Zab, Zabi;
   double Zac, Zaci;
@@ -1205,38 +1060,35 @@ Project *importTxtType3(QString &fileName)
   double Znn, Znni;
   double length;
 
-  PnLine *line;
+  Line *line;
+  QString lineType;
+  QString dummy;
 
-  for(uint32_t i=0; i<numLine; i++) {
-    stream >> dummy >> noI >> noF >> Zaa >> Zaai >> Zab >> Zabi >> Zac;
-    stream >> Zaci >> Zan >> Zani >> Zbb >> Zbbi >> Zbc >> Zbci >> Zbn >> Zbni;
-    stream >> Zcc >> Zcci >> Zcn >> Zcni >> Znn >> Znni >> dummy >> length;
+  for(int32_t i=0; i<numLine; i++) {
+    line = new Line;
+    stream >> lineType >> noI >> noF;
 
-    line = new PnLine;
-    line->noI = noI;
-    line->noF = noF;
+    line->noI = noI - idBase;
+    line->noF = noF - idBase;
 
-    line->length = length;
-    line->Zaa.real(Zaa);
-    line->Zaa.imag(Zaai);
-    line->Zab.real(Zab);
-    line->Zab.imag(Zabi);
-    line->Zac.real(Zac);
-    line->Zac.imag(Zaci);
-    line->Zan.real(Zan);
-    line->Zan.imag(Zani);
-    line->Zbb.real(Zbb);
-    line->Zbb.imag(Zbbi);
-    line->Zbc.real(Zbc);
-    line->Zbc.imag(Zbci);
-    line->Zbn.real(Zbn);
-    line->Zbn.imag(Zbni);
-    line->Zcc.real(Zcc);
-    line->Zcc.imag(Zcci);
-    line->Zcn.real(Zcn);
-    line->Zcn.imag(Zcni);
-    line->Znn.real(Znn);
-    line->Znn.imag(Znni);
+    if (lineType.contains("CP")) {
+      stream >> dummy >> dummy >> dummy >> dummy >> Zaa >> Zaai >> Zbb >> Zbbi >> Zcc;
+      stream >> Zcci >> Znn >> Znni >> Zab >> Zabi >> Zac >> Zaci >> Zan >> Zani;
+      stream >> Zbc >> Zbci >> Zbn >> Zbni >> Zcn >> Zcni >> dummy >> length;
+      line->length = length;
+      line->Zaa.real(Zaa);
+      line->Zaa.imag(Zaai);
+      line->Zab.real(Zab);
+      line->Zab.imag(Zabi);
+      line->Zac.real(Zac);
+      line->Zac.imag(Zaci);
+      line->Zbb.real(Zbb);
+      line->Zbb.imag(Zbbi);
+      line->Zbc.real(Zbc);
+      line->Zbc.imag(Zbci);
+      line->Zcc.real(Zcc);
+      line->Zcc.imag(Zcci);
+    }
 
     if (!project->network->addLine(line)) {
       QMessageBox::critical(NULL, "Invalid Line.",
@@ -1254,6 +1106,6 @@ Project *importTxtType3(QString &fileName)
 
   redrawGraph1(project->network);
 
-  qfile.close();
+  file.close();
   return project;
 }

@@ -74,6 +74,8 @@ private slots:
 
   void on_action_txt_type_3_triggered();
   
+  void on_actionRun_triggered();
+  
 protected:
   void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE;
 

@@ -25,9 +25,9 @@ SOURCES += main.cpp\
     graphics/infobar.cpp \
     graphics/infoline.cpp \
     graphics/network.cpp \
-    graphics/view.cpp \
     algorithms/import.cpp \
-    algorithms/redraw.cpp
+    algorithms/redraw.cpp \
+    graphics/systemview.cpp
     
     
     
@@ -39,15 +39,15 @@ HEADERS  += \
     window/lineproperties.h \
     window/newproject.h \
     window/barproperties.h \
-    algorithms/shirmoharmnadi.h \
     models/bar.h \
     models/line.h \
     graphics/infobar.h \
     graphics/infoline.h \
     graphics/network.h \
-    graphics/view.h \
     algorithms/import.h \
-    algorithms/redraw.h
+    algorithms/redraw.h \
+    graphics/systemview.h \
+    algorithms/shirmoharmmadi.h
 
 
     
@@ -61,6 +61,8 @@ FORMS    += \
 RESOURCES += \
     img/img.qrc \
 
-LIBS+= -llapack -lblas -larmadillo -lOGDF -lCOIN -lpthread
+linux-g++ {
+  LIBS+= -lOGDF -lCOIN -lpthread
+}
 
 DISTFILES+=.astylerc

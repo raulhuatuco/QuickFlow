@@ -1,9 +1,9 @@
 #include "quickflow.h"
 #include "ui_quickflow.h"
 
-#include "pn/bar.h"
-#include "pn/line.h"
-#include "pn/network.h"
+#include "models/bar.h"
+#include "models/line.h"
+#include "graphics/network.h"
 
 #include "window/newproject.h"
 #include "window/barproperties.h"
@@ -11,8 +11,9 @@
 
 #include "algorithms/import.h"
 #include "algorithms/redraw.h"
+#include "algorithms/shirmoharmmadi.h"
 
-QString const kVersion = "0.0.3";
+QString const kVersion = "0.0.4";
 
 /*******************************************************************************
  * QKflow.
@@ -108,7 +109,7 @@ void QuickFlow::noProjectInterface()
   ui->actionAddLine->setEnabled(false);
 
   // Disable viewer
-  ui->pnView->setEnabled(false);
+  ui->systemView->setEnabled(false);
 }
 
 /*******************************************************************************
@@ -139,7 +140,7 @@ void QuickFlow::workInterface()
   ui->actionAddLine->setEnabled(true);
 
   // Enable viewer
-  ui->pnView->setEnabled(true);
+  ui->systemView->setEnabled(true);
 }
 
 /*******************************************************************************
@@ -147,11 +148,11 @@ void QuickFlow::workInterface()
  ******************************************************************************/
 void QuickFlow::loadSettings()
 {
-  // pnView background.
+  // systemView background.
   QBrush bkbrush;
-  bkbrush.setColor(settings->value("pnView_background").value<QColor>());
+  bkbrush.setColor(settings->value("systemView_background").value<QColor>());
   bkbrush.setStyle(Qt::SolidPattern);
-  ui->pnView->setBackgroundBrush(bkbrush);
+  ui->systemView->setBackgroundBrush(bkbrush);
 }
 
 /*******************************************************************************
@@ -159,8 +160,8 @@ void QuickFlow::loadSettings()
  ******************************************************************************/
 void QuickFlow::saveSettings()
 {
-  // pnView background.
-  settings->setValue("pnView_background", ui->pnView->backgroundBrush());
+  // systemView background.
+  settings->setValue("systemView_background", ui->systemView->backgroundBrush());
 
   // Save settings.
   settings->sync();
@@ -174,11 +175,11 @@ void QuickFlow::createSettings()
   // Save version.
   settings->setValue("version", kVersion);
 
-//  pnView background.
+//  systemView background.
   QBrush bkbrush;
   bkbrush.setColor(Qt::white);
   bkbrush.setStyle(Qt::SolidPattern);
-  ui->pnView->setBackgroundBrush(bkbrush);
+  ui->systemView->setBackgroundBrush(bkbrush);
 
   // Store settings.
   saveSettings();
@@ -245,7 +246,7 @@ void QuickFlow::on_actionNew_triggered()
   project = new Project;
   project->name = newProject.dataName;
   project->filePath = newProject.dataPath + QDir::separator() +
-                      newProject.dataName + ".qkflow";
+                      newProject.dataName + ".qkf";
 
   // Simulation data.
   project->setMaxIterations(newProject.dataMaxIterations);
@@ -265,7 +266,7 @@ void QuickFlow::on_actionNew_triggered()
 
   if (!save_ok) {
     QMessageBox::critical(this, "File write error",
-                          "Cannot write .qkflow file.", QMessageBox::Ok);
+                          "Cannot write .qkf file.", QMessageBox::Ok);
     delete project;
     project = NULL;
     return;
@@ -277,7 +278,7 @@ void QuickFlow::on_actionNew_triggered()
   // Enable interface
   workInterface();
   // Set screne
-  ui->pnView->setPnNetwork(project->network);
+  ui->systemView->addNetwork(project->network);
 
   // Connect signals.
   connectSignals();
@@ -318,7 +319,7 @@ void QuickFlow::on_actionOpen_triggered()
   project->filePath = fileName;
 
   if (project->load() != true) {
-    QMessageBox::critical(this, "File read error", "Cannot read .qkflow file.",
+    QMessageBox::critical(this, "File read error", "Cannot read .qkf file.",
                           QMessageBox::Ok);
     delete project;
     project = NULL;
@@ -332,7 +333,7 @@ void QuickFlow::on_actionOpen_triggered()
   workInterface();
 
   // Set screne.
-  ui->pnView->setPnNetwork(project->network);
+  ui->systemView->addNetwork(project->network);
 
   // Connect signals.
   connectSignals();
@@ -433,6 +434,7 @@ void QuickFlow::on_actionClose_triggered()
   // Disconnect signals.
   disconnectSignals();
 
+  delete project->network;
   delete project;
   project = NULL;
   altered_ = false;
@@ -444,7 +446,7 @@ void QuickFlow::on_actionClose_triggered()
  ******************************************************************************/
 void QuickFlow::on_actionZoomIn_triggered()
 {
-  ui->pnView->zoomIn();
+  ui->systemView->zoomIn();
 }
 
 /*******************************************************************************
@@ -452,7 +454,7 @@ void QuickFlow::on_actionZoomIn_triggered()
  ******************************************************************************/
 void QuickFlow::on_actionZoomOut_triggered()
 {
-  ui->pnView->zoomOut();
+  ui->systemView->zoomOut();
 }
 
 /*******************************************************************************
@@ -460,7 +462,7 @@ void QuickFlow::on_actionZoomOut_triggered()
  ******************************************************************************/
 void QuickFlow::on_actionZoomFit_triggered()
 {
-  ui->pnView->zoomFit();
+  ui->systemView->zoomFit();
 }
 
 /*******************************************************************************
@@ -476,10 +478,10 @@ void QuickFlow::on_actionSearch_Bar_triggered()
     Bar *bar = project->network->getBarById(barId);
 
     if (bar != NULL) {
-      ui->pnView->fitInView(bar->x() -100, bar->y() -100,
-                            bar->boundingRect().width() +100,
-                            bar->boundingRect().height() +100,
-                            Qt::IgnoreAspectRatio);
+      ui->systemView->fitInView(bar->x() -100, bar->y() -100,
+                                bar->boundingRect().width() +100,
+                                bar->boundingRect().height() +100,
+                                Qt::IgnoreAspectRatio);
     }
   }
 }
@@ -548,9 +550,9 @@ void QuickFlow::on_action_txt_type_1_triggered()
   } else {
     workInterface();
     setAltered(true);
-    ui->pnView->setPnNetwork(project->network);
+    ui->systemView->addNetwork(project->network);
     connectSignals();
-    ui->pnView->zoomFit();
+    ui->systemView->zoomFit();
   }
 }
 
@@ -592,9 +594,9 @@ void QuickFlow::on_action_txt_type_2_triggered()
   } else {
     workInterface();
     setAltered(true);
-    ui->pnView->setPnNetwork(project->network);
+    ui->systemView->addNetwork(project->network);
     connectSignals();
-    ui->pnView->zoomFit();
+    ui->systemView->zoomFit();
   }
 }
 
@@ -636,9 +638,9 @@ void QuickFlow::on_action_txt_type_3_triggered()
   } else {
     workInterface();
     setAltered(true);
-    ui->pnView->setPnNetwork(project->network);
+    ui->systemView->addNetwork(project->network);
     connectSignals();
-    ui->pnView->zoomFit();
+    ui->systemView->zoomFit();
   }
 }
 
@@ -663,30 +665,19 @@ void QuickFlow::on_actionShirmoharmnadi_triggered()
 }
 
 /*******************************************************************************
+ * Action Run triggered.
+ ******************************************************************************/
+void QuickFlow::on_actionRun_triggered()
+{
+    
+}
+
+/*******************************************************************************
  * Action Pause triggered.
  ******************************************************************************/
 void QuickFlow::on_actionPause_triggered()
 {
-  uint32_t cnt = 0;
-  Bar *bar = new Bar;
-  bar->id = 0;
-  project->network->addBar(bar);
-  cnt++;
 
-  for(int x=0; x< 100; x++) {
-    for (int y = 0; y< 100; y++) {
-      bar = new Bar;
-      bar->id = cnt;
-      bar->setX(x*50);
-      bar->setY(0);
-      project->network->addBar(bar);
-      PnLine *line = new PnLine;
-      line->noI = cnt -1;
-      line->noF = cnt;
-      project->network->addLine(line);
-      cnt++;
-    }
-  }
 }
 
 /*******************************************************************************
@@ -695,7 +686,7 @@ void QuickFlow::on_actionPause_triggered()
 void QuickFlow::on_actionSugiyama_triggered()
 {
   redrawGraph2(project->network);
-  ui->pnView->zoomFit();
+  ui->systemView->zoomFit();
 }
 
 /*******************************************************************************
@@ -704,7 +695,7 @@ void QuickFlow::on_actionSugiyama_triggered()
 void QuickFlow::on_actionSugiyama_Fast_triggered()
 {
   redrawGraph1(project->network);
-  ui->pnView->zoomFit();
+  ui->systemView->zoomFit();
 }
 
 /*******************************************************************************
@@ -713,7 +704,7 @@ void QuickFlow::on_actionSugiyama_Fast_triggered()
 void QuickFlow::on_actionMulti_level_triggered()
 {
   redrawGraph3(project->network);
-  ui->pnView->zoomFit();
+  ui->systemView->zoomFit();
 }
 
 /*******************************************************************************
@@ -766,11 +757,9 @@ void QuickFlow::on_editBar(QObject *bar)
 void QuickFlow::on_editLine(QObject *line)
 {
   LineProperties lineProperties(this);
-  lineProperties.setOptions(project, static_cast<PnLine *>(line));
+  lineProperties.setOptions(project, static_cast<Line *>(line));
 
   if (lineProperties.exec() == QDialog::Accepted) {
     setAltered(true);
   }
 }
-
-

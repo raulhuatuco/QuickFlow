@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>455</width>
-    <height>585</height>
+    <height>445</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -268,44 +268,6 @@ QGroupBox::title
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_5">
-        <item>
-         <widget class="QLabel" name="label_19">
-          <property name="text">
-           <string>Zan</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="Zan"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_35">
-          <property name="text">
-           <string>+</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="Zani"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_45">
-          <property name="text">
-           <string>i</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="impedanceUn4">
-          <property name="text">
-           <string>[ohm]</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_6">
         <item>
          <widget class="QLabel" name="label_21">
@@ -382,44 +344,6 @@ QGroupBox::title
        </layout>
       </item>
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_8">
-        <item>
-         <widget class="QLabel" name="label_25">
-          <property name="text">
-           <string>Zbn</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="Zbn"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_39">
-          <property name="text">
-           <string>+</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="Zbni"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_48">
-          <property name="text">
-           <string>i</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="impedanceUn7">
-          <property name="text">
-           <string>[ohm]</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
        <layout class="QHBoxLayout" name="horizontalLayout_9">
         <item>
          <widget class="QLabel" name="label_27">
@@ -450,82 +374,6 @@ QGroupBox::title
         </item>
         <item>
          <widget class="QLabel" name="impedanceUn8">
-          <property name="text">
-           <string>[ohm]</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_10">
-        <item>
-         <widget class="QLabel" name="label_29">
-          <property name="text">
-           <string>Zcn</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="Zcn"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_41">
-          <property name="text">
-           <string>+</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="Zcni"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_50">
-          <property name="text">
-           <string>i</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="impedanceUn9">
-          <property name="text">
-           <string>[ohm]</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_12">
-        <item>
-         <widget class="QLabel" name="label_31">
-          <property name="text">
-           <string>Znn</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="Znn"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_42">
-          <property name="text">
-           <string>+</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLineEdit" name="Znni"/>
-        </item>
-        <item>
-         <widget class="QLabel" name="label_51">
-          <property name="text">
-           <string>i</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QLabel" name="impedanceUn10">
           <property name="text">
            <string>[ohm]</string>
           </property>

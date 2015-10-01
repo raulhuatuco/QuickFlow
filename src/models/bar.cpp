@@ -45,25 +45,26 @@
 #include <QPainter>
 
 /*******************************************************************************
- * Static Variables Initialization.
- ******************************************************************************/
-double Bar::iconSize = 15.0;
-QColor Bar::contourColor = Qt::gray;
-QColor Bar::slackFillColor = Qt::green;
-QColor Bar::pqFillColor = Qt::blue;
-QColor Bar::selectionFillColor = Qt::red;
-
-/*******************************************************************************
  * Constructor.
  ******************************************************************************/
 Bar::Bar()
   : QGraphicsObject(),
     id(kInvalidId),
-    V_(3, cx_double(0.0,0.0)),
-    Sh_(3, cx_double(0.0,0.0)),
-    Si_(3, cx_double(0.0,0.0)),
-    rV_(3, cx_double(0.0,0.0)),
-    rSi_(3, cx_double(0.0,0.0)),
+    Va(0.0),
+    Vb(0.0),
+    Vc(0.0),
+    Sha(0.0),
+    Shb(0.0),
+    Shc(0.0),
+    Sia(0.0),
+    Sib(0.0),
+    Sic(0.0),
+    rVa(0.0),
+    rVb(0.0),
+    rVc(0.0),
+    rSia(0.0),
+    rSib(0.0),
+    rSic(0.0),
     infoBar(NULL)
 {
   setFlag(ItemIsSelectable);
@@ -74,15 +75,25 @@ Bar::Bar()
 /*******************************************************************************
  * Constructor with initial conditions.
  ******************************************************************************/
-Bar::Bar(cx_double initialV, cx_double initialSh = cx_double(0.0,0.0),
-         cx_double initialSi = cx_double(0.0,0.0))
+Bar::Bar(cx_double initialV, cx_double initialSh,
+         cx_double initialSi)
   : QGraphicsObject(),
     id(kInvalidId),
-    V_(3, initialV),
-    Sh_(3, initialSh),
-    Si_(3, initialSi),
-    rV_(3, cx_double(0.0,0.0)),
-    rSi_(3, cx_double(0.0,0.0)),
+    Va(initialV),
+    Vb(initialV),
+    Vc(initialV),
+    Sha(initialSh),
+    Shb(initialSh),
+    Shc(initialSh),
+    Sia(initialSi),
+    Sib(initialSi),
+    Sic(initialSi),
+    rVa(0.0),
+    rVb(0.0),
+    rVc(0.0),
+    rSia(0.0),
+    rSib(0.0),
+    rSic(0.0),
     infoBar(NULL)
 {
   setFlag(ItemIsSelectable);
@@ -98,143 +109,152 @@ Bar::~Bar()
 }
 
 /*******************************************************************************
- * Get Initial Voltage.
+ * Get Initial Voltage converted to Per Unit.
  ******************************************************************************/
-Col<cx_double> &Bar::V() const
+cx_double Bar::Va_pu(double voltageBase)
 {
-  return &V_;
-}
-
-/*******************************************************************************
- * Set Initial Voltage.
- ******************************************************************************/
-void Bar::setV(cx_double &VA, cx_double &VB, cx_double &VC)
-{
-  V_[0] = VA;
-  V_[1] = VB;
-  V_[2] = VC;
+  cx_double Vapu;
+  Vapu = Va / voltageBase;
+  return Vapu;
 }
 
 /*******************************************************************************
  * Get Initial Voltage converted to Per Unit.
  ******************************************************************************/
-Col<cx_double> Bar::V_pu(double voltageBase) const
+cx_double Bar::Vb_pu(double voltageBase)
 {
-  Col<cx_double> Vpu(3, 0.0,0.0);
-  Vpu = V_ / voltageBase;
-  return Vpu;
+  cx_double Vbpu;
+  Vbpu = Vb / voltageBase;
+  return Vbpu;
 }
 
 /*******************************************************************************
- * Get Initial Shunt Element Power.
+ * Get Initial Voltage converted to Per Unit.
  ******************************************************************************/
-Col<cx_double> &Bar::Sh() const
+cx_double Bar::Vc_pu(double voltageBase)
 {
-  return &Sh_;
-}
-
-/*******************************************************************************
- * Set Initial Shunt Element Power.
- ******************************************************************************/
-void Bar::setSh(cx_double &ShuntA, cx_double &ShuntB, cx_double &ShuntC)
-{
-  Sh_[0] = ShuntA;
-  Sh_[1] = ShuntB;
-  Sh_[2] = ShuntC;
+  cx_double Vcpu;
+  Vcpu = Vc / voltageBase;
+  return Vcpu;
 }
 
 /*******************************************************************************
  * Get Initial Shunt Element Power converted to Per Unit.
  ******************************************************************************/
-Col<cx_double> Bar::Sh_pu(double powerBase) const
+cx_double Bar::Sha_pu(double powerBase)
 {
-  Col<cx_double> Shpu(3, cx_double(0.0,0.0));
-  Shpu = Sh_ / powerBase;
+  cx_double Shpu;
+  Shpu = Sha / powerBase;
   return Shpu;
 }
 
 /*******************************************************************************
- * Get Initial Power Injected.
+ * Get Initial Shunt Element Power converted to Per Unit.
  ******************************************************************************/
-Col<cx_double> &Bar::Si() const
+cx_double Bar::Shb_pu(double powerBase)
 {
-  return &Si_;
+  cx_double Shpu;
+  Shpu = Shb / powerBase;
+  return Shpu;
 }
 
 /*******************************************************************************
- * Set Initial Power Injected.
+ * Get Initial Shunt Element Power converted to Per Unit.
  ******************************************************************************/
-void Bar::setSi(cx_double &SinjectA, cx_double &SinjectB, cx_double &SinjectC)
+cx_double Bar::Shc_pu(double powerBase)
 {
-  Si_[0] = SinjectA;
-  Si_[1] = SinjectB;
-  Si_[2] = SinjectC;
+  cx_double Shpu;
+  Shpu = Shc / powerBase;
+  return Shpu;
 }
 
 /*******************************************************************************
  * Get Initial  Power Injected converted to Per Unit.
  ******************************************************************************/
-Col<cx_double> Bar::Si_pu(double powerBase) const
+cx_double Bar::Sia_pu(double powerBase)
 {
-  Col<cx_double> Sipu(3, cx_double(0.0,0.0));
-  Sipu = Si_ / powerBase;
+  cx_double Sipu;
+  Sipu = Sia / powerBase;
   return Sipu;
 }
 
 /*******************************************************************************
- * Get Resulting Voltage.
+ * Get Initial  Power Injected converted to Per Unit.
  ******************************************************************************/
-Col<cx_double> &Bar::rV() const
+cx_double Bar::Sib_pu(double powerBase)
 {
-  return &rV_;
+  cx_double Sipu;
+  Sipu = Sib / powerBase;
+  return Sipu;
 }
 
 /*******************************************************************************
- * Set Resulting Voltage.
+ * Get Initial  Power Injected converted to Per Unit.
  ******************************************************************************/
-void Bar::setrV(cx_double &rVA, cx_double &rVB, cx_double &rVC)
+cx_double Bar::Sic_pu(double powerBase)
 {
-  rV_[0] = rVA;
-  rV_[1] = rVB;
-  rV_[2] = rVC;
+  cx_double Sipu;
+  Sipu = Sic / powerBase;
+  return Sipu;
 }
 
 /*******************************************************************************
  * Get Resulting Voltage converted to Per Unit.
  ******************************************************************************/
-Col<cx_double> Bar::rV_pu(double voltageBase) const
+cx_double Bar::rVa_pu(double voltageBase)
 {
-  Col<cx_double> rVpu(3, cx_double(0.0,0.0));
-  rVpu = rV_ / voltageBase;
+  cx_double rVpu;
+  rVpu = rVa / voltageBase;
   return rVpu;
 }
 
 /*******************************************************************************
- * Get Resulting Injected Power.
+ * Get Resulting Voltage converted to Per Unit.
  ******************************************************************************/
-Col<cx_double> &Bar::rSi() const
+cx_double Bar::rVb_pu(double voltageBase)
 {
-  return &rSi_;
+  cx_double rVpu;
+  rVpu = rVb / voltageBase;
+  return rVpu;
 }
 
 /*******************************************************************************
- * Set Resulting Injected Power.
+ * Get Resulting Voltage converted to Per Unit.
  ******************************************************************************/
-void Bar::setrSi(cx_double &rSinjectA, cx_double &rSinjectB,
-                 cx_double &rSinjectC)
+cx_double Bar::rVc_pu(double voltageBase)
 {
-  rSi_[0] = rSinjectA;
-  rSi_[1] = rSinjectB;
-  rSi_[2] = rSinjectC;
+  cx_double rVpu;
+  rVpu = rVc / voltageBase;
+  return rVpu;
 }
 
 /*******************************************************************************
  * Get Resulting Injected Power converted to Per Unit.
  ******************************************************************************/
-Col<cx_double> Bar::rSi_pu(double powerBase) const
+cx_double Bar::rSia_pu(double powerBase)
 {
-  Col<cx_double> rSipu(3, cx_double(0.0,0.0));
-  rSipu = rSi_ / powerBase;
+  cx_double rSipu(3);
+  rSipu = rSia / powerBase;
+  return rSipu;
+}
+
+/*******************************************************************************
+ * Get Resulting Injected Power converted to Per Unit.
+ ******************************************************************************/
+cx_double Bar::rSib_pu(double powerBase)
+{
+  cx_double rSipu(3);
+  rSipu = rSib / powerBase;
+  return rSipu;
+}
+
+/*******************************************************************************
+ * Get Resulting Injected Power converted to Per Unit.
+ ******************************************************************************/
+cx_double Bar::rSic_pu(double powerBase)
+{
+  cx_double rSipu(3);
+  rSipu = rSic / powerBase;
   return rSipu;
 }
 
@@ -281,44 +301,44 @@ QJsonObject Bar::toJson()
   jsonBar.insert("id", id);
 
   // Voltage.
-  jsonBar.insert("Va", V_[0].real());
-  jsonBar.insert("Vai", V_[0].imag());
-  jsonBar.insert("Vb", V_[1].real());
-  jsonBar.insert("Vbi", V_[1].imag());
-  jsonBar.insert("Vc", V_[2].real());
-  jsonBar.insert("Vci", V_[2].imag());
+  jsonBar.insert("Va", Va.real());
+  jsonBar.insert("Vai", Vb.imag());
+  jsonBar.insert("Vb", Vc.real());
+  jsonBar.insert("Vbi", Vb.imag());
+  jsonBar.insert("Vc", Vc.real());
+  jsonBar.insert("Vci", Vc.imag());
 
   // Shunt element power.
-  jsonBar.insert("Sha", Sh_[0].real());
-  jsonBar.insert("Shai", Sh_[0].imag());
-  jsonBar.insert("Shb", Sh_[1].real());
-  jsonBar.insert("Shbi", Sh_[1].imag());
-  jsonBar.insert("Shc", Sh_[2].real());
-  jsonBar.insert("Shci", Sh_[2].imag());
+  jsonBar.insert("Sha", Sha.real());
+  jsonBar.insert("Shai", Sha.imag());
+  jsonBar.insert("Shb", Shb.real());
+  jsonBar.insert("Shbi", Shb.imag());
+  jsonBar.insert("Shc", Shc.real());
+  jsonBar.insert("Shci", Shc.imag());
 
   // Injected Power.
-  jsonBar.insert("Sia", Si_[0].real());
-  jsonBar.insert("Siai", Si_[0].imag());
-  jsonBar.insert("Sib", Si_[1].real());
-  jsonBar.insert("Sibi", Si_[1].imag());
-  jsonBar.insert("Sic", Si_[2].real());
-  jsonBar.insert("Sici", Si_[2].imag());
+  jsonBar.insert("Sia", Sia.real());
+  jsonBar.insert("Siai", Sia.imag());
+  jsonBar.insert("Sib", Sib.real());
+  jsonBar.insert("Sibi", Sib.imag());
+  jsonBar.insert("Sic", Sic.real());
+  jsonBar.insert("Sici", Sic.imag());
 
   // Result Voltage.
-  jsonBar.insert("rVa", rV_[0].real());
-  jsonBar.insert("rVai", rV_[0].imag());
-  jsonBar.insert("rVb", rV_[1].real());
-  jsonBar.insert("rVbi", rV_[1].imag());
-  jsonBar.insert("rVc", rV_[2].real());
-  jsonBar.insert("rVci", rV_[2].imag());
+  jsonBar.insert("rVa", rVa.real());
+  jsonBar.insert("rVai", rVa.imag());
+  jsonBar.insert("rVb", rVb.real());
+  jsonBar.insert("rVbi", rVb.imag());
+  jsonBar.insert("rVc", rVc.real());
+  jsonBar.insert("rVci", rVc.imag());
 
   // Result Injected Power.
-  jsonBar.insert("rSia", rSi_[0].real());
-  jsonBar.insert("rSiai", rSi_[0].imag());
-  jsonBar.insert("rSib", rSi_[1].real());
-  jsonBar.insert("rSibi", rSi_[1].imag());
-  jsonBar.insert("rSic", rSi_[2].real());
-  jsonBar.insert("rSici", rSi_[2].imag());
+  jsonBar.insert("rSia", rSia.real());
+  jsonBar.insert("rSiai", rSia.imag());
+  jsonBar.insert("rSib", rSib.real());
+  jsonBar.insert("rSibi", rSib.imag());
+  jsonBar.insert("rSic", rSic.real());
+  jsonBar.insert("rSici", rSic.imag());
 
   // Position.
   jsonBar.insert("x", x());
@@ -336,44 +356,44 @@ void Bar::fromJson(QJsonObject &jsonBar)
   id = jsonBar.value("id").toInt();
 
   // Voltage.
-  V_[0].real(jsonBar.value("Va").toDouble());
-  V_[0].imag(jsonBar.value("Vai").toDouble());
-  V_[1].real(jsonBar.value("Vb").toDouble());
-  V_[1].imag(jsonBar.value("Vbi").toDouble());
-  V_[2].real(jsonBar.value("Vc").toDouble());
-  V_[2].imag(jsonBar.value("Vci").toDouble());
+  Va.real(jsonBar.value("Va").toDouble());
+  Va.imag(jsonBar.value("Vai").toDouble());
+  Vb.real(jsonBar.value("Vb").toDouble());
+  Vb.imag(jsonBar.value("Vbi").toDouble());
+  Vc.real(jsonBar.value("Vc").toDouble());
+  Vc.imag(jsonBar.value("Vci").toDouble());
 
   // Shunt element power.
-  Sh_[0].real(jsonBar.value("Sha").toDouble());
-  Sh_[0].imag(jsonBar.value("Shai").toDouble());
-  Sh_[1].real(jsonBar.value("Shb").toDouble()) ;
-  Sh_[1].imag(jsonBar.value("Shbi").toDouble());
-  Sh_[2].real(jsonBar.value("Shc").toDouble());
-  Sh_[2].imag(jsonBar.value("Shci").toDouble());
+  Sha.real(jsonBar.value("Sha").toDouble());
+  Sha.imag(jsonBar.value("Shai").toDouble());
+  Shb.real(jsonBar.value("Shb").toDouble()) ;
+  Shb.imag(jsonBar.value("Shbi").toDouble());
+  Shc.real(jsonBar.value("Shc").toDouble());
+  Shc.imag(jsonBar.value("Shci").toDouble());
 
   // Injected Power.
-  Si_[0].real(jsonBar.value("Sia").toDouble());
-  Si_[0].imag(jsonBar.value("Siai").toDouble());
-  Si_[1].real(jsonBar.value("Sib").toDouble());
-  Si_[1].imag(jsonBar.value("Sibi").toDouble());
-  Si_[2].real(jsonBar.value("Sic").toDouble());
-  Si_[2].imag(jsonBar.value("Sici").toDouble());
+  Sia.real(jsonBar.value("Sia").toDouble());
+  Sia.imag(jsonBar.value("Siai").toDouble());
+  Sib.real(jsonBar.value("Sib").toDouble());
+  Sib.imag(jsonBar.value("Sibi").toDouble());
+  Sic.real(jsonBar.value("Sic").toDouble());
+  Sic.imag(jsonBar.value("Sici").toDouble());
 
   // Result Voltage.
-  rV_[0].real(jsonBar.value("rVa").toDouble());
-  rV_[0].imag(jsonBar.value("rVai").toDouble());
-  rV_[1].real(jsonBar.value("rVb").toDouble());
-  rV_[1].imag(jsonBar.value("rVbi").toDouble());
-  rV_[2].real(jsonBar.value("rVc").toDouble());
-  rV_[2].imag(jsonBar.value("rVci").toDouble());
+  rVa.real(jsonBar.value("rVa").toDouble());
+  rVa.imag(jsonBar.value("rVai").toDouble());
+  rVb.real(jsonBar.value("rVb").toDouble());
+  rVb.imag(jsonBar.value("rVbi").toDouble());
+  rVc.real(jsonBar.value("rVc").toDouble());
+  rVc.imag(jsonBar.value("rVci").toDouble());
 
   // Result Injected Power.
-  rSi_[0].real(jsonBar.value("rSga").toDouble());
-  rSi_[0].imag(jsonBar.value("rSgai").toDouble());
-  rSi_[0].real(jsonBar.value("rSgb").toDouble());
-  rSi_[0].imag(jsonBar.value("rSgbi").toDouble());
-  rSi_[0].real(jsonBar.value("rSgc").toDouble());
-  rSi_[0].imag(jsonBar.value("rSgci").toDouble());
+  rSia.real(jsonBar.value("rSga").toDouble());
+  rSia.imag(jsonBar.value("rSgai").toDouble());
+  rSia.real(jsonBar.value("rSgb").toDouble());
+  rSia.imag(jsonBar.value("rSgbi").toDouble());
+  rSia.real(jsonBar.value("rSgc").toDouble());
+  rSia.imag(jsonBar.value("rSgci").toDouble());
 
   // Get Position.
   setX(jsonBar.value("x").toDouble());
@@ -385,7 +405,8 @@ void Bar::fromJson(QJsonObject &jsonBar)
  ******************************************************************************/
 QRectF Bar::boundingRect() const
 {
-  return QRectF(-iconSize / 2, -iconSize / 2, iconSize, iconSize);
+  return QRectF(-Network::barIconSize / 2, -Network::barIconSize / 2,
+                Network::barIconSize, Network::barIconSize);
 }
 
 /*******************************************************************************
@@ -413,7 +434,7 @@ QVariant Bar::itemChange(QGraphicsItem::GraphicsItemChange change,
   else if (change == ItemSelectedChange) {
     if (value == true) {
       // if multiple bars are selectec, we don't want to show the info box.
-      if(scene()->selectedItems().size() == 1) {
+      if(!(scene()->selectedItems().size() > 1)) {
         // Check if box already exists.
         if (infoBar == NULL) {
           // Create a new box.
@@ -424,9 +445,11 @@ QVariant Bar::itemChange(QGraphicsItem::GraphicsItemChange change,
     }
     // Box has been deselected.
     else {
-      scene()->removeItem(infoBar);
-      delete infoBar;
-      infoBar = NULL;
+      if (infoBar != NULL) {
+        scene()->removeItem(infoBar);
+        delete infoBar;
+        infoBar = NULL;
+      }
     }
   }
 
@@ -441,8 +464,9 @@ void Bar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 {
   Q_UNUSED(option);
   Q_UNUSED(widget);
+  Network *network = dynamic_cast<Network *>(scene());
 
-  painter->setPen(contourColor);
+  painter->setPen(network->barStrokeColor);
 
   if(id > 0)
     drawPq(painter);
@@ -456,13 +480,15 @@ void Bar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
  ******************************************************************************/
 void Bar::drawSlack(QPainter *painter)
 {
+  Network *network = dynamic_cast<Network *>(scene());
+
   if (isSelected()) {
-    painter->setBrush(selectionFillColor);
+    painter->setBrush(network->selectedColor);
   } else {
-    painter->setBrush(slackFillColor);
+    painter->setBrush(network->barSlackFillColor);
   }
 
-  painter->drawRect(-iconSize / 2, -iconSize / 2, iconSize, iconSize);
+  painter->drawRect(boundingRect());
 }
 
 /*******************************************************************************
@@ -470,13 +496,16 @@ void Bar::drawSlack(QPainter *painter)
  ******************************************************************************/
 void Bar::drawPq(QPainter *painter)
 {
+
+  Network *network = dynamic_cast<Network *>(scene());
+
   if (isSelected()) {
-    painter->setBrush(selectionFillColor);
+    painter->setBrush(network->selectedColor);
   } else {
-    painter->setBrush(pqFillColor);
+    painter->setBrush(network->barPqFillColor);
   }
 
-  painter->drawEllipse(-iconSize / 2, -iconSize / 2, iconSize, iconSize);
+  painter->drawEllipse(boundingRect());
 }
 
 /*!

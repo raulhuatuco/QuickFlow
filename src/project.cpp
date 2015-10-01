@@ -1,15 +1,13 @@
 #include "project.h"
-
 #include <QFile>
 #include <QDir>
 #include <QJsonDocument>
 #include <QJsonArray>
-
-#include "pn/bar.h"
-#include "pn/line.h"
+#include "models/bar.h"
+#include "models/line.h"
 
 /*******************************************************************************
- * Project.
+ * Constructor.
  ******************************************************************************/
 Project::Project() :
   network(new Network),
@@ -19,7 +17,7 @@ Project::Project() :
 }
 
 /*******************************************************************************
- * ~Project.
+ * Destructor.
  ******************************************************************************/
 Project::~Project()
 {
@@ -193,7 +191,7 @@ bool Project::save()
 
   // Creates a QJsonArray filled with Line data.
   QJsonArray lineArray;
-  foreach (PnLine *line, network->lines) {
+  foreach (Line *line, network->lines) {
     lineArray << line->toJson();
   }
   projectJson.insert("lineArray", lineArray);
@@ -291,7 +289,7 @@ bool Project::load()
   foreach (QJsonValue arrayValue, lineArray) {
     QJsonObject lineJson(arrayValue.toObject());
 
-    PnLine *line = new PnLine;
+    Line *line = new Line;
     line->fromJson(lineJson);
 
     if(!network->addLine(line))

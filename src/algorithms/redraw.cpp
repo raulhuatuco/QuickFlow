@@ -5,12 +5,9 @@
 #include <ogdf/layered/OptimalRanking.h>
 #include <ogdf/layered/MedianHeuristic.h>
 #include <ogdf/layered/OptimalHierarchyLayout.h>
-
 #include <ogdf/layered/FastHierarchyLayout.h>
 #include <ogdf/layered/BarycenterHeuristic.h>
-
 #include <ogdf/energybased/MultilevelLayout.h>
-
 #include <ogdf/misclayout/BertaultLayout.h>
 
 using namespace ogdf;
@@ -20,7 +17,6 @@ using namespace ogdf;
  ******************************************************************************/
 void redrawGraph1(Network *network)
 {
-
   Graph G;
   QMap<int, node> nodeMap;
 
@@ -33,22 +29,21 @@ void redrawGraph1(Network *network)
   node n;
 
   foreach(Bar *bar, network->bars) {
-    n = G.newNode(static_cast<int>(bar->id));
+    n = G.newNode(bar->id);
     nodeMap.insert(bar->id,n);
   }
 
   forall_nodes(n, G) {
-    GA.height(n) = Bar::kIconSize;
-    GA.width(n) = Bar::kIconSize;
+    GA.height(n) = Network::barIconSize;
+    GA.width(n) = Network::barIconSize;
     GA.shape(n) = shRect;
   }
 
-  foreach(PnLine *line, network->lines) {
-    node noI = nodeMap.value(static_cast<int>(line->noI));
-    node noF = nodeMap.value(static_cast<int>(line->noF));
+  foreach(Line *line, network->lines) {
+    node noI = nodeMap.value(line->noI);
+    node noF = nodeMap.value(line->noF);
     G.newEdge(noI, noF);
   }
-
 
   edge e;
   forall_edges(e, G) {
@@ -86,7 +81,6 @@ void redrawGraph1(Network *network)
  ******************************************************************************/
 void redrawGraph2(Network *network)
 {
-
   Graph G;
   QMap<int, node> nodeMap;
 
@@ -97,24 +91,22 @@ void redrawGraph2(Network *network)
     GraphAttributes::edgeStyle);  // Create graph attributes for this graph
 
   node n;
-
   foreach(Bar *bar, network->bars) {
-    n = G.newNode(static_cast<int>(bar->id));
+    n = G.newNode(bar->id);
     nodeMap.insert(bar->id,n);
   }
 
   forall_nodes(n, G) {
-    GA.height(n) = Bar::kIconSize;
-    GA.width(n) = Bar::kIconSize;
+    GA.height(n) = Network::barIconSize;
+    GA.width(n) = Network::barIconSize;
     GA.shape(n) = shRect;
   }
 
-  foreach(PnLine *line, network->lines) {
-    node noI = nodeMap.value(static_cast<int>(line->noI));
-    node noF = nodeMap.value(static_cast<int>(line->noF));
+  foreach(Line *line, network->lines) {
+    node noI = nodeMap.value(line->noI);
+    node noF = nodeMap.value(line->noF);
     G.newEdge(noI, noF);
   }
-
 
   edge e;
   forall_edges(e, G) {
@@ -150,7 +142,6 @@ void redrawGraph2(Network *network)
  ******************************************************************************/
 void redrawGraph3(Network *network)
 {
-
   Graph G;
   QMap<int, node> nodeMap;
 
@@ -161,24 +152,22 @@ void redrawGraph3(Network *network)
     GraphAttributes::edgeStyle);  // Create graph attributes for this graph
 
   node n;
-
   foreach(Bar *bar, network->bars) {
-    n = G.newNode(static_cast<int>(bar->id));
+    n = G.newNode(bar->id);
     nodeMap.insert(bar->id,n);
   }
 
   forall_nodes(n, G) {
-    GA.height(n) = Bar::kIconSize;
-    GA.width(n) = Bar::kIconSize;
+    GA.height(n) = Network::barIconSize;
+    GA.width(n) = Network::barIconSize;
     GA.shape(n) = shRect;
   }
 
-  foreach(PnLine *line, network->lines) {
-    node noI = nodeMap.value(static_cast<int>(line->noI));
-    node noF = nodeMap.value(static_cast<int>(line->noF));
+  foreach(Line *line, network->lines) {
+    node noI = nodeMap.value(line->noI);
+    node noF = nodeMap.value(line->noF);
     G.newEdge(noI, noF);
   }
-
 
   edge e;
   forall_edges(e, G) {

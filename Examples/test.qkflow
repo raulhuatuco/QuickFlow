@@ -1,0 +1,15 @@
+{
+    "barArray": [
+    ],
+    "impedanceUnit": 1,
+    "lengthUnit": 1,
+    "lineArray": [
+    ],
+    "maxIterations": 1000,
+    "minError": 0.001,
+    "name": "test",
+    "powerBase": 2500,
+    "powerUnit": 1,
+    "voltageBase": 23000,
+    "voltageUnit": 1
+}

@@ -49,14 +49,15 @@
 #include <complex>
 #include <stdint.h>
 #include "models/line.h"
+#include "graphics/network.h"
 #include "graphics/infobar.h"
 
 QT_BEGIN_NAMESPACE
 class Line;
+class Network;
 class InfoBar;
 QT_END_NAMESPACE
 
-using arma::Col;
 using arma::cx_double;
 
 /*!
@@ -79,177 +80,57 @@ class Bar : public QGraphicsObject
   Q_OBJECT
 
 public:
-  /*!
-   *  \brief Bar invalid ID.
-   *
-   * Any Bar with this id should be treated as invalid.
-   */
-  static const int32_t kInvalidId = -1;
 
-  /*!
-   * \brief iconSize
-   */
-  static double iconSize;
+  static constexpr int32_t kInvalidId = -1;
 
-  /*!
-   * \brief contourColor
-   */
-  static QColor contourColor;
-
-  /*!
-   * \brief slackFillColor
-   */
-  static QColor slackFillColor;
-
-  /*!
-   * \brief pqFillColor
-   */
-  static QColor pqFillColor;
-
-  /*!
-   * \brief selectionFillColor
-   */
-  static QColor selectionFillColor;
-
-  /*!
-   * \brief id
-   */
   int32_t id;
 
-  /*!
-   * \brief lines
-   */
   QVector<Line *> lines;
 
-  /*!
-   * \brief Bar constructor.
-   *
-   *
-   */
   Bar();
 
-  /*!
-   * \brief Bar constructor with initial condiditons.
-   *
-   * \param initialV
-   * \param initialSh
-   * \param initialSi
-   */
-  Bar(cx_double initialV, cx_double initialSh = cx_double(0.0,0.0),
-      cx_double initialSi = cx_double(0.0,0.0));
+  Bar(cx_double initialV, cx_double initialSh = 0.0,
+      cx_double initialSi = 0.0);
 
-  /*!
-   * \brief Destructor.
-   */
   virtual ~Bar();
 
   // Input parameters.
-  /*!
-   * \brief V
-   * \return
-   */
-  Col<cx_double> &V() const;
+  cx_double Va;
+  cx_double Vb;
+  cx_double Vc;
 
-  /*!
-   * \brief setV
-   * \param VA
-   * \param VB
-   * \param VC
-   */
-  void setV(cx_double &VA, cx_double &VB, cx_double &VC);
+  cx_double Va_pu(double voltageBase);
+  cx_double Vb_pu(double voltageBase);
+  cx_double Vc_pu(double voltageBase);
 
+  cx_double Sha;
+  cx_double Shb;
+  cx_double Shc;
+  cx_double Sha_pu(double powerBase);
+  cx_double Shb_pu(double powerBase);
+  cx_double Shc_pu(double powerBase);
 
-  /*!
-   * \brief V_pu
-   * \param voltageBase
-   * \return
-   */
-  Col<cx_double> V_pu(double voltageBase) const;
+  cx_double Sia;
+  cx_double Sib;
+  cx_double Sic;
+  cx_double Sia_pu(double powerBase);
+  cx_double Sib_pu(double powerBase);
+  cx_double Sic_pu(double powerBase);
 
-  /*!
-   * \brief Sh
-   * \return
-   */
-  Col<cx_double> &Sh() const;
+  cx_double rVa;
+  cx_double rVb;
+  cx_double rVc;
+  cx_double rVa_pu(double powerBase);
+  cx_double rVb_pu(double powerBase);
+  cx_double rVc_pu(double powerBase);
 
-  /*!
-   * \brief setSh
-   * \param ShuntA
-   * \param ShuntB
-   * \param ShuntC
-   */
-  void setSh(cx_double &ShuntA, cx_double &ShuntB, cx_double &ShuntC);
+  cx_double rSia;
+  cx_double rSib;
+  cx_double rSic;
+  cx_double rSia_pu(double powerBase);
+  cx_double rSib_pu(double powerBase);
+  cx_double rSic_pu(double powerBase);
 
-  /*!
-   * \brief Sh_pu
-   * \param powerBase
-   * \return
-   */
-  Col<cx_double> Sh_pu(double powerBase) const;
-
-  /*!
-   * \brief Si
-   * \return
-   */
-  Col<cx_double> &Si() const;
-
-  /*!
-   * \brief setSi
-   * \param SinjectA
-   * \param SinjectB
-   * \param SinjectC
-   */
-  void setSi(cx_double &SinjectA, cx_double &SinjectB, cx_double &SinjectC);
-
-  /*!
-   * \brief Si_pu
-   * \param powerBase
-   * \return
-   */
-  Col<cx_double> Si_pu(double powerBase) const;
-
-  // Output parameters.
-  /*!
-   * \brief rV
-   * \return
-   */
-  Col<cx_double> &rV() const;
-
-  /*!
-   * \brief setrV
-   * \param rVA
-   * \param rVB
-   * \param rVC
-   */
-  void setrV(cx_double &rVA, cx_double &rVB, cx_double &rVC);
-
-  /*!
-   * \brief rV_pu
-   * \param voltageBase
-   * \return
-   */
-  Col<cx_double> rV_pu(double voltageBase) const;
-
-  /*!
-   * \brief rSi
-   * \return
-   */
-  Col<cx_double> &rSi() const;
-
-  /*!
-   * \brief setrSi
-   * \param rSinjectA
-   * \param rSinjectB
-   * \param rSinjectC
-   */
-  void setrSi(cx_double &rSinjectA, cx_double &rSinjectB, cx_double &rSinjectC);
-
-  /*!
-   * \brief rSi_pu
-   * \param powerBase
-   * \return
-   */
-  Col<cx_double> rSi_pu(double powerBase) const;
 
   // Line manipulation.
   /*!
@@ -319,31 +200,6 @@ protected:
              QWidget *widget) Q_DECL_OVERRIDE;
 
 private:
-  /*!
-   * \brief V_
-   */
-  Col<cx_double> V_;
-
-  /*!
-   * \brief Sh_
-   */
-  Col<cx_double> Sh_;
-
-  /*!
-   * \brief Si_
-   */
-  Col<cx_double> Si_;
-
-  /*!
-   * \brief rV_
-   */
-  Col<cx_double> rV_;
-
-  /*!
-   * \brief rSi_
-   */
-  Col<cx_double> rSi_;
-
   /*!
    * \brief infoBar
    */

@@ -46,23 +46,23 @@
 #include <QPainter>
 
 /*******************************************************************************
- * Static Variables Initialization.
- ******************************************************************************/
-double Line::lineWidth = 4.0;
-QColor Line::lineColor = Qt::black;
-QColor Line::selectedLineColor = Qt::red;
-
-/*******************************************************************************
  * Constructor.
  ******************************************************************************/
 Line::Line() :
   noI(kInvalidNode),
   noF(kInvalidNode),
   length(0.0),
+  Zaa(0.0, 0.0),
+  Zab(0.0, 0.0),
+  Zac(0.0, 0.0),
+  Zbb(0.0, 0.0),
+  Zbc(0.0, 0.0),
+  Zcc(0.0, 0.0),
+  Ia(0.0,0.0),
+  Ib(0.0,0.0),
+  Ic(0.0,0.0),
   pNoI_(NULL),
   pNoF_(NULL),
-  Z_(3,3, 0.0),
-  I_(3, 0.0),
   infoLine(NULL)
 {
   setFlag(ItemIsSelectable);
@@ -108,98 +108,92 @@ void Line::setNodes(Bar *pNoI, Bar *pNoF)
 }
 
 /*******************************************************************************
- * Get Impedance.
+ * Get Impedance in pu.
  ******************************************************************************/
-Mat<cx_double> &Line::Z() const
+complex<double> Line::Zaa_pu(double impedanceBase)
 {
-  return &Z_;
-}
-
-/*******************************************************************************
- * setZaa.
- ******************************************************************************/
-void Line::setZaa(cx_double Zaa)
-{
-  Z_(0,0) = Zaa;
-}
-
-/*******************************************************************************
- * setZab.
- ******************************************************************************/
-void Line::setZab(cx_double Zab)
-{
-  Z_(0,1) = Zab;
-}
-
-/*******************************************************************************
- * setZac.
- ******************************************************************************/
-void Line::setZac(cx_double Zac)
-{
-  Z_(0,2) = Zac;
-}
-
-/*******************************************************************************
- * setZbb.
- ******************************************************************************/
-void Line::setZbb(cx_double Zbb)
-{
-  Z_(1,1) = Zbb;
-}
-
-/*******************************************************************************
- * setZbc.
- ******************************************************************************/
-void Line::setZbc(cx_double Zbc)
-{
-  Z_(1,2) = Zbc;
-}
-
-/*******************************************************************************
- * setZcc.
- ******************************************************************************/
-void Line::setZcc(cx_double Zcc)
-{
-  Z_(2,2) = Zcc;
+  complex<double> Zpu;
+  Zpu = Zaa / impedanceBase;
+  return Zpu;
 }
 
 /*******************************************************************************
  * Get Impedance in pu.
  ******************************************************************************/
-Mat<cx_double> Line::Z_pu(double impedanceBase) const
+complex<double> Line::Zab_pu(double impedanceBase)
 {
-  Mat<cx_double> Zpu(3,3);
-  Zpu = Z_ / impedanceBase;
+  complex<double> Zpu;
+  Zpu = Zab / impedanceBase;
   return Zpu;
 }
 
 /*******************************************************************************
- * Current.
+ * Get Impedance in pu.
  ******************************************************************************/
-Col<cx_double> &Line::I() const
+complex<double> Line::Zac_pu(double impedanceBase)
 {
-  return &I_;
+  complex<double> Zpu;
+  Zpu = Zac / impedanceBase;
+  return Zpu;
 }
 
 /*******************************************************************************
- * Set Current.
+ * Get Impedance in pu.
  ******************************************************************************/
-void Line::setI(cx_double &Ia, cx_double &Ib, cx_double &Ic)
+complex<double> Line::Zbb_pu(double impedanceBase)
 {
-  I_[0] = Ia;
-  I_[1] = Ib;
-  I_[2] = Ic;
+  complex<double> Zpu;
+  Zpu = Zbb / impedanceBase;
+  return Zpu;
+}
+
+/*******************************************************************************
+ * Get Impedance in pu.
+ ******************************************************************************/
+complex<double> Line::Zbc_pu(double impedanceBase)
+{
+  complex<double> Zpu;
+  Zpu = Zbc / impedanceBase;
+  return Zpu;
+}
+
+/*******************************************************************************
+ * Get Impedance in pu.
+ ******************************************************************************/
+complex<double> Line::Zcc_pu(double impedanceBase)
+{
+  complex<double> Zpu;
+  Zpu = Zcc / impedanceBase;
+  return Zpu;
 }
 
 /*******************************************************************************
  * lineLoss.
  ******************************************************************************/
-Col<cx_double> Line::lineLoss()
+complex<double> Line::lossA()
 {
-  Col<cx_double> loss(3);
-  loss[0] = I_[0]*I_[0]*(Z_(0,0) + Z_(0,1) + Z_(0,2));
-  loss[1] = I_[1]*I_[1]*(Z_(1,0) + Z_(1,1) + Z_(1,2));
-  loss[2] = I_[2]*I_[2]*(Z_(2,0) + Z_(2,1) + Z_(2,2));
+  complex<double> loss;
+  loss = Ia*Ia*(Zaa + Zab + Zac);
+  return loss;
+}
+
+/*******************************************************************************
+ * lineLoss.
+ ******************************************************************************/
+complex<double> Line::lossB()
+{
+  complex<double> loss;
+  loss = Ib*Ib*(Zbb + Zab + Zbc);
+  return loss;
+}
+
+/*******************************************************************************
+ * lineLoss.
+ ******************************************************************************/
+complex<double> Line::lossC()
+{
+  complex<double> loss;
+  loss = Ic*Ic*(Zcc + Zbc + Zac);
   return loss;
 }
 
@@ -215,35 +209,29 @@ QJsonObject Line::toJson()
   jsonLine.insert("noF", noF);
 
   // Impedance
-  jsonLine.insert("Zaa", Z_(0,0).real());
-  jsonLine.insert("Zaai", Z_(0,0).imag());
-  jsonLine.insert("Zab", Z_(0,1).real());
-  jsonLine.insert("Zabi", Z_(0,1).imag());
-  jsonLine.insert("Zac", Z_(0,2).real());
-  jsonLine.insert("Zaci", Z_(0,2).imag());
-  jsonLine.insert("Zbb", Z_(1,1).real());
-  jsonLine.insert("Zbbi", Z_(1,1).imag());
-  jsonLine.insert("Zbc", Z_(1,2).real());
-  jsonLine.insert("Zbci", Z_(1,2).imag());
-  jsonLine.insert("Zcc", Z_(2,2).real());
-  jsonLine.insert("Zcci", Z_(2,2).imag());
+  jsonLine.insert("Zaa", Zaa.real());
+  jsonLine.insert("Zaai", Zaa.imag());
+  jsonLine.insert("Zab", Zab.real());
+  jsonLine.insert("Zabi", Zab.imag());
+  jsonLine.insert("Zac", Zac.real());
+  jsonLine.insert("Zaci", Zac.imag());
+  jsonLine.insert("Zbb", Zbb.real());
+  jsonLine.insert("Zbbi", Zbb.imag());
+  jsonLine.insert("Zbc", Zbc.real());
+  jsonLine.insert("Zbci", Zbc.imag());
+  jsonLine.insert("Zcc", Zcc.real());
+  jsonLine.insert("Zcci", Zcc.imag());
 
   // Current
-  jsonLine.insert("Ia", I_[0].real());
-  jsonLine.insert("Iai", I_[0].imag());
-  jsonLine.insert("Ib", I_[1].real());
-  jsonLine.insert("Ibi", I_[1].imag());
-  jsonLine.insert("Ic", I_[2].real());
-  jsonLine.insert("Ici", I_[2].imag());
+  jsonLine.insert("Ia", Ia.real());
+  jsonLine.insert("Iai", Ia.imag());
+  jsonLine.insert("Ib", Ib.real());
+  jsonLine.insert("Ibi", Ib.imag());
+  jsonLine.insert("Ic", Ic.real());
+  jsonLine.insert("Ici", Ic.imag());
 
   // Length
   jsonLine.insert("length", length);
-
-  // Edges
-  /// TODO: Implement edges array.
-//  foreach (QPointF edge, edges) {
-
-//    }
 
   return jsonLine;
 }
@@ -258,31 +246,29 @@ void Line::fromJson(QJsonObject &jsonLine)
   noF = jsonLine.value("noF").toInt();
 
   // Impedance
-  Z_(0,0).real(jsonLine.value("Zaa").toDouble());
-  Z_(0,0).imag(jsonLine.value("Zaai").toDouble());
-  Z_(0,1).real(jsonLine.value("Zab").toDouble());
-  Z_(0,1).imag(jsonLine.value("Zabi").toDouble());
-  Z_(0,2).real(jsonLine.value("Zac").toDouble());
-  Z_(0,2).imag(jsonLine.value("Zaci").toDouble());
-  Z_(1,1).real(jsonLine.value("Zbb").toDouble());
-  Z_(1,1).imag(jsonLine.value("Zbbi").toDouble());
-  Z_(1,2).real(jsonLine.value("Zbc").toDouble());
-  Z_(1,2).imag(jsonLine.value("Zbci").toDouble());
-  Z_(2,2).real(jsonLine.value("Zcc").toDouble());
-  Z_(2,2).imag(jsonLine.value("Zcci").toDouble());
+  Zaa.real(jsonLine.value("Zaa").toDouble());
+  Zaa.imag(jsonLine.value("Zaai").toDouble());
+  Zab.real(jsonLine.value("Zab").toDouble());
+  Zab.imag(jsonLine.value("Zabi").toDouble());
+  Zac.real(jsonLine.value("Zac").toDouble());
+  Zac.imag(jsonLine.value("Zaci").toDouble());
+  Zbb.real(jsonLine.value("Zbb").toDouble());
+  Zbb.imag(jsonLine.value("Zbbi").toDouble());
+  Zbc.real(jsonLine.value("Zbc").toDouble());
+  Zbc.imag(jsonLine.value("Zbci").toDouble());
+  Zcc.real(jsonLine.value("Zcc").toDouble());
+  Zcc.imag(jsonLine.value("Zcci").toDouble());
 
   // Current
-  I_[0].real(jsonLine.value("Ia").toDouble());
-  I_[0].imag(jsonLine.value("Iai").toDouble());
-  I_[1].real(jsonLine.value("Ib").toDouble());
-  I_[1].imag(jsonLine.value("Ibi").toDouble());
-  I_[2].real(jsonLine.value("Ic").toDouble());
-  I_[2].imag(jsonLine.value("Ici").toDouble());
+  Ia.real(jsonLine.value("Ia").toDouble());
+  Ia.imag(jsonLine.value("Iai").toDouble());
+  Ib.real(jsonLine.value("Ib").toDouble());
+  Ib.imag(jsonLine.value("Ibi").toDouble());
+  Ic.real(jsonLine.value("Ic").toDouble());
+  Ic.imag(jsonLine.value("Ici").toDouble());
 
   // Length
   length = jsonLine.value("length").toDouble();
-
-  /// TODO: Implement edges array.
 }
 
 /*******************************************************************************
@@ -295,8 +281,8 @@ void Line::updatePosition()
   coords = QLineF(pNoI_->pos(), pNoF_->pos());
 
   qreal radAngle = coords.angle() * M_PI / 180.0;
-  qreal dx =lineWidth * sin(radAngle);
-  qreal dy = lineWidth * cos(radAngle);
+  qreal dx = Network::lineWidth * sin(radAngle);
+  qreal dy = Network::lineWidth * cos(radAngle);
   QPointF offset1 = QPointF(dx, dy);
   QPointF offset2 = QPointF(-dx, -dy);
   selectionArea.clear();
@@ -313,15 +299,18 @@ QVariant Line::itemChange(QGraphicsItem::GraphicsItemChange change,
   if (change == ItemSelectedChange) {
     if (value == true) {
       // if multiple items are selectec, we don't want to show the info box.
-      if(scene()->selectedItems().size() == 1)
+      if(!(scene()->selectedItems().size() > 1)) {
         if (infoLine == NULL) {
           infoLine = new InfoLine(this);
           scene()->addItem(infoLine);
         }
+      }
     } else {
-      scene()->removeItem(infoLine);
-      delete infoLine;
-      infoLine = NULL;
+      if (infoLine != NULL) {
+        scene()->removeItem(infoLine);
+        delete infoLine;
+        infoLine = NULL;
+      }
     }
   }
 
@@ -364,10 +353,26 @@ void Line::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   Q_UNUSED(option);
   Q_UNUSED(widget);
 
+//  Network *network = static_cast<Network *>(parentItem());
+
+//  if (isSelected())
+//    painter->setPen(QPen(network->selectedColor, Network::lineWidth,
+//                         Qt::SolidLine));
+//  else
+//    painter->setPen(QPen(network->lineColor, Network::lineWidth, Qt::SolidLine));
+
+//  painter->drawLine(coords.p1(), coords.p2());
+
   if (isSelected())
-    painter->setPen(QPen(selectedLineColor, lineWidth, Qt::SolidLine));
+    painter->setPen(QPen(Qt::red, Network::lineWidth,
+                         Qt::SolidLine));
   else
-    painter->setPen(QPen(lineColor, lineWidth, Qt::SolidLine));
+    painter->setPen(QPen(Qt::black, Network::lineWidth, Qt::SolidLine));
 
   painter->drawLine(coords.p1(), coords.p2());
 }
+
+/*!
+ * \}
+ */
+

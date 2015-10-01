@@ -2,7 +2,6 @@
 #define WINDOWBARPROPERTIES_H
 
 #include <QDialog>
-
 #include "customtypes.h"
 #include "project.h"
 
@@ -18,12 +17,10 @@ class BarProperties : public QDialog
 public:
   explicit BarProperties(QWidget *parent = 0);
   ~BarProperties();
-
   void setOptions(Project *project, Bar *bar);
 
 private slots:
   void on_buttonBox_accepted();
-
   void on_buttonBox_rejected();
 
 private:

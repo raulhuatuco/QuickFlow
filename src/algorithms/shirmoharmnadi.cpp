@@ -1,7 +1,7 @@
-#include "shirmoharmnadi.h"
+#include "shirmoharmmadi.h"
 
-Shirmoharmnadi::Shirmoharmnadi(Network *pnNetwork) :
-  pnNetwork_(pnNetwork)
+Shirmoharmnadi::Shirmoharmnadi(Network *network) :
+  network_(network)
 {
 
 }

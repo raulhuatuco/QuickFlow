@@ -1,12 +1,54 @@
-#include "view.h"
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 David Krepsky
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 
+/*!
+ * \addtogroup Graphics
+ * \{
+ */
+
+/*!
+ * \file SystemView.cpp
+ *
+ * \brief Implementation of SystemView class.
+ *
+ * This is the implementation of the SystemView class.
+ *
+ * \author David Krepsky
+ * \version 0.1
+ * \date 09/2015
+ * \copyright David Krepsky
+ */
+
+#include "graphics/systemview.h"
 #include <QColor>
 #include <QBrush>
 
 /*******************************************************************************
- * PnView.
+ * Constructor.
  ******************************************************************************/
-PnView::PnView(QWidget *parent) : QGraphicsView(parent), pnNetwork_(NULL)
+SystemView::SystemView(QWidget *parent) :
+  QGraphicsView(parent)
 {
   setDragMode(RubberBandDrag);
   // Enable antialiasing
@@ -14,14 +56,17 @@ PnView::PnView(QWidget *parent) : QGraphicsView(parent), pnNetwork_(NULL)
 }
 
 /*******************************************************************************
- * ~PnView.
+ * Destructor.
  ******************************************************************************/
-PnView::~PnView() {}
+SystemView::~SystemView()
+{
+
+}
 
 /*******************************************************************************
  * zoomIn.
  ******************************************************************************/
-void PnView::zoomIn()
+void SystemView::zoomIn()
 {
   scale(1.0 + kZoomStep, 1.0 + kZoomStep);
 }
@@ -29,7 +74,7 @@ void PnView::zoomIn()
 /*******************************************************************************
  * zoomOut.
  ******************************************************************************/
-void PnView::zoomOut()
+void SystemView::zoomOut()
 {
   scale(1.0 - kZoomStep, 1.0 - kZoomStep);
 }
@@ -37,32 +82,33 @@ void PnView::zoomOut()
 /*******************************************************************************
  * zoomFit.
  ******************************************************************************/
-void PnView::zoomFit()
+void SystemView::zoomFit()
 {
   fitInView(sceneRect(), Qt::KeepAspectRatio);
 }
 
 /*******************************************************************************
- * setPnNetwork.
+ * addNetwork.
  ******************************************************************************/
-void PnView::setPnNetwork(Network *pnNetwork)
+void SystemView::addNetwork(Network *network)
 {
-  pnNetwork_ = pnNetwork;
-  setScene(pnNetwork_);
+  setScene(network);
 }
 
 /*******************************************************************************
- * getPnNetwork.
+ * removeNetwork.
  ******************************************************************************/
-Network *PnView::getPnNetwork()
+void SystemView::removeNetwork(Network *network)
 {
-  return pnNetwork_;
+  setScene(NULL);
+  delete network;
+  network = NULL;
 }
 
 /*******************************************************************************
  * wheelEvent.
  ******************************************************************************/
-void PnView::wheelEvent(QWheelEvent *event)
+void SystemView::wheelEvent(QWheelEvent *event)
 {
   setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
 
@@ -76,7 +122,7 @@ void PnView::wheelEvent(QWheelEvent *event)
 /*******************************************************************************
  * mouseMoveEvent.
  ******************************************************************************/
-void PnView::mouseMoveEvent(QMouseEvent *event)
+void SystemView::mouseMoveEvent(QMouseEvent *event)
 {
   if (event->buttons().testFlag(Qt::MidButton)) {
     QScrollBar *hBar = horizontalScrollBar();
@@ -93,7 +139,7 @@ void PnView::mouseMoveEvent(QMouseEvent *event)
 /*******************************************************************************
  * mousePressEvent.
  ******************************************************************************/
-void PnView::mousePressEvent(QMouseEvent *event)
+void SystemView::mousePressEvent(QMouseEvent *event)
 {
   if(event->button() == Qt::MidButton) {
     oldPos = event->pos();
@@ -107,7 +153,7 @@ void PnView::mousePressEvent(QMouseEvent *event)
 /*******************************************************************************
  * mouseReleaseEvent.
  ******************************************************************************/
-void PnView::mouseReleaseEvent(QMouseEvent *event)
+void SystemView::mouseReleaseEvent(QMouseEvent *event)
 {
   if(event->button() == Qt::MidButton) {
     setDragMode(RubberBandDrag);

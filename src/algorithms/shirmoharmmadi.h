@@ -1,14 +1,14 @@
 #ifndef SHIRMOHARMNADI_H
 #define SHIRMOHARMNADI_H
 
-#include "pn/bar.h"
-#include "pn/line.h"
-#include "pn/network.h"
+#include "models/bar.h"
+#include "models/line.h"
+#include "graphics/network.h"
 
 class Shirmoharmnadi
 {
 public:
-  Shirmoharmnadi(Network *pnNetwork);
+  Shirmoharmnadi(Network *network);
   ~Shirmoharmnadi();
 
   double duration;
@@ -16,7 +16,7 @@ public:
   bool solve();
 
 private:
-  Network *pnNetwork_;
+  Network *network_;
 };
 
 #endif // SHIRMOHARMNADI_H

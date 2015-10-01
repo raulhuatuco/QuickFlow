@@ -5,9 +5,9 @@
 #include <complex>
 
 /*******************************************************************************
- * PnInfoLine.
+ * InfoLine.
  ******************************************************************************/
-PnInfoLine::PnInfoLine(PnLine *line) :
+InfoLine::InfoLine(Line *line) :
   line_(line)
 {
   setZValue(2);
@@ -18,16 +18,16 @@ PnInfoLine::PnInfoLine(PnLine *line) :
 }
 
 /*******************************************************************************
- * ~PnInfoLine.
+ * ~InfoLine.
  ******************************************************************************/
-PnInfoLine::~PnInfoLine() {}
+InfoLine::~InfoLine() {}
 
 /*******************************************************************************
  * paint.
  ******************************************************************************/
-void PnInfoLine::paint(QPainter *painter,
-                       const QStyleOptionGraphicsItem *option,
-                       QWidget *widget)
+void InfoLine::paint(QPainter *painter,
+                     const QStyleOptionGraphicsItem *option,
+                     QWidget *widget)
 {
   Q_UNUSED(option);
   Q_UNUSED(widget);
@@ -95,7 +95,7 @@ void PnInfoLine::paint(QPainter *painter,
 
   // Table text is gray.
   painter->setPen(QPen(Qt::gray, kTableLineWidth, Qt::SolidLine));
-  
+
   // Draw table 0-1 text.
   // Current.
   qreal x = tableXi + tableDx/static_cast<qreal>(kTableColums);
@@ -119,6 +119,7 @@ void PnInfoLine::paint(QPainter *painter,
 
   //Draw table 1-1 text
   // Ia.
+
   x = tableXi + tableDx/static_cast<qreal>(kTableColums);
   buffer = QString::number(abs(line_->Ia)) + " / " + QString::number(arg(
              line_->Ia)*180.0/M_PI) + "°";
@@ -127,8 +128,8 @@ void PnInfoLine::paint(QPainter *painter,
   //Draw table 1-2 text
   // La.
   x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(line_->La().real()) + " + " + QString::number(
-             line_->La().imag()) + "i";
+  buffer = QString::number(line_->lossA().real()) + " + " + QString::number(
+             line_->lossA().imag()) + "i";
   painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
   //Draw table 2-0 text
@@ -137,8 +138,8 @@ void PnInfoLine::paint(QPainter *painter,
   y = tableYi + 2*tableDy/static_cast<qreal>(kTableRows);
   painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase B");
 
-  //Draw table 2-1 text
-  // Ib.
+//  //Draw table 2-1 text
+//  // Ib.
   x = tableXi + tableDx/static_cast<qreal>(kTableColums);
   buffer = QString::number(abs(line_->Ib)) + " / " + QString::number(arg(
              line_->Ib)*180.0/M_PI) + "°";
@@ -147,8 +148,8 @@ void PnInfoLine::paint(QPainter *painter,
   //Draw table 2-2 text
   // Lb.
   x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(line_->Lb().real()) + " + " + QString::number(
-             line_->Lb().imag()) + "i";
+  buffer = QString::number(line_->lossB().real()) + " + " + QString::number(
+             line_->lossB().imag()) + "i";
   painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
   //Draw table 3-0 text
@@ -158,37 +159,17 @@ void PnInfoLine::paint(QPainter *painter,
   painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase C");
 
   //Draw table 3-1 text
-  // Ib.
+  // Ic.
   x = tableXi + tableDx/static_cast<qreal>(kTableColums);
   buffer = QString::number(abs(line_->Ic)) + " / " + QString::number(arg(
              line_->Ic)*180.0/M_PI) + "°";
   painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
   //Draw table 3-2 text
-  // Lb.
+  // Lc.
   x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(line_->Lc().real()) + " + " + QString::number(
-             line_->Lc().imag()) + "i";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-  //Draw table 4-0 text
-  // Neutral.
-  x = tableXi;
-  y = tableYi + 4*tableDy/static_cast<qreal>(kTableRows);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Neutral");
-
-  //Draw table 4-1 text
-  // Ib.
-  x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(abs(line_->In)) + " / " + QString::number(arg(
-             line_->In)*180.0/M_PI) + "°";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-  //Draw table 4-2 text
-  // Lb.
-  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(line_->Ln().real()) + " + " + QString::number(
-             line_->Ln().imag()) + "i";
+  buffer = QString::number(line_->lossC().real()) + " + " + QString::number(
+             line_->lossC().imag()) + "i";
   painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
   // Draw base.
@@ -203,7 +184,7 @@ void PnInfoLine::paint(QPainter *painter,
 /*******************************************************************************
  * boundingRect.
  ******************************************************************************/
-QRectF PnInfoLine::boundingRect() const
+QRectF InfoLine::boundingRect() const
 {
   return QRectF(-kBoxWidth / 2, -kBoxHeight - kBoxBaseHeight, kBoxWidth,
                 kBoxHeight + kBoxBaseHeight);
