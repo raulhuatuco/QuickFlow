@@ -10,7 +10,6 @@
  * Constructor.
  ******************************************************************************/
 Project::Project() :
-  network(new Network),
   name(""),
   filePath("")
 {
@@ -21,23 +20,25 @@ Project::Project() :
  ******************************************************************************/
 Project::~Project()
 {
-  delete network;
+  foreach(Network *network, networks) {
+    delete network;
+  }
 }
 
 /*******************************************************************************
  * maxIterations.
  ******************************************************************************/
-uint32_t Project::maxIterations()
+u_int32_t Project::maxIterations()
 {
-  return network->maxIterations;
+  return Network::maxIterations;
 }
 
 /*******************************************************************************
  * setMaxIterations.
  ******************************************************************************/
-void Project::setMaxIterations(uint32_t maxIterations)
+void Project::setMaxIterations(u_int32_t maxIterations)
 {
-  network->maxIterations = maxIterations;
+  Network::maxIterations = maxIterations;
 }
 
 /*******************************************************************************
@@ -45,7 +46,7 @@ void Project::setMaxIterations(uint32_t maxIterations)
  ******************************************************************************/
 double Project::minError()
 {
-  return network->minError;
+  return Network::minError;
 }
 
 /*******************************************************************************
@@ -53,7 +54,7 @@ double Project::minError()
  ******************************************************************************/
 void Project::setMinError(double minError)
 {
-  network->minError = minError;
+  Network::minError = minError;
 }
 
 /*******************************************************************************
@@ -61,7 +62,7 @@ void Project::setMinError(double minError)
  ******************************************************************************/
 double Project::voltageBase()
 {
-  return network->voltageBase;
+  return Network::voltageBase;
 }
 
 /*******************************************************************************
@@ -69,7 +70,7 @@ double Project::voltageBase()
  ******************************************************************************/
 void Project::setVoltageBase(double voltageBase)
 {
-  network->voltageBase = voltageBase;
+  Network::voltageBase = voltageBase;
 }
 
 /*******************************************************************************
@@ -77,7 +78,7 @@ void Project::setVoltageBase(double voltageBase)
  ******************************************************************************/
 double Project::powerBase()
 {
-  return network->powerBase;
+  return Network::powerBase;
 }
 
 /*******************************************************************************
@@ -85,7 +86,7 @@ double Project::powerBase()
  ******************************************************************************/
 void Project::setPowerBase(double powerBase)
 {
-  network->powerBase = powerBase;
+  Network::powerBase = powerBase;
 }
 
 /*******************************************************************************
@@ -93,7 +94,7 @@ void Project::setPowerBase(double powerBase)
  ******************************************************************************/
 Unit::LengthUnit Project::lengthUnit()
 {
-  return network->lengthUnit;
+  return Network::lengthUnit;
 }
 
 /*******************************************************************************
@@ -101,7 +102,7 @@ Unit::LengthUnit Project::lengthUnit()
  ******************************************************************************/
 void Project::setLengthUn(Unit::LengthUnit lengthUn)
 {
-  network->lengthUnit = lengthUn;
+  Network::lengthUnit = lengthUn;
 }
 
 /*******************************************************************************
@@ -109,7 +110,7 @@ void Project::setLengthUn(Unit::LengthUnit lengthUn)
  ******************************************************************************/
 Unit::ImpedanceUnit Project::impedanceUnit()
 {
-  return network->impedanceUnit;
+  return Network::impedanceUnit;
 }
 
 /*******************************************************************************
@@ -117,7 +118,7 @@ Unit::ImpedanceUnit Project::impedanceUnit()
  ******************************************************************************/
 void Project::setImpedanceUn(Unit::ImpedanceUnit impedanceUn)
 {
-  network->impedanceUnit = impedanceUn;
+  Network::impedanceUnit = impedanceUn;
 }
 
 /*******************************************************************************
@@ -125,7 +126,7 @@ void Project::setImpedanceUn(Unit::ImpedanceUnit impedanceUn)
  ******************************************************************************/
 Unit::VoltageUnit Project::voltageUnit()
 {
-  return network->voltageUnit;
+  return Network::voltageUnit;
 }
 
 /*******************************************************************************
@@ -133,7 +134,7 @@ Unit::VoltageUnit Project::voltageUnit()
  ******************************************************************************/
 void Project::setVoltageUn(Unit::VoltageUnit voltageUn)
 {
-  network->voltageUnit = voltageUn;
+  Network::voltageUnit = voltageUn;
 }
 
 /*******************************************************************************
@@ -141,7 +142,7 @@ void Project::setVoltageUn(Unit::VoltageUnit voltageUn)
  ******************************************************************************/
 Unit::PowerUnit Project::powerUnit()
 {
-  return network->powerUnit;
+  return Network::powerUnit;
 }
 
 /*******************************************************************************
@@ -149,7 +150,23 @@ Unit::PowerUnit Project::powerUnit()
  ******************************************************************************/
 void Project::setPowerUn(Unit::PowerUnit powerUn)
 {
-  network->powerUnit = powerUn;
+  Network::powerUnit = powerUn;
+}
+
+/*******************************************************************************
+ * currentUnit.
+ ******************************************************************************/
+Unit::CurrentUnit Project::currentUnit()
+{
+  return Network::currentUnit;
+}
+
+/*******************************************************************************
+ * setCurrentUnit.
+ ******************************************************************************/
+void Project::setCurrentUnit(Unit::CurrentUnit unit)
+{
+  Network::currentUnit = unit;
 }
 
 /*******************************************************************************
@@ -172,29 +189,23 @@ bool Project::save()
   projectJson.insert("name", name);
 
   // Add network settings.
-  projectJson.insert("voltageBase", network->voltageBase);
-  projectJson.insert("powerBase", network->powerBase);
-  projectJson.insert("lengthUnit", network->lengthUnit);
-  projectJson.insert("impedanceUnit", network->impedanceUnit);
-  projectJson.insert("voltageUnit", network->voltageUnit);
-  projectJson.insert("powerUnit", network->powerUnit);
   projectJson.insert("maxIterations",
-                     static_cast<int32_t> (network->maxIterations));
-  projectJson.insert("minError", network->minError);
+                     static_cast<int32_t> (Network::maxIterations));
+  projectJson.insert("minError", Network::minError);
+  projectJson.insert("voltageBase", Network::voltageBase);
+  projectJson.insert("powerBase", Network::powerBase);
+  projectJson.insert("lengthUnit", Network::lengthUnit);
+  projectJson.insert("impedanceUnit", Network::impedanceUnit);
+  projectJson.insert("voltageUnit", Network::voltageUnit);
+  projectJson.insert("powerUnit", Network::powerUnit);
+  projectJson.insert("currentUnit", Network::currentUnit);
 
-  // Creates a QJsonArray filled with Bar data.
-  QJsonArray barArray;
-  foreach (Bar *bar, network->bars) {
-    barArray << bar->toJson();
+  // Creates a QJsonArray filled with networks data.
+  QJsonArray networkArray;
+  foreach (Network *network, networks) {
+    networkArray << network->toJson();
   }
-  projectJson.insert("barArray", barArray);
-
-  // Creates a QJsonArray filled with Line data.
-  QJsonArray lineArray;
-  foreach (Line *line, network->lines) {
-    lineArray << line->toJson();
-  }
-  projectJson.insert("lineArray", lineArray);
+  projectJson.insert("networkArray", networkArray);
 
   // Create a Json document to conver Json data to text.
   QJsonDocument jsonDoc(projectJson);
@@ -256,44 +267,30 @@ bool Project::load()
   name = projectJson.value("name").toString();
 
   // Extract network info.
-  network->voltageBase = projectJson.value("voltageBase").toDouble();
-  network->powerBase = projectJson.value("powerBase").toDouble();
-  network->lengthUnit =
+  Network::maxIterations = projectJson.value("maxIterations").toDouble();
+  Network::minError = projectJson.value("minError").toDouble();
+  Network::voltageBase = projectJson.value("voltageBase").toDouble();
+  Network::powerBase = projectJson.value("powerBase").toDouble();
+  Network::lengthUnit =
     static_cast<Unit::LengthUnit> (projectJson.value("lengthUnit").toInt());
-  network->impedanceUnit =
+  Network::impedanceUnit =
     static_cast<Unit::ImpedanceUnit> (projectJson.value("impedanceUnit").toInt());
-  network->voltageUnit =
+  Network::voltageUnit =
     static_cast<Unit::VoltageUnit> (projectJson.value("voltageUnit").toInt());
-  network->powerUnit =
+  Network::powerUnit =
     static_cast<Unit::PowerUnit> (projectJson.value("powerUnit").toInt());
-  network->maxIterations = projectJson.value("maxIterations").toDouble();
-  network->minError = projectJson.value("minError").toDouble();
+  Network::currentUnit =
+    static_cast<Unit::CurrentUnit> (projectJson.value("currentUnit").toInt());
 
-  // Extract Bar data from a QJsonArray.
-  QJsonArray barArray(projectJson.value("barArray").toArray());
+  // Extract network data from a QJsonArray.
+  QJsonArray networkArray(projectJson.value("networkArray").toArray());
 
-  foreach (QJsonValue arrayValue, barArray) {
-    QJsonObject barJson(arrayValue.toObject());
+  foreach (QJsonValue arrayValue, networkArray) {
+    QJsonObject networkJson(arrayValue.toObject());
 
-    Bar *bar = new Bar;
-    bar->fromJson(barJson);
-
-    if(!network->addBar(bar)) {
-      return false;
-    }
-  }
-
-// Extract Lines data from a QJsonArray.
-  QJsonArray lineArray(projectJson.value("lineArray").toArray());
-
-  foreach (QJsonValue arrayValue, lineArray) {
-    QJsonObject lineJson(arrayValue.toObject());
-
-    Line *line = new Line;
-    line->fromJson(lineJson);
-
-    if(!network->addLine(line))
-      return false;
+    Network *network = new Network;
+    network->fromJson(networkJson);
+    networks.insert(network->name, network);
   }
 
 // Close file

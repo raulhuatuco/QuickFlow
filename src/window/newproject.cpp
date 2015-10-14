@@ -1,3 +1,45 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 David Krepsky
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+/*!
+ * \addtogroup Window
+ * \{
+ */
+
+/*!
+ * \file newproject.cpp
+ *
+ * \brief Implementation of the NewProject class.
+ *
+ * This file contains the implementation for the NewProject class.
+ *
+ * \author David Krepsky
+ * \version 0.2
+ * \date 10/2015
+ * \copyright David Krepsky
+ */
+
 #include "newproject.h"
 #include "ui_newproject.h"
 
@@ -42,6 +84,9 @@ NewProject::NewProject(QWidget *parent)
   ui->powerUnit->addItem("VA", qVariantFromValue(Unit::kVA));
   ui->powerUnit->addItem("kVA", qVariantFromValue(Unit::kKiloVA));
   ui->powerUnit->addItem("MVA", qVariantFromValue(Unit::kMegaVa));
+
+  ui->currentUnit->addItem("A", qVariantFromValue(Unit::kAmpere));
+  ui->currentUnit->addItem("kA", qVariantFromValue(Unit::kKiloAmpere));
 }
 
 /*******************************************************************************
@@ -73,9 +118,9 @@ void NewProject::on_path_textChanged(const QString &arg1)
 }
 
 /*******************************************************************************
- * Search Path Button clicked.
+ * Location Button clicked.
  ******************************************************************************/
-void NewProject::on_toolButton_clicked()
+void NewProject::on_location_clicked()
 {
   // Set file dialog options.
   QFileDialog directory(this);
@@ -162,6 +207,7 @@ void NewProject::on_buttonBox_accepted()
     ui->impedanceUnit->currentData().value<Unit::ImpedanceUnit>();
   dataVoltageUnit = ui->voltageUnit->currentData().value<Unit::VoltageUnit>();
   dataPowerUnit = ui->powerUnit->currentData().value<Unit::PowerUnit>();
+  dataCurrentUnit = ui->currentUnit->currentData().value<Unit::CurrentUnit>();
 
 // Return to parent window.
   accept();
@@ -175,3 +221,7 @@ void NewProject::on_buttonBox_rejected()
 // Return to parent window.
   reject();
 }
+
+/*!
+ * \}
+ */

@@ -121,64 +121,64 @@ void InfoLine::paint(QPainter *painter,
   // Ia.
 
   x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(abs(line_->Ia)) + " / " + QString::number(arg(
-             line_->Ia)*180.0/M_PI) + "°";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
+//  buffer = QString::number(abs(line_->Ia)) + " / " + QString::number(arg(
+//             line_->Ia)*180.0/M_PI) + "°";
+//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
-  //Draw table 1-2 text
-  // La.
-  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(line_->lossA().real()) + " + " + QString::number(
-             line_->lossA().imag()) + "i";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
+//  //Draw table 1-2 text
+//  // La.
+//  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
+//  buffer = QString::number(line_->lossA().real()) + " + " + QString::number(
+//             line_->lossA().imag()) + "i";
+//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
-  //Draw table 2-0 text
-  // Phase B.
-  x = tableXi;
-  y = tableYi + 2*tableDy/static_cast<qreal>(kTableRows);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase B");
+//  //Draw table 2-0 text
+//  // Phase B.
+//  x = tableXi;
+//  y = tableYi + 2*tableDy/static_cast<qreal>(kTableRows);
+//  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase B");
 
-//  //Draw table 2-1 text
-//  // Ib.
-  x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(abs(line_->Ib)) + " / " + QString::number(arg(
-             line_->Ib)*180.0/M_PI) + "°";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
+////  //Draw table 2-1 text
+////  // Ib.
+//  x = tableXi + tableDx/static_cast<qreal>(kTableColums);
+//  buffer = QString::number(abs(line_->Ib)) + " / " + QString::number(arg(
+//             line_->Ib)*180.0/M_PI) + "°";
+//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
-  //Draw table 2-2 text
-  // Lb.
-  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(line_->lossB().real()) + " + " + QString::number(
-             line_->lossB().imag()) + "i";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
+//  //Draw table 2-2 text
+//  // Lb.
+//  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
+//  buffer = QString::number(line_->lossB().real()) + " + " + QString::number(
+//             line_->lossB().imag()) + "i";
+//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
-  //Draw table 3-0 text
-  // Phase C.
-  x = tableXi;
-  y = tableYi + 3*tableDy/static_cast<qreal>(kTableRows);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase C");
+//  //Draw table 3-0 text
+//  // Phase C.
+//  x = tableXi;
+//  y = tableYi + 3*tableDy/static_cast<qreal>(kTableRows);
+//  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase C");
 
-  //Draw table 3-1 text
-  // Ic.
-  x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(abs(line_->Ic)) + " / " + QString::number(arg(
-             line_->Ic)*180.0/M_PI) + "°";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
+//  //Draw table 3-1 text
+//  // Ic.
+//  x = tableXi + tableDx/static_cast<qreal>(kTableColums);
+//  buffer = QString::number(abs(line_->Ic)) + " / " + QString::number(arg(
+//             line_->Ic)*180.0/M_PI) + "°";
+//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
-  //Draw table 3-2 text
-  // Lc.
-  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  buffer = QString::number(line_->lossC().real()) + " + " + QString::number(
-             line_->lossC().imag()) + "i";
-  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
+//  //Draw table 3-2 text
+//  // Lc.
+//  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
+//  buffer = QString::number(line_->lossC().real()) + " + " + QString::number(
+//             line_->lossC().imag()) + "i";
+//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
 
-  // Draw base.
-  painter->setPen(QPen(Qt::black, kLineWidth, Qt::SolidLine));
-  painter->setBrush(Qt::black);
-  QPolygonF pol_base;
-  pol_base << QPointF(-kBoxBaseWidth/2, -kBoxBaseHeight) << QPointF(0.0, 0.0)
-           << QPointF(kBoxBaseWidth/2, -kBoxBaseHeight);
-  painter->drawPolygon(pol_base);
+//  // Draw base.
+//  painter->setPen(QPen(Qt::black, kLineWidth, Qt::SolidLine));
+//  painter->setBrush(Qt::black);
+//  QPolygonF pol_base;
+//  pol_base << QPointF(-kBoxBaseWidth/2, -kBoxBaseHeight) << QPointF(0.0, 0.0)
+//           << QPointF(kBoxBaseWidth/2, -kBoxBaseHeight);
+//  painter->drawPolygon(pol_base);
 }
 
 /*******************************************************************************

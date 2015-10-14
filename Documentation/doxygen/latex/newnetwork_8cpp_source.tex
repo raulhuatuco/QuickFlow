@@ -1,0 +1,19 @@
+\hypertarget{newnetwork_8cpp_source}{}\subsection{newnetwork.\+cpp}
+\label{newnetwork_8cpp_source}\index{newnetwork.\+cpp@{newnetwork.\+cpp}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include "\hyperlink{newnetwork_8h}{newnetwork.h}"}
+00002 \textcolor{preprocessor}{#include "ui\_newnetwork.h"}
+00003 
+\hypertarget{newnetwork_8cpp_source_l00004}{}\hyperlink{class_new_network_a3a8c6341866f1f246848804ed4d0f85e}{00004} \hyperlink{class_new_network_a3a8c6341866f1f246848804ed4d0f85e}{NewNetwork::NewNetwork}(QWidget *parent) :
+00005   QDialog(parent),
+00006   ui(new \hyperlink{namespace_ui}{Ui}::\hyperlink{class_new_network}{NewNetwork})
+00007 \{
+00008   ui->setupUi(\textcolor{keyword}{this});
+00009 \}
+00010 
+\hypertarget{newnetwork_8cpp_source_l00011}{}\hyperlink{class_new_network_aaf5cae0a16a1a46c2b0daecab6ca150f}{00011} \hyperlink{class_new_network_aaf5cae0a16a1a46c2b0daecab6ca150f}{NewNetwork::~NewNetwork}()
+00012 \{
+00013   \textcolor{keyword}{delete} ui;
+00014 \}
+\end{DoxyCode}

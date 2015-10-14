@@ -47,7 +47,7 @@
 #include <QtWidgets>
 #include <QtGui>
 
-#include "graphics/network.h"
+#include "models/network.h"
 
 /*!
  * \class SystemView
@@ -105,6 +105,20 @@ public:
    */
   void removeNetwork(Network *network);
 
+  void addBar(Bar *bar);
+
+  void removeBar(Bar *bar);
+
+  void addLine(Line *line);
+  
+  void removeLine(Line *line);
+  
+signals:
+
+  void barProperties(QObject *);
+
+  void lineProperties(QObject *);
+
 protected:
   /*!
    * \brief
@@ -133,12 +147,16 @@ private:
   /*!
    * \brief kZoomStep
    */
-  static constexpr qreal kZoomStep = 0.05;
+  static const qreal kZoomStep;
 
   /*!
    * \brief oldPos
    */
   QPoint oldPos;
+
+  QSignalMapper *barDoubleClick;
+
+  QSignalMapper *lineDoubleClick;
 };
 
 #endif  // GRAPHICS_SYSTEMVIEW_H

@@ -40,9 +40,14 @@
  * \copyright David Krepsky
  */
 
+#include "window/barproperties.h"
+#include "window/lineproperties.h"
+
 #include "graphics/systemview.h"
 #include <QColor>
 #include <QBrush>
+
+const qreal SystemView::kZoomStep = 0.05;
 
 /*******************************************************************************
  * Constructor.
@@ -53,6 +58,20 @@ SystemView::SystemView(QWidget *parent) :
   setDragMode(RubberBandDrag);
   // Enable antialiasing
   setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+
+  setScene(new QGraphicsScene(this));
+
+  barDoubleClick = new QSignalMapper(this);
+  lineDoubleClick = new QSignalMapper(this);
+
+  // Create mapper for bar properties.
+  connect(barDoubleClick, SIGNAL(mapped(QObject *)), this,
+          SIGNAL(barProperties(QObject *)));
+
+  // Create mapper for line properties.
+  connect(lineDoubleClick, SIGNAL(mapped(QObject *)), this,
+          SIGNAL(lineProperties(QObject *)));
+
 }
 
 /*******************************************************************************
@@ -92,7 +111,13 @@ void SystemView::zoomFit()
  ******************************************************************************/
 void SystemView::addNetwork(Network *network)
 {
-  setScene(network);
+  foreach (Bar *bar, network->bars) {
+    addBar(bar);
+  }
+
+  foreach (Line *line, network->lines) {
+    addLine(line);
+  }
 }
 
 /*******************************************************************************
@@ -100,9 +125,47 @@ void SystemView::addNetwork(Network *network)
  ******************************************************************************/
 void SystemView::removeNetwork(Network *network)
 {
-  setScene(NULL);
-  delete network;
-  network = NULL;
+
+  foreach (Bar *bar, network->bars) {
+    removeBar(bar);
+  }
+
+  foreach (Line *line, network->lines) {
+    removeLine(line);
+  }
+}
+
+void SystemView::addBar(Bar *bar)
+{
+  scene()->addItem(bar);
+
+  // Connect signals.
+  connect(bar, SIGNAL(eventDoubleClick()), barDoubleClick, SLOT(map()));
+  barDoubleClick->setMapping(bar, bar);
+}
+
+void SystemView::removeBar(Bar *bar)
+{
+  scene()->removeItem(bar);
+
+  disconnect(bar, SIGNAL(eventDoubleClick()), barDoubleClick, SLOT(map()));
+  barDoubleClick->removeMappings(bar);
+}
+
+void SystemView::addLine(Line *line)
+{
+  scene()->addItem(line);
+
+  // Connect signals.
+  connect(line, SIGNAL(eventDoubleClick()), lineDoubleClick, SLOT(map()));
+  lineDoubleClick->setMapping(line, line);
+}
+
+void SystemView::removeLine(Line *line)
+{
+  scene()->removeItem(line);
+  disconnect(line, SIGNAL(eventDoubleClick()), lineDoubleClick, SLOT(map()));
+  lineDoubleClick->removeMappings(line);
 }
 
 /*******************************************************************************
@@ -162,3 +225,4 @@ void SystemView::mouseReleaseEvent(QMouseEvent *event)
 
   QGraphicsView::mouseReleaseEvent(event);
 }
+

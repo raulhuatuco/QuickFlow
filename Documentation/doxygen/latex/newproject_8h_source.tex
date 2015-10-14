@@ -1,0 +1,119 @@
+\hypertarget{newproject_8h_source}{}\subsection{newproject.\+h}
+\label{newproject_8h_source}\index{newproject.\+h@{newproject.\+h}}
+
+\begin{DoxyCode}
+00001 \textcolor{comment}{/*}
+00002 \textcolor{comment}{ * The MIT License (MIT)}
+00003 \textcolor{comment}{ *}
+00004 \textcolor{comment}{ * Copyright (c) 2015 David Krepsky}
+00005 \textcolor{comment}{ *}
+00006 \textcolor{comment}{ * Permission is hereby granted, free of charge, to any person obtaining a copy}
+00007 \textcolor{comment}{ * of this software and associated documentation files (the "Software"), to deal}
+00008 \textcolor{comment}{ * in the Software without restriction, including without limitation the rights}
+00009 \textcolor{comment}{ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}
+00010 \textcolor{comment}{ * copies of the Software, and to permit persons to whom the Software is}
+00011 \textcolor{comment}{ * furnished to do so, subject to the following conditions:}
+00012 \textcolor{comment}{ *}
+00013 \textcolor{comment}{ * The above copyright notice and this permission notice shall be included in}
+00014 \textcolor{comment}{ * all copies or substantial portions of the Software.}
+00015 \textcolor{comment}{ *}
+00016 \textcolor{comment}{ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}
+00017 \textcolor{comment}{ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}
+00018 \textcolor{comment}{ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}
+00019 \textcolor{comment}{ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}
+00020 \textcolor{comment}{ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}
+00021 \textcolor{comment}{ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}
+00022 \textcolor{comment}{ * SOFTWARE.}
+00023 \textcolor{comment}{ */}
+00024 
+00043 \textcolor{preprocessor}{#ifndef WINDOW\_NEWPROJECT\_H}
+00044 \textcolor{preprocessor}{#define WINDOW\_NEWPROJECT\_H}
+00045 
+00046 \textcolor{preprocessor}{#include <QDialog>}
+00047 \textcolor{preprocessor}{#include <QString>}
+00048 \textcolor{preprocessor}{#include <QDir>}
+00049 
+00050 \textcolor{preprocessor}{#include "\hyperlink{customtypes_8h}{customtypes.h}"}
+00051 
+00052 \textcolor{keyword}{namespace }\hyperlink{namespace_ui}{Ui}
+00053 \{
+00054 \textcolor{keyword}{class }\hyperlink{class_new_project}{NewProject};
+00055 \}
+00056 
+\hypertarget{newproject_8h_source_l00092}{}\hyperlink{class_new_project}{00092} \textcolor{keyword}{class }\hyperlink{class_new_project}{NewProject} : \textcolor{keyword}{public} QDialog
+00093 \{
+00094   Q\_OBJECT
+00095 
+00096 \textcolor{keyword}{public}:
+00097   \textcolor{comment}{/*****************************************************************************}
+00098 \textcolor{comment}{  * Properties.}
+00099 \textcolor{comment}{  *****************************************************************************/}
+\hypertarget{newproject_8h_source_l00103}{}\hyperlink{class_new_project_ad0ebf4e6b19dbdf3a9ad4af27df2a8fa}{00103}   QString \hyperlink{class_new_project_ad0ebf4e6b19dbdf3a9ad4af27df2a8fa}{dataName};
+00104 
+\hypertarget{newproject_8h_source_l00108}{}\hyperlink{class_new_project_ac684c762d3c15ff4463622978193e827}{00108}   QString \hyperlink{class_new_project_ac684c762d3c15ff4463622978193e827}{dataPath};
+00109 
+\hypertarget{newproject_8h_source_l00113}{}\hyperlink{class_new_project_a189825d570bc9bc35c61f7fe40de986a}{00113}   u\_int32\_t \hyperlink{class_new_project_a189825d570bc9bc35c61f7fe40de986a}{dataMaxIterations};
+00114 
+\hypertarget{newproject_8h_source_l00118}{}\hyperlink{class_new_project_a186c2163239625faf8c7769a72fa988c}{00118}   \textcolor{keywordtype}{double} \hyperlink{class_new_project_a186c2163239625faf8c7769a72fa988c}{dataMinError};
+00119 
+\hypertarget{newproject_8h_source_l00123}{}\hyperlink{class_new_project_a21dc54f9c0c8a59ca33eaa42cb9f9352}{00123}   \textcolor{keywordtype}{double} \hyperlink{class_new_project_a21dc54f9c0c8a59ca33eaa42cb9f9352}{dataVoltageBase};
+00124 
+\hypertarget{newproject_8h_source_l00128}{}\hyperlink{class_new_project_a7a70270ca856001875a6043d5aa7a8af}{00128}   \textcolor{keywordtype}{double} \hyperlink{class_new_project_a7a70270ca856001875a6043d5aa7a8af}{dataPowerBase};
+00129 
+\hypertarget{newproject_8h_source_l00133}{}\hyperlink{class_new_project_ac0bf8b4f04f5c9425c74dd980711f021}{00133}   \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} \hyperlink{class_new_project_ac0bf8b4f04f5c9425c74dd980711f021}{dataLengthUnit};
+00134 
+\hypertarget{newproject_8h_source_l00138}{}\hyperlink{class_new_project_ae50ce899e9b67db0001a11044730a778}{00138}   \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} \hyperlink{class_new_project_ae50ce899e9b67db0001a11044730a778}{dataImpedanceUnit};
+00139 
+\hypertarget{newproject_8h_source_l00143}{}\hyperlink{class_new_project_a04187cd16b01b80dcdef9107e4c83a28}{00143}   \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} \hyperlink{class_new_project_a04187cd16b01b80dcdef9107e4c83a28}{dataVoltageUnit};
+00144 
+\hypertarget{newproject_8h_source_l00148}{}\hyperlink{class_new_project_a500a8b98942c5f4900348fd315fb9d8b}{00148}   \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} \hyperlink{class_new_project_a500a8b98942c5f4900348fd315fb9d8b}{dataPowerUnit};
+00149 
+\hypertarget{newproject_8h_source_l00153}{}\hyperlink{class_new_project_a9d389065ff7f8588338069018088a20f}{00153}   \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} \hyperlink{class_new_project_a9d389065ff7f8588338069018088a20f}{dataCurrentUnit};
+00154 
+00155   \textcolor{comment}{/*****************************************************************************}
+00156 \textcolor{comment}{  * Constructor.}
+00157 \textcolor{comment}{  *****************************************************************************/}
+00163   \textcolor{keyword}{explicit} \hyperlink{group___window_ga011ff7a4c380f74bdafa4fdaed510c42}{NewProject}(QWidget *parent = 0);
+00164 
+00165   \textcolor{comment}{/*****************************************************************************}
+00166 \textcolor{comment}{  * Destructor.}
+00167 \textcolor{comment}{  *****************************************************************************/}
+00172   \hyperlink{group___window_gae65155941598f4272f3df0b2f1428c78}{~NewProject}();
+00173 
+00174 \textcolor{keyword}{private} slots:
+00175   \textcolor{comment}{/*****************************************************************************}
+00176 \textcolor{comment}{  * Name text changed..}
+00177 \textcolor{comment}{  *****************************************************************************/}
+00184   \textcolor{keywordtype}{void} on\_name\_textChanged(\textcolor{keyword}{const} QString &arg1);
+00185 
+00186   \textcolor{comment}{/*****************************************************************************}
+00187 \textcolor{comment}{  * Path text change.}
+00188 \textcolor{comment}{  *****************************************************************************/}
+00195   \textcolor{keywordtype}{void} on\_path\_textChanged(\textcolor{keyword}{const} QString &arg1);
+00196 
+00197 
+00198   \textcolor{comment}{/*****************************************************************************}
+00199 \textcolor{comment}{  * Location button clicked.}
+00200 \textcolor{comment}{  *****************************************************************************/}
+00205   \textcolor{keywordtype}{void} on\_location\_clicked();
+00206 
+00207   \textcolor{comment}{/*****************************************************************************}
+00208 \textcolor{comment}{  * Accepted.}
+00209 \textcolor{comment}{  *****************************************************************************/}
+00214   \textcolor{keywordtype}{void} on\_buttonBox\_accepted();
+00215 
+00216   \textcolor{comment}{/*****************************************************************************}
+00217 \textcolor{comment}{  * Rejected.}
+00218 \textcolor{comment}{  *****************************************************************************/}
+00223   \textcolor{keywordtype}{void} on\_buttonBox\_rejected();
+00224 
+00225 \textcolor{keyword}{private}:
+00226   \textcolor{comment}{/*****************************************************************************}
+00227 \textcolor{comment}{  * Private data.}
+00228 \textcolor{comment}{  *****************************************************************************/}
+00232   Ui::NewProject *ui;
+00233 \};
+00234 
+00235 \textcolor{preprocessor}{#endif  // WINDOW\_NEWPROJECT\_H}
+00236 
+\end{DoxyCode}

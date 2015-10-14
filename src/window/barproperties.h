@@ -18,6 +18,7 @@ public:
   explicit BarProperties(QWidget *parent = 0);
   ~BarProperties();
   void setOptions(Project *project, Bar *bar);
+  Bar *bar();
 
 private slots:
   void on_buttonBox_accepted();

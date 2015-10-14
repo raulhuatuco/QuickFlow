@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>455</width>
-    <height>445</height>
+    <width>433</width>
+    <height>440</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Line Initial Settings</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout_2">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="styleSheet">
       <string notr="true">QGroupBox {
@@ -36,9 +36,36 @@ QGroupBox::title
 }</string>
      </property>
      <property name="title">
-      <string>Parent Bars</string>
+      <string>Attributes</string>
      </property>
-     <layout class="QVBoxLayout" name="verticalLayout_7">
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Network:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="network"/>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_2">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout">
         <item>
@@ -76,34 +103,6 @@ QGroupBox::title
         </item>
        </layout>
       </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
-    <widget class="QGroupBox" name="groupBox_3">
-     <property name="styleSheet">
-      <string notr="true">QGroupBox {
-border: 1px solid gray;
-margin-top: 20px;
-}
-
-QGroupBox::title
-{
-    subcontrol-origin: margin;	
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border: 1px solid #0b477b;
-    border-bottom: none;
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-        stop: 0 #001520, stop: 1 #000809);
-    padding: 2 2px;
-    color: white;   
-}</string>
-     </property>
-     <property name="title">
-      <string>Length</string>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout_14">
       <item>
        <layout class="QHBoxLayout" name="horizontalLayout_11">
         <item>
@@ -126,9 +125,13 @@ QGroupBox::title
        </layout>
       </item>
      </layout>
+     <zorder>label_10</zorder>
+     <zorder></zorder>
+     <zorder>label</zorder>
+     <zorder>network</zorder>
     </widget>
    </item>
-   <item>
+   <item row="1" column="0">
     <widget class="QGroupBox" name="groupBox_4">
      <property name="styleSheet">
       <string notr="true">QGroupBox {
@@ -384,7 +387,7 @@ QGroupBox::title
      </layout>
     </widget>
    </item>
-   <item>
+   <item row="2" column="0">
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>

@@ -34,22 +34,31 @@ void LineProperties::setOptions(Project *project, Line *line)
     line_ = new Line;
     isNew = true;
 
-    // Fill line ids combobox.
-    foreach (Bar *bar, project->network->bars) {
+    foreach(Network *network, project->networks) {
+      ui->network->addItem(network->name);
+    }
+
+    Network *network = project->networks.value(ui->network->currentText(),NULL);
+
+    // Fill bar ids combobox.
+    foreach (Bar *bar, network->bars) {
       ui->noI->addItem(QString::number(bar->id));
       ui->noF->addItem(QString::number(bar->id));
     }
 
   } else {
     setWindowTitle(tr("Edit Line from node ") + QString::number(
-                     line->noI) + tr(" to node ") \
-                   + QString::number(line->noF));
+                     line->nodes.first) + tr(" to node ") \
+                   + QString::number(line->nodes.second));
     line_ = line;
     isNew = false;
 
+    ui->network->addItem(line->network->name);
+    ui->network->setEnabled(false);
+
     // Fill line ids combobox.
-    ui->noI->addItem(QString::number(line->noI));
-    ui->noF->addItem(QString::number(line->noF));
+    ui->noI->addItem(QString::number(line->nodes.first));
+    ui->noF->addItem(QString::number(line->nodes.second));
     ui->noI->setEnabled(false);
     ui->noF->setEnabled(false);
   }
@@ -59,21 +68,21 @@ void LineProperties::setOptions(Project *project, Line *line)
 
   // Store parameters.
   // Length.
-  ui->length->setText(QString::number(line_->length));
+  ui->length->setText(QString::number(line_->length(project->lengthUnit())));
 
   // Impedance.
-  ui->Zaa->setText(QString::number(line_->Zaa.real()));
-  ui->Zaai->setText(QString::number(line_->Zaa.imag()));
-  ui->Zab->setText(QString::number(line_->Zab.real()));
-  ui->Zabi->setText(QString::number(line_->Zab.imag()));
-  ui->Zac->setText(QString::number(line_->Zac.real()));
-  ui->Zaci->setText(QString::number(line_->Zac.imag()));
-  ui->Zbb->setText(QString::number(line_->Zbb.real()));
-  ui->Zbbi->setText(QString::number(line_->Zbb.imag()));
-  ui->Zbc->setText(QString::number(line_->Zbc.real()));
-  ui->Zbci->setText(QString::number(line_->Zbc.imag()));
-  ui->Zcc->setText(QString::number(line_->Zcc.real()));
-  ui->Zcci->setText(QString::number(line_->Zcc.imag()));
+  ui->Zaa->setText(QString::number(line_->z(0,project->impedanceUnit()).real()));
+  ui->Zaai->setText(QString::number(line_->z(0,project->impedanceUnit()).imag()));
+  ui->Zab->setText(QString::number(line_->z(1,project->impedanceUnit()).real()));
+  ui->Zabi->setText(QString::number(line_->z(1,project->impedanceUnit()).imag()));
+  ui->Zac->setText(QString::number(line_->z(2,project->impedanceUnit()).real()));
+  ui->Zaci->setText(QString::number(line_->z(2,project->impedanceUnit()).imag()));
+  ui->Zbb->setText(QString::number(line_->z(3,project->impedanceUnit()).real()));
+  ui->Zbbi->setText(QString::number(line_->z(3,project->impedanceUnit()).imag()));
+  ui->Zbc->setText(QString::number(line_->z(4,project->impedanceUnit()).real()));
+  ui->Zbci->setText(QString::number(line_->z(4,project->impedanceUnit()).imag()));
+  ui->Zcc->setText(QString::number(line_->z(5,project->impedanceUnit()).real()));
+  ui->Zcci->setText(QString::number(line_->z(5,project->impedanceUnit()).imag()));
 
   // Set units.
   // Length.
@@ -95,11 +104,26 @@ void LineProperties::setOptions(Project *project, Line *line)
                               project->impedanceUnit()) + tr("]"));
 }
 
+Line *LineProperties::line()
+{
+  return line_;
+}
+
 /*******************************************************************************
  * Botton Box Accepted.
  ******************************************************************************/
 void LineProperties::on_buttonBox_accepted()
 {
+
+  Network *network = project_->networks.value(ui->network->currentText(), NULL);
+
+  if (network == NULL) {
+    QMessageBox::information(this, "Invalid parameter", "Invalid network.",
+                             QMessageBox::Ok);
+    ui->network->setFocus();
+    return;
+  }
+
   // Check for valid data.
   // Nodes.
   if(ui->noI->currentText() == ui->noF->currentText()) {
@@ -111,9 +135,11 @@ void LineProperties::on_buttonBox_accepted()
   }
 
   // Check if line already exists for new lines.
+  QPair<int32_t, int32_t> nodes(ui->noI->currentText().toInt(),
+                                ui->noF->currentText().toInt());
+
   if(isNew) {
-    if(project_->network->getLineByNodes(ui->noI->currentText().toInt(),
-                                         ui->noF->currentText().toInt()) != NULL) {
+    if(network->getLineByNodes(nodes) != NULL) {
       QMessageBox::information(this, "Invalid parameter",
                                "Line already exist.",
                                QMessageBox::Ok);
@@ -180,38 +206,47 @@ void LineProperties::on_buttonBox_accepted()
   if (!validImpedance(ui->Zcci))
     return;
 
-  // Set nodes if it's a new line.
+  // Set nodes and network if it's a new line.
   if(isNew) {
     // Set noI and noF.
-    line_->noI = ui->noI->currentText().toInt();
-    line_->noF = ui->noF->currentText().toInt();
+    line_->nodes = nodes;
+    // Set network.
+    line_->network = network;
   }
 
+  // Set length
+  line_->setLength(ui->length->text().toDouble(), project_->lengthUnit());
+
   // Set impedance.
+  complex<double> z;
 
-  line_->Zaa.real(ui->Zaa->text().toDouble());
-  line_->Zaa.imag(ui->Zaai->text().toDouble());
+  z.real(ui->Zaa->text().toDouble());
+  z.imag(ui->Zaai->text().toDouble());
+  line_->setZ(0, z, project_->impedanceUnit());
 
-  line_->Zab.real(ui->Zab->text().toDouble());
-  line_->Zab.imag(ui->Zabi->text().toDouble());
+  z.real(ui->Zab->text().toDouble());
+  z.imag(ui->Zabi->text().toDouble());
+  line_->setZ(1, z, project_->impedanceUnit());
 
-  line_->Zac.real(ui->Zac->text().toDouble());
-  line_->Zac.imag(ui->Zaci->text().toDouble());
+  z.real(ui->Zac->text().toDouble());
+  z.imag(ui->Zaci->text().toDouble());
+  line_->setZ(2, z, project_->impedanceUnit());
 
-  line_->Zbb.real(ui->Zbb->text().toDouble());
-  line_->Zbb.imag(ui->Zbbi->text().toDouble());
+  z.real(ui->Zbb->text().toDouble());
+  z.imag(ui->Zbbi->text().toDouble());
+  line_->setZ(3, z, project_->impedanceUnit());
 
-  line_->Zbc.real(ui->Zbc->text().toDouble());
-  line_->Zbc.imag(ui->Zbci->text().toDouble());
+  z.real(ui->Zbc->text().toDouble());
+  z.imag(ui->Zbci->text().toDouble());
+  line_->setZ(4, z, project_->impedanceUnit());
 
-  line_->Zcc.real(ui->Zcc->text().toDouble());
-  line_->Zcc.imag(ui->Zcci->text().toDouble());
+  z.real(ui->Zcc->text().toDouble());
+  z.imag(ui->Zcci->text().toDouble());
+  line_->setZ(5, z, project_->impedanceUnit());
 
-  line_->length = ui->length->text().toDouble();
-
-  // Add new line to network.
+  // Add new line to project.
   if (isNew) {
-    if(!project_->network->addLine(line_)) {
+    if(!network->addLine(line_)) {
       QMessageBox::critical(this, "Invalid Line", "Can't add new line to project.",
                             QMessageBox::Ok);
       delete line_;

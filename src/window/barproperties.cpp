@@ -58,6 +58,9 @@ void BarProperties::setOptions(Project *project, Bar *bar)
     ui->id->setValue(0);
     bar_ = new Bar;
     isNew = true;
+    foreach(Network *network, project->networks) {
+      ui->network->addItem(network->name);
+    }
   } else {
     setWindowTitle(tr("Edit Bar ") + QString::number(bar->id));
     ui->id->setEnabled(false);
@@ -65,55 +68,62 @@ void BarProperties::setOptions(Project *project, Bar *bar)
     bar_ = bar;
     ui->id->setValue(bar_->id);
     isNew = false;
+    ui->network->addItem(bar->network->name);
+    ui->network->setEnabled(false);
   }
 
-  // Store project parameters.
+// Store project parameters.
   project_ = project;
 
-  // Fill Bar data.
-  ui->Va->setText(QString::number(bar_->Va.real()));
-  ui->Vb->setText(QString::number(bar_->Vb.real()));
-  ui->Vc->setText(QString::number(bar_->Vc.real()));
-  ui->Vai->setText(QString::number(bar_->Va.imag()));
-  ui->Vbi->setText(QString::number(bar_->Vb.imag()));
-  ui->Vci->setText(QString::number(bar_->Vc.imag()));
-  ui->Sha->setText(QString::number(bar_->Sha.real()));
-  ui->Shb->setText(QString::number(bar_->Shb.real()));
-  ui->Shc->setText(QString::number(bar_->Shc.real()));
-  ui->Shai->setText(QString::number(bar_->Sha.imag()));
-  ui->Shbi->setText(QString::number(bar_->Shb.imag()));
-  ui->Shci->setText(QString::number(bar_->Shc.imag()));
-  ui->Sia->setText(QString::number(bar_->Sia.real()));
-  ui->Sib->setText(QString::number(bar_->Sib.real()));
-  ui->Sic->setText(QString::number(bar_->Sic.real()));
-  ui->Siai->setText(QString::number(bar_->Sia.imag()));
-  ui->Sibi->setText(QString::number(bar_->Sib.imag()));
-  ui->Sici->setText(QString::number(bar_->Sic.imag()));
+// Fill Bar data.
+  ui->Va->setText(QString::number(bar_->v(0,Network::voltageUnit).real()));
+  ui->Vb->setText(QString::number(bar_->v(1,Network::voltageUnit).real()));
+  ui->Vc->setText(QString::number(bar_->v(2,Network::voltageUnit).real()));
+  ui->Vai->setText(QString::number(bar_->v(0,Network::voltageUnit).imag()));
+  ui->Vbi->setText(QString::number(bar_->v(1,Network::voltageUnit).imag()));
+  ui->Vci->setText(QString::number(bar_->v(2,Network::voltageUnit).imag()));
+  ui->Sha->setText(QString::number(bar_->sh(0, Network::powerUnit).real()));
+  ui->Shb->setText(QString::number(bar_->sh(1, Network::powerUnit).real()));
+  ui->Shc->setText(QString::number(bar_->sh(2, Network::powerUnit).real()));
+  ui->Shai->setText(QString::number(bar_->sh(0, Network::powerUnit).imag()));
+  ui->Shbi->setText(QString::number(bar_->sh(1, Network::powerUnit).imag()));
+  ui->Shci->setText(QString::number(bar_->sh(2, Network::powerUnit).imag()));
+  ui->Sia->setText(QString::number(bar_->si(0, Network::powerUnit).real()));
+  ui->Sib->setText(QString::number(bar_->si(1, Network::powerUnit).real()));
+  ui->Sic->setText(QString::number(bar_->si(2, Network::powerUnit).real()));
+  ui->Siai->setText(QString::number(bar_->si(0, Network::powerUnit).imag()));
+  ui->Sibi->setText(QString::number(bar_->si(1, Network::powerUnit).imag()));
+  ui->Sici->setText(QString::number(bar_->si(2, Network::powerUnit).imag()));
   ui->px->setText(QString::number(bar_->x()));
   ui->py->setText(QString::number(bar_->y()));
 
   // Set units.
   // Voltage.
-  ui->VaUn->setText(tr("[") + Unit::voltageUnitToStr(project->voltageUnit()) +
+  ui->VaUn->setText(tr("[") + Unit::voltageUnitToStr(Network::voltageUnit) +
                     tr("]"));
-  ui->VbUn->setText(tr("[") + Unit::voltageUnitToStr(project->voltageUnit()) +
+  ui->VbUn->setText(tr("[") + Unit::voltageUnitToStr(Network::voltageUnit) +
                     tr("]"));
-  ui->VcUn->setText(tr("[") + Unit::voltageUnitToStr(project->voltageUnit()) +
+  ui->VcUn->setText(tr("[") + Unit::voltageUnitToStr(Network::voltageUnit) +
                     tr("]"));
 
   // Power.
-  ui->ShaUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->ShaUn->setText(tr("[") + Unit::powerUnitToStr(Network::powerUnit) +
                      tr("]"));
-  ui->SiaUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->SiaUn->setText(tr("[") + Unit::powerUnitToStr(Network::powerUnit) +
                      tr("]"));
-  ui->ShbUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->ShbUn->setText(tr("[") + Unit::powerUnitToStr(Network::powerUnit) +
                      tr("]"));
-  ui->SibUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->SibUn->setText(tr("[") + Unit::powerUnitToStr(Network::powerUnit) +
                      tr("]"));
-  ui->ShcUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->ShcUn->setText(tr("[") + Unit::powerUnitToStr(Network::powerUnit) +
                      tr("]"));
-  ui->SicUn->setText(tr("[") + Unit::powerUnitToStr(project->powerUnit()) +
+  ui->SicUn->setText(tr("[") + Unit::powerUnitToStr(Network::powerUnit) +
                      tr("]"));
+}
+
+Bar *BarProperties::bar()
+{
+  return bar_;
 }
 
 /*******************************************************************************
@@ -121,9 +131,19 @@ void BarProperties::setOptions(Project *project, Bar *bar)
  ******************************************************************************/
 void BarProperties::on_buttonBox_accepted()
 {
+
+  Network *network = project_->networks.value(ui->network->currentText(), NULL);
+
+  if (network == NULL) {
+    QMessageBox::information(this, "Invalid parameter", "Invalid network.",
+                             QMessageBox::Ok);
+    ui->network->setFocus();
+    return;
+  }
+
   // Check for valid id.
   if(isNew) {
-    if (project_->network->getBarById(ui->id->value()) != NULL) {
+    if (network->getBarById(ui->id->value()) != NULL) {
       QMessageBox::information(this, "Invalid parameter", "Id already in use.",
                                QMessageBox::Ok);
       ui->id->setFocus();
@@ -131,9 +151,9 @@ void BarProperties::on_buttonBox_accepted()
     }
   }
 
-  // Check for empty fields.
-  // Voltages.
-  // Real Part.
+//  // Check for empty fields.
+//  // Voltages.
+//  // Real Part.
   if (ui->Va->text().isEmpty()) {
     QMessageBox::information(this, "Invalid parameter", "Parameter Va is empty.",
                              QMessageBox::Ok);
@@ -286,29 +306,52 @@ void BarProperties::on_buttonBox_accepted()
   // Id.
   bar_->id = ui->id->value();
 
+  // Network
+  bar_->network = network;
+
   // Voltage.
-  bar_->Va.real(ui->Va->text().toDouble());
-  bar_->Vb.real(ui->Vb->text().toDouble());
-  bar_->Vc.real(ui->Vc->text().toDouble());
-  bar_->Va.imag(ui->Vai->text().toDouble());
-  bar_->Vb.imag(ui->Vbi->text().toDouble());
-  bar_->Vc.imag(ui->Vci->text().toDouble());
+  complex<double> voltage;
+  voltage.real(ui->Va->text().toDouble());
+  voltage.imag(ui->Vai->text().toDouble());
+  bar_->setV(0,voltage, Network::voltageUnit);
+
+  voltage.real(ui->Vb->text().toDouble());
+  voltage.imag(ui->Vbi->text().toDouble());
+  bar_->setV(1, voltage, Network::voltageUnit);
+
+
+  voltage.real(ui->Vc->text().toDouble());
+  voltage.imag(ui->Vci->text().toDouble());
+  bar_->setV(2, voltage, Network::voltageUnit);
 
   // Generated power.
-  bar_->Sha.real(ui->Sha->text().toDouble());
-  bar_->Shb.real(ui->Shb->text().toDouble());
-  bar_->Shc.real(ui->Shc->text().toDouble());
-  bar_->Sha.imag(ui->Shai->text().toDouble());
-  bar_->Shb.imag(ui->Shbi->text().toDouble());
-  bar_->Shc.imag(ui->Shci->text().toDouble());
+  complex<double> shunt;
+
+  shunt.real(ui->Sha->text().toDouble());
+  shunt.imag(ui->Shai->text().toDouble());
+  bar_->setSh(0, shunt, Network::powerUnit);
+
+  shunt.real(ui->Shb->text().toDouble());
+  shunt.imag(ui->Shbi->text().toDouble());
+  bar_->setSh(1, shunt, Network::powerUnit);
+
+  shunt.real(ui->Shc->text().toDouble());
+  shunt.imag(ui->Shci->text().toDouble());
+  bar_->setSh(2, shunt, Network::powerUnit);
 
   // Consumed power.
-  bar_->Sia.real(ui->Sia->text().toDouble());
-  bar_->Sib.real(ui->Sib->text().toDouble());
-  bar_->Sic.real(ui->Sic->text().toDouble());
-  bar_->Sia.imag(ui->Siai->text().toDouble());
-  bar_->Sib.imag(ui->Sibi->text().toDouble());
-  bar_->Sic.imag(ui->Sici->text().toDouble());
+  complex<double> injected;
+  injected.real(ui->Sia->text().toDouble());
+  injected.imag(ui->Siai->text().toDouble());
+  bar_->setSi(0, injected, Network::powerUnit);
+
+  injected.real(ui->Sib->text().toDouble());
+  injected.imag(ui->Sibi->text().toDouble());
+  bar_->setSi(1, injected, Network::powerUnit);
+
+  injected.real(ui->Sic->text().toDouble());
+  injected.imag(ui->Sici->text().toDouble());
+  bar_->setSi(2, injected, Network::powerUnit);
 
   // Position
   if((ui->px->text().toDouble() != bar_->x()) ||
@@ -318,7 +361,7 @@ void BarProperties::on_buttonBox_accepted()
 
   // Add Bar to project.
   if (isNew) {
-    if(!project_->network->addBar(bar_)) {
+    if(!network->addBar(bar_)) {
       QMessageBox::critical(this, "Invalid Bar", "Can't add new bar to project.",
                             QMessageBox::Ok);
       delete bar_;

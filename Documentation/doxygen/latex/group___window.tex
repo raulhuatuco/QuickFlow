@@ -1,0 +1,206 @@
+\hypertarget{group___window}{}\subsection{Window}
+\label{group___window}\index{Window@{Window}}
+\subsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \hyperlink{quickflow_8cpp}{quickflow.\+cpp}
+\begin{DoxyCompactList}\small\item\em Main window class implementation. \end{DoxyCompactList}\item 
+file \hyperlink{quickflow_8h}{quickflow.\+h}
+\begin{DoxyCompactList}\small\item\em Main window class definition. \end{DoxyCompactList}\item 
+file \hyperlink{about_8cpp}{about.\+cpp}
+\begin{DoxyCompactList}\small\item\em Implementation of the \hyperlink{class_about}{About} dialog class. \end{DoxyCompactList}\item 
+file \hyperlink{about_8h}{about.\+h}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_about}{About} class definition. \end{DoxyCompactList}\item 
+file \hyperlink{newproject_8cpp}{newproject.\+cpp}
+\begin{DoxyCompactList}\small\item\em Implementation of the \hyperlink{class_new_project}{New\+Project} class. \end{DoxyCompactList}\item 
+file \hyperlink{newproject_8h}{newproject.\+h}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_new_project}{New\+Project} class definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+ \hyperlink{namespace_ui}{Ui}
+\end{DoxyCompactItemize}
+\subsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_quick_flow}{Quick\+Flow}
+\begin{DoxyCompactList}\small\item\em This is the main window of the software. \end{DoxyCompactList}\item 
+class \hyperlink{class_about}{About}
+\begin{DoxyCompactList}\small\item\em Window to display information about the software. \end{DoxyCompactList}\item 
+class \hyperlink{class_new_project}{New\+Project}
+\begin{DoxyCompactList}\small\item\em Gets user input to create a new project. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group___window_ga7689e2608835392fce3f4c95a7a542db}{Quick\+Flow\+::\+Quick\+Flow} (Q\+Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{group___window_ga985823a0db64246b3a15eed2f397e0a4}{Quick\+Flow\+::$\sim$\+Quick\+Flow} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+bool \hyperlink{group___window_ga5d9148467ef65c48419bf020ee107a45}{Quick\+Flow\+::is\+Altered} ()
+\begin{DoxyCompactList}\small\item\em Check if project is altered Check the altered flag. \end{DoxyCompactList}\item 
+void \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{Quick\+Flow\+::set\+Altered} (bool altered)
+\begin{DoxyCompactList}\small\item\em Set the altered flag. \end{DoxyCompactList}\item 
+void \hyperlink{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}{Quick\+Flow\+::close\+Event} (Q\+Close\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\begin{DoxyCompactList}\small\item\em Handles software termination. \end{DoxyCompactList}\item 
+\hyperlink{group___window_gab79599ebbcdeffe0a96e00f010e64177}{About\+::\+About} (Q\+Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{group___window_gace60197b1b610998908036ee1f802204}{About\+::$\sim$\+About} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+\hyperlink{group___window_ga011ff7a4c380f74bdafa4fdaed510c42}{New\+Project\+::\+New\+Project} (Q\+Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_new_project}{New\+Project} constructor. \end{DoxyCompactList}\item 
+\hyperlink{group___window_gae65155941598f4272f3df0b2f1428c78}{New\+Project\+::$\sim$\+New\+Project} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const Q\+String \hyperlink{group___window_gabfc3b1280bdae9a9c046d56b1459ab99}{Quick\+Flow\+::k\+Version} = \char`\"{}0.\+0.\+5\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+
+
+\subsubsection{Function Documentation}
+\hypertarget{group___window_gab79599ebbcdeffe0a96e00f010e64177}{}\index{Window@{Window}!About@{About}}
+\index{About@{About}!Window@{Window}}
+\paragraph[{About}]{\setlength{\rightskip}{0pt plus 5cm}About\+::\+About (
+\begin{DoxyParamCaption}
+\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\label{group___window_gab79599ebbcdeffe0a96e00f010e64177}
+Create the class.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{about_8cpp_source_l00049}{49} of file \hyperlink{about_8cpp_source}{about.\+cpp}.
+
+\hypertarget{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}{}\index{Window@{Window}!close\+Event@{close\+Event}}
+\index{close\+Event@{close\+Event}!Window@{Window}}
+\paragraph[{close\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void Quick\+Flow\+::close\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Close\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}
+This event will check if there is something to be saved and, if so, confirm the user will to save or discard the changes. 
+
+Definition at line \hyperlink{quickflow_8cpp_source_l00631}{631} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+
+\hypertarget{group___window_ga5d9148467ef65c48419bf020ee107a45}{}\index{Window@{Window}!is\+Altered@{is\+Altered}}
+\index{is\+Altered@{is\+Altered}!Window@{Window}}
+\paragraph[{is\+Altered}]{\setlength{\rightskip}{0pt plus 5cm}bool Quick\+Flow\+::is\+Altered (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___window_ga5d9148467ef65c48419bf020ee107a45}
+This flag is cleared everytime the project is saved and is set when any alteration occurs.
+
+\begin{DoxyReturn}{Returns}
+true if project has been altered, false otherwise.
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+Must be replaced by Qt undo framework. 
+\end{DoxyNote}
+
+
+Definition at line \hyperlink{quickflow_8cpp_source_l00111}{111} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+
+\hypertarget{group___window_ga011ff7a4c380f74bdafa4fdaed510c42}{}\index{Window@{Window}!New\+Project@{New\+Project}}
+\index{New\+Project@{New\+Project}!Window@{Window}}
+\paragraph[{New\+Project}]{\setlength{\rightskip}{0pt plus 5cm}New\+Project\+::\+New\+Project (
+\begin{DoxyParamCaption}
+\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\label{group___window_ga011ff7a4c380f74bdafa4fdaed510c42}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{newproject_8cpp_source_l00056}{56} of file \hyperlink{newproject_8cpp_source}{newproject.\+cpp}.
+
+\hypertarget{group___window_ga7689e2608835392fce3f4c95a7a542db}{}\index{Window@{Window}!Quick\+Flow@{Quick\+Flow}}
+\index{Quick\+Flow@{Quick\+Flow}!Window@{Window}}
+\paragraph[{Quick\+Flow}]{\setlength{\rightskip}{0pt plus 5cm}Quick\+Flow\+::\+Quick\+Flow (
+\begin{DoxyParamCaption}
+\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\label{group___window_ga7689e2608835392fce3f4c95a7a542db}
+Here, we must initialize the user interface and load the software settings, updating or creating a new set of configurantion if needed.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{quickflow_8cpp_source_l00066}{66} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+
+\hypertarget{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{}\index{Window@{Window}!set\+Altered@{set\+Altered}}
+\index{set\+Altered@{set\+Altered}!Window@{Window}}
+\paragraph[{set\+Altered}]{\setlength{\rightskip}{0pt plus 5cm}void Quick\+Flow\+::set\+Altered (
+\begin{DoxyParamCaption}
+\item[{bool}]{altered}
+\end{DoxyParamCaption}
+)}\label{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}
+If {\bfseries altered} is true, enable the save action and set altered\+\_\+ to true. If false, disable the save action.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em altered} & Must be replaced by Qt undo framework. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{quickflow_8cpp_source_l00119}{119} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+
+\hypertarget{group___window_gace60197b1b610998908036ee1f802204}{}\index{Window@{Window}!````~About@{$\sim$\+About}}
+\index{````~About@{$\sim$\+About}!Window@{Window}}
+\paragraph[{$\sim$\+About}]{\setlength{\rightskip}{0pt plus 5cm}About\+::$\sim$\+About (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___window_gace60197b1b610998908036ee1f802204}
+Destroy user interface. 
+
+Definition at line \hyperlink{about_8cpp_source_l00059}{59} of file \hyperlink{about_8cpp_source}{about.\+cpp}.
+
+\hypertarget{group___window_gae65155941598f4272f3df0b2f1428c78}{}\index{Window@{Window}!````~New\+Project@{$\sim$\+New\+Project}}
+\index{````~New\+Project@{$\sim$\+New\+Project}!Window@{Window}}
+\paragraph[{$\sim$\+New\+Project}]{\setlength{\rightskip}{0pt plus 5cm}New\+Project\+::$\sim$\+New\+Project (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___window_gae65155941598f4272f3df0b2f1428c78}
+Destroy user interface. 
+
+Definition at line \hyperlink{newproject_8cpp_source_l00095}{95} of file \hyperlink{newproject_8cpp_source}{newproject.\+cpp}.
+
+\hypertarget{group___window_ga985823a0db64246b3a15eed2f397e0a4}{}\index{Window@{Window}!````~Quick\+Flow@{$\sim$\+Quick\+Flow}}
+\index{````~Quick\+Flow@{$\sim$\+Quick\+Flow}!Window@{Window}}
+\paragraph[{$\sim$\+Quick\+Flow}]{\setlength{\rightskip}{0pt plus 5cm}Quick\+Flow\+::$\sim$\+Quick\+Flow (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___window_ga985823a0db64246b3a15eed2f397e0a4}
+Must delete the user interface. 
+
+Definition at line \hyperlink{quickflow_8cpp_source_l00103}{103} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+
+
+
+\subsubsection{Variable Documentation}
+\hypertarget{group___window_gabfc3b1280bdae9a9c046d56b1459ab99}{}\index{Window@{Window}!k\+Version@{k\+Version}}
+\index{k\+Version@{k\+Version}!Window@{Window}}
+\paragraph[{k\+Version}]{\setlength{\rightskip}{0pt plus 5cm}const Q\+String Quick\+Flow\+::k\+Version = \char`\"{}0.\+0.\+5\char`\"{}\hspace{0.3cm}{\ttfamily [static]}}\label{group___window_gabfc3b1280bdae9a9c046d56b1459ab99}
+
+
+Definition at line \hyperlink{quickflow_8h_source_l00077}{77} of file \hyperlink{quickflow_8h_source}{quickflow.\+h}.
+

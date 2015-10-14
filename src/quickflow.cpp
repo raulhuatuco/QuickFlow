@@ -1,22 +1,70 @@
+/*
+ * The MIT License (MIT)
+ *
+ * Copyright (c) 2015 David Krepsky
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+/*!
+ * \addtogroup Window
+ * \{
+ */
+
+/*!
+ * \file quickflow.cpp
+ *
+ * \brief Main window class implementation.
+ *
+ * This file is the implementation of the QuickFlow class.
+ *
+ * \author David Krepsky
+ * \version 0.2
+ * \date 10/2015
+ * \copyright David Krepsky
+ */
+
 #include "quickflow.h"
 #include "ui_quickflow.h"
 
-#include "models/bar.h"
-#include "models/line.h"
-#include "graphics/network.h"
 
 #include "window/newproject.h"
+#include "window/networkproperties.h"
 #include "window/barproperties.h"
 #include "window/lineproperties.h"
+#include "window/about.h"
+
+#include "models/bar.h"
+#include "models/line.h"
+#include "models/network.h"
 
 #include "algorithms/import.h"
 #include "algorithms/redraw.h"
 #include "algorithms/shirmoharmmadi.h"
 
-QString const kVersion = "0.0.4";
+/*****************************************************************************
+* Const.
+*****************************************************************************/
+const QString QuickFlow::kVersion = "0.0.5";
 
 /*******************************************************************************
- * QKflow.
+ * Constructor.
  ******************************************************************************/
 QuickFlow::QuickFlow(QWidget *parent)
   : QMainWindow(parent),
@@ -33,7 +81,7 @@ QuickFlow::QuickFlow(QWidget *parent)
   // Set application info.
   QCoreApplication::setOrganizationName("DKrepsky");
   QCoreApplication::setOrganizationDomain("dkrepsky.blogspot.com.br");
-  QCoreApplication::setApplicationName("QkFlow");
+  QCoreApplication::setApplicationName("QuickFlow");
   QCoreApplication::setApplicationVersion(kVersion);
 
   // Check for settings existence and version.
@@ -50,18 +98,21 @@ QuickFlow::QuickFlow(QWidget *parent)
     // If there is no settings availiable, create a new one with default values.
     createSettings();
   }
+
+  connectSignals();
 }
 
 /*******************************************************************************
- * ~QKflow.
+ * Destructor.
  ******************************************************************************/
 QuickFlow::~QuickFlow()
 {
+  disconnectSignals();
   delete ui;
 }
 
 /*******************************************************************************
- * isAltered.
+ * Is altered.
  ******************************************************************************/
 bool QuickFlow::isAltered()
 {
@@ -69,158 +120,57 @@ bool QuickFlow::isAltered()
 }
 
 /*******************************************************************************
- * setAltered.
+ * Set altered.
  ******************************************************************************/
 void QuickFlow::setAltered(bool altered)
 {
   altered_ = altered;
 
-  if(altered_)
+  if(altered_) {
     ui->actionSave->setEnabled(true);
-  else
+    // Change window title to indicate that the project is altered.
+    setWindowTitle("QkFlow - *" + project->name);
+  } else {
     ui->actionSave->setEnabled(false);
+    // Change window title to indicate that the project has been saved.
+    setWindowTitle("QkFlow - " + project->name);
+  }
 }
 
 /*******************************************************************************
- * noProjectInterface.
+ * Zoom in action.
  ******************************************************************************/
-void QuickFlow::noProjectInterface()
+void QuickFlow::on_actionZoomIn_triggered()
 {
-  // Project actions.
-  ui->actionNew->setEnabled(true);
-  ui->actionOpen->setEnabled(true);
-  ui->actionSave->setEnabled(false);
-  ui->actionSave_as->setEnabled(false);
-  ui->actionClose->setEnabled(false);
-  ui->actionSettings->setEnabled(false);
-
-  // Simulation actions.
-  ui->actionPause->setEnabled(false);
-  ui->actionRun->setEnabled(false);
-  ui->actionStop->setEnabled(false);
-
-  // Zoom actions.
-  ui->actionZoomFit->setEnabled(false);
-  ui->actionZoomIn->setEnabled(false);
-  ui->actionZoomOut->setEnabled(false);
-
-  // Power network actions
-  ui->actionAddBar->setEnabled(false);
-  ui->actionAddLine->setEnabled(false);
-
-  // Disable viewer
-  ui->systemView->setEnabled(false);
+  ui->systemView->zoomIn();
 }
 
 /*******************************************************************************
- * workInterface.
+ * Zoom out action.
  ******************************************************************************/
-void QuickFlow::workInterface()
+void QuickFlow::on_actionZoomOut_triggered()
 {
-  // Project actions.
-  ui->actionNew->setEnabled(true);
-  ui->actionOpen->setEnabled(true);
-  ui->actionSave->setEnabled(false);
-  ui->actionSave_as->setEnabled(true);
-  ui->actionClose->setEnabled(true);
-  ui->actionSettings->setEnabled(true);
-
-  // Simulation actions.
-  ui->actionPause->setEnabled(true);
-  ui->actionRun->setEnabled(true);
-  ui->actionStop->setEnabled(true);
-
-  // Zoom actions.
-  ui->actionZoomFit->setEnabled(true);
-  ui->actionZoomIn->setEnabled(true);
-  ui->actionZoomOut->setEnabled(true);
-
-  // Power network actions
-  ui->actionAddBar->setEnabled(true);
-  ui->actionAddLine->setEnabled(true);
-
-  // Enable viewer
-  ui->systemView->setEnabled(true);
+  ui->systemView->zoomOut();
 }
 
 /*******************************************************************************
- * loadSettings.
+ * Zoom fit action.
  ******************************************************************************/
-void QuickFlow::loadSettings()
+void QuickFlow::on_actionZoomFit_triggered()
 {
-  // systemView background.
-  QBrush bkbrush;
-  bkbrush.setColor(settings->value("systemView_background").value<QColor>());
-  bkbrush.setStyle(Qt::SolidPattern);
-  ui->systemView->setBackgroundBrush(bkbrush);
+  ui->systemView->zoomFit();
 }
 
 /*******************************************************************************
- * saveSettings.
+ * Exit action.
  ******************************************************************************/
-void QuickFlow::saveSettings()
+void QuickFlow::on_actionExit_triggered()
 {
-  // systemView background.
-  settings->setValue("systemView_background", ui->systemView->backgroundBrush());
-
-  // Save settings.
-  settings->sync();
+  close();
 }
 
 /*******************************************************************************
- * createSettings.
- ******************************************************************************/
-void QuickFlow::createSettings()
-{
-  // Save version.
-  settings->setValue("version", kVersion);
-
-//  systemView background.
-  QBrush bkbrush;
-  bkbrush.setColor(Qt::white);
-  bkbrush.setStyle(Qt::SolidPattern);
-  ui->systemView->setBackgroundBrush(bkbrush);
-
-  // Store settings.
-  saveSettings();
-}
-
-/*******************************************************************************
- * upgradeSettings.
- ******************************************************************************/
-void QuickFlow::upgradeSettings()
-{
-  // Remove everything and create a default.
-  settings->clear();
-  createSettings();
-}
-
-/*******************************************************************************
- * Connect Signals.
- ******************************************************************************/
-void QuickFlow::connectSignals()
-{
-  connect(project->network, SIGNAL(barProperties(QObject *)), this,
-          SLOT(on_editBar(QObject *)));
-
-  connect(project->network, SIGNAL(lineProperties(QObject *)), this,
-          SLOT(on_editLine(QObject *)));
-}
-
-/*******************************************************************************
- * Disconnect Signals.
- ******************************************************************************/
-void QuickFlow::disconnectSignals()
-{
-  disconnect(project->network, SIGNAL(barProperties(QObject *)), this,
-             SLOT(on_editBar(QObject *)));
-
-  disconnect(project->network, SIGNAL(lineProperties(QObject *)), this,
-             SLOT(on_editLine(QObject *)));
-}
-
-/*******************************************************************************
- * Action New Project triggered.
+ * New project action.
  ******************************************************************************/
 void QuickFlow::on_actionNew_triggered()
 {
@@ -259,10 +209,10 @@ void QuickFlow::on_actionNew_triggered()
   project->setImpedanceUn(newProject.dataImpedanceUnit);
   project->setVoltageUn(newProject.dataVoltageUnit);
   project->setPowerUn(newProject.dataPowerUnit);
+  project->setCurrentUnit(newProject.dataCurrentUnit);
 
   // Try to save project.
-  bool save_ok =
-    project->save();
+  bool save_ok = project->save();
 
   if (!save_ok) {
     QMessageBox::critical(this, "File write error",
@@ -277,15 +227,10 @@ void QuickFlow::on_actionNew_triggered()
   setWindowTitle("QkFlow - " + newProject.dataName);
   // Enable interface
   workInterface();
-  // Set screne
-  ui->systemView->addNetwork(project->network);
-
-  // Connect signals.
-  connectSignals();
 }
 
 /*******************************************************************************
- * Action Open triggered.
+ * Open project action.
  ******************************************************************************/
 void QuickFlow::on_actionOpen_triggered()
 {
@@ -332,15 +277,14 @@ void QuickFlow::on_actionOpen_triggered()
   // Enable interface.
   workInterface();
 
-  // Set screne.
-  ui->systemView->addNetwork(project->network);
-
-  // Connect signals.
-  connectSignals();
+  // Add networks
+  foreach(Network *network, project->networks) {
+    ui->systemView->addNetwork(network);
+  }
 }
 
 /*******************************************************************************
- * Action Save triggered.
+ * Save project action.
  ******************************************************************************/
 void QuickFlow::on_actionSave_triggered()
 {
@@ -353,14 +297,11 @@ void QuickFlow::on_actionSave_triggered()
     }
   }
 
-  // Project doesnt have any new modifications now.
-  // Disable save button.
-  ui->actionSave->setEnabled(false);
-  altered_ = false;
+  setAltered(false);
 }
 
 /*******************************************************************************
- * Action Save As triggered.
+ * Save project as action.
  ******************************************************************************/
 void QuickFlow::on_actionSave_as_triggered()
 {
@@ -389,14 +330,11 @@ void QuickFlow::on_actionSave_as_triggered()
   // Adjust Project settings.
   project->filePath = filePath;
 
-  // Project doesnt have any new modifications now.
-  // Disable save button.
-  ui->actionSave->setEnabled(false);
-  altered_ = false;
+  setAltered(false);
 }
 
 /*******************************************************************************
-* Action Close triggered.
+* Close project action.
 ******************************************************************************/
 void QuickFlow::on_actionClose_triggered()
 {
@@ -431,63 +369,35 @@ void QuickFlow::on_actionClose_triggered()
     }
   }
 
-  // Disconnect signals.
-  disconnectSignals();
+  foreach(Network *network, project->networks) {
+    ui->systemView->removeNetwork(network);
+  }
 
-  delete project->network;
+  ui->systemView->zoomFit();
+
   delete project;
   project = NULL;
   altered_ = false;
   noProjectInterface();
+  setWindowTitle("QuickFlow");
 }
 
-/*******************************************************************************
- * Action ZoomIn triggered.
- ******************************************************************************/
-void QuickFlow::on_actionZoomIn_triggered()
-{
-  ui->systemView->zoomIn();
-}
 
 /*******************************************************************************
- * Action ZoomOut triggered.
- ******************************************************************************/
-void QuickFlow::on_actionZoomOut_triggered()
+* Add network action.
+******************************************************************************/
+void QuickFlow::on_actionAdd_Network_triggered()
 {
-  ui->systemView->zoomOut();
-}
+  NetworkProperties newNetwork(this);
+  newNetwork.setOptions(project, NULL);
 
-/*******************************************************************************
- * Action ZoomFit triggered.
- ******************************************************************************/
-void QuickFlow::on_actionZoomFit_triggered()
-{
-  ui->systemView->zoomFit();
-}
-
-/*******************************************************************************
- * Action Search Bar triggered.
- ******************************************************************************/
-void QuickFlow::on_actionSearch_Bar_triggered()
-{
-  bool ok;
-  int barId = QInputDialog::getInt(this, tr("Search for bar"), tr("Bad Id"), 0, 0,
-                                   1000000, 1, &ok);
-
-  if(ok) {
-    Bar *bar = project->network->getBarById(barId);
-
-    if (bar != NULL) {
-      ui->systemView->fitInView(bar->x() -100, bar->y() -100,
-                                bar->boundingRect().width() +100,
-                                bar->boundingRect().height() +100,
-                                Qt::IgnoreAspectRatio);
-    }
+  if (newNetwork.exec() == QDialog::Accepted) {
+    setAltered(true);
   }
 }
 
 /*******************************************************************************
- * Action Add Bar triggered.
+ * Add bar action.
  ******************************************************************************/
 void QuickFlow::on_actionAddBar_triggered()
 {
@@ -496,11 +406,12 @@ void QuickFlow::on_actionAddBar_triggered()
 
   if (barProperties.exec() == QDialog::Accepted) {
     setAltered(true);
+    ui->systemView->addBar(barProperties.bar());
   }
 }
 
 /*******************************************************************************
- * Action Add Line triggered.
+ * Add line action.
  ******************************************************************************/
 void QuickFlow::on_actionAddLine_triggered()
 {
@@ -509,11 +420,12 @@ void QuickFlow::on_actionAddLine_triggered()
 
   if (lineProperties.exec() == QDialog::Accepted) {
     setAltered(true);
+    ui->systemView->addLine(lineProperties.line());
   }
 }
 
 /*******************************************************************************
- * Action Import Txt Type 1 triggered.
+ * Import txt type 1 action.
  ******************************************************************************/
 void QuickFlow::on_action_txt_type_1_triggered()
 {
@@ -550,14 +462,14 @@ void QuickFlow::on_action_txt_type_1_triggered()
   } else {
     workInterface();
     setAltered(true);
-    ui->systemView->addNetwork(project->network);
-    connectSignals();
+    //ui->systemView->addNetwork(project->network);
+    //connectSignals();
     ui->systemView->zoomFit();
   }
 }
 
 /*******************************************************************************
- * Action Import Txt Type 2 triggered.
+ * Import txt type 2 action.
  ******************************************************************************/
 void QuickFlow::on_action_txt_type_2_triggered()
 {
@@ -594,14 +506,14 @@ void QuickFlow::on_action_txt_type_2_triggered()
   } else {
     workInterface();
     setAltered(true);
-    ui->systemView->addNetwork(project->network);
-    connectSignals();
+    //ui->systemView->addNetwork(project->network);
+    //connectSignals();
     ui->systemView->zoomFit();
   }
 }
 
 /*******************************************************************************
- * Action Import Txt Type 3 triggered.
+ * Import txt type 3 action.
  ******************************************************************************/
 void QuickFlow::on_action_txt_type_3_triggered()
 {
@@ -638,26 +550,26 @@ void QuickFlow::on_action_txt_type_3_triggered()
   } else {
     workInterface();
     setAltered(true);
-    ui->systemView->addNetwork(project->network);
-    connectSignals();
+    //ui->systemView->addNetwork(project->network);
+    //connectSignals();
     ui->systemView->zoomFit();
   }
 }
 
 /*******************************************************************************
- * Action Cespedes triggered.
+ * Cespedes action.
  ******************************************************************************/
 void QuickFlow::on_actionCespedes_triggered()
 {
-  if(ui->actionShirmoharmnadi->isChecked()) {
-    ui->actionShirmoharmnadi->setChecked(false);
+  if(ui->actionShirmoharmmadi->isChecked()) {
+    ui->actionShirmoharmmadi->setChecked(false);
   }
 }
 
 /*******************************************************************************
- * Action Shirmoharmnadi triggered.
+ * Shirmoharmmadi action.
  ******************************************************************************/
-void QuickFlow::on_actionShirmoharmnadi_triggered()
+void QuickFlow::on_actionShirmoharmmadi_triggered()
 {
   if(ui->actionCespedes->isChecked()) {
     ui->actionCespedes->setChecked(false);
@@ -665,58 +577,92 @@ void QuickFlow::on_actionShirmoharmnadi_triggered()
 }
 
 /*******************************************************************************
- * Action Run triggered.
- ******************************************************************************/
-void QuickFlow::on_actionRun_triggered()
-{
-    
-}
-
-/*******************************************************************************
- * Action Pause triggered.
- ******************************************************************************/
-void QuickFlow::on_actionPause_triggered()
-{
-
-}
-
-/*******************************************************************************
- * Action Redraw Sigiyama.
+ * Sugiyama graph algorithm action.
  ******************************************************************************/
 void QuickFlow::on_actionSugiyama_triggered()
 {
-  redrawGraph2(project->network);
+  //redrawGraph2(project->network);
   ui->systemView->zoomFit();
 }
 
 /*******************************************************************************
- * Action Redraw Sigiyama Fast.
+ * Sugiyama fast graph algorithm action.
  ******************************************************************************/
 void QuickFlow::on_actionSugiyama_Fast_triggered()
 {
-  redrawGraph1(project->network);
+  //redrawGraph1(project->network);
   ui->systemView->zoomFit();
 }
 
 /*******************************************************************************
- * Action Redraw MultiLevel.
+ *  Multi-level graph algorithm action.
  ******************************************************************************/
 void QuickFlow::on_actionMulti_level_triggered()
 {
-  redrawGraph3(project->network);
+  //redrawGraph3(project->network);
   ui->systemView->zoomFit();
 }
 
 /*******************************************************************************
- * Action Exit triggered.
+ * Search bar action.
  ******************************************************************************/
-void QuickFlow::on_actionExit_triggered()
+void QuickFlow::on_actionSearch_Bar_triggered()
 {
-  close();
+  bool ok;
+  int barId = QInputDialog::getInt(this, tr("Search for bar"), tr("Bad Id"), 0, 0,
+                                   1000000, 1, &ok);
+
+  if(ok) {
+    //Bar *bar = project->network->getBarById(barId);
+
+    //if (bar != NULL) {
+//      ui->systemView->fitInView(bar->x() -100, bar->y() -100,
+//                                bar->boundingRect().width() +100,
+//                                bar->boundingRect().height() +100,
+//                                Qt::IgnoreAspectRatio);
+//    }
+  }
 }
 
 /*******************************************************************************
- * closeEvent.
+ * Run action.
+ ******************************************************************************/
+void QuickFlow::on_actionRun_triggered()
+{
+
+}
+
+/*******************************************************************************
+ * About action.
+ ******************************************************************************/
+void QuickFlow::on_actionAbout_triggered()
+{
+  About about(this);
+  about.exec();
+}
+
+void QuickFlow::on_editBar(QObject *bar)
+{
+  BarProperties barProperties(this);
+  barProperties.setOptions(project, static_cast<Bar *>(bar));
+
+  if (barProperties.exec() == QDialog::Accepted) {
+    setAltered(true);
+  }
+}
+
+void QuickFlow::on_editLine(QObject *line)
+{
+  LineProperties lineProperties(this);
+  lineProperties.setOptions(project, static_cast<Line *>(line));
+
+  if (lineProperties.exec() == QDialog::Accepted) {
+    setAltered(true);
+  }
+}
+
+/*******************************************************************************
+ * Close event.
  ******************************************************************************/
 void QuickFlow::closeEvent(QCloseEvent *event)
 {
@@ -739,27 +685,159 @@ void QuickFlow::closeEvent(QCloseEvent *event)
 }
 
 /*******************************************************************************
- * Bar Double Click.
+ * Load application settings.
  ******************************************************************************/
-void QuickFlow::on_editBar(QObject *bar)
+void QuickFlow::loadSettings()
 {
-  BarProperties barProperties(this);
-  barProperties.setOptions(project, static_cast<Bar *>(bar));
-
-  if (barProperties.exec() == QDialog::Accepted) {
-    setAltered(true);
-  }
+  // systemView background.
+  QBrush bkbrush;
+  bkbrush.setColor(settings->value("systemView_background").value<QColor>());
+  bkbrush.setStyle(Qt::SolidPattern);
+  ui->systemView->setBackgroundBrush(bkbrush);
 }
 
 /*******************************************************************************
- * Line Double Click.
+ * Save application settings.
  ******************************************************************************/
-void QuickFlow::on_editLine(QObject *line)
+void QuickFlow::saveSettings()
 {
-  LineProperties lineProperties(this);
-  lineProperties.setOptions(project, static_cast<Line *>(line));
+  // systemView background.
+  settings->setValue("systemView_background", ui->systemView->backgroundBrush());
 
-  if (lineProperties.exec() == QDialog::Accepted) {
-    setAltered(true);
-  }
+  // Save settings.
+  settings->sync();
 }
+
+/*******************************************************************************
+ * Create application settings.
+ ******************************************************************************/
+void QuickFlow::createSettings()
+{
+  // Save version.
+  settings->setValue("version", kVersion);
+
+//  systemView background.
+  QBrush bkbrush;
+  bkbrush.setColor(Qt::white);
+  bkbrush.setStyle(Qt::SolidPattern);
+  ui->systemView->setBackgroundBrush(bkbrush);
+
+  // Store settings.
+  saveSettings();
+}
+
+/*******************************************************************************
+ * Upgrade application settings.
+ ******************************************************************************/
+void QuickFlow::upgradeSettings()
+{
+  // Remove everything and create a default.
+  settings->clear();
+  createSettings();
+}
+
+/*******************************************************************************
+ * No project interface.
+ ******************************************************************************/
+void QuickFlow::noProjectInterface()
+{
+  // Project actions.
+  ui->actionNew->setEnabled(true);
+  ui->actionOpen->setEnabled(true);
+  ui->actionSave->setEnabled(false);
+  ui->actionSave_as->setEnabled(false);
+  ui->actionClose->setEnabled(false);
+  ui->actionSettings->setEnabled(false);
+
+  // Simulation actions.
+  ui->actionRun->setEnabled(false);
+  ui->actionExport->setEnabled(false);
+
+  // Zoom actions.
+  ui->actionZoomFit->setEnabled(false);
+  ui->actionZoomIn->setEnabled(false);
+  ui->actionZoomOut->setEnabled(false);
+
+  // Power network actions
+  ui->actionAdd_Network->setEnabled(false);
+  ui->actionAddBar->setEnabled(false);
+  ui->actionAddLine->setEnabled(false);
+  ui->actionSearch_Bar->setEnabled(false);
+
+  // Algorithms actions.
+  ui->actionShirmoharmmadi->setEnabled(false);
+  ui->actionCespedes->setEnabled(false);
+  ui->actionSugiyama->setEnabled(false);
+  ui->actionSugiyama_Fast->setEnabled(false);
+  ui->actionMulti_level->setEnabled(false);
+
+  // Disable viewer.
+  ui->systemView->setEnabled(false);
+}
+
+/*******************************************************************************
+ * Work interface.
+ ******************************************************************************/
+void QuickFlow::workInterface()
+{
+  // Project actions.
+  ui->actionNew->setEnabled(true);
+  ui->actionOpen->setEnabled(true);
+  ui->actionSave->setEnabled(false);
+  ui->actionSave_as->setEnabled(true);
+  ui->actionClose->setEnabled(true);
+  ui->actionSettings->setEnabled(true);
+
+  // Simulation actions.
+  ui->actionRun->setEnabled(true);
+  ui->actionExport->setEnabled(true);
+
+  // Zoom actions.
+  ui->actionZoomFit->setEnabled(true);
+  ui->actionZoomIn->setEnabled(true);
+  ui->actionZoomOut->setEnabled(true);
+
+  // Power network actions
+  ui->actionAdd_Network->setEnabled(true);
+  ui->actionAddBar->setEnabled(true);
+  ui->actionAddLine->setEnabled(true);
+  ui->actionSearch_Bar->setEnabled(true);
+
+  // Algorithms actions.
+  ui->actionShirmoharmmadi->setEnabled(true);
+  ui->actionCespedes->setEnabled(true);
+  ui->actionSugiyama->setEnabled(true);
+  ui->actionSugiyama_Fast->setEnabled(true);
+  ui->actionMulti_level->setEnabled(true);
+
+  // Enable viewer
+  ui->systemView->setEnabled(true);
+}
+
+/*******************************************************************************
+ * Connect Signals.
+ ******************************************************************************/
+void QuickFlow::connectSignals()
+{
+  connect(ui->systemView, SIGNAL(barProperties(QObject *)), this,
+          SLOT(on_editBar(QObject *)));
+
+  connect(ui->systemView, SIGNAL(lineProperties(QObject *)), this,
+          SLOT(on_editLine(QObject *)));
+}
+
+/*******************************************************************************
+ * Disconnect Signals.
+ ******************************************************************************/
+void QuickFlow::disconnectSignals()
+{
+  disconnect(ui->systemView, SIGNAL(barProperties(QObject *)), this,
+             SLOT(on_editBar(QObject *)));
+
+  disconnect(ui->systemView, SIGNAL(lineProperties(QObject *)), this,
+             SLOT(on_editLine(QObject *)));
+}
+
+/*!
+ * \}
+ */

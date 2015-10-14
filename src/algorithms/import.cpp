@@ -2,7 +2,7 @@
 #include <QtGui>
 #include <QtCore>
 #include <QtWidgets>
-#include "graphics/network.h"
+#include "models/network.h"
 #include "algorithms/redraw.h"
 
 static Project *preprocessProject(QFile &file)
@@ -278,140 +278,140 @@ Project *importTxtType1(QString &fileName)
 //------------------------------------------------------------------------------
   QString lineTxt;
 
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+//  do {
+//    lineTxt = stream.readLine();
+//    lineCnt++;
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName + " doesn't provide bars.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("[n"));
+//    if(stream.atEnd()) {
+//      QMessageBox::critical(NULL, "Invalid File.",
+//                            "The file " + fileName + " doesn't provide bars.",
+//                            QMessageBox::Ok);
+//      delete project;
+//      return NULL;
+//    }
+//  } while(!lineTxt.contains("[n"));
 
-  int32_t id;
-  int32_t barType;
-  double Sia, Siai;
-  double Sib, Sibi;
-  double Sic, Sici;
-  double Sha, Shai;
-  double Shb, Shbi;
-  double Shc, Shci;
+//  int32_t id;
+//  int32_t barType;
+//  double Sia, Siai;
+//  double Sib, Sibi;
+//  double Sic, Sici;
+//  double Sha, Shai;
+//  double Shb, Shbi;
+//  double Shc, Shci;
 
-  int32_t idBase = 0;
+//  int32_t idBase = 0;
 
-  Bar *bar;
+//  Bar *bar;
 
-  for(int32_t i=0; i<numBar; i++) {
-    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;
-    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;
+//  for(int32_t i=0; i<numBar; i++) {
+//    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;
+//    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;
 
-    if(barType == 3)
-      idBase = id;
+//    if(barType == 3)
+//      idBase = id;
 
-    bar = new Bar;
-    bar->id = id - idBase;
+//    bar = new Bar;
+//    bar->id = id - idBase;
 
-    bar->Sha.real(Sha);
-    bar->Sha.imag(Shai);
-    bar->Shb.real(Shb);
-    bar->Shb.imag(Shbi);
-    bar->Shc.real(Shc);
-    bar->Shc.imag(Shci);
-    bar->Sia.real(Sia);
-    bar->Sia.imag(Siai);
-    bar->Sib.real(Sib);
-    bar->Sib.imag(Sibi);
-    bar->Sic.real(Sic);
-    bar->Sic.imag(Sici);
+//    bar->Sha.real(Sha);
+//    bar->Sha.imag(Shai);
+//    bar->Shb.real(Shb);
+//    bar->Shb.imag(Shbi);
+//    bar->Shc.real(Shc);
+//    bar->Shc.imag(Shci);
+//    bar->Sia.real(Sia);
+//    bar->Sia.imag(Siai);
+//    bar->Sib.real(Sib);
+//    bar->Sib.imag(Sibi);
+//    bar->Sic.real(Sic);
+//    bar->Sic.imag(Sici);
 
-    if (!project->network->addBar(bar)) {
-      QMessageBox::critical(NULL, "Invalid Bar.",
-                            "Invalid Bar " + QString::number(id) + "at line " +
-                            QString::number(lineCnt) + ".",
-                            QMessageBox::Ok);
-      delete bar;
-      delete project;
-      return NULL;
-    }
+//    if (!project->network->addBar(bar)) {
+//      QMessageBox::critical(NULL, "Invalid Bar.",
+//                            "Invalid Bar " + QString::number(id) + "at line " +
+//                            QString::number(lineCnt) + ".",
+//                            QMessageBox::Ok);
+//      delete bar;
+//      delete project;
+//      return NULL;
+//    }
 
-    lineTxt = stream.readLine();
-    lineCnt++;
-  }
+//    lineTxt = stream.readLine();
+//    lineCnt++;
+//  }
 
-//// Get Lines.
-////------------------------------------------------------------------------------
-  do {
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName + " doesn't provide lines.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
+////// Get Lines.
+//////------------------------------------------------------------------------------
+//  do {
+//    if(stream.atEnd()) {
+//      QMessageBox::critical(NULL, "Invalid File.",
+//                            "The file " + fileName + " doesn't provide lines.",
+//                            QMessageBox::Ok);
+//      delete project;
+//      return NULL;
+//    }
 
-    lineTxt = stream.readLine();
-    lineCnt++;
-  } while(!lineTxt.contains("Tipo_Cir"));
+//    lineTxt = stream.readLine();
+//    lineCnt++;
+//  } while(!lineTxt.contains("Tipo_Cir"));
 
-  int32_t noI, noF;
-  double Zaa, Zaai;
-  double Zab, Zabi;
-  double Zac, Zaci;
-  double Zbb, Zbbi;
-  double Zbc, Zbci;
-  double Zcc, Zcci;
-  double length;
-  QString dummy;
+//  int32_t noI, noF;
+//  double Zaa, Zaai;
+//  double Zab, Zabi;
+//  double Zac, Zaci;
+//  double Zbb, Zbbi;
+//  double Zbc, Zbci;
+//  double Zcc, Zcci;
+//  double length;
+//  QString dummy;
 
-  Line *line;
+//  Line *line;
 
-  for(int32_t i=0; i<numLine; i++) {
-    stream >> dummy >> noI >> noF >> dummy >> dummy >> dummy >> dummy >> Zaa >> Zaai
-           >> Zbb >> Zbbi >> Zcc;
-    stream >> Zcci >> dummy >> dummy >> Zab >> Zabi >> Zac >> Zaci >> dummy >>
-           dummy;
-    stream >> Zbc >> Zbci >> dummy >> dummy >> dummy >> dummy >> dummy >>   length;
+//  for(int32_t i=0; i<numLine; i++) {
+//    stream >> dummy >> noI >> noF >> dummy >> dummy >> dummy >> dummy >> Zaa >> Zaai
+//           >> Zbb >> Zbbi >> Zcc;
+//    stream >> Zcci >> dummy >> dummy >> Zab >> Zabi >> Zac >> Zaci >> dummy >>
+//           dummy;
+//    stream >> Zbc >> Zbci >> dummy >> dummy >> dummy >> dummy >> dummy >>   length;
 
-    line = new Line;
-    line->noI = noI - idBase;
-    line->noF = noF - idBase;
+//    line = new Line;
+//    line->noI = noI - idBase;
+//    line->noF = noF - idBase;
 
-    line->length = length;
+//    line->length = length;
 
-    line->Zaa.real(Zaa);
-    line->Zaa.imag(Zaai);
-    line->Zab.real(Zab);
-    line->Zab.imag(Zabi);
-    line->Zac.real(Zac);
-    line->Zac.imag(Zaci);
-    line->Zbb.real(Zbb);
-    line->Zbb.imag(Zbbi);
-    line->Zbc.real(Zbc);
-    line->Zbc.imag(Zbci);
-    line->Zcc.real(Zcc);
-    line->Zcc.imag(Zcci);
+//    line->Zaa.real(Zaa);
+//    line->Zaa.imag(Zaai);
+//    line->Zab.real(Zab);
+//    line->Zab.imag(Zabi);
+//    line->Zac.real(Zac);
+//    line->Zac.imag(Zaci);
+//    line->Zbb.real(Zbb);
+//    line->Zbb.imag(Zbbi);
+//    line->Zbc.real(Zbc);
+//    line->Zbc.imag(Zbci);
+//    line->Zcc.real(Zcc);
+//    line->Zcc.imag(Zcci);
 
-    if (!project->network->addLine(line)) {
-      QMessageBox::critical(NULL, "Invalid Line.",
-                            "Invalid Line at line " +
-                            QString::number(lineCnt) + ".",
-                            QMessageBox::Ok);
-      delete line;
-      delete project;
-      return NULL;
-    }
+//    if (!project->network->addLine(line)) {
+//      QMessageBox::critical(NULL, "Invalid Line.",
+//                            "Invalid Line at line " +
+//                            QString::number(lineCnt) + ".",
+//                            QMessageBox::Ok);
+//      delete line;
+//      delete project;
+//      return NULL;
+//    }
 
-    lineTxt = stream.readLine();
-    lineCnt++;
-  }
+//    lineTxt = stream.readLine();
+//    lineCnt++;
+//  }
 
-  redrawGraph1(project->network);
+//  redrawGraph1(project->network);
 
-  file.close();
-  return project;
+//  file.close();
+//  return project;
 }
 
 Project *importTxtType2(QString &fileName)
@@ -647,119 +647,119 @@ Project *importTxtType2(QString &fileName)
 
   Bar *bar;
 
-  for(int32_t i=0; i<numBar; i++) {
-    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;
-    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;
+//  for(int32_t i=0; i<numBar; i++) {
+//    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;
+//    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;
 
-    if(barType == 3)
-      idBase = id;
+//    if(barType == 3)
+//      idBase = id;
 
-    bar = new Bar;
-    bar->id = id - idBase;
+//    bar = new Bar;
+//    bar->id = id - idBase;
 
-    bar->Sha.real(Sha);
-    bar->Sha.imag(Shai);
-    bar->Shb.real(Shb);
-    bar->Shb.imag(Shbi);
-    bar->Shc.real(Shc);
-    bar->Shc.imag(Shci);
-    bar->Sia.real(Sia);
-    bar->Sia.imag(Siai);
-    bar->Sib.real(Sib);
-    bar->Sib.imag(Sibi);
-    bar->Sic.real(Sic);
-    bar->Sic.imag(Sici);
+//    bar->Sha.real(Sha);
+//    bar->Sha.imag(Shai);
+//    bar->Shb.real(Shb);
+//    bar->Shb.imag(Shbi);
+//    bar->Shc.real(Shc);
+//    bar->Shc.imag(Shci);
+//    bar->Sia.real(Sia);
+//    bar->Sia.imag(Siai);
+//    bar->Sib.real(Sib);
+//    bar->Sib.imag(Sibi);
+//    bar->Sic.real(Sic);
+//    bar->Sic.imag(Sici);
 
-    if (!project->network->addBar(bar)) {
-      QMessageBox::critical(NULL, "Invalid Bar.",
-                            "Invalid Bar " + QString::number(id) + "at line " +
-                            QString::number(lineCnt) + ".",
-                            QMessageBox::Ok);
-      delete bar;
-      delete project;
-      return NULL;
-    }
+//    if (!project->network->addBar(bar)) {
+//      QMessageBox::critical(NULL, "Invalid Bar.",
+//                            "Invalid Bar " + QString::number(id) + "at line " +
+//                            QString::number(lineCnt) + ".",
+//                            QMessageBox::Ok);
+//      delete bar;
+//      delete project;
+//      return NULL;
+//    }
 
-    lineTxt = stream.readLine();
-    lineCnt++;
-  }
+//    lineTxt = stream.readLine();
+//    lineCnt++;
+//  }
 
-//// Get Lines.
-////------------------------------------------------------------------------------
-  do {
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName + " doesn't provide lines.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
+////// Get Lines.
+//////------------------------------------------------------------------------------
+//  do {
+//    if(stream.atEnd()) {
+//      QMessageBox::critical(NULL, "Invalid File.",
+//                            "The file " + fileName + " doesn't provide lines.",
+//                            QMessageBox::Ok);
+//      delete project;
+//      return NULL;
+//    }
 
-    lineTxt = stream.readLine();
-    lineCnt++;
-  } while(!lineTxt.contains("Tipo_Cir"));
+//    lineTxt = stream.readLine();
+//    lineCnt++;
+//  } while(!lineTxt.contains("Tipo_Cir"));
 
-  int32_t noI, noF;
-  double Zaa, Zaai;
-  double Zab, Zabi;
-  double Zac, Zaci;
-  double Zan, Zani;
-  double Zbb, Zbbi;
-  double Zbc, Zbci;
-  double Zbn, Zbni;
-  double Zcc, Zcci;
-  double Zcn, Zcni;
-  double Znn, Znni;
-  double length;
+//  int32_t noI, noF;
+//  double Zaa, Zaai;
+//  double Zab, Zabi;
+//  double Zac, Zaci;
+//  double Zan, Zani;
+//  double Zbb, Zbbi;
+//  double Zbc, Zbci;
+//  double Zbn, Zbni;
+//  double Zcc, Zcci;
+//  double Zcn, Zcni;
+//  double Znn, Znni;
+//  double length;
 
-  Line *line;
-  QString lineType;
-  QString dummy;
+//  Line *line;
+//  QString lineType;
+//  QString dummy;
 
-  for(int32_t i=0; i<numLine; i++) {
-    line = new Line;
-    stream >> lineType >> noI >> noF;
+//  for(int32_t i=0; i<numLine; i++) {
+//    line = new Line;
+//    stream >> lineType >> noI >> noF;
 
-    line->noI = noI - idBase;
-    line->noF = noF - idBase;
+//    line->noI = noI - idBase;
+//    line->noF = noF - idBase;
 
-    if (lineType.contains("CP")) {
-      stream >> Zaa >> Zaai >> Zbb >> Zbbi >> Zcc;
-      stream >> Zcci >> Znn >> Znni >> Zab >> Zabi >> Zac >> Zaci >> Zan >> Zani;
-      stream >> Zbc >> Zbci >> Zbn >> Zbni >> Zcn >> Zcni >> dummy >> length;
-      line->length = length;
-      line->Zaa.real(Zaa);
-      line->Zaa.imag(Zaai);
-      line->Zab.real(Zab);
-      line->Zab.imag(Zabi);
-      line->Zac.real(Zac);
-      line->Zac.imag(Zaci);
-      line->Zbb.real(Zbb);
-      line->Zbb.imag(Zbbi);
-      line->Zbc.real(Zbc);
-      line->Zbc.imag(Zbci);
-      line->Zcc.real(Zcc);
-      line->Zcc.imag(Zcci);
-    }
+//    if (lineType.contains("CP")) {
+//      stream >> Zaa >> Zaai >> Zbb >> Zbbi >> Zcc;
+//      stream >> Zcci >> Znn >> Znni >> Zab >> Zabi >> Zac >> Zaci >> Zan >> Zani;
+//      stream >> Zbc >> Zbci >> Zbn >> Zbni >> Zcn >> Zcni >> dummy >> length;
+//      line->length = length;
+//      line->Zaa.real(Zaa);
+//      line->Zaa.imag(Zaai);
+//      line->Zab.real(Zab);
+//      line->Zab.imag(Zabi);
+//      line->Zac.real(Zac);
+//      line->Zac.imag(Zaci);
+//      line->Zbb.real(Zbb);
+//      line->Zbb.imag(Zbbi);
+//      line->Zbc.real(Zbc);
+//      line->Zbc.imag(Zbci);
+//      line->Zcc.real(Zcc);
+//      line->Zcc.imag(Zcci);
+//    }
 
-    if (!project->network->addLine(line)) {
-      QMessageBox::critical(NULL, "Invalid Line.",
-                            "Invalid Line at line " +
-                            QString::number(lineCnt) + ".",
-                            QMessageBox::Ok);
-      delete line;
-      delete project;
-      return NULL;
-    }
+//    if (!project->network->addLine(line)) {
+//      QMessageBox::critical(NULL, "Invalid Line.",
+//                            "Invalid Line at line " +
+//                            QString::number(lineCnt) + ".",
+//                            QMessageBox::Ok);
+//      delete line;
+//      delete project;
+//      return NULL;
+//    }
 
-    lineTxt = stream.readLine();
-    lineCnt++;
-  }
+//    lineTxt = stream.readLine();
+//    lineCnt++;
+//  }
 
-  redrawGraph1(project->network);
+//  redrawGraph1(project->network);
 
-  file.close();
-  return project;
+//  file.close();
+//  return project;
 }
 
 Project *importTxtType3(QString &fileName)
@@ -969,143 +969,143 @@ Project *importTxtType3(QString &fileName)
 //------------------------------------------------------------------------------
   QString lineTxt;
 
-  do {
-    lineTxt = stream.readLine();
-    lineCnt++;
+//  do {
+//    lineTxt = stream.readLine();
+//    lineCnt++;
 
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName + " doesn't provide bars.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
-  } while(!lineTxt.contains("Barra"));
+//    if(stream.atEnd()) {
+//      QMessageBox::critical(NULL, "Invalid File.",
+//                            "The file " + fileName + " doesn't provide bars.",
+//                            QMessageBox::Ok);
+//      delete project;
+//      return NULL;
+//    }
+//  } while(!lineTxt.contains("Barra"));
 
-  int32_t id;
-  int32_t barType;
-  double Sia, Siai;
-  double Sib, Sibi;
-  double Sic, Sici;
-  double Sha, Shai;
-  double Shb, Shbi;
-  double Shc, Shci;
+//  int32_t id;
+//  int32_t barType;
+//  double Sia, Siai;
+//  double Sib, Sibi;
+//  double Sic, Sici;
+//  double Sha, Shai;
+//  double Shb, Shbi;
+//  double Shc, Shci;
 
-  int32_t idBase = 0;
+//  int32_t idBase = 0;
 
-  Bar *bar;
+//  Bar *bar;
 
-  for(int32_t i=0; i<numBar; i++) {
-    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;
-    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;
+//  for(int32_t i=0; i<numBar; i++) {
+//    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;
+//    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;
 
-    if(barType == 3)
-      idBase = id;
+//    if(barType == 3)
+//      idBase = id;
 
-    bar = new Bar;
-    bar->id = id - idBase;
+//    bar = new Bar;
+//    bar->id = id - idBase;
 
-    bar->Sha.real(Sha);
-    bar->Sha.imag(Shai);
-    bar->Shb.real(Shb);
-    bar->Shb.imag(Shbi);
-    bar->Shc.real(Shc);
-    bar->Shc.imag(Shci);
-    bar->Sia.real(Sia);
-    bar->Sia.imag(Siai);
-    bar->Sib.real(Sib);
-    bar->Sib.imag(Sibi);
-    bar->Sic.real(Sic);
-    bar->Sic.imag(Sici);
+//    bar->Sha.real(Sha);
+//    bar->Sha.imag(Shai);
+//    bar->Shb.real(Shb);
+//    bar->Shb.imag(Shbi);
+//    bar->Shc.real(Shc);
+//    bar->Shc.imag(Shci);
+//    bar->Sia.real(Sia);
+//    bar->Sia.imag(Siai);
+//    bar->Sib.real(Sib);
+//    bar->Sib.imag(Sibi);
+//    bar->Sic.real(Sic);
+//    bar->Sic.imag(Sici);
 
-    if (!project->network->addBar(bar)) {
-      QMessageBox::critical(NULL, "Invalid Bar.",
-                            "Invalid Bar " + QString::number(id) + "at line " +
-                            QString::number(lineCnt) + ".",
-                            QMessageBox::Ok);
-      delete bar;
-      delete project;
-      return NULL;
-    }
+//    if (!project->network->addBar(bar)) {
+//      QMessageBox::critical(NULL, "Invalid Bar.",
+//                            "Invalid Bar " + QString::number(id) + "at line " +
+//                            QString::number(lineCnt) + ".",
+//                            QMessageBox::Ok);
+//      delete bar;
+//      delete project;
+//      return NULL;
+//    }
 
-    lineTxt = stream.readLine();
-    lineCnt++;
-  }
+//    lineTxt = stream.readLine();
+//    lineCnt++;
+//  }
 
-//// Get Lines.
-////------------------------------------------------------------------------------
-  do {
-    if(stream.atEnd()) {
-      QMessageBox::critical(NULL, "Invalid File.",
-                            "The file " + fileName + " doesn't provide lines.",
-                            QMessageBox::Ok);
-      delete project;
-      return NULL;
-    }
+////// Get Lines.
+//////------------------------------------------------------------------------------
+//  do {
+//    if(stream.atEnd()) {
+//      QMessageBox::critical(NULL, "Invalid File.",
+//                            "The file " + fileName + " doesn't provide lines.",
+//                            QMessageBox::Ok);
+//      delete project;
+//      return NULL;
+//    }
 
-    lineTxt = stream.readLine();
-    lineCnt++;
-  } while(!lineTxt.contains("Tipo_Cir"));
+//    lineTxt = stream.readLine();
+//    lineCnt++;
+//  } while(!lineTxt.contains("Tipo_Cir"));
 
-  int32_t noI, noF;
-  double Zaa, Zaai;
-  double Zab, Zabi;
-  double Zac, Zaci;
-  double Zan, Zani;
-  double Zbb, Zbbi;
-  double Zbc, Zbci;
-  double Zbn, Zbni;
-  double Zcc, Zcci;
-  double Zcn, Zcni;
-  double Znn, Znni;
-  double length;
+//  int32_t noI, noF;
+//  double Zaa, Zaai;
+//  double Zab, Zabi;
+//  double Zac, Zaci;
+//  double Zan, Zani;
+//  double Zbb, Zbbi;
+//  double Zbc, Zbci;
+//  double Zbn, Zbni;
+//  double Zcc, Zcci;
+//  double Zcn, Zcni;
+//  double Znn, Znni;
+//  double length;
 
-  Line *line;
-  QString lineType;
-  QString dummy;
+//  Line *line;
+//  QString lineType;
+//  QString dummy;
 
-  for(int32_t i=0; i<numLine; i++) {
-    line = new Line;
-    stream >> lineType >> noI >> noF;
+//  for(int32_t i=0; i<numLine; i++) {
+//    line = new Line;
+//    stream >> lineType >> noI >> noF;
 
-    line->noI = noI - idBase;
-    line->noF = noF - idBase;
+//    line->noI = noI - idBase;
+//    line->noF = noF - idBase;
 
-    if (lineType.contains("CP")) {
-      stream >> dummy >> dummy >> dummy >> dummy >> Zaa >> Zaai >> Zbb >> Zbbi >> Zcc;
-      stream >> Zcci >> Znn >> Znni >> Zab >> Zabi >> Zac >> Zaci >> Zan >> Zani;
-      stream >> Zbc >> Zbci >> Zbn >> Zbni >> Zcn >> Zcni >> dummy >> length;
-      line->length = length;
-      line->Zaa.real(Zaa);
-      line->Zaa.imag(Zaai);
-      line->Zab.real(Zab);
-      line->Zab.imag(Zabi);
-      line->Zac.real(Zac);
-      line->Zac.imag(Zaci);
-      line->Zbb.real(Zbb);
-      line->Zbb.imag(Zbbi);
-      line->Zbc.real(Zbc);
-      line->Zbc.imag(Zbci);
-      line->Zcc.real(Zcc);
-      line->Zcc.imag(Zcci);
-    }
+//    if (lineType.contains("CP")) {
+//      stream >> dummy >> dummy >> dummy >> dummy >> Zaa >> Zaai >> Zbb >> Zbbi >> Zcc;
+//      stream >> Zcci >> Znn >> Znni >> Zab >> Zabi >> Zac >> Zaci >> Zan >> Zani;
+//      stream >> Zbc >> Zbci >> Zbn >> Zbni >> Zcn >> Zcni >> dummy >> length;
+//      line->length = length;
+//      line->Zaa.real(Zaa);
+//      line->Zaa.imag(Zaai);
+//      line->Zab.real(Zab);
+//      line->Zab.imag(Zabi);
+//      line->Zac.real(Zac);
+//      line->Zac.imag(Zaci);
+//      line->Zbb.real(Zbb);
+//      line->Zbb.imag(Zbbi);
+//      line->Zbc.real(Zbc);
+//      line->Zbc.imag(Zbci);
+//      line->Zcc.real(Zcc);
+//      line->Zcc.imag(Zcci);
+//    }
 
-    if (!project->network->addLine(line)) {
-      QMessageBox::critical(NULL, "Invalid Line.",
-                            "Invalid Line at line " +
-                            QString::number(lineCnt) + ".",
-                            QMessageBox::Ok);
-      delete line;
-      delete project;
-      return NULL;
-    }
+//    if (!project->network->addLine(line)) {
+//      QMessageBox::critical(NULL, "Invalid Line.",
+//                            "Invalid Line at line " +
+//                            QString::number(lineCnt) + ".",
+//                            QMessageBox::Ok);
+//      delete line;
+//      delete project;
+//      return NULL;
+//    }
 
-    lineTxt = stream.readLine();
-    lineCnt++;
-  }
+//    lineTxt = stream.readLine();
+//    lineCnt++;
+//  }
 
-  redrawGraph1(project->network);
+//  redrawGraph1(project->network);
 
-  file.close();
-  return project;
+//  file.close();
+//  return project;
 }

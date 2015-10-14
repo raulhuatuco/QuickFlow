@@ -1,0 +1,1110 @@
+\hypertarget{import_8cpp_source}{}\subsection{import.\+cpp}
+\label{import_8cpp_source}\index{import.\+cpp@{import.\+cpp}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include "\hyperlink{import_8h}{algorithms/import.h}"}
+00002 \textcolor{preprocessor}{#include <QtGui>}
+00003 \textcolor{preprocessor}{#include <QtCore>}
+00004 \textcolor{preprocessor}{#include <QtWidgets>}
+00005 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
+00006 \textcolor{preprocessor}{#include "\hyperlink{redraw_8h}{algorithms/redraw.h}"}
+00007 
+00008 \textcolor{keyword}{static} \hyperlink{class_project}{Project} *preprocessProject(QFile &file)
+00009 \{
+00010   \textcolor{comment}{// Open File.}
+00011   file.fileName();
+00012 
+00013   \textcolor{keywordflow}{if}(!file.open(QFile::ReadOnly)) \{
+00014     QMessageBox::critical(NULL, \textcolor{stringliteral}{"File read error."},
+00015                           \textcolor{stringliteral}{"Can\(\backslash\)'t read "} + file.fileName() + \textcolor{stringliteral}{"."},
+00016                           QMessageBox::Ok);
+00017     \textcolor{keywordflow}{return} NULL;
+00018   \}
+00019 
+00020   \textcolor{comment}{// Create new project.}
+00021   \hyperlink{class_project}{Project} *project = \textcolor{keyword}{new} \hyperlink{class_project}{Project};
+00022 
+00023   \textcolor{comment}{// Set project name.}
+00024   int32\_t nameInit = file.fileName().lastIndexOf(QDir::separator());
+00025   int32\_t nameFinal = file.fileName().lastIndexOf(\textcolor{charliteral}{'.'});
+00026   project->\hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name} = file.fileName().mid(nameInit+1, nameFinal- nameInit -1);
+00027 
+00028   \textcolor{comment}{// Set project path.}
+00029   project->\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = file.fileName().left(nameFinal) + \textcolor{stringliteral}{".qkf"};
+00030 
+00031   \textcolor{keywordflow}{return} project;
+00032 \}
+00033 
+00034 \textcolor{keyword}{static} int32\_t getNextLineInt(QTextStream *stream, QString keyWord,
+00035                               int32\_t *intVal)
+00036 \{
+00037   QString lineTxt; \textcolor{comment}{// Line text.}
+00038   int32\_t lineCnt = 0; \textcolor{comment}{// Count the amount of processed lines.}
+00039 
+00040   \textcolor{comment}{// Loop until keyWord is found or EoF.}
+00041   \textcolor{keywordflow}{do} \{
+00042     \textcolor{keywordflow}{if}(stream->atEnd())
+00043       \textcolor{keywordflow}{return} -1;
+00044 
+00045     lineTxt = stream->readLine();
+00046     lineCnt++;
+00047   \} \textcolor{keywordflow}{while}(!lineTxt.contains(keyWord));
+00048 
+00049   \textcolor{comment}{// Get integer value.}
+00050   *stream >> *intVal;
+00051   \textcolor{keywordflow}{return} lineCnt;
+00052 \}
+00053 
+00054 \textcolor{keyword}{static} int32\_t getNextLineDouble(QTextStream *stream, QString keyWord,
+00055                                  \textcolor{keywordtype}{double} *doubleVal)
+00056 \{
+00057   QString lineTxt; \textcolor{comment}{// Line text.}
+00058   int32\_t lineCnt = 0; \textcolor{comment}{// Count the amount of processed lines.}
+00059 
+00060   \textcolor{comment}{// Loop until keyWord is found or EoF.}
+00061   \textcolor{keywordflow}{do} \{
+00062     \textcolor{keywordflow}{if}(stream->atEnd())
+00063       \textcolor{keywordflow}{return} -1;
+00064 
+00065     lineTxt = stream->readLine();
+00066     lineCnt++;
+00067   \} \textcolor{keywordflow}{while}(!lineTxt.contains(keyWord));
+00068 
+00069   \textcolor{comment}{// Get double value.}
+00070   *stream >> *doubleVal;
+00071   \textcolor{keywordflow}{return} lineCnt;
+00072 \}
+00073 
+\hypertarget{import_8cpp_source_l00074}{}\hyperlink{import_8h_a67dd59b2afe82bc7272ad6dfd3bed633}{00074} \hyperlink{class_project}{Project} *\hyperlink{import_8cpp_a67dd59b2afe82bc7272ad6dfd3bed633}{importTxtType1}(QString &fileName)
+00075 \{
+00076 \textcolor{comment}{// Create project with file settings.}
+00077 \textcolor{comment}{//------------------------------------------------------------------------------}
+00078   QFile file(fileName);
+00079 
+00080   \hyperlink{class_project}{Project} *project = preprocessProject(file);
+00081 
+00082   \textcolor{keywordflow}{if} (project == NULL)
+00083     \textcolor{keywordflow}{return} NULL;
+00084 
+00085   \textcolor{comment}{// Auxiliaty variables.}
+00086   QTextStream stream(&file); \textcolor{comment}{// Text stream used to parse lines.}
+00087   int32\_t lineCnt = 0; \textcolor{comment}{// Current line counter, used to report errors.}
+00088   int32\_t processedLines = 0; \textcolor{comment}{// Number of lines parsed during get methods.}
+00089 
+00090 \textcolor{comment}{// Read Number of bars.}
+00091 \textcolor{comment}{//------------------------------------------------------------------------------}
+00092   int32\_t numBar;
+00093   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"NumBarras"}, &numBar);
+00094 
+00095   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00096     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00097                           \textcolor{stringliteral}{"The file "} + fileName +
+00098                           \textcolor{stringliteral}{" doesn't provide NumBarras."},
+00099                           QMessageBox::Ok);
+00100     \textcolor{keyword}{delete} project;
+00101     \textcolor{keywordflow}{return} NULL;
+00102   \}
+00103 
+00104   lineCnt += processedLines;
+00105 
+00106 \textcolor{comment}{// Read Number of lines.}
+00107 \textcolor{comment}{//------------------------------------------------------------------------------}
+00108   int32\_t numLine;
+00109   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"NumLinhas"}, &numLine);
+00110 
+00111   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00112     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00113                           \textcolor{stringliteral}{"The file "} + fileName +
+00114                           \textcolor{stringliteral}{" doesn't provide NumLinhas."},
+00115                           QMessageBox::Ok);
+00116     \textcolor{keyword}{delete} project;
+00117     \textcolor{keywordflow}{return} NULL;
+00118   \}
+00119 
+00120   lineCnt += processedLines;
+00121 
+00122 \textcolor{comment}{// Get Base Voltage.}
+00123 \textcolor{comment}{//------------------------------------------------------------------------------}
+00124   \textcolor{keywordtype}{double} VBase;
+00125   processedLines = getNextLineDouble(&stream, \textcolor{stringliteral}{"Voltagem\_base\_da\_rede"}, &VBase);
+00126 
+00127   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00128     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00129                           \textcolor{stringliteral}{"The file "} + fileName + \textcolor{stringliteral}{" doesn't provide VBase."},
+00130                           QMessageBox::Ok);
+00131     \textcolor{keyword}{delete} project;
+00132     \textcolor{keywordflow}{return} NULL;
+00133   \}
+00134 
+00135   lineCnt += processedLines;
+00136 
+00137 \textcolor{comment}{// Save to project.}
+00138   project->\hyperlink{class_project_a494c3e89851f754188c7abaedbf77ef6}{setVoltageBase}(VBase);
+00139 
+00140 \textcolor{comment}{// Get Length Unit.}
+00141 \textcolor{comment}{//------------------------------------------------------------------------------}
+00142   int32\_t LenUn;
+00143   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"comprimento\_das\_linhas"}, &LenUn);
+00144 
+00145   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00146     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00147                           \textcolor{stringliteral}{"The file "} + fileName +
+00148                           \textcolor{stringliteral}{" doesn't provide Length Unit."},
+00149                           QMessageBox::Ok);
+00150     \textcolor{keyword}{delete} project;
+00151     \textcolor{keywordflow}{return} NULL;
+00152   \}
+00153 
+00154   lineCnt += processedLines;
+00155 
+00156 \textcolor{comment}{// Cast to Unit enum.}
+00157   \textcolor{keywordflow}{switch} (LenUn) \{
+00158   \textcolor{keywordflow}{case} 1:
+00159     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter});
+00160     \textcolor{keywordflow}{break};
+00161 
+00162   \textcolor{keywordflow}{case} 2:
+00163     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919}{Unit::kKiloMeter});
+00164     \textcolor{keywordflow}{break};
+00165 
+00166   \textcolor{keywordflow}{case} 3:
+00167     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8}{Unit::kFeet});
+00168     \textcolor{keywordflow}{break};
+00169 
+00170   \textcolor{keywordflow}{case} 4:
+00171     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724}{Unit::kMile});
+00172     \textcolor{keywordflow}{break};
+00173 
+00174   \textcolor{keywordflow}{default}:
+00175     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter});
+00176     \textcolor{keywordflow}{break};
+00177   \}
+00178 
+00179 \textcolor{comment}{// Get Impedance Unit.}
+00180 \textcolor{comment}{//------------------------------------------------------------------------------}
+00181   int32\_t ImpUn;
+00182   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"impedancia"}, &ImpUn);
+00183 
+00184   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00185     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00186                           \textcolor{stringliteral}{"The file "} + fileName +
+00187                           \textcolor{stringliteral}{" doesn't provide Impedance Unit."},
+00188                           QMessageBox::Ok);
+00189     \textcolor{keyword}{delete} project;
+00190     \textcolor{keywordflow}{return} NULL;
+00191   \}
+00192 
+00193   lineCnt += processedLines;
+00194 
+00195 \textcolor{comment}{// Save to project.}
+00196   \textcolor{keywordflow}{switch} (ImpUn) \{
+00197   \textcolor{keywordflow}{case} 1:
+00198     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit::kOhm});
+00199     \textcolor{keywordflow}{break};
+00200 
+00201   \textcolor{keywordflow}{case} 2:
+00202     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336}{Unit::kOhmPerMeter});
+00203     \textcolor{keywordflow}{break};
+00204 
+00205   \textcolor{keywordflow}{case} 3:
+00206     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6}{Unit::kOhmPerKilometer});
+00207     \textcolor{keywordflow}{break};
+00208 
+00209   \textcolor{keywordflow}{case} 4:
+00210     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa433b57934ca3be960ec7a60f3ea6ea87}{Unit::kOhmPerFeet});
+00211     \textcolor{keywordflow}{break};
+00212 
+00213   \textcolor{keywordflow}{case} 5:
+00214     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613}{Unit::kOhmPerMile});
+00215     \textcolor{keywordflow}{break};
+00216 
+00217   \textcolor{keywordflow}{default}:
+00218     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit::kOhm});
+00219     \textcolor{keywordflow}{break};
+00220   \}
+00221 
+00222 \textcolor{comment}{// Get power Unit.}
+00223 \textcolor{comment}{//------------------------------------------------------------------------------}
+00224   int32\_t powerUn;
+00225   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"Demanda"}, &powerUn);
+00226 
+00227   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00228     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00229                           \textcolor{stringliteral}{"The file "} + fileName +
+00230                           \textcolor{stringliteral}{" doesn't provide Power Init."},
+00231                           QMessageBox::Ok);
+00232     \textcolor{keyword}{delete} project;
+00233     \textcolor{keywordflow}{return} NULL;
+00234   \}
+00235 
+00236   lineCnt += processedLines;
+00237 
+00238 \textcolor{comment}{// Save to project.}
+00239   \textcolor{keywordflow}{switch} (powerUn) \{
+00240   \textcolor{keywordflow}{case} 1:
+00241     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA});
+00242     \textcolor{keywordflow}{break};
+00243 
+00244   \textcolor{keywordflow}{case} 2:
+00245     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA});
+00246     \textcolor{keywordflow}{break};
+00247 
+00248   \textcolor{keywordflow}{case} 3:
+00249     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{Unit::kMegaVa});
+00250     \textcolor{keywordflow}{break};
+00251 
+00252   \textcolor{keywordflow}{default}:
+00253     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA});
+00254     \textcolor{keywordflow}{break};
+00255   \}
+00256 
+00257 \textcolor{comment}{// Get Voltage Unit.}
+00258 \textcolor{comment}{//------------------------------------------------------------------------------}
+00259   project->\hyperlink{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{setVoltageUn}(\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d}{Unit::kKiloVolts});
+00260 
+00261 \textcolor{comment}{// Get Base Power.}
+00262 \textcolor{comment}{//------------------------------------------------------------------------------}
+00263   \textcolor{keywordtype}{double} PBase;
+00264   processedLines = getNextLineDouble(&stream, \textcolor{stringliteral}{"kVA    kV\_hihg"}, &PBase);
+00265 
+00266   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00267     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00268                           \textcolor{stringliteral}{"The file "} + fileName + \textcolor{stringliteral}{" doesn't provide SBase."},
+00269                           QMessageBox::Ok);
+00270     \textcolor{keyword}{delete} project;
+00271     \textcolor{keywordflow}{return} NULL;
+00272   \}
+00273 
+00274   lineCnt += processedLines;
+00275   project->\hyperlink{class_project_abb4df805b3cd3af509a41e657eb4bb83}{setPowerBase}(PBase);
+00276 
+00277 \textcolor{comment}{// Get Bars.}
+00278 \textcolor{comment}{//------------------------------------------------------------------------------}
+00279   QString lineTxt;
+00280 
+00281 \textcolor{comment}{//  do \{}
+00282 \textcolor{comment}{//    lineTxt = stream.readLine();}
+00283 \textcolor{comment}{//    lineCnt++;}
+00284 
+00285 \textcolor{comment}{//    if(stream.atEnd()) \{}
+00286 \textcolor{comment}{//      QMessageBox::critical(NULL, "Invalid File.",}
+00287 \textcolor{comment}{//                            "The file " + fileName + " doesn't provide bars.",}
+00288 \textcolor{comment}{//                            QMessageBox::Ok);}
+00289 \textcolor{comment}{//      delete project;}
+00290 \textcolor{comment}{//      return NULL;}
+00291 \textcolor{comment}{//    \}}
+00292 \textcolor{comment}{//  \} while(!lineTxt.contains("[n"));}
+00293 
+00294 \textcolor{comment}{//  int32\_t id;}
+00295 \textcolor{comment}{//  int32\_t barType;}
+00296 \textcolor{comment}{//  double Sia, Siai;}
+00297 \textcolor{comment}{//  double Sib, Sibi;}
+00298 \textcolor{comment}{//  double Sic, Sici;}
+00299 \textcolor{comment}{//  double Sha, Shai;}
+00300 \textcolor{comment}{//  double Shb, Shbi;}
+00301 \textcolor{comment}{//  double Shc, Shci;}
+00302 
+00303 \textcolor{comment}{//  int32\_t idBase = 0;}
+00304 
+00305 \textcolor{comment}{//  Bar *bar;}
+00306 
+00307 \textcolor{comment}{//  for(int32\_t i=0; i<numBar; i++) \{}
+00308 \textcolor{comment}{//    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;}
+00309 \textcolor{comment}{//    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;}
+00310 
+00311 \textcolor{comment}{//    if(barType == 3)}
+00312 \textcolor{comment}{//      idBase = id;}
+00313 
+00314 \textcolor{comment}{//    bar = new Bar;}
+00315 \textcolor{comment}{//    bar->id = id - idBase;}
+00316 
+00317 \textcolor{comment}{//    bar->Sha.real(Sha);}
+00318 \textcolor{comment}{//    bar->Sha.imag(Shai);}
+00319 \textcolor{comment}{//    bar->Shb.real(Shb);}
+00320 \textcolor{comment}{//    bar->Shb.imag(Shbi);}
+00321 \textcolor{comment}{//    bar->Shc.real(Shc);}
+00322 \textcolor{comment}{//    bar->Shc.imag(Shci);}
+00323 \textcolor{comment}{//    bar->Sia.real(Sia);}
+00324 \textcolor{comment}{//    bar->Sia.imag(Siai);}
+00325 \textcolor{comment}{//    bar->Sib.real(Sib);}
+00326 \textcolor{comment}{//    bar->Sib.imag(Sibi);}
+00327 \textcolor{comment}{//    bar->Sic.real(Sic);}
+00328 \textcolor{comment}{//    bar->Sic.imag(Sici);}
+00329 
+00330 \textcolor{comment}{//    if (!project->network->addBar(bar)) \{}
+00331 \textcolor{comment}{//      QMessageBox::critical(NULL, "Invalid Bar.",}
+00332 \textcolor{comment}{//                            "Invalid Bar " + QString::number(id) + "at line " +}
+00333 \textcolor{comment}{//                            QString::number(lineCnt) + ".",}
+00334 \textcolor{comment}{//                            QMessageBox::Ok);}
+00335 \textcolor{comment}{//      delete bar;}
+00336 \textcolor{comment}{//      delete project;}
+00337 \textcolor{comment}{//      return NULL;}
+00338 \textcolor{comment}{//    \}}
+00339 
+00340 \textcolor{comment}{//    lineTxt = stream.readLine();}
+00341 \textcolor{comment}{//    lineCnt++;}
+00342 \textcolor{comment}{//  \}}
+00343 
+00346 \textcolor{comment}{//  do \{}
+00347 \textcolor{comment}{//    if(stream.atEnd()) \{}
+00348 \textcolor{comment}{//      QMessageBox::critical(NULL, "Invalid File.",}
+00349 \textcolor{comment}{//                            "The file " + fileName + " doesn't provide lines.",}
+00350 \textcolor{comment}{//                            QMessageBox::Ok);}
+00351 \textcolor{comment}{//      delete project;}
+00352 \textcolor{comment}{//      return NULL;}
+00353 \textcolor{comment}{//    \}}
+00354 
+00355 \textcolor{comment}{//    lineTxt = stream.readLine();}
+00356 \textcolor{comment}{//    lineCnt++;}
+00357 \textcolor{comment}{//  \} while(!lineTxt.contains("Tipo\_Cir"));}
+00358 
+00359 \textcolor{comment}{//  int32\_t noI, noF;}
+00360 \textcolor{comment}{//  double Zaa, Zaai;}
+00361 \textcolor{comment}{//  double Zab, Zabi;}
+00362 \textcolor{comment}{//  double Zac, Zaci;}
+00363 \textcolor{comment}{//  double Zbb, Zbbi;}
+00364 \textcolor{comment}{//  double Zbc, Zbci;}
+00365 \textcolor{comment}{//  double Zcc, Zcci;}
+00366 \textcolor{comment}{//  double length;}
+00367 \textcolor{comment}{//  QString dummy;}
+00368 
+00369 \textcolor{comment}{//  Line *line;}
+00370 
+00371 \textcolor{comment}{//  for(int32\_t i=0; i<numLine; i++) \{}
+00372 \textcolor{comment}{//    stream >> dummy >> noI >> noF >> dummy >> dummy >> dummy >> dummy >> Zaa >> Zaai}
+00373 \textcolor{comment}{//           >> Zbb >> Zbbi >> Zcc;}
+00374 \textcolor{comment}{//    stream >> Zcci >> dummy >> dummy >> Zab >> Zabi >> Zac >> Zaci >> dummy >>}
+00375 \textcolor{comment}{//           dummy;}
+00376 \textcolor{comment}{//    stream >> Zbc >> Zbci >> dummy >> dummy >> dummy >> dummy >> dummy >>   length;}
+00377 
+00378 \textcolor{comment}{//    line = new Line;}
+00379 \textcolor{comment}{//    line->noI = noI - idBase;}
+00380 \textcolor{comment}{//    line->noF = noF - idBase;}
+00381 
+00382 \textcolor{comment}{//    line->length = length;}
+00383 
+00384 \textcolor{comment}{//    line->Zaa.real(Zaa);}
+00385 \textcolor{comment}{//    line->Zaa.imag(Zaai);}
+00386 \textcolor{comment}{//    line->Zab.real(Zab);}
+00387 \textcolor{comment}{//    line->Zab.imag(Zabi);}
+00388 \textcolor{comment}{//    line->Zac.real(Zac);}
+00389 \textcolor{comment}{//    line->Zac.imag(Zaci);}
+00390 \textcolor{comment}{//    line->Zbb.real(Zbb);}
+00391 \textcolor{comment}{//    line->Zbb.imag(Zbbi);}
+00392 \textcolor{comment}{//    line->Zbc.real(Zbc);}
+00393 \textcolor{comment}{//    line->Zbc.imag(Zbci);}
+00394 \textcolor{comment}{//    line->Zcc.real(Zcc);}
+00395 \textcolor{comment}{//    line->Zcc.imag(Zcci);}
+00396 
+00397 \textcolor{comment}{//    if (!project->network->addLine(line)) \{}
+00398 \textcolor{comment}{//      QMessageBox::critical(NULL, "Invalid Line.",}
+00399 \textcolor{comment}{//                            "Invalid Line at line " +}
+00400 \textcolor{comment}{//                            QString::number(lineCnt) + ".",}
+00401 \textcolor{comment}{//                            QMessageBox::Ok);}
+00402 \textcolor{comment}{//      delete line;}
+00403 \textcolor{comment}{//      delete project;}
+00404 \textcolor{comment}{//      return NULL;}
+00405 \textcolor{comment}{//    \}}
+00406 
+00407 \textcolor{comment}{//    lineTxt = stream.readLine();}
+00408 \textcolor{comment}{//    lineCnt++;}
+00409 \textcolor{comment}{//  \}}
+00410 
+00411 \textcolor{comment}{//  redrawGraph1(project->network);}
+00412 
+00413 \textcolor{comment}{//  file.close();}
+00414 \textcolor{comment}{//  return project;}
+00415 \}
+00416 
+\hypertarget{import_8cpp_source_l00417}{}\hyperlink{import_8h_a05a39d4117f6721dc4bbdd7d45bcdd45}{00417} \hyperlink{class_project}{Project} *\hyperlink{import_8cpp_a05a39d4117f6721dc4bbdd7d45bcdd45}{importTxtType2}(QString &fileName)
+00418 \{
+00419 \textcolor{comment}{// Create project with file settings.}
+00420 \textcolor{comment}{//------------------------------------------------------------------------------}
+00421   QFile file(fileName);
+00422 
+00423   \hyperlink{class_project}{Project} *project = preprocessProject(file);
+00424 
+00425   \textcolor{keywordflow}{if} (project == NULL)
+00426     \textcolor{keywordflow}{return} NULL;
+00427 
+00428   \textcolor{comment}{// Auxiliaty variables.}
+00429   QTextStream stream(&file); \textcolor{comment}{// Text stream used to parse lines.}
+00430   int32\_t lineCnt = 0; \textcolor{comment}{// Current line counter, used to report errors.}
+00431   int32\_t processedLines = 0; \textcolor{comment}{// Number of lines parsed during get methods.}
+00432 
+00433 \textcolor{comment}{// Read Number of bars.}
+00434 \textcolor{comment}{//------------------------------------------------------------------------------}
+00435   int32\_t numBar;
+00436   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"Numero\_barras"}, &numBar);
+00437 
+00438   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00439     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00440                           \textcolor{stringliteral}{"The file "} + fileName +
+00441                           \textcolor{stringliteral}{" doesn't provide Numero\_barras."},
+00442                           QMessageBox::Ok);
+00443     \textcolor{keyword}{delete} project;
+00444     \textcolor{keywordflow}{return} NULL;
+00445   \}
+00446 
+00447   lineCnt += processedLines;
+00448 
+00449 \textcolor{comment}{// Read Number of lines.}
+00450 \textcolor{comment}{//------------------------------------------------------------------------------}
+00451   int32\_t numLine;
+00452   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"Numero\_linhas"}, &numLine);
+00453 
+00454   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00455     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00456                           \textcolor{stringliteral}{"The file "} + fileName +
+00457                           \textcolor{stringliteral}{" doesn't provide Numero\_linhas."},
+00458                           QMessageBox::Ok);
+00459     \textcolor{keyword}{delete} project;
+00460     \textcolor{keywordflow}{return} NULL;
+00461   \}
+00462 
+00463   lineCnt += processedLines;
+00464 
+00465 \textcolor{comment}{// Get Base Voltage.}
+00466 \textcolor{comment}{//------------------------------------------------------------------------------}
+00467   \textcolor{keywordtype}{double} VBase;
+00468   processedLines = getNextLineDouble(&stream, \textcolor{stringliteral}{"Voltagem\_base"}, &VBase);
+00469 
+00470   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00471     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00472                           \textcolor{stringliteral}{"The file "} + fileName + \textcolor{stringliteral}{" doesn't provide VBase."},
+00473                           QMessageBox::Ok);
+00474     \textcolor{keyword}{delete} project;
+00475     \textcolor{keywordflow}{return} NULL;
+00476   \}
+00477 
+00478   lineCnt += processedLines;
+00479 
+00480 \textcolor{comment}{// Save to project.}
+00481   project->\hyperlink{class_project_a494c3e89851f754188c7abaedbf77ef6}{setVoltageBase}(VBase);
+00482 
+00483 \textcolor{comment}{// Get Length Unit.}
+00484 \textcolor{comment}{//------------------------------------------------------------------------------}
+00485   int32\_t LenUn;
+00486   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"comprimento\_das\_linhas"}, &LenUn);
+00487 
+00488   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00489     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00490                           \textcolor{stringliteral}{"The file "} + fileName +
+00491                           \textcolor{stringliteral}{" doesn't provide Length Unit."},
+00492                           QMessageBox::Ok);
+00493     \textcolor{keyword}{delete} project;
+00494     \textcolor{keywordflow}{return} NULL;
+00495   \}
+00496 
+00497   lineCnt += processedLines;
+00498 
+00499 \textcolor{comment}{// Cast to Unit enum.}
+00500   \textcolor{keywordflow}{switch} (LenUn) \{
+00501   \textcolor{keywordflow}{case} 1:
+00502     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter});
+00503     \textcolor{keywordflow}{break};
+00504 
+00505   \textcolor{keywordflow}{case} 2:
+00506     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919}{Unit::kKiloMeter});
+00507     \textcolor{keywordflow}{break};
+00508 
+00509   \textcolor{keywordflow}{case} 3:
+00510     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8}{Unit::kFeet});
+00511     \textcolor{keywordflow}{break};
+00512 
+00513   \textcolor{keywordflow}{case} 4:
+00514     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724}{Unit::kMile});
+00515     \textcolor{keywordflow}{break};
+00516 
+00517   \textcolor{keywordflow}{default}:
+00518     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter});
+00519     \textcolor{keywordflow}{break};
+00520   \}
+00521 
+00522 \textcolor{comment}{// Get Impedance Unit.}
+00523 \textcolor{comment}{//------------------------------------------------------------------------------}
+00524   int32\_t ImpUn;
+00525   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"impedancia"}, &ImpUn);
+00526 
+00527   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00528     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00529                           \textcolor{stringliteral}{"The file "} + fileName +
+00530                           \textcolor{stringliteral}{" doesn't provide Impedance Unit."},
+00531                           QMessageBox::Ok);
+00532     \textcolor{keyword}{delete} project;
+00533     \textcolor{keywordflow}{return} NULL;
+00534   \}
+00535 
+00536   lineCnt += processedLines;
+00537 
+00538 \textcolor{comment}{// Save to project.}
+00539   \textcolor{keywordflow}{switch} (ImpUn) \{
+00540   \textcolor{keywordflow}{case} 1:
+00541     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit::kOhm});
+00542     \textcolor{keywordflow}{break};
+00543 
+00544   \textcolor{keywordflow}{case} 2:
+00545     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336}{Unit::kOhmPerMeter});
+00546     \textcolor{keywordflow}{break};
+00547 
+00548   \textcolor{keywordflow}{case} 3:
+00549     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6}{Unit::kOhmPerKilometer});
+00550     \textcolor{keywordflow}{break};
+00551 
+00552   \textcolor{keywordflow}{case} 4:
+00553     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa433b57934ca3be960ec7a60f3ea6ea87}{Unit::kOhmPerFeet});
+00554     \textcolor{keywordflow}{break};
+00555 
+00556   \textcolor{keywordflow}{case} 5:
+00557     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613}{Unit::kOhmPerMile});
+00558     \textcolor{keywordflow}{break};
+00559 
+00560   \textcolor{keywordflow}{default}:
+00561     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit::kOhm});
+00562     \textcolor{keywordflow}{break};
+00563   \}
+00564 
+00565 \textcolor{comment}{// Get power Unit.}
+00566 \textcolor{comment}{//------------------------------------------------------------------------------}
+00567   int32\_t powerUn;
+00568   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"Demanda"}, &powerUn);
+00569 
+00570   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00571     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00572                           \textcolor{stringliteral}{"The file "} + fileName +
+00573                           \textcolor{stringliteral}{" doesn't provide Power Init."},
+00574                           QMessageBox::Ok);
+00575     \textcolor{keyword}{delete} project;
+00576     \textcolor{keywordflow}{return} NULL;
+00577   \}
+00578 
+00579   lineCnt += processedLines;
+00580 
+00581 \textcolor{comment}{// Save to project.}
+00582   \textcolor{keywordflow}{switch} (powerUn) \{
+00583   \textcolor{keywordflow}{case} 1:
+00584     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA});
+00585     \textcolor{keywordflow}{break};
+00586 
+00587   \textcolor{keywordflow}{case} 2:
+00588     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA});
+00589     \textcolor{keywordflow}{break};
+00590 
+00591   \textcolor{keywordflow}{case} 3:
+00592     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{Unit::kMegaVa});
+00593     \textcolor{keywordflow}{break};
+00594 
+00595   \textcolor{keywordflow}{default}:
+00596     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA});
+00597     \textcolor{keywordflow}{break};
+00598   \}
+00599 
+00600 \textcolor{comment}{// Get Voltage Unit.}
+00601 \textcolor{comment}{//------------------------------------------------------------------------------}
+00602   project->\hyperlink{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{setVoltageUn}(\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d}{Unit::kKiloVolts});
+00603 
+00604 \textcolor{comment}{// Get Base Power.}
+00605 \textcolor{comment}{//------------------------------------------------------------------------------}
+00606   \textcolor{keywordtype}{double} PBase;
+00607   processedLines = getNextLineDouble(&stream, \textcolor{stringliteral}{"kVA    kV\_hihg"}, &PBase);
+00608 
+00609   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00610     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00611                           \textcolor{stringliteral}{"The file "} + fileName + \textcolor{stringliteral}{" doesn't provide SBase."},
+00612                           QMessageBox::Ok);
+00613     \textcolor{keyword}{delete} project;
+00614     \textcolor{keywordflow}{return} NULL;
+00615   \}
+00616 
+00617   lineCnt += processedLines;
+00618   project->\hyperlink{class_project_abb4df805b3cd3af509a41e657eb4bb83}{setPowerBase}(PBase);
+00619 
+00620 \textcolor{comment}{// Get Bars.}
+00621 \textcolor{comment}{//------------------------------------------------------------------------------}
+00622   QString lineTxt;
+00623 
+00624   \textcolor{keywordflow}{do} \{
+00625     lineTxt = stream.readLine();
+00626     lineCnt++;
+00627 
+00628     \textcolor{keywordflow}{if}(stream.atEnd()) \{
+00629       QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00630                             \textcolor{stringliteral}{"The file "} + fileName + \textcolor{stringliteral}{" doesn't provide bars."},
+00631                             QMessageBox::Ok);
+00632       \textcolor{keyword}{delete} project;
+00633       \textcolor{keywordflow}{return} NULL;
+00634     \}
+00635   \} \textcolor{keywordflow}{while}(!lineTxt.contains(\textcolor{stringliteral}{"Barra"}));
+00636 
+00637   int32\_t id;
+00638   int32\_t barType;
+00639   \textcolor{keywordtype}{double} Sia, Siai;
+00640   \textcolor{keywordtype}{double} Sib, Sibi;
+00641   \textcolor{keywordtype}{double} Sic, Sici;
+00642   \textcolor{keywordtype}{double} Sha, Shai;
+00643   \textcolor{keywordtype}{double} Shb, Shbi;
+00644   \textcolor{keywordtype}{double} Shc, Shci;
+00645 
+00646   int32\_t idBase = 0;
+00647 
+00648   \hyperlink{class_bar}{Bar} *bar;
+00649 
+00650 \textcolor{comment}{//  for(int32\_t i=0; i<numBar; i++) \{}
+00651 \textcolor{comment}{//    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;}
+00652 \textcolor{comment}{//    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;}
+00653 
+00654 \textcolor{comment}{//    if(barType == 3)}
+00655 \textcolor{comment}{//      idBase = id;}
+00656 
+00657 \textcolor{comment}{//    bar = new Bar;}
+00658 \textcolor{comment}{//    bar->id = id - idBase;}
+00659 
+00660 \textcolor{comment}{//    bar->Sha.real(Sha);}
+00661 \textcolor{comment}{//    bar->Sha.imag(Shai);}
+00662 \textcolor{comment}{//    bar->Shb.real(Shb);}
+00663 \textcolor{comment}{//    bar->Shb.imag(Shbi);}
+00664 \textcolor{comment}{//    bar->Shc.real(Shc);}
+00665 \textcolor{comment}{//    bar->Shc.imag(Shci);}
+00666 \textcolor{comment}{//    bar->Sia.real(Sia);}
+00667 \textcolor{comment}{//    bar->Sia.imag(Siai);}
+00668 \textcolor{comment}{//    bar->Sib.real(Sib);}
+00669 \textcolor{comment}{//    bar->Sib.imag(Sibi);}
+00670 \textcolor{comment}{//    bar->Sic.real(Sic);}
+00671 \textcolor{comment}{//    bar->Sic.imag(Sici);}
+00672 
+00673 \textcolor{comment}{//    if (!project->network->addBar(bar)) \{}
+00674 \textcolor{comment}{//      QMessageBox::critical(NULL, "Invalid Bar.",}
+00675 \textcolor{comment}{//                            "Invalid Bar " + QString::number(id) + "at line " +}
+00676 \textcolor{comment}{//                            QString::number(lineCnt) + ".",}
+00677 \textcolor{comment}{//                            QMessageBox::Ok);}
+00678 \textcolor{comment}{//      delete bar;}
+00679 \textcolor{comment}{//      delete project;}
+00680 \textcolor{comment}{//      return NULL;}
+00681 \textcolor{comment}{//    \}}
+00682 
+00683 \textcolor{comment}{//    lineTxt = stream.readLine();}
+00684 \textcolor{comment}{//    lineCnt++;}
+00685 \textcolor{comment}{//  \}}
+00686 
+00689 \textcolor{comment}{//  do \{}
+00690 \textcolor{comment}{//    if(stream.atEnd()) \{}
+00691 \textcolor{comment}{//      QMessageBox::critical(NULL, "Invalid File.",}
+00692 \textcolor{comment}{//                            "The file " + fileName + " doesn't provide lines.",}
+00693 \textcolor{comment}{//                            QMessageBox::Ok);}
+00694 \textcolor{comment}{//      delete project;}
+00695 \textcolor{comment}{//      return NULL;}
+00696 \textcolor{comment}{//    \}}
+00697 
+00698 \textcolor{comment}{//    lineTxt = stream.readLine();}
+00699 \textcolor{comment}{//    lineCnt++;}
+00700 \textcolor{comment}{//  \} while(!lineTxt.contains("Tipo\_Cir"));}
+00701 
+00702 \textcolor{comment}{//  int32\_t noI, noF;}
+00703 \textcolor{comment}{//  double Zaa, Zaai;}
+00704 \textcolor{comment}{//  double Zab, Zabi;}
+00705 \textcolor{comment}{//  double Zac, Zaci;}
+00706 \textcolor{comment}{//  double Zan, Zani;}
+00707 \textcolor{comment}{//  double Zbb, Zbbi;}
+00708 \textcolor{comment}{//  double Zbc, Zbci;}
+00709 \textcolor{comment}{//  double Zbn, Zbni;}
+00710 \textcolor{comment}{//  double Zcc, Zcci;}
+00711 \textcolor{comment}{//  double Zcn, Zcni;}
+00712 \textcolor{comment}{//  double Znn, Znni;}
+00713 \textcolor{comment}{//  double length;}
+00714 
+00715 \textcolor{comment}{//  Line *line;}
+00716 \textcolor{comment}{//  QString lineType;}
+00717 \textcolor{comment}{//  QString dummy;}
+00718 
+00719 \textcolor{comment}{//  for(int32\_t i=0; i<numLine; i++) \{}
+00720 \textcolor{comment}{//    line = new Line;}
+00721 \textcolor{comment}{//    stream >> lineType >> noI >> noF;}
+00722 
+00723 \textcolor{comment}{//    line->noI = noI - idBase;}
+00724 \textcolor{comment}{//    line->noF = noF - idBase;}
+00725 
+00726 \textcolor{comment}{//    if (lineType.contains("CP")) \{}
+00727 \textcolor{comment}{//      stream >> Zaa >> Zaai >> Zbb >> Zbbi >> Zcc;}
+00728 \textcolor{comment}{//      stream >> Zcci >> Znn >> Znni >> Zab >> Zabi >> Zac >> Zaci >> Zan >> Zani;}
+00729 \textcolor{comment}{//      stream >> Zbc >> Zbci >> Zbn >> Zbni >> Zcn >> Zcni >> dummy >> length;}
+00730 \textcolor{comment}{//      line->length = length;}
+00731 \textcolor{comment}{//      line->Zaa.real(Zaa);}
+00732 \textcolor{comment}{//      line->Zaa.imag(Zaai);}
+00733 \textcolor{comment}{//      line->Zab.real(Zab);}
+00734 \textcolor{comment}{//      line->Zab.imag(Zabi);}
+00735 \textcolor{comment}{//      line->Zac.real(Zac);}
+00736 \textcolor{comment}{//      line->Zac.imag(Zaci);}
+00737 \textcolor{comment}{//      line->Zbb.real(Zbb);}
+00738 \textcolor{comment}{//      line->Zbb.imag(Zbbi);}
+00739 \textcolor{comment}{//      line->Zbc.real(Zbc);}
+00740 \textcolor{comment}{//      line->Zbc.imag(Zbci);}
+00741 \textcolor{comment}{//      line->Zcc.real(Zcc);}
+00742 \textcolor{comment}{//      line->Zcc.imag(Zcci);}
+00743 \textcolor{comment}{//    \}}
+00744 
+00745 \textcolor{comment}{//    if (!project->network->addLine(line)) \{}
+00746 \textcolor{comment}{//      QMessageBox::critical(NULL, "Invalid Line.",}
+00747 \textcolor{comment}{//                            "Invalid Line at line " +}
+00748 \textcolor{comment}{//                            QString::number(lineCnt) + ".",}
+00749 \textcolor{comment}{//                            QMessageBox::Ok);}
+00750 \textcolor{comment}{//      delete line;}
+00751 \textcolor{comment}{//      delete project;}
+00752 \textcolor{comment}{//      return NULL;}
+00753 \textcolor{comment}{//    \}}
+00754 
+00755 \textcolor{comment}{//    lineTxt = stream.readLine();}
+00756 \textcolor{comment}{//    lineCnt++;}
+00757 \textcolor{comment}{//  \}}
+00758 
+00759 \textcolor{comment}{//  redrawGraph1(project->network);}
+00760 
+00761 \textcolor{comment}{//  file.close();}
+00762 \textcolor{comment}{//  return project;}
+00763 \}
+00764 
+\hypertarget{import_8cpp_source_l00765}{}\hyperlink{import_8h_ac1810dcefba801e18ee9900ed6c0ff82}{00765} \hyperlink{class_project}{Project} *\hyperlink{import_8cpp_ac1810dcefba801e18ee9900ed6c0ff82}{importTxtType3}(QString &fileName)
+00766 \{
+00767 \textcolor{comment}{// Create project with file settings.}
+00768 \textcolor{comment}{//------------------------------------------------------------------------------}
+00769   QFile file(fileName);
+00770 
+00771   \hyperlink{class_project}{Project} *project = preprocessProject(file);
+00772 
+00773   \textcolor{keywordflow}{if} (project == NULL)
+00774     \textcolor{keywordflow}{return} NULL;
+00775 
+00776   \textcolor{comment}{// Auxiliaty variables.}
+00777   QTextStream stream(&file); \textcolor{comment}{// Text stream used to parse lines.}
+00778   int32\_t lineCnt = 0; \textcolor{comment}{// Current line counter, used to report errors.}
+00779   int32\_t processedLines = 0; \textcolor{comment}{// Number of lines parsed during get methods.}
+00780 
+00781 \textcolor{comment}{// Read Number of bars.}
+00782 \textcolor{comment}{//------------------------------------------------------------------------------}
+00783   int32\_t numBar;
+00784   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"Numero\_barras"}, &numBar);
+00785 
+00786   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00787     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00788                           \textcolor{stringliteral}{"The file "} + fileName +
+00789                           \textcolor{stringliteral}{" doesn't provide Numero\_barras."},
+00790                           QMessageBox::Ok);
+00791     \textcolor{keyword}{delete} project;
+00792     \textcolor{keywordflow}{return} NULL;
+00793   \}
+00794 
+00795   lineCnt += processedLines;
+00796 
+00797 \textcolor{comment}{// Read Number of lines.}
+00798 \textcolor{comment}{//------------------------------------------------------------------------------}
+00799   int32\_t numLine;
+00800   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"Numero\_linhas"}, &numLine);
+00801 
+00802   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00803     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00804                           \textcolor{stringliteral}{"The file "} + fileName +
+00805                           \textcolor{stringliteral}{" doesn't provide Numero\_linhas."},
+00806                           QMessageBox::Ok);
+00807     \textcolor{keyword}{delete} project;
+00808     \textcolor{keywordflow}{return} NULL;
+00809   \}
+00810 
+00811   lineCnt += processedLines;
+00812 
+00813 \textcolor{comment}{// Get Base Voltage.}
+00814 \textcolor{comment}{//------------------------------------------------------------------------------}
+00815   \textcolor{keywordtype}{double} VBase;
+00816   processedLines = getNextLineDouble(&stream, \textcolor{stringliteral}{"Voltagem\_base"}, &VBase);
+00817 
+00818   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00819     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00820                           \textcolor{stringliteral}{"The file "} + fileName + \textcolor{stringliteral}{" doesn't provide VBase."},
+00821                           QMessageBox::Ok);
+00822     \textcolor{keyword}{delete} project;
+00823     \textcolor{keywordflow}{return} NULL;
+00824   \}
+00825 
+00826   lineCnt += processedLines;
+00827 
+00828 \textcolor{comment}{// Save to project.}
+00829   project->\hyperlink{class_project_a494c3e89851f754188c7abaedbf77ef6}{setVoltageBase}(VBase);
+00830 
+00831 \textcolor{comment}{// Get Length Unit.}
+00832 \textcolor{comment}{//------------------------------------------------------------------------------}
+00833   int32\_t LenUn;
+00834   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"comprimento\_das\_linhas"}, &LenUn);
+00835 
+00836   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00837     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00838                           \textcolor{stringliteral}{"The file "} + fileName +
+00839                           \textcolor{stringliteral}{" doesn't provide Length Unit."},
+00840                           QMessageBox::Ok);
+00841     \textcolor{keyword}{delete} project;
+00842     \textcolor{keywordflow}{return} NULL;
+00843   \}
+00844 
+00845   lineCnt += processedLines;
+00846 
+00847 \textcolor{comment}{// Cast to Unit enum.}
+00848   \textcolor{keywordflow}{switch} (LenUn) \{
+00849   \textcolor{keywordflow}{case} 1:
+00850     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter});
+00851     \textcolor{keywordflow}{break};
+00852 
+00853   \textcolor{keywordflow}{case} 2:
+00854     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919}{Unit::kKiloMeter});
+00855     \textcolor{keywordflow}{break};
+00856 
+00857   \textcolor{keywordflow}{case} 3:
+00858     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8}{Unit::kFeet});
+00859     \textcolor{keywordflow}{break};
+00860 
+00861   \textcolor{keywordflow}{case} 4:
+00862     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724}{Unit::kMile});
+00863     \textcolor{keywordflow}{break};
+00864 
+00865   \textcolor{keywordflow}{default}:
+00866     project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter});
+00867     \textcolor{keywordflow}{break};
+00868   \}
+00869 
+00870 \textcolor{comment}{// Get Impedance Unit.}
+00871 \textcolor{comment}{//------------------------------------------------------------------------------}
+00872   int32\_t ImpUn;
+00873   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"impedancia"}, &ImpUn);
+00874 
+00875   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00876     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00877                           \textcolor{stringliteral}{"The file "} + fileName +
+00878                           \textcolor{stringliteral}{" doesn't provide Impedance Unit."},
+00879                           QMessageBox::Ok);
+00880     \textcolor{keyword}{delete} project;
+00881     \textcolor{keywordflow}{return} NULL;
+00882   \}
+00883 
+00884   lineCnt += processedLines;
+00885 
+00886 \textcolor{comment}{// Save to project.}
+00887   \textcolor{keywordflow}{switch} (ImpUn) \{
+00888   \textcolor{keywordflow}{case} 1:
+00889     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit::kOhm});
+00890     \textcolor{keywordflow}{break};
+00891 
+00892   \textcolor{keywordflow}{case} 2:
+00893     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336}{Unit::kOhmPerMeter});
+00894     \textcolor{keywordflow}{break};
+00895 
+00896   \textcolor{keywordflow}{case} 3:
+00897     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6}{Unit::kOhmPerKilometer});
+00898     \textcolor{keywordflow}{break};
+00899 
+00900   \textcolor{keywordflow}{case} 4:
+00901     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa433b57934ca3be960ec7a60f3ea6ea87}{Unit::kOhmPerFeet});
+00902     \textcolor{keywordflow}{break};
+00903 
+00904   \textcolor{keywordflow}{case} 5:
+00905     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613}{Unit::kOhmPerMile});
+00906     \textcolor{keywordflow}{break};
+00907 
+00908   \textcolor{keywordflow}{default}:
+00909     project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit::kOhm});
+00910     \textcolor{keywordflow}{break};
+00911   \}
+00912 
+00913 \textcolor{comment}{// Get power Unit.}
+00914 \textcolor{comment}{//------------------------------------------------------------------------------}
+00915   int32\_t powerUn;
+00916   processedLines = getNextLineInt(&stream, \textcolor{stringliteral}{"Demanda"}, &powerUn);
+00917 
+00918   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00919     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00920                           \textcolor{stringliteral}{"The file "} + fileName +
+00921                           \textcolor{stringliteral}{" doesn't provide Power Init."},
+00922                           QMessageBox::Ok);
+00923     \textcolor{keyword}{delete} project;
+00924     \textcolor{keywordflow}{return} NULL;
+00925   \}
+00926 
+00927   lineCnt += processedLines;
+00928 
+00929 \textcolor{comment}{// Save to project.}
+00930   \textcolor{keywordflow}{switch} (powerUn) \{
+00931   \textcolor{keywordflow}{case} 1:
+00932     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA});
+00933     \textcolor{keywordflow}{break};
+00934 
+00935   \textcolor{keywordflow}{case} 2:
+00936     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA});
+00937     \textcolor{keywordflow}{break};
+00938 
+00939   \textcolor{keywordflow}{case} 3:
+00940     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{Unit::kMegaVa});
+00941     \textcolor{keywordflow}{break};
+00942 
+00943   \textcolor{keywordflow}{default}:
+00944     project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA});
+00945     \textcolor{keywordflow}{break};
+00946   \}
+00947 
+00948 \textcolor{comment}{// Get Voltage Unit.}
+00949 \textcolor{comment}{//------------------------------------------------------------------------------}
+00950   project->\hyperlink{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{setVoltageUn}(\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d}{Unit::kKiloVolts});
+00951 
+00952 \textcolor{comment}{// Get Base Power.}
+00953 \textcolor{comment}{//------------------------------------------------------------------------------}
+00954   \textcolor{keywordtype}{double} PBase;
+00955   processedLines = getNextLineDouble(&stream, \textcolor{stringliteral}{"kVA    kV\_hihg"}, &PBase);
+00956 
+00957   \textcolor{keywordflow}{if}(processedLines == -1) \{
+00958     QMessageBox::critical(NULL, \textcolor{stringliteral}{"Invalid File."},
+00959                           \textcolor{stringliteral}{"The file "} + fileName + \textcolor{stringliteral}{" doesn't provide SBase."},
+00960                           QMessageBox::Ok);
+00961     \textcolor{keyword}{delete} project;
+00962     \textcolor{keywordflow}{return} NULL;
+00963   \}
+00964 
+00965   lineCnt += processedLines;
+00966   project->\hyperlink{class_project_abb4df805b3cd3af509a41e657eb4bb83}{setPowerBase}(PBase);
+00967 
+00968 \textcolor{comment}{// Get Bars.}
+00969 \textcolor{comment}{//------------------------------------------------------------------------------}
+00970   QString lineTxt;
+00971 
+00972 \textcolor{comment}{//  do \{}
+00973 \textcolor{comment}{//    lineTxt = stream.readLine();}
+00974 \textcolor{comment}{//    lineCnt++;}
+00975 
+00976 \textcolor{comment}{//    if(stream.atEnd()) \{}
+00977 \textcolor{comment}{//      QMessageBox::critical(NULL, "Invalid File.",}
+00978 \textcolor{comment}{//                            "The file " + fileName + " doesn't provide bars.",}
+00979 \textcolor{comment}{//                            QMessageBox::Ok);}
+00980 \textcolor{comment}{//      delete project;}
+00981 \textcolor{comment}{//      return NULL;}
+00982 \textcolor{comment}{//    \}}
+00983 \textcolor{comment}{//  \} while(!lineTxt.contains("Barra"));}
+00984 
+00985 \textcolor{comment}{//  int32\_t id;}
+00986 \textcolor{comment}{//  int32\_t barType;}
+00987 \textcolor{comment}{//  double Sia, Siai;}
+00988 \textcolor{comment}{//  double Sib, Sibi;}
+00989 \textcolor{comment}{//  double Sic, Sici;}
+00990 \textcolor{comment}{//  double Sha, Shai;}
+00991 \textcolor{comment}{//  double Shb, Shbi;}
+00992 \textcolor{comment}{//  double Shc, Shci;}
+00993 
+00994 \textcolor{comment}{//  int32\_t idBase = 0;}
+00995 
+00996 \textcolor{comment}{//  Bar *bar;}
+00997 
+00998 \textcolor{comment}{//  for(int32\_t i=0; i<numBar; i++) \{}
+00999 \textcolor{comment}{//    stream >> id >> barType >> Sia >> Siai >> Sib >> Sibi >> Sic >> Sici;}
+01000 \textcolor{comment}{//    stream >> Sha >> Shai >> Shb >> Shbi >> Shc >>Shci;}
+01001 
+01002 \textcolor{comment}{//    if(barType == 3)}
+01003 \textcolor{comment}{//      idBase = id;}
+01004 
+01005 \textcolor{comment}{//    bar = new Bar;}
+01006 \textcolor{comment}{//    bar->id = id - idBase;}
+01007 
+01008 \textcolor{comment}{//    bar->Sha.real(Sha);}
+01009 \textcolor{comment}{//    bar->Sha.imag(Shai);}
+01010 \textcolor{comment}{//    bar->Shb.real(Shb);}
+01011 \textcolor{comment}{//    bar->Shb.imag(Shbi);}
+01012 \textcolor{comment}{//    bar->Shc.real(Shc);}
+01013 \textcolor{comment}{//    bar->Shc.imag(Shci);}
+01014 \textcolor{comment}{//    bar->Sia.real(Sia);}
+01015 \textcolor{comment}{//    bar->Sia.imag(Siai);}
+01016 \textcolor{comment}{//    bar->Sib.real(Sib);}
+01017 \textcolor{comment}{//    bar->Sib.imag(Sibi);}
+01018 \textcolor{comment}{//    bar->Sic.real(Sic);}
+01019 \textcolor{comment}{//    bar->Sic.imag(Sici);}
+01020 
+01021 \textcolor{comment}{//    if (!project->network->addBar(bar)) \{}
+01022 \textcolor{comment}{//      QMessageBox::critical(NULL, "Invalid Bar.",}
+01023 \textcolor{comment}{//                            "Invalid Bar " + QString::number(id) + "at line " +}
+01024 \textcolor{comment}{//                            QString::number(lineCnt) + ".",}
+01025 \textcolor{comment}{//                            QMessageBox::Ok);}
+01026 \textcolor{comment}{//      delete bar;}
+01027 \textcolor{comment}{//      delete project;}
+01028 \textcolor{comment}{//      return NULL;}
+01029 \textcolor{comment}{//    \}}
+01030 
+01031 \textcolor{comment}{//    lineTxt = stream.readLine();}
+01032 \textcolor{comment}{//    lineCnt++;}
+01033 \textcolor{comment}{//  \}}
+01034 
+01037 \textcolor{comment}{//  do \{}
+01038 \textcolor{comment}{//    if(stream.atEnd()) \{}
+01039 \textcolor{comment}{//      QMessageBox::critical(NULL, "Invalid File.",}
+01040 \textcolor{comment}{//                            "The file " + fileName + " doesn't provide lines.",}
+01041 \textcolor{comment}{//                            QMessageBox::Ok);}
+01042 \textcolor{comment}{//      delete project;}
+01043 \textcolor{comment}{//      return NULL;}
+01044 \textcolor{comment}{//    \}}
+01045 
+01046 \textcolor{comment}{//    lineTxt = stream.readLine();}
+01047 \textcolor{comment}{//    lineCnt++;}
+01048 \textcolor{comment}{//  \} while(!lineTxt.contains("Tipo\_Cir"));}
+01049 
+01050 \textcolor{comment}{//  int32\_t noI, noF;}
+01051 \textcolor{comment}{//  double Zaa, Zaai;}
+01052 \textcolor{comment}{//  double Zab, Zabi;}
+01053 \textcolor{comment}{//  double Zac, Zaci;}
+01054 \textcolor{comment}{//  double Zan, Zani;}
+01055 \textcolor{comment}{//  double Zbb, Zbbi;}
+01056 \textcolor{comment}{//  double Zbc, Zbci;}
+01057 \textcolor{comment}{//  double Zbn, Zbni;}
+01058 \textcolor{comment}{//  double Zcc, Zcci;}
+01059 \textcolor{comment}{//  double Zcn, Zcni;}
+01060 \textcolor{comment}{//  double Znn, Znni;}
+01061 \textcolor{comment}{//  double length;}
+01062 
+01063 \textcolor{comment}{//  Line *line;}
+01064 \textcolor{comment}{//  QString lineType;}
+01065 \textcolor{comment}{//  QString dummy;}
+01066 
+01067 \textcolor{comment}{//  for(int32\_t i=0; i<numLine; i++) \{}
+01068 \textcolor{comment}{//    line = new Line;}
+01069 \textcolor{comment}{//    stream >> lineType >> noI >> noF;}
+01070 
+01071 \textcolor{comment}{//    line->noI = noI - idBase;}
+01072 \textcolor{comment}{//    line->noF = noF - idBase;}
+01073 
+01074 \textcolor{comment}{//    if (lineType.contains("CP")) \{}
+01075 \textcolor{comment}{//      stream >> dummy >> dummy >> dummy >> dummy >> Zaa >> Zaai >> Zbb >> Zbbi >> Zcc;}
+01076 \textcolor{comment}{//      stream >> Zcci >> Znn >> Znni >> Zab >> Zabi >> Zac >> Zaci >> Zan >> Zani;}
+01077 \textcolor{comment}{//      stream >> Zbc >> Zbci >> Zbn >> Zbni >> Zcn >> Zcni >> dummy >> length;}
+01078 \textcolor{comment}{//      line->length = length;}
+01079 \textcolor{comment}{//      line->Zaa.real(Zaa);}
+01080 \textcolor{comment}{//      line->Zaa.imag(Zaai);}
+01081 \textcolor{comment}{//      line->Zab.real(Zab);}
+01082 \textcolor{comment}{//      line->Zab.imag(Zabi);}
+01083 \textcolor{comment}{//      line->Zac.real(Zac);}
+01084 \textcolor{comment}{//      line->Zac.imag(Zaci);}
+01085 \textcolor{comment}{//      line->Zbb.real(Zbb);}
+01086 \textcolor{comment}{//      line->Zbb.imag(Zbbi);}
+01087 \textcolor{comment}{//      line->Zbc.real(Zbc);}
+01088 \textcolor{comment}{//      line->Zbc.imag(Zbci);}
+01089 \textcolor{comment}{//      line->Zcc.real(Zcc);}
+01090 \textcolor{comment}{//      line->Zcc.imag(Zcci);}
+01091 \textcolor{comment}{//    \}}
+01092 
+01093 \textcolor{comment}{//    if (!project->network->addLine(line)) \{}
+01094 \textcolor{comment}{//      QMessageBox::critical(NULL, "Invalid Line.",}
+01095 \textcolor{comment}{//                            "Invalid Line at line " +}
+01096 \textcolor{comment}{//                            QString::number(lineCnt) + ".",}
+01097 \textcolor{comment}{//                            QMessageBox::Ok);}
+01098 \textcolor{comment}{//      delete line;}
+01099 \textcolor{comment}{//      delete project;}
+01100 \textcolor{comment}{//      return NULL;}
+01101 \textcolor{comment}{//    \}}
+01102 
+01103 \textcolor{comment}{//    lineTxt = stream.readLine();}
+01104 \textcolor{comment}{//    lineCnt++;}
+01105 \textcolor{comment}{//  \}}
+01106 
+01107 \textcolor{comment}{//  redrawGraph1(project->network);}
+01108 
+01109 \textcolor{comment}{//  file.close();}
+01110 \textcolor{comment}{//  return project;}
+01111 \}
+\end{DoxyCode}

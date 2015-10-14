@@ -1,0 +1,67 @@
+\hypertarget{customtypes_8h_source}{}\subsection{customtypes.\+h}
+\label{customtypes_8h_source}\index{customtypes.\+h@{customtypes.\+h}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#ifndef UNIT}
+00002 \textcolor{preprocessor}{#define UNIT}
+00003 
+00004 \textcolor{preprocessor}{#include <QString>}
+00005 \textcolor{preprocessor}{#include <QMetaType>}
+00006 \textcolor{preprocessor}{#include <QVariant>}
+00007 
+\hypertarget{customtypes_8h_source_l00008}{}\hyperlink{class_unit}{00008} \textcolor{keyword}{class }\hyperlink{class_unit}{Unit}
+00009 \{
+00010 \textcolor{keyword}{public}:
+\hypertarget{customtypes_8h_source_l00011}{}\hyperlink{class_unit_a8e46f663a95736c8002d85ab271a7581}{00011}   \hyperlink{class_unit_a8e46f663a95736c8002d85ab271a7581}{Unit}() \{\}
+\hypertarget{customtypes_8h_source_l00012}{}\hyperlink{class_unit_a6353fc4c0a329997ad4abcf0dcb4eb27}{00012}   \hyperlink{class_unit_a6353fc4c0a329997ad4abcf0dcb4eb27}{~Unit}() \{\}
+00013 
+\hypertarget{customtypes_8h_source_l00014}{}\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{00014}   \textcolor{keyword}{enum} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{LengthUnit} \{
+\hypertarget{customtypes_8h_source_l00015}{}\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{00015}     \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{kMeter},
+\hypertarget{customtypes_8h_source_l00016}{}\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919}{00016}     \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919}{kKiloMeter},
+\hypertarget{customtypes_8h_source_l00017}{}\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8}{00017}     \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8}{kFeet},
+\hypertarget{customtypes_8h_source_l00018}{}\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724}{00018}     \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724}{kMile},
+\hypertarget{customtypes_8h_source_l00019}{}\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a6024a086b73d4d2200b770926b04c290}{00019}     \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a6024a086b73d4d2200b770926b04c290}{kMaxLengthUnit}
+00020   \};
+00021 
+\hypertarget{customtypes_8h_source_l00022}{}\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{00022}   \textcolor{keyword}{enum} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{ImpedanceUnit} \{
+\hypertarget{customtypes_8h_source_l00023}{}\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{00023}     \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{kOhm},
+\hypertarget{customtypes_8h_source_l00024}{}\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336}{00024}     \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336}{kOhmPerMeter},
+\hypertarget{customtypes_8h_source_l00025}{}\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6}{00025}     \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6}{kOhmPerKilometer},
+\hypertarget{customtypes_8h_source_l00026}{}\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa433b57934ca3be960ec7a60f3ea6ea87}{00026}     \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa433b57934ca3be960ec7a60f3ea6ea87}{kOhmPerFeet},
+\hypertarget{customtypes_8h_source_l00027}{}\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613}{00027}     \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613}{kOhmPerMile},
+\hypertarget{customtypes_8h_source_l00028}{}\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfaea617e6d3085001a8915240390b349a2}{00028}     \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfaea617e6d3085001a8915240390b349a2}{kMaxImpedanceUnit}
+00029   \};
+00030 
+\hypertarget{customtypes_8h_source_l00031}{}\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{00031}   \textcolor{keyword}{enum} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{PowerUnit} \{
+\hypertarget{customtypes_8h_source_l00032}{}\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{00032}     \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{kVA},
+\hypertarget{customtypes_8h_source_l00033}{}\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{00033}     \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{kKiloVA},
+\hypertarget{customtypes_8h_source_l00034}{}\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{00034}     \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{kMegaVa},
+\hypertarget{customtypes_8h_source_l00035}{}\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba99900819ad721f8dc4dd2001f51ef9b7}{00035}     \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba99900819ad721f8dc4dd2001f51ef9b7}{kMaxPowerUnit}
+00036   \};
+00037 
+\hypertarget{customtypes_8h_source_l00038}{}\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{00038}   \textcolor{keyword}{enum} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{VoltageUnit} \{
+\hypertarget{customtypes_8h_source_l00039}{}\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{00039}     \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{kVolts},
+\hypertarget{customtypes_8h_source_l00040}{}\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d}{00040}     \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d}{kKiloVolts},
+\hypertarget{customtypes_8h_source_l00041}{}\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1acd70db01fb079b3dada6c527cf0407d0}{00041}     \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1acd70db01fb079b3dada6c527cf0407d0}{kMaxVoltageUnit}
+00042   \};
+00043 
+\hypertarget{customtypes_8h_source_l00044}{}\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{00044}   \textcolor{keyword}{enum} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{CurrentUnit} \{
+\hypertarget{customtypes_8h_source_l00045}{}\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{00045}     \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{kAmpere},
+\hypertarget{customtypes_8h_source_l00046}{}\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aa27cb5edd73099f24f2285e02396ae14}{00046}     \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aa27cb5edd73099f24f2285e02396ae14}{kKiloAmpere},
+\hypertarget{customtypes_8h_source_l00047}{}\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aeb1fd2a24bcda443e3c3d91c525134c8}{00047}     \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aeb1fd2a24bcda443e3c3d91c525134c8}{kMaxCurrentUnit}
+00048   \};
+00049 
+00050   \textcolor{keyword}{static} QString \hyperlink{class_unit_abd363319f79f97b0a0b9a08c5ddc3cdb}{lengthUnitToStr}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{LengthUnit} lengthUnit);
+00051   \textcolor{keyword}{static} QString \hyperlink{class_unit_ae3ca20f4b6530f04ca6aa138ec0fa7d2}{impedanceUnitToStr}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{ImpedanceUnit} impedanceUnit);
+00052   \textcolor{keyword}{static} QString \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{powerUnitToStr}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{PowerUnit} powerUnit);
+00053   \textcolor{keyword}{static} QString \hyperlink{class_unit_a7fa103c31f9f069961b35b6371ff0c0a}{voltageUnitToStr}(\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{VoltageUnit} voltageUnit);
+00054 \};
+00055 
+00056 Q\_DECLARE\_METATYPE(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit})
+00057 Q\_DECLARE\_METATYPE(\hyperlink{class_unit}{Unit}::ImpedanceUnit)
+00058 Q\_DECLARE\_METATYPE(\hyperlink{class_unit}{Unit}::PowerUnit)
+00059 Q\_DECLARE\_METATYPE(\hyperlink{class_unit}{Unit}::VoltageUnit)
+00060 Q\_DECLARE\_METATYPE(\hyperlink{class_unit}{Unit}::CurrentUnit)
+00061 \textcolor{preprocessor}{#endif // UNIT}
+00062 
+\end{DoxyCode}

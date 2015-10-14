@@ -1,0 +1,452 @@
+\hypertarget{class_project}{}\subsection{Project Class Reference}
+\label{class_project}\index{Project@{Project}}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_project_aa007ecd17d5bc800e7a956cf666eea21}{Project} ()
+\item 
+\hyperlink{class_project_ad165d61b76ee86ee9c27fd987a2a7b9e}{$\sim$\+Project} ()
+\item 
+u\+\_\+int32\+\_\+t \hyperlink{class_project_ad85e1754cbab65e20f269e79c5caa789}{max\+Iterations} ()
+\item 
+void \hyperlink{class_project_abac6e194d2d16fbdbe51627844eae60b}{set\+Max\+Iterations} (u\+\_\+int32\+\_\+t \hyperlink{class_project_ad85e1754cbab65e20f269e79c5caa789}{max\+Iterations})
+\item 
+double \hyperlink{class_project_a457ed8d3b0ea5816f928977509f69a34}{min\+Error} ()
+\item 
+void \hyperlink{class_project_a2cb776c39adb42a1113bf7887d0d4636}{set\+Min\+Error} (double \hyperlink{class_project_a457ed8d3b0ea5816f928977509f69a34}{min\+Error})
+\item 
+double \hyperlink{class_project_a4e857ccb6162f57f5d72f4e7199e4573}{voltage\+Base} ()
+\item 
+void \hyperlink{class_project_a494c3e89851f754188c7abaedbf77ef6}{set\+Voltage\+Base} (double \hyperlink{class_project_a4e857ccb6162f57f5d72f4e7199e4573}{voltage\+Base})
+\item 
+double \hyperlink{class_project_a1a417c6832182389fb501b92cade3f9d}{power\+Base} ()
+\item 
+void \hyperlink{class_project_abb4df805b3cd3af509a41e657eb4bb83}{set\+Power\+Base} (double \hyperlink{class_project_a1a417c6832182389fb501b92cade3f9d}{power\+Base})
+\item 
+\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit\+::\+Length\+Unit} \hyperlink{class_project_a40cd2f59a4a708897e5997942c046f4d}{length\+Unit} ()
+\item 
+void \hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{set\+Length\+Un} (\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit\+::\+Length\+Unit} unit)
+\item 
+\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit\+::\+Impedance\+Unit} \hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedance\+Unit} ()
+\item 
+void \hyperlink{class_project_a995d050781923522ae2a02728346d199}{set\+Impedance\+Un} (\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit\+::\+Impedance\+Unit} unit)
+\item 
+\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit\+::\+Voltage\+Unit} \hyperlink{class_project_a93b928093072ba15c24693b03a934e4e}{voltage\+Unit} ()
+\item 
+void \hyperlink{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{set\+Voltage\+Un} (\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit\+::\+Voltage\+Unit} unit)
+\item 
+\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} \hyperlink{class_project_a2a1bc35358d6189695d6e5b7dd547ffd}{power\+Unit} ()
+\item 
+void \hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{set\+Power\+Un} (\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} unit)
+\item 
+\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit\+::\+Current\+Unit} \hyperlink{class_project_a0d22341fcc068be743b776df0a02f55e}{current\+Unit} ()
+\item 
+void \hyperlink{class_project_a64d9800bc3acafcfa4d3f45ee5aacc6d}{set\+Current\+Unit} (\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit\+::\+Current\+Unit} unit)
+\item 
+bool \hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{save} ()
+\item 
+bool \hyperlink{class_project_ad32a31d548ad38f4cbbe0f95879a68e5}{save\+As} (Q\+String file\+Name)
+\item 
+bool \hyperlink{class_project_a1e373892a0383371132ce68fa5f8813d}{load} ()
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Vector$<$ \hyperlink{class_network}{Network} $\ast$ $>$ \hyperlink{class_project_a28c99cc1f0568fbc6f2428894acf3c3a}{networks}
+\item 
+Q\+String \hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name}
+\item 
+Q\+String \hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{file\+Path}
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+
+
+Definition at line \hyperlink{project_8h_source_l00009}{9} of file \hyperlink{project_8h_source}{project.\+h}.
+
+
+
+\subsubsection{Constructor \& Destructor Documentation}
+\hypertarget{class_project_aa007ecd17d5bc800e7a956cf666eea21}{}\index{Project@{Project}!Project@{Project}}
+\index{Project@{Project}!Project@{Project}}
+\paragraph[{Project}]{\setlength{\rightskip}{0pt plus 5cm}Project\+::\+Project (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_aa007ecd17d5bc800e7a956cf666eea21}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00012}{12} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_ad165d61b76ee86ee9c27fd987a2a7b9e}{}\index{Project@{Project}!````~Project@{$\sim$\+Project}}
+\index{````~Project@{$\sim$\+Project}!Project@{Project}}
+\paragraph[{$\sim$\+Project}]{\setlength{\rightskip}{0pt plus 5cm}Project\+::$\sim$\+Project (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_ad165d61b76ee86ee9c27fd987a2a7b9e}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00022}{22} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+
+
+\subsubsection{Member Function Documentation}
+\hypertarget{class_project_a0d22341fcc068be743b776df0a02f55e}{}\index{Project@{Project}!current\+Unit@{current\+Unit}}
+\index{current\+Unit@{current\+Unit}!Project@{Project}}
+\paragraph[{current\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Current\+Unit} Project\+::current\+Unit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_a0d22341fcc068be743b776df0a02f55e}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00155}{155} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{}\index{Project@{Project}!impedance\+Unit@{impedance\+Unit}}
+\index{impedance\+Unit@{impedance\+Unit}!Project@{Project}}
+\paragraph[{impedance\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Impedance\+Unit} Project\+::impedance\+Unit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00110}{110} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_a40cd2f59a4a708897e5997942c046f4d}{}\index{Project@{Project}!length\+Unit@{length\+Unit}}
+\index{length\+Unit@{length\+Unit}!Project@{Project}}
+\paragraph[{length\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Length\+Unit} Project\+::length\+Unit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_a40cd2f59a4a708897e5997942c046f4d}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00094}{94} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_a1e373892a0383371132ce68fa5f8813d}{}\index{Project@{Project}!load@{load}}
+\index{load@{load}!Project@{Project}}
+\paragraph[{load}]{\setlength{\rightskip}{0pt plus 5cm}bool Project\+::load (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_a1e373892a0383371132ce68fa5f8813d}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00244}{244} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_ad85e1754cbab65e20f269e79c5caa789}{}\index{Project@{Project}!max\+Iterations@{max\+Iterations}}
+\index{max\+Iterations@{max\+Iterations}!Project@{Project}}
+\paragraph[{max\+Iterations}]{\setlength{\rightskip}{0pt plus 5cm}u\+\_\+int32\+\_\+t Project\+::max\+Iterations (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_ad85e1754cbab65e20f269e79c5caa789}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00030}{30} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_a457ed8d3b0ea5816f928977509f69a34}{}\index{Project@{Project}!min\+Error@{min\+Error}}
+\index{min\+Error@{min\+Error}!Project@{Project}}
+\paragraph[{min\+Error}]{\setlength{\rightskip}{0pt plus 5cm}double Project\+::min\+Error (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_a457ed8d3b0ea5816f928977509f69a34}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00046}{46} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_a1a417c6832182389fb501b92cade3f9d}{}\index{Project@{Project}!power\+Base@{power\+Base}}
+\index{power\+Base@{power\+Base}!Project@{Project}}
+\paragraph[{power\+Base}]{\setlength{\rightskip}{0pt plus 5cm}double Project\+::power\+Base (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_a1a417c6832182389fb501b92cade3f9d}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00078}{78} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_a2a1bc35358d6189695d6e5b7dd547ffd}{}\index{Project@{Project}!power\+Unit@{power\+Unit}}
+\index{power\+Unit@{power\+Unit}!Project@{Project}}
+\paragraph[{power\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Power\+Unit} Project\+::power\+Unit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_a2a1bc35358d6189695d6e5b7dd547ffd}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00142}{142} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{}\index{Project@{Project}!save@{save}}
+\index{save@{save}!Project@{Project}}
+\paragraph[{save}]{\setlength{\rightskip}{0pt plus 5cm}bool Project\+::save (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_a596a875bc5be73bc5b1b71b6448c1e07}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00168}{168} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{class_project_a596a875bc5be73bc5b1b71b6448c1e07_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_project_ad32a31d548ad38f4cbbe0f95879a68e5}{}\index{Project@{Project}!save\+As@{save\+As}}
+\index{save\+As@{save\+As}!Project@{Project}}
+\paragraph[{save\+As}]{\setlength{\rightskip}{0pt plus 5cm}bool Project\+::save\+As (
+\begin{DoxyParamCaption}
+\item[{Q\+String}]{file\+Name}
+\end{DoxyParamCaption}
+)}\label{class_project_ad32a31d548ad38f4cbbe0f95879a68e5}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00222}{222} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{class_project_ad32a31d548ad38f4cbbe0f95879a68e5_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_project_a64d9800bc3acafcfa4d3f45ee5aacc6d}{}\index{Project@{Project}!set\+Current\+Unit@{set\+Current\+Unit}}
+\index{set\+Current\+Unit@{set\+Current\+Unit}!Project@{Project}}
+\paragraph[{set\+Current\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}void Project\+::set\+Current\+Unit (
+\begin{DoxyParamCaption}
+\item[{{\bf Unit\+::\+Current\+Unit}}]{unit}
+\end{DoxyParamCaption}
+)}\label{class_project_a64d9800bc3acafcfa4d3f45ee5aacc6d}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00160}{160} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_a995d050781923522ae2a02728346d199}{}\index{Project@{Project}!set\+Impedance\+Un@{set\+Impedance\+Un}}
+\index{set\+Impedance\+Un@{set\+Impedance\+Un}!Project@{Project}}
+\paragraph[{set\+Impedance\+Un}]{\setlength{\rightskip}{0pt plus 5cm}void Project\+::set\+Impedance\+Un (
+\begin{DoxyParamCaption}
+\item[{{\bf Unit\+::\+Impedance\+Unit}}]{unit}
+\end{DoxyParamCaption}
+)}\label{class_project_a995d050781923522ae2a02728346d199}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00118}{118} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=329pt]{class_project_a995d050781923522ae2a02728346d199_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{}\index{Project@{Project}!set\+Length\+Un@{set\+Length\+Un}}
+\index{set\+Length\+Un@{set\+Length\+Un}!Project@{Project}}
+\paragraph[{set\+Length\+Un}]{\setlength{\rightskip}{0pt plus 5cm}void Project\+::set\+Length\+Un (
+\begin{DoxyParamCaption}
+\item[{{\bf Unit\+::\+Length\+Unit}}]{unit}
+\end{DoxyParamCaption}
+)}\label{class_project_a846ee2284b0856d461b35d78d9f8e1d6}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00102}{102} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{class_project_a846ee2284b0856d461b35d78d9f8e1d6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_project_abac6e194d2d16fbdbe51627844eae60b}{}\index{Project@{Project}!set\+Max\+Iterations@{set\+Max\+Iterations}}
+\index{set\+Max\+Iterations@{set\+Max\+Iterations}!Project@{Project}}
+\paragraph[{set\+Max\+Iterations}]{\setlength{\rightskip}{0pt plus 5cm}void Project\+::set\+Max\+Iterations (
+\begin{DoxyParamCaption}
+\item[{u\+\_\+int32\+\_\+t}]{max\+Iterations}
+\end{DoxyParamCaption}
+)}\label{class_project_abac6e194d2d16fbdbe51627844eae60b}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00038}{38} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_a2cb776c39adb42a1113bf7887d0d4636}{}\index{Project@{Project}!set\+Min\+Error@{set\+Min\+Error}}
+\index{set\+Min\+Error@{set\+Min\+Error}!Project@{Project}}
+\paragraph[{set\+Min\+Error}]{\setlength{\rightskip}{0pt plus 5cm}void Project\+::set\+Min\+Error (
+\begin{DoxyParamCaption}
+\item[{double}]{min\+Error}
+\end{DoxyParamCaption}
+)}\label{class_project_a2cb776c39adb42a1113bf7887d0d4636}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00054}{54} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_abb4df805b3cd3af509a41e657eb4bb83}{}\index{Project@{Project}!set\+Power\+Base@{set\+Power\+Base}}
+\index{set\+Power\+Base@{set\+Power\+Base}!Project@{Project}}
+\paragraph[{set\+Power\+Base}]{\setlength{\rightskip}{0pt plus 5cm}void Project\+::set\+Power\+Base (
+\begin{DoxyParamCaption}
+\item[{double}]{power\+Base}
+\end{DoxyParamCaption}
+)}\label{class_project_abb4df805b3cd3af509a41e657eb4bb83}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00086}{86} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{class_project_abb4df805b3cd3af509a41e657eb4bb83_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{}\index{Project@{Project}!set\+Power\+Un@{set\+Power\+Un}}
+\index{set\+Power\+Un@{set\+Power\+Un}!Project@{Project}}
+\paragraph[{set\+Power\+Un}]{\setlength{\rightskip}{0pt plus 5cm}void Project\+::set\+Power\+Un (
+\begin{DoxyParamCaption}
+\item[{{\bf Unit\+::\+Power\+Unit}}]{unit}
+\end{DoxyParamCaption}
+)}\label{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00150}{150} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{class_project_aa46b8645d2047c1a2e8d329b9ebbc120_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_project_a494c3e89851f754188c7abaedbf77ef6}{}\index{Project@{Project}!set\+Voltage\+Base@{set\+Voltage\+Base}}
+\index{set\+Voltage\+Base@{set\+Voltage\+Base}!Project@{Project}}
+\paragraph[{set\+Voltage\+Base}]{\setlength{\rightskip}{0pt plus 5cm}void Project\+::set\+Voltage\+Base (
+\begin{DoxyParamCaption}
+\item[{double}]{voltage\+Base}
+\end{DoxyParamCaption}
+)}\label{class_project_a494c3e89851f754188c7abaedbf77ef6}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00070}{70} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=323pt]{class_project_a494c3e89851f754188c7abaedbf77ef6_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{}\index{Project@{Project}!set\+Voltage\+Un@{set\+Voltage\+Un}}
+\index{set\+Voltage\+Un@{set\+Voltage\+Un}!Project@{Project}}
+\paragraph[{set\+Voltage\+Un}]{\setlength{\rightskip}{0pt plus 5cm}void Project\+::set\+Voltage\+Un (
+\begin{DoxyParamCaption}
+\item[{{\bf Unit\+::\+Voltage\+Unit}}]{unit}
+\end{DoxyParamCaption}
+)}\label{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00134}{134} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_project_a4e857ccb6162f57f5d72f4e7199e4573}{}\index{Project@{Project}!voltage\+Base@{voltage\+Base}}
+\index{voltage\+Base@{voltage\+Base}!Project@{Project}}
+\paragraph[{voltage\+Base}]{\setlength{\rightskip}{0pt plus 5cm}double Project\+::voltage\+Base (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_a4e857ccb6162f57f5d72f4e7199e4573}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00062}{62} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+\hypertarget{class_project_a93b928093072ba15c24693b03a934e4e}{}\index{Project@{Project}!voltage\+Unit@{voltage\+Unit}}
+\index{voltage\+Unit@{voltage\+Unit}!Project@{Project}}
+\paragraph[{voltage\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Voltage\+Unit} Project\+::voltage\+Unit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_project_a93b928093072ba15c24693b03a934e4e}
+
+
+Definition at line \hyperlink{project_8cpp_source_l00126}{126} of file \hyperlink{project_8cpp_source}{project.\+cpp}.
+
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{}\index{Project@{Project}!file\+Path@{file\+Path}}
+\index{file\+Path@{file\+Path}!Project@{Project}}
+\paragraph[{file\+Path}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Project\+::file\+Path}\label{class_project_a79f30adcefd0b72bd4ac7db724bc9531}
+
+
+Definition at line \hyperlink{project_8h_source_l00019}{19} of file \hyperlink{project_8h_source}{project.\+h}.
+
+\hypertarget{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{}\index{Project@{Project}!name@{name}}
+\index{name@{name}!Project@{Project}}
+\paragraph[{name}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Project\+::name}\label{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}
+
+
+Definition at line \hyperlink{project_8h_source_l00018}{18} of file \hyperlink{project_8h_source}{project.\+h}.
+
+\hypertarget{class_project_a28c99cc1f0568fbc6f2428894acf3c3a}{}\index{Project@{Project}!networks@{networks}}
+\index{networks@{networks}!Project@{Project}}
+\paragraph[{networks}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Vector$<${\bf Network} $\ast$$>$ Project\+::networks}\label{class_project_a28c99cc1f0568fbc6f2428894acf3c3a}
+
+
+Definition at line \hyperlink{project_8h_source_l00015}{15} of file \hyperlink{project_8h_source}{project.\+h}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{project_8h}{project.\+h}\item 
+\hyperlink{project_8cpp}{project.\+cpp}\end{DoxyCompactItemize}

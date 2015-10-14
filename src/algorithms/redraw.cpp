@@ -39,11 +39,11 @@ void redrawGraph1(Network *network)
     GA.shape(n) = shRect;
   }
 
-  foreach(Line *line, network->lines) {
-    node noI = nodeMap.value(line->noI);
-    node noF = nodeMap.value(line->noF);
-    G.newEdge(noI, noF);
-  }
+//  foreach(Line *line, network->lines) {
+//    node noI = nodeMap.value(line->noI);
+//    node noF = nodeMap.value(line->noF);
+//    G.newEdge(noI, noF);
+//  }
 
   edge e;
   forall_edges(e, G) {
@@ -73,7 +73,7 @@ void redrawGraph1(Network *network)
     bar->setPos(y, x);
   }
 
-  network->setSceneRect(network->itemsBoundingRect());
+//  network->setSceneRect(network->itemsBoundingRect());
 }
 
 /*******************************************************************************
@@ -102,11 +102,11 @@ void redrawGraph2(Network *network)
     GA.shape(n) = shRect;
   }
 
-  foreach(Line *line, network->lines) {
-    node noI = nodeMap.value(line->noI);
-    node noF = nodeMap.value(line->noF);
-    G.newEdge(noI, noF);
-  }
+//  foreach(Line *line, network->lines) {
+//    node noI = nodeMap.value(line->noI);
+//    node noF = nodeMap.value(line->noF);
+//    G.newEdge(noI, noF);
+//  }
 
   edge e;
   forall_edges(e, G) {
@@ -134,7 +134,7 @@ void redrawGraph2(Network *network)
     bar->setPos(y, x);
   }
 
-  network->setSceneRect(network->itemsBoundingRect());
+//  network->setSceneRect(network->itemsBoundingRect());
 }
 
 /*******************************************************************************
@@ -163,11 +163,11 @@ void redrawGraph3(Network *network)
     GA.shape(n) = shRect;
   }
 
-  foreach(Line *line, network->lines) {
-    node noI = nodeMap.value(line->noI);
-    node noF = nodeMap.value(line->noF);
-    G.newEdge(noI, noF);
-  }
+//  foreach(Line *line, network->lines) {
+//    node noI = nodeMap.value(line->noI);
+//    node noF = nodeMap.value(line->noF);
+//    G.newEdge(noI, noF);
+//  }
 
   edge e;
   forall_edges(e, G) {
@@ -191,5 +191,5 @@ void redrawGraph3(Network *network)
     bar->setPos(x, y);
   }
 
-  network->setSceneRect(network->itemsBoundingRect());
+//  network->setSceneRect(network->itemsBoundingRect());
 }

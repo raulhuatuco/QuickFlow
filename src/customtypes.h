@@ -41,6 +41,12 @@ public:
     kMaxVoltageUnit
   };
 
+  enum CurrentUnit {
+    kAmpere,
+    kKiloAmpere,
+    kMaxCurrentUnit
+  };
+
   static QString lengthUnitToStr(LengthUnit lengthUnit);
   static QString impedanceUnitToStr(ImpedanceUnit impedanceUnit);
   static QString powerUnitToStr(PowerUnit powerUnit);
@@ -51,5 +57,6 @@ Q_DECLARE_METATYPE(Unit::LengthUnit)
 Q_DECLARE_METATYPE(Unit::ImpedanceUnit)
 Q_DECLARE_METATYPE(Unit::PowerUnit)
 Q_DECLARE_METATYPE(Unit::VoltageUnit)
+Q_DECLARE_METATYPE(Unit::CurrentUnit)
 #endif // UNIT
 

@@ -17,27 +17,27 @@ public:
   static const int kTableColums = 3;
 
   // Box options.
-  static constexpr qreal kBoxWidth = 135.0*kTableColums;
-  static constexpr qreal kBoxHeight = 37.5*kTableRows;
-  static constexpr qreal kLineWidth = 2.0;
+  static const qreal kBoxWidth = 135.0*kTableColums;
+  static const qreal kBoxHeight = 37.5*kTableRows;
+  static const qreal kLineWidth = 2.0;
 
   // Head options.
-  static constexpr qreal kMarginHeadTop = 5.0;
-  static constexpr qreal kMarginHeadBot = 5.0;
+  static const qreal kMarginHeadTop = 5.0;
+  static const qreal kMarginHeadBot = 5.0;
 
   // Inner box options.
-  static constexpr qreal kMarginTop = 5.0;
-  static constexpr qreal kMarginBot = 5.0;
-  static constexpr qreal kMarginLeft = 5.0;
-  static constexpr qreal kMarginRight = 5.0;
+  static const qreal kMarginTop = 5.0;
+  static const qreal kMarginBot = 5.0;
+  static const qreal kMarginLeft = 5.0;
+  static const qreal kMarginRight = 5.0;
 
   // Table options
-  static constexpr qreal kTableLineWidth = 1.0;
-  static constexpr qreal kTextToLinePad = 1.0;
+  static const qreal kTableLineWidth = 1.0;
+  static const qreal kTextToLinePad = 1.0;
 
   // Base options.
-  static constexpr qreal kBoxBaseHeight = 30.0;
-  static constexpr qreal kBoxBaseWidth = 60.0;
+  static const qreal kBoxBaseHeight = 30.0;
+  static const qreal kBoxBaseWidth = 60.0;
 
   InfoLine(Line *line);
   ~InfoLine();

@@ -1,0 +1,183 @@
+\hypertarget{class_new_project}{}\subsection{New\+Project Class Reference}
+\label{class_new_project}\index{New\+Project@{New\+Project}}
+
+
+Gets user input to create a new project.  
+
+
+
+
+Inheritance diagram for New\+Project\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{class_new_project__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for New\+Project\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=148pt]{class_new_project__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group___window_ga011ff7a4c380f74bdafa4fdaed510c42}{New\+Project} (Q\+Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_new_project}{New\+Project} constructor. \end{DoxyCompactList}\item 
+\hyperlink{group___window_gae65155941598f4272f3df0b2f1428c78}{$\sim$\+New\+Project} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+String \hyperlink{class_new_project_ad0ebf4e6b19dbdf3a9ad4af27df2a8fa}{data\+Name}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_project}{Project} name. \end{DoxyCompactList}\item 
+Q\+String \hyperlink{class_new_project_ac684c762d3c15ff4463622978193e827}{data\+Path}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_project}{Project} path. \end{DoxyCompactList}\item 
+u\+\_\+int32\+\_\+t \hyperlink{class_new_project_a189825d570bc9bc35c61f7fe40de986a}{data\+Max\+Iterations}
+\begin{DoxyCompactList}\small\item\em Max. \end{DoxyCompactList}\item 
+double \hyperlink{class_new_project_a186c2163239625faf8c7769a72fa988c}{data\+Min\+Error}
+\begin{DoxyCompactList}\small\item\em Min. \end{DoxyCompactList}\item 
+double \hyperlink{class_new_project_a21dc54f9c0c8a59ca33eaa42cb9f9352}{data\+Voltage\+Base}
+\begin{DoxyCompactList}\small\item\em Voltage base, in volts. \end{DoxyCompactList}\item 
+double \hyperlink{class_new_project_a7a70270ca856001875a6043d5aa7a8af}{data\+Power\+Base}
+\begin{DoxyCompactList}\small\item\em Power base, in V\+A. \end{DoxyCompactList}\item 
+\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit\+::\+Length\+Unit} \hyperlink{class_new_project_ac0bf8b4f04f5c9425c74dd980711f021}{data\+Length\+Unit}
+\begin{DoxyCompactList}\small\item\em Length unit. \end{DoxyCompactList}\item 
+\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit\+::\+Impedance\+Unit} \hyperlink{class_new_project_ae50ce899e9b67db0001a11044730a778}{data\+Impedance\+Unit}
+\begin{DoxyCompactList}\small\item\em Impedance unit. \end{DoxyCompactList}\item 
+\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit\+::\+Voltage\+Unit} \hyperlink{class_new_project_a04187cd16b01b80dcdef9107e4c83a28}{data\+Voltage\+Unit}
+\begin{DoxyCompactList}\small\item\em Voltage unit. \end{DoxyCompactList}\item 
+\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} \hyperlink{class_new_project_a500a8b98942c5f4900348fd315fb9d8b}{data\+Power\+Unit}
+\begin{DoxyCompactList}\small\item\em Power unit. \end{DoxyCompactList}\item 
+\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit\+::\+Current\+Unit} \hyperlink{class_new_project_a9d389065ff7f8588338069018088a20f}{data\+Current\+Unit}
+\begin{DoxyCompactList}\small\item\em Current unit. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\subparagraph*{Overview}
+
+This class implements a dialog that will get user input to create a new project. All parameters are validade for their respective type.
+
+In order to verify user confirmation, check for the Q\+Dialog\+::\+Accepted response.
+
+User input is passed through the data$\ast$ properties.
+
+\subparagraph*{Example}
+
+
+\begin{DoxyCode}
+\hyperlink{class_new_project}{NewProject} newProject(\textcolor{keyword}{this});
+
+\textcolor{comment}{// If canceled return}
+\textcolor{keywordflow}{if} (newProject.exec() != QDialog::Accepted) \{
+  \textcolor{keywordflow}{return};
+\}
+
+\textcolor{comment}{// Create project object and fill settings.}
+\hyperlink{class_project}{Project} *project = \textcolor{keyword}{new} \hyperlink{class_project}{Project};
+project->\hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name} = newProject.dataName;
+project->\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = newProject.dataPath + QDir::separator() +
+                    newProject.dataName + \textcolor{stringliteral}{".qkf"};
+
+\textcolor{comment}{// Simulation data.}
+project->\hyperlink{class_project_abac6e194d2d16fbdbe51627844eae60b}{setMaxIterations}(newProject.dataMaxIterations);
+project->\hyperlink{class_project_a2cb776c39adb42a1113bf7887d0d4636}{setMinError}(newProject.dataMinError);
+project->\hyperlink{class_project_a494c3e89851f754188c7abaedbf77ef6}{setVoltageBase}(newProject.dataVoltageBase);
+project->\hyperlink{class_project_abb4df805b3cd3af509a41e657eb4bb83}{setPowerBase}(newProject.dataPowerBase);
+\end{DoxyCode}
+ 
+
+Definition at line \hyperlink{newproject_8h_source_l00092}{92} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{class_new_project_a9d389065ff7f8588338069018088a20f}{}\index{New\+Project@{New\+Project}!data\+Current\+Unit@{data\+Current\+Unit}}
+\index{data\+Current\+Unit@{data\+Current\+Unit}!New\+Project@{New\+Project}}
+\paragraph[{data\+Current\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Current\+Unit} New\+Project\+::data\+Current\+Unit}\label{class_new_project_a9d389065ff7f8588338069018088a20f}
+
+
+Definition at line \hyperlink{newproject_8h_source_l00153}{153} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+\hypertarget{class_new_project_ae50ce899e9b67db0001a11044730a778}{}\index{New\+Project@{New\+Project}!data\+Impedance\+Unit@{data\+Impedance\+Unit}}
+\index{data\+Impedance\+Unit@{data\+Impedance\+Unit}!New\+Project@{New\+Project}}
+\paragraph[{data\+Impedance\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Impedance\+Unit} New\+Project\+::data\+Impedance\+Unit}\label{class_new_project_ae50ce899e9b67db0001a11044730a778}
+
+
+Definition at line \hyperlink{newproject_8h_source_l00138}{138} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+\hypertarget{class_new_project_ac0bf8b4f04f5c9425c74dd980711f021}{}\index{New\+Project@{New\+Project}!data\+Length\+Unit@{data\+Length\+Unit}}
+\index{data\+Length\+Unit@{data\+Length\+Unit}!New\+Project@{New\+Project}}
+\paragraph[{data\+Length\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Length\+Unit} New\+Project\+::data\+Length\+Unit}\label{class_new_project_ac0bf8b4f04f5c9425c74dd980711f021}
+
+
+Definition at line \hyperlink{newproject_8h_source_l00133}{133} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+\hypertarget{class_new_project_a189825d570bc9bc35c61f7fe40de986a}{}\index{New\+Project@{New\+Project}!data\+Max\+Iterations@{data\+Max\+Iterations}}
+\index{data\+Max\+Iterations@{data\+Max\+Iterations}!New\+Project@{New\+Project}}
+\paragraph[{data\+Max\+Iterations}]{\setlength{\rightskip}{0pt plus 5cm}u\+\_\+int32\+\_\+t New\+Project\+::data\+Max\+Iterations}\label{class_new_project_a189825d570bc9bc35c61f7fe40de986a}
+iterations. 
+
+Definition at line \hyperlink{newproject_8h_source_l00113}{113} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+\hypertarget{class_new_project_a186c2163239625faf8c7769a72fa988c}{}\index{New\+Project@{New\+Project}!data\+Min\+Error@{data\+Min\+Error}}
+\index{data\+Min\+Error@{data\+Min\+Error}!New\+Project@{New\+Project}}
+\paragraph[{data\+Min\+Error}]{\setlength{\rightskip}{0pt plus 5cm}double New\+Project\+::data\+Min\+Error}\label{class_new_project_a186c2163239625faf8c7769a72fa988c}
+error, in percentage. 
+
+Definition at line \hyperlink{newproject_8h_source_l00118}{118} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+\hypertarget{class_new_project_ad0ebf4e6b19dbdf3a9ad4af27df2a8fa}{}\index{New\+Project@{New\+Project}!data\+Name@{data\+Name}}
+\index{data\+Name@{data\+Name}!New\+Project@{New\+Project}}
+\paragraph[{data\+Name}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String New\+Project\+::data\+Name}\label{class_new_project_ad0ebf4e6b19dbdf3a9ad4af27df2a8fa}
+
+
+Definition at line \hyperlink{newproject_8h_source_l00103}{103} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+\hypertarget{class_new_project_ac684c762d3c15ff4463622978193e827}{}\index{New\+Project@{New\+Project}!data\+Path@{data\+Path}}
+\index{data\+Path@{data\+Path}!New\+Project@{New\+Project}}
+\paragraph[{data\+Path}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String New\+Project\+::data\+Path}\label{class_new_project_ac684c762d3c15ff4463622978193e827}
+
+
+Definition at line \hyperlink{newproject_8h_source_l00108}{108} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+\hypertarget{class_new_project_a7a70270ca856001875a6043d5aa7a8af}{}\index{New\+Project@{New\+Project}!data\+Power\+Base@{data\+Power\+Base}}
+\index{data\+Power\+Base@{data\+Power\+Base}!New\+Project@{New\+Project}}
+\paragraph[{data\+Power\+Base}]{\setlength{\rightskip}{0pt plus 5cm}double New\+Project\+::data\+Power\+Base}\label{class_new_project_a7a70270ca856001875a6043d5aa7a8af}
+
+
+Definition at line \hyperlink{newproject_8h_source_l00128}{128} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+\hypertarget{class_new_project_a500a8b98942c5f4900348fd315fb9d8b}{}\index{New\+Project@{New\+Project}!data\+Power\+Unit@{data\+Power\+Unit}}
+\index{data\+Power\+Unit@{data\+Power\+Unit}!New\+Project@{New\+Project}}
+\paragraph[{data\+Power\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Power\+Unit} New\+Project\+::data\+Power\+Unit}\label{class_new_project_a500a8b98942c5f4900348fd315fb9d8b}
+
+
+Definition at line \hyperlink{newproject_8h_source_l00148}{148} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+\hypertarget{class_new_project_a21dc54f9c0c8a59ca33eaa42cb9f9352}{}\index{New\+Project@{New\+Project}!data\+Voltage\+Base@{data\+Voltage\+Base}}
+\index{data\+Voltage\+Base@{data\+Voltage\+Base}!New\+Project@{New\+Project}}
+\paragraph[{data\+Voltage\+Base}]{\setlength{\rightskip}{0pt plus 5cm}double New\+Project\+::data\+Voltage\+Base}\label{class_new_project_a21dc54f9c0c8a59ca33eaa42cb9f9352}
+
+
+Definition at line \hyperlink{newproject_8h_source_l00123}{123} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+\hypertarget{class_new_project_a04187cd16b01b80dcdef9107e4c83a28}{}\index{New\+Project@{New\+Project}!data\+Voltage\+Unit@{data\+Voltage\+Unit}}
+\index{data\+Voltage\+Unit@{data\+Voltage\+Unit}!New\+Project@{New\+Project}}
+\paragraph[{data\+Voltage\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Voltage\+Unit} New\+Project\+::data\+Voltage\+Unit}\label{class_new_project_a04187cd16b01b80dcdef9107e4c83a28}
+
+
+Definition at line \hyperlink{newproject_8h_source_l00143}{143} of file \hyperlink{newproject_8h_source}{newproject.\+h}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{newproject_8h}{newproject.\+h}\item 
+\hyperlink{newproject_8cpp}{newproject.\+cpp}\end{DoxyCompactItemize}

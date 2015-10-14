@@ -1,0 +1,651 @@
+\hypertarget{bar_8cpp_source}{}\subsection{bar.\+cpp}
+\label{bar_8cpp_source}\index{bar.\+cpp@{bar.\+cpp}}
+
+\begin{DoxyCode}
+00001 \textcolor{comment}{/*}
+00002 \textcolor{comment}{ * The MIT License (MIT)}
+00003 \textcolor{comment}{ *}
+00004 \textcolor{comment}{ * Copyright (c) 2015 David Krepsky}
+00005 \textcolor{comment}{ *}
+00006 \textcolor{comment}{ * Permission is hereby granted, free of charge, to any person obtaining a copy}
+00007 \textcolor{comment}{ * of this software and associated documentation files (the "Software"), to deal}
+00008 \textcolor{comment}{ * in the Software without restriction, including without limitation the rights}
+00009 \textcolor{comment}{ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}
+00010 \textcolor{comment}{ * copies of the Software, and to permit persons to whom the Software is}
+00011 \textcolor{comment}{ * furnished to do so, subject to the following conditions:}
+00012 \textcolor{comment}{ *}
+00013 \textcolor{comment}{ * The above copyright notice and this permission notice shall be included in}
+00014 \textcolor{comment}{ * all copies or substantial portions of the Software.}
+00015 \textcolor{comment}{ *}
+00016 \textcolor{comment}{ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}
+00017 \textcolor{comment}{ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}
+00018 \textcolor{comment}{ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}
+00019 \textcolor{comment}{ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}
+00020 \textcolor{comment}{ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}
+00021 \textcolor{comment}{ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}
+00022 \textcolor{comment}{ * SOFTWARE.}
+00023 \textcolor{comment}{ */}
+00024 
+00043 \textcolor{preprocessor}{#include "\hyperlink{bar_8h}{models/bar.h}"}
+00044 \textcolor{preprocessor}{#include <QGraphicsScene>}
+00045 \textcolor{preprocessor}{#include <QPainter>}
+00046 
+00047 \textcolor{comment}{/*******************************************************************************}
+00048 \textcolor{comment}{ * Const initialization.}
+00049 \textcolor{comment}{ ******************************************************************************/}
+00050 \textcolor{keyword}{const} int32\_t \hyperlink{group___models_ga9919592c0397ed41448dfb20b607d738}{Bar::kInvalidId} = -1;
+00051 
+00052 \textcolor{comment}{/*******************************************************************************}
+00053 \textcolor{comment}{ * Constructor.}
+00054 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00055}{}\hyperlink{group___models_ga9cae2188fcc6cce41caa7898c64548d1}{00055} \hyperlink{group___models_ga9cae2188fcc6cce41caa7898c64548d1}{Bar::Bar}()
+00056   : QGraphicsObject(),
+00057     id(kInvalidId),
+00058     network(NULL),
+00059     infoBar(NULL)
+00060 \{
+00061   setFlag(ItemIsSelectable);
+00062   setFlag(ItemSendsGeometryChanges); \textcolor{comment}{// Needed to refresh line drawing.}
+00063   setZValue(1.0); \textcolor{comment}{// Will be above lines and under info boxes.}
+00064 
+00065   \textcolor{comment}{// zero fill data.}
+00066   \textcolor{keywordflow}{for} (int32\_t i = 0; i<=2; i++) \{
+00067     v\_[i] = 0.0;
+00068     sh\_[i] = 0.0;
+00069     si\_[i] = 0.0;
+00070     rV\_[i] = 0.0;
+00071     rSi\_[i] = 0.0;
+00072   \}
+00073 \}
+00074 
+00075 \textcolor{comment}{/*******************************************************************************}
+00076 \textcolor{comment}{ * Constructor with initial conditions.}
+00077 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00078}{}\hyperlink{group___models_gab1c5a81ad40dbc7ee745077b4f5c20d4}{00078} \hyperlink{group___models_ga9cae2188fcc6cce41caa7898c64548d1}{Bar::Bar}(complex<double> initialV, complex<double> initialSh,
+00079          complex<double> initialSi)
+00080   : QGraphicsObject(),
+00081     id(kInvalidId),
+00082     network(NULL),
+00083     infoBar(NULL)
+00084 \{
+00085   setFlag(ItemIsSelectable);
+00086   setFlag(ItemSendsGeometryChanges); \textcolor{comment}{// Needed to refresh line drawing.}
+00087   setZValue(1.0); \textcolor{comment}{// Will be above lines and under info boxes.}
+00088 
+00089   \textcolor{comment}{// Fill initial conditions.}
+00090   \textcolor{keywordflow}{for} (int32\_t i = 0; i<=2; i++) \{
+00091     v\_[i] = initialV;
+00092     sh\_[i] = initialSh;
+00093     si\_[i] = initialSi;
+00094     \textcolor{comment}{// Results are still zero.}
+00095     rV\_[i] = 0.0;
+00096     rSi\_[i] = 0.0;
+00097   \}
+00098 \}
+00099 
+00100 \textcolor{comment}{/*******************************************************************************}
+00101 \textcolor{comment}{ * Destructor.}
+00102 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00103}{}\hyperlink{group___models_ga9c7ebea0c189423591741ac438985316}{00103} \hyperlink{group___models_ga9c7ebea0c189423591741ac438985316}{Bar::~Bar}()
+00104 \{
+00105 \}
+00106 
+00107 \textcolor{comment}{/*******************************************************************************}
+00108 \textcolor{comment}{ * Initial Voltage.}
+00109 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00110}{}\hyperlink{group___models_ga1e6f2daec86407118656d88170d1adc2}{00110} complex<double> \hyperlink{group___models_ga1e6f2daec86407118656d88170d1adc2}{Bar::v}(int32\_t phase, \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit)
+00111 \{
+00112   \textcolor{keywordtype}{double} factor = 0.0;
+00113 
+00114   \textcolor{keywordflow}{switch} (unit) \{
+00115   \textcolor{keywordflow}{case} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts}:
+00116     factor = 1.0;
+00117     \textcolor{keywordflow}{break};
+00118 
+00119   \textcolor{keywordflow}{case} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d}{Unit::kKiloVolts}:
+00120     factor = 1000.0;
+00121 
+00122   \textcolor{keywordflow}{default}:
+00123     factor = 1.0;
+00124     \textcolor{keywordflow}{break};
+00125   \}
+00126 
+00127   \textcolor{keywordflow}{return} v\_[phase]*factor;
+00128 \}
+00129 
+00130 \textcolor{comment}{/*******************************************************************************}
+00131 \textcolor{comment}{ * Set initial Voltage.}
+00132 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00133}{}\hyperlink{group___models_ga9b6fbc92674bfcdc9d5090795ab335a6}{00133} \textcolor{keywordtype}{void} \hyperlink{group___models_ga9b6fbc92674bfcdc9d5090795ab335a6}{Bar::setV}(int32\_t phase, complex<double> newVoltage,
+00134                \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit)
+00135 \{
+00136   \textcolor{keywordflow}{switch} (unit) \{
+00137   \textcolor{keywordflow}{case} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts}:
+00138     v\_[phase] = newVoltage;
+00139     \textcolor{keywordflow}{break};
+00140 
+00141   \textcolor{keywordflow}{case} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d}{Unit::kKiloVolts}:
+00142     v\_[phase] = newVoltage/1000.0;
+00143 
+00144   \textcolor{keywordflow}{default}:
+00145     v\_[phase] = newVoltage;
+00146     \textcolor{keywordflow}{break};
+00147   \}
+00148 \}
+00149 
+00150 \textcolor{comment}{/*******************************************************************************}
+00151 \textcolor{comment}{ * Initial Voltage in per unit.}
+00152 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00153}{}\hyperlink{group___models_ga1c54bd76b2f620d970ddfed8cdae4116}{00153} complex<double> \hyperlink{group___models_ga1c54bd76b2f620d970ddfed8cdae4116}{Bar::vPu}(int32\_t phase)
+00154 \{
+00155   \textcolor{keywordflow}{if} (\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network} == NULL)
+00156     \textcolor{keywordflow}{return} 0.0;
+00157 
+00158   \textcolor{comment}{//return v\_[phase]/network->voltageBase;}
+00159 \}
+00160 
+00161 \textcolor{comment}{/*******************************************************************************}
+00162 \textcolor{comment}{ * Get Shunt Element Power.}
+00163 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00164}{}\hyperlink{group___models_gac188071bf5f165b0acdaa4c8af82355c}{00164} complex<double> \hyperlink{group___models_gac188071bf5f165b0acdaa4c8af82355c}{Bar::sh}(int32\_t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit)
+00165 \{
+00166   \textcolor{keywordtype}{double} multiply = 0.0;
+00167 
+00168   \textcolor{keywordflow}{switch} (unit) \{
+00169   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA}:
+00170     multiply = 1.0;
+00171     \textcolor{keywordflow}{break};
+00172 
+00173   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA}:
+00174     multiply = 1000.0;
+00175     \textcolor{keywordflow}{break};
+00176 
+00177   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{Unit::kMegaVa}:
+00178     multiply = 1000000.0;
+00179     \textcolor{keywordflow}{break};
+00180 
+00181   \textcolor{keywordflow}{default}:
+00182     multiply = 1.0;
+00183     \textcolor{keywordflow}{break};
+00184   \}
+00185 
+00186   \textcolor{keywordflow}{return} sh\_[phase]*multiply;
+00187 \}
+00188 
+00189 \textcolor{comment}{/*******************************************************************************}
+00190 \textcolor{comment}{ * Set Shunt Element Power.}
+00191 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00192}{}\hyperlink{group___models_ga207abd3d0649a488e3c44cf2a501ed23}{00192} \textcolor{keywordtype}{void} \hyperlink{group___models_ga207abd3d0649a488e3c44cf2a501ed23}{Bar::setSh}(int32\_t phase, complex<double> newPower, 
+      \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit)
+00193 \{
+00194   \textcolor{keywordtype}{double} multiply = 0.0;
+00195 
+00196   \textcolor{keywordflow}{switch} (unit) \{
+00197   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA}:
+00198     multiply = 1.0;
+00199     \textcolor{keywordflow}{break};
+00200 
+00201   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA}:
+00202     multiply = 1000.0;
+00203     \textcolor{keywordflow}{break};
+00204 
+00205   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{Unit::kMegaVa}:
+00206     multiply = 1000000.0;
+00207     \textcolor{keywordflow}{break};
+00208 
+00209   \textcolor{keywordflow}{default}:
+00210     multiply = 1.0;
+00211     \textcolor{keywordflow}{break};
+00212   \}
+00213 
+00214   sh\_[phase] = newPower/multiply;
+00215 \}
+00216 
+00217 \textcolor{comment}{/*******************************************************************************}
+00218 \textcolor{comment}{ * Shunt Power in per unit.}
+00219 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00220}{}\hyperlink{group___models_ga7df2ed5705f06c0cf2937d25102ca847}{00220} complex<double> \hyperlink{group___models_ga7df2ed5705f06c0cf2937d25102ca847}{Bar::shPu}(int32\_t phase)
+00221 \{
+00222   \textcolor{keywordflow}{if}(\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network} == NULL)
+00223     \textcolor{keywordflow}{return} 0.0;
+00224 
+00225   \textcolor{comment}{//return sh\_[phase]/network->powerBase;}
+00226 \}
+00227 
+00228 \textcolor{comment}{/*******************************************************************************}
+00229 \textcolor{comment}{ * Injected power.}
+00230 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00231}{}\hyperlink{group___models_ga02bbc279f1e133f66b12ee21e7bebcd8}{00231} complex<double> \hyperlink{group___models_ga02bbc279f1e133f66b12ee21e7bebcd8}{Bar::si}(int32\_t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit)
+00232 \{
+00233   \textcolor{keywordtype}{double} multiply = 0.0;
+00234 
+00235   \textcolor{keywordflow}{switch} (unit) \{
+00236   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA}:
+00237     multiply = 1.0;
+00238     \textcolor{keywordflow}{break};
+00239 
+00240   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA}:
+00241     multiply = 1000.0;
+00242     \textcolor{keywordflow}{break};
+00243 
+00244   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{Unit::kMegaVa}:
+00245     multiply = 1000000.0;
+00246     \textcolor{keywordflow}{break};
+00247 
+00248   \textcolor{keywordflow}{default}:
+00249     multiply = 1.0;
+00250     \textcolor{keywordflow}{break};
+00251   \}
+00252 
+00253   \textcolor{keywordflow}{return} si\_[phase]*multiply;
+00254 \}
+00255 
+00256 \textcolor{comment}{/*******************************************************************************}
+00257 \textcolor{comment}{ * Set Injected power.}
+00258 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00259}{}\hyperlink{group___models_ga74e510be49e50e4c14550b32e1dc92f9}{00259} \textcolor{keywordtype}{void} \hyperlink{group___models_ga74e510be49e50e4c14550b32e1dc92f9}{Bar::setSi}(int32\_t phase, complex<double> newPower, 
+      \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit)
+00260 \{
+00261   \textcolor{keywordtype}{double} multiply = 0.0;
+00262 
+00263   \textcolor{keywordflow}{switch} (unit) \{
+00264   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA}:
+00265     multiply = 1.0;
+00266     \textcolor{keywordflow}{break};
+00267 
+00268   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA}:
+00269     multiply = 1000.0;
+00270     \textcolor{keywordflow}{break};
+00271 
+00272   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{Unit::kMegaVa}:
+00273     multiply = 1000000.0;
+00274     \textcolor{keywordflow}{break};
+00275 
+00276   \textcolor{keywordflow}{default}:
+00277     multiply = 1.0;
+00278     \textcolor{keywordflow}{break};
+00279   \}
+00280 
+00281   si\_[phase] = newPower/multiply;
+00282 \}
+00283 
+00284 \textcolor{comment}{/*******************************************************************************}
+00285 \textcolor{comment}{ * Injected power in per unit.}
+00286 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00287}{}\hyperlink{group___models_ga8ac94a6b5f69417da962a7d87361b416}{00287} complex<double> \hyperlink{group___models_ga8ac94a6b5f69417da962a7d87361b416}{Bar::siPu}(int32\_t phase)
+00288 \{
+00289   \textcolor{keywordflow}{if}(\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network} == NULL)
+00290     \textcolor{keywordflow}{return} 0.0;
+00291 
+00292   \textcolor{comment}{//return si\_[phase]/network->powerBase;}
+00293 \}
+00294 
+00295 \textcolor{comment}{/*******************************************************************************}
+00296 \textcolor{comment}{ * Result voltage.}
+00297 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00298}{}\hyperlink{group___models_ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e}{00298} complex<double> \hyperlink{group___models_ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e}{Bar::rV}(int32\_t phase, \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit)
+00299 \{
+00300   \textcolor{keywordtype}{double} factor = 0.0;
+00301 
+00302   \textcolor{keywordflow}{switch} (unit) \{
+00303   \textcolor{keywordflow}{case} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts}:
+00304     factor = 1.0;
+00305     \textcolor{keywordflow}{break};
+00306 
+00307   \textcolor{keywordflow}{case} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d}{Unit::kKiloVolts}:
+00308     factor = 1000.0;
+00309 
+00310   \textcolor{keywordflow}{default}:
+00311     factor = 1.0;
+00312     \textcolor{keywordflow}{break};
+00313   \}
+00314 
+00315   \textcolor{keywordflow}{return} rV\_[phase]*factor;
+00316 \}
+00317 
+00318 \textcolor{comment}{/*******************************************************************************}
+00319 \textcolor{comment}{ * Set result voltage.}
+00320 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00321}{}\hyperlink{group___models_ga2b2c5a373d87025e79d26aa9c4cea75a}{00321} \textcolor{keywordtype}{void} \hyperlink{group___models_ga2b2c5a373d87025e79d26aa9c4cea75a}{Bar::setRV}(int32\_t phase, complex<double> resultVoltage,
+00322                 \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit)
+00323 \{
+00324   \textcolor{keywordflow}{switch} (unit) \{
+00325   \textcolor{keywordflow}{case} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts}:
+00326     rV\_[phase] = resultVoltage;
+00327     \textcolor{keywordflow}{break};
+00328 
+00329   \textcolor{keywordflow}{case} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d}{Unit::kKiloVolts}:
+00330     rV\_[phase] = resultVoltage/1000.0;
+00331 
+00332   \textcolor{keywordflow}{default}:
+00333     rV\_[phase] = resultVoltage;
+00334     \textcolor{keywordflow}{break};
+00335   \}
+00336 \}
+00337 
+00338 \textcolor{comment}{/*******************************************************************************}
+00339 \textcolor{comment}{ * Result voltage in per unit.}
+00340 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00341}{}\hyperlink{group___models_ga7deee8820e2ee3e0db993a1e76b68700}{00341} complex<double> \hyperlink{group___models_ga7deee8820e2ee3e0db993a1e76b68700}{Bar::rVPu}(int32\_t phase)
+00342 \{
+00343   \textcolor{keywordflow}{if} (\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network} == NULL)
+00344     \textcolor{keywordflow}{return} 0.0;
+00345 
+00346   \textcolor{comment}{//return rV\_[phase]/network->voltageBase;}
+00347 \}
+00348 
+00349 \textcolor{comment}{/*******************************************************************************}
+00350 \textcolor{comment}{ * Result value for injected power.}
+00351 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00352}{}\hyperlink{group___models_gac8ddd4cb566d995b70b0f83146aa12b3}{00352} complex<double> \hyperlink{group___models_gac8ddd4cb566d995b70b0f83146aa12b3}{Bar::rSi}(int32\_t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit)
+00353 \{
+00354   \textcolor{keywordtype}{double} multiply = 0.0;
+00355 
+00356   \textcolor{keywordflow}{switch} (unit) \{
+00357   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA}:
+00358     multiply = 1.0;
+00359     \textcolor{keywordflow}{break};
+00360 
+00361   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA}:
+00362     multiply = 1000.0;
+00363     \textcolor{keywordflow}{break};
+00364 
+00365   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{Unit::kMegaVa}:
+00366     multiply = 1000000.0;
+00367     \textcolor{keywordflow}{break};
+00368 
+00369   \textcolor{keywordflow}{default}:
+00370     multiply = 1.0;
+00371     \textcolor{keywordflow}{break};
+00372   \}
+00373 
+00374   \textcolor{keywordflow}{return} rSi\_[phase]*multiply;
+00375 \}
+00376 
+00377 \textcolor{comment}{/*******************************************************************************}
+00378 \textcolor{comment}{ * Set result value for injected power.}
+00379 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00380}{}\hyperlink{group___models_ga36d3d54b66584a0557c0c141f4636d4c}{00380} \textcolor{keywordtype}{void} \hyperlink{group___models_ga36d3d54b66584a0557c0c141f4636d4c}{Bar::setRSi}(int32\_t phase, complex<double> newPower, 
+      \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit)
+00381 \{
+00382   \textcolor{keywordtype}{double} multiply = 0.0;
+00383 
+00384   \textcolor{keywordflow}{switch} (unit) \{
+00385   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA}:
+00386     multiply = 1.0;
+00387     \textcolor{keywordflow}{break};
+00388 
+00389   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA}:
+00390     multiply = 1000.0;
+00391     \textcolor{keywordflow}{break};
+00392 
+00393   \textcolor{keywordflow}{case} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{Unit::kMegaVa}:
+00394     multiply = 1000000.0;
+00395     \textcolor{keywordflow}{break};
+00396 
+00397   \textcolor{keywordflow}{default}:
+00398     multiply = 1.0;
+00399     \textcolor{keywordflow}{break};
+00400   \}
+00401 
+00402   rSi\_[phase] = newPower/multiply;
+00403 \}
+00404 
+00405 \textcolor{comment}{/*******************************************************************************}
+00406 \textcolor{comment}{ * Result value for injected power in pu.}
+00407 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00408}{}\hyperlink{group___models_ga1fa1b99d17dd19fafcf8309aba4fc758}{00408} complex<double> \hyperlink{group___models_ga1fa1b99d17dd19fafcf8309aba4fc758}{Bar::rSiPu}(int32\_t phase)
+00409 \{
+00410   \textcolor{keywordflow}{if}(\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network} == NULL)
+00411     \textcolor{keywordflow}{return} 0.0;
+00412 
+00413   \textcolor{comment}{//return si\_[phase]/network->powerBase;}
+00414 \}
+00415 
+00416 \textcolor{comment}{/*******************************************************************************}
+00417 \textcolor{comment}{ * addLine.}
+00418 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00419}{}\hyperlink{group___models_ga8cbd2f62d92e69ce6c8d561b682464b6}{00419} \textcolor{keywordtype}{void} \hyperlink{group___models_ga8cbd2f62d92e69ce6c8d561b682464b6}{Bar::addLine}(\hyperlink{class_line}{Line} *line)
+00420 \{
+00421   \hyperlink{class_bar_a23b6d4319352ef0e77ad66aade4e0209}{lines}.append(line);
+00422 \}
+00423 
+00424 \textcolor{comment}{/*******************************************************************************}
+00425 \textcolor{comment}{ * removeLine.}
+00426 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00427}{}\hyperlink{group___models_ga2536c0e5cb97fb627b3520826ece2c99}{00427} \textcolor{keywordtype}{void} \hyperlink{group___models_ga2536c0e5cb97fb627b3520826ece2c99}{Bar::removeLine}(\hyperlink{class_line}{Line} *line)
+00428 \{
+00429   \textcolor{keywordtype}{int} index = \hyperlink{class_bar_a23b6d4319352ef0e77ad66aade4e0209}{lines}.indexOf(line);
+00430 
+00431   \textcolor{keywordflow}{if} (index != -1) \hyperlink{class_bar_a23b6d4319352ef0e77ad66aade4e0209}{lines}.removeAt(index);
+00432 \}
+00433 
+00434 \textcolor{comment}{/*******************************************************************************}
+00435 \textcolor{comment}{ * removeLines.}
+00436 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00437}{}\hyperlink{group___models_ga4ea1a2074cb45968d80d6add571884a4}{00437} \textcolor{keywordtype}{void} \hyperlink{group___models_ga4ea1a2074cb45968d80d6add571884a4}{Bar::removeLines}()
+00438 \{
+00439   \textcolor{keywordflow}{foreach} (\hyperlink{class_line}{Line} *line, \hyperlink{class_bar_a23b6d4319352ef0e77ad66aade4e0209}{lines}) \{
+00440     line->\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI}()->\hyperlink{group___models_ga2536c0e5cb97fb627b3520826ece2c99}{removeLine}(line);
+00441     line->\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF}()->\hyperlink{group___models_ga2536c0e5cb97fb627b3520826ece2c99}{removeLine}(line);
+00442     scene()->removeItem(line);
+00443     \textcolor{keyword}{delete} line;
+00444   \}
+00445 \}
+00446 
+00447 \textcolor{comment}{/*******************************************************************************}
+00448 \textcolor{comment}{ * toJson.}
+00449 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00450}{}\hyperlink{group___models_ga3eb84c42b687db6cd98e11b8bd38c86e}{00450} QJsonObject \hyperlink{group___models_ga3eb84c42b687db6cd98e11b8bd38c86e}{Bar::toJson}()
+00451 \{
+00452   \textcolor{comment}{// Json Object to be filled with data.}
+00453   QJsonObject jsonBar;
+00454 
+00455   \textcolor{comment}{// Bar Id.}
+00456   jsonBar.insert(\textcolor{stringliteral}{"id"}, \textcolor{keywordtype}{id});
+00457 
+00458   \textcolor{comment}{// Voltage.}
+00459   jsonBar.insert(\textcolor{stringliteral}{"Va"}, v\_[0].real());
+00460   jsonBar.insert(\textcolor{stringliteral}{"Vai"}, v\_[0].imag());
+00461   jsonBar.insert(\textcolor{stringliteral}{"Vb"}, v\_[1].real());
+00462   jsonBar.insert(\textcolor{stringliteral}{"Vbi"}, v\_[1].imag());
+00463   jsonBar.insert(\textcolor{stringliteral}{"Vc"}, v\_[2].real());
+00464   jsonBar.insert(\textcolor{stringliteral}{"Vci"}, v\_[2].imag());
+00465 
+00466   \textcolor{comment}{// Shunt element power.}
+00467   jsonBar.insert(\textcolor{stringliteral}{"Sha"}, sh\_[0].real());
+00468   jsonBar.insert(\textcolor{stringliteral}{"Shai"}, sh\_[0].imag());
+00469   jsonBar.insert(\textcolor{stringliteral}{"Shb"}, sh\_[1].real());
+00470   jsonBar.insert(\textcolor{stringliteral}{"Shbi"}, sh\_[1].imag());
+00471   jsonBar.insert(\textcolor{stringliteral}{"Shc"}, sh\_[2].real());
+00472   jsonBar.insert(\textcolor{stringliteral}{"Shci"}, sh\_[2].imag());
+00473 
+00474   \textcolor{comment}{// Injected Power.}
+00475   jsonBar.insert(\textcolor{stringliteral}{"Sia"}, si\_[0].real());
+00476   jsonBar.insert(\textcolor{stringliteral}{"Siai"}, si\_[0].imag());
+00477   jsonBar.insert(\textcolor{stringliteral}{"Sib"}, si\_[1].real());
+00478   jsonBar.insert(\textcolor{stringliteral}{"Sibi"}, si\_[1].imag());
+00479   jsonBar.insert(\textcolor{stringliteral}{"Sic"}, si\_[2].real());
+00480   jsonBar.insert(\textcolor{stringliteral}{"Sici"}, si\_[2].imag());
+00481 
+00482   \textcolor{comment}{// Result Voltage.}
+00483   jsonBar.insert(\textcolor{stringliteral}{"rVa"}, rV\_[0].real());
+00484   jsonBar.insert(\textcolor{stringliteral}{"rVai"}, rV\_[0].imag());
+00485   jsonBar.insert(\textcolor{stringliteral}{"rVb"}, rV\_[1].real());
+00486   jsonBar.insert(\textcolor{stringliteral}{"rVbi"}, rV\_[1].imag());
+00487   jsonBar.insert(\textcolor{stringliteral}{"rVc"}, rV\_[2].real());
+00488   jsonBar.insert(\textcolor{stringliteral}{"rVci"}, rV\_[2].imag());
+00489 
+00490   \textcolor{comment}{// Result Injected Power.}
+00491   jsonBar.insert(\textcolor{stringliteral}{"rSia"}, rSi\_[0].real());
+00492   jsonBar.insert(\textcolor{stringliteral}{"rSiai"}, rSi\_[0].imag());
+00493   jsonBar.insert(\textcolor{stringliteral}{"rSib"}, rSi\_[1].real());
+00494   jsonBar.insert(\textcolor{stringliteral}{"rSibi"}, rSi\_[1].imag());
+00495   jsonBar.insert(\textcolor{stringliteral}{"rSic"}, rSi\_[2].real());
+00496   jsonBar.insert(\textcolor{stringliteral}{"rSici"}, rSi\_[2].imag());
+00497 
+00498   \textcolor{comment}{// Position.}
+00499   jsonBar.insert(\textcolor{stringliteral}{"x"}, x());
+00500   jsonBar.insert(\textcolor{stringliteral}{"y"}, y());
+00501 
+00502   \textcolor{keywordflow}{return} jsonBar;
+00503 \}
+00504 
+00505 \textcolor{comment}{/*******************************************************************************}
+00506 \textcolor{comment}{ * fromJson.}
+00507 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00508}{}\hyperlink{group___models_ga1df62f03dd3a066ceaf6588ba6bb6004}{00508} \textcolor{keywordtype}{void} \hyperlink{group___models_ga1df62f03dd3a066ceaf6588ba6bb6004}{Bar::fromJson}(QJsonObject &jsonBar)
+00509 \{
+00510   \textcolor{comment}{// Get Id.}
+00511   \textcolor{keywordtype}{id} = jsonBar.value(\textcolor{stringliteral}{"id"}).toInt();
+00512 
+00513   \textcolor{comment}{// Voltage.}
+00514   v\_[0].real(jsonBar.value(\textcolor{stringliteral}{"Va"}).toDouble());
+00515   v\_[0].imag(jsonBar.value(\textcolor{stringliteral}{"Vai"}).toDouble());
+00516   v\_[1].real(jsonBar.value(\textcolor{stringliteral}{"Vb"}).toDouble());
+00517   v\_[1].imag(jsonBar.value(\textcolor{stringliteral}{"Vbi"}).toDouble());
+00518   v\_[2].real(jsonBar.value(\textcolor{stringliteral}{"Vc"}).toDouble());
+00519   v\_[2].imag(jsonBar.value(\textcolor{stringliteral}{"Vci"}).toDouble());
+00520 
+00521   \textcolor{comment}{// Shunt element power.}
+00522   sh\_[0].real(jsonBar.value(\textcolor{stringliteral}{"Sha"}).toDouble());
+00523   sh\_[0].imag(jsonBar.value(\textcolor{stringliteral}{"Shai"}).toDouble());
+00524   sh\_[1].real(jsonBar.value(\textcolor{stringliteral}{"Shb"}).toDouble()) ;
+00525   sh\_[1].imag(jsonBar.value(\textcolor{stringliteral}{"Shbi"}).toDouble());
+00526   sh\_[2].real(jsonBar.value(\textcolor{stringliteral}{"Shc"}).toDouble());
+00527   sh\_[2].imag(jsonBar.value(\textcolor{stringliteral}{"Shci"}).toDouble());
+00528 
+00529   \textcolor{comment}{// Injected Power.}
+00530   si\_[0].real(jsonBar.value(\textcolor{stringliteral}{"Sia"}).toDouble());
+00531   si\_[0].imag(jsonBar.value(\textcolor{stringliteral}{"Siai"}).toDouble());
+00532   si\_[1].real(jsonBar.value(\textcolor{stringliteral}{"Sib"}).toDouble());
+00533   si\_[1].imag(jsonBar.value(\textcolor{stringliteral}{"Sibi"}).toDouble());
+00534   si\_[2].real(jsonBar.value(\textcolor{stringliteral}{"Sic"}).toDouble());
+00535   si\_[2].imag(jsonBar.value(\textcolor{stringliteral}{"Sici"}).toDouble());
+00536 
+00537   \textcolor{comment}{// Result Voltage.}
+00538   rV\_[0].real(jsonBar.value(\textcolor{stringliteral}{"rVa"}).toDouble());
+00539   rV\_[0].imag(jsonBar.value(\textcolor{stringliteral}{"rVai"}).toDouble());
+00540   rV\_[1].real(jsonBar.value(\textcolor{stringliteral}{"rVb"}).toDouble());
+00541   rV\_[1].imag(jsonBar.value(\textcolor{stringliteral}{"rVbi"}).toDouble());
+00542   rV\_[2].real(jsonBar.value(\textcolor{stringliteral}{"rVc"}).toDouble());
+00543   rV\_[2].imag(jsonBar.value(\textcolor{stringliteral}{"rVci"}).toDouble());
+00544 
+00545   \textcolor{comment}{// Result Injected Power.}
+00546   rSi\_[0].real(jsonBar.value(\textcolor{stringliteral}{"rSga"}).toDouble());
+00547   rSi\_[0].imag(jsonBar.value(\textcolor{stringliteral}{"rSgai"}).toDouble());
+00548   rSi\_[1].real(jsonBar.value(\textcolor{stringliteral}{"rSgb"}).toDouble());
+00549   rSi\_[1].imag(jsonBar.value(\textcolor{stringliteral}{"rSgbi"}).toDouble());
+00550   rSi\_[2].real(jsonBar.value(\textcolor{stringliteral}{"rSgc"}).toDouble());
+00551   rSi\_[2].imag(jsonBar.value(\textcolor{stringliteral}{"rSgci"}).toDouble());
+00552 
+00553   \textcolor{comment}{// Get Position.}
+00554   setX(jsonBar.value(\textcolor{stringliteral}{"x"}).toDouble());
+00555   setY(jsonBar.value(\textcolor{stringliteral}{"y"}).toDouble());
+00556 \}
+00557 
+00558 \textcolor{comment}{/*******************************************************************************}
+00559 \textcolor{comment}{ * boundingRect.}
+00560 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00561}{}\hyperlink{group___models_ga8279d8109019cc7e139e2023690496be}{00561} QRectF \hyperlink{group___models_ga8279d8109019cc7e139e2023690496be}{Bar::boundingRect}()\textcolor{keyword}{ const}
+00562 \textcolor{keyword}{}\{
+00563   \textcolor{keywordflow}{return} QRectF(-\hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{Network::barIconSize} / 2, -
+      \hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{Network::barIconSize} / 2,
+00564                 \hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{Network::barIconSize}, \hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{Network::barIconSize});
+00565 \}
+00566 
+00567 \textcolor{comment}{/*******************************************************************************}
+00568 \textcolor{comment}{ * mouseDoubleClickEvent.}
+00569 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00570}{}\hyperlink{group___models_ga1945e7b4401fa9ad7475274d9fb12a72}{00570} \textcolor{keywordtype}{void} \hyperlink{group___models_ga1945e7b4401fa9ad7475274d9fb12a72}{Bar::mouseDoubleClickEvent}(QGraphicsSceneMouseEvent *event)
+00571 \{
+00572   Q\_UNUSED(event);
+00573   emit \hyperlink{class_bar_a66bcbd19582dddee7e171ae5a4475f4b}{eventDoubleClick}();
+00574 \}
+00575 
+00576 \textcolor{comment}{/*******************************************************************************}
+00577 \textcolor{comment}{ * itemChange.}
+00578 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00579}{}\hyperlink{group___models_gad97a82d618ee0c51a9a36e44339c69e6}{00579} QVariant \hyperlink{group___models_gad97a82d618ee0c51a9a36e44339c69e6}{Bar::itemChange}(QGraphicsItem::GraphicsItemChange change,
+00580                          \textcolor{keyword}{const} QVariant &value)
+00581 \{
+00582   \textcolor{comment}{// if bar moved,update lines to the current position.}
+00583   \textcolor{keywordflow}{if} (change == ItemPositionHasChanged) \{
+00584     \textcolor{keywordflow}{foreach} (\hyperlink{class_line}{Line} *line, \hyperlink{class_bar_a23b6d4319352ef0e77ad66aade4e0209}{lines}) \{
+00585       line->\hyperlink{group___models_ga8fdb12651d4bc592616d241386b066b3}{updatePosition}();
+00586     \}
+00587   \}
+00588   \textcolor{comment}{// if bar is selected, show information box.}
+00589   \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (change == ItemSelectedChange) \{
+00590     \textcolor{keywordflow}{if} (value == \textcolor{keyword}{true}) \{
+00591       \textcolor{comment}{// if multiple bars are selectec, we don't want to show the info box.}
+00592       \textcolor{keywordflow}{if}(!(scene()->selectedItems().size() > 1)) \{
+00593         \textcolor{comment}{// Check if box already exists.}
+00594         \textcolor{keywordflow}{if} (infoBar == NULL) \{
+00595           \textcolor{comment}{// Create a new box.}
+00596           infoBar = \textcolor{keyword}{new} \hyperlink{class_info_bar}{InfoBar}(\textcolor{keyword}{this});
+00597           scene()->addItem(infoBar);
+00598         \}
+00599       \}
+00600     \}
+00601     \textcolor{comment}{// Box has been deselected.}
+00602     \textcolor{keywordflow}{else} \{
+00603       \textcolor{keywordflow}{if} (infoBar != NULL) \{
+00604         scene()->removeItem(infoBar);
+00605         \textcolor{keyword}{delete} infoBar;
+00606         infoBar = NULL;
+00607       \}
+00608     \}
+00609   \}
+00610 
+00611   \textcolor{keywordflow}{return} QGraphicsObject::itemChange(change, value);
+00612 \}
+00613 
+00614 \textcolor{comment}{/*******************************************************************************}
+00615 \textcolor{comment}{ * paint.}
+00616 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{bar_8cpp_source_l00617}{}\hyperlink{group___models_gacbb6dbac607412c9c1f9dfcd0cd4d432}{00617} \textcolor{keywordtype}{void} \hyperlink{group___models_gacbb6dbac607412c9c1f9dfcd0cd4d432}{Bar::paint}(QPainter *painter, \textcolor{keyword}{const} QStyleOptionGraphicsItem *option,
+00618                 QWidget *widget)
+00619 \{
+00620   Q\_UNUSED(option);
+00621   Q\_UNUSED(widget);
+00622 
+00623   painter->setPen(\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network}->\hyperlink{class_network_ad69052271ab0a9899948815b6201f2c6}{barStrokeColor});
+00624 
+00625   \textcolor{keywordflow}{if}(\textcolor{keywordtype}{id} > 0)
+00626     drawPq(painter);
+00627   \textcolor{keywordflow}{else}
+00628     drawSlack(painter);
+00629 
+00630 \}
+00631 
+00632 \textcolor{comment}{/*******************************************************************************}
+00633 \textcolor{comment}{ * drawSlack.}
+00634 \textcolor{comment}{ ******************************************************************************/}
+00635 \textcolor{keywordtype}{void} Bar::drawSlack(QPainter *painter)
+00636 \{
+00637   \textcolor{keywordflow}{if} (isSelected()) \{
+00638     painter->setBrush(\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network}->\hyperlink{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{selectedColor});
+00639   \} \textcolor{keywordflow}{else} \{
+00640     painter->setBrush(\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network}->\hyperlink{class_network_ad78d9a206daf4ba0780067b5043c7f5c}{barSlackFillColor});
+00641   \}
+00642 
+00643   painter->drawRect(\hyperlink{group___models_ga8279d8109019cc7e139e2023690496be}{boundingRect}());
+00644 \}
+00645 
+00646 \textcolor{comment}{/*******************************************************************************}
+00647 \textcolor{comment}{ * drawPq.}
+00648 \textcolor{comment}{ ******************************************************************************/}
+00649 \textcolor{keywordtype}{void} Bar::drawPq(QPainter *painter)
+00650 \{
+00651 
+00652   \textcolor{keywordflow}{if} (isSelected()) \{
+00653     painter->setBrush(\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network}->\hyperlink{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{selectedColor});
+00654   \} \textcolor{keywordflow}{else} \{
+00655     painter->setBrush(\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network}->\hyperlink{class_network_a386f492f548ec13f5d0e350c4f2217aa}{barPqFillColor});
+00656   \}
+00657 
+00658   painter->drawEllipse(\hyperlink{group___models_ga8279d8109019cc7e139e2023690496be}{boundingRect}());
+00659 \}
+00660 
+\end{DoxyCode}

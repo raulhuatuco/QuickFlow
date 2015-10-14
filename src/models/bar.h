@@ -35,8 +35,8 @@
  * This file defines the Bar class.
  *
  * \author David Krepsky
- * \version 0.1
- * \date 09/2015
+ * \version 0.2
+ * \date 10/2015
  * \copyright David Krepsky
  */
 
@@ -45,11 +45,10 @@
 
 #include <QJsonObject>
 #include <QGraphicsObject>
-#include <armadillo>
 #include <complex>
-#include <stdint.h>
+#include "customtypes.h"
 #include "models/line.h"
-#include "graphics/network.h"
+#include "models/network.h"
 #include "graphics/infobar.h"
 
 QT_BEGIN_NAMESPACE
@@ -58,7 +57,7 @@ class Network;
 class InfoBar;
 QT_END_NAMESPACE
 
-using arma::cx_double;
+using std::complex;
 
 /*!
  * \class Bar
@@ -67,13 +66,47 @@ using arma::cx_double;
  * ### Overview
  * Bar class represents a bar in a power system, providing the data structure
  * and methods that model a real bar.
+ * The class also provides the graphical structure to be displayed in a
+ * SysteView widget.
  * A bar with id equals to 0 is an alimentator (Slack bar).
- * The class provides graphical.
+ * Bar properties are:
+ *  - Voltage (for phases 0, 1 and 2): voltage at the bar.
+ *  - Shunt elements (sh) power injection: shunt elements are
+ *    represented by the power they inject in the bar.
+ * - Injected power (si): the power injected at the bar (here, power that is
+ * consumed is represented as a positive value and power that is generated at
+ * the bar is represented with a negative sign).
+ *
+ * The bar properties are stored in the following units:
+ *  - Power: VA.
+ *  - Voltage: Volts.
+ * In order to use diferent units, use the option parameter \b unit with the
+ * desired unit.
+ *
+ * Bars must be added to a network in order to be displayed by a SystemView.
  *
  * ### Example
  * \code
+ * // Code to add a bar.
+ *
+ * // External objects where the bar will be put in.
+ * extern SystemView systemView;
+ * extern SystemScene systemScene;
+ * extern Network network;
+ *
+ * Bar * bar = new Bar;
+ * // Bar id must be defined.
+ * Bar->id = 20;
+ *
+ * network.addBar(bar);
+ * systemScene addNetwork(&network);
+ * systemView.addScene(&systemScene);
  *
  * \endcode
+ *
+ * \note The values v, sh and si are the initial conditions. Results of the load
+ * flow calculation have a "r" in the name, like rV and rSi.
+ *
  */
 class Bar : public QGraphicsObject
 {
@@ -81,139 +114,449 @@ class Bar : public QGraphicsObject
 
 public:
 
-  static constexpr int32_t kInvalidId = -1;
+  /*****************************************************************************
+   * Constants.
+   ****************************************************************************/
+  /*!
+   * \brief Indicates an invalid bar.
+   *
+   * This value is used to determine if a bar has been correctly initialized
+   * and to check if bar data is valid;
+   */
+  static const int32_t kInvalidId;
 
+  /*****************************************************************************
+   * Properties.
+   ****************************************************************************/
+  /*!
+   * \brief The bar id.
+   * Id number if the bar. A bar with ID 0 will be the slack bar. Only one bar
+   * in a network can be a slack and every other bars need an id > 0.
+   */
   int32_t id;
 
+  /*!
+   * \brief A reference to the Network where the bar is.
+   * This option is used internaly to determine color settings and units.
+   * \warning This option must be not NULL in order to add the bar to a scene.
+   */
+  Network *network;
+
+  /*!
+   * \brief Lines connected to this bar.
+   * All lines that connect to this bar are listed here.
+   * \warning Don't use the lines vector to manipulate lines directly. Instead,
+   * use the provided add and remove functions.
+   */
   QVector<Line *> lines;
 
+  /*****************************************************************************
+   * Constructor.
+   ****************************************************************************/
+  /*!
+   * \brief Constructor.
+   * By default, bars are created filled with zeros.
+   */
   Bar();
 
-  Bar(cx_double initialV, cx_double initialSh = 0.0,
-      cx_double initialSi = 0.0);
+  /*****************************************************************************
+   * Constructor with initial conditions.
+   ****************************************************************************/
+  /*!
+   * \brief Constructor.
+   * This constructor is used when the bar needes to be initialized with
+   * pre-defined values.
+   * Note that the initial values will be applied to all phases.
+   *
+   * \param[in] initialV Initial voltage of the bar.
+   * \param[in] initialSh Initial shunt elements power.
+   * \param[in] initialSi Initial injected power.
+   */
+  Bar(complex<double> initialV, complex<double> initialSh = 0.0,
+      complex<double> initialSi = 0.0);
 
+  /*****************************************************************************
+   * Destructor.
+   ****************************************************************************/
+  /*!
+   * \brief Destructor.
+   * Bar destructor.
+   */
   virtual ~Bar();
 
-  // Input parameters.
-  cx_double Va;
-  cx_double Vb;
-  cx_double Vc;
-
-  cx_double Va_pu(double voltageBase);
-  cx_double Vb_pu(double voltageBase);
-  cx_double Vc_pu(double voltageBase);
-
-  cx_double Sha;
-  cx_double Shb;
-  cx_double Shc;
-  cx_double Sha_pu(double powerBase);
-  cx_double Shb_pu(double powerBase);
-  cx_double Shc_pu(double powerBase);
-
-  cx_double Sia;
-  cx_double Sib;
-  cx_double Sic;
-  cx_double Sia_pu(double powerBase);
-  cx_double Sib_pu(double powerBase);
-  cx_double Sic_pu(double powerBase);
-
-  cx_double rVa;
-  cx_double rVb;
-  cx_double rVc;
-  cx_double rVa_pu(double powerBase);
-  cx_double rVb_pu(double powerBase);
-  cx_double rVc_pu(double powerBase);
-
-  cx_double rSia;
-  cx_double rSib;
-  cx_double rSic;
-  cx_double rSia_pu(double powerBase);
-  cx_double rSib_pu(double powerBase);
-  cx_double rSic_pu(double powerBase);
-
-
-  // Line manipulation.
+  /*****************************************************************************
+   * Initial Voltage.
+   ****************************************************************************/
   /*!
-   * \brief addLine
-   * \param line
+   * \brief Initial Voltage.
+   * Returns the initial voltage in the specified unit.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] unit Unit of the voltage (default is Volts).
+   *
+   * \return Voltage of phase \b phase.
+   */
+  complex<double> v(int32_t phase, Unit::VoltageUnit unit = Unit::kVolts);
+
+  /*****************************************************************************
+   * Set initial Voltage.
+   ****************************************************************************/
+  /*!
+   * \brief Set initial voltage.
+   * Set the initial voltage of the selected phase.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] newVoltage New voltage.
+   * \param[in] unit Unit of the new voltage.
+   */
+  void setV(int32_t phase, complex<double> newVoltage,
+            Unit::VoltageUnit unit = Unit::kVolts);
+
+  /*****************************************************************************
+   * Initial Voltage in per unit.
+   ****************************************************************************/
+  /*!
+   * \brief Returns the initial voltage converted to per unit.
+   * Returns the initial voltage converted to per unit, where the base voltage
+   * is the network base voltage.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   *
+   * \return The initial voltage, in per unit.
+   */
+  complex<double> vPu(int32_t phase);
+
+  /*****************************************************************************
+   * Shunt Power.
+   ****************************************************************************/
+  /*!
+   * \brief Shutn element.
+   * Power injected by the shunt element.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] unit Unit of the returned value (default to VA).
+   *
+   * \return The power of the shunt element.
+   */
+  complex<double> sh(int32_t phase, Unit::PowerUnit unit = Unit::kVA);
+
+  /*****************************************************************************
+   * Set Shunt Power.
+   ****************************************************************************/
+  /*!
+   * \brief Set Shunt power.
+   * Set the shunt element injected power.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] newPower Shunt power.
+   * \param[in] unit Shunt power unit.
+   */
+  void setSh(int32_t phase, complex<double> newPower,
+             Unit::PowerUnit unit = Unit::kVA);
+
+  /*****************************************************************************
+   * Shunt Power in per unit.
+   ****************************************************************************/
+  /*!
+   * \brief Shunt element power in pu.
+   * Shunt element power in pu. The power base is gettered from the network
+   * in which the bar is.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   *
+   * \return Shunt power in per unit.
+   */
+  complex<double> shPu(int32_t phase);
+
+  /*****************************************************************************
+   * Injected power.
+   ****************************************************************************/
+  /*!
+   * \brief Injected power.
+   * Injected power at the bar. Generated power is negative, load is positive.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] unit Power unit.
+   *
+   * \return Injected power.
+   */
+  complex<double> si(int32_t phase, Unit::PowerUnit unit = Unit::kVA);
+
+  /*****************************************************************************
+   * Set Injected power.
+   ****************************************************************************/
+  /*!
+   * \brief Set the injected power.
+   * Set the injected power at the bar. Generated power is negative, load is
+   * positive.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] newPower New injected power.
+   * \param[in] unit New injected power unit.
+   */
+  void setSi(int32_t phase, complex<double> newPower,
+             Unit::PowerUnit unit = Unit::kVA);
+
+  /*****************************************************************************
+   * Injected power in per unit.
+   ****************************************************************************/
+  /*!
+   * \brief Injected power in per unit.
+   * Returns the injected power in per unit.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   *
+   * \return Injected power in per unit.
+   */
+  complex<double> siPu(int32_t phase);
+
+  /*****************************************************************************
+   * Result voltage.
+   ****************************************************************************/
+  /*!
+   * \brief Result bar voltage.
+   * Returns the voltage of the bar after the calculations.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] unit Unit of the returned value.
+   *
+   * \return Result bar voltage.
+   */
+  complex<double> rV(int32_t phase, Unit::VoltageUnit unit = Unit::kVolts);
+
+  /*****************************************************************************
+   * Set result voltage.
+   ****************************************************************************/
+  /*!
+   * \brief Set result voltage.
+   * Set the result voltage after calculations.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] resultVoltage New result voltage.
+   *
+   * \param[in] unit Result unit.
+   */
+  void setRV(int32_t phase, complex<double> resultVoltage,
+             Unit::VoltageUnit unit = Unit::kVolts);
+
+  /*****************************************************************************
+   * Result voltage in per unit.
+   ****************************************************************************/
+  /*!
+   * \brief Result voltage in pu.
+   * Returns the resulting voltage in per unit.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   *
+   * \return  Result voltage in pu.
+   */
+  complex<double> rVPu(int32_t phase);
+
+  /*****************************************************************************
+   * Result value for injected power.
+   ****************************************************************************/
+  /*!
+   * \brief Result injected power.
+   * Returns the resulting injected power. Used by slack bar.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] unit Unit.
+   *
+   * \return Result injected power.
+   */
+  complex<double> rSi(int32_t phase, Unit::PowerUnit unit = Unit::kVA);
+
+  /*****************************************************************************
+   * Set result value for injected power.
+   ****************************************************************************/
+  /*!
+   * \brief Set result injected power.
+   * Set the resulting value for injected power.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] newPower New result injected power.
+   * \param[in] unit Injected power unit.
+   */
+  void setRSi(int32_t phase, complex<double> newPower,
+              Unit::PowerUnit unit = Unit::kVA);
+
+  /*****************************************************************************
+  * Result value for injected power in pu.
+  *****************************************************************************/
+  /*!
+   * \brief Result injected power, in pu.
+   * Return the resulting bar injected power, in per unit.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   *
+   * \return Result injected power, in pu.
+   */
+  complex<double> rSiPu(int32_t phase);
+
+  /*****************************************************************************
+  * Add Line.
+  *****************************************************************************/
+  /*!
+   * \brief Add line to bar.
+   *
+   * \param[in] line Line to be linked.
    */
   void addLine(Line *line);
 
+  /*****************************************************************************
+  * Remove Line.
+  *****************************************************************************/
   /*!
-   * \brief removeLine
-   * \param line
+   * \brief Remove line link;
+   *
+   * \param[in] line Line to be removed.
    */
   void removeLine(Line *line);
 
+
+  /*****************************************************************************
+  * Remove Lines.
+  *****************************************************************************/
   /*!
-   * \brief removeLines
+   * \brief Remove all lines from this bar.
    */
   void removeLines();
 
-  // Conversion.
+  /*****************************************************************************
+  * Bar to Json.
+  *****************************************************************************/
   /*!
-   * \brief toJson
-   * \return
+   * \brief Convert bar data to json object.
+   *
+   * \return Return json object filled with bar data.
    */
   QJsonObject toJson();
 
+  /*****************************************************************************
+  * Bar from Json.
+  *****************************************************************************/
   /*!
-   * \brief fromJson
-   * \param jsonBar
+   * \brief Fill bar data from Json data.
+   *
+   * \param[in] jsonBar
    */
   void fromJson(QJsonObject &jsonBar);
 
-  // Graphics.
+  /*****************************************************************************
+  * Bounding Rect.
+  *****************************************************************************/
   /*!
-   * \brief
+   * \brief Bar bounding rect.
    *
-   * \return
+   * \return The bar bounding rect.
    */
   QRectF boundingRect() const Q_DECL_OVERRIDE;
 
 signals:
+  /*****************************************************************************
+  * Signals.
+  *****************************************************************************/
   /*!
-   * \brief eventDoubleClick
+   * \brief Double click signal.
+   * Signal emited when a double click occurs.
    */
   void eventDoubleClick();
 
 protected:
+  /*****************************************************************************
+  * Mouse Double click.
+  *****************************************************************************/
   /*!
-   * \brief mouseDoubleClickEvent
-   * \param event
+   * \brief Mouse double click event.
+   *  Handles the double click event.
+   * \param[in] event Event data.
    */
   void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
+  /*****************************************************************************
+  * Item Change.
+  *****************************************************************************/
   /*!
-   * \brief
-   *
-   * \return
+   * \brief Item change.
+   *  Used to handle item selection and geometry changes.
+   * \return Item change value;
    */
   QVariant itemChange(GraphicsItemChange change,
                       const QVariant &value) Q_DECL_OVERRIDE;
 
+  /*****************************************************************************
+  * Paint.
+  *****************************************************************************/
   /*!
-   * \brief
-   *
+   * \brief Bar paint function.
+   * Overrided function that will paint the bar in the scene.
    */
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
              QWidget *widget) Q_DECL_OVERRIDE;
 
 private:
+  /*****************************************************************************
+  * Private data.
+  *****************************************************************************/
   /*!
    * \brief infoBar
+   * Pointer to a information box.
+   * This is necessary so we can delete the information box when the item
+   * selection changes to unselected.
    */
   InfoBar *infoBar;
 
   /*!
-   * \brief drawSlack
-   * \param painter
+   * \brief Bar voltage.
+   * Holds the initial voltage for phases 0, 1 and 2.
+   */
+  complex<double> v_[3];
+
+  /*!
+   * \brief Shunt element power.
+   * Holds the value of the shunt elements, in means o power, for phases 0, 1
+   * and 2.
+   */
+  complex<double> sh_[3];
+
+  /*!
+   * \brief Injected power.
+   * Holds the power injected at the bar, for each phase.
+   */
+  complex<double> si_[3];
+
+  /*!
+   * \brief Result voltage.
+   * Stores each phase voltage of the bar after the power flow calculation.
+   */
+  complex<double> rV_[3];
+
+  /*!
+   * \brief Result injected power.
+   * Stores the injected power after the power flow calculation.
+   */
+  complex<double> rSi_[3];
+
+
+  /*****************************************************************************
+  * Draw Slack.
+  *****************************************************************************/
+  /*!
+   * \brief Draw Slack Bar.
+   * Draw a slack bar icon.
+   *
+   * \param[in] painter Painter that will be used to draw the bar.
    */
   void drawSlack(QPainter *painter);
 
+  /*****************************************************************************
+  * Draw PQ.
+  *****************************************************************************/
   /*!
-   * \brief drawPq
-   * \param painter
+   * \brief Draw Pq Bar.
+   * Draw a PQ bar.
+   *
+   * \param[in] painter Painter that will be used to draw the bar.
    */
   void drawPq(QPainter *painter);
 };

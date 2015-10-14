@@ -35,8 +35,8 @@
  * This file defines the line class.
  *
  * \author David Krepsky
- * \version 0.1
- * \date 09/2015
+ * \version 0.2
+ * \date 10/2015
  * \copyright David Krepsky
  */
 
@@ -47,12 +47,13 @@
 #include <QGraphicsObject>
 #include <complex>
 #include "models/bar.h"
+#include "models/network.h"
 #include "graphics/infoline.h"
-#include "graphics/network.h"
 
 QT_BEGIN_NAMESPACE
 class Bar;
 class InfoLine;
+class Network;
 QT_END_NAMESPACE
 
 using std::complex;
@@ -75,136 +76,143 @@ class Line : public QGraphicsObject
   Q_OBJECT
 
 public:
-  /*!
-   * \brief kInvalidNode
-   */
-  static const int32_t kInvalidNode = -1;
+  /*****************************************************************************
+   * Constants.
+   ****************************************************************************/
+  static const int32_t kInvalidNode;
 
-  /*!
-   * \brief noI
-   */
-  int32_t noI;
+  /*****************************************************************************
+   * Properties.
+   ****************************************************************************/
+  QPair<int32_t, int32_t> nodes;
 
-  /*!
-   * \brief noF
-   */
-  int32_t noF;
+  Network *network;
 
-  // Length
-  /*!
-   * \brief length
-   */
-  double length;
-
-  /*!
-     * \brief Line
-     */
+  /*****************************************************************************
+   * Constructor.
+   ****************************************************************************/
   Line();
 
-  /*!
-   * \brief
-   *
-   */
+  /*****************************************************************************
+   * Destructor.
+   ****************************************************************************/
   ~Line();
 
-  // Parent bars pointer.
-  /*!
-   * \brief pNoI
-   * \return
-   */
+  /*****************************************************************************
+   * Impedance.
+   ****************************************************************************/
+  complex<double>  z(int32_t index, Unit::ImpedanceUnit unit = Unit::kOhm);
+
+  /*****************************************************************************
+   * Set impedance.
+   ****************************************************************************/
+  void setZ(int32_t index, complex<double> newImpedance,
+            Unit::ImpedanceUnit unit = Unit::kOhm);
+
+  /*****************************************************************************
+   * Impedance in per unit.
+   ****************************************************************************/
+  complex<double> zPu(int32_t index);
+
+  /*****************************************************************************
+   * Current.
+   ****************************************************************************/
+  complex<double> i(int32_t phase, Unit::CurrentUnit unit = Unit::kAmpere);
+
+  /*****************************************************************************
+   * Set current.
+   ****************************************************************************/
+  void setI(int32_t phase, complex<double> newCurrent,
+            Unit::CurrentUnit unit = Unit::kAmpere);
+
+  /*****************************************************************************
+   * Current in per unit.
+   ****************************************************************************/
+  complex<double> iPu(int32_t phase);
+
+  /*****************************************************************************
+   * Compute the loss in the line.
+   ****************************************************************************/
+  complex<double> loss(int32_t phase);
+
+  /*****************************************************************************
+   * Line length.
+   ****************************************************************************/
+  double length(Unit::LengthUnit unit = Unit::kMeter);
+
+  /*****************************************************************************
+  * Set line length.
+  ****************************************************************************/
+  void setLength(double newLength, Unit::LengthUnit unit = Unit::kMeter);
+
+  /*****************************************************************************
+   * Initial node pointer.
+   ****************************************************************************/
   Bar *pNoI();
 
-  /*!
-   * \brief pNoF
-   * \return
-   */
+  /*****************************************************************************
+   * Final node pointer.
+   ****************************************************************************/
   Bar *pNoF();
 
-  /*!
-   * \brief setNodes
-   * \param pNoI
-   * \param pNoF
-   */
+  /*****************************************************************************
+   * Set initial and final nodes.
+   ****************************************************************************/
   void setNodes(Bar *pNoI, Bar *pNoF);
 
-  complex<double> Zaa;
-  complex<double> Zab;
-  complex<double> Zac;
-  complex<double> Zbb;
-  complex<double> Zbc;
-  complex<double> Zcc;
-
-  complex<double> Zaa_pu(double impedanceBase);
-  complex<double> Zab_pu(double impedanceBase);
-  complex<double> Zac_pu(double impedanceBase);
-  complex<double> Zbb_pu(double impedanceBase);
-  complex<double> Zbc_pu(double impedanceBase);
-  complex<double> Zcc_pu(double impedanceBase);
-
-  // Current
-  complex<double> Ia;
-  complex<double> Ib;
-  complex<double> Ic;
-  complex<double> In;
-
-  // Loss
-  complex<double> lossA();
-  complex<double> lossB();
-  complex<double> lossC();
-
-  // Cast.
-  /*!
-   * \brief toJson
-   * \return
-   */
+  /*****************************************************************************
+   * Convert line data to Json object.
+   ****************************************************************************/
   QJsonObject toJson();
 
-  /*!
-   * \brief fromJson
-   * \param lineJson
-   */
+  /*****************************************************************************
+   * Convert Json object to line.
+   ****************************************************************************/
   void fromJson(QJsonObject &lineJson);
 
-  /*!
-   * \brief updatePosition
-   */
+  /*****************************************************************************
+   * Update line position.
+   ****************************************************************************/
   void updatePosition();
 
-  /*!
-   * \brief
-   *
-   * \return
-   */
+  /*****************************************************************************
+   * Line bounding rect.
+   ****************************************************************************/
   QRectF boundingRect() const Q_DECL_OVERRIDE;
 
-  /*!
-   * \brief
-   *
-   * \return
-   */
+  /*****************************************************************************
+   * Line Shape.
+   ****************************************************************************/
   QPainterPath shape() const Q_DECL_OVERRIDE;
 
-  /*!
-   * \brief
-   *
-   * \return
-   */
+  /*****************************************************************************
+   * Item Change.
+   ****************************************************************************/
   QVariant itemChange(GraphicsItemChange change,
                       const QVariant &value) Q_DECL_OVERRIDE;
 
 signals:
+  /*****************************************************************************
+   * Double Click Event.
+   ****************************************************************************/
   /*!
    * \brief eventDoubleClick
    */
   void eventDoubleClick();
 
 protected:
+  /*****************************************************************************
+   * Double click event handler.
+   ****************************************************************************/
   /*!
    * \brief mouseDoubleClickEvent
    * \param event
    */
   void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;
 
+  /*****************************************************************************
+   * Paint.
+   ****************************************************************************/
   /*!
    * \brief
    *
@@ -213,6 +221,11 @@ protected:
              QWidget *widget) Q_DECL_OVERRIDE;
 
 private:
+  /*****************************************************************************
+   * Private properties.
+   ****************************************************************************/
+  double length_;
+
   /*!
    * \brief pNoI_
    */
@@ -223,9 +236,9 @@ private:
    */
   Bar *pNoF_;
 
-  /*!
-   * \brief coords
-   */
+  complex<double> z_[6];
+  complex<double> i_[3];
+
   QLineF coords;
 
   /*!

@@ -1,0 +1,318 @@
+\hypertarget{project_8cpp_source}{}\subsection{project.\+cpp}
+\label{project_8cpp_source}\index{project.\+cpp@{project.\+cpp}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include "\hyperlink{project_8h}{project.h}"}
+00002 \textcolor{preprocessor}{#include <QFile>}
+00003 \textcolor{preprocessor}{#include <QDir>}
+00004 \textcolor{preprocessor}{#include <QJsonDocument>}
+00005 \textcolor{preprocessor}{#include <QJsonArray>}
+00006 \textcolor{preprocessor}{#include "\hyperlink{bar_8h}{models/bar.h}"}
+00007 \textcolor{preprocessor}{#include "\hyperlink{line_8h}{models/line.h}"}
+00008 
+00009 \textcolor{comment}{/*******************************************************************************}
+00010 \textcolor{comment}{ * Constructor.}
+00011 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00012}{}\hyperlink{class_project_aa007ecd17d5bc800e7a956cf666eea21}{00012} \hyperlink{class_project_aa007ecd17d5bc800e7a956cf666eea21}{Project::Project}() :
+00013   \textcolor{comment}{//network(new Network),}
+00014   name(\textcolor{stringliteral}{""}),
+00015   filePath(\textcolor{stringliteral}{""})
+00016 \{
+00017 \}
+00018 
+00019 \textcolor{comment}{/*******************************************************************************}
+00020 \textcolor{comment}{ * Destructor.}
+00021 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00022}{}\hyperlink{class_project_ad165d61b76ee86ee9c27fd987a2a7b9e}{00022} \hyperlink{class_project_ad165d61b76ee86ee9c27fd987a2a7b9e}{Project::~Project}()
+00023 \{
+00024   \textcolor{comment}{//delete network;}
+00025 \}
+00026 
+00027 \textcolor{comment}{/*******************************************************************************}
+00028 \textcolor{comment}{ * maxIterations.}
+00029 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00030}{}\hyperlink{class_project_ad85e1754cbab65e20f269e79c5caa789}{00030} u\_int32\_t \hyperlink{class_project_ad85e1754cbab65e20f269e79c5caa789}{Project::maxIterations}()
+00031 \{
+00032   \textcolor{comment}{//return network->maxIterations;}
+00033 \}
+00034 
+00035 \textcolor{comment}{/*******************************************************************************}
+00036 \textcolor{comment}{ * setMaxIterations.}
+00037 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00038}{}\hyperlink{class_project_abac6e194d2d16fbdbe51627844eae60b}{00038} \textcolor{keywordtype}{void} \hyperlink{class_project_abac6e194d2d16fbdbe51627844eae60b}{Project::setMaxIterations}(u\_int32\_t maxIterations)
+00039 \{
+00040   \textcolor{comment}{//network->maxIterations = maxIterations;}
+00041 \}
+00042 
+00043 \textcolor{comment}{/*******************************************************************************}
+00044 \textcolor{comment}{ * minError.}
+00045 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00046}{}\hyperlink{class_project_a457ed8d3b0ea5816f928977509f69a34}{00046} \textcolor{keywordtype}{double} \hyperlink{class_project_a457ed8d3b0ea5816f928977509f69a34}{Project::minError}()
+00047 \{
+00048   \textcolor{comment}{//return network->minError;}
+00049 \}
+00050 
+00051 \textcolor{comment}{/*******************************************************************************}
+00052 \textcolor{comment}{ * setMinError.}
+00053 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00054}{}\hyperlink{class_project_a2cb776c39adb42a1113bf7887d0d4636}{00054} \textcolor{keywordtype}{void} \hyperlink{class_project_a2cb776c39adb42a1113bf7887d0d4636}{Project::setMinError}(\textcolor{keywordtype}{double} minError)
+00055 \{
+00056   \textcolor{comment}{//network->minError = minError;}
+00057 \}
+00058 
+00059 \textcolor{comment}{/*******************************************************************************}
+00060 \textcolor{comment}{ * voltageBase.}
+00061 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00062}{}\hyperlink{class_project_a4e857ccb6162f57f5d72f4e7199e4573}{00062} \textcolor{keywordtype}{double} \hyperlink{class_project_a4e857ccb6162f57f5d72f4e7199e4573}{Project::voltageBase}()
+00063 \{
+00064   \textcolor{comment}{//return network->voltageBase;}
+00065 \}
+00066 
+00067 \textcolor{comment}{/*******************************************************************************}
+00068 \textcolor{comment}{ * setVoltageBase.}
+00069 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00070}{}\hyperlink{class_project_a494c3e89851f754188c7abaedbf77ef6}{00070} \textcolor{keywordtype}{void} \hyperlink{class_project_a494c3e89851f754188c7abaedbf77ef6}{Project::setVoltageBase}(\textcolor{keywordtype}{double} voltageBase)
+00071 \{
+00072   \textcolor{comment}{//network->voltageBase = voltageBase;}
+00073 \}
+00074 
+00075 \textcolor{comment}{/*******************************************************************************}
+00076 \textcolor{comment}{ * powerBase.}
+00077 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00078}{}\hyperlink{class_project_a1a417c6832182389fb501b92cade3f9d}{00078} \textcolor{keywordtype}{double} \hyperlink{class_project_a1a417c6832182389fb501b92cade3f9d}{Project::powerBase}()
+00079 \{
+00080   \textcolor{comment}{//return network->powerBase;}
+00081 \}
+00082 
+00083 \textcolor{comment}{/*******************************************************************************}
+00084 \textcolor{comment}{ * setPowerBase.}
+00085 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00086}{}\hyperlink{class_project_abb4df805b3cd3af509a41e657eb4bb83}{00086} \textcolor{keywordtype}{void} \hyperlink{class_project_abb4df805b3cd3af509a41e657eb4bb83}{Project::setPowerBase}(\textcolor{keywordtype}{double} powerBase)
+00087 \{
+00088   \textcolor{comment}{//network->powerBase = powerBase;}
+00089 \}
+00090 
+00091 \textcolor{comment}{/*******************************************************************************}
+00092 \textcolor{comment}{ * lengthUn.}
+00093 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00094}{}\hyperlink{class_project_a40cd2f59a4a708897e5997942c046f4d}{00094} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} \hyperlink{class_project_a40cd2f59a4a708897e5997942c046f4d}{Project::lengthUnit}()
+00095 \{
+00096   \textcolor{comment}{//return network->lengthUnit;}
+00097 \}
+00098 
+00099 \textcolor{comment}{/*******************************************************************************}
+00100 \textcolor{comment}{ * setLengthUn.}
+00101 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00102}{}\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{00102} \textcolor{keywordtype}{void} \hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{Project::setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} lengthUn)
+00103 \{
+00104   \textcolor{comment}{//network->lengthUnit = lengthUn;}
+00105 \}
+00106 
+00107 \textcolor{comment}{/*******************************************************************************}
+00108 \textcolor{comment}{ * impedanceUn.}
+00109 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00110}{}\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{00110} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} \hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{Project::impedanceUnit}()
+00111 \{
+00112   \textcolor{comment}{//return network->impedanceUnit;}
+00113 \}
+00114 
+00115 \textcolor{comment}{/*******************************************************************************}
+00116 \textcolor{comment}{ * setImpedanceUn.}
+00117 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00118}{}\hyperlink{class_project_a995d050781923522ae2a02728346d199}{00118} \textcolor{keywordtype}{void} \hyperlink{class_project_a995d050781923522ae2a02728346d199}{Project::setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} impedanceUn)
+00119 \{
+00120   \textcolor{comment}{//network->impedanceUnit = impedanceUn;}
+00121 \}
+00122 
+00123 \textcolor{comment}{/*******************************************************************************}
+00124 \textcolor{comment}{ * voltageUn.}
+00125 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00126}{}\hyperlink{class_project_a93b928093072ba15c24693b03a934e4e}{00126} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} \hyperlink{class_project_a93b928093072ba15c24693b03a934e4e}{Project::voltageUnit}()
+00127 \{
+00128   \textcolor{comment}{//return network->voltageUnit;}
+00129 \}
+00130 
+00131 \textcolor{comment}{/*******************************************************************************}
+00132 \textcolor{comment}{ * setVoltageUn.}
+00133 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00134}{}\hyperlink{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{00134} \textcolor{keywordtype}{void} \hyperlink{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{Project::setVoltageUn}(\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} voltageUn)
+00135 \{
+00136   \textcolor{comment}{//network->voltageUnit = voltageUn;}
+00137 \}
+00138 
+00139 \textcolor{comment}{/*******************************************************************************}
+00140 \textcolor{comment}{ * powerUn.}
+00141 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00142}{}\hyperlink{class_project_a2a1bc35358d6189695d6e5b7dd547ffd}{00142} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} \hyperlink{class_project_a2a1bc35358d6189695d6e5b7dd547ffd}{Project::powerUnit}()
+00143 \{
+00144   \textcolor{comment}{//return network->powerUnit;}
+00145 \}
+00146 
+00147 \textcolor{comment}{/*******************************************************************************}
+00148 \textcolor{comment}{ * setPowerUn.}
+00149 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00150}{}\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{00150} \textcolor{keywordtype}{void} \hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{Project::setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} powerUn)
+00151 \{
+00152   \textcolor{comment}{//network->powerUnit = powerUn;}
+00153 \}
+00154 
+\hypertarget{project_8cpp_source_l00155}{}\hyperlink{class_project_a0d22341fcc068be743b776df0a02f55e}{00155} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} \hyperlink{class_project_a0d22341fcc068be743b776df0a02f55e}{Project::currentUnit}()
+00156 \{
+00157 
+00158 \}
+00159 
+\hypertarget{project_8cpp_source_l00160}{}\hyperlink{class_project_a64d9800bc3acafcfa4d3f45ee5aacc6d}{00160} \textcolor{keywordtype}{void} \hyperlink{class_project_a64d9800bc3acafcfa4d3f45ee5aacc6d}{Project::setCurrentUnit}(\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit)
+00161 \{
+00162 
+00163 \}
+00164 
+00165 \textcolor{comment}{/*******************************************************************************}
+00166 \textcolor{comment}{ * save.}
+00167 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00168}{}\hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{00168} \textcolor{keywordtype}{bool} \hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{Project::save}()
+00169 \{
+00170   \textcolor{comment}{// Try to open file.}
+00171   QFile file;
+00172   file.setFileName(\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath});
+00173 
+00174   \textcolor{comment}{// Check for write permission.}
+00175   \textcolor{keywordflow}{if} (!file.open(QIODevice::WriteOnly))
+00176     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00177 
+00178   \textcolor{comment}{// Create Json Configuration.}
+00179   QJsonObject projectJson;
+00180 
+00181   \textcolor{comment}{// Add project settings.}
+00182   projectJson.insert(\textcolor{stringliteral}{"name"}, \hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name});
+00183 
+00184   \textcolor{comment}{// Add network settings.}
+00185 \textcolor{comment}{//  projectJson.insert("voltageBase", network->voltageBase);}
+00186 \textcolor{comment}{//  projectJson.insert("powerBase", network->powerBase);}
+00187 \textcolor{comment}{//  projectJson.insert("lengthUnit", network->lengthUnit);}
+00188 \textcolor{comment}{//  projectJson.insert("impedanceUnit", network->impedanceUnit);}
+00189 \textcolor{comment}{//  projectJson.insert("voltageUnit", network->voltageUnit);}
+00190 \textcolor{comment}{//  projectJson.insert("powerUnit", network->powerUnit);}
+00191 \textcolor{comment}{//  projectJson.insert("maxIterations",}
+00192 \textcolor{comment}{//                     static\_cast<int32\_t> (network->maxIterations));}
+00193 \textcolor{comment}{//  projectJson.insert("minError", network->minError);}
+00194 
+00195 \textcolor{comment}{//  // Creates a QJsonArray filled with Bar data.}
+00196 \textcolor{comment}{//  QJsonArray barArray;}
+00197 \textcolor{comment}{//  foreach (Bar *bar, network->bars) \{}
+00198 \textcolor{comment}{//    barArray << bar->toJson();}
+00199 \textcolor{comment}{//  \}}
+00200 \textcolor{comment}{//  projectJson.insert("barArray", barArray);}
+00201 
+00202 \textcolor{comment}{//  // Creates a QJsonArray filled with Line data.}
+00203 \textcolor{comment}{//  QJsonArray lineArray;}
+00204 \textcolor{comment}{//  foreach (Line *line, network->lines) \{}
+00205 \textcolor{comment}{//    lineArray << line->toJson();}
+00206 \textcolor{comment}{//  \}}
+00207 \textcolor{comment}{//  projectJson.insert("lineArray", lineArray);}
+00208 
+00209 \textcolor{comment}{//  // Create a Json document to conver Json data to text.}
+00210 \textcolor{comment}{//  QJsonDocument jsonDoc(projectJson);}
+00211 
+00212 \textcolor{comment}{//  // Write to file.}
+00213 \textcolor{comment}{//  qint64 err = file.write(jsonDoc.toJson());}
+00214 \textcolor{comment}{//  file.close();}
+00215 
+00216 \textcolor{comment}{//  return (err > -1) ? true : false;}
+00217 \}
+00218 
+00219 \textcolor{comment}{/*******************************************************************************}
+00220 \textcolor{comment}{ * saveAs.}
+00221 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00222}{}\hyperlink{class_project_ad32a31d548ad38f4cbbe0f95879a68e5}{00222} \textcolor{keywordtype}{bool} \hyperlink{class_project_ad32a31d548ad38f4cbbe0f95879a68e5}{Project::saveAs}(QString fileName)
+00223 \{
+00224   \textcolor{comment}{// Save old path.}
+00225   QString oldpath;
+00226   oldpath = \hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath};
+00227 
+00228   \textcolor{comment}{// Set new path.}
+00229   \hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = fileName;
+00230 
+00231   \textcolor{comment}{// try to save.}
+00232   \textcolor{keywordflow}{if}(!\hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{save}()) \{
+00233     \textcolor{comment}{// Failed to save. Return to old path.}
+00234     \hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = oldpath;
+00235     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00236   \}
+00237 
+00238   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+00239 \}
+00240 
+00241 \textcolor{comment}{/*******************************************************************************}
+00242 \textcolor{comment}{ * load.}
+00243 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00244}{}\hyperlink{class_project_a1e373892a0383371132ce68fa5f8813d}{00244} \textcolor{keywordtype}{bool} \hyperlink{class_project_a1e373892a0383371132ce68fa5f8813d}{Project::load}()
+00245 \{
+00246   \textcolor{comment}{// Try to open file.}
+00247   QFile file;
+00248   file.setFileName(\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath});
+00249 
+00250   \textcolor{comment}{// Check for read permission.}
+00251   \textcolor{keywordflow}{if} (!file.open(QIODevice::ReadOnly))
+00252     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00253 
+00254   \textcolor{comment}{// Create Doc to transform text to json.}
+00255   QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
+00256 
+00257   \textcolor{comment}{// Chech if file is valid.}
+00258   \textcolor{keywordflow}{if} (jsonDoc.isNull() || !jsonDoc.isObject())
+00259     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00260 
+00261   \textcolor{comment}{// Fill base Json object.}
+00262   QJsonObject projectJson;
+00263   projectJson = jsonDoc.object();
+00264 
+00265   \textcolor{comment}{// Extract project info.}
+00266   \hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name} = projectJson.value(\textcolor{stringliteral}{"name"}).toString();
+00267 
+00268   \textcolor{comment}{// Extract network info.}
+00269 \textcolor{comment}{//  network->voltageBase = projectJson.value("voltageBase").toDouble();}
+00270 \textcolor{comment}{//  network->powerBase = projectJson.value("powerBase").toDouble();}
+00271 \textcolor{comment}{//  network->lengthUnit =}
+00272 \textcolor{comment}{//    static\_cast<Unit::LengthUnit> (projectJson.value("lengthUnit").toInt());}
+00273 \textcolor{comment}{//  network->impedanceUnit =}
+00274 \textcolor{comment}{//    static\_cast<Unit::ImpedanceUnit> (projectJson.value("impedanceUnit").toInt());}
+00275 \textcolor{comment}{//  network->voltageUnit =}
+00276 \textcolor{comment}{//    static\_cast<Unit::VoltageUnit> (projectJson.value("voltageUnit").toInt());}
+00277 \textcolor{comment}{//  network->powerUnit =}
+00278 \textcolor{comment}{//    static\_cast<Unit::PowerUnit> (projectJson.value("powerUnit").toInt());}
+00279 \textcolor{comment}{//  network->maxIterations = projectJson.value("maxIterations").toDouble();}
+00280 \textcolor{comment}{//  network->minError = projectJson.value("minError").toDouble();}
+00281 
+00282 \textcolor{comment}{//  // Extract Bar data from a QJsonArray.}
+00283 \textcolor{comment}{//  QJsonArray barArray(projectJson.value("barArray").toArray());}
+00284 
+00285 \textcolor{comment}{//  foreach (QJsonValue arrayValue, barArray) \{}
+00286 \textcolor{comment}{//    QJsonObject barJson(arrayValue.toObject());}
+00287 
+00288 \textcolor{comment}{//    Bar *bar = new Bar;}
+00289 \textcolor{comment}{//    bar->fromJson(barJson);}
+00290 
+00291 \textcolor{comment}{//    if(!network->addBar(bar)) \{}
+00292 \textcolor{comment}{//      return false;}
+00293 \textcolor{comment}{//    \}}
+00294 \textcolor{comment}{//  \}}
+00295 
+00297 \textcolor{comment}{//  QJsonArray lineArray(projectJson.value("lineArray").toArray());}
+00298 
+00299 \textcolor{comment}{//  foreach (QJsonValue arrayValue, lineArray) \{}
+00300 \textcolor{comment}{//    QJsonObject lineJson(arrayValue.toObject());}
+00301 
+00302 \textcolor{comment}{//    Line *line = new Line;}
+00303 \textcolor{comment}{//    line->fromJson(lineJson);}
+00304 
+00305 \textcolor{comment}{//    if(!network->addLine(line))}
+00306 \textcolor{comment}{//      return false;}
+00307 \textcolor{comment}{//  \}}
+00308 
+00310 \textcolor{comment}{//  file.close();}
+00311 
+00312 \textcolor{comment}{//  return true;}
+00313 \}
+00314 
+00315 
+\end{DoxyCode}

@@ -1,0 +1,385 @@
+\hypertarget{group___graphics}{}\subsection{Graphics}
+\label{group___graphics}\index{Graphics@{Graphics}}
+\subsubsection*{Files}
+\begin{DoxyCompactItemize}
+\item 
+file \hyperlink{network_8cpp}{network.\+cpp}
+\begin{DoxyCompactList}\small\item\em Implementation of \hyperlink{class_network}{Network} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{class_system_view}{System\+View}
+\begin{DoxyCompactList}\small\item\em Widget to visualise Networks. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group___graphics_ga660a455ff7b98cb92410b0bf1cbb2eeb}{System\+View\+::\+System\+View} (Q\+Widget $\ast$parent)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_system_view}{System\+View}. \end{DoxyCompactList}\item 
+\hyperlink{group___graphics_ga0091352981c1efa5498819b69698db44}{System\+View\+::$\sim$\+System\+View} ()
+\item 
+void \hyperlink{group___graphics_ga93170319ee5fbf9098353b383fc8a368}{System\+View\+::zoom\+In} ()
+\begin{DoxyCompactList}\small\item\em zoom\+In \end{DoxyCompactList}\item 
+void \hyperlink{group___graphics_gaf971471c76265ec21cdde2aafe9b609f}{System\+View\+::zoom\+Out} ()
+\begin{DoxyCompactList}\small\item\em zoom\+Out \end{DoxyCompactList}\item 
+void \hyperlink{group___graphics_gac1bf0b6a80216df74a8da1cb8ac5f0e8}{System\+View\+::zoom\+Fit} ()
+\begin{DoxyCompactList}\small\item\em zoom\+Fit \end{DoxyCompactList}\item 
+void \hyperlink{group___graphics_gae183447d0777c7b2b940a977f9b64c3f}{System\+View\+::add\+Network} (\hyperlink{class_network}{Network} $\ast$network)
+\begin{DoxyCompactList}\small\item\em add\+Network \end{DoxyCompactList}\item 
+void \hyperlink{group___graphics_ga2078ad08ff93b9a8683d567e3f9f714e}{System\+View\+::remove\+Network} (\hyperlink{class_network}{Network} $\ast$network)
+\begin{DoxyCompactList}\small\item\em remove\+Network \end{DoxyCompactList}\item 
+void \hyperlink{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}{System\+View\+::wheel\+Event} (Q\+Wheel\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\begin{DoxyCompactList}\small\item\em Opens the bar properties editor for bar {\bfseries bar}. \end{DoxyCompactList}\item 
+void \hyperlink{group___graphics_gab19e233cd697852dd71140971cb6e122}{System\+View\+::mouse\+Move\+Event} (Q\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\item 
+void \hyperlink{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{System\+View\+::mouse\+Press\+Event} (Q\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\item 
+void \hyperlink{group___graphics_gaa8a2664405194bbe29daa454aead7416}{System\+View\+::mouse\+Release\+Event} (Q\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\item 
+\hyperlink{group___graphics_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}{Network\+::\+Network} ()
+\item 
+\hyperlink{group___graphics_ga7a4e19cdb4bf0c7ecf82baa643831492}{Network\+::$\sim$\+Network} ()
+\item 
+bool \hyperlink{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}{Network\+::add\+Bar} (\hyperlink{class_bar}{Bar} $\ast$bar)
+\item 
+bool \hyperlink{group___graphics_gae02945131494987b3ff9b59b627719b4}{Network\+::add\+Line} (\hyperlink{class_line}{Line} $\ast$line)
+\item 
+void \hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{Network\+::remove\+Bar} (int32\+\_\+t id)
+\item 
+void \hyperlink{group___graphics_ga7dea7690987c58fa61ffaa0326b68b68}{Network\+::remove\+Bar} (\hyperlink{class_bar}{Bar} $\ast$bar)
+\item 
+void \hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{Network\+::remove\+Line} (Q\+Pair$<$ int32\+\_\+t, int32\+\_\+t $>$ nodes)
+\item 
+void \hyperlink{group___graphics_ga4fd51288aa75614593977ce8aab9100f}{Network\+::remove\+Line} (\hyperlink{class_line}{Line} $\ast$line)
+\item 
+\hyperlink{class_bar}{Bar} $\ast$ \hyperlink{group___graphics_ga9c5806f5a0d236bb6d8abbdce62d9675}{Network\+::get\+Bar\+By\+Id} (u\+\_\+int32\+\_\+t id)
+\item 
+\hyperlink{class_line}{Line} $\ast$ \hyperlink{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{Network\+::get\+Line\+By\+Nodes} (Q\+Pair$<$ int32\+\_\+t, int32\+\_\+t $>$ nodes)
+\end{DoxyCompactItemize}
+\subsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const double \hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{Network\+::bar\+Icon\+Size} = 15.\+0
+\item 
+static const double \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network\+::line\+Width} = 4.\+0
+\item 
+static const Q\+Color \hyperlink{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{Network\+::selected\+Color} = Qt\+::red
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+
+
+\subsubsection{Function Documentation}
+\hypertarget{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}{}\index{Graphics@{Graphics}!add\+Bar@{add\+Bar}}
+\index{add\+Bar@{add\+Bar}!Graphics@{Graphics}}
+\paragraph[{add\+Bar}]{\setlength{\rightskip}{0pt plus 5cm}bool Network\+::add\+Bar (
+\begin{DoxyParamCaption}
+\item[{{\bf Bar} $\ast$}]{bar}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}
+
+
+Definition at line \hyperlink{network_8cpp_source_l00092}{92} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___graphics_gae02945131494987b3ff9b59b627719b4}{}\index{Graphics@{Graphics}!add\+Line@{add\+Line}}
+\index{add\+Line@{add\+Line}!Graphics@{Graphics}}
+\paragraph[{add\+Line}]{\setlength{\rightskip}{0pt plus 5cm}bool Network\+::add\+Line (
+\begin{DoxyParamCaption}
+\item[{{\bf Line} $\ast$}]{line}
+\end{DoxyParamCaption}
+)}\label{group___graphics_gae02945131494987b3ff9b59b627719b4}
+
+
+Definition at line \hyperlink{network_8cpp_source_l00113}{113} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+
+\hypertarget{group___graphics_gae183447d0777c7b2b940a977f9b64c3f}{}\index{Graphics@{Graphics}!add\+Network@{add\+Network}}
+\index{add\+Network@{add\+Network}!Graphics@{Graphics}}
+\paragraph[{add\+Network}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::add\+Network (
+\begin{DoxyParamCaption}
+\item[{{\bf Network} $\ast$}]{network}
+\end{DoxyParamCaption}
+)}\label{group___graphics_gae183447d0777c7b2b940a977f9b64c3f}
+
+\begin{DoxyParams}{Parameters}
+{\em network} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{systemview_8cpp_source_l00098}{98} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+
+\hypertarget{group___graphics_ga9c5806f5a0d236bb6d8abbdce62d9675}{}\index{Graphics@{Graphics}!get\+Bar\+By\+Id@{get\+Bar\+By\+Id}}
+\index{get\+Bar\+By\+Id@{get\+Bar\+By\+Id}!Graphics@{Graphics}}
+\paragraph[{get\+Bar\+By\+Id}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bar} $\ast$ Network\+::get\+Bar\+By\+Id (
+\begin{DoxyParamCaption}
+\item[{u\+\_\+int32\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga9c5806f5a0d236bb6d8abbdce62d9675}
+
+
+Definition at line \hyperlink{network_8cpp_source_l00176}{176} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{group___graphics_ga9c5806f5a0d236bb6d8abbdce62d9675_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{}\index{Graphics@{Graphics}!get\+Line\+By\+Nodes@{get\+Line\+By\+Nodes}}
+\index{get\+Line\+By\+Nodes@{get\+Line\+By\+Nodes}!Graphics@{Graphics}}
+\paragraph[{get\+Line\+By\+Nodes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Line} $\ast$ Network\+::get\+Line\+By\+Nodes (
+\begin{DoxyParamCaption}
+\item[{Q\+Pair$<$ int32\+\_\+t, int32\+\_\+t $>$}]{nodes}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}
+
+
+Definition at line \hyperlink{network_8cpp_source_l00184}{184} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+
+\hypertarget{group___graphics_gab19e233cd697852dd71140971cb6e122}{}\index{Graphics@{Graphics}!mouse\+Move\+Event@{mouse\+Move\+Event}}
+\index{mouse\+Move\+Event@{mouse\+Move\+Event}!Graphics@{Graphics}}
+\paragraph[{mouse\+Move\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::mouse\+Move\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Mouse\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{group___graphics_gab19e233cd697852dd71140971cb6e122}
+
+
+Definition at line \hyperlink{systemview_8cpp_source_l00130}{130} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+
+\hypertarget{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{}\index{Graphics@{Graphics}!mouse\+Press\+Event@{mouse\+Press\+Event}}
+\index{mouse\+Press\+Event@{mouse\+Press\+Event}!Graphics@{Graphics}}
+\paragraph[{mouse\+Press\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::mouse\+Press\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Mouse\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}
+
+
+Definition at line \hyperlink{systemview_8cpp_source_l00147}{147} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+
+\hypertarget{group___graphics_gaa8a2664405194bbe29daa454aead7416}{}\index{Graphics@{Graphics}!mouse\+Release\+Event@{mouse\+Release\+Event}}
+\index{mouse\+Release\+Event@{mouse\+Release\+Event}!Graphics@{Graphics}}
+\paragraph[{mouse\+Release\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::mouse\+Release\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Mouse\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{group___graphics_gaa8a2664405194bbe29daa454aead7416}
+
+
+Definition at line \hyperlink{systemview_8cpp_source_l00161}{161} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+
+\hypertarget{group___graphics_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}{}\index{Graphics@{Graphics}!Network@{Network}}
+\index{Network@{Network}!Graphics@{Graphics}}
+\paragraph[{Network}]{\setlength{\rightskip}{0pt plus 5cm}Network\+::\+Network (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}
+
+
+Definition at line \hyperlink{network_8cpp_source_l00054}{54} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+
+\hypertarget{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{}\index{Graphics@{Graphics}!remove\+Bar@{remove\+Bar}}
+\index{remove\+Bar@{remove\+Bar}!Graphics@{Graphics}}
+\paragraph[{remove\+Bar}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::remove\+Bar (
+\begin{DoxyParamCaption}
+\item[{int32\+\_\+t}]{id}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}
+
+
+Definition at line \hyperlink{network_8cpp_source_l00142}{142} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=331pt]{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___graphics_ga7dea7690987c58fa61ffaa0326b68b68}{}\index{Graphics@{Graphics}!remove\+Bar@{remove\+Bar}}
+\index{remove\+Bar@{remove\+Bar}!Graphics@{Graphics}}
+\paragraph[{remove\+Bar}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::remove\+Bar (
+\begin{DoxyParamCaption}
+\item[{{\bf Bar} $\ast$}]{bar}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga7dea7690987c58fa61ffaa0326b68b68}
+
+
+Definition at line \hyperlink{network_8cpp_source_l00150}{150} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+
+\hypertarget{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{}\index{Graphics@{Graphics}!remove\+Line@{remove\+Line}}
+\index{remove\+Line@{remove\+Line}!Graphics@{Graphics}}
+\paragraph[{remove\+Line}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::remove\+Line (
+\begin{DoxyParamCaption}
+\item[{Q\+Pair$<$ int32\+\_\+t, int32\+\_\+t $>$}]{nodes}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}
+
+
+Definition at line \hyperlink{network_8cpp_source_l00159}{159} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+
+\hypertarget{group___graphics_ga4fd51288aa75614593977ce8aab9100f}{}\index{Graphics@{Graphics}!remove\+Line@{remove\+Line}}
+\index{remove\+Line@{remove\+Line}!Graphics@{Graphics}}
+\paragraph[{remove\+Line}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::remove\+Line (
+\begin{DoxyParamCaption}
+\item[{{\bf Line} $\ast$}]{line}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga4fd51288aa75614593977ce8aab9100f}
+
+
+Definition at line \hyperlink{network_8cpp_source_l00167}{167} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+
+\hypertarget{group___graphics_ga2078ad08ff93b9a8683d567e3f9f714e}{}\index{Graphics@{Graphics}!remove\+Network@{remove\+Network}}
+\index{remove\+Network@{remove\+Network}!Graphics@{Graphics}}
+\paragraph[{remove\+Network}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::remove\+Network (
+\begin{DoxyParamCaption}
+\item[{{\bf Network} $\ast$}]{network}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga2078ad08ff93b9a8683d567e3f9f714e}
+
+\begin{DoxyParams}{Parameters}
+{\em network} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{systemview_8cpp_source_l00106}{106} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+
+\hypertarget{group___graphics_ga660a455ff7b98cb92410b0bf1cbb2eeb}{}\index{Graphics@{Graphics}!System\+View@{System\+View}}
+\index{System\+View@{System\+View}!Graphics@{Graphics}}
+\paragraph[{System\+View}]{\setlength{\rightskip}{0pt plus 5cm}System\+View\+::\+System\+View (
+\begin{DoxyParamCaption}
+\item[{Q\+Widget $\ast$}]{parent}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga660a455ff7b98cb92410b0bf1cbb2eeb}
+
+\begin{DoxyParams}{Parameters}
+{\em parent} & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{systemview_8cpp_source_l00055}{55} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+
+\hypertarget{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}{}\index{Graphics@{Graphics}!wheel\+Event@{wheel\+Event}}
+\index{wheel\+Event@{wheel\+Event}!Graphics@{Graphics}}
+\paragraph[{wheel\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::wheel\+Event (
+\begin{DoxyParamCaption}
+\item[{Q\+Wheel\+Event $\ast$}]{event}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}
+This slot handles the bar double click event.
+
+
+\begin{DoxyParams}{Parameters}
+{\em } & \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{systemview_8cpp_source_l00116}{116} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+
+\hypertarget{group___graphics_gac1bf0b6a80216df74a8da1cb8ac5f0e8}{}\index{Graphics@{Graphics}!zoom\+Fit@{zoom\+Fit}}
+\index{zoom\+Fit@{zoom\+Fit}!Graphics@{Graphics}}
+\paragraph[{zoom\+Fit}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::zoom\+Fit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___graphics_gac1bf0b6a80216df74a8da1cb8ac5f0e8}
+
+
+Definition at line \hyperlink{systemview_8cpp_source_l00090}{90} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+
+\hypertarget{group___graphics_ga93170319ee5fbf9098353b383fc8a368}{}\index{Graphics@{Graphics}!zoom\+In@{zoom\+In}}
+\index{zoom\+In@{zoom\+In}!Graphics@{Graphics}}
+\paragraph[{zoom\+In}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::zoom\+In (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga93170319ee5fbf9098353b383fc8a368}
+
+
+Definition at line \hyperlink{systemview_8cpp_source_l00074}{74} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+
+\hypertarget{group___graphics_gaf971471c76265ec21cdde2aafe9b609f}{}\index{Graphics@{Graphics}!zoom\+Out@{zoom\+Out}}
+\index{zoom\+Out@{zoom\+Out}!Graphics@{Graphics}}
+\paragraph[{zoom\+Out}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::zoom\+Out (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___graphics_gaf971471c76265ec21cdde2aafe9b609f}
+
+
+Definition at line \hyperlink{systemview_8cpp_source_l00082}{82} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+
+\hypertarget{group___graphics_ga7a4e19cdb4bf0c7ecf82baa643831492}{}\index{Graphics@{Graphics}!````~Network@{$\sim$\+Network}}
+\index{````~Network@{$\sim$\+Network}!Graphics@{Graphics}}
+\paragraph[{$\sim$\+Network}]{\setlength{\rightskip}{0pt plus 5cm}Network\+::$\sim$\+Network (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga7a4e19cdb4bf0c7ecf82baa643831492}
+
+
+Definition at line \hyperlink{network_8cpp_source_l00084}{84} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+
+\hypertarget{group___graphics_ga0091352981c1efa5498819b69698db44}{}\index{Graphics@{Graphics}!````~System\+View@{$\sim$\+System\+View}}
+\index{````~System\+View@{$\sim$\+System\+View}!Graphics@{Graphics}}
+\paragraph[{$\sim$\+System\+View}]{\setlength{\rightskip}{0pt plus 5cm}System\+View\+::$\sim$\+System\+View (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___graphics_ga0091352981c1efa5498819b69698db44}
+
+
+Definition at line \hyperlink{systemview_8cpp_source_l00066}{66} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+
+
+
+\subsubsection{Variable Documentation}
+\hypertarget{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{}\index{Graphics@{Graphics}!bar\+Icon\+Size@{bar\+Icon\+Size}}
+\index{bar\+Icon\+Size@{bar\+Icon\+Size}!Graphics@{Graphics}}
+\paragraph[{bar\+Icon\+Size}]{\setlength{\rightskip}{0pt plus 5cm}const double Network\+::bar\+Icon\+Size = 15.\+0\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_gaa334bbc93b3fde219840e95e23198b53}
+
+
+Definition at line \hyperlink{network_8h_source_l00081}{81} of file \hyperlink{network_8h_source}{network.\+h}.
+
+\hypertarget{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{}\index{Graphics@{Graphics}!line\+Width@{line\+Width}}
+\index{line\+Width@{line\+Width}!Graphics@{Graphics}}
+\paragraph[{line\+Width}]{\setlength{\rightskip}{0pt plus 5cm}const double Network\+::line\+Width = 4.\+0\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}
+
+
+Definition at line \hyperlink{network_8h_source_l00083}{83} of file \hyperlink{network_8h_source}{network.\+h}.
+
+\hypertarget{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{}\index{Graphics@{Graphics}!selected\+Color@{selected\+Color}}
+\index{selected\+Color@{selected\+Color}!Graphics@{Graphics}}
+\paragraph[{selected\+Color}]{\setlength{\rightskip}{0pt plus 5cm}const Q\+Color Network\+::selected\+Color = Qt\+::red\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}
+
+
+Definition at line \hyperlink{network_8h_source_l00085}{85} of file \hyperlink{network_8h_source}{network.\+h}.
+

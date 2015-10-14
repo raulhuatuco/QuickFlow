@@ -1,7 +1,7 @@
 #ifndef REDRAW_H
 #define REDRAW_H
 
-#include "graphics/network.h"
+#include "models/network.h"
 
 void redrawGraph1(Network *network);
 void redrawGraph2(Network *network);

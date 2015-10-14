@@ -24,6 +24,8 @@ public:
 
   void setOptions(Project *project, Line *line);
 
+  Line *line();
+
 private slots:
   void on_buttonBox_accepted();
 

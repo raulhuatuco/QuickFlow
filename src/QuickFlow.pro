@@ -22,12 +22,14 @@ SOURCES += main.cpp\
     algorithms/shirmoharmnadi.cpp \
     models/bar.cpp \
     models/line.cpp \
+    models/network.cpp \
     graphics/infobar.cpp \
     graphics/infoline.cpp \
-    graphics/network.cpp \
     algorithms/import.cpp \
     algorithms/redraw.cpp \
-    graphics/systemview.cpp
+    graphics/systemview.cpp \
+    window/about.cpp \
+    window/networkproperties.cpp
     
     
     
@@ -41,13 +43,15 @@ HEADERS  += \
     window/barproperties.h \
     models/bar.h \
     models/line.h \
+    models/network.h \
     graphics/infobar.h \
     graphics/infoline.h \
-    graphics/network.h \
     algorithms/import.h \
     algorithms/redraw.h \
     graphics/systemview.h \
-    algorithms/shirmoharmmadi.h
+    algorithms/shirmoharmmadi.h \
+    window/about.h \
+    window/networkproperties.h
 
 
     
@@ -56,7 +60,9 @@ FORMS    += \
     window/lineproperties.ui \
     window/barproperties.ui \
     window/newproject.ui \
-    quickflow.ui
+    quickflow.ui \
+    window/about.ui \
+    window/networkproperties.ui
 
 RESOURCES += \
     img/img.qrc \

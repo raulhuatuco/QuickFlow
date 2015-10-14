@@ -1,0 +1,19 @@
+\hypertarget{main_8cpp_source}{}\subsection{main.\+cpp}
+\label{main_8cpp_source}\index{main.\+cpp@{main.\+cpp}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include "\hyperlink{quickflow_8h}{quickflow.h}"}
+00002 \textcolor{preprocessor}{#include <QApplication>}
+00003 
+00004 \textcolor{comment}{/*******************************************************************************}
+00005 \textcolor{comment}{ * main.}
+00006 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{main_8cpp_source_l00007}{}\hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{00007} \textcolor{keywordtype}{int} \hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}(\textcolor{keywordtype}{int} argc, \textcolor{keywordtype}{char} *argv[])
+00008 \{
+00009   QApplication a(argc, argv);
+00010   \hyperlink{class_quick_flow}{QuickFlow} w;
+00011   w.show();
+00012 
+00013   \textcolor{keywordflow}{return} a.exec();
+00014 \}
+\end{DoxyCode}

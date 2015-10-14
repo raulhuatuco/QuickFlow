@@ -3,7 +3,7 @@
 
 #include "models/bar.h"
 #include "models/line.h"
-#include "graphics/network.h"
+#include "models/network.h"
 
 class Shirmoharmnadi
 {

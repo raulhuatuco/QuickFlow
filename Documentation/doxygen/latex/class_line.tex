@@ -1,0 +1,155 @@
+\hypertarget{class_line}{}\subsection{Line Class Reference}
+\label{class_line}\index{Line@{Line}}
+
+
+Represents a cable in power distribution systems.  
+
+
+
+
+Inheritance diagram for Line\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=172pt]{class_line__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Line\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{class_line__coll__graph}
+\end{center}
+\end{figure}
+\subsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_line_a2444b577ea2254994599c6f829c629a5}{event\+Double\+Click} ()
+\begin{DoxyCompactList}\small\item\em event\+Double\+Click \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group___models_gacc11b8a429d8cdd63ba6803dff5602b3}{Line} ()
+\item 
+\hyperlink{group___models_gaabe85f48d22d92b62257091f48174fac}{$\sim$\+Line} ()
+\item 
+complex$<$ double $>$ \hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z} (int32\+\_\+t index, \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit\+::\+Impedance\+Unit} unit=\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit\+::k\+Ohm})
+\item 
+void \hyperlink{group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0}{set\+Z} (int32\+\_\+t index, complex$<$ double $>$ new\+Impedance, \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit\+::\+Impedance\+Unit} unit=\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit\+::k\+Ohm})
+\item 
+complex$<$ double $>$ \hyperlink{group___models_ga139698332327a712f6c02d96fe73fbee}{z\+Pu} (int32\+\_\+t index)
+\item 
+complex$<$ double $>$ \hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{i} (int32\+\_\+t phase, \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit\+::\+Current\+Unit} unit=\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit\+::k\+Ampere})
+\item 
+void \hyperlink{group___models_ga9e55b06dc3e385838fdd13d5580438ef}{set\+I} (int32\+\_\+t phase, complex$<$ double $>$ new\+Current, \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit\+::\+Current\+Unit} unit=\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit\+::k\+Ampere})
+\item 
+complex$<$ double $>$ \hyperlink{group___models_ga8f71e477800134586652d283087ed373}{i\+Pu} (int32\+\_\+t phase)
+\item 
+complex$<$ double $>$ \hyperlink{group___models_ga84ddf17bee846a6f21c44d463252dd25}{loss} (int32\+\_\+t phase)
+\item 
+double \hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length} (\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit\+::\+Length\+Unit} unit=\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit\+::k\+Meter})
+\item 
+void \hyperlink{group___models_ga950d0b8f5d167eda430c65ca7adadbb0}{set\+Length} (double new\+Length, \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit\+::\+Length\+Unit} unit=\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit\+::k\+Meter})
+\item 
+\hyperlink{class_bar}{Bar} $\ast$ \hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{p\+No\+I} ()
+\item 
+\hyperlink{class_bar}{Bar} $\ast$ \hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{p\+No\+F} ()
+\item 
+void \hyperlink{group___models_gaeeab146e6c1d7d1a688a2764a9c9a170}{set\+Nodes} (\hyperlink{class_bar}{Bar} $\ast$\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{p\+No\+I}, \hyperlink{class_bar}{Bar} $\ast$\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{p\+No\+F})
+\item 
+Q\+Json\+Object \hyperlink{group___models_ga4effa7a96db465ea6e01135d5a010739}{to\+Json} ()
+\item 
+void \hyperlink{group___models_ga62623ad71df5279377cc69da90decc75}{from\+Json} (Q\+Json\+Object \&line\+Json)
+\item 
+void \hyperlink{group___models_ga8fdb12651d4bc592616d241386b066b3}{update\+Position} ()
+\item 
+Q\+Rect\+F \hyperlink{group___models_gad15c3af158d3b966c04be7e18cee5aea}{bounding\+Rect} () const Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\item 
+Q\+Painter\+Path \hyperlink{group___models_gaf1736b829a643d99052ef6428ddd5b16}{shape} () const Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\item 
+Q\+Variant \hyperlink{group___models_ga5fcee3f23eb50e34f730d602a3802b93}{item\+Change} (Graphics\+Item\+Change change, const Q\+Variant \&value) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\end{DoxyCompactItemize}
+\subsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Q\+Pair$<$ int32\+\_\+t, int32\+\_\+t $>$ \hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}
+\item 
+\hyperlink{class_network}{Network} $\ast$ \hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}
+\end{DoxyCompactItemize}
+\subsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static const int32\+\_\+t \hyperlink{group___models_gadc334bd07c6126abc56e531d7e3e72b4}{k\+Invalid\+Node} = -\/1
+\end{DoxyCompactItemize}
+\subsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{group___models_ga9a1fee5b1606ab0deedd04bdab99be70}{mouse\+Double\+Click\+Event} (Q\+Graphics\+Scene\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\begin{DoxyCompactList}\small\item\em mouse\+Double\+Click\+Event \end{DoxyCompactList}\item 
+void \hyperlink{group___models_ga0aa64aed379d434be5942edf572b444b}{paint} (Q\+Painter $\ast$painter, const Q\+Style\+Option\+Graphics\+Item $\ast$option, Q\+Widget $\ast$widget) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
+\end{DoxyCompactItemize}
+
+
+\subsubsection{Detailed Description}
+\subparagraph*{Overview}
+
+\hyperlink{class_line}{Line} class represents a line in a power system, providing the data structure and methods that model a real line.
+
+\subparagraph*{Example}
+
+
+\begin{DoxyCode}
+\end{DoxyCode}
+ 
+
+Definition at line \hyperlink{line_8h_source_l00074}{74} of file \hyperlink{line_8h_source}{line.\+h}.
+
+
+
+\subsubsection{Member Function Documentation}
+\hypertarget{class_line_a2444b577ea2254994599c6f829c629a5}{}\index{Line@{Line}!event\+Double\+Click@{event\+Double\+Click}}
+\index{event\+Double\+Click@{event\+Double\+Click}!Line@{Line}}
+\paragraph[{event\+Double\+Click}]{\setlength{\rightskip}{0pt plus 5cm}void Line\+::event\+Double\+Click (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_line_a2444b577ea2254994599c6f829c629a5}
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_line_a2444b577ea2254994599c6f829c629a5_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsubsection{Member Data Documentation}
+\hypertarget{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{}\index{Line@{Line}!network@{network}}
+\index{network@{network}!Line@{Line}}
+\paragraph[{network}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Network}$\ast$ Line\+::network}\label{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}
+
+
+Definition at line \hyperlink{line_8h_source_l00089}{89} of file \hyperlink{line_8h_source}{line.\+h}.
+
+\hypertarget{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{}\index{Line@{Line}!nodes@{nodes}}
+\index{nodes@{nodes}!Line@{Line}}
+\paragraph[{nodes}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Pair$<$int32\+\_\+t, int32\+\_\+t$>$ Line\+::nodes}\label{class_line_afd17c40d656e6a8d677cb22df5f0c70b}
+
+
+Definition at line \hyperlink{line_8h_source_l00087}{87} of file \hyperlink{line_8h_source}{line.\+h}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{line_8h}{line.\+h}\item 
+\hyperlink{line_8cpp}{line.\+cpp}\end{DoxyCompactItemize}

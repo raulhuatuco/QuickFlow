@@ -1,0 +1,8 @@
+<map id="importTxtType3" name="importTxtType3">
+<area shape="rect" id="node2" href="$class_project.html#a494c3e89851f754188c7abaedbf77ef6" title="Project::setVoltageBase" alt="" coords="171,5,333,32"/>
+<area shape="rect" id="node3" href="$class_project.html#a846ee2284b0856d461b35d78d9f8e1d6" title="Project::setLengthUn" alt="" coords="179,56,325,83"/>
+<area shape="rect" id="node4" href="$class_project.html#a995d050781923522ae2a02728346d199" title="Project::setImpedanceUn" alt="" coords="167,107,337,133"/>
+<area shape="rect" id="node5" href="$class_project.html#aa46b8645d2047c1a2e8d329b9ebbc120" title="Project::setPowerUn" alt="" coords="181,157,323,184"/>
+<area shape="rect" id="node6" href="$class_project.html#aa26b488b2e93c8a8c6b4423ce07df4a1" title="Project::setVoltageUn" alt="" coords="177,208,327,235"/>
+<area shape="rect" id="node7" href="$class_project.html#abb4df805b3cd3af509a41e657eb4bb83" title="Project::setPowerBase" alt="" coords="174,259,330,285"/>
+</map>

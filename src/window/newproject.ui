@@ -7,11 +7,15 @@
     <x>0</x>
     <y>0</y>
     <width>424</width>
-    <height>559</height>
+    <height>594</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>New Project</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../img/img.qrc">
+    <normaloff>:/newproject.png</normaloff>:/newproject.png</iconset>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout_3">
    <item>
@@ -95,7 +99,7 @@ QGroupBox::title
          <widget class="QLineEdit" name="path"/>
         </item>
         <item>
-         <widget class="QToolButton" name="toolButton">
+         <widget class="QToolButton" name="location">
           <property name="text">
            <string>...</string>
           </property>
@@ -182,7 +186,11 @@ QGroupBox::title
          </spacer>
         </item>
         <item>
-         <widget class="QLineEdit" name="maxIterations"/>
+         <widget class="QLineEdit" name="maxIterations">
+          <property name="text">
+           <string>1000</string>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer name="horizontalSpacer">
@@ -225,7 +233,18 @@ QGroupBox::title
          </spacer>
         </item>
         <item>
-         <widget class="QLineEdit" name="minError"/>
+         <widget class="QLineEdit" name="minError">
+          <property name="text">
+           <string>0.1</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_13">
+          <property name="text">
+           <string>[%]</string>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer name="horizontalSpacer_2">
@@ -268,7 +287,18 @@ QGroupBox::title
          </spacer>
         </item>
         <item>
-         <widget class="QLineEdit" name="voltageBase"/>
+         <widget class="QLineEdit" name="voltageBase">
+          <property name="text">
+           <string>23000</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>[Volts]</string>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer name="horizontalSpacer_15">
@@ -311,7 +341,18 @@ QGroupBox::title
          </spacer>
         </item>
         <item>
-         <widget class="QLineEdit" name="powerBase"/>
+         <widget class="QLineEdit" name="powerBase">
+          <property name="text">
+           <string>2500000</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="label_15">
+          <property name="text">
+           <string>[VA]</string>
+          </property>
+         </widget>
         </item>
         <item>
          <spacer name="horizontalSpacer_17">
@@ -375,7 +416,7 @@ QGroupBox::title
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>27</width>
+            <width>48</width>
             <height>20</height>
            </size>
           </property>
@@ -418,7 +459,7 @@ QGroupBox::title
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>13</width>
+            <width>20</width>
             <height>20</height>
            </size>
           </property>
@@ -461,7 +502,7 @@ QGroupBox::title
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>33</width>
+            <width>43</width>
             <height>20</height>
            </size>
           </property>
@@ -504,7 +545,7 @@ QGroupBox::title
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>43</width>
+            <width>53</width>
             <height>20</height>
            </size>
           </property>
@@ -515,6 +556,49 @@ QGroupBox::title
         </item>
         <item>
          <spacer name="horizontalSpacer_9">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+      <item row="4" column="0">
+       <layout class="QHBoxLayout" name="horizontalLayout_12">
+        <item>
+         <widget class="QLabel" name="label_12">
+          <property name="text">
+           <string>Current:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_19">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>44</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item>
+         <widget class="QComboBox" name="currentUnit"/>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer_20">
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
@@ -544,6 +628,8 @@ QGroupBox::title
   <zorder>groupBox_2</zorder>
   <zorder>groupBox_3</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="../img/img.qrc"/>
+ </resources>
  <connections/>
 </ui>

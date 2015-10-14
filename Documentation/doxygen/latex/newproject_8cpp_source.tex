@@ -1,0 +1,215 @@
+\hypertarget{newproject_8cpp_source}{}\subsection{newproject.\+cpp}
+\label{newproject_8cpp_source}\index{newproject.\+cpp@{newproject.\+cpp}}
+
+\begin{DoxyCode}
+00001 \textcolor{comment}{/*}
+00002 \textcolor{comment}{ * The MIT License (MIT)}
+00003 \textcolor{comment}{ *}
+00004 \textcolor{comment}{ * Copyright (c) 2015 David Krepsky}
+00005 \textcolor{comment}{ *}
+00006 \textcolor{comment}{ * Permission is hereby granted, free of charge, to any person obtaining a copy}
+00007 \textcolor{comment}{ * of this software and associated documentation files (the "Software"), to deal}
+00008 \textcolor{comment}{ * in the Software without restriction, including without limitation the rights}
+00009 \textcolor{comment}{ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}
+00010 \textcolor{comment}{ * copies of the Software, and to permit persons to whom the Software is}
+00011 \textcolor{comment}{ * furnished to do so, subject to the following conditions:}
+00012 \textcolor{comment}{ *}
+00013 \textcolor{comment}{ * The above copyright notice and this permission notice shall be included in}
+00014 \textcolor{comment}{ * all copies or substantial portions of the Software.}
+00015 \textcolor{comment}{ *}
+00016 \textcolor{comment}{ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}
+00017 \textcolor{comment}{ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}
+00018 \textcolor{comment}{ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}
+00019 \textcolor{comment}{ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}
+00020 \textcolor{comment}{ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}
+00021 \textcolor{comment}{ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}
+00022 \textcolor{comment}{ * SOFTWARE.}
+00023 \textcolor{comment}{ */}
+00024 
+00043 \textcolor{preprocessor}{#include "\hyperlink{newproject_8h}{newproject.h}"}
+00044 \textcolor{preprocessor}{#include "ui\_newproject.h"}
+00045 
+00046 \textcolor{preprocessor}{#include <QMessageBox>}
+00047 \textcolor{preprocessor}{#include <QFileDialog>}
+00048 \textcolor{preprocessor}{#include <QStandardPaths>}
+00049 \textcolor{preprocessor}{#include <QValidator>}
+00050 
+00051 \textcolor{preprocessor}{#include "\hyperlink{customtypes_8h}{customtypes.h}"}
+00052 
+00053 \textcolor{comment}{/*******************************************************************************}
+00054 \textcolor{comment}{ * WindowNewProject}
+00055 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{newproject_8cpp_source_l00056}{}\hyperlink{group___window_ga011ff7a4c380f74bdafa4fdaed510c42}{00056} \hyperlink{group___window_ga011ff7a4c380f74bdafa4fdaed510c42}{NewProject::NewProject}(QWidget *parent)
+00057   : QDialog(parent),
+00058     ui(new \hyperlink{namespace_ui}{Ui}::\hyperlink{class_new_project}{NewProject})
+00059 \{
+00060   \textcolor{comment}{// Set-up user interface.}
+00061   ui->setupUi(\textcolor{keyword}{this});
+00062 
+00063   \textcolor{comment}{// Create validator for data input.}
+00064   ui->maxIterations->setValidator(\textcolor{keyword}{new} QIntValidator(1,1000000, \textcolor{keyword}{this}));
+00065   ui->minError->setValidator(\textcolor{keyword}{new} QDoubleValidator(0, qInf(), 1000, \textcolor{keyword}{this}));
+00066   ui->voltageBase->setValidator(\textcolor{keyword}{new} QDoubleValidator(0, qInf(), 1000, \textcolor{keyword}{this}));
+00067   ui->powerBase->setValidator(\textcolor{keyword}{new} QDoubleValidator(0, qInf(), 1000, \textcolor{keyword}{this}));
+00068 
+00069   \textcolor{comment}{// Populate comboboxes.}
+00070   ui->lengthUnit->addItem(\textcolor{stringliteral}{"m"}, qVariantFromValue(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter}));
+00071   ui->lengthUnit->addItem(\textcolor{stringliteral}{"km"}, qVariantFromValue(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919}{Unit::kKiloMeter}));
+00072   ui->lengthUnit->addItem(\textcolor{stringliteral}{"ft"}, qVariantFromValue(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8}{Unit::kFeet}));
+00073   ui->lengthUnit->addItem(\textcolor{stringliteral}{"mile"}, qVariantFromValue(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724}{Unit::kMile}));
+00074 
+00075   ui->impedanceUnit->addItem(\textcolor{stringliteral}{"Ohm"}, qVariantFromValue(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit::kOhm}));
+00076   ui->impedanceUnit->addItem(\textcolor{stringliteral}{"Ohm/m"}, qVariantFromValue(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336}{Unit::kOhmPerMeter}));
+00077   ui->impedanceUnit->addItem(\textcolor{stringliteral}{"Ohm/km"}, qVariantFromValue(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6}{Unit::kOhmPerKilometer}));
+00078   ui->impedanceUnit->addItem(\textcolor{stringliteral}{"Ohm/ft"}, qVariantFromValue(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa433b57934ca3be960ec7a60f3ea6ea87}{Unit::kOhmPerFeet}));
+00079   ui->impedanceUnit->addItem(\textcolor{stringliteral}{"Ohm/mile"}, qVariantFromValue(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613}{Unit::kOhmPerMile}));
+00080 
+00081   ui->voltageUnit->addItem(\textcolor{stringliteral}{"V"}, qVariantFromValue(\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts}));
+00082   ui->voltageUnit->addItem(\textcolor{stringliteral}{"kV"}, qVariantFromValue(\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d}{Unit::kKiloVolts}));
+00083 
+00084   ui->powerUnit->addItem(\textcolor{stringliteral}{"VA"}, qVariantFromValue(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA}));
+00085   ui->powerUnit->addItem(\textcolor{stringliteral}{"kVA"}, qVariantFromValue(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2}{Unit::kKiloVA}));
+00086   ui->powerUnit->addItem(\textcolor{stringliteral}{"MVA"}, qVariantFromValue(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365}{Unit::kMegaVa}));
+00087 
+00088   ui->currentUnit->addItem(\textcolor{stringliteral}{"A"}, qVariantFromValue(\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit::kAmpere}));
+00089   ui->currentUnit->addItem(\textcolor{stringliteral}{"kA"}, qVariantFromValue(\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aa27cb5edd73099f24f2285e02396ae14}{Unit::kKiloAmpere}));
+00090 \}
+00091 
+00092 \textcolor{comment}{/*******************************************************************************}
+00093 \textcolor{comment}{ * ~WindowNewProject}
+00094 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{newproject_8cpp_source_l00095}{}\hyperlink{group___window_gae65155941598f4272f3df0b2f1428c78}{00095} \hyperlink{group___window_gae65155941598f4272f3df0b2f1428c78}{NewProject::~NewProject}()
+00096 \{
+00097   \textcolor{keyword}{delete} ui;
+00098 \}
+00099 
+00100 \textcolor{comment}{/*******************************************************************************}
+00101 \textcolor{comment}{ * Text Changed.}
+00102 \textcolor{comment}{ ******************************************************************************/}
+00103 \textcolor{keywordtype}{void} NewProject::on\_name\_textChanged(\textcolor{keyword}{const} QString &arg1)
+00104 \{
+00105   \textcolor{comment}{// Display new name.}
+00106   ui->outputFile->setText(ui->path->text() + QDir::separator() + arg1 +
+00107                           \textcolor{stringliteral}{".qkf"});
+00108 \}
+00109 
+00110 \textcolor{comment}{/*******************************************************************************}
+00111 \textcolor{comment}{ * Path Changed.}
+00112 \textcolor{comment}{ ******************************************************************************/}
+00113 \textcolor{keywordtype}{void} NewProject::on\_path\_textChanged(\textcolor{keyword}{const} QString &arg1)
+00114 \{
+00115   \textcolor{comment}{// Display new path.}
+00116   ui->outputFile->setText(arg1 + QDir::separator() + ui->name->text() +
+00117                           \textcolor{stringliteral}{".qkf"});
+00118 \}
+00119 
+00120 \textcolor{comment}{/*******************************************************************************}
+00121 \textcolor{comment}{ * Location Button clicked.}
+00122 \textcolor{comment}{ ******************************************************************************/}
+00123 \textcolor{keywordtype}{void} NewProject::on\_location\_clicked()
+00124 \{
+00125   \textcolor{comment}{// Set file dialog options.}
+00126   QFileDialog directory(\textcolor{keyword}{this});
+00127   directory.setFileMode(QFileDialog::Directory);
+00128   directory.setOption(QFileDialog::ShowDirsOnly);
+00129   directory.setAcceptMode(QFileDialog::AcceptOpen);
+00130   directory.setDirectory(QStandardPaths::standardLocations(
+00131                            QStandardPaths::HomeLocation)[0]);
+00132   directory.setWindowTitle(\textcolor{stringliteral}{"Project path"});
+00133 
+00134 
+00135   \textcolor{comment}{// Execute. If path is selected, change ui->path to set the new directory.}
+00136   \textcolor{keywordflow}{if} (directory.exec())
+00137     ui->path->setText(directory.selectedFiles()[0]);
+00138 \}
+00139 
+00140 \textcolor{comment}{/*******************************************************************************}
+00141 \textcolor{comment}{ * Button Box accepted.}
+00142 \textcolor{comment}{ ******************************************************************************/}
+00143 \textcolor{keywordtype}{void} NewProject::on\_buttonBox\_accepted()
+00144 \{
+00145   \textcolor{comment}{// Check for empty name.}
+00146   \textcolor{keywordflow}{if} (ui->name->text().isEmpty()) \{
+00147     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid name"}, \textcolor{stringliteral}{"Invalid project name"},
+00148                              QMessageBox::Ok);
+00149     ui->name->setFocus();
+00150     \textcolor{keywordflow}{return};
+00151   \}
+00152 
+00153   \textcolor{comment}{// Check for empty path.}
+00154   \textcolor{keywordflow}{if} (ui->path->text().isEmpty()) \{
+00155     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid path"}, \textcolor{stringliteral}{"Invalid project path"},
+00156                              QMessageBox::Ok);
+00157     ui->path->setFocus();
+00158     \textcolor{keywordflow}{return};
+00159   \}
+00160 
+00161   \textcolor{comment}{// Check for empty max iterations.}
+00162   \textcolor{keywordflow}{if}(ui->maxIterations->text().isEmpty()) \{
+00163     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid max iterations"},
+00164                              \textcolor{stringliteral}{"Select a maximum number of iterations."},
+00165                              QMessageBox::Ok);
+00166     ui->maxIterations->setFocus();
+00167     \textcolor{keywordflow}{return};
+00168   \}
+00169 
+00170   \textcolor{comment}{// Check for empty min error.}
+00171   \textcolor{keywordflow}{if}(ui->minError->text().isEmpty()) \{
+00172     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid min error"},
+00173                              \textcolor{stringliteral}{"Select a minimum error."},
+00174                              QMessageBox::Ok);
+00175     ui->minError->setFocus();
+00176     \textcolor{keywordflow}{return};
+00177   \}
+00178 
+00179   \textcolor{comment}{// Check for empty voltage base.}
+00180   \textcolor{keywordflow}{if}(ui->voltageBase->text().isEmpty()) \{
+00181     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid voltage base"},
+00182                              \textcolor{stringliteral}{"Select a voltage base."},
+00183                              QMessageBox::Ok);
+00184     ui->voltageBase->setFocus();
+00185     \textcolor{keywordflow}{return};
+00186   \}
+00187 
+00188   \textcolor{comment}{// Check for empty power base.}
+00189   \textcolor{keywordflow}{if}(ui->powerBase->text().isEmpty()) \{
+00190     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid power base"},
+00191                              \textcolor{stringliteral}{"Select a power base."},
+00192                              QMessageBox::Ok);
+00193     ui->powerBase->setFocus();
+00194     \textcolor{keywordflow}{return};
+00195   \}
+00196 
+00197   \hyperlink{class_new_project_ad0ebf4e6b19dbdf3a9ad4af27df2a8fa}{dataName} = ui->name->text();
+00198   \hyperlink{class_new_project_ac684c762d3c15ff4463622978193e827}{dataPath} = ui->path->text();
+00199 
+00200   \hyperlink{class_new_project_a189825d570bc9bc35c61f7fe40de986a}{dataMaxIterations} = ui->maxIterations->text().toUInt();
+00201   \hyperlink{class_new_project_a186c2163239625faf8c7769a72fa988c}{dataMinError} = ui->minError->text().toDouble();
+00202   \hyperlink{class_new_project_a21dc54f9c0c8a59ca33eaa42cb9f9352}{dataVoltageBase} = ui->voltageBase->text().toDouble();
+00203   \hyperlink{class_new_project_a7a70270ca856001875a6043d5aa7a8af}{dataPowerBase} = ui->powerBase->text().toDouble();
+00204 
+00205   \hyperlink{class_new_project_ac0bf8b4f04f5c9425c74dd980711f021}{dataLengthUnit} = ui->lengthUnit->currentData().value<
+      \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit}>();
+00206   \hyperlink{class_new_project_ae50ce899e9b67db0001a11044730a778}{dataImpedanceUnit} =
+00207     ui->impedanceUnit->currentData().value<\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit}>();
+00208   \hyperlink{class_new_project_a04187cd16b01b80dcdef9107e4c83a28}{dataVoltageUnit} = ui->voltageUnit->currentData().value<
+      \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit}>();
+00209   \hyperlink{class_new_project_a500a8b98942c5f4900348fd315fb9d8b}{dataPowerUnit} = ui->powerUnit->currentData().value<
+      \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit}>();
+00210   \hyperlink{class_new_project_a9d389065ff7f8588338069018088a20f}{dataCurrentUnit} = ui->currentUnit->currentData().value<
+      \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit}>();
+00211 
+00212 \textcolor{comment}{// Return to parent window.}
+00213   accept();
+00214 \}
+00215 
+00216 \textcolor{comment}{/*******************************************************************************}
+00217 \textcolor{comment}{ * Button Box rejected.}
+00218 \textcolor{comment}{ ******************************************************************************/}
+00219 \textcolor{keywordtype}{void} NewProject::on\_buttonBox\_rejected()
+00220 \{
+00221 \textcolor{comment}{// Return to parent window.}
+00222   reject();
+00223 \}
+00224 
+\end{DoxyCode}
