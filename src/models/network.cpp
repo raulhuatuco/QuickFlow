@@ -76,7 +76,7 @@ Unit::CurrentUnit Network::currentUnit = Unit::kAmpere;
  ******************************************************************************/
 double Network::currentBase()
 {
-  return powerBase/(1.73205080757*voltageBase);
+  return powerBase/(sqrt(3)*voltageBase);
 }
 
 /*******************************************************************************

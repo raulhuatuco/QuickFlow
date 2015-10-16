@@ -671,9 +671,9 @@ void QuickFlow::on_actionSearch_Bar_triggered()
 //                                   1000000, 1, &ok);
 
 //  if(ok) {
-    //Bar *bar = project->network->getBarById(barId);
+  //Bar *bar = project->network->getBarById(barId);
 
-    //if (bar != NULL) {
+  //if (bar != NULL) {
 //      ui->systemView->fitInView(bar->x() -100, bar->y() -100,
 //                                bar->boundingRect().width() +100,
 //                                bar->boundingRect().height() +100,
@@ -687,7 +687,28 @@ void QuickFlow::on_actionSearch_Bar_triggered()
  ******************************************************************************/
 void QuickFlow::on_actionRun_triggered()
 {
+  foreach(Network *network, project->networks) {
+    if(ui->actionShirmoharmmadi->isChecked()) {
 
+      Shirmoharmmadi fluxo(network);
+      fluxo.solve();
+
+      QMessageBox::information(this, "Duration",
+                               "Simulation duration: " +
+                               QString::number(fluxo.duration) + " [ms] \n" +
+                               "Used iterations: " + QString::number(fluxo.usedIterations),
+                               QMessageBox::Ok);
+    } else {
+      Shirmoharmmadi fluxo(network);
+      QMessageBox::information(this, "Duration",
+                               "Simulation duration: " +
+                               QString::number(fluxo.duration) + " [ms] \n" +
+                               "Used iterations: " + QString::number(fluxo.usedIterations),
+                               QMessageBox::Ok);
+    }
+  }
+
+  setAltered(true);
 }
 
 /*******************************************************************************

@@ -12,6 +12,7 @@ public:
   ~Shirmoharmmadi();
 
   double duration;
+  int32_t usedIterations;
   double slackGeneration;
 
   bool solve();

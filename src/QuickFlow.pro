@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     window/about.cpp \
     window/networkproperties.cpp \
     graphics/datatable.cpp \
-    algorithms/radiallayer.cpp
+    algorithms/radiallayer.cpp \
+    algorithms/cespedes.cpp
     
     
     
@@ -55,7 +56,8 @@ HEADERS  += \
     window/about.h \
     window/networkproperties.h \
     graphics/datatable.h \
-    algorithms/radiallayer.h
+    algorithms/radiallayer.h \
+    algorithms/cespedes.h
 
 
     

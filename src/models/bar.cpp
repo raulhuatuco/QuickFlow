@@ -102,6 +102,8 @@ Bar::Bar(complex<double> initialV, complex<double> initialSh,
  ******************************************************************************/
 Bar::~Bar()
 {
+  if (infoBar != NULL)
+    delete infoBar;
 }
 
 /*******************************************************************************
@@ -151,6 +153,8 @@ void Bar::setV(int32_t phase, complex<double> newVoltage,
     v_[phase] = newVoltage;
     break;
   }
+
+  rV_[phase] = v_[phase];
 }
 
 /*******************************************************************************
@@ -321,7 +325,7 @@ complex<double> Bar::rI(int32_t phase, Unit::CurrentUnit unit)
 {
   complex<double> i;
 
-  i = conj(si_[phase]/rV_[phase]) - conj(sh_[phase]/rV_[phase]);
+  i = conj((si_[phase]-sh_[phase])/rV_[phase]);
 
   switch (unit) {
   case Unit::kAmpere:

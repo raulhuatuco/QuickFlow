@@ -250,6 +250,11 @@ bool importTxtType1(QString &fileName, Network *network)
       return false;
     }
 
+    // Set Initial voltage to 1pu.
+    bar->setV(0, std::polar(network->voltageBase/sqrt(3), 0.0));
+    bar->setV(1, std::polar(network->voltageBase/sqrt(3), 0.0));
+    bar->setV(2, std::polar(network->voltageBase/sqrt(3), 0.0));
+
     lineTxt = stream.readLine();
     lineCnt++;
   }
@@ -533,7 +538,6 @@ bool importTxtType2(QString &fileName, Network *network)
     bar->setSi(1, complex<double>(Sib, Sibi), powerUnit);
     bar->setSi(2, complex<double>(Sic, Sici), powerUnit);
 
-
     if (!network->addBar(bar)) {
       QMessageBox::critical(NULL, "Invalid Bar.",
                             "Invalid Bar " + QString::number(id) + "at line " +
@@ -543,6 +547,11 @@ bool importTxtType2(QString &fileName, Network *network)
       file.close();
       return false;
     }
+
+    // Set Initial voltage to 1pu.
+    bar->setV(0, std::polar(network->voltageBase, 0.0));
+    bar->setV(1, std::polar(network->voltageBase, 0.0));
+    bar->setV(2, std::polar(network->voltageBase, 0.0));
 
     lineTxt = stream.readLine();
     lineCnt++;
@@ -840,6 +849,11 @@ bool importTxtType3(QString &fileName, Network *network)
       file.close();
       return false;
     }
+
+    // Set Initial voltage to 1pu.
+    bar->setV(0, std::polar(network->voltageBase, 0.0));
+    bar->setV(1, std::polar(network->voltageBase, 0.0));
+    bar->setV(2, std::polar(network->voltageBase, 0.0));
 
     lineTxt = stream.readLine();
     lineCnt++;

@@ -54,9 +54,6 @@ void RadialLayer::next(RadialLayer::Layer *current)
       if(line->pNoI() == bar) {
         if(line->pNoF() != NULL)
           nextLayer->append(line->pNoF());
-      } else {
-        if(line->pNoI() != NULL)
-          nextLayer->append(line->pNoI());
       }
     }
   }
