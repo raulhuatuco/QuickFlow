@@ -15,7 +15,7 @@ using namespace ogdf;
 /*******************************************************************************
  * redrawGraph1.
  ******************************************************************************/
-void redrawGraph1(Network *network)
+void redrawSugiyamaFast(Network *network)
 {
   Graph G;
   QMap<int, node> nodeMap;
@@ -39,11 +39,11 @@ void redrawGraph1(Network *network)
     GA.shape(n) = shRect;
   }
 
-//  foreach(Line *line, network->lines) {
-//    node noI = nodeMap.value(line->noI);
-//    node noF = nodeMap.value(line->noF);
-//    G.newEdge(noI, noF);
-//  }
+  foreach(Line *line, network->lines) {
+    node noI = nodeMap.value(line->nodes.first);
+    node noF = nodeMap.value(line->nodes.second);
+    G.newEdge(noI, noF);
+  }
 
   edge e;
   forall_edges(e, G) {
@@ -72,14 +72,12 @@ void redrawGraph1(Network *network)
 
     bar->setPos(y, x);
   }
-
-//  network->setSceneRect(network->itemsBoundingRect());
 }
 
 /*******************************************************************************
  * redrawGraph2.
  ******************************************************************************/
-void redrawGraph2(Network *network)
+void redrawSugiyama(Network *network)
 {
   Graph G;
   QMap<int, node> nodeMap;
@@ -102,11 +100,11 @@ void redrawGraph2(Network *network)
     GA.shape(n) = shRect;
   }
 
-//  foreach(Line *line, network->lines) {
-//    node noI = nodeMap.value(line->noI);
-//    node noF = nodeMap.value(line->noF);
-//    G.newEdge(noI, noF);
-//  }
+  foreach(Line *line, network->lines) {
+    node noI = nodeMap.value(line->nodes.first);
+    node noF = nodeMap.value(line->nodes.second);
+    G.newEdge(noI, noF);
+  }
 
   edge e;
   forall_edges(e, G) {
@@ -133,14 +131,12 @@ void redrawGraph2(Network *network)
 
     bar->setPos(y, x);
   }
-
-//  network->setSceneRect(network->itemsBoundingRect());
 }
 
 /*******************************************************************************
  * redrawGraph3.
  ******************************************************************************/
-void redrawGraph3(Network *network)
+void redrawMultiLevel(Network *network)
 {
   Graph G;
   QMap<int, node> nodeMap;
@@ -163,11 +159,11 @@ void redrawGraph3(Network *network)
     GA.shape(n) = shRect;
   }
 
-//  foreach(Line *line, network->lines) {
-//    node noI = nodeMap.value(line->noI);
-//    node noF = nodeMap.value(line->noF);
-//    G.newEdge(noI, noF);
-//  }
+  foreach(Line *line, network->lines) {
+    node noI = nodeMap.value(line->nodes.first);
+    node noF = nodeMap.value(line->nodes.second);
+    G.newEdge(noI, noF);
+  }
 
   edge e;
   forall_edges(e, G) {
@@ -190,6 +186,4 @@ void redrawGraph3(Network *network)
 
     bar->setPos(x, y);
   }
-
-//  network->setSceneRect(network->itemsBoundingRect());
 }

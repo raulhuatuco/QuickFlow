@@ -581,7 +581,12 @@ void QuickFlow::on_actionShirmoharmmadi_triggered()
  ******************************************************************************/
 void QuickFlow::on_actionSugiyama_triggered()
 {
-  //redrawGraph2(project->network);
+
+  foreach(Network *network, project->networks) {
+    redrawSugiyama(network);
+  }
+
+  setAltered(true);
   ui->systemView->zoomFit();
 }
 
@@ -590,7 +595,11 @@ void QuickFlow::on_actionSugiyama_triggered()
  ******************************************************************************/
 void QuickFlow::on_actionSugiyama_Fast_triggered()
 {
-  //redrawGraph1(project->network);
+  foreach(Network *network, project->networks) {
+    redrawSugiyamaFast(network);
+  }
+
+  setAltered(true);
   ui->systemView->zoomFit();
 }
 
@@ -599,7 +608,11 @@ void QuickFlow::on_actionSugiyama_Fast_triggered()
  ******************************************************************************/
 void QuickFlow::on_actionMulti_level_triggered()
 {
-  //redrawGraph3(project->network);
+  foreach(Network *network, project->networks) {
+    redrawMultiLevel(network);
+  }
+
+  setAltered(true);
   ui->systemView->zoomFit();
 }
 

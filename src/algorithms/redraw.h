@@ -3,9 +3,9 @@
 
 #include "models/network.h"
 
-void redrawGraph1(Network *network);
-void redrawGraph2(Network *network);
-void redrawGraph3(Network *network);
+void redrawSugiyamaFast(Network *network);
+void redrawSugiyama(Network *network);
+void redrawMultiLevel(Network *network);
 
 #endif // REDRAW_H
 
