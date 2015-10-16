@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     graphics/systemview.cpp \
     window/about.cpp \
     window/networkproperties.cpp \
-    graphics/datatable.cpp
+    graphics/datatable.cpp \
+    algorithms/radiallayer.cpp
     
     
     
@@ -53,7 +54,8 @@ HEADERS  += \
     algorithms/shirmoharmmadi.h \
     window/about.h \
     window/networkproperties.h \
-    graphics/datatable.h
+    graphics/datatable.h \
+    algorithms/radiallayer.h
 
 
     
@@ -69,8 +71,8 @@ FORMS    += \
 RESOURCES += \
     img/img.qrc \
 
-linux-g++ {
-  LIBS+= -lOGDF -lCOIN -lpthread
-}
+#linux-g++ {
+LIBS+= -lOGDF -lCOIN -lpthread
+#}
 
 DISTFILES+=.astylerc

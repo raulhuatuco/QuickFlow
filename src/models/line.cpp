@@ -88,19 +88,23 @@ complex<double> Line::z(int32_t index, Unit::ImpedanceUnit unit)
     break;
 
   case Unit::kOhmPerMeter:
-    return z_[index]*length();
+    return z_[index]/length();
     break;
 
   case Unit::kOhmPerKilometer:
-    return z_[index]*length(Unit::kKiloMeter);
+    return z_[index]/length(Unit::kKiloMeter);
     break;
 
   case Unit::kOhmPerFeet:
-    return z_[index]*length(Unit::kFeet);
+    return z_[index]/length(Unit::kFeet);
     break;
 
   case Unit::kOhmPerMile:
-    return z_[index]*length(Unit::kMile);
+    return z_[index]/length(Unit::kMile);
+    break;
+
+  case Unit::kOhmPerUnit:
+    return z_[index]/network->impedanceBase();
     break;
 
   default:
@@ -136,6 +140,10 @@ void Line::setZ(int32_t index, complex<double> newImpedance,
     z_[index] = newImpedance*length(Unit::kMile);
     break;
 
+  case Unit::kOhmPerUnit:
+    z_[index] = newImpedance*network->impedanceBase();
+    break;
+
   default:
     z_[index] = newImpedance;
     break;
@@ -144,22 +152,27 @@ void Line::setZ(int32_t index, complex<double> newImpedance,
 }
 
 /*******************************************************************************
- * Impedance in per unit.
- ******************************************************************************/
-complex<double> Line::zPu(int32_t index)
-{
-  if(network == NULL)
-    return 0.0;
-
-  return z_[index]/network->impedanceBase();
-}
-
-/*******************************************************************************
  * Current.
  ******************************************************************************/
 complex<double> Line::i(int32_t phase, Unit::CurrentUnit unit)
 {
+  switch (unit) {
+  case Unit::kAmpere:
+    return i_[phase];
+    break;
 
+  case Unit::kKiloAmpere:
+    return i_[phase]/1000.0;
+    break;
+
+  case Unit::kAmperePerUnit:
+    return i_[phase]/network->currentBase();
+    break;
+
+  default:
+    return i_[phase];
+    break;
+  }
 }
 
 /*******************************************************************************
@@ -168,30 +181,34 @@ complex<double> Line::i(int32_t phase, Unit::CurrentUnit unit)
 void Line::setI(int32_t phase, complex<double> newCurrent,
                 Unit::CurrentUnit unit)
 {
+  switch (unit) {
+  case Unit::kAmpere:
+    i_[phase] = newCurrent;
+    break;
 
+  case Unit::kKiloAmpere:
+    i_[phase] = newCurrent*1000.0;
+    break;
+
+  case Unit::kAmperePerUnit:
+    i_[phase] = newCurrent*network->currentBase();
+    break;
+
+  default:
+    i_[phase] = newCurrent;
+    break;
+  }
 }
-
-
-/*******************************************************************************
- * Current in per unit.
- ******************************************************************************/
-complex<double> Line::iPu(int32_t phase)
-{
-  if(network == NULL)
-    return 0.0;
-
-  return i_[phase]/network->currentBase();
-}
-
 
 /*******************************************************************************
  * Line loss.
  ******************************************************************************/
 complex<double> Line::loss(int32_t phase, Unit::PowerUnit)
 {
+  Q_UNUSED(phase);
 
+  return 0.0;
 }
-
 
 /*******************************************************************************
  * Line length.

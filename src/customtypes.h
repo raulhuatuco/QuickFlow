@@ -25,6 +25,7 @@ public:
     kOhmPerKilometer,
     kOhmPerFeet,
     kOhmPerMile,
+    kOhmPerUnit,
     kMaxImpedanceUnit
   };
 
@@ -32,18 +33,21 @@ public:
     kVA,
     kKiloVA,
     kMegaVa,
+    kVaPerUnit,
     kMaxPowerUnit
   };
 
   enum VoltageUnit {
     kVolts,
     kKiloVolts,
+    kVoltsPerUnit,
     kMaxVoltageUnit
   };
 
   enum CurrentUnit {
     kAmpere,
     kKiloAmpere,
+    kAmperePerUnit,
     kMaxCurrentUnit
   };
 

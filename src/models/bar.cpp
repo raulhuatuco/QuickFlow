@@ -109,22 +109,23 @@ Bar::~Bar()
  ******************************************************************************/
 complex<double> Bar::v(int32_t phase, Unit::VoltageUnit unit)
 {
-  double factor = 0.0;
-
   switch (unit) {
   case Unit::kVolts:
-    factor = 1.0;
+    return v_[phase];
     break;
 
   case Unit::kKiloVolts:
-    factor = 1000.0;
+    return v_[phase]/1000.0;
+    break;
+
+  case Unit::kVoltsPerUnit:
+    return v_[phase]/network->voltageBase;
+    break;
 
   default:
-    factor = 1.0;
+    return v_[phase];
     break;
   }
-
-  return v_[phase]*factor;
 }
 
 /*******************************************************************************
@@ -139,7 +140,12 @@ void Bar::setV(int32_t phase, complex<double> newVoltage,
     break;
 
   case Unit::kKiloVolts:
-    v_[phase] = newVoltage/1000.0;
+    v_[phase] = newVoltage*1000.0;
+    break;
+
+  case Unit::kVoltsPerUnit:
+    v_[phase] = newVoltage*network->voltageBase;
+    break;
 
   default:
     v_[phase] = newVoltage;
@@ -148,42 +154,31 @@ void Bar::setV(int32_t phase, complex<double> newVoltage,
 }
 
 /*******************************************************************************
- * Initial Voltage in per unit.
- ******************************************************************************/
-complex<double> Bar::vPu(int32_t phase)
-{
-  if (network == NULL)
-    return 0.0;
-
-  return v_[phase]/network->voltageBase;
-}
-
-/*******************************************************************************
  * Get Shunt Element Power.
  ******************************************************************************/
 complex<double> Bar::sh(int32_t phase, Unit::PowerUnit unit)
 {
-  double multiply = 0.0;
-
   switch (unit) {
   case Unit::kVA:
-    multiply = 1.0;
+    return sh_[phase];
     break;
 
   case Unit::kKiloVA:
-    multiply = 1000.0;
+    return sh_[phase]/1000.0;
     break;
 
   case Unit::kMegaVa:
-    multiply = 1000000.0;
+    return sh_[phase]/1000000.0;
+    break;
+
+  case Unit::kVaPerUnit:
+    return sh_[phase]/network->powerBase;
     break;
 
   default:
-    multiply = 1.0;
+    return sh_[phase];
     break;
   }
-
-  return sh_[phase]*multiply;
 }
 
 /*******************************************************************************
@@ -191,38 +186,27 @@ complex<double> Bar::sh(int32_t phase, Unit::PowerUnit unit)
  ******************************************************************************/
 void Bar::setSh(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
 {
-  double multiply = 0.0;
-
   switch (unit) {
   case Unit::kVA:
-    multiply = 1.0;
+    sh_[phase] = newPower;
     break;
 
   case Unit::kKiloVA:
-    multiply = 1000.0;
+    sh_[phase] = newPower*1000.0;
     break;
 
   case Unit::kMegaVa:
-    multiply = 1000000.0;
+    sh_[phase] = newPower*1000000.0;
+    break;
+
+  case Unit::kVaPerUnit:
+    sh_[phase] = newPower*network->powerBase;
     break;
 
   default:
-    multiply = 1.0;
+    sh_[phase] = newPower;
     break;
   }
-
-  sh_[phase] = newPower/multiply;
-}
-
-/*******************************************************************************
- * Shunt Power in per unit.
- ******************************************************************************/
-complex<double> Bar::shPu(int32_t phase)
-{
-  if(network == NULL)
-    return 0.0;
-
-  //return sh_[phase]/network->powerBase;
 }
 
 /*******************************************************************************
@@ -230,27 +214,27 @@ complex<double> Bar::shPu(int32_t phase)
  ******************************************************************************/
 complex<double> Bar::si(int32_t phase, Unit::PowerUnit unit)
 {
-  double multiply = 0.0;
-
   switch (unit) {
   case Unit::kVA:
-    multiply = 1.0;
+    return si_[phase];
     break;
 
   case Unit::kKiloVA:
-    multiply = 1000.0;
+    return si_[phase]/1000.0;
     break;
 
   case Unit::kMegaVa:
-    multiply = 1000000.0;
+    return si_[phase]/1000000.0;
+    break;
+
+  case Unit::kVaPerUnit:
+    return si_[phase]/network->powerBase;
     break;
 
   default:
-    multiply = 1.0;
+    return si_[phase];
     break;
   }
-
-  return si_[phase]*multiply;
 }
 
 /*******************************************************************************
@@ -258,38 +242,27 @@ complex<double> Bar::si(int32_t phase, Unit::PowerUnit unit)
  ******************************************************************************/
 void Bar::setSi(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
 {
-  double multiply = 0.0;
-
   switch (unit) {
   case Unit::kVA:
-    multiply = 1.0;
+    si_[phase] = newPower;
     break;
 
   case Unit::kKiloVA:
-    multiply = 1000.0;
+    si_[phase] = newPower*1000.0;
     break;
 
   case Unit::kMegaVa:
-    multiply = 1000000.0;
+    si_[phase] = newPower*1000000.0;
+    break;
+
+  case Unit::kVaPerUnit:
+    si_[phase] = newPower*network->powerBase;
     break;
 
   default:
-    multiply = 1.0;
+    si_[phase] = newPower;
     break;
   }
-
-  si_[phase] = newPower/multiply;
-}
-
-/*******************************************************************************
- * Injected power in per unit.
- ******************************************************************************/
-complex<double> Bar::siPu(int32_t phase)
-{
-  if(network == NULL)
-    return 0.0;
-
-  //return si_[phase]/network->powerBase;
 }
 
 /*******************************************************************************
@@ -297,22 +270,23 @@ complex<double> Bar::siPu(int32_t phase)
  ******************************************************************************/
 complex<double> Bar::rV(int32_t phase, Unit::VoltageUnit unit)
 {
-  double factor = 0.0;
-
   switch (unit) {
   case Unit::kVolts:
-    factor = 1.0;
+    return rV_[phase];
     break;
 
   case Unit::kKiloVolts:
-    factor = 1000.0;
+    return rV_[phase]/1000.0;
+    break;
+
+  case Unit::kVoltsPerUnit:
+    return rV_[phase]/network->voltageBase;
+    break;
 
   default:
-    factor = 1.0;
+    return rV_[phase];
     break;
   }
-
-  return rV_[phase]*factor;
 }
 
 /*******************************************************************************
@@ -327,7 +301,12 @@ void Bar::setRV(int32_t phase, complex<double> resultVoltage,
     break;
 
   case Unit::kKiloVolts:
-    rV_[phase] = resultVoltage/1000.0;
+    rV_[phase] = resultVoltage*1000.0;
+    break;
+
+  case Unit::kVoltsPerUnit:
+    rV_[phase] = resultVoltage*network->voltageBase;
+    break;
 
   default:
     rV_[phase] = resultVoltage;
@@ -336,97 +315,31 @@ void Bar::setRV(int32_t phase, complex<double> resultVoltage,
 }
 
 /*******************************************************************************
- * Result voltage in per unit.
- ******************************************************************************/
-complex<double> Bar::rVPu(int32_t phase)
-{
-  if (network == NULL)
-    return 0.0;
-
-  return rV_[phase]/network->voltageBase;
-}
-
-/*******************************************************************************
- * Result value for injected power.
- ******************************************************************************/
-complex<double> Bar::rSi(int32_t phase, Unit::PowerUnit unit)
-{
-  double multiply = 0.0;
-
-  switch (unit) {
-  case Unit::kVA:
-    multiply = 1.0;
-    break;
-
-  case Unit::kKiloVA:
-    multiply = 1000.0;
-    break;
-
-  case Unit::kMegaVa:
-    multiply = 1000000.0;
-    break;
-
-  default:
-    multiply = 1.0;
-    break;
-  }
-
-  return rSi_[phase]*multiply;
-}
-
-/*******************************************************************************
- * Set result value for injected power.
- ******************************************************************************/
-void Bar::setRSi(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
-{
-  double multiply = 0.0;
-
-  switch (unit) {
-  case Unit::kVA:
-    multiply = 1.0;
-    break;
-
-  case Unit::kKiloVA:
-    multiply = 1000.0;
-    break;
-
-  case Unit::kMegaVa:
-    multiply = 1000000.0;
-    break;
-
-  default:
-    multiply = 1.0;
-    break;
-  }
-
-  rSi_[phase] = newPower/multiply;
-}
-
-/*******************************************************************************
  * Result value for bar current.
  ******************************************************************************/
-complex<double> Bar::rI(int32_t phase, Unit::CurrentUnit)
+complex<double> Bar::rI(int32_t phase, Unit::CurrentUnit unit)
 {
-    
-}
+  complex<double> i;
 
-/*******************************************************************************
- * Set result value for bar current.
- ******************************************************************************/
-void Bar::setRI(int32_t phase, complex<double> newCurrent, Unit::CurrentUnit)
-{
-  
-}
+  i = conj(si_[phase]/rV_[phase]) - conj(sh_[phase]/rV_[phase]);
 
-/*******************************************************************************
- * Result value for injected power in pu.
- ******************************************************************************/
-complex<double> Bar::rSiPu(int32_t phase)
-{
-  if(network == NULL)
-    return 0.0;
+  switch (unit) {
+  case Unit::kAmpere:
+    return i;
+    break;
 
-  //return si_[phase]/network->powerBase;
+  case Unit::kKiloAmpere:
+    return i/1000.0;
+    break;
+
+  case Unit::kAmperePerUnit:
+    return i/network->currentBase();
+    break;
+
+  default:
+    return i;
+    break;
+  }
 }
 
 /*******************************************************************************

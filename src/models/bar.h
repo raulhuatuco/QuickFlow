@@ -213,20 +213,6 @@ public:
             Unit::VoltageUnit unit = Unit::kVolts);
 
   /*****************************************************************************
-   * Initial Voltage in per unit.
-   ****************************************************************************/
-  /*!
-   * \brief Returns the initial voltage converted to per unit.
-   * Returns the initial voltage converted to per unit, where the base voltage
-   * is the network base voltage.
-   *
-   * \param[in] phase Phase (0, 1 or 2).
-   *
-   * \return The initial voltage, in per unit.
-   */
-  complex<double> vPu(int32_t phase);
-
-  /*****************************************************************************
    * Shunt Power.
    ****************************************************************************/
   /*!
@@ -253,20 +239,6 @@ public:
    */
   void setSh(int32_t phase, complex<double> newPower,
              Unit::PowerUnit unit = Unit::kVA);
-
-  /*****************************************************************************
-   * Shunt Power in per unit.
-   ****************************************************************************/
-  /*!
-   * \brief Shunt element power in pu.
-   * Shunt element power in pu. The power base is gettered from the network
-   * in which the bar is.
-   *
-   * \param[in] phase Phase (0, 1 or 2).
-   *
-   * \return Shunt power in per unit.
-   */
-  complex<double> shPu(int32_t phase);
 
   /*****************************************************************************
    * Injected power.
@@ -298,19 +270,6 @@ public:
              Unit::PowerUnit unit = Unit::kVA);
 
   /*****************************************************************************
-   * Injected power in per unit.
-   ****************************************************************************/
-  /*!
-   * \brief Injected power in per unit.
-   * Returns the injected power in per unit.
-   *
-   * \param[in] phase Phase (0, 1 or 2).
-   *
-   * \return Injected power in per unit.
-   */
-  complex<double> siPu(int32_t phase);
-
-  /*****************************************************************************
    * Result voltage.
    ****************************************************************************/
   /*!
@@ -340,47 +299,6 @@ public:
              Unit::VoltageUnit unit = Unit::kVolts);
 
   /*****************************************************************************
-   * Result voltage in per unit.
-   ****************************************************************************/
-  /*!
-   * \brief Result voltage in pu.
-   * Returns the resulting voltage in per unit.
-   *
-   * \param[in] phase Phase (0, 1 or 2).
-   *
-   * \return  Result voltage in pu.
-   */
-  complex<double> rVPu(int32_t phase);
-
-  /*****************************************************************************
-   * Result value for injected power.
-   ****************************************************************************/
-  /*!
-   * \brief Result injected power.
-   * Returns the resulting injected power. Used by slack bar.
-   *
-   * \param[in] phase Phase (0, 1 or 2).
-   * \param[in] unit Unit.
-   *
-   * \return Result injected power.
-   */
-  complex<double> rSi(int32_t phase, Unit::PowerUnit unit = Unit::kVA);
-
-  /*****************************************************************************
-   * Set result value for injected power.
-   ****************************************************************************/
-  /*!
-   * \brief Set result injected power.
-   * Set the resulting value for injected power.
-   *
-   * \param[in] phase Phase (0, 1 or 2).
-   * \param[in] newPower New result injected power.
-   * \param[in] unit Injected power unit.
-   */
-  void setRSi(int32_t phase, complex<double> newPower,
-              Unit::PowerUnit unit = Unit::kVA);
-
-  /*****************************************************************************
    * Result value for bar current.
    ****************************************************************************/
   /*!
@@ -392,35 +310,7 @@ public:
    *
    * \return Result bar current.
    */
-  complex<double> rI(int32_t phase, Unit::CurrentUnit = Unit::kAmpere);
-
-  /*****************************************************************************
-   * Set result value for bar current.
-   ****************************************************************************/
-  /*!
-   * \brief Set result bar current.
-   * Set the resulting value for the bar current.
-   *
-   * \param[in] phase Phase (0, 1 or 2).
-   * \param[in] newCurrent New result bar current.
-   * \param[in] unit Current unit.
-   */
-  void setRI(int32_t phase, complex<double> newCurrent,
-             Unit::CurrentUnit = Unit::kAmpere);
-
-
-  /*****************************************************************************
-  * Result value for injected power in pu.
-  *****************************************************************************/
-  /*!
-   * \brief Result injected power, in pu.
-   * Return the resulting bar injected power, in per unit.
-   *
-   * \param[in] phase Phase (0, 1 or 2).
-   *
-   * \return Result injected power, in pu.
-   */
-  complex<double> rSiPu(int32_t phase);
+  complex<double> rI(int32_t phase, Unit::CurrentUnit unit = Unit::kAmpere);
 
   /*****************************************************************************
   * Add Line.

@@ -1,17 +1,18 @@
-#ifndef SHIRMOHARMNADI_H
-#define SHIRMOHARMNADI_H
+#ifndef ALGORITHMS_SHIRMOHARMMADI_H
+#define ALGORITHMS_SHIRMOHARMMADI_H
 
 #include "models/bar.h"
 #include "models/line.h"
 #include "models/network.h"
 
-class Shirmoharmnadi
+class Shirmoharmmadi
 {
 public:
-  Shirmoharmnadi(Network *network);
-  ~Shirmoharmnadi();
+  Shirmoharmmadi(Network *network);
+  ~Shirmoharmmadi();
 
   double duration;
+  double slackGeneration;
 
   bool solve();
 
@@ -19,4 +20,4 @@ private:
   Network *network_;
 };
 
-#endif // SHIRMOHARMNADI_H
+#endif // ALGORITHMS_SHIRMOHARMMADI_H

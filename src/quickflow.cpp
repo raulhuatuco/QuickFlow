@@ -666,11 +666,11 @@ void QuickFlow::on_actionMulti_level_triggered()
  ******************************************************************************/
 void QuickFlow::on_actionSearch_Bar_triggered()
 {
-  bool ok;
-  int barId = QInputDialog::getInt(this, tr("Search for bar"), tr("Bad Id"), 0, 0,
-                                   1000000, 1, &ok);
+//  bool ok;
+//  int barId = QInputDialog::getInt(this, tr("Search for bar"), tr("Bad Id"), 0, 0,
+//                                   1000000, 1, &ok);
 
-  if(ok) {
+//  if(ok) {
     //Bar *bar = project->network->getBarById(barId);
 
     //if (bar != NULL) {
@@ -679,7 +679,7 @@ void QuickFlow::on_actionSearch_Bar_triggered()
 //                                bar->boundingRect().height() +100,
 //                                Qt::IgnoreAspectRatio);
 //    }
-  }
+//  }
 }
 
 /*******************************************************************************
