@@ -1,25 +1,53 @@
 #include "infobar.h"
 
 #include <QPainter>
+#include <QString>
+#include <complex>
+#include "datatable.h"
+#include "models/network.h"
+#include "customtypes.h"
 
+/*******************************************************************************
+ * Static constants.
+ ******************************************************************************/
 const int InfoBar::kTableRows  = 4;
 const int InfoBar::kTableColums = 3;
-const qreal InfoBar::kBoxWidth= 135.0*kTableColums;
-const qreal InfoBar::kBoxHeight = 37.5*kTableRows;
+const double InfoBar::kBoxWidth= 135.0*kTableColums;
+const double InfoBar::kBoxHeight = 37.5*kTableRows;
+const double InfoBar::kLineWidth = 2.0;
+const double InfoBar::kMarginHeadTop = 5.0;
+const double InfoBar::kMarginHeadBot = 5.0;
+const double InfoBar::kMarginTop = 5.0;
+const double InfoBar::kMarginBot = 5.0;
+const double InfoBar::kMarginLeft = 5.0;
+const double InfoBar::kMarginRight = 5.0;
+const double InfoBar::kBoxBaseHeight = 30.0;
+const double InfoBar::kBoxBaseWidth = 60.0;
 
-
+/*******************************************************************************
+ * Constructor.
+ ******************************************************************************/
 InfoBar::InfoBar(Bar *bar) :
   bar_(bar)
 {
   setZValue(2);
-  qreal px = bar->x();
-  qreal py = bar->y() - bar->boundingRect().height() / 2;
+  double px = bar->x() + bar->network->xOffset;
+  double py = bar->y() + bar->network->yOffset - bar->boundingRect().height() / 2;
 
   setPos(px,py);
 }
 
-InfoBar::~InfoBar() {}
+/*******************************************************************************
+ * Destructor.
+ ******************************************************************************/
+InfoBar::~InfoBar()
+{
 
+}
+
+/*******************************************************************************
+ * Paint.
+ ******************************************************************************/
 void InfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                     QWidget *widget)
 {
@@ -27,152 +55,185 @@ void InfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   Q_UNUSED(widget);
 
   // Draw main rectangle.
-  painter->setPen(QPen(Qt::black, kLineWidth, Qt::SolidLine));
-  painter->setBrush(Qt::white);
-  QRectF main_rect =
-    QRectF(-kBoxWidth / 2, -kBoxHeight - kBoxBaseHeight, kBoxWidth, kBoxHeight);
-  painter->drawRect(main_rect);
+  QRectF mainRect(-kBoxWidth / 2, -kBoxHeight - kBoxBaseHeight, kBoxWidth,
+                  kBoxHeight);
+  drawMainRectangle(mainRect, kLineWidth, painter);
 
-  // Set Head font size.
-  QFont font;
-  font.setPointSize(font.pointSize() * 1.25);
-  painter->setFont(font);
+
+  double headHeight = kMarginHeadTop +kMarginHeadBot + painter->font().pointSize()
+                      *1.25;
+
+  QRectF headRect(mainRect.x(), mainRect.y(), mainRect.width(), headHeight);
 
   // Draw Head separation.
-  qreal headHeight = kMarginHeadTop + kMarginHeadBot + font.pointSize();
+  drawHeadSeparator(headRect, painter);
 
-  painter->drawLine(QPointF(-kBoxWidth/2,
-                            -kBoxHeight - kBoxBaseHeight + headHeight),
-                    QPointF(kBoxWidth/2, -kBoxHeight - kBoxBaseHeight + headHeight));
-
-  // Head Text.
-  QString head = "Bar " + QString::number(bar_->id);
-
-  // Draw Head Text.
-  painter->drawText(-kBoxWidth/2, -kBoxHeight - kBoxBaseHeight + kMarginHeadTop,
-                    kBoxWidth, font.pointSize(), Qt::AlignCenter, head );
+  // Draw head text.
+  setHeadFont(painter);
+  QString headText = "(" + bar_->network->name + ") " + "Bar " +
+                     QString::number(bar_->id);
+  drawHeadText(headRect, kMarginHeadTop, headText, painter);
 
   // Revert font size.
-  font.setPointSize(font.pointSize() / 1.25);
+  setNormalFont(painter);
 
-  // Table points.
-  qreal tableXi = -kBoxWidth/2.0 + kMarginLeft;
-  qreal tableYi = -kBoxHeight - kBoxBaseHeight + headHeight + kMarginTop;
+  // Draw data table.
+  QRectF tableRect;
+  tableRect.setX(mainRect.x() + kMarginLeft);
+  tableRect.setY(mainRect.y() + headRect.height() + kMarginTop);
+  tableRect.setWidth(mainRect.width() - kMarginRight);
+  tableRect.setHeight(mainRect.height() - headRect.height() - kMarginTop -
+                      kMarginBot);
 
-  qreal tableXf = kBoxWidth/2.0 - kMarginRight;
-  qreal tableYf = - kBoxBaseHeight - kMarginBot;
+  DataTable dataTable(kTableRows, kTableColums);
+  dataTable.setSize(tableRect);
 
-  qreal tableDx = (tableXf - tableXi);
-  qreal tableDy = (tableYf - tableYi);
+  // Voltage head.
+  QString table0x1 = "Voltage [";
+  table0x1.append(Unit::voltageUnitToStr(Network::voltageUnit));
+  table0x1.append("]");
+  dataTable.setText(table0x1, 0, 1);
 
-  // Set table pen.
-  painter->setPen(QPen(Qt::lightGray, kTableLineWidth, Qt::SolidLine));
+  // Current head.
+  QString table0x2 = "Current [";
+  table0x2.append(Unit::currentUnitToStr(Network::currentUnit));
+  table0x2.append("]");
+  dataTable.setText(table0x2, 0, 2);
 
-  // Draw table colums.
-  for(int i=1; i<kTableColums; i++) {
-    qreal x = tableXi + tableDx*static_cast<qreal>(i)/static_cast<qreal>
-              (kTableColums);
-    painter->drawLine(x, tableYi, x, tableYf);
-  }
+  // Phase A head.
+  QString table1x0 = "Phase A";
+  dataTable.setText(table1x0, 1, 0);
 
-  // Draw table rows.
-  for(int i=1; i<kTableRows; i++) {
-    qreal y = tableYi + tableDy*static_cast<qreal>(i)/static_cast<qreal>
-              (kTableRows);
-    painter->drawLine(tableXi,
-                      y,
-                      tableXf,
-                      y);
-  }
+  // Phase B head.
+  QString table2x0 = "Phase B";
+  dataTable.setText(table2x0, 2, 0);
 
-  // Table text is gray.
-  painter->setPen(QPen(Qt::gray, kTableLineWidth, Qt::SolidLine));
+  // Phase C head.
+  QString table3x0 = "Phase C";
+  dataTable.setText(table3x0, 3, 0);
 
-  // Draw table 0-1 text.
-  // Voltage.
-  qreal x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-  qreal y = tableYi;
-  qreal w = tableDx/static_cast<qreal>(kTableColums);
-  qreal h = tableDy/static_cast<qreal>(kTableRows);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Voltage [V]");
+  // Voltage Phase A.
+  QString table1x1 = QString::number(abs(bar_->rV(0, Network::voltageUnit)));
+  table1x1.append(" / ");
+  table1x1.append(QString::number(arg(bar_->rV(0,
+                                      Network::voltageUnit)*180.0/M_PI)));
+  table1x1.append("°");
+  dataTable.setText(table1x1, 1, 1);
 
-  //Draw table 0-2 text
-  // Current.
-  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Injected [VA]");
+  // Current Phase A.
+  QString table1x2 = QString::number(abs(bar_->rI(0, Network::currentUnit)));
+  table1x2.append(" / ");
+  table1x2.append(QString::number(arg(bar_->rI(0,
+                                      Network::currentUnit)*180.0/M_PI)));
+  table1x2.append("°");
+  dataTable.setText(table1x2, 1, 2);
 
-  //Draw table 1-0 text
-  // Phase A.
-  x = tableXi;
-  y = tableYi + tableDy/static_cast<qreal>(kTableRows);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase A");
+  // Voltage Phase B.
+  QString table2x1 = QString::number(abs(bar_->rV(1, Network::voltageUnit)));
+  table2x1.append(" / ");
+  table2x1.append(QString::number(arg(bar_->rV(1,
+                                      Network::voltageUnit)*180.0/M_PI)));
+  table2x1.append("°");
+  dataTable.setText(table2x1, 2, 1);
 
-  QString buffer; // buffer used to hold numeric values.
+  // Current Phase B.
+  QString table2x2 = QString::number(abs(bar_->rI(1, Network::currentUnit)));
+  table2x2.append(" / ");
+  table2x2.append(QString::number(arg(bar_->rI(1,
+                                      Network::currentUnit)*180.0/M_PI)));
+  table2x2.append("°");
+  dataTable.setText(table2x2, 2, 2);
 
-  //Draw table 1-1 text
-  // Va.
-  x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(abs(bar_->rVa)) + " / " + QString::number(arg(
-//             bar_->rVa)*180.0/M_PI) + "°";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
+  // Voltage Phase C.
+  QString table3x1 = QString::number(abs(bar_->rV(2, Network::voltageUnit)));
+  table3x1.append(" / ");
+  table3x1.append(QString::number(arg(bar_->rV(2,
+                                      Network::voltageUnit)*180.0/M_PI)));
+  table3x1.append("°");
+  dataTable.setText(table3x1, 3, 1);
 
-//  //Draw table 1-2 text
-//  // Ia.
-//  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(abs(bar_->rSia)) + " / " + QString::number(arg(
-//             bar_->rSia)*180.0/M_PI) + "°";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
+  // Current Phase C.
+  QString table3x2 = QString::number(abs(bar_->rI(2, Network::currentUnit)));
+  table3x2.append(" / ");
+  table3x2.append(QString::number(arg(bar_->rI(2,
+                                      Network::currentUnit)*180.0/M_PI)));
+  table3x2.append("°");
+  dataTable.setText(table3x2, 3, 2);
 
-  //Draw table 2-0 text
-  // Phase B.
-  x = tableXi;
-  y = tableYi + 2*tableDy/static_cast<qreal>(kTableRows);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase B");
+  dataTable.drawTable(painter);
 
-  //Draw table 2-1 text
-  // Vb.
-//  x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(abs(bar_->rVb)) + " / " + QString::number(arg(
-//             bar_->rVb)*180.0/M_PI) + "°";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-//  //Draw table 2-2 text
-//  // Ib.
-//  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(abs(bar_->rSib)) + " / " + QString::number(arg(
-//             bar_->rSib)*180.0/M_PI) + "°";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-//  //Draw table 3-0 text
-//  // Phase C.
-//  x = tableXi;
-//  y = tableYi + 3*tableDy/static_cast<qreal>(kTableRows);
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase C");
-
-//  //Draw table 3-1 text
-//  // Vc.
-//  x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(abs(bar_->rVc)) + " / " + QString::number(arg(
-//             bar_->rVc)*180.0/M_PI) + "°";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-//  //Draw table 3-2 text
-//  // Ic.
-//  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(abs(bar_->rSic)) + " / " + QString::number(arg(
-//             bar_->rSic)*180.0/M_PI) + "°";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-//  // Draw base.
-//  painter->setPen(QPen(Qt::black, kLineWidth, Qt::SolidLine));
-//  painter->setBrush(Qt::black);
-//  QPolygonF pol_base;
-//  pol_base << QPointF(-kBoxBaseWidth/2, -kBoxBaseHeight) << QPointF(0.0, 0.0)
-//           << QPointF(kBoxBaseWidth/2, -kBoxBaseHeight);
-//  painter->drawPolygon(pol_base);
+  // Draw base.
+  painter->setPen(QPen(Qt::black, kLineWidth, Qt::SolidLine));
+  painter->setBrush(Qt::black);
+  QPolygonF pol_base;
+  pol_base << QPointF(-kBoxBaseWidth/2, -kBoxBaseHeight) << QPointF(0.0, 0.0)
+           << QPointF(kBoxBaseWidth/2, -kBoxBaseHeight);
+  painter->drawPolygon(pol_base);
 
 }
 
+/*******************************************************************************
+ * Set head font size.
+ ******************************************************************************/
+void InfoBar::setHeadFont(QPainter *painter)
+{
+  // Set head font size.
+  QFont font;
+  font.setPointSize(font.pointSize() * 1.25);
+  painter->setFont(font);
+}
+
+/*******************************************************************************
+ * Set normal font size.
+ ******************************************************************************/
+void InfoBar::setNormalFont(QPainter *painter)
+{
+  // Set normal font size.
+  QFont font;
+  font.setPointSize(painter->font().pointSize() / 1.25);
+  painter->setFont(font);
+}
+
+/*******************************************************************************
+ * Draw main rectangle.
+ ******************************************************************************/
+void InfoBar::drawMainRectangle(QRectF mainRect,double lineWidth,
+                                QPainter *painter)
+{
+  // Draw main rectangle.
+  painter->setPen(QPen(Qt::black, lineWidth, Qt::SolidLine));
+  painter->setBrush(Qt::white);
+  painter->drawRect(mainRect);
+
+}
+
+/*******************************************************************************
+ * Draw head separator.
+ ******************************************************************************/
+void InfoBar::drawHeadSeparator(QRectF headRect, QPainter *painter)
+{
+
+  QPointF p1(headRect.x(), headRect.y() + headRect.height());
+  QPointF p2(headRect.x() + headRect.width(), headRect.y() + headRect.height());
+
+  painter->drawLine(p1, p2);
+}
+
+/*******************************************************************************
+ * Draw head text.
+ ******************************************************************************/
+void InfoBar::drawHeadText(QRectF headRect, double marginTop, QString &text,
+                           QPainter *painter)
+{
+  // Draw Head Text.
+  painter->drawText(headRect.x(), headRect.y() + marginTop,
+                    headRect.width(), painter->font().pointSize(),
+                    Qt::AlignCenter, text);
+}
+
+/*******************************************************************************
+ * Bounding Rectangle.
+ ******************************************************************************/
 QRectF InfoBar::boundingRect() const
 {
   return QRectF(-kBoxWidth / 2, -kBoxHeight - kBoxBaseHeight, kBoxWidth,

@@ -104,3 +104,20 @@ QString Unit::voltageUnitToStr(VoltageUnit voltageUnit)
     break;
   }
 }
+
+QString Unit::currentUnitToStr(Unit::CurrentUnit currentUnit)
+{
+  switch (currentUnit) {
+  case kAmpere:
+    return "A";
+    break;
+
+  case kKiloAmpere:
+    return "kA";
+    break;
+
+  default:
+    return "Unknow";
+    break;
+  }
+}

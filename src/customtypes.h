@@ -51,6 +51,7 @@ public:
   static QString impedanceUnitToStr(ImpedanceUnit impedanceUnit);
   static QString powerUnitToStr(PowerUnit powerUnit);
   static QString voltageUnitToStr(VoltageUnit voltageUnit);
+  static QString currentUnitToStr(CurrentUnit currentUnit);
 };
 
 Q_DECLARE_METATYPE(Unit::LengthUnit)

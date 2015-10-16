@@ -143,6 +143,8 @@ bool Network::addLine(Line *line)
   if ((pNoI == NULL) || (pNoF == NULL))
     return false;
 
+  line->network = this;
+
   line->setNodes(pNoI, pNoF);
 
   lines.insert(line->nodes, line);

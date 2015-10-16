@@ -29,7 +29,8 @@ SOURCES += main.cpp\
     algorithms/redraw.cpp \
     graphics/systemview.cpp \
     window/about.cpp \
-    window/networkproperties.cpp
+    window/networkproperties.cpp \
+    graphics/datatable.cpp
     
     
     
@@ -51,7 +52,8 @@ HEADERS  += \
     graphics/systemview.h \
     algorithms/shirmoharmmadi.h \
     window/about.h \
-    window/networkproperties.h
+    window/networkproperties.h \
+    graphics/datatable.h
 
 
     

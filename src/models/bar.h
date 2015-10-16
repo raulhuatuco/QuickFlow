@@ -381,6 +381,35 @@ public:
               Unit::PowerUnit unit = Unit::kVA);
 
   /*****************************************************************************
+   * Result value for bar current.
+   ****************************************************************************/
+  /*!
+   * \brief Result bar current.
+   * Returns the total current injection at the bar.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] unit Unit.
+   *
+   * \return Result bar current.
+   */
+  complex<double> rI(int32_t phase, Unit::CurrentUnit = Unit::kAmpere);
+
+  /*****************************************************************************
+   * Set result value for bar current.
+   ****************************************************************************/
+  /*!
+   * \brief Set result bar current.
+   * Set the resulting value for the bar current.
+   *
+   * \param[in] phase Phase (0, 1 or 2).
+   * \param[in] newCurrent New result bar current.
+   * \param[in] unit Current unit.
+   */
+  void setRI(int32_t phase, complex<double> newCurrent,
+             Unit::CurrentUnit = Unit::kAmpere);
+
+
+  /*****************************************************************************
   * Result value for injected power in pu.
   *****************************************************************************/
   /*!

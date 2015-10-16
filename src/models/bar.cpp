@@ -403,6 +403,22 @@ void Bar::setRSi(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
 }
 
 /*******************************************************************************
+ * Result value for bar current.
+ ******************************************************************************/
+complex<double> Bar::rI(int32_t phase, Unit::CurrentUnit)
+{
+    
+}
+
+/*******************************************************************************
+ * Set result value for bar current.
+ ******************************************************************************/
+void Bar::setRI(int32_t phase, complex<double> newCurrent, Unit::CurrentUnit)
+{
+  
+}
+
+/*******************************************************************************
  * Result value for injected power in pu.
  ******************************************************************************/
 complex<double> Bar::rSiPu(int32_t phase)

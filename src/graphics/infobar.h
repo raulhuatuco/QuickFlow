@@ -1,10 +1,10 @@
-#ifndef PNINFOBAR_H
-#define PNINFOBAR_H
+#ifndef GRAPHICS_INFOBAR_H
+#define GRAPHICS_INFOBAR_H
 
 #include <QGraphicsItem>
 #include <QPoint>
-
 #include "models/bar.h"
+
 QT_BEGIN_NAMESPACE
 class Bar;
 QT_END_NAMESPACE
@@ -16,28 +16,23 @@ public:
   static const int kTableColums;
 
   // Box options.
-  static const qreal kBoxWidth;
-  static const qreal kBoxHeight;
-  static const qreal kLineWidth = 2.0;
+  static const double kBoxWidth;
+  static const double kBoxHeight;
+  static const double kLineWidth;
 
   // Head options.
-  static const qreal kMarginHeadTop = 5.0;
-  static const qreal kMarginHeadBot = 5.0;
+  static const double kMarginHeadTop;
+  static const double kMarginHeadBot;
 
   // Inner box options.
-  static const qreal kMarginTop = 5.0;
-  static const qreal kMarginBot = 5.0;
-  static const qreal kMarginLeft = 5.0;
-  static const qreal kMarginRight = 5.0;
-
-  // Table options
-  static const qreal kTableLineWidth = 1.0;
-  static const qreal kTextToLinePad = 1.0;
-
+  static const double kMarginTop;
+  static const double kMarginBot;
+  static const double kMarginLeft;
+  static const double kMarginRight;
 
   // Base options.
-  static const qreal kBoxBaseHeight = 30.0;
-  static const qreal kBoxBaseWidth = 60.0;
+  static const double kBoxBaseHeight;
+  static const double kBoxBaseWidth;
 
   InfoBar(Bar *bar);
   ~InfoBar();
@@ -47,9 +42,15 @@ public:
 protected:
   void paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
              QWidget *widget) Q_DECL_OVERRIDE;
+  void setHeadFont(QPainter *painter);
+  void setNormalFont(QPainter *painter);
+  void drawMainRectangle(QRectF mainRect, double lineWidth, QPainter *painter);
+  void drawHeadSeparator(QRectF headRect, QPainter *painter);
+  void drawHeadText(QRectF headRect, double marginTop, QString &text,
+                    QPainter *painter);
 
 private:
   Bar *bar_;
 };
 
-#endif  // PNINFOBOX_H
+#endif  // GRAPHICS_INFOBAR_H

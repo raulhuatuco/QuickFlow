@@ -3,186 +3,239 @@
 #include <QPainter>
 #include <QString>
 #include <complex>
+#include "datatable.h"
+#include "models/network.h"
+#include "customtypes.h"
 
 /*******************************************************************************
- * InfoLine.
+ * Static constants.
+ ******************************************************************************/
+const int InfoLine::kTableRows  = 4;
+const int InfoLine::kTableColums = 3;
+const double InfoLine::kBoxWidth= 135.0*kTableColums;
+const double InfoLine::kBoxHeight = 37.5*kTableRows;
+const double InfoLine::kLineWidth = 2.0;
+const double InfoLine::kMarginHeadTop = 5.0;
+const double InfoLine::kMarginHeadBot = 5.0;
+const double InfoLine::kMarginTop = 5.0;
+const double InfoLine::kMarginBot = 5.0;
+const double InfoLine::kMarginLeft = 5.0;
+const double InfoLine::kMarginRight = 5.0;
+const double InfoLine::kBoxBaseHeight = 30.0;
+const double InfoLine::kBoxBaseWidth = 60.0;
+
+/*******************************************************************************
+ * Constructor.
  ******************************************************************************/
 InfoLine::InfoLine(Line *line) :
   line_(line)
 {
   setZValue(2);
-  qreal px = (line->pNoI()->x() + line->pNoF()->x()) / 2;
-  qreal py = (line->pNoI()->y() + line->pNoF()->y()) / 2;
+  double px = (line->pNoI()->x() + line->pNoF()->x()) / 2 +
+              line->network->xOffset;
+  double py = (line->pNoI()->y() + line->pNoF()->y()) / 2 +
+              line->network->yOffset;
 
   setPos(px,py);
 }
 
 /*******************************************************************************
- * ~InfoLine.
+ * Destructor.
  ******************************************************************************/
-InfoLine::~InfoLine() {}
+InfoLine::~InfoLine()
+{
+
+}
 
 /*******************************************************************************
- * paint.
+ * Paint.
  ******************************************************************************/
-void InfoLine::paint(QPainter *painter,
-                     const QStyleOptionGraphicsItem *option,
+void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                      QWidget *widget)
 {
   Q_UNUSED(option);
   Q_UNUSED(widget);
 
   // Draw main rectangle.
-  painter->setPen(QPen(Qt::black, kLineWidth, Qt::SolidLine));
-  painter->setBrush(Qt::white);
-  QRectF main_rect =
-    QRectF(-kBoxWidth / 2, -kBoxHeight - kBoxBaseHeight, kBoxWidth, kBoxHeight);
-  painter->drawRect(main_rect);
+  QRectF mainRect(-kBoxWidth / 2, -kBoxHeight - kBoxBaseHeight, kBoxWidth,
+                  kBoxHeight);
+  drawMainRectangle(mainRect, kLineWidth, painter);
 
-  // Set Head font size.
+
+  double headHeight = kMarginHeadTop +kMarginHeadBot + painter->font().pointSize()
+                      *1.25;
+
+  QRectF headRect(mainRect.x(), mainRect.y(), mainRect.width(), headHeight);
+
+  // Draw Head separation.
+  drawHeadSeparator(headRect, painter);
+
+  // Draw head text.
+  setHeadFont(painter);
+  QString headText = "(" + line_->network->name + ") " + "Line " +
+                     QString::number(line_->nodes.first) + " -> " +
+                     QString::number(line_->nodes.second);
+  drawHeadText(headRect, kMarginHeadTop, headText, painter);
+
+  // Revert font size.
+  setNormalFont(painter);
+
+  // Draw data table.
+  QRectF tableRect;
+  tableRect.setX(mainRect.x() + kMarginLeft);
+  tableRect.setY(mainRect.y() + headRect.height() + kMarginTop);
+  tableRect.setWidth(mainRect.width() - kMarginRight);
+  tableRect.setHeight(mainRect.height() - headRect.height() - kMarginTop -
+                      kMarginBot);
+
+  DataTable dataTable(kTableRows, kTableColums);
+  dataTable.setSize(tableRect);
+
+  // Current head.
+  QString table0x1 = "Current [";
+  table0x1.append(Unit::currentUnitToStr(Network::currentUnit));
+  table0x1.append("]");
+  dataTable.setText(table0x1, 0, 1);
+
+  // Loss head.
+  QString table0x2 = "Loss [";
+  table0x2.append(Unit::powerUnitToStr(Network::powerUnit));
+  table0x2.append("]");
+  dataTable.setText(table0x2, 0, 2);
+
+  // Phase A head.
+  QString table1x0 = "Phase A";
+  dataTable.setText(table1x0, 1, 0);
+
+  // Phase B head.
+  QString table2x0 = "Phase B";
+  dataTable.setText(table2x0, 2, 0);
+
+  // Phase C head.
+  QString table3x0 = "Phase C";
+  dataTable.setText(table3x0, 3, 0);
+
+  // Current Phase A.
+  QString table1x1 = QString::number(abs(line_->i(0, Network::currentUnit)));
+  table1x1.append(" / ");
+  table1x1.append(QString::number(arg(line_->i(0,
+                                      Network::currentUnit)*180.0/M_PI)));
+  table1x1.append("°");
+  dataTable.setText(table1x1, 1, 1);
+
+  // Loss Phase A.
+  QString table1x2 = QString::number(abs(line_->loss(0, Network::powerUnit)));
+  table1x2.append(" / ");
+  table1x2.append(QString::number(arg(line_->loss(0,
+                                      Network::powerUnit)*180.0/M_PI)));
+  table1x2.append("°");
+  dataTable.setText(table1x2, 1, 2);
+
+  // Current Phase B.
+  QString table2x1 = QString::number(abs(line_->i(1, Network::currentUnit)));
+  table2x1.append(" / ");
+  table2x1.append(QString::number(arg(line_->i(1,
+                                      Network::currentUnit)*180.0/M_PI)));
+  table2x1.append("°");
+  dataTable.setText(table2x1, 2, 1);
+
+  // Loss Phase B.
+  QString table2x2 = QString::number(abs(line_->loss(1, Network::powerUnit)));
+  table2x2.append(" / ");
+  table2x2.append(QString::number(arg(line_->loss(1,
+                                      Network::powerUnit)*180.0/M_PI)));
+  table2x2.append("°");
+  dataTable.setText(table2x2, 2, 2);
+
+  // Current Phase C.
+  QString table3x1 = QString::number(abs(line_->i(2, Network::currentUnit)));
+  table3x1.append(" / ");
+  table3x1.append(QString::number(arg(line_->i(2,
+                                      Network::currentUnit)*180.0/M_PI)));
+  table3x1.append("°");
+  dataTable.setText(table3x1, 3, 1);
+
+  // Loss Phase C.
+  QString table3x2 = QString::number(abs(line_->loss(2, Network::powerUnit)));
+  table3x2.append(" / ");
+  table3x2.append(QString::number(arg(line_->loss(2,
+                                      Network::powerUnit)*180.0/M_PI)));
+  table3x2.append("°");
+  dataTable.setText(table3x1, 3, 2);
+
+  dataTable.drawTable(painter);
+
+  // Draw base.
+  painter->setPen(QPen(Qt::black, kLineWidth, Qt::SolidLine));
+  painter->setBrush(Qt::black);
+  QPolygonF pol_base;
+  pol_base << QPointF(-kBoxBaseWidth/2, -kBoxBaseHeight) << QPointF(0.0, 0.0)
+           << QPointF(kBoxBaseWidth/2, -kBoxBaseHeight);
+  painter->drawPolygon(pol_base);
+}
+
+
+/*******************************************************************************
+ * Set head font size.
+ ******************************************************************************/
+void InfoLine::setHeadFont(QPainter *painter)
+{
+  // Set head font size.
   QFont font;
   font.setPointSize(font.pointSize() * 1.25);
   painter->setFont(font);
-
-  // Draw Head separation.
-  qreal headHeight = kMarginHeadTop + kMarginHeadBot + font.pointSize();
-
-  painter->drawLine(QPointF(-kBoxWidth/2,
-                            -kBoxHeight - kBoxBaseHeight + headHeight),
-                    QPointF(kBoxWidth/2, -kBoxHeight - kBoxBaseHeight + headHeight));
-
-  // Head Text.
-  QString head = "Line " + QString::number(line_->pNoI()->id) + " -> " +
-                 QString::number(line_->pNoF()->id);
-
-  // Draw Head Text.
-  painter->drawText(-kBoxWidth/2, -kBoxHeight - kBoxBaseHeight + kMarginHeadTop,
-                    kBoxWidth, font.pointSize(), Qt::AlignCenter, head );
-
-  // Revert font size.
-  font.setPointSize(font.pointSize() / 1.25);
-
-  // Table points.
-  qreal tableXi = -kBoxWidth/2.0 + kMarginLeft;
-  qreal tableYi = -kBoxHeight - kBoxBaseHeight + headHeight + kMarginTop;
-
-  qreal tableXf = kBoxWidth/2.0 - kMarginRight;
-  qreal tableYf = - kBoxBaseHeight - kMarginBot;
-
-  qreal tableDx = (tableXf - tableXi);
-  qreal tableDy = (tableYf - tableYi);
-
-  // Set table pen.
-  painter->setPen(QPen(Qt::lightGray, kTableLineWidth, Qt::SolidLine));
-
-  // Draw table colums.
-  for(int i=1; i<kTableColums; i++) {
-    qreal x = tableXi + tableDx*static_cast<qreal>(i)/static_cast<qreal>
-              (kTableColums);
-    painter->drawLine(x, tableYi, x, tableYf);
-  }
-
-  // Draw table rows.
-  for(int i=1; i<kTableRows; i++) {
-    qreal y = tableYi + tableDy*static_cast<qreal>(i)/static_cast<qreal>
-              (kTableRows);
-    painter->drawLine(tableXi,
-                      y,
-                      tableXf,
-                      y);
-  }
-
-
-  // Table text is gray.
-  painter->setPen(QPen(Qt::gray, kTableLineWidth, Qt::SolidLine));
-
-  // Draw table 0-1 text.
-  // Current.
-  qreal x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-  qreal y = tableYi;
-  qreal w = tableDx/static_cast<qreal>(kTableColums);
-  qreal h = tableDy/static_cast<qreal>(kTableRows);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Current [A]");
-
-  //Draw table 0-2 text
-  // Loss.
-  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Loss [VA]");
-
-  //Draw table 1-0 text
-  // Phase A.
-  x = tableXi;
-  y = tableYi + tableDy/static_cast<qreal>(kTableRows);
-  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase A");
-
-  QString buffer; // buffer used to hold numeric values.
-
-  //Draw table 1-1 text
-  // Ia.
-
-  x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(abs(line_->Ia)) + " / " + QString::number(arg(
-//             line_->Ia)*180.0/M_PI) + "°";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-//  //Draw table 1-2 text
-//  // La.
-//  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(line_->lossA().real()) + " + " + QString::number(
-//             line_->lossA().imag()) + "i";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-//  //Draw table 2-0 text
-//  // Phase B.
-//  x = tableXi;
-//  y = tableYi + 2*tableDy/static_cast<qreal>(kTableRows);
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase B");
-
-////  //Draw table 2-1 text
-////  // Ib.
-//  x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(abs(line_->Ib)) + " / " + QString::number(arg(
-//             line_->Ib)*180.0/M_PI) + "°";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-//  //Draw table 2-2 text
-//  // Lb.
-//  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(line_->lossB().real()) + " + " + QString::number(
-//             line_->lossB().imag()) + "i";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-//  //Draw table 3-0 text
-//  // Phase C.
-//  x = tableXi;
-//  y = tableYi + 3*tableDy/static_cast<qreal>(kTableRows);
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase C");
-
-//  //Draw table 3-1 text
-//  // Ic.
-//  x = tableXi + tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(abs(line_->Ic)) + " / " + QString::number(arg(
-//             line_->Ic)*180.0/M_PI) + "°";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-//  //Draw table 3-2 text
-//  // Lc.
-//  x = tableXi + 2*tableDx/static_cast<qreal>(kTableColums);
-//  buffer = QString::number(line_->lossC().real()) + " + " + QString::number(
-//             line_->lossC().imag()) + "i";
-//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);
-
-//  // Draw base.
-//  painter->setPen(QPen(Qt::black, kLineWidth, Qt::SolidLine));
-//  painter->setBrush(Qt::black);
-//  QPolygonF pol_base;
-//  pol_base << QPointF(-kBoxBaseWidth/2, -kBoxBaseHeight) << QPointF(0.0, 0.0)
-//           << QPointF(kBoxBaseWidth/2, -kBoxBaseHeight);
-//  painter->drawPolygon(pol_base);
 }
 
 /*******************************************************************************
- * boundingRect.
+ * Set normal font size.
+ ******************************************************************************/
+void InfoLine::setNormalFont(QPainter *painter)
+{
+  // Set normal font size.
+  QFont font;
+  font.setPointSize(painter->font().pointSize() / 1.25);
+  painter->setFont(font);
+}
+
+/*******************************************************************************
+ * Draw main rectangle.
+ ******************************************************************************/
+void InfoLine::drawMainRectangle(QRectF mainRect,double lineWidth,
+                                 QPainter *painter)
+{
+  // Draw main rectangle.
+  painter->setPen(QPen(Qt::black, lineWidth, Qt::SolidLine));
+  painter->setBrush(Qt::white);
+  painter->drawRect(mainRect);
+
+}
+
+/*******************************************************************************
+ * Draw head separator.
+ ******************************************************************************/
+void InfoLine::drawHeadSeparator(QRectF headRect, QPainter *painter)
+{
+
+  QPointF p1(headRect.x(), headRect.y() + headRect.height());
+  QPointF p2(headRect.x() + headRect.width(), headRect.y() + headRect.height());
+
+  painter->drawLine(p1, p2);
+}
+
+/*******************************************************************************
+ * Draw head text.
+ ******************************************************************************/
+void InfoLine::drawHeadText(QRectF headRect, double marginTop, QString &text,
+                            QPainter *painter)
+{
+  // Draw Head Text.
+  painter->drawText(headRect.x(), headRect.y() + marginTop,
+                    headRect.width(), painter->font().pointSize(),
+                    Qt::AlignCenter, text);
+}
+
+/*******************************************************************************
+ * Bounding Rectangle.
  ******************************************************************************/
 QRectF InfoLine::boundingRect() const
 {

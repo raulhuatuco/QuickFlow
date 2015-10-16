@@ -187,7 +187,7 @@ complex<double> Line::iPu(int32_t phase)
 /*******************************************************************************
  * Line loss.
  ******************************************************************************/
-complex<double> Line::loss(int32_t phase)
+complex<double> Line::loss(int32_t phase, Unit::PowerUnit)
 {
 
 }
@@ -294,29 +294,29 @@ QJsonObject Line::toJson()
   jsonLine.insert("noF", nodes.second);
 
   // Impedance
-//  jsonLine.insert("Zaa", Zaa.real());
-//  jsonLine.insert("Zaai", Zaa.imag());
-//  jsonLine.insert("Zab", Zab.real());
-//  jsonLine.insert("Zabi", Zab.imag());
-//  jsonLine.insert("Zac", Zac.real());
-//  jsonLine.insert("Zaci", Zac.imag());
-//  jsonLine.insert("Zbb", Zbb.real());
-//  jsonLine.insert("Zbbi", Zbb.imag());
-//  jsonLine.insert("Zbc", Zbc.real());
-//  jsonLine.insert("Zbci", Zbc.imag());
-//  jsonLine.insert("Zcc", Zcc.real());
-//  jsonLine.insert("Zcci", Zcc.imag());
+  jsonLine.insert("Zaa", z_[0].real());
+  jsonLine.insert("Zaai", z_[0].imag());
+  jsonLine.insert("Zab", z_[1].real());
+  jsonLine.insert("Zabi", z_[1].imag());
+  jsonLine.insert("Zac", z_[2].real());
+  jsonLine.insert("Zaci", z_[2].imag());
+  jsonLine.insert("Zbb", z_[3].real());
+  jsonLine.insert("Zbbi", z_[3].imag());
+  jsonLine.insert("Zbc", z_[4].real());
+  jsonLine.insert("Zbci", z_[4].imag());
+  jsonLine.insert("Zcc", z_[5].real());
+  jsonLine.insert("Zcci", z_[5].imag());
 
-//  // Current
-//  jsonLine.insert("Ia", Ia.real());
-//  jsonLine.insert("Iai", Ia.imag());
-//  jsonLine.insert("Ib", Ib.real());
-//  jsonLine.insert("Ibi", Ib.imag());
-//  jsonLine.insert("Ic", Ic.real());
-//  jsonLine.insert("Ici", Ic.imag());
+  // Current
+  jsonLine.insert("Ia", i_[0].real());
+  jsonLine.insert("Iai", i_[0].imag());
+  jsonLine.insert("Ib", i_[1].real());
+  jsonLine.insert("Ibi", i_[1].imag());
+  jsonLine.insert("Ic", i_[2].real());
+  jsonLine.insert("Ici", i_[2].imag());
 
-//  // Length
-//  jsonLine.insert("length", length);
+  // Length
+  jsonLine.insert("length", length_);
 
   return jsonLine;
 }
@@ -331,26 +331,26 @@ void Line::fromJson(QJsonObject &jsonLine)
   nodes.second = jsonLine.value("noF").toInt();
 
   // Impedance
-//  Zaa.real(jsonLine.value("Zaa").toDouble());
-//  Zaa.imag(jsonLine.value("Zaai").toDouble());
-//  Zab.real(jsonLine.value("Zab").toDouble());
-//  Zab.imag(jsonLine.value("Zabi").toDouble());
-//  Zac.real(jsonLine.value("Zac").toDouble());
-//  Zac.imag(jsonLine.value("Zaci").toDouble());
-//  Zbb.real(jsonLine.value("Zbb").toDouble());
-//  Zbb.imag(jsonLine.value("Zbbi").toDouble());
-//  Zbc.real(jsonLine.value("Zbc").toDouble());
-//  Zbc.imag(jsonLine.value("Zbci").toDouble());
-//  Zcc.real(jsonLine.value("Zcc").toDouble());
-//  Zcc.imag(jsonLine.value("Zcci").toDouble());
+  z_[0].real(jsonLine.value("Zaa").toDouble());
+  z_[0].imag(jsonLine.value("Zaai").toDouble());
+  z_[1].real(jsonLine.value("Zab").toDouble());
+  z_[1].imag(jsonLine.value("Zabi").toDouble());
+  z_[2].real(jsonLine.value("Zac").toDouble());
+  z_[2].imag(jsonLine.value("Zaci").toDouble());
+  z_[3].real(jsonLine.value("Zbb").toDouble());
+  z_[3].imag(jsonLine.value("Zbbi").toDouble());
+  z_[4].real(jsonLine.value("Zbc").toDouble());
+  z_[4].imag(jsonLine.value("Zbci").toDouble());
+  z_[5].real(jsonLine.value("Zcc").toDouble());
+  z_[5].imag(jsonLine.value("Zcci").toDouble());
 
-//  // Current
-//  Ia.real(jsonLine.value("Ia").toDouble());
-//  Ia.imag(jsonLine.value("Iai").toDouble());
-//  Ib.real(jsonLine.value("Ib").toDouble());
-//  Ib.imag(jsonLine.value("Ibi").toDouble());
-//  Ic.real(jsonLine.value("Ic").toDouble());
-//  Ic.imag(jsonLine.value("Ici").toDouble());
+  // Current
+  i_[0].real(jsonLine.value("Ia").toDouble());
+  i_[0].imag(jsonLine.value("Iai").toDouble());
+  i_[1].real(jsonLine.value("Ib").toDouble());
+  i_[1].imag(jsonLine.value("Ibi").toDouble());
+  i_[2].real(jsonLine.value("Ic").toDouble());
+  i_[2].imag(jsonLine.value("Ici").toDouble());
 
   // Length
   length_ = jsonLine.value("length").toDouble();
@@ -363,7 +363,18 @@ void Line::updatePosition()
 {
   prepareGeometryChange();
 
-  coords = QLineF(pNoI_->pos(), pNoF_->pos());
+  double yOffset = 0.0;
+  double xOffset = 0.0;
+
+  if(network != NULL) {
+    xOffset = network->xOffset;
+    yOffset = network->yOffset;
+  }
+
+  QPoint p1(pNoI_->x() + xOffset, pNoI_->y() + yOffset);
+  QPoint p2(pNoF_->x() + xOffset, pNoF_->y() + yOffset);
+
+  coords = QLineF(p1, p2);
 
   qreal radAngle = coords.angle() * M_PI / 180.0;
   qreal dx = Network::lineWidth * sin(radAngle);
@@ -438,21 +449,11 @@ void Line::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   Q_UNUSED(option);
   Q_UNUSED(widget);
 
-//  Network *network = static_cast<Network *>(parentItem());
-
-//  if (isSelected())
-//    painter->setPen(QPen(network->selectedColor, Network::lineWidth,
-//                         Qt::SolidLine));
-//  else
-//    painter->setPen(QPen(network->lineColor, Network::lineWidth, Qt::SolidLine));
-
-//  painter->drawLine(coords.p1(), coords.p2());
-
   if (isSelected())
-    painter->setPen(QPen(Qt::red, Network::lineWidth,
+    painter->setPen(QPen(network->selectedColor, Network::lineWidth,
                          Qt::SolidLine));
   else
-    painter->setPen(QPen(Qt::black, Network::lineWidth, Qt::SolidLine));
+    painter->setPen(QPen(network->lineColor, Network::lineWidth, Qt::SolidLine));
 
   painter->drawLine(coords.p1(), coords.p2());
 }
