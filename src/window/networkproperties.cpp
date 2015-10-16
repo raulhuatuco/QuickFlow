@@ -47,6 +47,11 @@ void NetworkProperties::setOptions(Project *project, Network *network)
   project_ = project;
 }
 
+Network *NetworkProperties::network()
+{
+  return network_;
+}
+
 void NetworkProperties::on_slackColor_clicked()
 {
   QColor col = QColorDialog::getColor(Qt::green, this, "Select Slack bar color",

@@ -19,6 +19,9 @@ public:
   ~NetworkProperties();
 
   void setOptions(Project *project, Network *network);
+  
+  Network *network();
+  
 private slots:
   void on_slackColor_clicked();
 

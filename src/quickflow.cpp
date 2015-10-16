@@ -429,15 +429,6 @@ void QuickFlow::on_actionAddLine_triggered()
  ******************************************************************************/
 void QuickFlow::on_action_txt_type_1_triggered()
 {
-// Check if there is a project already opened.
-  if (project != NULL) {
-    // Close project.
-    ui->actionClose->trigger();
-
-    // If close didnt succed, cancel import.
-    if (project != NULL) return;
-  }
-
   // Get file location from user.
   QFileDialog txtFile(this);
   txtFile.setAcceptMode(QFileDialog::AcceptOpen);
@@ -454,17 +445,41 @@ void QuickFlow::on_action_txt_type_1_triggered()
   // Grab filename.
   QString fileName = txtFile.selectedFiles()[0];
 
-  // Try to import.
-  project = importTxtType1(fileName);
+  // Check if there is a project already opened.
+  if (project == NULL) {
+    // Create a new project.
+    on_actionNew_triggered();
 
-  if(project == NULL) {
-    noProjectInterface();
-  } else {
-    workInterface();
-    setAltered(true);
-    //ui->systemView->addNetwork(project->network);
-    //connectSignals();
+    // Check if project has been created.
+    if(project == NULL) {
+      // User canceled, cancel import.
+      QMessageBox::critical(this, "Need a project to import",
+                            "A project is needed in order to import networks.",
+                            QMessageBox::Ok);
+      return;
+    }
+  }
+
+  NetworkProperties newNetwork(this);
+  newNetwork.setOptions(project, NULL);
+
+  if (newNetwork.exec() == QDialog::Rejected) {
+    // User canceled import, return.
+    return;
+  }
+
+  // Try to import network.
+  Network *network = newNetwork.network();
+  bool importOk = importTxtType1(fileName, network);
+
+  // Impor success.
+  if(importOk) {
+    ui->systemView->addNetwork(network);
     ui->systemView->zoomFit();
+    setAltered(true);
+  } else {
+    project->networks.remove(network->name);
+    delete network;
   }
 }
 
@@ -473,20 +488,11 @@ void QuickFlow::on_action_txt_type_1_triggered()
  ******************************************************************************/
 void QuickFlow::on_action_txt_type_2_triggered()
 {
-  // Check if there is a project already opened.
-  if (project != NULL) {
-    // Close project.
-    ui->actionClose->trigger();
-
-    // If close didnt succed, cancel import.
-    if (project != NULL) return;
-  }
-
   // Get file location from user.
   QFileDialog txtFile(this);
   txtFile.setAcceptMode(QFileDialog::AcceptOpen);
   txtFile.setFileMode(QFileDialog::ExistingFile);
-  txtFile.setNameFilter(tr("Text File Type 2(*.txt)"));
+  txtFile.setNameFilter(tr("Text File Type 1(*.txt)"));
   txtFile.setDirectory(QStandardPaths::standardLocations(
                          QStandardPaths::HomeLocation)[0]);
 
@@ -498,17 +504,41 @@ void QuickFlow::on_action_txt_type_2_triggered()
   // Grab filename.
   QString fileName = txtFile.selectedFiles()[0];
 
-  // Try to import.
-  project = importTxtType2(fileName);
+  // Check if there is a project already opened.
+  if (project == NULL) {
+    // Create a new project.
+    on_actionNew_triggered();
 
-  if(project == NULL) {
-    noProjectInterface();
-  } else {
-    workInterface();
-    setAltered(true);
-    //ui->systemView->addNetwork(project->network);
-    //connectSignals();
+    // Check if project has been created.
+    if(project == NULL) {
+      // User canceled, cancel import.
+      QMessageBox::critical(this, "Need a project to import",
+                            "A project is needed in order to import networks.",
+                            QMessageBox::Ok);
+      return;
+    }
+  }
+
+  NetworkProperties newNetwork(this);
+  newNetwork.setOptions(project, NULL);
+
+  if (newNetwork.exec() == QDialog::Rejected) {
+    // User canceled import, return.
+    return;
+  }
+
+  // Try to import network.
+  Network *network = newNetwork.network();
+  bool importOk = importTxtType2(fileName, network);
+
+  // Impor success.
+  if(importOk) {
+    ui->systemView->addNetwork(network);
     ui->systemView->zoomFit();
+    setAltered(true);
+  } else {
+    project->networks.remove(network->name);
+    delete network;
   }
 }
 
@@ -517,20 +547,11 @@ void QuickFlow::on_action_txt_type_2_triggered()
  ******************************************************************************/
 void QuickFlow::on_action_txt_type_3_triggered()
 {
-  // Check if there is a project already opened.
-  if (project != NULL) {
-    // Close project.
-    ui->actionClose->trigger();
-
-    // If close didnt succed, cancel import.
-    if (project != NULL) return;
-  }
-
   // Get file location from user.
   QFileDialog txtFile(this);
   txtFile.setAcceptMode(QFileDialog::AcceptOpen);
   txtFile.setFileMode(QFileDialog::ExistingFile);
-  txtFile.setNameFilter(tr("Text File Type 2(*.txt)"));
+  txtFile.setNameFilter(tr("Text File Type 1(*.txt)"));
   txtFile.setDirectory(QStandardPaths::standardLocations(
                          QStandardPaths::HomeLocation)[0]);
 
@@ -542,17 +563,41 @@ void QuickFlow::on_action_txt_type_3_triggered()
   // Grab filename.
   QString fileName = txtFile.selectedFiles()[0];
 
-  // Try to import.
-  project = importTxtType3(fileName);
+  // Check if there is a project already opened.
+  if (project == NULL) {
+    // Create a new project.
+    on_actionNew_triggered();
 
-  if(project == NULL) {
-    noProjectInterface();
-  } else {
-    workInterface();
-    setAltered(true);
-    //ui->systemView->addNetwork(project->network);
-    //connectSignals();
+    // Check if project has been created.
+    if(project == NULL) {
+      // User canceled, cancel import.
+      QMessageBox::critical(this, "Need a project to import",
+                            "A project is needed in order to import networks.",
+                            QMessageBox::Ok);
+      return;
+    }
+  }
+
+  NetworkProperties newNetwork(this);
+  newNetwork.setOptions(project, NULL);
+
+  if (newNetwork.exec() == QDialog::Rejected) {
+    // User canceled import, return.
+    return;
+  }
+
+  // Try to import network.
+  Network *network = newNetwork.network();
+  bool importOk = importTxtType3(fileName, network);
+
+  // Impor success.
+  if(importOk) {
+    ui->systemView->addNetwork(network);
     ui->systemView->zoomFit();
+    setAltered(true);
+  } else {
+    project->networks.remove(network->name);
+    delete network;
   }
 }
 
