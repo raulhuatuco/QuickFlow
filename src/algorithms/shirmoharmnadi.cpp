@@ -27,7 +27,7 @@ bool Shirmoharmmadi::solve()
 
   radLayer.calculate();
 
-  double iteration = 0;
+  uint32_t iteration = 0;
 
   foreach(Bar *bar, network_->bars) {
     bar->setRV(0, bar->v(0));
