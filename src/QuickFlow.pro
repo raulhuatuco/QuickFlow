@@ -11,7 +11,6 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = QuickFlow
 TEMPLATE = app
 
-
 SOURCES += main.cpp\
     quickflow.cpp \
     project.cpp \
@@ -57,7 +56,8 @@ HEADERS  += \
     window/networkproperties.h \
     graphics/datatable.h \
     algorithms/radiallayer.h \
-    algorithms/cespedes.h
+    algorithms/cespedes.h \
+    math_constants.h
 
 
     
@@ -73,8 +73,13 @@ FORMS    += \
 RESOURCES += \
     img/img.qrc \
 
-#linux-g++ {
-LIBS+= -lOGDF -lCOIN -lpthread
-#}
+LIBS += "-LC:\Users\DKrepsky\Documents\GitHub\QuickFlow\third-party\lib\x64"
+
+LIBS += -logdf -lcoin
+
+INCLUDEPATH += "C:\Users\DKrepsky\Documents\GitHub\QuickFlow\third-party\inc"
+
+
+
 
 DISTFILES+=.astylerc

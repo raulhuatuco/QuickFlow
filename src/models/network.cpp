@@ -53,7 +53,7 @@ const QColor Network::selectedColor = Qt::red;
 /*******************************************************************************
  * Static data initialization.
  ******************************************************************************/
-u_int32_t Network::maxIterations = 1000;
+uint32_t Network::maxIterations = 1000;
 
 double Network::minError = 0.01;
 
@@ -187,7 +187,7 @@ void Network::removeLine(Line *line)
 /*******************************************************************************
  * getBarById.
  ******************************************************************************/
-Bar *Network::getBarById(u_int32_t id)
+Bar *Network::getBarById(uint32_t id)
 {
   return bars.value(id, NULL);
 }

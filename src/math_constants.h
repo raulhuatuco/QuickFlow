@@ -1,0 +1,7 @@
+#ifndef MATH_CONSTANTS_H
+#define MATH_CONSTANTS_H
+
+const double kPI = 3.1415926535897932384626433;
+
+#endif // MATH_CONSTANTS_H
+

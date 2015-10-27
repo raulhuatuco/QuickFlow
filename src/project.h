@@ -1,6 +1,8 @@
 #ifndef PROJECTSETTINGS_H
 #define PROJECTSETTINGS_H
 
+#include <cstdint>
+
 #include <QString>
 #include <QHash>
 #include "customtypes.h"
@@ -19,9 +21,9 @@ public:
 
   ~Project();
 
-  u_int32_t maxIterations();
+  uint32_t maxIterations();
 
-  void setMaxIterations(u_int32_t maxIterations);
+  void setMaxIterations(uint32_t maxIterations);
 
   double minError();
 

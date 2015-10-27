@@ -41,6 +41,7 @@
  */
 
 #include "models/line.h"
+#include "math_constants.h"
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QPainter>
@@ -397,7 +398,7 @@ void Line::updatePosition()
 
   coords = QLineF(p1, p2);
 
-  qreal radAngle = coords.angle() * M_PI / 180.0;
+  qreal radAngle = coords.angle() * kPI / 180.0;
   qreal dx = Network::lineWidth * sin(radAngle);
   qreal dy = Network::lineWidth * cos(radAngle);
   QPointF offset1 = QPointF(dx, dy);

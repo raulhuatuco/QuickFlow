@@ -43,6 +43,8 @@
 #ifndef MODELS_NETWORK_H
 #define MODELS_NETWORK_H
 
+#include <cstdint>
+
 #include <QGraphicsScene>
 #include <QObject>
 #include <QVector>
@@ -88,7 +90,7 @@ public:
   /*****************************************************************************
    * Static data.
    ****************************************************************************/
-  static u_int32_t maxIterations;
+  static uint32_t maxIterations;
 
   static double minError;
 
@@ -177,7 +179,7 @@ public:
   /*****************************************************************************
    * Get bar by id.
    ****************************************************************************/
-  Bar *getBarById(u_int32_t id);
+  Bar *getBarById(uint32_t id);
 
   /*****************************************************************************
    * Get line by nodes.

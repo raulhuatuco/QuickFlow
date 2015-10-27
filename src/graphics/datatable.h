@@ -1,6 +1,7 @@
 #ifndef DATATABLE_H
 #define DATATABLE_H
 
+#include <cstdint>
 #include <QPainter>
 #include <QRectF>
 #include <QVector>

@@ -43,6 +43,7 @@
 #ifndef WINDOW_NEWPROJECT_H
 #define WINDOW_NEWPROJECT_H
 
+#include <cstdint>
 #include <QDialog>
 #include <QString>
 #include <QDir>
@@ -110,7 +111,7 @@ public:
   /*!
    * \brief Max. iterations.
    */
-  u_int32_t dataMaxIterations;
+  uint32_t dataMaxIterations;
 
   /*!
    * \brief Min. error, in percentage.

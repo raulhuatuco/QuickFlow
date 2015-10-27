@@ -1,8 +1,8 @@
 #include "infoline.h"
-
 #include <QPainter>
 #include <QString>
 #include <complex>
+#include "math_constants.h"
 #include "datatable.h"
 #include "models/network.h"
 #include "customtypes.h"
@@ -119,7 +119,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   QString table1x1 = QString::number(abs(line_->i(0, Network::currentUnit)));
   table1x1.append(" / ");
   table1x1.append(QString::number(arg(line_->i(0,
-                                      Network::currentUnit)*180.0/M_PI)));
+                                      Network::currentUnit)*180.0/kPI)));
   table1x1.append("°");
   dataTable.setText(table1x1, 1, 1);
 
@@ -127,7 +127,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   QString table1x2 = QString::number(abs(line_->loss(0, Network::powerUnit)));
   table1x2.append(" / ");
   table1x2.append(QString::number(arg(line_->loss(0,
-                                      Network::powerUnit)*180.0/M_PI)));
+                                      Network::powerUnit)*180.0/kPI)));
   table1x2.append("°");
   dataTable.setText(table1x2, 1, 2);
 
@@ -135,7 +135,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   QString table2x1 = QString::number(abs(line_->i(1, Network::currentUnit)));
   table2x1.append(" / ");
   table2x1.append(QString::number(arg(line_->i(1,
-                                      Network::currentUnit)*180.0/M_PI)));
+                                      Network::currentUnit)*180.0/kPI)));
   table2x1.append("°");
   dataTable.setText(table2x1, 2, 1);
 
@@ -143,7 +143,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   QString table2x2 = QString::number(abs(line_->loss(1, Network::powerUnit)));
   table2x2.append(" / ");
   table2x2.append(QString::number(arg(line_->loss(1,
-                                      Network::powerUnit)*180.0/M_PI)));
+                                      Network::powerUnit)*180.0/kPI)));
   table2x2.append("°");
   dataTable.setText(table2x2, 2, 2);
 
@@ -151,7 +151,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   QString table3x1 = QString::number(abs(line_->i(2, Network::currentUnit)));
   table3x1.append(" / ");
   table3x1.append(QString::number(arg(line_->i(2,
-                                      Network::currentUnit)*180.0/M_PI)));
+                                      Network::currentUnit)*180.0/kPI)));
   table3x1.append("°");
   dataTable.setText(table3x1, 3, 1);
 
@@ -159,7 +159,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   QString table3x2 = QString::number(abs(line_->loss(2, Network::powerUnit)));
   table3x2.append(" / ");
   table3x2.append(QString::number(arg(line_->loss(2,
-                                      Network::powerUnit)*180.0/M_PI)));
+                                      Network::powerUnit)*180.0/kPI)));
   table3x2.append("°");
   dataTable.setText(table3x1, 3, 2);
 

@@ -28,7 +28,7 @@ Project::~Project()
 /*******************************************************************************
  * maxIterations.
  ******************************************************************************/
-u_int32_t Project::maxIterations()
+uint32_t Project::maxIterations()
 {
   return Network::maxIterations;
 }
@@ -36,7 +36,7 @@ u_int32_t Project::maxIterations()
 /*******************************************************************************
  * setMaxIterations.
  ******************************************************************************/
-void Project::setMaxIterations(u_int32_t maxIterations)
+void Project::setMaxIterations(uint32_t maxIterations)
 {
   Network::maxIterations = maxIterations;
 }
