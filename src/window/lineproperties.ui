@@ -125,10 +125,6 @@ QGroupBox::title
        </layout>
       </item>
      </layout>
-     <zorder>label_10</zorder>
-     <zorder></zorder>
-     <zorder>label</zorder>
-     <zorder>network</zorder>
     </widget>
    </item>
    <item row="1" column="0">

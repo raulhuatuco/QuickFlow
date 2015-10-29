@@ -69,7 +69,8 @@ SOURCES += main.cpp\
     window/networkproperties.cpp \
     graphics/datatable.cpp \
     algorithms/radiallayer.cpp \
-    algorithms/cespedes.cpp
+    algorithms/cespedes.cpp \
+    window/searchbar.cpp
     
 # Project header files.
 HEADERS  += \
@@ -93,7 +94,8 @@ HEADERS  += \
     graphics/datatable.h \
     algorithms/radiallayer.h \
     algorithms/cespedes.h \
-    math_constants.h
+    math_constants.h \
+    window/searchbar.h
 
 # Forms.
 FORMS    += \
@@ -102,7 +104,8 @@ FORMS    += \
     window/newproject.ui \
     quickflow.ui \
     window/about.ui \
-    window/networkproperties.ui
+    window/networkproperties.ui \
+    window/searchbar.ui
 
 # Resources.
 RESOURCES += \
@@ -149,6 +152,7 @@ win32 {
 # Linux configuration.
 linux {
    CONFIG += c++11
+   INCLUDEPATH += "..\third-party\ogdf\include"
    LIBS += -lOGDF -lCOIN -lpthread
 }
 

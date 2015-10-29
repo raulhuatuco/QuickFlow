@@ -49,6 +49,7 @@
 #include "window/barproperties.h"
 #include "window/lineproperties.h"
 #include "window/about.h"
+#include "window/searchbar.h"
 
 #include "models/bar.h"
 #include "models/line.h"
@@ -666,20 +667,14 @@ void QuickFlow::on_actionMulti_level_triggered()
  ******************************************************************************/
 void QuickFlow::on_actionSearch_Bar_triggered()
 {
-//  bool ok;
-//  int barId = QInputDialog::getInt(this, tr("Search for bar"), tr("Bad Id"), 0, 0,
-//                                   1000000, 1, &ok);
+  SearchBar searchBar(this);
+  searchBar.setOptions(project);
 
-//  if(ok) {
-  //Bar *bar = project->network->getBarById(barId);
+  if (searchBar.exec() == QDialog::Accepted) {
 
-  //if (bar != NULL) {
-//      ui->systemView->fitInView(bar->x() -100, bar->y() -100,
-//                                bar->boundingRect().width() +100,
-//                                bar->boundingRect().height() +100,
-//                                Qt::IgnoreAspectRatio);
-//    }
-//  }
+  }
+
+
 }
 
 /*******************************************************************************
