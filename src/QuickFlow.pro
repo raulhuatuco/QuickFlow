@@ -148,7 +148,8 @@ win32 {
 
 # Linux configuration.
 linux {
-   LIBS += -logdf -lcoin -lpthread
+   CONFIG += c++11
+   LIBS += -lOGDF -lCOIN -lpthread
 }
 
 # Artistic Style beautifier.
