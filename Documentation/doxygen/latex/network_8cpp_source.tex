@@ -26,159 +26,233 @@
 00022 \textcolor{comment}{ * SOFTWARE.}
 00023 \textcolor{comment}{ */}
 00024 
-00042 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
-00043 
-00044 \textcolor{comment}{/*******************************************************************************}
-00045 \textcolor{comment}{ * Const.}
-00046 \textcolor{comment}{ ******************************************************************************/}
-00047 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{Network::barIconSize} = 15.0;
-00048 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network::lineWidth} = 4.0;
-00049 \textcolor{keyword}{const} QColor \hyperlink{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{Network::selectedColor} = Qt::red;
-00050 
-00051 \textcolor{comment}{/*******************************************************************************}
-00052 \textcolor{comment}{ * Constructor.}
-00053 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{network_8cpp_source_l00054}{}\hyperlink{group___graphics_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}{00054} \hyperlink{group___graphics_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}{Network::Network}() :
-00055   barStrokeColor(Qt::gray),
-00056   barSlackFillColor(Qt::green),
-00057   barPqFillColor(Qt::blue),
-00058   lineColor(Qt::black)
-00059 \textcolor{comment}{//  maxIterations(1000),}
-00060 \textcolor{comment}{//  minError(0.001),}
-00061 \textcolor{comment}{//  voltageBase(0.0),}
-00062 \textcolor{comment}{//  powerBase(0.0),}
-00063 \textcolor{comment}{//  lengthUnit(Unit::kMeter),}
-00064 \textcolor{comment}{//  impedanceUnit(Unit::kOhm),}
-00065 \textcolor{comment}{//  voltageUnit(Unit::kKiloVolts),}
-00066 \textcolor{comment}{//  powerUnit(Unit::kKiloVA)}
-00067 \{
-00068 
-00069 \textcolor{comment}{//  barDoubleClick = new QSignalMapper(this);}
-00070 \textcolor{comment}{//  lineDoubleClick = new QSignalMapper(this);}
+00043 \textcolor{preprocessor}{#include <QJsonArray>}
+00044 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
+00045 
+00046 \textcolor{comment}{/*******************************************************************************}
+00047 \textcolor{comment}{ * Const.}
+00048 \textcolor{comment}{ ******************************************************************************/}
+00049 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{Network::barIconSize} = 15.0;
+00050 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network::lineWidth} = 4.0;
+00051 \textcolor{keyword}{const} QColor \hyperlink{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{Network::selectedColor} = Qt::red;
+00052 
+00053 \textcolor{comment}{/*******************************************************************************}
+00054 \textcolor{comment}{ * Static data initialization.}
+00055 \textcolor{comment}{ ******************************************************************************/}
+00056 uint32\_t \hyperlink{group___graphics_ga318dee060bc577eacd67d332efbbe1b2}{Network::maxIterations} = 1000;
+00057 
+00058 \textcolor{keywordtype}{double} \hyperlink{group___graphics_gabcdc973129d3dda7572b7a1c388da1b5}{Network::minError} = 0.01;
+00059 
+00060 \textcolor{keywordtype}{double} \hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{Network::voltageBase} = 23000.0;
+00061 
+00062 \textcolor{keywordtype}{double} \hyperlink{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{Network::powerBase} = 2500000.0;
+00063 
+00064 \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} \hyperlink{group___graphics_gae46c0e2bf39b343875e3c69066fe2652}{Network::lengthUnit} = 
+      \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter};
+00065 
+00066 \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} \hyperlink{group___graphics_ga5f3d72699a723c64a89d22e34df708ff}{Network::impedanceUnit} = 
+      \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit::kOhm};
+00067 
+00068 \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit} = 
+      \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts};
+00069 
+00070 \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit} = \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA};
 00071 
-00072 \textcolor{comment}{//  // Create mapper for bar properties.}
-00073 \textcolor{comment}{//  connect(barDoubleClick, SIGNAL(mapped(QObject *)), this,}
-00074 \textcolor{comment}{//  SIGNAL(barProperties(QObject *)));}
-00075 
-00076 \textcolor{comment}{//  // Create mapper for line properties.}
-00077 \textcolor{comment}{//  connect(lineDoubleClick, SIGNAL(mapped(QObject *)), this,}
-00078 \textcolor{comment}{//  SIGNAL(lineProperties(QObject *)));}
-00079 \}
-00080 
-00081 \textcolor{comment}{/*******************************************************************************}
-00082 \textcolor{comment}{ * Destructor.}
-00083 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{network_8cpp_source_l00084}{}\hyperlink{group___graphics_ga7a4e19cdb4bf0c7ecf82baa643831492}{00084} \hyperlink{group___graphics_ga7a4e19cdb4bf0c7ecf82baa643831492}{Network::~Network}()
-00085 \{
-00086 
-00087 \}
-00088 
-00089 \textcolor{comment}{/*******************************************************************************}
-00090 \textcolor{comment}{ * addBar.}
-00091 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{network_8cpp_source_l00092}{}\hyperlink{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}{00092} \textcolor{keywordtype}{bool} \hyperlink{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}{Network::addBar}(\hyperlink{class_bar}{Bar} *bar)
-00093 \{
-00094   \textcolor{comment}{// Check if bar exists.}
-00095   \textcolor{keywordflow}{if}(\hyperlink{group___graphics_ga9c5806f5a0d236bb6d8abbdce62d9675}{getBarById}(bar->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id}) != NULL)
-00096     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
-00097 
-00098   \textcolor{comment}{// Add bar to this group.}
-00099 \textcolor{comment}{//  addItem(bar);}
+00072 \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit} = 
+      \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit::kAmpere};
+00073 
+00074 \textcolor{comment}{/*******************************************************************************}
+00075 \textcolor{comment}{ * Current Base.}
+00076 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00077}{}\hyperlink{group___graphics_ga433bc5c32cf2ce5329bb40b21952d885}{00077} \textcolor{keywordtype}{double} \hyperlink{group___graphics_ga433bc5c32cf2ce5329bb40b21952d885}{Network::currentBase}()
+00078 \{
+00079   \textcolor{keywordflow}{return} \hyperlink{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{powerBase}/(sqrt(3)*\hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{voltageBase});
+00080 \}
+00081 
+00082 \textcolor{comment}{/*******************************************************************************}
+00083 \textcolor{comment}{ * Impedance Base.}
+00084 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00085}{}\hyperlink{group___graphics_gae6794c93d37df113778c37c2c702f6d9}{00085} \textcolor{keywordtype}{double} \hyperlink{group___graphics_gae6794c93d37df113778c37c2c702f6d9}{Network::impedanceBase}()
+00086 \{
+00087   \textcolor{keywordflow}{return} \hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{voltageBase}*\hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{voltageBase}/\hyperlink{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{powerBase};
+00088 \}
+00089 
+00090 \textcolor{comment}{/*******************************************************************************}
+00091 \textcolor{comment}{ * Constructor.}
+00092 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00093}{}\hyperlink{group___graphics_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}{00093} \hyperlink{group___graphics_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}{Network::Network}() :
+00094   barStrokeColor(Qt::gray),
+00095   barSlackFillColor(Qt::green),
+00096   barPqFillColor(Qt::blue),
+00097   lineColor(Qt::black)
+00098 \{
+00099 \}
 00100 
-00101 \textcolor{comment}{//  bars.insert(bar->id, bar);}
-00102 
-00103 \textcolor{comment}{//  // Connect signals.}
-00104 \textcolor{comment}{//  connect(bar, SIGNAL(eventDoubleClick()), barDoubleClick, SLOT(map()));}
-00105 \textcolor{comment}{//  barDoubleClick->setMapping(bar, bar);}
-00106 
-00107   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
-00108 \}
+00101 \textcolor{comment}{/*******************************************************************************}
+00102 \textcolor{comment}{ * Destructor.}
+00103 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00104}{}\hyperlink{group___graphics_ga7a4e19cdb4bf0c7ecf82baa643831492}{00104} \hyperlink{group___graphics_ga7a4e19cdb4bf0c7ecf82baa643831492}{Network::~Network}()
+00105 \{
+00106   \textcolor{keywordflow}{foreach}(\hyperlink{class_bar}{Bar} *bar, \hyperlink{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{bars}) \{
+00107     \textcolor{keyword}{delete} bar;
+00108   \}
 00109 
-00110 \textcolor{comment}{/*******************************************************************************}
-00111 \textcolor{comment}{ * addLine.}
-00112 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{network_8cpp_source_l00113}{}\hyperlink{group___graphics_gae02945131494987b3ff9b59b627719b4}{00113} \textcolor{keywordtype}{bool} \hyperlink{group___graphics_gae02945131494987b3ff9b59b627719b4}{Network::addLine}(\hyperlink{class_line}{Line} *line)
-00114 \{
-00115 \textcolor{comment}{//  // Check if line exists.}
-00116 \textcolor{comment}{//  if(getLineByNodes(line->noI, line->noF) != NULL)}
-00117 \textcolor{comment}{//    return false;}
-00118 
-00119 \textcolor{comment}{//  // Check if nodes exists.}
-00120 \textcolor{comment}{//  Bar *pNoI = getBarById(line->noI);}
-00121 \textcolor{comment}{//  Bar *pNoF = getBarById(line->noF);}
-00122 
-00123 \textcolor{comment}{//  if ((pNoI == NULL) || (pNoF == NULL))}
-00124 \textcolor{comment}{//    return false;}
-00125 
-00126 \textcolor{comment}{//  line->setNodes(pNoI, pNoF);}
-00127 
-00128 \textcolor{comment}{//  // Add line to this group.}
-00129 \textcolor{comment}{//  addItem(line);}
-00130 \textcolor{comment}{//  lines.append(line);}
-00131 
-00132 \textcolor{comment}{//  // Connect signals.}
-00133 \textcolor{comment}{//  connect(line, SIGNAL(eventDoubleClick()), lineDoubleClick, SLOT(map()));}
-00134 \textcolor{comment}{//  lineDoubleClick->setMapping(line, line);}
-00135 
-00136 \textcolor{comment}{//  return true;}
-00137 \}
+00110   \textcolor{keywordflow}{foreach}(\hyperlink{class_line}{Line} *line, \hyperlink{class_network_acda0fd42e712e460a08a0e96511ee7eb}{lines}) \{
+00111     \textcolor{keyword}{delete} line;
+00112   \}
+00113 \}
+00114 
+00115 \textcolor{comment}{/*******************************************************************************}
+00116 \textcolor{comment}{ * addBar.}
+00117 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00118}{}\hyperlink{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}{00118} \textcolor{keywordtype}{bool} \hyperlink{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}{Network::addBar}(\hyperlink{class_bar}{Bar} *bar)
+00119 \{
+00120   \textcolor{comment}{// Check if bar exists.}
+00121   \textcolor{keywordflow}{if}(\hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(bar->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id}) != NULL)
+00122     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00123 
+00124   \hyperlink{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{bars}.insert(bar->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id}, bar);
+00125   bar->\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network} = \textcolor{keyword}{this};
+00126 
+00127   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+00128 \}
+00129 
+00130 \textcolor{comment}{/*******************************************************************************}
+00131 \textcolor{comment}{ * addLine.}
+00132 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00133}{}\hyperlink{group___graphics_gae02945131494987b3ff9b59b627719b4}{00133} \textcolor{keywordtype}{bool} \hyperlink{group___graphics_gae02945131494987b3ff9b59b627719b4}{Network::addLine}(\hyperlink{class_line}{Line} *line)
+00134 \{
+00135   \textcolor{comment}{// Check if line exists.}
+00136   \textcolor{keywordflow}{if}(\hyperlink{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{getLineByNodes}(line->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}) != NULL)
+00137     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
 00138 
-00139 \textcolor{comment}{/*******************************************************************************}
-00140 \textcolor{comment}{ * getBarById.}
-00141 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{network_8cpp_source_l00142}{}\hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{00142} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{Network::removeBar}(int32\_t \textcolor{keywordtype}{id})
-00143 \{
-00144   \hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{removeBar}(\hyperlink{group___graphics_ga9c5806f5a0d236bb6d8abbdce62d9675}{getBarById}(\textcolor{keywordtype}{id}));
-00145 \}
-00146 
-00147 \textcolor{comment}{/*******************************************************************************}
-00148 \textcolor{comment}{ * getBarById.}
-00149 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{network_8cpp_source_l00150}{}\hyperlink{group___graphics_ga7dea7690987c58fa61ffaa0326b68b68}{00150} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{Network::removeBar}(\hyperlink{class_bar}{Bar} *bar)
-00151 \{
-00152 \textcolor{comment}{//  removeItem(bar);}
-00153   \textcolor{keyword}{delete} bar;
-00154 \}
-00155 
-00156 \textcolor{comment}{/*******************************************************************************}
-00157 \textcolor{comment}{ * getBarById.}
-00158 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{network_8cpp_source_l00159}{}\hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{00159} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{Network::removeLine}(QPair<int32\_t, int32\_t> nodes)
-00160 \{
-00161   \textcolor{comment}{//removeLine(getLineByNodes(noI, noF));}
-00162 \}
-00163 
-00164 \textcolor{comment}{/*******************************************************************************}
-00165 \textcolor{comment}{ * getBarById.}
-00166 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{network_8cpp_source_l00167}{}\hyperlink{group___graphics_ga4fd51288aa75614593977ce8aab9100f}{00167} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{Network::removeLine}(\hyperlink{class_line}{Line} *line)
-00168 \{
-00169   \textcolor{comment}{//removeItem(line);}
-00170   \textcolor{keyword}{delete} line;
-00171 \}
-00172 
-00173 \textcolor{comment}{/*******************************************************************************}
-00174 \textcolor{comment}{ * getBarById.}
-00175 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{network_8cpp_source_l00176}{}\hyperlink{group___graphics_ga9c5806f5a0d236bb6d8abbdce62d9675}{00176} \hyperlink{class_bar}{Bar} *\hyperlink{group___graphics_ga9c5806f5a0d236bb6d8abbdce62d9675}{Network::getBarById}(u\_int32\_t \textcolor{keywordtype}{id})
-00177 \{
-00178   \textcolor{keywordflow}{return} \hyperlink{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{bars}.value(\textcolor{keywordtype}{id}, NULL);
-00179 \}
-00180 
-00181 \textcolor{comment}{/*******************************************************************************}
-00182 \textcolor{comment}{ * getLineByNodes.}
-00183 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{network_8cpp_source_l00184}{}\hyperlink{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{00184} \hyperlink{class_line}{Line} *\hyperlink{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{Network::getLineByNodes}(QPair<int32\_t, int32\_t> nodes)
-00185 \{
-00186 \textcolor{comment}{//  foreach (Line *line, lines) \{}
-00187 \textcolor{comment}{//    if ((line->noI == nodes) && (line->noF == noF))}
-00188 \textcolor{comment}{//      return line;}
-00189 
-00190 \textcolor{comment}{//    if ((line->noF == nodes) && (line->noI == noF))}
-00191 \textcolor{comment}{//      return line;}
-00192 \textcolor{comment}{//  \}}
-00193 
-00194 \textcolor{comment}{//  return NULL;}
-00195 \}
-00196 
+00139   \textcolor{comment}{// Check if nodes exists.}
+00140   \hyperlink{class_bar}{Bar} *pNoI = \hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(line->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.first);
+00141   \hyperlink{class_bar}{Bar} *pNoF = \hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(line->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.second);
+00142 
+00143   \textcolor{keywordflow}{if} ((pNoI == NULL) || (pNoF == NULL))
+00144     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00145 
+00146   line->\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network} = \textcolor{keyword}{this};
+00147 
+00148   line->\hyperlink{group___models_gaeeab146e6c1d7d1a688a2764a9c9a170}{setNodes}(pNoI, pNoF);
+00149 
+00150   \hyperlink{class_network_acda0fd42e712e460a08a0e96511ee7eb}{lines}.insert(line->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}, line);
+00151 
+00152   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+00153 \}
+00154 
+00155 \textcolor{comment}{/*******************************************************************************}
+00156 \textcolor{comment}{ * getBarById.}
+00157 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00158}{}\hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{00158} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{Network::removeBar}(int32\_t \textcolor{keywordtype}{id})
+00159 \{
+00160   \hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{removeBar}(\hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(\textcolor{keywordtype}{id}));
+00161 \}
+00162 
+00163 \textcolor{comment}{/*******************************************************************************}
+00164 \textcolor{comment}{ * getBarById.}
+00165 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00166}{}\hyperlink{group___graphics_ga7dea7690987c58fa61ffaa0326b68b68}{00166} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{Network::removeBar}(\hyperlink{class_bar}{Bar} *bar)
+00167 \{
+00168   \textcolor{keyword}{delete} bar;
+00169 \}
+00170 
+00171 \textcolor{comment}{/*******************************************************************************}
+00172 \textcolor{comment}{ * getBarById.}
+00173 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00174}{}\hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{00174} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{Network::removeLine}(QPair<int32\_t, int32\_t> nodes)
+00175 \{
+00176   \hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{removeLine}(\hyperlink{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{getLineByNodes}(nodes));
+00177 \}
+00178 
+00179 \textcolor{comment}{/*******************************************************************************}
+00180 \textcolor{comment}{ * getBarById.}
+00181 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00182}{}\hyperlink{group___graphics_ga4fd51288aa75614593977ce8aab9100f}{00182} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{Network::removeLine}(\hyperlink{class_line}{Line} *line)
+00183 \{
+00184   \textcolor{keyword}{delete} line;
+00185 \}
+00186 
+00187 \textcolor{comment}{/*******************************************************************************}
+00188 \textcolor{comment}{ * getBarById.}
+00189 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00190}{}\hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{00190} \hyperlink{class_bar}{Bar} *\hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{Network::getBarById}(uint32\_t \textcolor{keywordtype}{id})
+00191 \{
+00192   \textcolor{keywordflow}{return} \hyperlink{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{bars}.value(\textcolor{keywordtype}{id}, NULL);
+00193 \}
+00194 
+00195 \textcolor{comment}{/*******************************************************************************}
+00196 \textcolor{comment}{ * getLineByNodes.}
+00197 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00198}{}\hyperlink{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{00198} \hyperlink{class_line}{Line} *\hyperlink{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{Network::getLineByNodes}(QPair<int32\_t, int32\_t> nodes)
+00199 \{
+00200   \textcolor{keywordflow}{return} \hyperlink{class_network_acda0fd42e712e460a08a0e96511ee7eb}{lines}.value(nodes, NULL);
+00201 \}
+00202 
+00203 \textcolor{comment}{/*******************************************************************************}
+00204 \textcolor{comment}{ * Network to Json.}
+00205 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00206}{}\hyperlink{group___graphics_ga1bb9773d3935eefef84136d388786494}{00206} QJsonObject \hyperlink{group___graphics_ga1bb9773d3935eefef84136d388786494}{Network::toJson}()
+00207 \{
+00208   QJsonObject netJson;
+00209 
+00210   netJson.insert(\textcolor{stringliteral}{"name"}, \hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
+00211   netJson.insert(\textcolor{stringliteral}{"xOffset"}, \hyperlink{class_network_a9f5c70be28a45320802bd0ac3947d114}{xOffset});
+00212   netJson.insert(\textcolor{stringliteral}{"yOffset"}, \hyperlink{class_network_a771b16f7eb4459d0ca7141c048b1ab59}{yOffset});
+00213   netJson.insert(\textcolor{stringliteral}{"barStrokeColor"}, \hyperlink{class_network_ad69052271ab0a9899948815b6201f2c6}{barStrokeColor}.name());
+00214   netJson.insert(\textcolor{stringliteral}{"barSlackFillColor"}, \hyperlink{class_network_ad78d9a206daf4ba0780067b5043c7f5c}{barSlackFillColor}.name());
+00215   netJson.insert(\textcolor{stringliteral}{"barPqFillColor"}, \hyperlink{class_network_a386f492f548ec13f5d0e350c4f2217aa}{barPqFillColor}.name());
+00216   netJson.insert(\textcolor{stringliteral}{"lineColor"}, \hyperlink{class_network_a453db7f1a994603fe4d38ac5899eb09c}{lineColor}.name());
+00217 
+00218   QJsonArray barArray;
+00219   \textcolor{keywordflow}{foreach}(\hyperlink{class_bar}{Bar} *bar,\hyperlink{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{bars}) \{
+00220     barArray << bar->\hyperlink{group___models_ga3eb84c42b687db6cd98e11b8bd38c86e}{toJson}();
+00221   \}
+00222   netJson.insert(\textcolor{stringliteral}{"barArray"}, barArray);
+00223 
+00224   QJsonArray lineArray;
+00225   \textcolor{keywordflow}{foreach}(\hyperlink{class_line}{Line} *line, \hyperlink{class_network_acda0fd42e712e460a08a0e96511ee7eb}{lines}) \{
+00226     lineArray << line->\hyperlink{group___models_ga4effa7a96db465ea6e01135d5a010739}{toJson}();
+00227   \}
+00228   netJson.insert(\textcolor{stringliteral}{"lineArray"}, lineArray);
+00229 
+00230   \textcolor{keywordflow}{return} netJson;
+00231 \}
+00232 
+00233 \textcolor{comment}{/*******************************************************************************}
+00234 \textcolor{comment}{ *  Network from Json.}
+00235 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{network_8cpp_source_l00236}{}\hyperlink{group___graphics_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1}{00236} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1}{Network::fromJson}(QJsonObject &netJson)
+00237 \{
+00238   \hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name} = netJson.value(\textcolor{stringliteral}{"name"}).toString();
+00239   \hyperlink{class_network_a9f5c70be28a45320802bd0ac3947d114}{xOffset} = netJson.value(\textcolor{stringliteral}{"xOffset"}).toDouble();
+00240   \hyperlink{class_network_a771b16f7eb4459d0ca7141c048b1ab59}{yOffset} = netJson.value(\textcolor{stringliteral}{"yOffset"}).toDouble();
+00241   \hyperlink{class_network_ad69052271ab0a9899948815b6201f2c6}{barStrokeColor}.setNamedColor(netJson.value(\textcolor{stringliteral}{"barStrokeColor"}).toString());
+00242   \hyperlink{class_network_ad78d9a206daf4ba0780067b5043c7f5c}{barSlackFillColor}.setNamedColor(netJson.value(\textcolor{stringliteral}{"barSlackFillColor"}).toString());
+00243   \hyperlink{class_network_a386f492f548ec13f5d0e350c4f2217aa}{barPqFillColor}.setNamedColor(netJson.value(\textcolor{stringliteral}{"barPqFillColor"}).toString());
+00244   \hyperlink{class_network_a453db7f1a994603fe4d38ac5899eb09c}{lineColor}.setNamedColor(netJson.value(\textcolor{stringliteral}{"lineColor"}).toString());
+00245 
+00246   QJsonArray barArray(netJson.value(\textcolor{stringliteral}{"barArray"}).toArray());
+00247 
+00248   \textcolor{keywordflow}{foreach}(QJsonValue barValue, barArray) \{
+00249     QJsonObject jsonBar(barValue.toObject());
+00250 
+00251     \hyperlink{class_bar}{Bar} *bar = \textcolor{keyword}{new} \hyperlink{class_bar}{Bar};
+00252     bar->\hyperlink{group___models_ga1df62f03dd3a066ceaf6588ba6bb6004}{fromJson}(jsonBar);
+00253     \hyperlink{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}{addBar}(bar);
+00254   \}
+00255 
+00256   QJsonArray lineArray;
+00257   lineArray = netJson.value(\textcolor{stringliteral}{"lineArray"}).toArray();
+00258 
+00259   \textcolor{keywordflow}{foreach}(QJsonValue lineValue, lineArray) \{
+00260     QJsonObject jsonLine(lineValue.toObject());
+00261 
+00262     \hyperlink{class_line}{Line} *line = \textcolor{keyword}{new} \hyperlink{class_line}{Line};
+00263     line->\hyperlink{group___models_ga62623ad71df5279377cc69da90decc75}{fromJson}(jsonLine);
+00264     \hyperlink{group___graphics_gae02945131494987b3ff9b59b627719b4}{addLine}(line);
+00265   \}
+00266 \}
+00267 
 \end{DoxyCode}

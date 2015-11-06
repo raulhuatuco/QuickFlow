@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -92,9 +94,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <p>This is the complete list of members for <a class="el" href="class_unit.html">Unit</a>, including all inherited members.</p>
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">CurrentUnit</a> enum name</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_unit.html#a3747e779c805df24a71961290be3fbdf">ImpedanceUnit</a> enum name</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#ae3ca20f4b6530f04ca6aa138ec0fa7d2">impedanceUnitToStr</a>(ImpedanceUnit impedanceUnit)</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">kAmpere</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_unit.html#a7bd3ed3edcb18170cd162d384075b651">currentUnitToStr</a>(CurrentUnit currentUnit)</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a3747e779c805df24a71961290be3fbdf">ImpedanceUnit</a> enum name</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_unit.html#ae3ca20f4b6530f04ca6aa138ec0fa7d2">impedanceUnitToStr</a>(ImpedanceUnit impedanceUnit)</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">kAmpere</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787aeed3b50e464d581cb630181a3b6a0709">kAmperePerUnit</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8">kFeet</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787aa27cb5edd73099f24f2285e02396ae14">kKiloAmpere</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919">kKiloMeter</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
@@ -113,20 +117,23 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr><td class="entry"><a class="el" href="class_unit.html#a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6">kOhmPerKilometer</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336">kOhmPerMeter</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_unit.html#a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613">kOhmPerMile</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">kVA</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a3747e779c805df24a71961290be3fbdfa9327dc8628a47375d70037499f9d0910">kOhmPerUnit</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">kVA</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3bae056e80d620a87c61a44c359e6b05cc1">kVaPerUnit</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c">kVolts</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">LengthUnit</a> enum name</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_unit.html#abd363319f79f97b0a0b9a08c5ddc3cdb">lengthUnitToStr</a>(LengthUnit lengthUnit)</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">PowerUnit</a> enum name</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="class_unit.html#ad1487441b5a7eb93a3eb0aeebe947725">powerUnitToStr</a>(PowerUnit powerUnit)</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a8e46f663a95736c8002d85ab271a7581">Unit</a>()</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1">VoltageUnit</a> enum name</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a7fa103c31f9f069961b35b6371ff0c0a">voltageUnitToStr</a>(VoltageUnit voltageUnit)</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr><td class="entry"><a class="el" href="class_unit.html#a6353fc4c0a329997ad4abcf0dcb4eb27">~Unit</a>()</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1ab44b1310b59fdcdc9df5bbea91da4206">kVoltsPerUnit</a> enum value</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">LengthUnit</a> enum name</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#abd363319f79f97b0a0b9a08c5ddc3cdb">lengthUnitToStr</a>(LengthUnit lengthUnit)</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">PowerUnit</a> enum name</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#ad1487441b5a7eb93a3eb0aeebe947725">powerUnitToStr</a>(PowerUnit powerUnit)</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="class_unit.html#a8e46f663a95736c8002d85ab271a7581">Unit</a>()</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1">VoltageUnit</a> enum name</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="class_unit.html#a7fa103c31f9f069961b35b6371ff0c0a">voltageUnitToStr</a>(VoltageUnit voltageUnit)</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="class_unit.html#a6353fc4c0a329997ad4abcf0dcb4eb27">~Unit</a>()</td><td class="entry"><a class="el" href="class_unit.html">Unit</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:44 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

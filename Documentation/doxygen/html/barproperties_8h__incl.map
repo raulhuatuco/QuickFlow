@@ -1,9 +1,9 @@
 <map id="barproperties.h" name="barproperties.h">
-<area shape="rect" id="node3" href="$customtypes_8h.html" title="customtypes.h" alt="" coords="203,304,311,331"/>
-<area shape="rect" id="node7" href="$project_8h.html" title="project.h" alt="" coords="177,80,249,107"/>
-<area shape="rect" id="node9" href="$network_8h.html" title="Network class definition. " alt="" coords="523,155,648,181"/>
-<area shape="rect" id="node13" href="$bar_8h.html" title="Bar class definition. " alt="" coords="719,229,817,256"/>
-<area shape="rect" id="node17" href="$line_8h.html" title="line class definition. " alt="" coords="817,304,916,331"/>
-<area shape="rect" id="node21" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="516,304,641,331"/>
-<area shape="rect" id="node18" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="869,379,995,405"/>
+<area shape="rect" id="node3" href="$customtypes_8h.html" title="customtypes.h" alt="" coords="159,304,267,331"/>
+<area shape="rect" id="node7" href="$project_8h.html" title="project.h" alt="" coords="203,80,275,107"/>
+<area shape="rect" id="node10" href="$network_8h.html" title="Network class definition. " alt="" coords="576,155,701,181"/>
+<area shape="rect" id="node16" href="$bar_8h.html" title="Bar class definition. " alt="" coords="930,229,1027,256"/>
+<area shape="rect" id="node19" href="$line_8h.html" title="line class definition. " alt="" coords="760,304,859,331"/>
+<area shape="rect" id="node23" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="1084,304,1209,331"/>
+<area shape="rect" id="node20" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="746,379,873,405"/>
 </map>

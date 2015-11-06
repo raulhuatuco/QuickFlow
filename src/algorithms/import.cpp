@@ -3,7 +3,7 @@
 #include <QtCore>
 #include <QtWidgets>
 #include "models/network.h"
-#include "algorithms/redraw.h"
+#include "algorithms/redrawnetwork.h"
 
 static int32_t getNextLineInt(QTextStream *stream, QString keyWord,
                               int32_t *intVal)
@@ -319,7 +319,8 @@ bool importTxtType1(QString &fileName, Network *network)
     lineCnt++;
   }
 
-  redrawSugiyamaFast(network);
+  RedrawNetwork redraw(network);
+  redraw.sugiyamaFast();
 
   file.close();
   return true;
@@ -620,7 +621,8 @@ bool importTxtType2(QString &fileName, Network *network)
     lineCnt++;
   }
 
-  redrawSugiyamaFast(network);
+  RedrawNetwork redraw(network);
+  redraw.sugiyamaFast();
 
   file.close();
   return true;
@@ -922,7 +924,8 @@ bool importTxtType3(QString &fileName, Network *network)
     lineCnt++;
   }
 
-  redrawSugiyamaFast(network);
+  RedrawNetwork redraw(network);
+  redraw.sugiyamaFast();
 
   file.close();
   return true;

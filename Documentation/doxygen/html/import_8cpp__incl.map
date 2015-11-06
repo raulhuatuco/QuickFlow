@@ -1,11 +1,10 @@
 <map id="import.cpp" name="import.cpp">
-<area shape="rect" id="node2" href="$import_8h.html" title="algorithms/import.h" alt="" coords="141,80,275,107"/>
-<area shape="rect" id="node9" href="$network_8h.html" title="Network class definition. " alt="" coords="353,229,479,256"/>
-<area shape="rect" id="node25" href="$redraw_8h.html" title="algorithms/redraw.h" alt="" coords="243,155,379,181"/>
-<area shape="rect" id="node3" href="$project_8h.html" title="project.h" alt="" coords="145,155,217,181"/>
-<area shape="rect" id="node6" href="$customtypes_8h.html" title="customtypes.h" alt="" coords="122,379,230,405"/>
-<area shape="rect" id="node13" href="$bar_8h.html" title="Bar class definition. " alt="" coords="469,304,566,331"/>
-<area shape="rect" id="node17" href="$line_8h.html" title="line class definition. " alt="" coords="605,379,704,405"/>
-<area shape="rect" id="node21" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="304,379,429,405"/>
-<area shape="rect" id="node18" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="777,453,903,480"/>
+<area shape="rect" id="node2" href="$import_8h.html" title="algorithms/import.h" alt="" coords="675,80,809,107"/>
+<area shape="rect" id="node3" href="$network_8h.html" title="Network class definition. " alt="" coords="793,155,918,181"/>
+<area shape="rect" id="node25" href="$redrawnetwork_8h.html" title="RedrawNetwork class definition. " alt="" coords="468,80,651,107"/>
+<area shape="rect" id="node10" href="$customtypes_8h.html" title="customtypes.h" alt="" coords="1281,304,1389,331"/>
+<area shape="rect" id="node14" href="$bar_8h.html" title="Bar class definition. " alt="" coords="755,229,852,256"/>
+<area shape="rect" id="node17" href="$line_8h.html" title="line class definition. " alt="" coords="655,304,754,331"/>
+<area shape="rect" id="node21" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="879,304,1005,331"/>
+<area shape="rect" id="node18" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="508,379,635,405"/>
 </map>

@@ -1,3 +1,6 @@
 <map id="Project::saveAs" name="Project::saveAs">
-<area shape="rect" id="node2" href="$class_project.html#a596a875bc5be73bc5b1b71b6448c1e07" title="Project::save" alt="" coords="168,5,267,32"/>
+<area shape="rect" id="node2" href="$class_project.html#a596a875bc5be73bc5b1b71b6448c1e07" title="Project::save" alt="" coords="168,31,267,57"/>
+<area shape="rect" id="node3" href="$group___graphics.html#ga1bb9773d3935eefef84136d388786494" title="Network::toJson" alt="" coords="315,31,433,57"/>
+<area shape="rect" id="node4" href="$group___models.html#ga3eb84c42b687db6cd98e11b8bd38c86e" title="Convert bar data to json object. " alt="" coords="483,5,573,32"/>
+<area shape="rect" id="node5" href="$group___models.html#ga4effa7a96db465ea6e01135d5a010739" title="Line::toJson" alt="" coords="481,56,575,83"/>
 </map>

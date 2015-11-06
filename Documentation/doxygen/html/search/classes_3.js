@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['line',['Line',['../class_line.html',1,'']]],
-  ['lineproperties',['LineProperties',['../class_line_properties.html',1,'']]]
+  ['datatable',['DataTable',['../class_data_table.html',1,'']]]
 ];

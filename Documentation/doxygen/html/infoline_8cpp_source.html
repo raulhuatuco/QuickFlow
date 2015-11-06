@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -92,220 +94,299 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!--header-->
 <div class="contents">
 <a href="infoline_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="infoline_8h.html">infoline.h</a>&quot;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;QPainter&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;complex&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment"> * InfoLine.</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="class_info_line.html#a63819dbfeb257cc86be86f0fac3aa02f">   10</a></span>&#160;<a class="code" href="class_info_line.html#a63819dbfeb257cc86be86f0fac3aa02f">InfoLine::InfoLine</a>(<a class="code" href="class_line.html">Line</a> *line) :</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  line_(line)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;  setZValue(2);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  qreal px = (line-&gt;<a class="code" href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">pNoI</a>()-&gt;x() + line-&gt;<a class="code" href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">pNoF</a>()-&gt;x()) / 2;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;  qreal py = (line-&gt;<a class="code" href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">pNoI</a>()-&gt;y() + line-&gt;<a class="code" href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">pNoF</a>()-&gt;y()) / 2;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;  setPos(px,py);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="comment"> * ~InfoLine.</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="class_info_line.html#ac3497eeb5f2719fb4fac42434955597d">   23</a></span>&#160;<a class="code" href="class_info_line.html#ac3497eeb5f2719fb4fac42434955597d">InfoLine::~InfoLine</a>() {}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment"> * paint.</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1">   28</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1">InfoLine::paint</a>(QPainter *painter,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                     <span class="keyword">const</span> QStyleOptionGraphicsItem *option,</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                     QWidget *widget)</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  Q_UNUSED(option);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  Q_UNUSED(widget);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="comment">// Draw main rectangle.</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  painter-&gt;setPen(QPen(Qt::black, <a class="code" href="class_info_line.html#a18390d54c56cd68cf6e767a5df7404d8">kLineWidth</a>, Qt::SolidLine));</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  painter-&gt;setBrush(Qt::white);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  QRectF main_rect =</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    QRectF(-<a class="code" href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">kBoxWidth</a> / 2, -<a class="code" href="class_info_line.html#a279cafcac8d844a00bd27dde524102dd">kBoxHeight</a> - <a class="code" href="class_info_line.html#ab332e0b1c83e5ab8f551e3f39b2dfc55">kBoxBaseHeight</a>, <a class="code" href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">kBoxWidth</a>, <a class="code" href="class_info_line.html#a279cafcac8d844a00bd27dde524102dd">kBoxHeight</a>);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  painter-&gt;drawRect(main_rect);</div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;QPainter&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;QString&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;complex&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="math__constants_8h.html">math_constants.h</a>&quot;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="datatable_8h.html">datatable.h</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">models/network.h</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="customtypes_8h.html">customtypes.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment"> * Static constants.</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9">InfoLine::kTableRows</a>  = 4;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">InfoLine::kTableColums</a> = 3;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="class_info_line.html#a33821aa140dc03829357d4006e9c153c">InfoLine::kBoxWidth</a>= 135.0*kTableColums;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="class_info_line.html#a9e459549795bab79ae3b6c184dc78a00">InfoLine::kBoxHeight</a> = 37.5*kTableRows;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="class_info_line.html#ad072bc8ef178113c36c3d480c7d637ac">InfoLine::kLineWidth</a> = 2.0;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="class_info_line.html#a73e02db68396f0c4b66d0cf80bd37c83">InfoLine::kMarginHeadTop</a> = 5.0;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="class_info_line.html#a82ed1944ec4a41af19e377a243c2332d">InfoLine::kMarginHeadBot</a> = 5.0;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="class_info_line.html#a995100424420038664880195f5e51f50">InfoLine::kMarginTop</a> = 5.0;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="class_info_line.html#ab4bd85105aabcb9d1230225c15873da2">InfoLine::kMarginBot</a> = 5.0;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="class_info_line.html#a68232e6e5e3b63a4b6aced3d99291ad7">InfoLine::kMarginLeft</a> = 5.0;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="class_info_line.html#a0f0bd713ed9c1c8012bbd29dbd1db75e">InfoLine::kMarginRight</a> = 5.0;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="class_info_line.html#ab50f47aa54c45def219859e9da3755e6">InfoLine::kBoxBaseHeight</a> = 30.0;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="class_info_line.html#aad905589137b80ba75d9a1c49535eb1a">InfoLine::kBoxBaseWidth</a> = 60.0;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment"> * Constructor.</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_info_line.html#a63819dbfeb257cc86be86f0fac3aa02f">   30</a></span>&#160;<a class="code" href="class_info_line.html#a63819dbfeb257cc86be86f0fac3aa02f">InfoLine::InfoLine</a>(<a class="code" href="class_line.html">Line</a> *line) :</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  line_(line)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  setZValue(2);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <span class="keywordtype">double</span> px = (line-&gt;<a class="code" href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">pNoI</a>()-&gt;x() + line-&gt;<a class="code" href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">pNoF</a>()-&gt;x()) / 2 +</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;              line-&gt;<a class="code" href="class_line.html#aefdf6a6c3e3775b5a16b344c1d33964e">network</a>-&gt;<a class="code" href="class_network.html#a9f5c70be28a45320802bd0ac3947d114">xOffset</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordtype">double</span> py = (line-&gt;<a class="code" href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">pNoI</a>()-&gt;y() + line-&gt;<a class="code" href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">pNoF</a>()-&gt;y()) / 2 +</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;              line-&gt;<a class="code" href="class_line.html#aefdf6a6c3e3775b5a16b344c1d33964e">network</a>-&gt;<a class="code" href="class_network.html#a771b16f7eb4459d0ca7141c048b1ab59">yOffset</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  setPos(px,py);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="comment">// Set Head font size.</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  QFont font;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  font.setPointSize(font.pointSize() * 1.25);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  painter-&gt;setFont(font);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="comment">// Draw Head separation.</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  qreal headHeight = <a class="code" href="class_info_line.html#aa08e22c99ce13c2fc57a9d9c9de4d99f">kMarginHeadTop</a> + <a class="code" href="class_info_line.html#a3d981c2b5f55052aad8d105177be443d">kMarginHeadBot</a> + font.pointSize();</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * Destructor.</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="class_info_line.html#ac3497eeb5f2719fb4fac42434955597d">   45</a></span>&#160;<a class="code" href="class_info_line.html#ac3497eeb5f2719fb4fac42434955597d">InfoLine::~InfoLine</a>()</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  painter-&gt;drawLine(QPointF(-<a class="code" href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">kBoxWidth</a>/2,</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                            -<a class="code" href="class_info_line.html#a279cafcac8d844a00bd27dde524102dd">kBoxHeight</a> - <a class="code" href="class_info_line.html#ab332e0b1c83e5ab8f551e3f39b2dfc55">kBoxBaseHeight</a> + headHeight),</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                    QPointF(<a class="code" href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">kBoxWidth</a>/2, -<a class="code" href="class_info_line.html#a279cafcac8d844a00bd27dde524102dd">kBoxHeight</a> - <a class="code" href="class_info_line.html#ab332e0b1c83e5ab8f551e3f39b2dfc55">kBoxBaseHeight</a> + headHeight));</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  <span class="comment">// Head Text.</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  QString head = <span class="stringliteral">&quot;Line &quot;</span> + QString::number(line_-&gt;<a class="code" href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">pNoI</a>()-&gt;<a class="code" href="class_bar.html#a9dc5c6a6d44fe412ae34ef8a881b8dce">id</a>) + <span class="stringliteral">&quot; -&gt; &quot;</span> +</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                 QString::number(line_-&gt;<a class="code" href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">pNoF</a>()-&gt;<a class="code" href="class_bar.html#a9dc5c6a6d44fe412ae34ef8a881b8dce">id</a>);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="comment">// Draw Head Text.</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  painter-&gt;drawText(-<a class="code" href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">kBoxWidth</a>/2, -<a class="code" href="class_info_line.html#a279cafcac8d844a00bd27dde524102dd">kBoxHeight</a> - <a class="code" href="class_info_line.html#ab332e0b1c83e5ab8f551e3f39b2dfc55">kBoxBaseHeight</a> + <a class="code" href="class_info_line.html#aa08e22c99ce13c2fc57a9d9c9de4d99f">kMarginHeadTop</a>,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                    <a class="code" href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">kBoxWidth</a>, font.pointSize(), Qt::AlignCenter, head );</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="comment">// Revert font size.</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  font.setPointSize(font.pointSize() / 1.25);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> * Paint.</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1">InfoLine::paint</a>(QPainter *painter, <span class="keyword">const</span> QStyleOptionGraphicsItem *option,</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;                     QWidget *widget)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;{</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  Q_UNUSED(option);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  Q_UNUSED(widget);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="comment">// Draw main rectangle.</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  QRectF mainRect(-<a class="code" href="class_info_line.html#a33821aa140dc03829357d4006e9c153c">kBoxWidth</a> / 2, -<a class="code" href="class_info_line.html#a9e459549795bab79ae3b6c184dc78a00">kBoxHeight</a> - <a class="code" href="class_info_line.html#ab50f47aa54c45def219859e9da3755e6">kBoxBaseHeight</a>, <a class="code" href="class_info_line.html#a33821aa140dc03829357d4006e9c153c">kBoxWidth</a>,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                  <a class="code" href="class_info_line.html#a9e459549795bab79ae3b6c184dc78a00">kBoxHeight</a>);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <a class="code" href="class_info_line.html#a3a0f83ad98fe674513dab679e22cba42">drawMainRectangle</a>(mainRect, <a class="code" href="class_info_line.html#ad072bc8ef178113c36c3d480c7d637ac">kLineWidth</a>, painter);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="comment">// Table points.</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  qreal tableXi = -<a class="code" href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">kBoxWidth</a>/2.0 + <a class="code" href="class_info_line.html#a480271b6a9d683ab36c0c6ef142a461f">kMarginLeft</a>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  qreal tableYi = -<a class="code" href="class_info_line.html#a279cafcac8d844a00bd27dde524102dd">kBoxHeight</a> - <a class="code" href="class_info_line.html#ab332e0b1c83e5ab8f551e3f39b2dfc55">kBoxBaseHeight</a> + headHeight + <a class="code" href="class_info_line.html#ab0b7394c3710ba9d88da13a484069302">kMarginTop</a>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  qreal tableXf = <a class="code" href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">kBoxWidth</a>/2.0 - <a class="code" href="class_info_line.html#af945da2dfe0437816b9e1fe8e6668692">kMarginRight</a>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  qreal tableYf = - <a class="code" href="class_info_line.html#ab332e0b1c83e5ab8f551e3f39b2dfc55">kBoxBaseHeight</a> - <a class="code" href="class_info_line.html#a82acf816389449ddce739e8abb6e0fdc">kMarginBot</a>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  qreal tableDx = (tableXf - tableXi);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  qreal tableDy = (tableYf - tableYi);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="comment">// Set table pen.</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  painter-&gt;setPen(QPen(Qt::lightGray, <a class="code" href="class_info_line.html#a9d03a53c9bca9357e502a1e423ff4541">kTableLineWidth</a>, Qt::SolidLine));</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="comment">// Draw table colums.</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=1; i&lt;<a class="code" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">kTableColums</a>; i++) {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    qreal x = tableXi + tableDx*<span class="keyword">static_cast&lt;</span>qreal<span class="keyword">&gt;</span>(i)/static_cast&lt;qreal&gt;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;              (kTableColums);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    painter-&gt;drawLine(x, tableYi, x, tableYf);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <span class="comment">// Draw table rows.</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=1; i&lt;<a class="code" href="class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9">kTableRows</a>; i++) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    qreal y = tableYi + tableDy*<span class="keyword">static_cast&lt;</span>qreal<span class="keyword">&gt;</span>(i)/static_cast&lt;qreal&gt;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;              (kTableRows);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    painter-&gt;drawLine(tableXi,</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                      y,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                      tableXf,</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                      y);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  }</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="comment">// Table text is gray.</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  painter-&gt;setPen(QPen(Qt::gray, <a class="code" href="class_info_line.html#a9d03a53c9bca9357e502a1e423ff4541">kTableLineWidth</a>, Qt::SolidLine));</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <span class="comment">// Draw table 0-1 text.</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="comment">// Current.</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  qreal x = tableXi + tableDx/<span class="keyword">static_cast&lt;</span>qreal<span class="keyword">&gt;</span>(<a class="code" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">kTableColums</a>);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  qreal y = tableYi;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  qreal w = tableDx/<span class="keyword">static_cast&lt;</span>qreal<span class="keyword">&gt;</span>(<a class="code" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">kTableColums</a>);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  qreal h = tableDy/<span class="keyword">static_cast&lt;</span>qreal<span class="keyword">&gt;</span>(<a class="code" href="class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9">kTableRows</a>);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  painter-&gt;drawText(x,y,w,h, Qt::AlignCenter, <span class="stringliteral">&quot;Current [A]&quot;</span>);</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="comment">//Draw table 0-2 text</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="comment">// Loss.</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  x = tableXi + 2*tableDx/<span class="keyword">static_cast&lt;</span>qreal<span class="keyword">&gt;</span>(<a class="code" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">kTableColums</a>);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  painter-&gt;drawText(x,y,w,h, Qt::AlignCenter, <span class="stringliteral">&quot;Loss [VA]&quot;</span>);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="comment">//Draw table 1-0 text</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;  <span class="comment">// Phase A.</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  x = tableXi;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  y = tableYi + tableDy/<span class="keyword">static_cast&lt;</span>qreal<span class="keyword">&gt;</span>(<a class="code" href="class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9">kTableRows</a>);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  painter-&gt;drawText(x,y,w,h, Qt::AlignCenter, <span class="stringliteral">&quot;Phase A&quot;</span>);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="keywordtype">double</span> headHeight = <a class="code" href="class_info_line.html#a73e02db68396f0c4b66d0cf80bd37c83">kMarginHeadTop</a> +<a class="code" href="class_info_line.html#a82ed1944ec4a41af19e377a243c2332d">kMarginHeadBot</a> + painter-&gt;font().pointSize()</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                      *1.25;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  QRectF headRect(mainRect.x(), mainRect.y(), mainRect.width(), headHeight);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <span class="comment">// Draw Head separation.</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="class_info_line.html#a53e9012a9cef4f07f1d4872c6d250c08">drawHeadSeparator</a>(headRect, painter);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="comment">// Draw head text.</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <a class="code" href="class_info_line.html#a389ea4f5085b60d03022b94e636f11d1">setHeadFont</a>(painter);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  QString headText = <span class="stringliteral">&quot;(&quot;</span> + line_-&gt;<a class="code" href="class_line.html#aefdf6a6c3e3775b5a16b344c1d33964e">network</a>-&gt;<a class="code" href="class_network.html#ab6643733a517f930c60b06f5ffd78186">name</a> + <span class="stringliteral">&quot;) &quot;</span> + <span class="stringliteral">&quot;Line &quot;</span> +</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                     QString::number(line_-&gt;<a class="code" href="class_line.html#afd17c40d656e6a8d677cb22df5f0c70b">nodes</a>.first) + <span class="stringliteral">&quot; -&gt; &quot;</span> +</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                     QString::number(line_-&gt;<a class="code" href="class_line.html#afd17c40d656e6a8d677cb22df5f0c70b">nodes</a>.second);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <a class="code" href="class_info_line.html#a043932fa92604badc063e09691195609">drawHeadText</a>(headRect, <a class="code" href="class_info_line.html#a73e02db68396f0c4b66d0cf80bd37c83">kMarginHeadTop</a>, headText, painter);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="comment">// Revert font size.</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <a class="code" href="class_info_line.html#a4d5084d616c878cb717e8445db0023c1">setNormalFont</a>(painter);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="comment">// Draw data table.</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  QRectF tableRect;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  tableRect.setX(mainRect.x() + <a class="code" href="class_info_line.html#a68232e6e5e3b63a4b6aced3d99291ad7">kMarginLeft</a>);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  tableRect.setY(mainRect.y() + headRect.height() + <a class="code" href="class_info_line.html#a995100424420038664880195f5e51f50">kMarginTop</a>);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  tableRect.setWidth(mainRect.width() - <a class="code" href="class_info_line.html#a0f0bd713ed9c1c8012bbd29dbd1db75e">kMarginRight</a>);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  tableRect.setHeight(mainRect.height() - headRect.height() - <a class="code" href="class_info_line.html#a995100424420038664880195f5e51f50">kMarginTop</a> -</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                      <a class="code" href="class_info_line.html#ab4bd85105aabcb9d1230225c15873da2">kMarginBot</a>);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <a class="code" href="class_data_table.html">DataTable</a> dataTable(<a class="code" href="class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9">kTableRows</a>, <a class="code" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">kTableColums</a>);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  dataTable.<a class="code" href="class_data_table.html#a8a8cd6f95caaaff148993f8e28eeb703">setSize</a>(tableRect);</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="comment">// Current head.</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  QString table0x1 = <span class="stringliteral">&quot;Current [&quot;</span>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  table0x1.append(<a class="code" href="class_unit.html#a7bd3ed3edcb18170cd162d384075b651">Unit::currentUnitToStr</a>(<a class="code" href="group___graphics.html#gac6a26db5fef2b1dd2a00faf6340d1702">Network::currentUnit</a>));</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  table0x1.append(<span class="stringliteral">&quot;]&quot;</span>);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  dataTable.<a class="code" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">setText</a>(table0x1, 0, 1);</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <span class="comment">// Loss head.</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  QString table0x2 = <span class="stringliteral">&quot;Loss [&quot;</span>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  table0x2.append(<a class="code" href="class_unit.html#ad1487441b5a7eb93a3eb0aeebe947725">Unit::powerUnitToStr</a>(<a class="code" href="group___graphics.html#ga9504015bc566f4a3d3b4d4a86000293b">Network::powerUnit</a>));</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  table0x2.append(<span class="stringliteral">&quot;]&quot;</span>);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  dataTable.<a class="code" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">setText</a>(table0x2, 0, 2);</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="comment">// Phase A head.</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  QString table1x0 = <span class="stringliteral">&quot;Phase A&quot;</span>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  dataTable.<a class="code" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">setText</a>(table1x0, 1, 0);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="comment">// Phase B head.</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  QString table2x0 = <span class="stringliteral">&quot;Phase B&quot;</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  dataTable.<a class="code" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">setText</a>(table2x0, 2, 0);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="comment">// Phase C head.</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  QString table3x0 = <span class="stringliteral">&quot;Phase C&quot;</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  dataTable.<a class="code" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">setText</a>(table3x0, 3, 0);</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  QString buffer; <span class="comment">// buffer used to hold numeric values.</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="comment">//Draw table 1-1 text</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="comment">// Ia.</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  x = tableXi + tableDx/<span class="keyword">static_cast&lt;</span>qreal<span class="keyword">&gt;</span>(<a class="code" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">kTableColums</a>);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">//  buffer = QString::number(abs(line_-&gt;Ia)) + &quot; / &quot; + QString::number(arg(</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">//             line_-&gt;Ia)*180.0/M_PI) + &quot;°&quot;;</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">//  painter-&gt;drawText(x,y,w,h, Qt::AlignCenter, buffer);</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">//  //Draw table 1-2 text</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">//  // La.</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">//  x = tableXi + 2*tableDx/static_cast&lt;qreal&gt;(kTableColums);</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">//  buffer = QString::number(line_-&gt;lossA().real()) + &quot; + &quot; + QString::number(</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">//             line_-&gt;lossA().imag()) + &quot;i&quot;;</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">//  painter-&gt;drawText(x,y,w,h, Qt::AlignCenter, buffer);</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">//  //Draw table 2-0 text</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">//  // Phase B.</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">//  x = tableXi;</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">//  y = tableYi + 2*tableDy/static_cast&lt;qreal&gt;(kTableRows);</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">//  painter-&gt;drawText(x,y,w,h, Qt::AlignCenter, &quot;Phase B&quot;);</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment">//  x = tableXi + tableDx/static_cast&lt;qreal&gt;(kTableColums);</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">//  buffer = QString::number(abs(line_-&gt;Ib)) + &quot; / &quot; + QString::number(arg(</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">//             line_-&gt;Ib)*180.0/M_PI) + &quot;°&quot;;</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">//  painter-&gt;drawText(x,y,w,h, Qt::AlignCenter, buffer);</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">//  //Draw table 2-2 text</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">//  // Lb.</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">//  x = tableXi + 2*tableDx/static_cast&lt;qreal&gt;(kTableColums);</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">//  buffer = QString::number(line_-&gt;lossB().real()) + &quot; + &quot; + QString::number(</span></div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">//             line_-&gt;lossB().imag()) + &quot;i&quot;;</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment">//  painter-&gt;drawText(x,y,w,h, Qt::AlignCenter, buffer);</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">//  //Draw table 3-0 text</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">//  // Phase C.</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">//  x = tableXi;</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment">//  y = tableYi + 3*tableDy/static_cast&lt;qreal&gt;(kTableRows);</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment">//  painter-&gt;drawText(x,y,w,h, Qt::AlignCenter, &quot;Phase C&quot;);</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">//  //Draw table 3-1 text</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">//  // Ic.</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">//  x = tableXi + tableDx/static_cast&lt;qreal&gt;(kTableColums);</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">//  buffer = QString::number(abs(line_-&gt;Ic)) + &quot; / &quot; + QString::number(arg(</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">//             line_-&gt;Ic)*180.0/M_PI) + &quot;°&quot;;</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">//  painter-&gt;drawText(x,y,w,h, Qt::AlignCenter, buffer);</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="comment">// Current Phase A.</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  QString table1x1 = QString::number(abs(line_-&gt;<a class="code" href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">i</a>(0, <a class="code" href="group___graphics.html#gac6a26db5fef2b1dd2a00faf6340d1702">Network::currentUnit</a>)));</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  table1x1.append(<span class="stringliteral">&quot; / &quot;</span>);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  table1x1.append(QString::number(arg(line_-&gt;<a class="code" href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">i</a>(0,</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                                      <a class="code" href="group___graphics.html#gac6a26db5fef2b1dd2a00faf6340d1702">Network::currentUnit</a>)*180.0/<a class="code" href="math__constants_8h.html#a368d99984512d9a6c6f18b37b4446431">kPI</a>)));</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  table1x1.append(<span class="stringliteral">&quot;°&quot;</span>);</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  dataTable.<a class="code" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">setText</a>(table1x1, 1, 1);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="comment">// Loss Phase A.</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  QString table1x2 = QString::number(abs(line_-&gt;<a class="code" href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53">loss</a>(0, <a class="code" href="group___graphics.html#ga9504015bc566f4a3d3b4d4a86000293b">Network::powerUnit</a>)));</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  table1x2.append(<span class="stringliteral">&quot; / &quot;</span>);</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  table1x2.append(QString::number(arg(line_-&gt;<a class="code" href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53">loss</a>(0,</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                                      <a class="code" href="group___graphics.html#ga9504015bc566f4a3d3b4d4a86000293b">Network::powerUnit</a>)*180.0/<a class="code" href="math__constants_8h.html#a368d99984512d9a6c6f18b37b4446431">kPI</a>)));</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  table1x2.append(<span class="stringliteral">&quot;°&quot;</span>);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  dataTable.<a class="code" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">setText</a>(table1x2, 1, 2);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="comment">// Current Phase B.</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  QString table2x1 = QString::number(abs(line_-&gt;<a class="code" href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">i</a>(1, <a class="code" href="group___graphics.html#gac6a26db5fef2b1dd2a00faf6340d1702">Network::currentUnit</a>)));</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  table2x1.append(<span class="stringliteral">&quot; / &quot;</span>);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  table2x1.append(QString::number(arg(line_-&gt;<a class="code" href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">i</a>(1,</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;                                      <a class="code" href="group___graphics.html#gac6a26db5fef2b1dd2a00faf6340d1702">Network::currentUnit</a>)*180.0/<a class="code" href="math__constants_8h.html#a368d99984512d9a6c6f18b37b4446431">kPI</a>)));</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  table2x1.append(<span class="stringliteral">&quot;°&quot;</span>);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  dataTable.<a class="code" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">setText</a>(table2x1, 2, 1);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="comment">// Loss Phase B.</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  QString table2x2 = QString::number(abs(line_-&gt;<a class="code" href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53">loss</a>(1, <a class="code" href="group___graphics.html#ga9504015bc566f4a3d3b4d4a86000293b">Network::powerUnit</a>)));</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  table2x2.append(<span class="stringliteral">&quot; / &quot;</span>);</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  table2x2.append(QString::number(arg(line_-&gt;<a class="code" href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53">loss</a>(1,</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;                                      <a class="code" href="group___graphics.html#ga9504015bc566f4a3d3b4d4a86000293b">Network::powerUnit</a>)*180.0/<a class="code" href="math__constants_8h.html#a368d99984512d9a6c6f18b37b4446431">kPI</a>)));</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  table2x2.append(<span class="stringliteral">&quot;°&quot;</span>);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  dataTable.<a class="code" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">setText</a>(table2x2, 2, 2);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  <span class="comment">// Current Phase C.</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  QString table3x1 = QString::number(abs(line_-&gt;<a class="code" href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">i</a>(2, <a class="code" href="group___graphics.html#gac6a26db5fef2b1dd2a00faf6340d1702">Network::currentUnit</a>)));</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  table3x1.append(<span class="stringliteral">&quot; / &quot;</span>);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  table3x1.append(QString::number(arg(line_-&gt;<a class="code" href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">i</a>(2,</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                                      <a class="code" href="group___graphics.html#gac6a26db5fef2b1dd2a00faf6340d1702">Network::currentUnit</a>)*180.0/<a class="code" href="math__constants_8h.html#a368d99984512d9a6c6f18b37b4446431">kPI</a>)));</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  table3x1.append(<span class="stringliteral">&quot;°&quot;</span>);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  dataTable.<a class="code" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">setText</a>(table3x1, 3, 1);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="comment">// Loss Phase C.</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  QString table3x2 = QString::number(abs(line_-&gt;<a class="code" href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53">loss</a>(2, <a class="code" href="group___graphics.html#ga9504015bc566f4a3d3b4d4a86000293b">Network::powerUnit</a>)));</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  table3x2.append(<span class="stringliteral">&quot; / &quot;</span>);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  table3x2.append(QString::number(arg(line_-&gt;<a class="code" href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53">loss</a>(2,</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                                      <a class="code" href="group___graphics.html#ga9504015bc566f4a3d3b4d4a86000293b">Network::powerUnit</a>)*180.0/<a class="code" href="math__constants_8h.html#a368d99984512d9a6c6f18b37b4446431">kPI</a>)));</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  table3x2.append(<span class="stringliteral">&quot;°&quot;</span>);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  dataTable.<a class="code" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">setText</a>(table3x1, 3, 2);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  dataTable.<a class="code" href="class_data_table.html#a3a3695e88dcd4d4aad5cc941ec7e6e55">drawTable</a>(painter);</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="comment">//  //Draw table 3-2 text</span></div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="comment">//  // Lc.</span></div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="comment">//  x = tableXi + 2*tableDx/static_cast&lt;qreal&gt;(kTableColums);</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment">//  buffer = QString::number(line_-&gt;lossC().real()) + &quot; + &quot; + QString::number(</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment">//             line_-&gt;lossC().imag()) + &quot;i&quot;;</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">//  painter-&gt;drawText(x,y,w,h, Qt::AlignCenter, buffer);</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment">//  // Draw base.</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="comment">//  painter-&gt;setPen(QPen(Qt::black, kLineWidth, Qt::SolidLine));</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="comment">//  painter-&gt;setBrush(Qt::black);</span></div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="comment">//  QPolygonF pol_base;</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">//  pol_base &lt;&lt; QPointF(-kBoxBaseWidth/2, -kBoxBaseHeight) &lt;&lt; QPointF(0.0, 0.0)</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment">//           &lt;&lt; QPointF(kBoxBaseWidth/2, -kBoxBaseHeight);</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">//  painter-&gt;drawPolygon(pol_base);</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;}</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="comment"> * boundingRect.</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno"><a class="line" href="class_info_line.html#a3103eee5d5a8b4fd53d428f9aea01830">  187</a></span>&#160;QRectF <a class="code" href="class_info_line.html#a3103eee5d5a8b4fd53d428f9aea01830">InfoLine::boundingRect</a>()<span class="keyword"> const</span></div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="keyword"></span>{</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  <span class="keywordflow">return</span> QRectF(-<a class="code" href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">kBoxWidth</a> / 2, -<a class="code" href="class_info_line.html#a279cafcac8d844a00bd27dde524102dd">kBoxHeight</a> - <a class="code" href="class_info_line.html#ab332e0b1c83e5ab8f551e3f39b2dfc55">kBoxBaseHeight</a>, <a class="code" href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">kBoxWidth</a>,</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                <a class="code" href="class_info_line.html#a279cafcac8d844a00bd27dde524102dd">kBoxHeight</a> + <a class="code" href="class_info_line.html#ab332e0b1c83e5ab8f551e3f39b2dfc55">kBoxBaseHeight</a>);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
-<div class="ttc" id="class_info_line_html_a9d03a53c9bca9357e502a1e423ff4541"><div class="ttname"><a href="class_info_line.html#a9d03a53c9bca9357e502a1e423ff4541">InfoLine::kTableLineWidth</a></div><div class="ttdeci">static const qreal kTableLineWidth</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00035">infoline.h:35</a></div></div>
-<div class="ttc" id="class_info_line_html_ac696c9944716774dfe85a40ac5a434e1"><div class="ttname"><a href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1">InfoLine::paint</a></div><div class="ttdeci">void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00028">infoline.cpp:28</a></div></div>
-<div class="ttc" id="group___models_html_gabbc73ddedd3075c33ae5331bd7c9829f"><div class="ttname"><a href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">Line::pNoF</a></div><div class="ttdeci">Bar * pNoF()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00168">line.cpp:168</a></div></div>
-<div class="ttc" id="class_info_line_html_a480271b6a9d683ab36c0c6ef142a461f"><div class="ttname"><a href="class_info_line.html#a480271b6a9d683ab36c0c6ef142a461f">InfoLine::kMarginLeft</a></div><div class="ttdeci">static const qreal kMarginLeft</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00031">infoline.h:31</a></div></div>
-<div class="ttc" id="class_info_line_html_a95cdc7a95cde6db7c6faceda995d26b9"><div class="ttname"><a href="class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9">InfoLine::kTableRows</a></div><div class="ttdeci">static const int kTableRows</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00016">infoline.h:16</a></div></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  <span class="comment">// Draw base.</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  painter-&gt;setPen(QPen(Qt::black, <a class="code" href="class_info_line.html#ad072bc8ef178113c36c3d480c7d637ac">kLineWidth</a>, Qt::SolidLine));</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  painter-&gt;setBrush(Qt::black);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  QPolygonF pol_base;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  pol_base &lt;&lt; QPointF(-<a class="code" href="class_info_line.html#aad905589137b80ba75d9a1c49535eb1a">kBoxBaseWidth</a>/2, -<a class="code" href="class_info_line.html#ab50f47aa54c45def219859e9da3755e6">kBoxBaseHeight</a>) &lt;&lt; QPointF(0.0, 0.0)</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;           &lt;&lt; QPointF(<a class="code" href="class_info_line.html#aad905589137b80ba75d9a1c49535eb1a">kBoxBaseWidth</a>/2, -<a class="code" href="class_info_line.html#ab50f47aa54c45def219859e9da3755e6">kBoxBaseHeight</a>);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  painter-&gt;drawPolygon(pol_base);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;}</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment"> * Set head font size.</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="class_info_line.html#a389ea4f5085b60d03022b94e636f11d1">  181</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_info_line.html#a389ea4f5085b60d03022b94e636f11d1">InfoLine::setHeadFont</a>(QPainter *painter)</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;{</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <span class="comment">// Set head font size.</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  QFont font;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  font.setPointSize(font.pointSize() * 1.25);</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  painter-&gt;setFont(font);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment"> * Set normal font size.</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno"><a class="line" href="class_info_line.html#a4d5084d616c878cb717e8445db0023c1">  192</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_info_line.html#a4d5084d616c878cb717e8445db0023c1">InfoLine::setNormalFont</a>(QPainter *painter)</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;{</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  <span class="comment">// Set normal font size.</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  QFont font;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  font.setPointSize(painter-&gt;font().pointSize() / 1.25);</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  painter-&gt;setFont(font);</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;}</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment"> * Draw main rectangle.</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno"><a class="line" href="class_info_line.html#a3a0f83ad98fe674513dab679e22cba42">  203</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_info_line.html#a3a0f83ad98fe674513dab679e22cba42">InfoLine::drawMainRectangle</a>(QRectF mainRect,<span class="keywordtype">double</span> lineWidth,</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;                                 QPainter *painter)</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;{</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  <span class="comment">// Draw main rectangle.</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  painter-&gt;setPen(QPen(Qt::black, lineWidth, Qt::SolidLine));</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  painter-&gt;setBrush(Qt::white);</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;  painter-&gt;drawRect(mainRect);</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;}</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment"> * Draw head separator.</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno"><a class="line" href="class_info_line.html#a53e9012a9cef4f07f1d4872c6d250c08">  216</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_info_line.html#a53e9012a9cef4f07f1d4872c6d250c08">InfoLine::drawHeadSeparator</a>(QRectF headRect, QPainter *painter)</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;{</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  QPointF p1(headRect.x(), headRect.y() + headRect.height());</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  QPointF p2(headRect.x() + headRect.width(), headRect.y() + headRect.height());</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  painter-&gt;drawLine(p1, p2);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;}</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="comment"> * Draw head text.</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno"><a class="line" href="class_info_line.html#a043932fa92604badc063e09691195609">  228</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="class_info_line.html#a043932fa92604badc063e09691195609">InfoLine::drawHeadText</a>(QRectF headRect, <span class="keywordtype">double</span> marginTop, QString &amp;text,</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;                            QPainter *painter)</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;{</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  <span class="comment">// Draw Head Text.</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  painter-&gt;drawText(headRect.x(), headRect.y() + marginTop,</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                    headRect.width(), painter-&gt;font().pointSize(),</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                    Qt::AlignCenter, text);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;}</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="comment"> * Bounding Rectangle.</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00240"></a><span class="lineno"><a class="line" href="class_info_line.html#a3103eee5d5a8b4fd53d428f9aea01830">  240</a></span>&#160;QRectF <a class="code" href="class_info_line.html#a3103eee5d5a8b4fd53d428f9aea01830">InfoLine::boundingRect</a>()<span class="keyword"> const</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="keyword"></span>{</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  <span class="keywordflow">return</span> QRectF(-<a class="code" href="class_info_line.html#a33821aa140dc03829357d4006e9c153c">kBoxWidth</a> / 2, -<a class="code" href="class_info_line.html#a9e459549795bab79ae3b6c184dc78a00">kBoxHeight</a> - <a class="code" href="class_info_line.html#ab50f47aa54c45def219859e9da3755e6">kBoxBaseHeight</a>, <a class="code" href="class_info_line.html#a33821aa140dc03829357d4006e9c153c">kBoxWidth</a>,</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;                <a class="code" href="class_info_line.html#a9e459549795bab79ae3b6c184dc78a00">kBoxHeight</a> + <a class="code" href="class_info_line.html#ab50f47aa54c45def219859e9da3755e6">kBoxBaseHeight</a>);</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;}</div>
+<div class="ttc" id="class_info_line_html_a995100424420038664880195f5e51f50"><div class="ttname"><a href="class_info_line.html#a995100424420038664880195f5e51f50">InfoLine::kMarginTop</a></div><div class="ttdeci">static const double kMarginTop</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00028">infoline.h:28</a></div></div>
+<div class="ttc" id="class_info_line_html_a389ea4f5085b60d03022b94e636f11d1"><div class="ttname"><a href="class_info_line.html#a389ea4f5085b60d03022b94e636f11d1">InfoLine::setHeadFont</a></div><div class="ttdeci">void setHeadFont(QPainter *painter)</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00181">infoline.cpp:181</a></div></div>
+<div class="ttc" id="datatable_8h_html"><div class="ttname"><a href="datatable_8h.html">datatable.h</a></div></div>
+<div class="ttc" id="group___graphics_html_ga9504015bc566f4a3d3b4d4a86000293b"><div class="ttname"><a href="group___graphics.html#ga9504015bc566f4a3d3b4d4a86000293b">Network::powerUnit</a></div><div class="ttdeci">static Unit::PowerUnit powerUnit</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00107">network.h:107</a></div></div>
+<div class="ttc" id="class_data_table_html_a8a8cd6f95caaaff148993f8e28eeb703"><div class="ttname"><a href="class_data_table.html#a8a8cd6f95caaaff148993f8e28eeb703">DataTable::setSize</a></div><div class="ttdeci">void setSize(QRectF &amp;size)</div><div class="ttdef"><b>Definition:</b> <a href="datatable_8cpp_source.html#l00019">datatable.cpp:19</a></div></div>
+<div class="ttc" id="class_info_line_html_ac696c9944716774dfe85a40ac5a434e1"><div class="ttname"><a href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1">InfoLine::paint</a></div><div class="ttdeci">void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00053">infoline.cpp:53</a></div></div>
+<div class="ttc" id="group___models_html_gabbc73ddedd3075c33ae5331bd7c9829f"><div class="ttname"><a href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">Line::pNoF</a></div><div class="ttdeci">Bar * pNoF()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00285">line.cpp:285</a></div></div>
+<div class="ttc" id="class_info_line_html_ad072bc8ef178113c36c3d480c7d637ac"><div class="ttname"><a href="class_info_line.html#ad072bc8ef178113c36c3d480c7d637ac">InfoLine::kLineWidth</a></div><div class="ttdeci">static const double kLineWidth</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00021">infoline.h:21</a></div></div>
+<div class="ttc" id="class_info_line_html_a9e459549795bab79ae3b6c184dc78a00"><div class="ttname"><a href="class_info_line.html#a9e459549795bab79ae3b6c184dc78a00">InfoLine::kBoxHeight</a></div><div class="ttdeci">static const double kBoxHeight</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00020">infoline.h:20</a></div></div>
+<div class="ttc" id="math__constants_8h_html"><div class="ttname"><a href="math__constants_8h.html">math_constants.h</a></div></div>
+<div class="ttc" id="class_info_line_html_a95cdc7a95cde6db7c6faceda995d26b9"><div class="ttname"><a href="class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9">InfoLine::kTableRows</a></div><div class="ttdeci">static const int kTableRows</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00015">infoline.h:15</a></div></div>
 <div class="ttc" id="infoline_8h_html"><div class="ttname"><a href="infoline_8h.html">infoline.h</a></div></div>
-<div class="ttc" id="class_info_line_html_a9fc071b08eb913cf3afc623835ad2fd8"><div class="ttname"><a href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">InfoLine::kTableColums</a></div><div class="ttdeci">static const int kTableColums</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00017">infoline.h:17</a></div></div>
-<div class="ttc" id="class_info_line_html_a18390d54c56cd68cf6e767a5df7404d8"><div class="ttname"><a href="class_info_line.html#a18390d54c56cd68cf6e767a5df7404d8">InfoLine::kLineWidth</a></div><div class="ttdeci">static const qreal kLineWidth</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00022">infoline.h:22</a></div></div>
-<div class="ttc" id="class_info_line_html_a279cafcac8d844a00bd27dde524102dd"><div class="ttname"><a href="class_info_line.html#a279cafcac8d844a00bd27dde524102dd">InfoLine::kBoxHeight</a></div><div class="ttdeci">static const qreal kBoxHeight</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00021">infoline.h:21</a></div></div>
-<div class="ttc" id="class_info_line_html_aa08e22c99ce13c2fc57a9d9c9de4d99f"><div class="ttname"><a href="class_info_line.html#aa08e22c99ce13c2fc57a9d9c9de4d99f">InfoLine::kMarginHeadTop</a></div><div class="ttdeci">static const qreal kMarginHeadTop</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00025">infoline.h:25</a></div></div>
-<div class="ttc" id="class_info_line_html_a3103eee5d5a8b4fd53d428f9aea01830"><div class="ttname"><a href="class_info_line.html#a3103eee5d5a8b4fd53d428f9aea01830">InfoLine::boundingRect</a></div><div class="ttdeci">QRectF boundingRect() const Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00187">infoline.cpp:187</a></div></div>
+<div class="ttc" id="class_data_table_html_a3a3695e88dcd4d4aad5cc941ec7e6e55"><div class="ttname"><a href="class_data_table.html#a3a3695e88dcd4d4aad5cc941ec7e6e55">DataTable::drawTable</a></div><div class="ttdeci">void drawTable(QPainter *painter)</div><div class="ttdef"><b>Definition:</b> <a href="datatable_8cpp_source.html#l00029">datatable.cpp:29</a></div></div>
+<div class="ttc" id="class_info_line_html_a9fc071b08eb913cf3afc623835ad2fd8"><div class="ttname"><a href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">InfoLine::kTableColums</a></div><div class="ttdeci">static const int kTableColums</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00016">infoline.h:16</a></div></div>
+<div class="ttc" id="class_network_html_ab6643733a517f930c60b06f5ffd78186"><div class="ttname"><a href="class_network.html#ab6643733a517f930c60b06f5ffd78186">Network::name</a></div><div class="ttdeci">QString name</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00114">network.h:114</a></div></div>
+<div class="ttc" id="class_info_line_html_a3a0f83ad98fe674513dab679e22cba42"><div class="ttname"><a href="class_info_line.html#a3a0f83ad98fe674513dab679e22cba42">InfoLine::drawMainRectangle</a></div><div class="ttdeci">void drawMainRectangle(QRectF mainRect, double lineWidth, QPainter *painter)</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00203">infoline.cpp:203</a></div></div>
+<div class="ttc" id="class_network_html_a771b16f7eb4459d0ca7141c048b1ab59"><div class="ttname"><a href="class_network.html#a771b16f7eb4459d0ca7141c048b1ab59">Network::yOffset</a></div><div class="ttdeci">double yOffset</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00118">network.h:118</a></div></div>
+<div class="ttc" id="class_line_html_aefdf6a6c3e3775b5a16b344c1d33964e"><div class="ttname"><a href="class_line.html#aefdf6a6c3e3775b5a16b344c1d33964e">Line::network</a></div><div class="ttdeci">Network * network</div><div class="ttdef"><b>Definition:</b> <a href="line_8h_source.html#l00089">line.h:89</a></div></div>
+<div class="ttc" id="class_info_line_html_a82ed1944ec4a41af19e377a243c2332d"><div class="ttname"><a href="class_info_line.html#a82ed1944ec4a41af19e377a243c2332d">InfoLine::kMarginHeadBot</a></div><div class="ttdeci">static const double kMarginHeadBot</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00025">infoline.h:25</a></div></div>
+<div class="ttc" id="math__constants_8h_html_a368d99984512d9a6c6f18b37b4446431"><div class="ttname"><a href="math__constants_8h.html#a368d99984512d9a6c6f18b37b4446431">kPI</a></div><div class="ttdeci">const double kPI</div><div class="ttdef"><b>Definition:</b> <a href="math__constants_8h_source.html#l00004">math_constants.h:4</a></div></div>
+<div class="ttc" id="class_info_line_html_aad905589137b80ba75d9a1c49535eb1a"><div class="ttname"><a href="class_info_line.html#aad905589137b80ba75d9a1c49535eb1a">InfoLine::kBoxBaseWidth</a></div><div class="ttdeci">static const double kBoxBaseWidth</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00035">infoline.h:35</a></div></div>
+<div class="ttc" id="class_network_html_a9f5c70be28a45320802bd0ac3947d114"><div class="ttname"><a href="class_network.html#a9f5c70be28a45320802bd0ac3947d114">Network::xOffset</a></div><div class="ttdeci">double xOffset</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00116">network.h:116</a></div></div>
+<div class="ttc" id="class_info_line_html_a4d5084d616c878cb717e8445db0023c1"><div class="ttname"><a href="class_info_line.html#a4d5084d616c878cb717e8445db0023c1">InfoLine::setNormalFont</a></div><div class="ttdeci">void setNormalFont(QPainter *painter)</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00192">infoline.cpp:192</a></div></div>
+<div class="ttc" id="class_info_line_html_a3103eee5d5a8b4fd53d428f9aea01830"><div class="ttname"><a href="class_info_line.html#a3103eee5d5a8b4fd53d428f9aea01830">InfoLine::boundingRect</a></div><div class="ttdeci">QRectF boundingRect() const Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00240">infoline.cpp:240</a></div></div>
+<div class="ttc" id="group___models_html_gaf81e7055102816465bdf7e19afc2d547"><div class="ttname"><a href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">Line::i</a></div><div class="ttdeci">complex&lt; double &gt; i(int32_t phase, Unit::CurrentUnit unit=Unit::kAmpere)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00162">line.cpp:162</a></div></div>
+<div class="ttc" id="customtypes_8h_html"><div class="ttname"><a href="customtypes_8h.html">customtypes.h</a></div></div>
+<div class="ttc" id="class_info_line_html_a53e9012a9cef4f07f1d4872c6d250c08"><div class="ttname"><a href="class_info_line.html#a53e9012a9cef4f07f1d4872c6d250c08">InfoLine::drawHeadSeparator</a></div><div class="ttdeci">void drawHeadSeparator(QRectF headRect, QPainter *painter)</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00216">infoline.cpp:216</a></div></div>
+<div class="ttc" id="class_info_line_html_a33821aa140dc03829357d4006e9c153c"><div class="ttname"><a href="class_info_line.html#a33821aa140dc03829357d4006e9c153c">InfoLine::kBoxWidth</a></div><div class="ttdeci">static const double kBoxWidth</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00019">infoline.h:19</a></div></div>
+<div class="ttc" id="network_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Network class definition. </div></div>
 <div class="ttc" id="class_line_html"><div class="ttname"><a href="class_line.html">Line</a></div><div class="ttdoc">Represents a cable in power distribution systems. </div><div class="ttdef"><b>Definition:</b> <a href="line_8h_source.html#l00074">line.h:74</a></div></div>
-<div class="ttc" id="class_info_line_html_a82acf816389449ddce739e8abb6e0fdc"><div class="ttname"><a href="class_info_line.html#a82acf816389449ddce739e8abb6e0fdc">InfoLine::kMarginBot</a></div><div class="ttdeci">static const qreal kMarginBot</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00030">infoline.h:30</a></div></div>
-<div class="ttc" id="class_info_line_html_ac3497eeb5f2719fb4fac42434955597d"><div class="ttname"><a href="class_info_line.html#ac3497eeb5f2719fb4fac42434955597d">InfoLine::~InfoLine</a></div><div class="ttdeci">~InfoLine()</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00023">infoline.cpp:23</a></div></div>
-<div class="ttc" id="class_info_line_html_a63819dbfeb257cc86be86f0fac3aa02f"><div class="ttname"><a href="class_info_line.html#a63819dbfeb257cc86be86f0fac3aa02f">InfoLine::InfoLine</a></div><div class="ttdeci">InfoLine(Line *line)</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00010">infoline.cpp:10</a></div></div>
-<div class="ttc" id="class_info_line_html_a3d981c2b5f55052aad8d105177be443d"><div class="ttname"><a href="class_info_line.html#a3d981c2b5f55052aad8d105177be443d">InfoLine::kMarginHeadBot</a></div><div class="ttdeci">static const qreal kMarginHeadBot</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00026">infoline.h:26</a></div></div>
-<div class="ttc" id="class_info_line_html_af945da2dfe0437816b9e1fe8e6668692"><div class="ttname"><a href="class_info_line.html#af945da2dfe0437816b9e1fe8e6668692">InfoLine::kMarginRight</a></div><div class="ttdeci">static const qreal kMarginRight</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00032">infoline.h:32</a></div></div>
-<div class="ttc" id="class_bar_html_a9dc5c6a6d44fe412ae34ef8a881b8dce"><div class="ttname"><a href="class_bar.html#a9dc5c6a6d44fe412ae34ef8a881b8dce">Bar::id</a></div><div class="ttdeci">int32_t id</div><div class="ttdoc">The bar id. </div><div class="ttdef"><b>Definition:</b> <a href="bar_8h_source.html#l00136">bar.h:136</a></div></div>
-<div class="ttc" id="class_info_line_html_ab332e0b1c83e5ab8f551e3f39b2dfc55"><div class="ttname"><a href="class_info_line.html#ab332e0b1c83e5ab8f551e3f39b2dfc55">InfoLine::kBoxBaseHeight</a></div><div class="ttdeci">static const qreal kBoxBaseHeight</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00039">infoline.h:39</a></div></div>
-<div class="ttc" id="class_info_line_html_ab0b7394c3710ba9d88da13a484069302"><div class="ttname"><a href="class_info_line.html#ab0b7394c3710ba9d88da13a484069302">InfoLine::kMarginTop</a></div><div class="ttdeci">static const qreal kMarginTop</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00029">infoline.h:29</a></div></div>
-<div class="ttc" id="class_info_line_html_af71f2b91ea77398bd770b973b71e2896"><div class="ttname"><a href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">InfoLine::kBoxWidth</a></div><div class="ttdeci">static const qreal kBoxWidth</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00020">infoline.h:20</a></div></div>
-<div class="ttc" id="group___models_html_gaeafd90e84ac2f8de2a879abe9e53eef3"><div class="ttname"><a href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">Line::pNoI</a></div><div class="ttdeci">Bar * pNoI()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00160">line.cpp:160</a></div></div>
+<div class="ttc" id="class_data_table_html"><div class="ttname"><a href="class_data_table.html">DataTable</a></div><div class="ttdef"><b>Definition:</b> <a href="datatable_8h_source.html#l00009">datatable.h:9</a></div></div>
+<div class="ttc" id="class_info_line_html_ab4bd85105aabcb9d1230225c15873da2"><div class="ttname"><a href="class_info_line.html#ab4bd85105aabcb9d1230225c15873da2">InfoLine::kMarginBot</a></div><div class="ttdeci">static const double kMarginBot</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00029">infoline.h:29</a></div></div>
+<div class="ttc" id="class_unit_html_a7bd3ed3edcb18170cd162d384075b651"><div class="ttname"><a href="class_unit.html#a7bd3ed3edcb18170cd162d384075b651">Unit::currentUnitToStr</a></div><div class="ttdeci">static QString currentUnitToStr(CurrentUnit currentUnit)</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8cpp_source.html#l00108">customtypes.cpp:108</a></div></div>
+<div class="ttc" id="class_info_line_html_ac3497eeb5f2719fb4fac42434955597d"><div class="ttname"><a href="class_info_line.html#ac3497eeb5f2719fb4fac42434955597d">InfoLine::~InfoLine</a></div><div class="ttdeci">~InfoLine()</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00045">infoline.cpp:45</a></div></div>
+<div class="ttc" id="group___graphics_html_gac6a26db5fef2b1dd2a00faf6340d1702"><div class="ttname"><a href="group___graphics.html#gac6a26db5fef2b1dd2a00faf6340d1702">Network::currentUnit</a></div><div class="ttdeci">static Unit::CurrentUnit currentUnit</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00109">network.h:109</a></div></div>
+<div class="ttc" id="group___models_html_ga7909d69e419de3f460ca7abab3d91e53"><div class="ttname"><a href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53">Line::loss</a></div><div class="ttdeci">complex&lt; double &gt; loss(int32_t phase, Unit::PowerUnit)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00211">line.cpp:211</a></div></div>
+<div class="ttc" id="class_info_line_html_a0f0bd713ed9c1c8012bbd29dbd1db75e"><div class="ttname"><a href="class_info_line.html#a0f0bd713ed9c1c8012bbd29dbd1db75e">InfoLine::kMarginRight</a></div><div class="ttdeci">static const double kMarginRight</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00031">infoline.h:31</a></div></div>
+<div class="ttc" id="class_info_line_html_a73e02db68396f0c4b66d0cf80bd37c83"><div class="ttname"><a href="class_info_line.html#a73e02db68396f0c4b66d0cf80bd37c83">InfoLine::kMarginHeadTop</a></div><div class="ttdeci">static const double kMarginHeadTop</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00024">infoline.h:24</a></div></div>
+<div class="ttc" id="class_info_line_html_a63819dbfeb257cc86be86f0fac3aa02f"><div class="ttname"><a href="class_info_line.html#a63819dbfeb257cc86be86f0fac3aa02f">InfoLine::InfoLine</a></div><div class="ttdeci">InfoLine(Line *line)</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00030">infoline.cpp:30</a></div></div>
+<div class="ttc" id="class_info_line_html_ab50f47aa54c45def219859e9da3755e6"><div class="ttname"><a href="class_info_line.html#ab50f47aa54c45def219859e9da3755e6">InfoLine::kBoxBaseHeight</a></div><div class="ttdeci">static const double kBoxBaseHeight</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00034">infoline.h:34</a></div></div>
+<div class="ttc" id="class_info_line_html_a68232e6e5e3b63a4b6aced3d99291ad7"><div class="ttname"><a href="class_info_line.html#a68232e6e5e3b63a4b6aced3d99291ad7">InfoLine::kMarginLeft</a></div><div class="ttdeci">static const double kMarginLeft</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00030">infoline.h:30</a></div></div>
+<div class="ttc" id="class_info_line_html_a043932fa92604badc063e09691195609"><div class="ttname"><a href="class_info_line.html#a043932fa92604badc063e09691195609">InfoLine::drawHeadText</a></div><div class="ttdeci">void drawHeadText(QRectF headRect, double marginTop, QString &amp;text, QPainter *painter)</div><div class="ttdef"><b>Definition:</b> <a href="infoline_8cpp_source.html#l00228">infoline.cpp:228</a></div></div>
+<div class="ttc" id="class_line_html_afd17c40d656e6a8d677cb22df5f0c70b"><div class="ttname"><a href="class_line.html#afd17c40d656e6a8d677cb22df5f0c70b">Line::nodes</a></div><div class="ttdeci">QPair&lt; int32_t, int32_t &gt; nodes</div><div class="ttdef"><b>Definition:</b> <a href="line_8h_source.html#l00087">line.h:87</a></div></div>
+<div class="ttc" id="class_unit_html_ad1487441b5a7eb93a3eb0aeebe947725"><div class="ttname"><a href="class_unit.html#ad1487441b5a7eb93a3eb0aeebe947725">Unit::powerUnitToStr</a></div><div class="ttdeci">static QString powerUnitToStr(PowerUnit powerUnit)</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8cpp_source.html#l00066">customtypes.cpp:66</a></div></div>
+<div class="ttc" id="group___models_html_gaeafd90e84ac2f8de2a879abe9e53eef3"><div class="ttname"><a href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">Line::pNoI</a></div><div class="ttdeci">Bar * pNoI()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00277">line.cpp:277</a></div></div>
+<div class="ttc" id="class_data_table_html_aee0d28c77116b51360f0124a529cb3ff"><div class="ttname"><a href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff">DataTable::setText</a></div><div class="ttdeci">void setText(QString &amp;text, int32_t row, int32_t col)</div><div class="ttdef"><b>Definition:</b> <a href="datatable_8cpp_source.html#l00024">datatable.cpp:24</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:43 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

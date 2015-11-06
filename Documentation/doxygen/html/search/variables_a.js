@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['voltagebase',['voltageBase',['../class_network.html#a7c1e79d9ac69df9a69f24eaf092fd5e5',1,'Network']]],
-  ['voltageunit',['voltageUnit',['../class_network.html#acde031ef95f5c05565ee35769f2ed89e',1,'Network']]]
+  ['selectedcolor',['selectedColor',['../group___graphics.html#gaa9e21b8e2a24b0495e776a51e1aeed94',1,'Network']]],
+  ['slackgeneration',['slackGeneration',['../class_shirmoharmmadi.html#aeb47da6439c2e92c7ebcc59ebb71624b',1,'Shirmoharmmadi']]]
 ];

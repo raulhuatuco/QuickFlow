@@ -54,53 +54,38 @@
 00101 
 00106   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga2078ad08ff93b9a8683d567e3f9f714e}{removeNetwork}(\hyperlink{class_network}{Network} *network);
 00107 
-00108 \textcolor{keyword}{private} slots:
-00109 \textcolor{comment}{//  /*****************************************************************************}
-00110 \textcolor{comment}{//   * Edit bar.}
-00111 \textcolor{comment}{//   ****************************************************************************/}
-00112 \textcolor{comment}{//  /*!}
-00113 \textcolor{comment}{//   * \(\backslash\)brief Opens the bar properties editor for bar \(\backslash\)b bar.}
-00114 \textcolor{comment}{//   * This slot handles the bar double click event.}
-00115 \textcolor{comment}{//   *}
-00116 \textcolor{comment}{//   * \(\backslash\)param[in/out] bar Bar to be edited.}
-00117 \textcolor{comment}{//   */}
-00118 \textcolor{comment}{//  void on\_editBar(QObject *bar);}
+00108   \textcolor{keywordtype}{void} \hyperlink{group___graphics_gac4e02019d41c203c788ff1e6f3ee460e}{addBar}(\hyperlink{class_bar}{Bar} *bar);
+00109 
+00110   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga1e96b08395a2f1b961dedbb3e8c99a50}{removeBar}(\hyperlink{class_bar}{Bar} *bar);
+00111 
+00112   \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaed2fb15d518cab9a52ea1ee258846bfc}{addLine}(\hyperlink{class_line}{Line} *line);
+00113   
+00114   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga4af1d763d9b9c02933e62d1f6231ad18}{removeLine}(\hyperlink{class_line}{Line} *line);
+00115   
+00116 signals:
+00117 
+00118   \textcolor{keywordtype}{void} \hyperlink{class_system_view_a90bd4b070c8abaa5995899154421eb44}{barProperties}(QObject *);
 00119 
-00120 \textcolor{comment}{//  /*****************************************************************************}
-00121 \textcolor{comment}{//   * Edit line.}
-00122 \textcolor{comment}{//   ****************************************************************************/}
-00123 \textcolor{comment}{//  /*!}
-00124 \textcolor{comment}{//   * \(\backslash\)brief Opens the line properties editor for line \(\backslash\)b line.}
-00125 \textcolor{comment}{//   * This slot handles the line double click event.}
-00126 \textcolor{comment}{//   *}
-00127 \textcolor{comment}{//   * \(\backslash\)param[in/out] line Line to be edited.}
-00128 \textcolor{comment}{//   */}
-00129 \textcolor{comment}{//  void on\_editLine(QObject *line);}
-00130 
-00131 \textcolor{keyword}{protected}:
-00136   \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}{wheelEvent}(QWheelEvent *event) Q\_DECL\_OVERRIDE;
-00137 
-00142   \textcolor{keywordtype}{void} \hyperlink{group___graphics_gab19e233cd697852dd71140971cb6e122}{mouseMoveEvent}(QMouseEvent *event) Q\_DECL\_OVERRIDE;
-00143 
-00148   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{mousePressEvent}(QMouseEvent *event) Q\_DECL\_OVERRIDE;
-00149 
-00154   \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaa8a2664405194bbe29daa454aead7416}{mouseReleaseEvent}(QMouseEvent *event) Q\_DECL\_OVERRIDE;
-00155 \textcolor{keyword}{private}:
-00159   \textcolor{keyword}{static} \textcolor{keyword}{const} qreal kZoomStep;
-00160 
-00164   QPoint oldPos;
-00165 
-00166 \textcolor{comment}{//  /*****************************************************************************}
-00167 \textcolor{comment}{//  * Draw Slack.}
-00168 \textcolor{comment}{//  *****************************************************************************/}
-00169 \textcolor{comment}{//  void connectSignals();}
-00170 
-00171 \textcolor{comment}{//  /*****************************************************************************}
-00172 \textcolor{comment}{//  * Draw Slack.}
-00173 \textcolor{comment}{//  *****************************************************************************/}
-00174 \textcolor{comment}{//  void disconnectSignals();}
-00175 \};
-00176 
-00177 \textcolor{preprocessor}{#endif  // GRAPHICS\_SYSTEMVIEW\_H}
-00178 
+00120   \textcolor{keywordtype}{void} \hyperlink{class_system_view_a58c4a0bf68178ab59066819118214360}{lineProperties}(QObject *);
+00121 
+00122 \textcolor{keyword}{protected}:
+00127   \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}{wheelEvent}(QWheelEvent *event) Q\_DECL\_OVERRIDE;
+00128 
+00133   \textcolor{keywordtype}{void} \hyperlink{group___graphics_gab19e233cd697852dd71140971cb6e122}{mouseMoveEvent}(QMouseEvent *event) Q\_DECL\_OVERRIDE;
+00134 
+00139   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{mousePressEvent}(QMouseEvent *event) Q\_DECL\_OVERRIDE;
+00140 
+00145   \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaa8a2664405194bbe29daa454aead7416}{mouseReleaseEvent}(QMouseEvent *event) Q\_DECL\_OVERRIDE;
+00146 \textcolor{keyword}{private}:
+00150   \textcolor{keyword}{static} \textcolor{keyword}{const} qreal kZoomStep;
+00151 
+00155   QPoint oldPos;
+00156 
+00157   QSignalMapper *barDoubleClick;
+00158 
+00159   QSignalMapper *lineDoubleClick;
+00160 \};
+00161 
+00162 \textcolor{preprocessor}{#endif  // GRAPHICS\_SYSTEMVIEW\_H}
+00163 
 \end{DoxyCode}

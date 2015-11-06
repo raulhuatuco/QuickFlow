@@ -1,0 +1,159 @@
+\hypertarget{networkproperties_8cpp_source}{}\subsection{networkproperties.\+cpp}
+\label{networkproperties_8cpp_source}\index{networkproperties.\+cpp@{networkproperties.\+cpp}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include "\hyperlink{networkproperties_8h}{networkproperties.h}"}
+00002 \textcolor{preprocessor}{#include "ui\_networkproperties.h"}
+00003 
+00004 \textcolor{preprocessor}{#include <QColorDialog>}
+00005 \textcolor{preprocessor}{#include <QMessageBox>}
+00006 \textcolor{preprocessor}{#include <QValidator>}
+00007 
+\hypertarget{networkproperties_8cpp_source_l00008}{}\hyperlink{class_network_properties_a3d9dac6454f6e722360d9d77af85e4ce}{00008} \hyperlink{class_network_properties_a3d9dac6454f6e722360d9d77af85e4ce}{NetworkProperties::NetworkProperties}(QWidget *parent) :
+00009   QDialog(parent),
+00010   ui(new \hyperlink{namespace_ui}{Ui}::\hyperlink{class_network_properties}{NetworkProperties}),
+00011   project\_(NULL),
+00012   network\_(NULL),
+00013   isNew(false),
+00014   slack(Qt::green),
+00015   pq(Qt::blue),
+00016   barBorder(Qt::gray),
+00017   line(Qt::black)
+00018 \{
+00019   ui->setupUi(\textcolor{keyword}{this});
+00020 
+00021   \textcolor{comment}{// Add data validators.}
+00022   ui->xOffset->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00023   ui->yOffset->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00024 \}
+00025 
+\hypertarget{networkproperties_8cpp_source_l00026}{}\hyperlink{class_network_properties_a097b617788eebe80236c0041f8293422}{00026} \hyperlink{class_network_properties_a097b617788eebe80236c0041f8293422}{NetworkProperties::~NetworkProperties}()
+00027 \{
+00028   \textcolor{keyword}{delete} ui;
+00029 \}
+00030 
+\hypertarget{networkproperties_8cpp_source_l00031}{}\hyperlink{class_network_properties_a9dd17216f65e1c35012699e13547d984}{00031} \textcolor{keywordtype}{void} \hyperlink{class_network_properties_a9dd17216f65e1c35012699e13547d984}{NetworkProperties::setOptions}(\hyperlink{class_project}{Project} *project, 
+      \hyperlink{class_network}{Network} *network)
+00032 \{
+00033 \textcolor{comment}{// Adjust apearance according to network.}
+00034   \textcolor{keywordflow}{if} (network == NULL) \{
+00035     setWindowTitle(tr(\textcolor{stringliteral}{"New network"}));
+00036     network\_ = \textcolor{keyword}{new} \hyperlink{class_network}{Network};
+00037     isNew = \textcolor{keyword}{true};
+00038 
+00039   \} \textcolor{keywordflow}{else} \{
+00040     setWindowTitle(tr(\textcolor{stringliteral}{"Edit network "}));
+00041     network\_ = \hyperlink{class_network_properties_ac166b4624361fe4f3003bbe5553ad18b}{network};
+00042     isNew = \textcolor{keyword}{false};
+00043     \textcolor{comment}{// Todo: initialize colors from network.}
+00044   \}
+00045 
+00046   \textcolor{comment}{// Store project parameters.}
+00047   project\_ = project;
+00048 \}
+00049 
+\hypertarget{networkproperties_8cpp_source_l00050}{}\hyperlink{class_network_properties_ac166b4624361fe4f3003bbe5553ad18b}{00050} \hyperlink{class_network}{Network} *\hyperlink{class_network_properties_ac166b4624361fe4f3003bbe5553ad18b}{NetworkProperties::network}()
+00051 \{
+00052   \textcolor{keywordflow}{return} network\_;
+00053 \}
+00054 
+00055 \textcolor{keywordtype}{void} NetworkProperties::on\_slackColor\_clicked()
+00056 \{
+00057   QColor col = QColorDialog::getColor(Qt::green, \textcolor{keyword}{this}, \textcolor{stringliteral}{"Select Slack bar color"},
+00058                                       QColorDialog::DontUseNativeDialog);
+00059 
+00060   \textcolor{keywordflow}{if}(col.isValid()) \{
+00061     QString qss =
+00062       QString(\textcolor{stringliteral}{"border: 2px solid #000000;"} \(\backslash\)
+00063               \textcolor{stringliteral}{"\(\backslash\)nborder-radius: 6px;"} \(\backslash\)
+00064               \textcolor{stringliteral}{"\(\backslash\)nbackground-color: %1;"} \(\backslash\)
+00065               \textcolor{stringliteral}{"\(\backslash\)nselection-background-color: %2;"}).arg(col.name()).arg(col.name());
+00066     ui->slackColor->setStyleSheet(qss);
+00067     slack = col;
+00068   \}
+00069 \}
+00070 
+00071 \textcolor{keywordtype}{void} NetworkProperties::on\_pqColor\_clicked()
+00072 \{
+00073   QColor col = QColorDialog::getColor(Qt::blue, \textcolor{keyword}{this}, \textcolor{stringliteral}{"Select PQ bar color"},
+00074                                       QColorDialog::DontUseNativeDialog);
+00075 
+00076   \textcolor{keywordflow}{if}(col.isValid()) \{
+00077     QString qss =
+00078       QString(\textcolor{stringliteral}{"border: 2px solid #000000;"} \(\backslash\)
+00079               \textcolor{stringliteral}{"\(\backslash\)nborder-radius: 6px;"} \(\backslash\)
+00080               \textcolor{stringliteral}{"\(\backslash\)nbackground-color: %1;"} \(\backslash\)
+00081               \textcolor{stringliteral}{"\(\backslash\)nselection-background-color: %2;"}).arg(col.name()).arg(col.name());
+00082     ui->pqColor->setStyleSheet(qss);
+00083     pq = col;
+00084   \}
+00085 \}
+00086 
+00087 \textcolor{keywordtype}{void} NetworkProperties::on\_barBorderColor\_clicked()
+00088 \{
+00089   QColor col = QColorDialog::getColor(Qt::gray, \textcolor{keyword}{this}, \textcolor{stringliteral}{"Select bar border color"},
+00090                                       QColorDialog::DontUseNativeDialog);
+00091 
+00092   \textcolor{keywordflow}{if}(col.isValid()) \{
+00093     QString qss =
+00094       QString(\textcolor{stringliteral}{"border: 2px solid #000000;"} \(\backslash\)
+00095               \textcolor{stringliteral}{"\(\backslash\)nborder-radius: 6px;"} \(\backslash\)
+00096               \textcolor{stringliteral}{"\(\backslash\)nbackground-color: %1;"} \(\backslash\)
+00097               \textcolor{stringliteral}{"\(\backslash\)nselection-background-color: %2;"}).arg(col.name()).arg(col.name());
+00098     ui->barBorderColor->setStyleSheet(qss);
+00099     barBorder = col;
+00100   \}
+00101 \}
+00102 
+00103 \textcolor{keywordtype}{void} NetworkProperties::on\_lineColor\_clicked()
+00104 \{
+00105   QColor col = QColorDialog::getColor(Qt::black, \textcolor{keyword}{this}, \textcolor{stringliteral}{"Select line color"},
+00106                                       QColorDialog::DontUseNativeDialog);
+00107 
+00108   \textcolor{keywordflow}{if}(col.isValid()) \{
+00109     QString qss =
+00110       QString(\textcolor{stringliteral}{"border: 2px solid #000000;"} \(\backslash\)
+00111               \textcolor{stringliteral}{"\(\backslash\)nborder-radius: 6px;"} \(\backslash\)
+00112               \textcolor{stringliteral}{"\(\backslash\)nbackground-color: %1;"} \(\backslash\)
+00113               \textcolor{stringliteral}{"\(\backslash\)nselection-background-color: %2;"}).arg(col.name()).arg(col.name());
+00114     ui->lineColor->setStyleSheet(qss);
+00115     line = col;
+00116   \}
+00117 \}
+00118 
+00119 \textcolor{keywordtype}{void} NetworkProperties::on\_buttonBox\_accepted()
+00120 \{
+00121   \textcolor{keywordflow}{if}(ui->networkName->text().isEmpty()) \{
+00122     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Network name is empty."},
+00123                              QMessageBox::Ok);
+00124     ui->networkName->setFocus();
+00125     \textcolor{keywordflow}{return};
+00126   \}
+00127 
+00128   \textcolor{keywordflow}{if}(ui->xOffset->text().isEmpty()) \{
+00129     ui->xOffset->setText(\textcolor{stringliteral}{"0"});
+00130   \}
+00131 
+00132   \textcolor{keywordflow}{if}(ui->yOffset->text().isEmpty()) \{
+00133     ui->yOffset->setText(\textcolor{stringliteral}{"0"});
+00134   \}
+00135 
+00136   network\_->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name} = ui->networkName->text();
+00137   network\_->\hyperlink{class_network_ad78d9a206daf4ba0780067b5043c7f5c}{barSlackFillColor} = slack;
+00138   network\_->\hyperlink{class_network_a386f492f548ec13f5d0e350c4f2217aa}{barPqFillColor} = pq;
+00139   network\_->\hyperlink{class_network_ad69052271ab0a9899948815b6201f2c6}{barStrokeColor} = barBorder;
+00140   network\_->\hyperlink{class_network_a453db7f1a994603fe4d38ac5899eb09c}{lineColor} = line;
+00141   network\_->\hyperlink{class_network_a9f5c70be28a45320802bd0ac3947d114}{xOffset} = ui->xOffset->text().toDouble();
+00142   network\_->\hyperlink{class_network_a771b16f7eb4459d0ca7141c048b1ab59}{yOffset} = ui->yOffset->text().toDouble();
+00143 
+00144   \textcolor{keywordflow}{if}(isNew)
+00145     project\_->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.insert(network\_->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name}, network\_);
+00146 
+00147   accept();
+00148 \}
+00149 
+00150 \textcolor{keywordtype}{void} NetworkProperties::on\_buttonBox\_rejected()
+00151 \{
+00152   reject();
+00153 \}
+\end{DoxyCode}

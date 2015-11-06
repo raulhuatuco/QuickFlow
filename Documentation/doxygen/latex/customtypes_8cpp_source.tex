@@ -108,4 +108,21 @@
 00104     \textcolor{keywordflow}{break};
 00105   \}
 00106 \}
+00107 
+\hypertarget{customtypes_8cpp_source_l00108}{}\hyperlink{class_unit_a7bd3ed3edcb18170cd162d384075b651}{00108} QString \hyperlink{class_unit_a7bd3ed3edcb18170cd162d384075b651}{Unit::currentUnitToStr}(\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} currentUnit)
+00109 \{
+00110   \textcolor{keywordflow}{switch} (currentUnit) \{
+00111   \textcolor{keywordflow}{case} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{kAmpere}:
+00112     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"A"};
+00113     \textcolor{keywordflow}{break};
+00114 
+00115   \textcolor{keywordflow}{case} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aa27cb5edd73099f24f2285e02396ae14}{kKiloAmpere}:
+00116     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"kA"};
+00117     \textcolor{keywordflow}{break};
+00118 
+00119   \textcolor{keywordflow}{default}:
+00120     \textcolor{keywordflow}{return} \textcolor{stringliteral}{"Unknow"};
+00121     \textcolor{keywordflow}{break};
+00122   \}
+00123 \}
 \end{DoxyCode}

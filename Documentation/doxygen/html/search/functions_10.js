@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['v',['v',['../group___models.html#ga1e6f2daec86407118656d88170d1adc2',1,'Bar']]],
-  ['voltagebase',['voltageBase',['../class_project.html#a4e857ccb6162f57f5d72f4e7199e4573',1,'Project']]],
-  ['voltageunit',['voltageUnit',['../class_project.html#a93b928093072ba15c24693b03a934e4e',1,'Project']]],
-  ['voltageunittostr',['voltageUnitToStr',['../class_unit.html#a7fa103c31f9f069961b35b6371ff0c0a',1,'Unit']]],
-  ['vpu',['vPu',['../group___models.html#ga1c54bd76b2f620d970ddfed8cdae4116',1,'Bar']]]
+  ['tojson',['toJson',['../group___models.html#ga3eb84c42b687db6cd98e11b8bd38c86e',1,'Bar::toJson()'],['../group___models.html#ga4effa7a96db465ea6e01135d5a010739',1,'Line::toJson()'],['../group___graphics.html#ga1bb9773d3935eefef84136d388786494',1,'Network::toJson()']]]
 ];

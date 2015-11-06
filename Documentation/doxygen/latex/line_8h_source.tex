@@ -84,127 +84,117 @@
 00110             \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} unit = \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit::kOhm});
 00111 
 00112   \textcolor{comment}{/*****************************************************************************}
-00113 \textcolor{comment}{   * Impedance in per unit.}
+00113 \textcolor{comment}{   * Current.}
 00114 \textcolor{comment}{   ****************************************************************************/}
-00115   complex<double> \hyperlink{group___models_ga139698332327a712f6c02d96fe73fbee}{zPu}(int32\_t index);
+00115   complex<double> \hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{i}(int32\_t phase, \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit = 
+      \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit::kAmpere});
 00116 
 00117   \textcolor{comment}{/*****************************************************************************}
-00118 \textcolor{comment}{   * Current.}
+00118 \textcolor{comment}{   * Set current.}
 00119 \textcolor{comment}{   ****************************************************************************/}
-00120   complex<double> \hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{i}(int32\_t phase, \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit = 
-      \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit::kAmpere});
-00121 
-00122   \textcolor{comment}{/*****************************************************************************}
-00123 \textcolor{comment}{   * Set current.}
-00124 \textcolor{comment}{   ****************************************************************************/}
-00125   \textcolor{keywordtype}{void} \hyperlink{group___models_ga9e55b06dc3e385838fdd13d5580438ef}{setI}(int32\_t phase, complex<double> newCurrent,
-00126             \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit = \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit::kAmpere});
+00120   \textcolor{keywordtype}{void} \hyperlink{group___models_ga9e55b06dc3e385838fdd13d5580438ef}{setI}(int32\_t phase, complex<double> newCurrent,
+00121             \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit = \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit::kAmpere});
+00122 
+00123   \textcolor{comment}{/*****************************************************************************}
+00124 \textcolor{comment}{   * Compute the loss in the line.}
+00125 \textcolor{comment}{   ****************************************************************************/}
+00126   complex<double> \hyperlink{group___models_ga7909d69e419de3f460ca7abab3d91e53}{loss}(int32\_t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit});
 00127 
 00128   \textcolor{comment}{/*****************************************************************************}
-00129 \textcolor{comment}{   * Current in per unit.}
+00129 \textcolor{comment}{   * Line length.}
 00130 \textcolor{comment}{   ****************************************************************************/}
-00131   complex<double> \hyperlink{group___models_ga8f71e477800134586652d283087ed373}{iPu}(int32\_t phase);
+00131   \textcolor{keywordtype}{double} \hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} unit = \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter});
 00132 
 00133   \textcolor{comment}{/*****************************************************************************}
-00134 \textcolor{comment}{   * Compute the loss in the line.}
-00135 \textcolor{comment}{   ****************************************************************************/}
-00136   complex<double> \hyperlink{group___models_ga84ddf17bee846a6f21c44d463252dd25}{loss}(int32\_t phase);
+00134 \textcolor{comment}{  * Set line length.}
+00135 \textcolor{comment}{  ****************************************************************************/}
+00136   \textcolor{keywordtype}{void} \hyperlink{group___models_ga950d0b8f5d167eda430c65ca7adadbb0}{setLength}(\textcolor{keywordtype}{double} newLength, \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} unit = 
+      \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter});
 00137 
 00138   \textcolor{comment}{/*****************************************************************************}
-00139 \textcolor{comment}{   * Line length.}
+00139 \textcolor{comment}{   * Initial node pointer.}
 00140 \textcolor{comment}{   ****************************************************************************/}
-00141   \textcolor{keywordtype}{double} \hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} unit = \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter});
+00141   \hyperlink{class_bar}{Bar} *\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI}();
 00142 
 00143   \textcolor{comment}{/*****************************************************************************}
-00144 \textcolor{comment}{  * Set line length.}
-00145 \textcolor{comment}{  ****************************************************************************/}
-00146   \textcolor{keywordtype}{void} \hyperlink{group___models_ga950d0b8f5d167eda430c65ca7adadbb0}{setLength}(\textcolor{keywordtype}{double} newLength, \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} unit = 
-      \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter});
+00144 \textcolor{comment}{   * Final node pointer.}
+00145 \textcolor{comment}{   ****************************************************************************/}
+00146   \hyperlink{class_bar}{Bar} *\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF}();
 00147 
 00148   \textcolor{comment}{/*****************************************************************************}
-00149 \textcolor{comment}{   * Initial node pointer.}
+00149 \textcolor{comment}{   * Set initial and final nodes.}
 00150 \textcolor{comment}{   ****************************************************************************/}
-00151   \hyperlink{class_bar}{Bar} *\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI}();
+00151   \textcolor{keywordtype}{void} \hyperlink{group___models_gaeeab146e6c1d7d1a688a2764a9c9a170}{setNodes}(\hyperlink{class_bar}{Bar} *\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI}, \hyperlink{class_bar}{Bar} *\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF});
 00152 
 00153   \textcolor{comment}{/*****************************************************************************}
-00154 \textcolor{comment}{   * Final node pointer.}
+00154 \textcolor{comment}{   * Convert line data to Json object.}
 00155 \textcolor{comment}{   ****************************************************************************/}
-00156   \hyperlink{class_bar}{Bar} *\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF}();
+00156   QJsonObject \hyperlink{group___models_ga4effa7a96db465ea6e01135d5a010739}{toJson}();
 00157 
 00158   \textcolor{comment}{/*****************************************************************************}
-00159 \textcolor{comment}{   * Set initial and final nodes.}
+00159 \textcolor{comment}{   * Convert Json object to line.}
 00160 \textcolor{comment}{   ****************************************************************************/}
-00161   \textcolor{keywordtype}{void} \hyperlink{group___models_gaeeab146e6c1d7d1a688a2764a9c9a170}{setNodes}(\hyperlink{class_bar}{Bar} *\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI}, \hyperlink{class_bar}{Bar} *\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF});
+00161   \textcolor{keywordtype}{void} \hyperlink{group___models_ga62623ad71df5279377cc69da90decc75}{fromJson}(QJsonObject &lineJson);
 00162 
 00163   \textcolor{comment}{/*****************************************************************************}
-00164 \textcolor{comment}{   * Convert line data to Json object.}
+00164 \textcolor{comment}{   * Update line position.}
 00165 \textcolor{comment}{   ****************************************************************************/}
-00166   QJsonObject \hyperlink{group___models_ga4effa7a96db465ea6e01135d5a010739}{toJson}();
+00166   \textcolor{keywordtype}{void} \hyperlink{group___models_ga8fdb12651d4bc592616d241386b066b3}{updatePosition}();
 00167 
 00168   \textcolor{comment}{/*****************************************************************************}
-00169 \textcolor{comment}{   * Convert Json object to line.}
+00169 \textcolor{comment}{   * Line bounding rect.}
 00170 \textcolor{comment}{   ****************************************************************************/}
-00171   \textcolor{keywordtype}{void} \hyperlink{group___models_ga62623ad71df5279377cc69da90decc75}{fromJson}(QJsonObject &lineJson);
+00171   QRectF \hyperlink{group___models_gad15c3af158d3b966c04be7e18cee5aea}{boundingRect}() const Q\_DECL\_OVERRIDE;
 00172 
 00173   \textcolor{comment}{/*****************************************************************************}
-00174 \textcolor{comment}{   * Update line position.}
+00174 \textcolor{comment}{   * Line Shape.}
 00175 \textcolor{comment}{   ****************************************************************************/}
-00176   \textcolor{keywordtype}{void} \hyperlink{group___models_ga8fdb12651d4bc592616d241386b066b3}{updatePosition}();
+00176   QPainterPath \hyperlink{group___models_gaf1736b829a643d99052ef6428ddd5b16}{shape}() const Q\_DECL\_OVERRIDE;
 00177 
 00178   \textcolor{comment}{/*****************************************************************************}
-00179 \textcolor{comment}{   * Line bounding rect.}
+00179 \textcolor{comment}{   * Item Change.}
 00180 \textcolor{comment}{   ****************************************************************************/}
-00181   QRectF \hyperlink{group___models_gad15c3af158d3b966c04be7e18cee5aea}{boundingRect}() const Q\_DECL\_OVERRIDE;
-00182 
-00183   \textcolor{comment}{/*****************************************************************************}
-00184 \textcolor{comment}{   * Line Shape.}
-00185 \textcolor{comment}{   ****************************************************************************/}
-00186   QPainterPath \hyperlink{group___models_gaf1736b829a643d99052ef6428ddd5b16}{shape}() const Q\_DECL\_OVERRIDE;
-00187 
-00188   \textcolor{comment}{/*****************************************************************************}
-00189 \textcolor{comment}{   * Item Change.}
-00190 \textcolor{comment}{   ****************************************************************************/}
-00191   QVariant \hyperlink{group___models_ga5fcee3f23eb50e34f730d602a3802b93}{itemChange}(GraphicsItemChange change,
-00192                       const QVariant &value) Q\_DECL\_OVERRIDE;
-00193 
-00194 signals:
-00195   \textcolor{comment}{/*****************************************************************************}
-00196 \textcolor{comment}{   * Double Click Event.}
-00197 \textcolor{comment}{   ****************************************************************************/}
-00201   \textcolor{keywordtype}{void} \hyperlink{class_line_a2444b577ea2254994599c6f829c629a5}{eventDoubleClick}();
+00181   QVariant \hyperlink{group___models_ga5fcee3f23eb50e34f730d602a3802b93}{itemChange}(GraphicsItemChange change,
+00182                       const QVariant &value) Q\_DECL\_OVERRIDE;
+00183 
+00184 signals:
+00185   \textcolor{comment}{/*****************************************************************************}
+00186 \textcolor{comment}{   * Double Click Event.}
+00187 \textcolor{comment}{   ****************************************************************************/}
+00191   \textcolor{keywordtype}{void} \hyperlink{class_line_a2444b577ea2254994599c6f829c629a5}{eventDoubleClick}();
+00192 
+00193 protected:
+00194   \textcolor{comment}{/*****************************************************************************}
+00195 \textcolor{comment}{   * Double click event handler.}
+00196 \textcolor{comment}{   ****************************************************************************/}
+00201   \textcolor{keywordtype}{void} \hyperlink{group___models_ga9a1fee5b1606ab0deedd04bdab99be70}{mouseDoubleClickEvent}(QGraphicsSceneMouseEvent *event) Q\_DECL\_OVERRIDE;
 00202 
-00203 protected:
-00204   \textcolor{comment}{/*****************************************************************************}
-00205 \textcolor{comment}{   * Double click event handler.}
-00206 \textcolor{comment}{   ****************************************************************************/}
-00211   \textcolor{keywordtype}{void} \hyperlink{group___models_ga9a1fee5b1606ab0deedd04bdab99be70}{mouseDoubleClickEvent}(QGraphicsSceneMouseEvent *event) Q\_DECL\_OVERRIDE;
+00203   \textcolor{comment}{/*****************************************************************************}
+00204 \textcolor{comment}{   * Paint.}
+00205 \textcolor{comment}{   ****************************************************************************/}
+00210   \textcolor{keywordtype}{void} \hyperlink{group___models_ga0aa64aed379d434be5942edf572b444b}{paint}(QPainter *painter, const QStyleOptionGraphicsItem *option,
+00211              QWidget *widget) Q\_DECL\_OVERRIDE;
 00212 
-00213   \textcolor{comment}{/*****************************************************************************}
-00214 \textcolor{comment}{   * Paint.}
-00215 \textcolor{comment}{   ****************************************************************************/}
-00220   \textcolor{keywordtype}{void} \hyperlink{group___models_ga0aa64aed379d434be5942edf572b444b}{paint}(QPainter *painter, const QStyleOptionGraphicsItem *option,
-00221              QWidget *widget) Q\_DECL\_OVERRIDE;
-00222 
-00223 private:
-00224   \textcolor{comment}{/*****************************************************************************}
-00225 \textcolor{comment}{   * Private properties.}
-00226 \textcolor{comment}{   ****************************************************************************/}
-00227   \textcolor{keywordtype}{double} length\_;
+00213 private:
+00214   \textcolor{comment}{/*****************************************************************************}
+00215 \textcolor{comment}{   * Private properties.}
+00216 \textcolor{comment}{   ****************************************************************************/}
+00217   \textcolor{keywordtype}{double} length\_;
+00218 
+00222   \hyperlink{class_bar}{Bar} *pNoI\_;
+00223 
+00227   \hyperlink{class_bar}{Bar} *pNoF\_;
 00228 
-00232   \hyperlink{class_bar}{Bar} *pNoI\_;
+00229   complex<\textcolor{keywordtype}{double}> z\_[6];
+00230   complex<\textcolor{keywordtype}{double}> i\_[3];
+00231 
+00232   QLineF coords;
 00233 
-00237   \hyperlink{class_bar}{Bar} *pNoF\_;
+00237   QPolygonF selectionArea;
 00238 
-00239   complex<\textcolor{keywordtype}{double}> z\_[6];
-00240   complex<\textcolor{keywordtype}{double}> i\_[3];
-00241 
-00242   QLineF coords;
-00243 
-00247   QPolygonF selectionArea;
-00248 
-00252   \hyperlink{class_info_line}{InfoLine} *infoLine;
-00253 \};
-00254 
-00255 \textcolor{preprocessor}{#endif  // MODELS\_LINE\_H}
-00256 
+00242   \hyperlink{class_info_line}{InfoLine} *infoLine;
+00243 \};
+00244 
+00245 \textcolor{preprocessor}{#endif  // MODELS\_LINE\_H}
+00246 
 \end{DoxyCode}

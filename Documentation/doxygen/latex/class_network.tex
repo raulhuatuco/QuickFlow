@@ -7,8 +7,7 @@ Represents a power distribution systems.
 
 
 
-Inheritance diagram for Network\+:
-\nopagebreak
+Inheritance diagram for Network\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -17,8 +16,7 @@ Inheritance diagram for Network\+:
 \end{figure}
 
 
-Collaboration diagram for Network\+:
-\nopagebreak
+Collaboration diagram for Network\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -44,19 +42,29 @@ void \hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{remove\+Lin
 \item 
 void \hyperlink{group___graphics_ga4fd51288aa75614593977ce8aab9100f}{remove\+Line} (\hyperlink{class_line}{Line} $\ast$line)
 \item 
-\hyperlink{class_bar}{Bar} $\ast$ \hyperlink{group___graphics_ga9c5806f5a0d236bb6d8abbdce62d9675}{get\+Bar\+By\+Id} (u\+\_\+int32\+\_\+t id)
+\hyperlink{class_bar}{Bar} $\ast$ \hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{get\+Bar\+By\+Id} (uint32\+\_\+t id)
 \item 
 \hyperlink{class_line}{Line} $\ast$ \hyperlink{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{get\+Line\+By\+Nodes} (Q\+Pair$<$ int32\+\_\+t, int32\+\_\+t $>$ nodes)
+\item 
+Q\+Json\+Object \hyperlink{group___graphics_ga1bb9773d3935eefef84136d388786494}{to\+Json} ()
+\item 
+void \hyperlink{group___graphics_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1}{from\+Json} (Q\+Json\+Object \&net\+Json)
 \end{DoxyCompactItemize}
 \subsubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static double \hyperlink{class_network_a8aa668b172d3706c8c9ac756d6e94d20}{current\+Base} ()
+static double \hyperlink{group___graphics_ga433bc5c32cf2ce5329bb40b21952d885}{current\+Base} ()
 \item 
-static double \hyperlink{class_network_a8e0229acc4a5d5ac6ffadb5dc64cc7aa}{impedance\+Base} ()
+static double \hyperlink{group___graphics_gae6794c93d37df113778c37c2c702f6d9}{impedance\+Base} ()
 \end{DoxyCompactItemize}
 \subsubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
+\item 
+Q\+String \hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name}
+\item 
+double \hyperlink{class_network_a9f5c70be28a45320802bd0ac3947d114}{x\+Offset}
+\item 
+double \hyperlink{class_network_a771b16f7eb4459d0ca7141c048b1ab59}{y\+Offset}
 \item 
 Q\+Color \hyperlink{class_network_ad69052271ab0a9899948815b6201f2c6}{bar\+Stroke\+Color}
 \item 
@@ -79,21 +87,23 @@ static const double \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c1
 \item 
 static const Q\+Color \hyperlink{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{selected\+Color} = Qt\+::red
 \item 
-static u\+\_\+int32\+\_\+t \hyperlink{class_network_a1a818069626eb82d58e3974a5b3492a6}{max\+Iterations}
+static uint32\+\_\+t \hyperlink{group___graphics_ga318dee060bc577eacd67d332efbbe1b2}{max\+Iterations} = 1000
 \item 
-static double \hyperlink{class_network_abcdc973129d3dda7572b7a1c388da1b5}{min\+Error}
+static double \hyperlink{group___graphics_gabcdc973129d3dda7572b7a1c388da1b5}{min\+Error} = 0.\+01
 \item 
-static double \hyperlink{class_network_a7c1e79d9ac69df9a69f24eaf092fd5e5}{voltage\+Base}
+static double \hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{voltage\+Base} = 23000.\+0
 \item 
-static double \hyperlink{class_network_a74bb7aa495d422f1f092acdf958df989}{power\+Base}
+static double \hyperlink{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{power\+Base} = 2500000.\+0
 \item 
-static \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit\+::\+Length\+Unit} \hyperlink{class_network_ae46c0e2bf39b343875e3c69066fe2652}{length\+Unit}
+static \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit\+::\+Length\+Unit} \hyperlink{group___graphics_gae46c0e2bf39b343875e3c69066fe2652}{length\+Unit} = \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit\+::k\+Meter}
 \item 
-static \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit\+::\+Impedance\+Unit} \hyperlink{class_network_a5f3d72699a723c64a89d22e34df708ff}{impedance\+Unit}
+static \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit\+::\+Impedance\+Unit} \hyperlink{group___graphics_ga5f3d72699a723c64a89d22e34df708ff}{impedance\+Unit} = \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit\+::k\+Ohm}
 \item 
-static \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit\+::\+Voltage\+Unit} \hyperlink{class_network_acde031ef95f5c05565ee35769f2ed89e}{voltage\+Unit}
+static \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit\+::\+Voltage\+Unit} \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{voltage\+Unit} = \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit\+::k\+Volts}
 \item 
-static \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} \hyperlink{class_network_a9504015bc566f4a3d3b4d4a86000293b}{power\+Unit}
+static \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{power\+Unit} = \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit\+::k\+V\+A}
+\item 
+static \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit\+::\+Current\+Unit} \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{current\+Unit} = \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit\+::k\+Ampere}
 \end{DoxyCompactItemize}
 
 
@@ -109,25 +119,8 @@ static \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\
 \end{DoxyCode}
  
 
-Definition at line \hyperlink{network_8h_source_l00072}{72} of file \hyperlink{network_8h_source}{network.\+h}.
+Definition at line \hyperlink{network_8h_source_l00075}{75} of file \hyperlink{network_8h_source}{network.\+h}.
 
-
-
-\subsubsection{Member Function Documentation}
-\hypertarget{class_network_a8aa668b172d3706c8c9ac756d6e94d20}{}\index{Network@{Network}!current\+Base@{current\+Base}}
-\index{current\+Base@{current\+Base}!Network@{Network}}
-\paragraph[{current\+Base}]{\setlength{\rightskip}{0pt plus 5cm}static double Network\+::current\+Base (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [static]}}\label{class_network_a8aa668b172d3706c8c9ac756d6e94d20}
-\hypertarget{class_network_a8e0229acc4a5d5ac6ffadb5dc64cc7aa}{}\index{Network@{Network}!impedance\+Base@{impedance\+Base}}
-\index{impedance\+Base@{impedance\+Base}!Network@{Network}}
-\paragraph[{impedance\+Base}]{\setlength{\rightskip}{0pt plus 5cm}static double Network\+::impedance\+Base (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [static]}}\label{class_network_a8e0229acc4a5d5ac6ffadb5dc64cc7aa}
 
 
 \subsubsection{Member Data Documentation}
@@ -136,98 +129,63 @@ Definition at line \hyperlink{network_8h_source_l00072}{72} of file \hyperlink{n
 \paragraph[{bar\+Pq\+Fill\+Color}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Color Network\+::bar\+Pq\+Fill\+Color}\label{class_network_a386f492f548ec13f5d0e350c4f2217aa}
 
 
-Definition at line \hyperlink{network_8h_source_l00113}{113} of file \hyperlink{network_8h_source}{network.\+h}.
+Definition at line \hyperlink{network_8h_source_l00124}{124} of file \hyperlink{network_8h_source}{network.\+h}.
 
 \hypertarget{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{}\index{Network@{Network}!bars@{bars}}
 \index{bars@{bars}!Network@{Network}}
 \paragraph[{bars}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Map$<$int32\+\_\+t, {\bf Bar} $\ast$$>$ Network\+::bars}\label{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}
 
 
-Definition at line \hyperlink{network_8h_source_l00117}{117} of file \hyperlink{network_8h_source}{network.\+h}.
+Definition at line \hyperlink{network_8h_source_l00128}{128} of file \hyperlink{network_8h_source}{network.\+h}.
 
 \hypertarget{class_network_ad78d9a206daf4ba0780067b5043c7f5c}{}\index{Network@{Network}!bar\+Slack\+Fill\+Color@{bar\+Slack\+Fill\+Color}}
 \index{bar\+Slack\+Fill\+Color@{bar\+Slack\+Fill\+Color}!Network@{Network}}
 \paragraph[{bar\+Slack\+Fill\+Color}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Color Network\+::bar\+Slack\+Fill\+Color}\label{class_network_ad78d9a206daf4ba0780067b5043c7f5c}
 
 
-Definition at line \hyperlink{network_8h_source_l00111}{111} of file \hyperlink{network_8h_source}{network.\+h}.
+Definition at line \hyperlink{network_8h_source_l00122}{122} of file \hyperlink{network_8h_source}{network.\+h}.
 
 \hypertarget{class_network_ad69052271ab0a9899948815b6201f2c6}{}\index{Network@{Network}!bar\+Stroke\+Color@{bar\+Stroke\+Color}}
 \index{bar\+Stroke\+Color@{bar\+Stroke\+Color}!Network@{Network}}
 \paragraph[{bar\+Stroke\+Color}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Color Network\+::bar\+Stroke\+Color}\label{class_network_ad69052271ab0a9899948815b6201f2c6}
 
 
-Definition at line \hyperlink{network_8h_source_l00109}{109} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{class_network_a5f3d72699a723c64a89d22e34df708ff}{}\index{Network@{Network}!impedance\+Unit@{impedance\+Unit}}
-\index{impedance\+Unit@{impedance\+Unit}!Network@{Network}}
-\paragraph[{impedance\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Impedance\+Unit} Network\+::impedance\+Unit\hspace{0.3cm}{\ttfamily [static]}}\label{class_network_a5f3d72699a723c64a89d22e34df708ff}
-
-
-Definition at line \hyperlink{network_8h_source_l00100}{100} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{class_network_ae46c0e2bf39b343875e3c69066fe2652}{}\index{Network@{Network}!length\+Unit@{length\+Unit}}
-\index{length\+Unit@{length\+Unit}!Network@{Network}}
-\paragraph[{length\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Length\+Unit} Network\+::length\+Unit\hspace{0.3cm}{\ttfamily [static]}}\label{class_network_ae46c0e2bf39b343875e3c69066fe2652}
-
-
-Definition at line \hyperlink{network_8h_source_l00098}{98} of file \hyperlink{network_8h_source}{network.\+h}.
+Definition at line \hyperlink{network_8h_source_l00120}{120} of file \hyperlink{network_8h_source}{network.\+h}.
 
 \hypertarget{class_network_a453db7f1a994603fe4d38ac5899eb09c}{}\index{Network@{Network}!line\+Color@{line\+Color}}
 \index{line\+Color@{line\+Color}!Network@{Network}}
 \paragraph[{line\+Color}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Color Network\+::line\+Color}\label{class_network_a453db7f1a994603fe4d38ac5899eb09c}
 
 
-Definition at line \hyperlink{network_8h_source_l00115}{115} of file \hyperlink{network_8h_source}{network.\+h}.
+Definition at line \hyperlink{network_8h_source_l00126}{126} of file \hyperlink{network_8h_source}{network.\+h}.
 
 \hypertarget{class_network_acda0fd42e712e460a08a0e96511ee7eb}{}\index{Network@{Network}!lines@{lines}}
 \index{lines@{lines}!Network@{Network}}
 \paragraph[{lines}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Map$<$Q\+Pair$<$int32\+\_\+t, int32\+\_\+t$>$, {\bf Line} $\ast$$>$ Network\+::lines}\label{class_network_acda0fd42e712e460a08a0e96511ee7eb}
 
 
-Definition at line \hyperlink{network_8h_source_l00119}{119} of file \hyperlink{network_8h_source}{network.\+h}.
+Definition at line \hyperlink{network_8h_source_l00130}{130} of file \hyperlink{network_8h_source}{network.\+h}.
 
-\hypertarget{class_network_a1a818069626eb82d58e3974a5b3492a6}{}\index{Network@{Network}!max\+Iterations@{max\+Iterations}}
-\index{max\+Iterations@{max\+Iterations}!Network@{Network}}
-\paragraph[{max\+Iterations}]{\setlength{\rightskip}{0pt plus 5cm}u\+\_\+int32\+\_\+t Network\+::max\+Iterations\hspace{0.3cm}{\ttfamily [static]}}\label{class_network_a1a818069626eb82d58e3974a5b3492a6}
-
-
-Definition at line \hyperlink{network_8h_source_l00090}{90} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{class_network_abcdc973129d3dda7572b7a1c388da1b5}{}\index{Network@{Network}!min\+Error@{min\+Error}}
-\index{min\+Error@{min\+Error}!Network@{Network}}
-\paragraph[{min\+Error}]{\setlength{\rightskip}{0pt plus 5cm}double Network\+::min\+Error\hspace{0.3cm}{\ttfamily [static]}}\label{class_network_abcdc973129d3dda7572b7a1c388da1b5}
+\hypertarget{class_network_ab6643733a517f930c60b06f5ffd78186}{}\index{Network@{Network}!name@{name}}
+\index{name@{name}!Network@{Network}}
+\paragraph[{name}]{\setlength{\rightskip}{0pt plus 5cm}Q\+String Network\+::name}\label{class_network_ab6643733a517f930c60b06f5ffd78186}
 
 
-Definition at line \hyperlink{network_8h_source_l00092}{92} of file \hyperlink{network_8h_source}{network.\+h}.
+Definition at line \hyperlink{network_8h_source_l00114}{114} of file \hyperlink{network_8h_source}{network.\+h}.
 
-\hypertarget{class_network_a74bb7aa495d422f1f092acdf958df989}{}\index{Network@{Network}!power\+Base@{power\+Base}}
-\index{power\+Base@{power\+Base}!Network@{Network}}
-\paragraph[{power\+Base}]{\setlength{\rightskip}{0pt plus 5cm}double Network\+::power\+Base\hspace{0.3cm}{\ttfamily [static]}}\label{class_network_a74bb7aa495d422f1f092acdf958df989}
-
-
-Definition at line \hyperlink{network_8h_source_l00096}{96} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{class_network_a9504015bc566f4a3d3b4d4a86000293b}{}\index{Network@{Network}!power\+Unit@{power\+Unit}}
-\index{power\+Unit@{power\+Unit}!Network@{Network}}
-\paragraph[{power\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Power\+Unit} Network\+::power\+Unit\hspace{0.3cm}{\ttfamily [static]}}\label{class_network_a9504015bc566f4a3d3b4d4a86000293b}
+\hypertarget{class_network_a9f5c70be28a45320802bd0ac3947d114}{}\index{Network@{Network}!x\+Offset@{x\+Offset}}
+\index{x\+Offset@{x\+Offset}!Network@{Network}}
+\paragraph[{x\+Offset}]{\setlength{\rightskip}{0pt plus 5cm}double Network\+::x\+Offset}\label{class_network_a9f5c70be28a45320802bd0ac3947d114}
 
 
-Definition at line \hyperlink{network_8h_source_l00104}{104} of file \hyperlink{network_8h_source}{network.\+h}.
+Definition at line \hyperlink{network_8h_source_l00116}{116} of file \hyperlink{network_8h_source}{network.\+h}.
 
-\hypertarget{class_network_a7c1e79d9ac69df9a69f24eaf092fd5e5}{}\index{Network@{Network}!voltage\+Base@{voltage\+Base}}
-\index{voltage\+Base@{voltage\+Base}!Network@{Network}}
-\paragraph[{voltage\+Base}]{\setlength{\rightskip}{0pt plus 5cm}double Network\+::voltage\+Base\hspace{0.3cm}{\ttfamily [static]}}\label{class_network_a7c1e79d9ac69df9a69f24eaf092fd5e5}
-
-
-Definition at line \hyperlink{network_8h_source_l00094}{94} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{class_network_acde031ef95f5c05565ee35769f2ed89e}{}\index{Network@{Network}!voltage\+Unit@{voltage\+Unit}}
-\index{voltage\+Unit@{voltage\+Unit}!Network@{Network}}
-\paragraph[{voltage\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Voltage\+Unit} Network\+::voltage\+Unit\hspace{0.3cm}{\ttfamily [static]}}\label{class_network_acde031ef95f5c05565ee35769f2ed89e}
+\hypertarget{class_network_a771b16f7eb4459d0ca7141c048b1ab59}{}\index{Network@{Network}!y\+Offset@{y\+Offset}}
+\index{y\+Offset@{y\+Offset}!Network@{Network}}
+\paragraph[{y\+Offset}]{\setlength{\rightskip}{0pt plus 5cm}double Network\+::y\+Offset}\label{class_network_a771b16f7eb4459d0ca7141c048b1ab59}
 
 
-Definition at line \hyperlink{network_8h_source_l00102}{102} of file \hyperlink{network_8h_source}{network.\+h}.
+Definition at line \hyperlink{network_8h_source_l00118}{118} of file \hyperlink{network_8h_source}{network.\+h}.
 
 
 

@@ -26,21 +26,23 @@
 00022   \textcolor{keyword}{explicit} \hyperlink{class_line_properties_a0bc0d7c02db0a4ea920d040f76679fec}{LineProperties}(QWidget *parent = 0);
 00023   \hyperlink{class_line_properties_a59017a6580f2e02dc492522d9267de29}{~LineProperties}();
 00024 
-00025   \textcolor{keywordtype}{void} \hyperlink{class_line_properties_ad434fc8e65787648a44737fb9f46b475}{setOptions}(\hyperlink{class_project}{Project} *project, \hyperlink{class_line}{Line} *line);
+00025   \textcolor{keywordtype}{void} \hyperlink{class_line_properties_ad434fc8e65787648a44737fb9f46b475}{setOptions}(\hyperlink{class_project}{Project} *project, \hyperlink{class_line}{Line} *\hyperlink{class_line_properties_ae99691d680b4df7bac3419b5588bd777}{line});
 00026 
-00027 \textcolor{keyword}{private} slots:
-00028   \textcolor{keywordtype}{void} on\_buttonBox\_accepted();
-00029 
-00030   \textcolor{keywordtype}{void} on\_buttonBox\_rejected();
+00027   \hyperlink{class_line}{Line} *\hyperlink{class_line_properties_ae99691d680b4df7bac3419b5588bd777}{line}();
+00028 
+00029 \textcolor{keyword}{private} slots:
+00030   \textcolor{keywordtype}{void} on\_buttonBox\_accepted();
 00031 
-00032 \textcolor{keyword}{private}:
-00033   Ui::LineProperties *ui;
-00034   \hyperlink{class_project}{Project} *project\_;
-00035   \hyperlink{class_line}{Line} *line\_;
-00036   \textcolor{keywordtype}{bool} isNew;
-00037 
-00038   \textcolor{keywordtype}{bool} validImpedance(QLineEdit *input);
-00039 \};
-00040 
-00041 \textcolor{preprocessor}{#endif // LINEPROPERTIES\_H}
+00032   \textcolor{keywordtype}{void} on\_buttonBox\_rejected();
+00033 
+00034 \textcolor{keyword}{private}:
+00035   Ui::LineProperties *ui;
+00036   \hyperlink{class_project}{Project} *project\_;
+00037   \hyperlink{class_line}{Line} *line\_;
+00038   \textcolor{keywordtype}{bool} isNew;
+00039 
+00040   \textcolor{keywordtype}{bool} validImpedance(QLineEdit *input);
+00041 \};
+00042 
+00043 \textcolor{preprocessor}{#endif // LINEPROPERTIES\_H}
 \end{DoxyCode}

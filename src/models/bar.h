@@ -71,15 +71,16 @@ using std::complex;
  * A bar with id equals to 0 is an alimentator (Slack bar).
  * Bar properties are:
  *  - Voltage (for phases 0, 1 and 2): voltage at the bar.
- *  - Shunt elements (sh) power injection: shunt elements are
- *    represented by the power they inject in the bar.
- * - Injected power (si): the power injected at the bar (here, power that is
- * consumed is represented as a positive value and power that is generated at
- * the bar is represented with a negative sign).
+ *  - Shunt elements (sh) power injection: shunt elements are represented by the
+ *    power they inject in the bar.
+ *  - Injected power (si): the power injected at the bar (here, power that is
+ *    consumed is represented as a positive value and power that is generated at
+ *    the bar is represented with a negative sign).
  *
  * The bar properties are stored in the following units:
  *  - Power: VA.
  *  - Voltage: Volts.
+ * 
  * In order to use diferent units, use the option parameter \b unit with the
  * desired unit.
  *

@@ -44,162 +44,172 @@
 00058   setDragMode(RubberBandDrag);
 00059   \textcolor{comment}{// Enable antialiasing}
 00060   setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
-00061 \}
-00062 
-00063 \textcolor{comment}{/*******************************************************************************}
-00064 \textcolor{comment}{ * Destructor.}
-00065 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{systemview_8cpp_source_l00066}{}\hyperlink{group___graphics_ga0091352981c1efa5498819b69698db44}{00066} \hyperlink{group___graphics_ga0091352981c1efa5498819b69698db44}{SystemView::~SystemView}()
-00067 \{
-00068 
-00069 \}
+00061 
+00062   setScene(\textcolor{keyword}{new} QGraphicsScene(\textcolor{keyword}{this}));
+00063 
+00064   barDoubleClick = \textcolor{keyword}{new} QSignalMapper(\textcolor{keyword}{this});
+00065   lineDoubleClick = \textcolor{keyword}{new} QSignalMapper(\textcolor{keyword}{this});
+00066 
+00067   \textcolor{comment}{// Create mapper for bar properties.}
+00068   connect(barDoubleClick, SIGNAL(mapped(QObject *)), \textcolor{keyword}{this},
+00069           SIGNAL(\hyperlink{class_system_view_a90bd4b070c8abaa5995899154421eb44}{barProperties}(QObject *)));
 00070 
-00071 \textcolor{comment}{/*******************************************************************************}
-00072 \textcolor{comment}{ * zoomIn.}
-00073 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{systemview_8cpp_source_l00074}{}\hyperlink{group___graphics_ga93170319ee5fbf9098353b383fc8a368}{00074} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga93170319ee5fbf9098353b383fc8a368}{SystemView::zoomIn}()
-00075 \{
-00076   scale(1.0 + kZoomStep, 1.0 + kZoomStep);
-00077 \}
-00078 
-00079 \textcolor{comment}{/*******************************************************************************}
-00080 \textcolor{comment}{ * zoomOut.}
-00081 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{systemview_8cpp_source_l00082}{}\hyperlink{group___graphics_gaf971471c76265ec21cdde2aafe9b609f}{00082} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaf971471c76265ec21cdde2aafe9b609f}{SystemView::zoomOut}()
-00083 \{
-00084   scale(1.0 - kZoomStep, 1.0 - kZoomStep);
-00085 \}
-00086 
-00087 \textcolor{comment}{/*******************************************************************************}
-00088 \textcolor{comment}{ * zoomFit.}
-00089 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{systemview_8cpp_source_l00090}{}\hyperlink{group___graphics_gac1bf0b6a80216df74a8da1cb8ac5f0e8}{00090} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gac1bf0b6a80216df74a8da1cb8ac5f0e8}{SystemView::zoomFit}()
-00091 \{
-00092   fitInView(sceneRect(), Qt::KeepAspectRatio);
-00093 \}
-00094 
-00095 \textcolor{comment}{/*******************************************************************************}
-00096 \textcolor{comment}{ * addNetwork.}
-00097 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{systemview_8cpp_source_l00098}{}\hyperlink{group___graphics_gae183447d0777c7b2b940a977f9b64c3f}{00098} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gae183447d0777c7b2b940a977f9b64c3f}{SystemView::addNetwork}(\hyperlink{class_network}{Network} *network)
-00099 \{
-00100 \textcolor{comment}{//  setScene(network);}
-00101 \}
-00102 
-00103 \textcolor{comment}{/*******************************************************************************}
-00104 \textcolor{comment}{ * removeNetwork.}
-00105 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{systemview_8cpp_source_l00106}{}\hyperlink{group___graphics_ga2078ad08ff93b9a8683d567e3f9f714e}{00106} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga2078ad08ff93b9a8683d567e3f9f714e}{SystemView::removeNetwork}(\hyperlink{class_network}{Network} *network)
-00107 \{
-00108   setScene(NULL);
-00109   \textcolor{keyword}{delete} network;
-00110   network = NULL;
-00111 \}
-00112 
-00113 \textcolor{comment}{/*******************************************************************************}
-00114 \textcolor{comment}{ * wheelEvent.}
-00115 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{systemview_8cpp_source_l00116}{}\hyperlink{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}{00116} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}{SystemView::wheelEvent}(QWheelEvent *event)
-00117 \{
-00118   setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
-00119 
-00120   \textcolor{keywordflow}{if} (event->delta() > 0) \{
-00121     scale(1.0 + kZoomStep, 1.0 + kZoomStep);
-00122   \} \textcolor{keywordflow}{else} \{
-00123     scale(1.0 - kZoomStep, 1.0 - kZoomStep);
-00124   \}
-00125 \}
-00126 
-00127 \textcolor{comment}{/*******************************************************************************}
-00128 \textcolor{comment}{ * mouseMoveEvent.}
-00129 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{systemview_8cpp_source_l00130}{}\hyperlink{group___graphics_gab19e233cd697852dd71140971cb6e122}{00130} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gab19e233cd697852dd71140971cb6e122}{SystemView::mouseMoveEvent}(QMouseEvent *event)
-00131 \{
-00132   \textcolor{keywordflow}{if} (event->buttons().testFlag(Qt::MidButton)) \{
-00133     QScrollBar *hBar = horizontalScrollBar();
-00134     QScrollBar *vBar = verticalScrollBar();
-00135     QPoint delta = \textcolor{keyword}{event}->pos() - oldPos;
-00136     oldPos = \textcolor{keyword}{event}->pos();
-00137     hBar->setValue(hBar->value() + (isRightToLeft() ? delta.x() : -delta.x()));
-00138     vBar->setValue(vBar->value() - delta.y());
-00139   \}
-00140 
-00141   QGraphicsView::mouseMoveEvent(event);
-00142 \}
-00143 
-00144 \textcolor{comment}{/*******************************************************************************}
-00145 \textcolor{comment}{ * mousePressEvent.}
-00146 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{systemview_8cpp_source_l00147}{}\hyperlink{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{00147} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{SystemView::mousePressEvent}(QMouseEvent *event)
+00071   \textcolor{comment}{// Create mapper for line properties.}
+00072   connect(lineDoubleClick, SIGNAL(mapped(QObject *)), \textcolor{keyword}{this},
+00073           SIGNAL(\hyperlink{class_system_view_a58c4a0bf68178ab59066819118214360}{lineProperties}(QObject *)));
+00074 
+00075 \}
+00076 
+00077 \textcolor{comment}{/*******************************************************************************}
+00078 \textcolor{comment}{ * Destructor.}
+00079 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{systemview_8cpp_source_l00080}{}\hyperlink{group___graphics_ga0091352981c1efa5498819b69698db44}{00080} \hyperlink{group___graphics_ga0091352981c1efa5498819b69698db44}{SystemView::~SystemView}()
+00081 \{
+00082 
+00083 \}
+00084 
+00085 \textcolor{comment}{/*******************************************************************************}
+00086 \textcolor{comment}{ * zoomIn.}
+00087 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{systemview_8cpp_source_l00088}{}\hyperlink{group___graphics_ga93170319ee5fbf9098353b383fc8a368}{00088} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga93170319ee5fbf9098353b383fc8a368}{SystemView::zoomIn}()
+00089 \{
+00090   scale(1.0 + kZoomStep, 1.0 + kZoomStep);
+00091 \}
+00092 
+00093 \textcolor{comment}{/*******************************************************************************}
+00094 \textcolor{comment}{ * zoomOut.}
+00095 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{systemview_8cpp_source_l00096}{}\hyperlink{group___graphics_gaf971471c76265ec21cdde2aafe9b609f}{00096} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaf971471c76265ec21cdde2aafe9b609f}{SystemView::zoomOut}()
+00097 \{
+00098   scale(1.0 - kZoomStep, 1.0 - kZoomStep);
+00099 \}
+00100 
+00101 \textcolor{comment}{/*******************************************************************************}
+00102 \textcolor{comment}{ * zoomFit.}
+00103 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{systemview_8cpp_source_l00104}{}\hyperlink{group___graphics_gac1bf0b6a80216df74a8da1cb8ac5f0e8}{00104} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gac1bf0b6a80216df74a8da1cb8ac5f0e8}{SystemView::zoomFit}()
+00105 \{
+00106   fitInView(sceneRect(), Qt::KeepAspectRatio);
+00107 \}
+00108 
+00109 \textcolor{comment}{/*******************************************************************************}
+00110 \textcolor{comment}{ * addNetwork.}
+00111 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{systemview_8cpp_source_l00112}{}\hyperlink{group___graphics_gae183447d0777c7b2b940a977f9b64c3f}{00112} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gae183447d0777c7b2b940a977f9b64c3f}{SystemView::addNetwork}(\hyperlink{class_network}{Network} *network)
+00113 \{
+00114   \textcolor{keywordflow}{foreach} (\hyperlink{class_bar}{Bar} *bar, network->\hyperlink{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{bars}) \{
+00115     \hyperlink{group___graphics_gac4e02019d41c203c788ff1e6f3ee460e}{addBar}(bar);
+00116   \}
+00117 
+00118   \textcolor{keywordflow}{foreach} (\hyperlink{class_line}{Line} *line, network->\hyperlink{class_network_acda0fd42e712e460a08a0e96511ee7eb}{lines}) \{
+00119     \hyperlink{group___graphics_gaed2fb15d518cab9a52ea1ee258846bfc}{addLine}(line);
+00120   \}
+00121 \}
+00122 
+00123 \textcolor{comment}{/*******************************************************************************}
+00124 \textcolor{comment}{ * removeNetwork.}
+00125 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{systemview_8cpp_source_l00126}{}\hyperlink{group___graphics_ga2078ad08ff93b9a8683d567e3f9f714e}{00126} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga2078ad08ff93b9a8683d567e3f9f714e}{SystemView::removeNetwork}(\hyperlink{class_network}{Network} *network)
+00127 \{
+00128 
+00129   \textcolor{keywordflow}{foreach} (\hyperlink{class_bar}{Bar} *bar, network->\hyperlink{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{bars}) \{
+00130     \hyperlink{group___graphics_ga1e96b08395a2f1b961dedbb3e8c99a50}{removeBar}(bar);
+00131   \}
+00132 
+00133   \textcolor{keywordflow}{foreach} (\hyperlink{class_line}{Line} *line, network->\hyperlink{class_network_acda0fd42e712e460a08a0e96511ee7eb}{lines}) \{
+00134     \hyperlink{group___graphics_ga4af1d763d9b9c02933e62d1f6231ad18}{removeLine}(line);
+00135   \}
+00136 \}
+00137 
+\hypertarget{systemview_8cpp_source_l00138}{}\hyperlink{group___graphics_gac4e02019d41c203c788ff1e6f3ee460e}{00138} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gac4e02019d41c203c788ff1e6f3ee460e}{SystemView::addBar}(\hyperlink{class_bar}{Bar} *bar)
+00139 \{
+00140   scene()->addItem(bar);
+00141 
+00142   \textcolor{comment}{// Connect signals.}
+00143   connect(bar, SIGNAL(eventDoubleClick()), barDoubleClick, SLOT(map()));
+00144   barDoubleClick->setMapping(bar, bar);
+00145 \}
+00146 
+\hypertarget{systemview_8cpp_source_l00147}{}\hyperlink{group___graphics_ga1e96b08395a2f1b961dedbb3e8c99a50}{00147} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga1e96b08395a2f1b961dedbb3e8c99a50}{SystemView::removeBar}(\hyperlink{class_bar}{Bar} *bar)
 00148 \{
-00149   \textcolor{keywordflow}{if}(event->button() == Qt::MidButton) \{
-00150     oldPos = \textcolor{keyword}{event}->pos();
-00151     setDragMode(NoDrag);
-00152     setCursor(Qt::OpenHandCursor);
-00153   \}
+00149   scene()->removeItem(bar);
+00150 
+00151   disconnect(bar, SIGNAL(eventDoubleClick()), barDoubleClick, SLOT(map()));
+00152   barDoubleClick->removeMappings(bar);
+00153 \}
 00154 
-00155   QGraphicsView::mousePressEvent(event);
-00156 \}
-00157 
-00158 \textcolor{comment}{/*******************************************************************************}
-00159 \textcolor{comment}{ * mouseReleaseEvent.}
-00160 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{systemview_8cpp_source_l00161}{}\hyperlink{group___graphics_gaa8a2664405194bbe29daa454aead7416}{00161} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaa8a2664405194bbe29daa454aead7416}{SystemView::mouseReleaseEvent}(QMouseEvent *event)
-00162 \{
-00163   \textcolor{keywordflow}{if}(event->button() == Qt::MidButton) \{
-00164     setDragMode(RubberBandDrag);
-00165     setCursor(Qt::ArrowCursor);
-00166   \}
-00167 
-00168   QGraphicsView::mouseReleaseEvent(event);
+\hypertarget{systemview_8cpp_source_l00155}{}\hyperlink{group___graphics_gaed2fb15d518cab9a52ea1ee258846bfc}{00155} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaed2fb15d518cab9a52ea1ee258846bfc}{SystemView::addLine}(\hyperlink{class_line}{Line} *line)
+00156 \{
+00157   scene()->addItem(line);
+00158 
+00159   \textcolor{comment}{// Connect signals.}
+00160   connect(line, SIGNAL(eventDoubleClick()), lineDoubleClick, SLOT(map()));
+00161   lineDoubleClick->setMapping(line, line);
+00162 \}
+00163 
+\hypertarget{systemview_8cpp_source_l00164}{}\hyperlink{group___graphics_ga4af1d763d9b9c02933e62d1f6231ad18}{00164} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga4af1d763d9b9c02933e62d1f6231ad18}{SystemView::removeLine}(\hyperlink{class_line}{Line} *line)
+00165 \{
+00166   scene()->removeItem(line);
+00167   disconnect(line, SIGNAL(eventDoubleClick()), lineDoubleClick, SLOT(map()));
+00168   lineDoubleClick->removeMappings(line);
 00169 \}
 00170 
 00171 \textcolor{comment}{/*******************************************************************************}
-00172 \textcolor{comment}{ * Connect Signals.}
+00172 \textcolor{comment}{ * wheelEvent.}
 00173 \textcolor{comment}{ ******************************************************************************/}
-00174 \textcolor{comment}{//void QuickFlow::connectSignals()}
-00175 \textcolor{comment}{//\{}
-00176 \textcolor{comment}{//  connect(project->network, SIGNAL(barProperties(QObject *)), this,}
-00177 \textcolor{comment}{//          SLOT(on\_editBar(QObject *)));}
-00178 
-00179 \textcolor{comment}{//  connect(project->network, SIGNAL(lineProperties(QObject *)), this,}
-00180 \textcolor{comment}{//          SLOT(on\_editLine(QObject *)));}
-00181 \textcolor{comment}{//\}}
-00182 
-00184 \textcolor{comment}{// * Disconnect Signals.}
-00185 \textcolor{comment}{// ******************************************************************************/}
-00186 \textcolor{comment}{//void QuickFlow::disconnectSignals()}
-00187 \textcolor{comment}{//\{}
-00188 \textcolor{comment}{//  disconnect(project->network, SIGNAL(barProperties(QObject *)), this,}
-00189 \textcolor{comment}{//             SLOT(on\_editBar(QObject *)));}
-00190 
-00191 \textcolor{comment}{//  disconnect(project->network, SIGNAL(lineProperties(QObject *)), this,}
-00192 \textcolor{comment}{//             SLOT(on\_editLine(QObject *)));}
-00193 \textcolor{comment}{//\}}
-00194 
-00195 
-00196 \textcolor{comment}{/*******************************************************************************}
-00197 \textcolor{comment}{ * Bar Double Click.}
-00198 \textcolor{comment}{ ******************************************************************************/}
-00199 \textcolor{comment}{//void QuickFlow::on\_editBar(QObject *bar)}
-00200 \textcolor{comment}{//\{}
-00201 \textcolor{comment}{//  BarProperties barProperties(this);}
-00202 \textcolor{comment}{//  barProperties.setOptions(project, static\_cast<Bar *>(bar));}
-00203 
-00204 \textcolor{comment}{//  if (barProperties.exec() == QDialog::Accepted) \{}
-00205 \textcolor{comment}{//    setAltered(true);}
-00206 \textcolor{comment}{//  \}}
-00207 \textcolor{comment}{//\}}
-00208 
-00210 \textcolor{comment}{// * Line Double Click.}
-00211 \textcolor{comment}{// ******************************************************************************/}
-00212 \textcolor{comment}{//void QuickFlow::on\_editLine(QObject *line)}
-00213 \textcolor{comment}{//\{}
-00214 \textcolor{comment}{//  LineProperties lineProperties(this);}
-00215 \textcolor{comment}{//  lineProperties.setOptions(project, static\_cast<Line *>(line));}
-00216 
-00217 \textcolor{comment}{//  if (lineProperties.exec() == QDialog::Accepted) \{}
-00218 \textcolor{comment}{//    setAltered(true);}
-00219 \textcolor{comment}{//  \}}
-00220 \textcolor{comment}{//\}}
+\hypertarget{systemview_8cpp_source_l00174}{}\hyperlink{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}{00174} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}{SystemView::wheelEvent}(QWheelEvent *event)
+00175 \{
+00176   setTransformationAnchor(QGraphicsView::AnchorUnderMouse);
+00177 
+00178   \textcolor{keywordflow}{if} (event->delta() > 0) \{
+00179     scale(1.0 + kZoomStep, 1.0 + kZoomStep);
+00180   \} \textcolor{keywordflow}{else} \{
+00181     scale(1.0 - kZoomStep, 1.0 - kZoomStep);
+00182   \}
+00183 \}
+00184 
+00185 \textcolor{comment}{/*******************************************************************************}
+00186 \textcolor{comment}{ * mouseMoveEvent.}
+00187 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{systemview_8cpp_source_l00188}{}\hyperlink{group___graphics_gab19e233cd697852dd71140971cb6e122}{00188} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gab19e233cd697852dd71140971cb6e122}{SystemView::mouseMoveEvent}(QMouseEvent *event)
+00189 \{
+00190   \textcolor{keywordflow}{if} (event->buttons().testFlag(Qt::MidButton)) \{
+00191     QScrollBar *hBar = horizontalScrollBar();
+00192     QScrollBar *vBar = verticalScrollBar();
+00193     QPoint delta = \textcolor{keyword}{event}->pos() - oldPos;
+00194     oldPos = \textcolor{keyword}{event}->pos();
+00195     hBar->setValue(hBar->value() + (isRightToLeft() ? delta.x() : -delta.x()));
+00196     vBar->setValue(vBar->value() - delta.y());
+00197   \}
+00198 
+00199   QGraphicsView::mouseMoveEvent(event);
+00200 \}
+00201 
+00202 \textcolor{comment}{/*******************************************************************************}
+00203 \textcolor{comment}{ * mousePressEvent.}
+00204 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{systemview_8cpp_source_l00205}{}\hyperlink{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{00205} \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{SystemView::mousePressEvent}(QMouseEvent *event)
+00206 \{
+00207   \textcolor{keywordflow}{if}(event->button() == Qt::MidButton) \{
+00208     oldPos = \textcolor{keyword}{event}->pos();
+00209     setDragMode(NoDrag);
+00210     setCursor(Qt::OpenHandCursor);
+00211   \}
+00212 
+00213   QGraphicsView::mousePressEvent(event);
+00214 \}
+00215 
+00216 \textcolor{comment}{/*******************************************************************************}
+00217 \textcolor{comment}{ * mouseReleaseEvent.}
+00218 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{systemview_8cpp_source_l00219}{}\hyperlink{group___graphics_gaa8a2664405194bbe29daa454aead7416}{00219} \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaa8a2664405194bbe29daa454aead7416}{SystemView::mouseReleaseEvent}(QMouseEvent *event)
+00220 \{
+00221   \textcolor{keywordflow}{if}(event->button() == Qt::MidButton) \{
+00222     setDragMode(RubberBandDrag);
+00223     setCursor(Qt::ArrowCursor);
+00224   \}
+00225 
+00226   QGraphicsView::mouseReleaseEvent(event);
+00227 \}
+00228 
 \end{DoxyCode}

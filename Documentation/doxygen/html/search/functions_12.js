@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['z',['z',['../group___models.html#gab5370574fd93e13eb11742f7753fe1f1',1,'Line']]],
-  ['zoomfit',['zoomFit',['../group___graphics.html#gac1bf0b6a80216df74a8da1cb8ac5f0e8',1,'SystemView']]],
-  ['zoomin',['zoomIn',['../group___graphics.html#ga93170319ee5fbf9098353b383fc8a368',1,'SystemView']]],
-  ['zoomout',['zoomOut',['../group___graphics.html#gaf971471c76265ec21cdde2aafe9b609f',1,'SystemView']]],
-  ['zpu',['zPu',['../group___models.html#ga139698332327a712f6c02d96fe73fbee',1,'Line']]]
+  ['v',['v',['../group___models.html#ga1e6f2daec86407118656d88170d1adc2',1,'Bar']]],
+  ['voltagebase',['voltageBase',['../class_project.html#a4e857ccb6162f57f5d72f4e7199e4573',1,'Project']]],
+  ['voltageunit',['voltageUnit',['../class_project.html#a93b928093072ba15c24693b03a934e4e',1,'Project']]],
+  ['voltageunittostr',['voltageUnitToStr',['../class_unit.html#a7fa103c31f9f069961b35b6371ff0c0a',1,'Unit']]]
 ];

@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -106,27 +108,21 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <tr class="even"><td class="entry"><a class="el" href="group___models.html#gacbb6dbac607412c9c1f9dfcd0cd4d432">paint</a>(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
   <tr><td class="entry"><a class="el" href="group___models.html#ga2536c0e5cb97fb627b3520826ece2c99">removeLine</a>(Line *line)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga4ea1a2074cb45968d80d6add571884a4">removeLines</a>()</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="group___models.html#gac8ddd4cb566d995b70b0f83146aa12b3">rSi</a>(int32_t phase, Unit::PowerUnit unit=Unit::kVA)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga1fa1b99d17dd19fafcf8309aba4fc758">rSiPu</a>(int32_t phase)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="group___models.html#ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e">rV</a>(int32_t phase, Unit::VoltageUnit unit=Unit::kVolts)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga7deee8820e2ee3e0db993a1e76b68700">rVPu</a>(int32_t phase)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="group___models.html#ga36d3d54b66584a0557c0c141f4636d4c">setRSi</a>(int32_t phase, complex&lt; double &gt; newPower, Unit::PowerUnit unit=Unit::kVA)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga2b2c5a373d87025e79d26aa9c4cea75a">setRV</a>(int32_t phase, complex&lt; double &gt; resultVoltage, Unit::VoltageUnit unit=Unit::kVolts)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="group___models.html#ga207abd3d0649a488e3c44cf2a501ed23">setSh</a>(int32_t phase, complex&lt; double &gt; newPower, Unit::PowerUnit unit=Unit::kVA)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga74e510be49e50e4c14550b32e1dc92f9">setSi</a>(int32_t phase, complex&lt; double &gt; newPower, Unit::PowerUnit unit=Unit::kVA)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="group___models.html#ga9b6fbc92674bfcdc9d5090795ab335a6">setV</a>(int32_t phase, complex&lt; double &gt; newVoltage, Unit::VoltageUnit unit=Unit::kVolts)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="group___models.html#gac188071bf5f165b0acdaa4c8af82355c">sh</a>(int32_t phase, Unit::PowerUnit unit=Unit::kVA)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="group___models.html#ga7df2ed5705f06c0cf2937d25102ca847">shPu</a>(int32_t phase)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="group___models.html#ga8a009531f01430aa68eba739bb0dc2ea">rI</a>(int32_t phase, Unit::CurrentUnit unit=Unit::kAmpere)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e">rV</a>(int32_t phase, Unit::VoltageUnit unit=Unit::kVolts)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="group___models.html#ga2b2c5a373d87025e79d26aa9c4cea75a">setRV</a>(int32_t phase, complex&lt; double &gt; resultVoltage, Unit::VoltageUnit unit=Unit::kVolts)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga207abd3d0649a488e3c44cf2a501ed23">setSh</a>(int32_t phase, complex&lt; double &gt; newPower, Unit::PowerUnit unit=Unit::kVA)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="group___models.html#ga74e510be49e50e4c14550b32e1dc92f9">setSi</a>(int32_t phase, complex&lt; double &gt; newPower, Unit::PowerUnit unit=Unit::kVA)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga9b6fbc92674bfcdc9d5090795ab335a6">setV</a>(int32_t phase, complex&lt; double &gt; newVoltage, Unit::VoltageUnit unit=Unit::kVolts)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="group___models.html#gac188071bf5f165b0acdaa4c8af82355c">sh</a>(int32_t phase, Unit::PowerUnit unit=Unit::kVA)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga02bbc279f1e133f66b12ee21e7bebcd8">si</a>(int32_t phase, Unit::PowerUnit unit=Unit::kVA)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="group___models.html#ga8ac94a6b5f69417da962a7d87361b416">siPu</a>(int32_t phase)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga3eb84c42b687db6cd98e11b8bd38c86e">toJson</a>()</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="group___models.html#ga1e6f2daec86407118656d88170d1adc2">v</a>(int32_t phase, Unit::VoltageUnit unit=Unit::kVolts)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga1c54bd76b2f620d970ddfed8cdae4116">vPu</a>(int32_t phase)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="group___models.html#ga3eb84c42b687db6cd98e11b8bd38c86e">toJson</a>()</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="group___models.html#ga1e6f2daec86407118656d88170d1adc2">v</a>(int32_t phase, Unit::VoltageUnit unit=Unit::kVolts)</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="group___models.html#ga9c7ebea0c189423591741ac438985316">~Bar</a>()</td><td class="entry"><a class="el" href="class_bar.html">Bar</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:44 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

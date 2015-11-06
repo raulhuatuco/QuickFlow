@@ -63,14 +63,14 @@ SOURCES += main.cpp\
     graphics/infobar.cpp \
     graphics/infoline.cpp \
     algorithms/import.cpp \
-    algorithms/redraw.cpp \
     graphics/systemview.cpp \
     window/about.cpp \
     window/networkproperties.cpp \
     graphics/datatable.cpp \
     algorithms/radiallayer.cpp \
     algorithms/cespedes.cpp \
-    window/searchbar.cpp
+    window/searchbar.cpp \
+    algorithms/redrawnetwork.cpp
     
 # Project header files.
 HEADERS  += \
@@ -86,7 +86,6 @@ HEADERS  += \
     graphics/infobar.h \
     graphics/infoline.h \
     algorithms/import.h \
-    algorithms/redraw.h \
     graphics/systemview.h \
     algorithms/shirmoharmmadi.h \
     window/about.h \
@@ -95,7 +94,8 @@ HEADERS  += \
     algorithms/radiallayer.h \
     algorithms/cespedes.h \
     math_constants.h \
-    window/searchbar.h
+    window/searchbar.h \
+    algorithms/redrawnetwork.h
 
 # Forms.
 FORMS    += \
@@ -152,8 +152,9 @@ win32 {
 # Linux configuration.
 linux {
    CONFIG += c++11
-   INCLUDEPATH += "..\third-party\ogdf\include"
-   LIBS += -lOGDF -lCOIN -lpthread
+   INCLUDEPATH += "../third-party/ogdf/include"
+   
+   LIBS += -lOGDF -lCOIN -lpthread   
 }
 
 # Artistic Style beautifier.

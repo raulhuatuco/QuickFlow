@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -102,8 +104,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Inheritance diagram for Line:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_line__inherit__graph.png" border="0" usemap="#_line_inherit__map" alt="Inheritance graph"/></div>
-<map name="_line_inherit__map" id="_line_inherit__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for Line:</div>
@@ -129,16 +129,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:gab5370574fd93e13eb11742f7753fe1f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga409df7d11f5c5d594a13fb2f74b3b9e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga409df7d11f5c5d594a13fb2f74b3b9e0">setZ</a> (int32_t index, complex&lt; double &gt; newImpedance, <a class="el" href="class_unit.html#a3747e779c805df24a71961290be3fbdf">Unit::ImpedanceUnit</a> unit=<a class="el" href="class_unit.html#a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da">Unit::kOhm</a>)</td></tr>
 <tr class="separator:ga409df7d11f5c5d594a13fb2f74b3b9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga139698332327a712f6c02d96fe73fbee"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga139698332327a712f6c02d96fe73fbee">zPu</a> (int32_t index)</td></tr>
-<tr class="separator:ga139698332327a712f6c02d96fe73fbee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf81e7055102816465bdf7e19afc2d547"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">i</a> (int32_t phase, <a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a> unit=<a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a>)</td></tr>
 <tr class="separator:gaf81e7055102816465bdf7e19afc2d547"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9e55b06dc3e385838fdd13d5580438ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga9e55b06dc3e385838fdd13d5580438ef">setI</a> (int32_t phase, complex&lt; double &gt; newCurrent, <a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a> unit=<a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a>)</td></tr>
 <tr class="separator:ga9e55b06dc3e385838fdd13d5580438ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8f71e477800134586652d283087ed373"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga8f71e477800134586652d283087ed373">iPu</a> (int32_t phase)</td></tr>
-<tr class="separator:ga8f71e477800134586652d283087ed373"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga84ddf17bee846a6f21c44d463252dd25"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga84ddf17bee846a6f21c44d463252dd25">loss</a> (int32_t phase)</td></tr>
-<tr class="separator:ga84ddf17bee846a6f21c44d463252dd25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7909d69e419de3f460ca7abab3d91e53"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53">loss</a> (int32_t phase, <a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a>)</td></tr>
+<tr class="separator:ga7909d69e419de3f460ca7abab3d91e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae2e4500d0fa60dcc2ecb08b2c96954f9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#gae2e4500d0fa60dcc2ecb08b2c96954f9">length</a> (<a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a> unit=<a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a>)</td></tr>
 <tr class="separator:gae2e4500d0fa60dcc2ecb08b2c96954f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga950d0b8f5d167eda430c65ca7adadbb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga950d0b8f5d167eda430c65ca7adadbb0">setLength</a> (double newLength, <a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a> unit=<a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a>)</td></tr>
@@ -257,7 +253,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:44 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

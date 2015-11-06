@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -115,181 +117,290 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment"> * SOFTWARE.</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment"> */</span></div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">models/network.h</a>&quot;</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> * Const.</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="group___graphics.html#gaa334bbc93b3fde219840e95e23198b53">Network::barIconSize</a> = 15.0;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="group___graphics.html#ga3f810634c9908d62d33a1ab09a76c147">Network::lineWidth</a> = 4.0;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">const</span> QColor <a class="code" href="group___graphics.html#gaa9e21b8e2a24b0495e776a51e1aeed94">Network::selectedColor</a> = Qt::red;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> * Constructor.</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="group___graphics.html#ga3cc2fb4f8fa4d507077e8da85ce5a1c8">   54</a></span>&#160;<a class="code" href="group___graphics.html#ga3cc2fb4f8fa4d507077e8da85ce5a1c8">Network::Network</a>() :</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  barStrokeColor(Qt::gray),</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  barSlackFillColor(Qt::green),</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  barPqFillColor(Qt::blue),</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  lineColor(Qt::black)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">//  maxIterations(1000),</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">//  minError(0.001),</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">//  voltageBase(0.0),</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">//  powerBase(0.0),</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">//  lengthUnit(Unit::kMeter),</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">//  impedanceUnit(Unit::kOhm),</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">//  voltageUnit(Unit::kKiloVolts),</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">//  powerUnit(Unit::kKiloVA)</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">//  barDoubleClick = new QSignalMapper(this);</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">//  lineDoubleClick = new QSignalMapper(this);</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#include &lt;QJsonArray&gt;</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">models/network.h</a>&quot;</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * Const.</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="group___graphics.html#gaa334bbc93b3fde219840e95e23198b53">Network::barIconSize</a> = 15.0;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keyword">const</span> <span class="keywordtype">double</span> <a class="code" href="group___graphics.html#ga3f810634c9908d62d33a1ab09a76c147">Network::lineWidth</a> = 4.0;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="keyword">const</span> QColor <a class="code" href="group___graphics.html#gaa9e21b8e2a24b0495e776a51e1aeed94">Network::selectedColor</a> = Qt::red;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment"> * Static data initialization.</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;uint32_t <a class="code" href="group___graphics.html#ga318dee060bc577eacd67d332efbbe1b2">Network::maxIterations</a> = 1000;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keywordtype">double</span> <a class="code" href="group___graphics.html#gabcdc973129d3dda7572b7a1c388da1b5">Network::minError</a> = 0.01;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keywordtype">double</span> <a class="code" href="group___graphics.html#ga7c1e79d9ac69df9a69f24eaf092fd5e5">Network::voltageBase</a> = 23000.0;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">double</span> <a class="code" href="group___graphics.html#ga74bb7aa495d422f1f092acdf958df989">Network::powerBase</a> = 2500000.0;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<a class="code" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a> <a class="code" href="group___graphics.html#gae46c0e2bf39b343875e3c69066fe2652">Network::lengthUnit</a> = <a class="code" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<a class="code" href="class_unit.html#a3747e779c805df24a71961290be3fbdf">Unit::ImpedanceUnit</a> <a class="code" href="group___graphics.html#ga5f3d72699a723c64a89d22e34df708ff">Network::impedanceUnit</a> = <a class="code" href="class_unit.html#a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da">Unit::kOhm</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<a class="code" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1">Unit::VoltageUnit</a> <a class="code" href="group___graphics.html#gacde031ef95f5c05565ee35769f2ed89e">Network::voltageUnit</a> = <a class="code" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c">Unit::kVolts</a>;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<a class="code" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a> <a class="code" href="group___graphics.html#ga9504015bc566f4a3d3b4d4a86000293b">Network::powerUnit</a> = <a class="code" href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a>;</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">//  // Create mapper for bar properties.</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">//  connect(barDoubleClick, SIGNAL(mapped(QObject *)), this,</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">//  SIGNAL(barProperties(QObject *)));</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">//  // Create mapper for line properties.</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="comment">//  connect(lineDoubleClick, SIGNAL(mapped(QObject *)), this,</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="comment">//  SIGNAL(lineProperties(QObject *)));</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment"> * Destructor.</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="group___graphics.html#ga7a4e19cdb4bf0c7ecf82baa643831492">   84</a></span>&#160;<a class="code" href="group___graphics.html#ga7a4e19cdb4bf0c7ecf82baa643831492">Network::~Network</a>()</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;{</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment"> * addBar.</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="group___graphics.html#ga8c5dfef0216731246f7411e1a5fbee01">   92</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group___graphics.html#ga8c5dfef0216731246f7411e1a5fbee01">Network::addBar</a>(<a class="code" href="class_bar.html">Bar</a> *bar)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;{</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="comment">// Check if bar exists.</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keywordflow">if</span>(<a class="code" href="group___graphics.html#ga9c5806f5a0d236bb6d8abbdce62d9675">getBarById</a>(bar-&gt;<a class="code" href="class_bar.html#a9dc5c6a6d44fe412ae34ef8a881b8dce">id</a>) != NULL)</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="comment">// Add bar to this group.</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">//  addItem(bar);</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a> <a class="code" href="group___graphics.html#gac6a26db5fef2b1dd2a00faf6340d1702">Network::currentUnit</a> = <a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment"> * Current Base.</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="group___graphics.html#ga433bc5c32cf2ce5329bb40b21952d885">   77</a></span>&#160;<span class="keywordtype">double</span> <a class="code" href="group___graphics.html#ga433bc5c32cf2ce5329bb40b21952d885">Network::currentBase</a>()</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;{</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group___graphics.html#ga74bb7aa495d422f1f092acdf958df989">powerBase</a>/(sqrt(3)*<a class="code" href="group___graphics.html#ga7c1e79d9ac69df9a69f24eaf092fd5e5">voltageBase</a>);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment"> * Impedance Base.</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="group___graphics.html#gae6794c93d37df113778c37c2c702f6d9">   85</a></span>&#160;<span class="keywordtype">double</span> <a class="code" href="group___graphics.html#gae6794c93d37df113778c37c2c702f6d9">Network::impedanceBase</a>()</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;{</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="group___graphics.html#ga7c1e79d9ac69df9a69f24eaf092fd5e5">voltageBase</a>*<a class="code" href="group___graphics.html#ga7c1e79d9ac69df9a69f24eaf092fd5e5">voltageBase</a>/<a class="code" href="group___graphics.html#ga74bb7aa495d422f1f092acdf958df989">powerBase</a>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;}</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment"> * Constructor.</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="group___graphics.html#ga3cc2fb4f8fa4d507077e8da85ce5a1c8">   93</a></span>&#160;<a class="code" href="group___graphics.html#ga3cc2fb4f8fa4d507077e8da85ce5a1c8">Network::Network</a>() :</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  barStrokeColor(Qt::gray),</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  barSlackFillColor(Qt::green),</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  barPqFillColor(Qt::blue),</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  lineColor(Qt::black)</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;{</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
 <div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">//  bars.insert(bar-&gt;id, bar);</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">//  // Connect signals.</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">//  connect(bar, SIGNAL(eventDoubleClick()), barDoubleClick, SLOT(map()));</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">//  barDoubleClick-&gt;setMapping(bar, bar);</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment"> * Destructor.</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="group___graphics.html#ga7a4e19cdb4bf0c7ecf82baa643831492">  104</a></span>&#160;<a class="code" href="group___graphics.html#ga7a4e19cdb4bf0c7ecf82baa643831492">Network::~Network</a>()</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;{</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keywordflow">foreach</span>(<a class="code" href="class_bar.html">Bar</a> *bar, <a class="code" href="class_network.html#a7fe628f7de34a96235cbd3f2cee4aff2">bars</a>) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">delete</span> bar;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  }</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="comment"> * addLine.</span></div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="group___graphics.html#gae02945131494987b3ff9b59b627719b4">  113</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group___graphics.html#gae02945131494987b3ff9b59b627719b4">Network::addLine</a>(<a class="code" href="class_line.html">Line</a> *line)</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;{</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">//  // Check if line exists.</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">//  if(getLineByNodes(line-&gt;noI, line-&gt;noF) != NULL)</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment">//    return false;</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">//  // Check if nodes exists.</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">//  Bar *pNoI = getBarById(line-&gt;noI);</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">//  Bar *pNoF = getBarById(line-&gt;noF);</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">//  if ((pNoI == NULL) || (pNoF == NULL))</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">//    return false;</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">//  line-&gt;setNodes(pNoI, pNoF);</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;<span class="comment">//  // Add line to this group.</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">//  addItem(line);</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">//  lines.append(line);</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">//  // Connect signals.</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">//  connect(line, SIGNAL(eventDoubleClick()), lineDoubleClick, SLOT(map()));</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">//  lineDoubleClick-&gt;setMapping(line, line);</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">//  return true;</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keywordflow">foreach</span>(<a class="code" href="class_line.html">Line</a> *line, <a class="code" href="class_network.html#acda0fd42e712e460a08a0e96511ee7eb">lines</a>) {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">delete</span> line;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment"> * addBar.</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="group___graphics.html#ga8c5dfef0216731246f7411e1a5fbee01">  118</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group___graphics.html#ga8c5dfef0216731246f7411e1a5fbee01">Network::addBar</a>(<a class="code" href="class_bar.html">Bar</a> *bar)</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;{</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="comment">// Check if bar exists.</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <span class="keywordflow">if</span>(<a class="code" href="group___graphics.html#ga04d524ce0fa0dd0d06deda92b1597af0">getBarById</a>(bar-&gt;<a class="code" href="class_bar.html#a9dc5c6a6d44fe412ae34ef8a881b8dce">id</a>) != NULL)</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <a class="code" href="class_network.html#a7fe628f7de34a96235cbd3f2cee4aff2">bars</a>.insert(bar-&gt;<a class="code" href="class_bar.html#a9dc5c6a6d44fe412ae34ef8a881b8dce">id</a>, bar);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  bar-&gt;<a class="code" href="class_bar.html#a80025f13884750add58cc61b318357ff">network</a> = <span class="keyword">this</span>;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment"> * addLine.</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno"><a class="line" href="group___graphics.html#gae02945131494987b3ff9b59b627719b4">  133</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="group___graphics.html#gae02945131494987b3ff9b59b627719b4">Network::addLine</a>(<a class="code" href="class_line.html">Line</a> *line)</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;{</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <span class="comment">// Check if line exists.</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="keywordflow">if</span>(<a class="code" href="group___graphics.html#ga8f090b85a7779695cb9f05b6395b3044">getLineByNodes</a>(line-&gt;<a class="code" href="class_line.html#afd17c40d656e6a8d677cb22df5f0c70b">nodes</a>) != NULL)</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment"> * getBarById.</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="group___graphics.html#ga997ce4f03d316b9f138f2e64e6ca400c">  142</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___graphics.html#ga997ce4f03d316b9f138f2e64e6ca400c">Network::removeBar</a>(int32_t <span class="keywordtype">id</span>)</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;{</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  <a class="code" href="group___graphics.html#ga997ce4f03d316b9f138f2e64e6ca400c">removeBar</a>(<a class="code" href="group___graphics.html#ga9c5806f5a0d236bb6d8abbdce62d9675">getBarById</a>(<span class="keywordtype">id</span>));</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;}</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment"> * getBarById.</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="group___graphics.html#ga7dea7690987c58fa61ffaa0326b68b68">  150</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___graphics.html#ga997ce4f03d316b9f138f2e64e6ca400c">Network::removeBar</a>(<a class="code" href="class_bar.html">Bar</a> *bar)</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;{</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">//  removeItem(bar);</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <span class="keyword">delete</span> bar;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;}</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment"> * getBarById.</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="group___graphics.html#ga1eef3317224a7a06348fce07e581a9ad">  159</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___graphics.html#ga1eef3317224a7a06348fce07e581a9ad">Network::removeLine</a>(QPair&lt;int32_t, int32_t&gt; nodes)</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;{</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <span class="comment">//removeLine(getLineByNodes(noI, noF));</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;}</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment"> * getBarById.</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="group___graphics.html#ga4fd51288aa75614593977ce8aab9100f">  167</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___graphics.html#ga1eef3317224a7a06348fce07e581a9ad">Network::removeLine</a>(<a class="code" href="class_line.html">Line</a> *line)</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;{</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  <span class="comment">//removeItem(line);</span></div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  <span class="keyword">delete</span> line;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;}</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment"> * getBarById.</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno"><a class="line" href="group___graphics.html#ga9c5806f5a0d236bb6d8abbdce62d9675">  176</a></span>&#160;<a class="code" href="class_bar.html">Bar</a> *<a class="code" href="group___graphics.html#ga9c5806f5a0d236bb6d8abbdce62d9675">Network::getBarById</a>(u_int32_t <span class="keywordtype">id</span>)</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;{</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="class_network.html#a7fe628f7de34a96235cbd3f2cee4aff2">bars</a>.value(<span class="keywordtype">id</span>, NULL);</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;}</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">/*******************************************************************************</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="comment"> * getLineByNodes.</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="group___graphics.html#ga8f090b85a7779695cb9f05b6395b3044">  184</a></span>&#160;<a class="code" href="class_line.html">Line</a> *<a class="code" href="group___graphics.html#ga8f090b85a7779695cb9f05b6395b3044">Network::getLineByNodes</a>(QPair&lt;int32_t, int32_t&gt; nodes)</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;{</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="comment">//  foreach (Line *line, lines) {</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment">//    if ((line-&gt;noI == nodes) &amp;&amp; (line-&gt;noF == noF))</span></div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="comment">//      return line;</span></div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment">//    if ((line-&gt;noF == nodes) &amp;&amp; (line-&gt;noI == noF))</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment">//      return line;</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="comment">//  }</span></div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="comment">//  return NULL;</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;}</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;</div>
-<div class="ttc" id="group___graphics_html_ga3f810634c9908d62d33a1ab09a76c147"><div class="ttname"><a href="group___graphics.html#ga3f810634c9908d62d33a1ab09a76c147">Network::lineWidth</a></div><div class="ttdeci">static const double lineWidth</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00083">network.h:83</a></div></div>
-<div class="ttc" id="group___graphics_html_ga8f090b85a7779695cb9f05b6395b3044"><div class="ttname"><a href="group___graphics.html#ga8f090b85a7779695cb9f05b6395b3044">Network::getLineByNodes</a></div><div class="ttdeci">Line * getLineByNodes(QPair&lt; int32_t, int32_t &gt; nodes)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00184">network.cpp:184</a></div></div>
-<div class="ttc" id="class_network_html_a7fe628f7de34a96235cbd3f2cee4aff2"><div class="ttname"><a href="class_network.html#a7fe628f7de34a96235cbd3f2cee4aff2">Network::bars</a></div><div class="ttdeci">QMap&lt; int32_t, Bar * &gt; bars</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00117">network.h:117</a></div></div>
-<div class="ttc" id="group___graphics_html_ga9c5806f5a0d236bb6d8abbdce62d9675"><div class="ttname"><a href="group___graphics.html#ga9c5806f5a0d236bb6d8abbdce62d9675">Network::getBarById</a></div><div class="ttdeci">Bar * getBarById(u_int32_t id)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00176">network.cpp:176</a></div></div>
-<div class="ttc" id="group___graphics_html_gaa9e21b8e2a24b0495e776a51e1aeed94"><div class="ttname"><a href="group___graphics.html#gaa9e21b8e2a24b0495e776a51e1aeed94">Network::selectedColor</a></div><div class="ttdeci">static const QColor selectedColor</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00085">network.h:85</a></div></div>
-<div class="ttc" id="group___graphics_html_ga7a4e19cdb4bf0c7ecf82baa643831492"><div class="ttname"><a href="group___graphics.html#ga7a4e19cdb4bf0c7ecf82baa643831492">Network::~Network</a></div><div class="ttdeci">~Network()</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00084">network.cpp:84</a></div></div>
-<div class="ttc" id="group___graphics_html_ga1eef3317224a7a06348fce07e581a9ad"><div class="ttname"><a href="group___graphics.html#ga1eef3317224a7a06348fce07e581a9ad">Network::removeLine</a></div><div class="ttdeci">void removeLine(QPair&lt; int32_t, int32_t &gt; nodes)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00159">network.cpp:159</a></div></div>
-<div class="ttc" id="group___graphics_html_ga997ce4f03d316b9f138f2e64e6ca400c"><div class="ttname"><a href="group___graphics.html#ga997ce4f03d316b9f138f2e64e6ca400c">Network::removeBar</a></div><div class="ttdeci">void removeBar(int32_t id)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00142">network.cpp:142</a></div></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  <span class="comment">// Check if nodes exists.</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <a class="code" href="class_bar.html">Bar</a> *pNoI = <a class="code" href="group___graphics.html#ga04d524ce0fa0dd0d06deda92b1597af0">getBarById</a>(line-&gt;<a class="code" href="class_line.html#afd17c40d656e6a8d677cb22df5f0c70b">nodes</a>.first);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  <a class="code" href="class_bar.html">Bar</a> *pNoF = <a class="code" href="group___graphics.html#ga04d524ce0fa0dd0d06deda92b1597af0">getBarById</a>(line-&gt;<a class="code" href="class_line.html#afd17c40d656e6a8d677cb22df5f0c70b">nodes</a>.second);</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  <span class="keywordflow">if</span> ((pNoI == NULL) || (pNoF == NULL))</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  line-&gt;<a class="code" href="class_line.html#aefdf6a6c3e3775b5a16b344c1d33964e">network</a> = <span class="keyword">this</span>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  line-&gt;<a class="code" href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170">setNodes</a>(pNoI, pNoF);</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  <a class="code" href="class_network.html#acda0fd42e712e460a08a0e96511ee7eb">lines</a>.insert(line-&gt;<a class="code" href="class_line.html#afd17c40d656e6a8d677cb22df5f0c70b">nodes</a>, line);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment"> * getBarById.</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno"><a class="line" href="group___graphics.html#ga997ce4f03d316b9f138f2e64e6ca400c">  158</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___graphics.html#ga997ce4f03d316b9f138f2e64e6ca400c">Network::removeBar</a>(int32_t <span class="keywordtype">id</span>)</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;{</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  <a class="code" href="group___graphics.html#ga997ce4f03d316b9f138f2e64e6ca400c">removeBar</a>(<a class="code" href="group___graphics.html#ga04d524ce0fa0dd0d06deda92b1597af0">getBarById</a>(<span class="keywordtype">id</span>));</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;}</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment"> * getBarById.</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="group___graphics.html#ga7dea7690987c58fa61ffaa0326b68b68">  166</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___graphics.html#ga997ce4f03d316b9f138f2e64e6ca400c">Network::removeBar</a>(<a class="code" href="class_bar.html">Bar</a> *bar)</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;{</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  <span class="keyword">delete</span> bar;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;}</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment"> * getBarById.</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="group___graphics.html#ga1eef3317224a7a06348fce07e581a9ad">  174</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___graphics.html#ga1eef3317224a7a06348fce07e581a9ad">Network::removeLine</a>(QPair&lt;int32_t, int32_t&gt; nodes)</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;{</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  <a class="code" href="group___graphics.html#ga1eef3317224a7a06348fce07e581a9ad">removeLine</a>(<a class="code" href="group___graphics.html#ga8f090b85a7779695cb9f05b6395b3044">getLineByNodes</a>(nodes));</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;}</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment"> * getBarById.</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="group___graphics.html#ga4fd51288aa75614593977ce8aab9100f">  182</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___graphics.html#ga1eef3317224a7a06348fce07e581a9ad">Network::removeLine</a>(<a class="code" href="class_line.html">Line</a> *line)</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;{</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  <span class="keyword">delete</span> line;</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;}</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="comment"> * getBarById.</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno"><a class="line" href="group___graphics.html#ga04d524ce0fa0dd0d06deda92b1597af0">  190</a></span>&#160;<a class="code" href="class_bar.html">Bar</a> *<a class="code" href="group___graphics.html#ga04d524ce0fa0dd0d06deda92b1597af0">Network::getBarById</a>(uint32_t <span class="keywordtype">id</span>)</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;{</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="class_network.html#a7fe628f7de34a96235cbd3f2cee4aff2">bars</a>.value(<span class="keywordtype">id</span>, NULL);</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;}</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment"> * getLineByNodes.</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="group___graphics.html#ga8f090b85a7779695cb9f05b6395b3044">  198</a></span>&#160;<a class="code" href="class_line.html">Line</a> *<a class="code" href="group___graphics.html#ga8f090b85a7779695cb9f05b6395b3044">Network::getLineByNodes</a>(QPair&lt;int32_t, int32_t&gt; nodes)</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;{</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="class_network.html#acda0fd42e712e460a08a0e96511ee7eb">lines</a>.value(nodes, NULL);</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;}</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="comment"> * Network to Json.</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno"><a class="line" href="group___graphics.html#ga1bb9773d3935eefef84136d388786494">  206</a></span>&#160;QJsonObject <a class="code" href="group___graphics.html#ga1bb9773d3935eefef84136d388786494">Network::toJson</a>()</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;{</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  QJsonObject netJson;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  netJson.insert(<span class="stringliteral">&quot;name&quot;</span>, <a class="code" href="class_network.html#ab6643733a517f930c60b06f5ffd78186">name</a>);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  netJson.insert(<span class="stringliteral">&quot;xOffset&quot;</span>, <a class="code" href="class_network.html#a9f5c70be28a45320802bd0ac3947d114">xOffset</a>);</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  netJson.insert(<span class="stringliteral">&quot;yOffset&quot;</span>, <a class="code" href="class_network.html#a771b16f7eb4459d0ca7141c048b1ab59">yOffset</a>);</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  netJson.insert(<span class="stringliteral">&quot;barStrokeColor&quot;</span>, <a class="code" href="class_network.html#ad69052271ab0a9899948815b6201f2c6">barStrokeColor</a>.name());</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  netJson.insert(<span class="stringliteral">&quot;barSlackFillColor&quot;</span>, <a class="code" href="class_network.html#ad78d9a206daf4ba0780067b5043c7f5c">barSlackFillColor</a>.name());</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  netJson.insert(<span class="stringliteral">&quot;barPqFillColor&quot;</span>, <a class="code" href="class_network.html#a386f492f548ec13f5d0e350c4f2217aa">barPqFillColor</a>.name());</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  netJson.insert(<span class="stringliteral">&quot;lineColor&quot;</span>, <a class="code" href="class_network.html#a453db7f1a994603fe4d38ac5899eb09c">lineColor</a>.name());</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  QJsonArray barArray;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  <span class="keywordflow">foreach</span>(<a class="code" href="class_bar.html">Bar</a> *bar,<a class="code" href="class_network.html#a7fe628f7de34a96235cbd3f2cee4aff2">bars</a>) {</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    barArray &lt;&lt; bar-&gt;<a class="code" href="group___models.html#ga3eb84c42b687db6cd98e11b8bd38c86e">toJson</a>();</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;  }</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  netJson.insert(<span class="stringliteral">&quot;barArray&quot;</span>, barArray);</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  QJsonArray lineArray;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;  <span class="keywordflow">foreach</span>(<a class="code" href="class_line.html">Line</a> *line, <a class="code" href="class_network.html#acda0fd42e712e460a08a0e96511ee7eb">lines</a>) {</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    lineArray &lt;&lt; line-&gt;<a class="code" href="group___models.html#ga4effa7a96db465ea6e01135d5a010739">toJson</a>();</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  }</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;  netJson.insert(<span class="stringliteral">&quot;lineArray&quot;</span>, lineArray);</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  <span class="keywordflow">return</span> netJson;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;}</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="comment">/*******************************************************************************</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="comment"> *  Network from Json.</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="comment"> ******************************************************************************/</span></div>
+<div class="line"><a name="l00236"></a><span class="lineno"><a class="line" href="group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1">  236</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1">Network::fromJson</a>(QJsonObject &amp;netJson)</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;{</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  <a class="code" href="class_network.html#ab6643733a517f930c60b06f5ffd78186">name</a> = netJson.value(<span class="stringliteral">&quot;name&quot;</span>).toString();</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;  <a class="code" href="class_network.html#a9f5c70be28a45320802bd0ac3947d114">xOffset</a> = netJson.value(<span class="stringliteral">&quot;xOffset&quot;</span>).toDouble();</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;  <a class="code" href="class_network.html#a771b16f7eb4459d0ca7141c048b1ab59">yOffset</a> = netJson.value(<span class="stringliteral">&quot;yOffset&quot;</span>).toDouble();</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;  <a class="code" href="class_network.html#ad69052271ab0a9899948815b6201f2c6">barStrokeColor</a>.setNamedColor(netJson.value(<span class="stringliteral">&quot;barStrokeColor&quot;</span>).toString());</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  <a class="code" href="class_network.html#ad78d9a206daf4ba0780067b5043c7f5c">barSlackFillColor</a>.setNamedColor(netJson.value(<span class="stringliteral">&quot;barSlackFillColor&quot;</span>).toString());</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  <a class="code" href="class_network.html#a386f492f548ec13f5d0e350c4f2217aa">barPqFillColor</a>.setNamedColor(netJson.value(<span class="stringliteral">&quot;barPqFillColor&quot;</span>).toString());</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  <a class="code" href="class_network.html#a453db7f1a994603fe4d38ac5899eb09c">lineColor</a>.setNamedColor(netJson.value(<span class="stringliteral">&quot;lineColor&quot;</span>).toString());</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  QJsonArray barArray(netJson.value(<span class="stringliteral">&quot;barArray&quot;</span>).toArray());</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  <span class="keywordflow">foreach</span>(QJsonValue barValue, barArray) {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    QJsonObject jsonBar(barValue.toObject());</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <a class="code" href="class_bar.html">Bar</a> *bar = <span class="keyword">new</span> <a class="code" href="class_bar.html">Bar</a>;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    bar-&gt;<a class="code" href="group___models.html#ga1df62f03dd3a066ceaf6588ba6bb6004">fromJson</a>(jsonBar);</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    <a class="code" href="group___graphics.html#ga8c5dfef0216731246f7411e1a5fbee01">addBar</a>(bar);</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  }</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  QJsonArray lineArray;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  lineArray = netJson.value(<span class="stringliteral">&quot;lineArray&quot;</span>).toArray();</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  <span class="keywordflow">foreach</span>(QJsonValue lineValue, lineArray) {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    QJsonObject jsonLine(lineValue.toObject());</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <a class="code" href="class_line.html">Line</a> *line = <span class="keyword">new</span> <a class="code" href="class_line.html">Line</a>;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    line-&gt;<a class="code" href="group___models.html#ga62623ad71df5279377cc69da90decc75">fromJson</a>(jsonLine);</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <a class="code" href="group___graphics.html#gae02945131494987b3ff9b59b627719b4">addLine</a>(line);</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;  }</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;}</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;</div>
+<div class="ttc" id="group___graphics_html_ga3f810634c9908d62d33a1ab09a76c147"><div class="ttname"><a href="group___graphics.html#ga3f810634c9908d62d33a1ab09a76c147">Network::lineWidth</a></div><div class="ttdeci">static const double lineWidth</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00086">network.h:86</a></div></div>
+<div class="ttc" id="group___graphics_html_ga318dee060bc577eacd67d332efbbe1b2"><div class="ttname"><a href="group___graphics.html#ga318dee060bc577eacd67d332efbbe1b2">Network::maxIterations</a></div><div class="ttdeci">static uint32_t maxIterations</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00093">network.h:93</a></div></div>
+<div class="ttc" id="group___models_html_ga4effa7a96db465ea6e01135d5a010739"><div class="ttname"><a href="group___models.html#ga4effa7a96db465ea6e01135d5a010739">Line::toJson</a></div><div class="ttdeci">QJsonObject toJson()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00310">line.cpp:310</a></div></div>
+<div class="ttc" id="group___graphics_html_ga9504015bc566f4a3d3b4d4a86000293b"><div class="ttname"><a href="group___graphics.html#ga9504015bc566f4a3d3b4d4a86000293b">Network::powerUnit</a></div><div class="ttdeci">static Unit::PowerUnit powerUnit</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00107">network.h:107</a></div></div>
+<div class="ttc" id="class_unit_html_a0794cf6c9682f48296dd4a5315389787"><div class="ttname"><a href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a></div><div class="ttdeci">CurrentUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00047">customtypes.h:47</a></div></div>
+<div class="ttc" id="group___graphics_html_gabcdc973129d3dda7572b7a1c388da1b5"><div class="ttname"><a href="group___graphics.html#gabcdc973129d3dda7572b7a1c388da1b5">Network::minError</a></div><div class="ttdeci">static double minError</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00095">network.h:95</a></div></div>
+<div class="ttc" id="group___graphics_html_ga8f090b85a7779695cb9f05b6395b3044"><div class="ttname"><a href="group___graphics.html#ga8f090b85a7779695cb9f05b6395b3044">Network::getLineByNodes</a></div><div class="ttdeci">Line * getLineByNodes(QPair&lt; int32_t, int32_t &gt; nodes)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00198">network.cpp:198</a></div></div>
+<div class="ttc" id="group___graphics_html_ga7c1e79d9ac69df9a69f24eaf092fd5e5"><div class="ttname"><a href="group___graphics.html#ga7c1e79d9ac69df9a69f24eaf092fd5e5">Network::voltageBase</a></div><div class="ttdeci">static double voltageBase</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00097">network.h:97</a></div></div>
+<div class="ttc" id="class_network_html_a7fe628f7de34a96235cbd3f2cee4aff2"><div class="ttname"><a href="class_network.html#a7fe628f7de34a96235cbd3f2cee4aff2">Network::bars</a></div><div class="ttdeci">QMap&lt; int32_t, Bar * &gt; bars</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00128">network.h:128</a></div></div>
+<div class="ttc" id="group___graphics_html_ga433bc5c32cf2ce5329bb40b21952d885"><div class="ttname"><a href="group___graphics.html#ga433bc5c32cf2ce5329bb40b21952d885">Network::currentBase</a></div><div class="ttdeci">static double currentBase()</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00077">network.cpp:77</a></div></div>
+<div class="ttc" id="class_network_html_ab6643733a517f930c60b06f5ffd78186"><div class="ttname"><a href="class_network.html#ab6643733a517f930c60b06f5ffd78186">Network::name</a></div><div class="ttdeci">QString name</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00114">network.h:114</a></div></div>
+<div class="ttc" id="class_network_html_a771b16f7eb4459d0ca7141c048b1ab59"><div class="ttname"><a href="class_network.html#a771b16f7eb4459d0ca7141c048b1ab59">Network::yOffset</a></div><div class="ttdeci">double yOffset</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00118">network.h:118</a></div></div>
+<div class="ttc" id="group___models_html_ga3eb84c42b687db6cd98e11b8bd38c86e"><div class="ttname"><a href="group___models.html#ga3eb84c42b687db6cd98e11b8bd38c86e">Bar::toJson</a></div><div class="ttdeci">QJsonObject toJson()</div><div class="ttdoc">Convert bar data to json object. </div><div class="ttdef"><b>Definition:</b> <a href="bar_8cpp_source.html#l00383">bar.cpp:383</a></div></div>
+<div class="ttc" id="class_line_html_aefdf6a6c3e3775b5a16b344c1d33964e"><div class="ttname"><a href="class_line.html#aefdf6a6c3e3775b5a16b344c1d33964e">Line::network</a></div><div class="ttdeci">Network * network</div><div class="ttdef"><b>Definition:</b> <a href="line_8h_source.html#l00089">line.h:89</a></div></div>
+<div class="ttc" id="group___graphics_html_gacde031ef95f5c05565ee35769f2ed89e"><div class="ttname"><a href="group___graphics.html#gacde031ef95f5c05565ee35769f2ed89e">Network::voltageUnit</a></div><div class="ttdeci">static Unit::VoltageUnit voltageUnit</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00105">network.h:105</a></div></div>
+<div class="ttc" id="group___graphics_html_gaa9e21b8e2a24b0495e776a51e1aeed94"><div class="ttname"><a href="group___graphics.html#gaa9e21b8e2a24b0495e776a51e1aeed94">Network::selectedColor</a></div><div class="ttdeci">static const QColor selectedColor</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00088">network.h:88</a></div></div>
+<div class="ttc" id="group___graphics_html_ga7a4e19cdb4bf0c7ecf82baa643831492"><div class="ttname"><a href="group___graphics.html#ga7a4e19cdb4bf0c7ecf82baa643831492">Network::~Network</a></div><div class="ttdeci">~Network()</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00104">network.cpp:104</a></div></div>
+<div class="ttc" id="group___graphics_html_ga5f3d72699a723c64a89d22e34df708ff"><div class="ttname"><a href="group___graphics.html#ga5f3d72699a723c64a89d22e34df708ff">Network::impedanceUnit</a></div><div class="ttdeci">static Unit::ImpedanceUnit impedanceUnit</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00103">network.h:103</a></div></div>
+<div class="ttc" id="class_network_html_ad69052271ab0a9899948815b6201f2c6"><div class="ttname"><a href="class_network.html#ad69052271ab0a9899948815b6201f2c6">Network::barStrokeColor</a></div><div class="ttdeci">QColor barStrokeColor</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00120">network.h:120</a></div></div>
+<div class="ttc" id="class_network_html_a9f5c70be28a45320802bd0ac3947d114"><div class="ttname"><a href="class_network.html#a9f5c70be28a45320802bd0ac3947d114">Network::xOffset</a></div><div class="ttdeci">double xOffset</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00116">network.h:116</a></div></div>
+<div class="ttc" id="class_network_html_a453db7f1a994603fe4d38ac5899eb09c"><div class="ttname"><a href="class_network.html#a453db7f1a994603fe4d38ac5899eb09c">Network::lineColor</a></div><div class="ttdeci">QColor lineColor</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00126">network.h:126</a></div></div>
+<div class="ttc" id="group___graphics_html_ga1eef3317224a7a06348fce07e581a9ad"><div class="ttname"><a href="group___graphics.html#ga1eef3317224a7a06348fce07e581a9ad">Network::removeLine</a></div><div class="ttdeci">void removeLine(QPair&lt; int32_t, int32_t &gt; nodes)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00174">network.cpp:174</a></div></div>
+<div class="ttc" id="group___models_html_gaeeab146e6c1d7d1a688a2764a9c9a170"><div class="ttname"><a href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170">Line::setNodes</a></div><div class="ttdeci">void setNodes(Bar *pNoI, Bar *pNoF)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00293">line.cpp:293</a></div></div>
+<div class="ttc" id="class_network_html_acda0fd42e712e460a08a0e96511ee7eb"><div class="ttname"><a href="class_network.html#acda0fd42e712e460a08a0e96511ee7eb">Network::lines</a></div><div class="ttdeci">QMap&lt; QPair&lt; int32_t, int32_t &gt;, Line * &gt; lines</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00130">network.h:130</a></div></div>
+<div class="ttc" id="group___graphics_html_ga997ce4f03d316b9f138f2e64e6ca400c"><div class="ttname"><a href="group___graphics.html#ga997ce4f03d316b9f138f2e64e6ca400c">Network::removeBar</a></div><div class="ttdeci">void removeBar(int32_t id)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00158">network.cpp:158</a></div></div>
+<div class="ttc" id="group___graphics_html_ga04d524ce0fa0dd0d06deda92b1597af0"><div class="ttname"><a href="group___graphics.html#ga04d524ce0fa0dd0d06deda92b1597af0">Network::getBarById</a></div><div class="ttdeci">Bar * getBarById(uint32_t id)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00190">network.cpp:190</a></div></div>
 <div class="ttc" id="network_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Network class definition. </div></div>
 <div class="ttc" id="class_line_html"><div class="ttname"><a href="class_line.html">Line</a></div><div class="ttdoc">Represents a cable in power distribution systems. </div><div class="ttdef"><b>Definition:</b> <a href="line_8h_source.html#l00074">line.h:74</a></div></div>
-<div class="ttc" id="group___graphics_html_gae02945131494987b3ff9b59b627719b4"><div class="ttname"><a href="group___graphics.html#gae02945131494987b3ff9b59b627719b4">Network::addLine</a></div><div class="ttdeci">bool addLine(Line *line)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00113">network.cpp:113</a></div></div>
-<div class="ttc" id="group___graphics_html_ga3cc2fb4f8fa4d507077e8da85ce5a1c8"><div class="ttname"><a href="group___graphics.html#ga3cc2fb4f8fa4d507077e8da85ce5a1c8">Network::Network</a></div><div class="ttdeci">Network()</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00054">network.cpp:54</a></div></div>
-<div class="ttc" id="class_bar_html_a9dc5c6a6d44fe412ae34ef8a881b8dce"><div class="ttname"><a href="class_bar.html#a9dc5c6a6d44fe412ae34ef8a881b8dce">Bar::id</a></div><div class="ttdeci">int32_t id</div><div class="ttdoc">The bar id. </div><div class="ttdef"><b>Definition:</b> <a href="bar_8h_source.html#l00136">bar.h:136</a></div></div>
-<div class="ttc" id="group___graphics_html_ga8c5dfef0216731246f7411e1a5fbee01"><div class="ttname"><a href="group___graphics.html#ga8c5dfef0216731246f7411e1a5fbee01">Network::addBar</a></div><div class="ttdeci">bool addBar(Bar *bar)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00092">network.cpp:92</a></div></div>
-<div class="ttc" id="group___graphics_html_gaa334bbc93b3fde219840e95e23198b53"><div class="ttname"><a href="group___graphics.html#gaa334bbc93b3fde219840e95e23198b53">Network::barIconSize</a></div><div class="ttdeci">static const double barIconSize</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00081">network.h:81</a></div></div>
-<div class="ttc" id="class_bar_html"><div class="ttname"><a href="class_bar.html">Bar</a></div><div class="ttdoc">Represents a busbar in power distribution systems. </div><div class="ttdef"><b>Definition:</b> <a href="bar_8h_source.html#l00111">bar.h:111</a></div></div>
+<div class="ttc" id="class_unit_html_ace265ae255370ccacfd5370337572c3b"><div class="ttname"><a href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a></div><div class="ttdeci">PowerUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00032">customtypes.h:32</a></div></div>
+<div class="ttc" id="group___graphics_html_ga1bb9773d3935eefef84136d388786494"><div class="ttname"><a href="group___graphics.html#ga1bb9773d3935eefef84136d388786494">Network::toJson</a></div><div class="ttdeci">QJsonObject toJson()</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00206">network.cpp:206</a></div></div>
+<div class="ttc" id="class_network_html_a386f492f548ec13f5d0e350c4f2217aa"><div class="ttname"><a href="class_network.html#a386f492f548ec13f5d0e350c4f2217aa">Network::barPqFillColor</a></div><div class="ttdeci">QColor barPqFillColor</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00124">network.h:124</a></div></div>
+<div class="ttc" id="class_network_html_ad78d9a206daf4ba0780067b5043c7f5c"><div class="ttname"><a href="class_network.html#ad78d9a206daf4ba0780067b5043c7f5c">Network::barSlackFillColor</a></div><div class="ttdeci">QColor barSlackFillColor</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00122">network.h:122</a></div></div>
+<div class="ttc" id="class_unit_html_a3747e779c805df24a71961290be3fbdf"><div class="ttname"><a href="class_unit.html#a3747e779c805df24a71961290be3fbdf">Unit::ImpedanceUnit</a></div><div class="ttdeci">ImpedanceUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00022">customtypes.h:22</a></div></div>
+<div class="ttc" id="class_unit_html_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696"><div class="ttname"><a href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00033">customtypes.h:33</a></div></div>
+<div class="ttc" id="group___graphics_html_gac6a26db5fef2b1dd2a00faf6340d1702"><div class="ttname"><a href="group___graphics.html#gac6a26db5fef2b1dd2a00faf6340d1702">Network::currentUnit</a></div><div class="ttdeci">static Unit::CurrentUnit currentUnit</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00109">network.h:109</a></div></div>
+<div class="ttc" id="class_unit_html_a8c8921f7b225ad6063b1cb573425b9a0"><div class="ttname"><a href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a></div><div class="ttdeci">LengthUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00014">customtypes.h:14</a></div></div>
+<div class="ttc" id="group___graphics_html_gae02945131494987b3ff9b59b627719b4"><div class="ttname"><a href="group___graphics.html#gae02945131494987b3ff9b59b627719b4">Network::addLine</a></div><div class="ttdeci">bool addLine(Line *line)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00133">network.cpp:133</a></div></div>
+<div class="ttc" id="group___graphics_html_gae6794c93d37df113778c37c2c702f6d9"><div class="ttname"><a href="group___graphics.html#gae6794c93d37df113778c37c2c702f6d9">Network::impedanceBase</a></div><div class="ttdeci">static double impedanceBase()</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00085">network.cpp:85</a></div></div>
+<div class="ttc" id="group___graphics_html_ga3cc2fb4f8fa4d507077e8da85ce5a1c8"><div class="ttname"><a href="group___graphics.html#ga3cc2fb4f8fa4d507077e8da85ce5a1c8">Network::Network</a></div><div class="ttdeci">Network()</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00093">network.cpp:93</a></div></div>
+<div class="ttc" id="class_unit_html_a55b07dfa9457e1eca2c7194fe0cfc3c1"><div class="ttname"><a href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1">Unit::VoltageUnit</a></div><div class="ttdeci">VoltageUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00040">customtypes.h:40</a></div></div>
+<div class="ttc" id="group___graphics_html_gae46c0e2bf39b343875e3c69066fe2652"><div class="ttname"><a href="group___graphics.html#gae46c0e2bf39b343875e3c69066fe2652">Network::lengthUnit</a></div><div class="ttdeci">static Unit::LengthUnit lengthUnit</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00101">network.h:101</a></div></div>
+<div class="ttc" id="class_bar_html_a80025f13884750add58cc61b318357ff"><div class="ttname"><a href="class_bar.html#a80025f13884750add58cc61b318357ff">Bar::network</a></div><div class="ttdeci">Network * network</div><div class="ttdoc">A reference to the Network where the bar is. </div><div class="ttdef"><b>Definition:</b> <a href="bar_8h_source.html#l00144">bar.h:144</a></div></div>
+<div class="ttc" id="class_bar_html_a9dc5c6a6d44fe412ae34ef8a881b8dce"><div class="ttname"><a href="class_bar.html#a9dc5c6a6d44fe412ae34ef8a881b8dce">Bar::id</a></div><div class="ttdeci">int32_t id</div><div class="ttdoc">The bar id. </div><div class="ttdef"><b>Definition:</b> <a href="bar_8h_source.html#l00137">bar.h:137</a></div></div>
+<div class="ttc" id="class_line_html_afd17c40d656e6a8d677cb22df5f0c70b"><div class="ttname"><a href="class_line.html#afd17c40d656e6a8d677cb22df5f0c70b">Line::nodes</a></div><div class="ttdeci">QPair&lt; int32_t, int32_t &gt; nodes</div><div class="ttdef"><b>Definition:</b> <a href="line_8h_source.html#l00087">line.h:87</a></div></div>
+<div class="ttc" id="class_unit_html_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c"><div class="ttname"><a href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c">Unit::kVolts</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00041">customtypes.h:41</a></div></div>
+<div class="ttc" id="group___graphics_html_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1"><div class="ttname"><a href="group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1">Network::fromJson</a></div><div class="ttdeci">void fromJson(QJsonObject &amp;netJson)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00236">network.cpp:236</a></div></div>
+<div class="ttc" id="group___graphics_html_ga8c5dfef0216731246f7411e1a5fbee01"><div class="ttname"><a href="group___graphics.html#ga8c5dfef0216731246f7411e1a5fbee01">Network::addBar</a></div><div class="ttdeci">bool addBar(Bar *bar)</div><div class="ttdef"><b>Definition:</b> <a href="network_8cpp_source.html#l00118">network.cpp:118</a></div></div>
+<div class="ttc" id="class_unit_html_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b"><div class="ttname"><a href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00015">customtypes.h:15</a></div></div>
+<div class="ttc" id="group___models_html_ga62623ad71df5279377cc69da90decc75"><div class="ttname"><a href="group___models.html#ga62623ad71df5279377cc69da90decc75">Line::fromJson</a></div><div class="ttdeci">void fromJson(QJsonObject &amp;lineJson)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00349">line.cpp:349</a></div></div>
+<div class="ttc" id="class_unit_html_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da"><div class="ttname"><a href="class_unit.html#a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da">Unit::kOhm</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00023">customtypes.h:23</a></div></div>
+<div class="ttc" id="group___models_html_ga1df62f03dd3a066ceaf6588ba6bb6004"><div class="ttname"><a href="group___models.html#ga1df62f03dd3a066ceaf6588ba6bb6004">Bar::fromJson</a></div><div class="ttdeci">void fromJson(QJsonObject &amp;jsonBar)</div><div class="ttdoc">Fill bar data from Json data. </div><div class="ttdef"><b>Definition:</b> <a href="bar_8cpp_source.html#l00441">bar.cpp:441</a></div></div>
+<div class="ttc" id="group___graphics_html_gaa334bbc93b3fde219840e95e23198b53"><div class="ttname"><a href="group___graphics.html#gaa334bbc93b3fde219840e95e23198b53">Network::barIconSize</a></div><div class="ttdeci">static const double barIconSize</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00084">network.h:84</a></div></div>
+<div class="ttc" id="class_unit_html_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f"><div class="ttname"><a href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00048">customtypes.h:48</a></div></div>
+<div class="ttc" id="group___graphics_html_ga74bb7aa495d422f1f092acdf958df989"><div class="ttname"><a href="group___graphics.html#ga74bb7aa495d422f1f092acdf958df989">Network::powerBase</a></div><div class="ttdeci">static double powerBase</div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00099">network.h:99</a></div></div>
+<div class="ttc" id="class_bar_html"><div class="ttname"><a href="class_bar.html">Bar</a></div><div class="ttdoc">Represents a busbar in power distribution systems. </div><div class="ttdef"><b>Definition:</b> <a href="bar_8h_source.html#l00112">bar.h:112</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:43 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

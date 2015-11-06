@@ -1,0 +1,29 @@
+\hypertarget{searchbar_8cpp_source}{}\subsection{searchbar.\+cpp}
+\label{searchbar_8cpp_source}\index{searchbar.\+cpp@{searchbar.\+cpp}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include "\hyperlink{searchbar_8h}{searchbar.h}"}
+00002 \textcolor{preprocessor}{#include "ui\_searchbar.h"}
+00003 
+00004 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
+00005 
+\hypertarget{searchbar_8cpp_source_l00006}{}\hyperlink{class_search_bar_a75f8caf009094148f56149b00996ac84}{00006} \hyperlink{class_search_bar_a75f8caf009094148f56149b00996ac84}{SearchBar::SearchBar}(QWidget *parent) : QDialog(parent), ui(new 
+      \hyperlink{namespace_ui}{Ui}::\hyperlink{class_search_bar}{SearchBar})
+00007 \{
+00008   ui->setupUi(\textcolor{keyword}{this});
+00009 \}
+00010 
+\hypertarget{searchbar_8cpp_source_l00011}{}\hyperlink{class_search_bar_a553f2c7b9c15e7ae39cf988a6ef8f786}{00011} \hyperlink{class_search_bar_a553f2c7b9c15e7ae39cf988a6ef8f786}{SearchBar::~SearchBar}()
+00012 \{
+00013   \textcolor{keyword}{delete} ui;
+00014 \}
+00015 
+\hypertarget{searchbar_8cpp_source_l00016}{}\hyperlink{class_search_bar_a840eb8fbdea559d31a7c2af6a4cbc480}{00016} \textcolor{keywordtype}{void} \hyperlink{class_search_bar_a840eb8fbdea559d31a7c2af6a4cbc480}{SearchBar::setOptions}(\hyperlink{class_project}{Project} *project)
+00017 \{
+00018   project\_ = project;
+00019 
+00020   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00021     ui->networks->addItem(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
+00022   \}
+00023 \}
+\end{DoxyCode}

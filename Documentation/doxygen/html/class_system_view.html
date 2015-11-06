@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -85,6 +87,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#signals">Signals</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="class_system_view-members.html">List of all members</a>  </div>
@@ -99,17 +102,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Inheritance diagram for SystemView:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_system_view__inherit__graph.png" border="0" usemap="#_system_view_inherit__map" alt="Inheritance graph"/></div>
-<map name="_system_view_inherit__map" id="_system_view_inherit__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for SystemView:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_system_view__coll__graph.png" border="0" usemap="#_system_view_coll__map" alt="Collaboration graph"/></div>
-<map name="_system_view_coll__map" id="_system_view_coll__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="signals"></a>
+Signals</h2></td></tr>
+<tr class="memitem:a90bd4b070c8abaa5995899154421eb44"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_system_view.html#a90bd4b070c8abaa5995899154421eb44">barProperties</a> (QObject *)</td></tr>
+<tr class="separator:a90bd4b070c8abaa5995899154421eb44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58c4a0bf68178ab59066819118214360"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_system_view.html#a58c4a0bf68178ab59066819118214360">lineProperties</a> (QObject *)</td></tr>
+<tr class="separator:a58c4a0bf68178ab59066819118214360"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ga660a455ff7b98cb92410b0bf1cbb2eeb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___graphics.html#ga660a455ff7b98cb92410b0bf1cbb2eeb">SystemView</a> (QWidget *parent)</td></tr>
@@ -132,11 +138,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ga2078ad08ff93b9a8683d567e3f9f714e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___graphics.html#ga2078ad08ff93b9a8683d567e3f9f714e">removeNetwork</a> (<a class="el" href="class_network.html">Network</a> *network)</td></tr>
 <tr class="memdesc:ga2078ad08ff93b9a8683d567e3f9f714e"><td class="mdescLeft">&#160;</td><td class="mdescRight">removeNetwork  <a href="group___graphics.html#ga2078ad08ff93b9a8683d567e3f9f714e">More...</a><br /></td></tr>
 <tr class="separator:ga2078ad08ff93b9a8683d567e3f9f714e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac4e02019d41c203c788ff1e6f3ee460e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___graphics.html#gac4e02019d41c203c788ff1e6f3ee460e">addBar</a> (<a class="el" href="class_bar.html">Bar</a> *bar)</td></tr>
+<tr class="separator:gac4e02019d41c203c788ff1e6f3ee460e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga1e96b08395a2f1b961dedbb3e8c99a50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___graphics.html#ga1e96b08395a2f1b961dedbb3e8c99a50">removeBar</a> (<a class="el" href="class_bar.html">Bar</a> *bar)</td></tr>
+<tr class="separator:ga1e96b08395a2f1b961dedbb3e8c99a50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gaed2fb15d518cab9a52ea1ee258846bfc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___graphics.html#gaed2fb15d518cab9a52ea1ee258846bfc">addLine</a> (<a class="el" href="class_line.html">Line</a> *line)</td></tr>
+<tr class="separator:gaed2fb15d518cab9a52ea1ee258846bfc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga4af1d763d9b9c02933e62d1f6231ad18"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___graphics.html#ga4af1d763d9b9c02933e62d1f6231ad18">removeLine</a> (<a class="el" href="class_line.html">Line</a> *line)</td></tr>
+<tr class="separator:ga4af1d763d9b9c02933e62d1f6231ad18"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:gaab2fa6cebf9022eb6bf31497c0789675"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___graphics.html#gaab2fa6cebf9022eb6bf31497c0789675">wheelEvent</a> (QWheelEvent *event) Q_DECL_OVERRIDE</td></tr>
-<tr class="memdesc:gaab2fa6cebf9022eb6bf31497c0789675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the bar properties editor for bar <b>bar</b>.  <a href="group___graphics.html#gaab2fa6cebf9022eb6bf31497c0789675">More...</a><br /></td></tr>
 <tr class="separator:gaab2fa6cebf9022eb6bf31497c0789675"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gab19e233cd697852dd71140971cb6e122"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___graphics.html#gab19e233cd697852dd71140971cb6e122">mouseMoveEvent</a> (QMouseEvent *event) Q_DECL_OVERRIDE</td></tr>
 <tr class="separator:gab19e233cd697852dd71140971cb6e122"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -151,14 +164,81 @@ Protected Member Functions</h2></td></tr>
 <h3>Example</h3>
 <div class="fragment"></div><!-- fragment --> 
 <p>Definition at line <a class="el" href="systemview_8h_source.html#l00064">64</a> of file <a class="el" href="systemview_8h_source.html">systemview.h</a>.</p>
-</div><hr/>The documentation for this class was generated from the following files:<ul>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a class="anchor" id="a90bd4b070c8abaa5995899154421eb44"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SystemView::barProperties </td>
+          <td>(</td>
+          <td class="paramtype">QObject *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_system_view_a90bd4b070c8abaa5995899154421eb44_icgraph.png" border="0" usemap="#class_system_view_a90bd4b070c8abaa5995899154421eb44_icgraph" alt=""/></div>
+<map name="class_system_view_a90bd4b070c8abaa5995899154421eb44_icgraph" id="class_system_view_a90bd4b070c8abaa5995899154421eb44_icgraph">
+<area shape="rect" id="node2" href="group___graphics.html#ga660a455ff7b98cb92410b0bf1cbb2eeb" title="SystemView. " alt="" coords="235,5,413,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a58c4a0bf68178ab59066819118214360"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SystemView::lineProperties </td>
+          <td>(</td>
+          <td class="paramtype">QObject *&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">signal</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_system_view_a58c4a0bf68178ab59066819118214360_icgraph.png" border="0" usemap="#class_system_view_a58c4a0bf68178ab59066819118214360_icgraph" alt=""/></div>
+<map name="class_system_view_a58c4a0bf68178ab59066819118214360_icgraph" id="class_system_view_a58c4a0bf68178ab59066819118214360_icgraph">
+<area shape="rect" id="node2" href="group___graphics.html#ga660a455ff7b98cb92410b0bf1cbb2eeb" title="SystemView. " alt="" coords="236,5,415,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="systemview_8h_source.html">systemview.h</a></li>
 <li><a class="el" href="systemview_8cpp_source.html">systemview.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:44 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

@@ -1,0 +1,32 @@
+\hypertarget{radiallayer_8h_source}{}\subsection{radiallayer.\+h}
+\label{radiallayer_8h_source}\index{radiallayer.\+h@{radiallayer.\+h}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#ifndef ALGORITHMS\_RADIALLAYER\_H}
+00002 \textcolor{preprocessor}{#define ALGORITHMS\_RADIALLAYER\_H}
+00003 
+00004 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
+00005 
+\hypertarget{radiallayer_8h_source_l00006}{}\hyperlink{class_radial_layer}{00006} \textcolor{keyword}{class }\hyperlink{class_radial_layer}{RadialLayer}
+00007 \{
+00008 \textcolor{keyword}{public}:
+\hypertarget{radiallayer_8h_source_l00009}{}\hyperlink{class_radial_layer_a65d67f20b05dd45f90ec4252376807b2}{00009}   \textcolor{keyword}{typedef} QVector<Bar *> \hyperlink{class_radial_layer_a65d67f20b05dd45f90ec4252376807b2}{Layer};
+00010   
+\hypertarget{radiallayer_8h_source_l00011}{}\hyperlink{class_radial_layer_a714c36b1ab50a7778953e924ddac2787}{00011}   QVector<Layer *> \hyperlink{class_radial_layer_a714c36b1ab50a7778953e924ddac2787}{layers};
+00012 
+00013   \hyperlink{class_radial_layer_aed5c263337bbfc88538eeab76ce9843c}{RadialLayer}(\hyperlink{class_network}{Network} *network);
+00014   \hyperlink{class_radial_layer_aa862e21e30909caf8b08e10128efd509}{~RadialLayer}();
+00015   
+00016   \textcolor{keywordtype}{void} \hyperlink{class_radial_layer_a971680f24ba6c516afedbc49d8c22cab}{calculate}();
+00017   \textcolor{keywordtype}{void} \hyperlink{class_radial_layer_ad7c22136680fe3b188ae023dd619a30f}{reset}();
+00018   int32\_t \hyperlink{class_radial_layer_a16baa7c0de325df193117752161b0974}{height}();
+00019   int32\_t \hyperlink{class_radial_layer_ae8b32d0711cc6f4dbec832bb07d59a49}{width}();
+00020 
+00021 \textcolor{keyword}{private}:
+00022   \hyperlink{class_network}{Network} *network\_;
+00023   
+00024   \textcolor{keywordtype}{void} next(Layer *current);
+00025 \};
+00026 
+00027 \textcolor{preprocessor}{#endif // ALGORITHMS\_RADIALLAYER\_H}
+\end{DoxyCode}

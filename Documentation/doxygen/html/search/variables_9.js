@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['selectedcolor',['selectedColor',['../group___graphics.html#gaa9e21b8e2a24b0495e776a51e1aeed94',1,'Network']]]
+  ['powerbase',['powerBase',['../group___graphics.html#ga74bb7aa495d422f1f092acdf958df989',1,'Network']]],
+  ['powerunit',['powerUnit',['../group___graphics.html#ga9504015bc566f4a3d3b4d4a86000293b',1,'Network']]]
 ];

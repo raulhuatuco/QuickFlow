@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -172,170 +174,159 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;            <a class="code" href="class_unit.html#a3747e779c805df24a71961290be3fbdf">Unit::ImpedanceUnit</a> unit = <a class="code" href="class_unit.html#a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da">Unit::kOhm</a>);</div>
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">   * Impedance in per unit.</span></div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">   * Current.</span></div>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  complex&lt;double&gt; <a class="code" href="group___models.html#ga139698332327a712f6c02d96fe73fbee">zPu</a>(int32_t index);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  complex&lt;double&gt; <a class="code" href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">i</a>(int32_t phase, <a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a> unit = <a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a>);</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;</div>
 <div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">   * Current.</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">   * Set current.</span></div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  complex&lt;double&gt; <a class="code" href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">i</a>(int32_t phase, <a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a> unit = <a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a>);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="comment">   * Set current.</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga9e55b06dc3e385838fdd13d5580438ef">setI</a>(int32_t phase, complex&lt;double&gt; newCurrent,</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a> unit = <a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a>);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga9e55b06dc3e385838fdd13d5580438ef">setI</a>(int32_t phase, complex&lt;double&gt; newCurrent,</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a> unit = <a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a>);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">   * Compute the loss in the line.</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  complex&lt;double&gt; <a class="code" href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53">loss</a>(int32_t phase, <a class="code" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a>);</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">   * Current in per unit.</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="comment">   * Line length.</span></div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  complex&lt;double&gt; <a class="code" href="group___models.html#ga8f71e477800134586652d283087ed373">iPu</a>(int32_t phase);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <span class="keywordtype">double</span> <a class="code" href="group___models.html#gae2e4500d0fa60dcc2ecb08b2c96954f9">length</a>(<a class="code" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a> unit = <a class="code" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a>);</div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">   * Compute the loss in the line.</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  complex&lt;double&gt; <a class="code" href="group___models.html#ga84ddf17bee846a6f21c44d463252dd25">loss</a>(int32_t phase);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">  * Set line length.</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="comment">  ****************************************************************************/</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga950d0b8f5d167eda430c65ca7adadbb0">setLength</a>(<span class="keywordtype">double</span> newLength, <a class="code" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a> unit = <a class="code" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a>);</div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;</div>
 <div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">   * Line length.</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">   * Initial node pointer.</span></div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  <span class="keywordtype">double</span> <a class="code" href="group___models.html#gae2e4500d0fa60dcc2ecb08b2c96954f9">length</a>(<a class="code" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a> unit = <a class="code" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a>);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  <a class="code" href="class_bar.html">Bar</a> *<a class="code" href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">pNoI</a>();</div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;</div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">  * Set line length.</span></div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">  ****************************************************************************/</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga950d0b8f5d167eda430c65ca7adadbb0">setLength</a>(<span class="keywordtype">double</span> newLength, <a class="code" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a> unit = <a class="code" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a>);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">   * Final node pointer.</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  <a class="code" href="class_bar.html">Bar</a> *<a class="code" href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">pNoF</a>();</div>
 <div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
 <div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">   * Initial node pointer.</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">   * Set initial and final nodes.</span></div>
 <div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <a class="code" href="class_bar.html">Bar</a> *<a class="code" href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">pNoI</a>();</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170">setNodes</a>(<a class="code" href="class_bar.html">Bar</a> *<a class="code" href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">pNoI</a>, <a class="code" href="class_bar.html">Bar</a> *<a class="code" href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">pNoF</a>);</div>
 <div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;</div>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">   * Final node pointer.</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">   * Convert line data to Json object.</span></div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  <a class="code" href="class_bar.html">Bar</a> *<a class="code" href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">pNoF</a>();</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  QJsonObject <a class="code" href="group___models.html#ga4effa7a96db465ea6e01135d5a010739">toJson</a>();</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;</div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment">   * Set initial and final nodes.</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment">   * Convert Json object to line.</span></div>
 <div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170">setNodes</a>(<a class="code" href="class_bar.html">Bar</a> *<a class="code" href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">pNoI</a>, <a class="code" href="class_bar.html">Bar</a> *<a class="code" href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">pNoF</a>);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga62623ad71df5279377cc69da90decc75">fromJson</a>(QJsonObject &amp;lineJson);</div>
 <div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;</div>
 <div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">   * Convert line data to Json object.</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">   * Update line position.</span></div>
 <div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  QJsonObject <a class="code" href="group___models.html#ga4effa7a96db465ea6e01135d5a010739">toJson</a>();</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga8fdb12651d4bc592616d241386b066b3">updatePosition</a>();</div>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="comment">   * Convert Json object to line.</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="comment">   * Line bounding rect.</span></div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga62623ad71df5279377cc69da90decc75">fromJson</a>(QJsonObject &amp;lineJson);</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  QRectF <a class="code" href="group___models.html#gad15c3af158d3b966c04be7e18cee5aea">boundingRect</a>() const Q_DECL_OVERRIDE;</div>
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;</div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment">   * Update line position.</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment">   * Line Shape.</span></div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga8fdb12651d4bc592616d241386b066b3">updatePosition</a>();</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  QPainterPath <a class="code" href="group___models.html#gaf1736b829a643d99052ef6428ddd5b16">shape</a>() const Q_DECL_OVERRIDE;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">   * Line bounding rect.</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">   * Item Change.</span></div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  QRectF <a class="code" href="group___models.html#gad15c3af158d3b966c04be7e18cee5aea">boundingRect</a>() const Q_DECL_OVERRIDE;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="comment">   * Line Shape.</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  QPainterPath <a class="code" href="group___models.html#gaf1736b829a643d99052ef6428ddd5b16">shape</a>() const Q_DECL_OVERRIDE;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment">   * Item Change.</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  QVariant <a class="code" href="group___models.html#ga5fcee3f23eb50e34f730d602a3802b93">itemChange</a>(GraphicsItemChange change,</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;                      const QVariant &amp;value) Q_DECL_OVERRIDE;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;signals:</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">   * Double Click Event.</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_line.html#a2444b577ea2254994599c6f829c629a5">eventDoubleClick</a>();</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  QVariant <a class="code" href="group___models.html#ga5fcee3f23eb50e34f730d602a3802b93">itemChange</a>(GraphicsItemChange change,</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                      const QVariant &amp;value) Q_DECL_OVERRIDE;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;signals:</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="comment">   * Double Click Event.</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="class_line.html#a2444b577ea2254994599c6f829c629a5">eventDoubleClick</a>();</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;protected:</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">   * Double click event handler.</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga9a1fee5b1606ab0deedd04bdab99be70">mouseDoubleClickEvent</a>(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;</div>
 <div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;protected:</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment">   * Double click event handler.</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga9a1fee5b1606ab0deedd04bdab99be70">mouseDoubleClickEvent</a>(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="comment">   * Paint.</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga0aa64aed379d434be5942edf572b444b">paint</a>(QPainter *painter, const QStyleOptionGraphicsItem *option,</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;             QWidget *widget) Q_DECL_OVERRIDE;</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment">   * Paint.</span></div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___models.html#ga0aa64aed379d434be5942edf572b444b">paint</a>(QPainter *painter, const QStyleOptionGraphicsItem *option,</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;             QWidget *widget) Q_DECL_OVERRIDE;</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;private:</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="comment">   * Private properties.</span></div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keywordtype">double</span> length_;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;private:</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment">   * Private properties.</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  <span class="keywordtype">double</span> length_;</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  <a class="code" href="class_bar.html">Bar</a> *pNoI_;</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <a class="code" href="class_bar.html">Bar</a> *pNoF_;</div>
 <div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  <a class="code" href="class_bar.html">Bar</a> *pNoI_;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  complex&lt;<span class="keywordtype">double</span>&gt; z_[6];</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  complex&lt;<span class="keywordtype">double</span>&gt; i_[3];</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  QLineF coords;</div>
 <div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  <a class="code" href="class_bar.html">Bar</a> *pNoF_;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  QPolygonF selectionArea;</div>
 <div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;  complex&lt;<span class="keywordtype">double</span>&gt; z_[6];</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;  complex&lt;<span class="keywordtype">double</span>&gt; i_[3];</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  QLineF coords;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  QPolygonF selectionArea;</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  <a class="code" href="class_info_line.html">InfoLine</a> *infoLine;</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;};</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="preprocessor">#endif  // MODELS_LINE_H</span></div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;</div>
-<div class="ttc" id="group___models_html_ga4effa7a96db465ea6e01135d5a010739"><div class="ttname"><a href="group___models.html#ga4effa7a96db465ea6e01135d5a010739">Line::toJson</a></div><div class="ttdeci">QJsonObject toJson()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00193">line.cpp:193</a></div></div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  <a class="code" href="class_info_line.html">InfoLine</a> *infoLine;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;};</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor">#endif  // MODELS_LINE_H</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;</div>
+<div class="ttc" id="group___models_html_ga4effa7a96db465ea6e01135d5a010739"><div class="ttname"><a href="group___models.html#ga4effa7a96db465ea6e01135d5a010739">Line::toJson</a></div><div class="ttdeci">QJsonObject toJson()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00310">line.cpp:310</a></div></div>
 <div class="ttc" id="group___models_html_gadc334bd07c6126abc56e531d7e3e72b4"><div class="ttname"><a href="group___models.html#gadc334bd07c6126abc56e531d7e3e72b4">Line::kInvalidNode</a></div><div class="ttdeci">static const int32_t kInvalidNode</div><div class="ttdef"><b>Definition:</b> <a href="line_8h_source.html#l00082">line.h:82</a></div></div>
-<div class="ttc" id="class_unit_html_a0794cf6c9682f48296dd4a5315389787"><div class="ttname"><a href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a></div><div class="ttdeci">CurrentUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00044">customtypes.h:44</a></div></div>
-<div class="ttc" id="group___models_html_gabbc73ddedd3075c33ae5331bd7c9829f"><div class="ttname"><a href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">Line::pNoF</a></div><div class="ttdeci">Bar * pNoF()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00168">line.cpp:168</a></div></div>
-<div class="ttc" id="group___models_html_gaf1736b829a643d99052ef6428ddd5b16"><div class="ttname"><a href="group___models.html#gaf1736b829a643d99052ef6428ddd5b16">Line::shape</a></div><div class="ttdeci">QPainterPath shape() const Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00294">line.cpp:294</a></div></div>
+<div class="ttc" id="class_unit_html_a0794cf6c9682f48296dd4a5315389787"><div class="ttname"><a href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a></div><div class="ttdeci">CurrentUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00047">customtypes.h:47</a></div></div>
+<div class="ttc" id="group___models_html_gabbc73ddedd3075c33ae5331bd7c9829f"><div class="ttname"><a href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f">Line::pNoF</a></div><div class="ttdeci">Bar * pNoF()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00285">line.cpp:285</a></div></div>
+<div class="ttc" id="group___models_html_gaf1736b829a643d99052ef6428ddd5b16"><div class="ttname"><a href="group___models.html#gaf1736b829a643d99052ef6428ddd5b16">Line::shape</a></div><div class="ttdeci">QPainterPath shape() const Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00422">line.cpp:422</a></div></div>
 <div class="ttc" id="bar_8h_html"><div class="ttname"><a href="bar_8h.html">bar.h</a></div><div class="ttdoc">Bar class definition. </div></div>
-<div class="ttc" id="group___models_html_gad15c3af158d3b966c04be7e18cee5aea"><div class="ttname"><a href="group___models.html#gad15c3af158d3b966c04be7e18cee5aea">Line::boundingRect</a></div><div class="ttdeci">QRectF boundingRect() const Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00286">line.cpp:286</a></div></div>
+<div class="ttc" id="group___models_html_gad15c3af158d3b966c04be7e18cee5aea"><div class="ttname"><a href="group___models.html#gad15c3af158d3b966c04be7e18cee5aea">Line::boundingRect</a></div><div class="ttdeci">QRectF boundingRect() const Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00414">line.cpp:414</a></div></div>
 <div class="ttc" id="infoline_8h_html"><div class="ttname"><a href="infoline_8h.html">infoline.h</a></div></div>
-<div class="ttc" id="group___models_html_gaabe85f48d22d92b62257091f48174fac"><div class="ttname"><a href="group___models.html#gaabe85f48d22d92b62257091f48174fac">Line::~Line</a></div><div class="ttdeci">~Line()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00078">line.cpp:78</a></div></div>
-<div class="ttc" id="class_info_line_html"><div class="ttname"><a href="class_info_line.html">InfoLine</a></div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00013">infoline.h:13</a></div></div>
+<div class="ttc" id="group___models_html_gaabe85f48d22d92b62257091f48174fac"><div class="ttname"><a href="group___models.html#gaabe85f48d22d92b62257091f48174fac">Line::~Line</a></div><div class="ttdeci">~Line()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00079">line.cpp:79</a></div></div>
+<div class="ttc" id="class_info_line_html"><div class="ttname"><a href="class_info_line.html">InfoLine</a></div><div class="ttdef"><b>Definition:</b> <a href="infoline_8h_source.html#l00012">infoline.h:12</a></div></div>
 <div class="ttc" id="class_line_html_aefdf6a6c3e3775b5a16b344c1d33964e"><div class="ttname"><a href="class_line.html#aefdf6a6c3e3775b5a16b344c1d33964e">Line::network</a></div><div class="ttdeci">Network * network</div><div class="ttdef"><b>Definition:</b> <a href="line_8h_source.html#l00089">line.h:89</a></div></div>
-<div class="ttc" id="group___models_html_ga950d0b8f5d167eda430c65ca7adadbb0"><div class="ttname"><a href="group___models.html#ga950d0b8f5d167eda430c65ca7adadbb0">Line::setLength</a></div><div class="ttdeci">void setLength(double newLength, Unit::LengthUnit unit=Unit::kMeter)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00152">line.cpp:152</a></div></div>
-<div class="ttc" id="group___models_html_gaeeab146e6c1d7d1a688a2764a9c9a170"><div class="ttname"><a href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170">Line::setNodes</a></div><div class="ttdeci">void setNodes(Bar *pNoI, Bar *pNoF)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00176">line.cpp:176</a></div></div>
-<div class="ttc" id="group___models_html_gaf81e7055102816465bdf7e19afc2d547"><div class="ttname"><a href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">Line::i</a></div><div class="ttdeci">complex&lt; double &gt; i(int32_t phase, Unit::CurrentUnit unit=Unit::kAmpere)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00108">line.cpp:108</a></div></div>
-<div class="ttc" id="group___models_html_ga409df7d11f5c5d594a13fb2f74b3b9e0"><div class="ttname"><a href="group___models.html#ga409df7d11f5c5d594a13fb2f74b3b9e0">Line::setZ</a></div><div class="ttdeci">void setZ(int32_t index, complex&lt; double &gt; newImpedance, Unit::ImpedanceUnit unit=Unit::kOhm)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00091">line.cpp:91</a></div></div>
+<div class="ttc" id="group___models_html_ga950d0b8f5d167eda430c65ca7adadbb0"><div class="ttname"><a href="group___models.html#ga950d0b8f5d167eda430c65ca7adadbb0">Line::setLength</a></div><div class="ttdeci">void setLength(double newLength, Unit::LengthUnit unit=Unit::kMeter)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00249">line.cpp:249</a></div></div>
+<div class="ttc" id="group___models_html_gaeeab146e6c1d7d1a688a2764a9c9a170"><div class="ttname"><a href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170">Line::setNodes</a></div><div class="ttdeci">void setNodes(Bar *pNoI, Bar *pNoF)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00293">line.cpp:293</a></div></div>
+<div class="ttc" id="group___models_html_gaf81e7055102816465bdf7e19afc2d547"><div class="ttname"><a href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">Line::i</a></div><div class="ttdeci">complex&lt; double &gt; i(int32_t phase, Unit::CurrentUnit unit=Unit::kAmpere)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00162">line.cpp:162</a></div></div>
+<div class="ttc" id="group___models_html_ga409df7d11f5c5d594a13fb2f74b3b9e0"><div class="ttname"><a href="group___models.html#ga409df7d11f5c5d594a13fb2f74b3b9e0">Line::setZ</a></div><div class="ttdeci">void setZ(int32_t index, complex&lt; double &gt; newImpedance, Unit::ImpedanceUnit unit=Unit::kOhm)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00124">line.cpp:124</a></div></div>
 <div class="ttc" id="network_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Network class definition. </div></div>
-<div class="ttc" id="group___models_html_gab5370574fd93e13eb11742f7753fe1f1"><div class="ttname"><a href="group___models.html#gab5370574fd93e13eb11742f7753fe1f1">Line::z</a></div><div class="ttdeci">complex&lt; double &gt; z(int32_t index, Unit::ImpedanceUnit unit=Unit::kOhm)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00083">line.cpp:83</a></div></div>
+<div class="ttc" id="group___models_html_gab5370574fd93e13eb11742f7753fe1f1"><div class="ttname"><a href="group___models.html#gab5370574fd93e13eb11742f7753fe1f1">Line::z</a></div><div class="ttdeci">complex&lt; double &gt; z(int32_t index, Unit::ImpedanceUnit unit=Unit::kOhm)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00088">line.cpp:88</a></div></div>
 <div class="ttc" id="class_line_html"><div class="ttname"><a href="class_line.html">Line</a></div><div class="ttdoc">Represents a cable in power distribution systems. </div><div class="ttdef"><b>Definition:</b> <a href="line_8h_source.html#l00074">line.h:74</a></div></div>
-<div class="ttc" id="group___models_html_ga9e55b06dc3e385838fdd13d5580438ef"><div class="ttname"><a href="group___models.html#ga9e55b06dc3e385838fdd13d5580438ef">Line::setI</a></div><div class="ttdeci">void setI(int32_t phase, complex&lt; double &gt; newCurrent, Unit::CurrentUnit unit=Unit::kAmpere)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00116">line.cpp:116</a></div></div>
-<div class="ttc" id="group___models_html_gacc11b8a429d8cdd63ba6803dff5602b3"><div class="ttname"><a href="group___models.html#gacc11b8a429d8cdd63ba6803dff5602b3">Line::Line</a></div><div class="ttdeci">Line()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00056">line.cpp:56</a></div></div>
+<div class="ttc" id="class_unit_html_ace265ae255370ccacfd5370337572c3b"><div class="ttname"><a href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a></div><div class="ttdeci">PowerUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00032">customtypes.h:32</a></div></div>
+<div class="ttc" id="group___models_html_ga9e55b06dc3e385838fdd13d5580438ef"><div class="ttname"><a href="group___models.html#ga9e55b06dc3e385838fdd13d5580438ef">Line::setI</a></div><div class="ttdeci">void setI(int32_t phase, complex&lt; double &gt; newCurrent, Unit::CurrentUnit unit=Unit::kAmpere)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00186">line.cpp:186</a></div></div>
+<div class="ttc" id="group___models_html_gacc11b8a429d8cdd63ba6803dff5602b3"><div class="ttname"><a href="group___models.html#gacc11b8a429d8cdd63ba6803dff5602b3">Line::Line</a></div><div class="ttdeci">Line()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00057">line.cpp:57</a></div></div>
 <div class="ttc" id="class_unit_html_a3747e779c805df24a71961290be3fbdf"><div class="ttname"><a href="class_unit.html#a3747e779c805df24a71961290be3fbdf">Unit::ImpedanceUnit</a></div><div class="ttdeci">ImpedanceUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00022">customtypes.h:22</a></div></div>
-<div class="ttc" id="group___models_html_ga5fcee3f23eb50e34f730d602a3802b93"><div class="ttname"><a href="group___models.html#ga5fcee3f23eb50e34f730d602a3802b93">Line::itemChange</a></div><div class="ttdeci">QVariant itemChange(GraphicsItemChange change, const QVariant &amp;value) Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00304">line.cpp:304</a></div></div>
+<div class="ttc" id="group___models_html_ga7909d69e419de3f460ca7abab3d91e53"><div class="ttname"><a href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53">Line::loss</a></div><div class="ttdeci">complex&lt; double &gt; loss(int32_t phase, Unit::PowerUnit)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00211">line.cpp:211</a></div></div>
+<div class="ttc" id="group___models_html_ga5fcee3f23eb50e34f730d602a3802b93"><div class="ttname"><a href="group___models.html#ga5fcee3f23eb50e34f730d602a3802b93">Line::itemChange</a></div><div class="ttdeci">QVariant itemChange(GraphicsItemChange change, const QVariant &amp;value) Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00432">line.cpp:432</a></div></div>
 <div class="ttc" id="class_unit_html_a8c8921f7b225ad6063b1cb573425b9a0"><div class="ttname"><a href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a></div><div class="ttdeci">LengthUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00014">customtypes.h:14</a></div></div>
-<div class="ttc" id="group___models_html_ga0aa64aed379d434be5942edf572b444b"><div class="ttname"><a href="group___models.html#ga0aa64aed379d434be5942edf572b444b">Line::paint</a></div><div class="ttdeci">void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00340">line.cpp:340</a></div></div>
-<div class="ttc" id="group___models_html_ga9a1fee5b1606ab0deedd04bdab99be70"><div class="ttname"><a href="group___models.html#ga9a1fee5b1606ab0deedd04bdab99be70">Line::mouseDoubleClickEvent</a></div><div class="ttdeci">void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE</div><div class="ttdoc">mouseDoubleClickEvent </div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00331">line.cpp:331</a></div></div>
+<div class="ttc" id="group___models_html_ga0aa64aed379d434be5942edf572b444b"><div class="ttname"><a href="group___models.html#ga0aa64aed379d434be5942edf572b444b">Line::paint</a></div><div class="ttdeci">void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00468">line.cpp:468</a></div></div>
+<div class="ttc" id="group___models_html_ga9a1fee5b1606ab0deedd04bdab99be70"><div class="ttname"><a href="group___models.html#ga9a1fee5b1606ab0deedd04bdab99be70">Line::mouseDoubleClickEvent</a></div><div class="ttdeci">void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event) Q_DECL_OVERRIDE</div><div class="ttdoc">mouseDoubleClickEvent </div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00459">line.cpp:459</a></div></div>
 <div class="ttc" id="class_line_html_afd17c40d656e6a8d677cb22df5f0c70b"><div class="ttname"><a href="class_line.html#afd17c40d656e6a8d677cb22df5f0c70b">Line::nodes</a></div><div class="ttdeci">QPair&lt; int32_t, int32_t &gt; nodes</div><div class="ttdef"><b>Definition:</b> <a href="line_8h_source.html#l00087">line.h:87</a></div></div>
-<div class="ttc" id="group___models_html_ga84ddf17bee846a6f21c44d463252dd25"><div class="ttname"><a href="group___models.html#ga84ddf17bee846a6f21c44d463252dd25">Line::loss</a></div><div class="ttdeci">complex&lt; double &gt; loss(int32_t phase)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00135">line.cpp:135</a></div></div>
-<div class="ttc" id="group___models_html_gae2e4500d0fa60dcc2ecb08b2c96954f9"><div class="ttname"><a href="group___models.html#gae2e4500d0fa60dcc2ecb08b2c96954f9">Line::length</a></div><div class="ttdeci">double length(Unit::LengthUnit unit=Unit::kMeter)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00144">line.cpp:144</a></div></div>
-<div class="ttc" id="group___models_html_ga8fdb12651d4bc592616d241386b066b3"><div class="ttname"><a href="group___models.html#ga8fdb12651d4bc592616d241386b066b3">Line::updatePosition</a></div><div class="ttdeci">void updatePosition()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00267">line.cpp:267</a></div></div>
+<div class="ttc" id="group___models_html_gae2e4500d0fa60dcc2ecb08b2c96954f9"><div class="ttname"><a href="group___models.html#gae2e4500d0fa60dcc2ecb08b2c96954f9">Line::length</a></div><div class="ttdeci">double length(Unit::LengthUnit unit=Unit::kMeter)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00221">line.cpp:221</a></div></div>
+<div class="ttc" id="group___models_html_ga8fdb12651d4bc592616d241386b066b3"><div class="ttname"><a href="group___models.html#ga8fdb12651d4bc592616d241386b066b3">Line::updatePosition</a></div><div class="ttdeci">void updatePosition()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00384">line.cpp:384</a></div></div>
 <div class="ttc" id="class_unit_html_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b"><div class="ttname"><a href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00015">customtypes.h:15</a></div></div>
-<div class="ttc" id="group___models_html_gaeafd90e84ac2f8de2a879abe9e53eef3"><div class="ttname"><a href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">Line::pNoI</a></div><div class="ttdeci">Bar * pNoI()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00160">line.cpp:160</a></div></div>
-<div class="ttc" id="group___models_html_ga62623ad71df5279377cc69da90decc75"><div class="ttname"><a href="group___models.html#ga62623ad71df5279377cc69da90decc75">Line::fromJson</a></div><div class="ttdeci">void fromJson(QJsonObject &amp;lineJson)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00232">line.cpp:232</a></div></div>
+<div class="ttc" id="group___models_html_gaeafd90e84ac2f8de2a879abe9e53eef3"><div class="ttname"><a href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3">Line::pNoI</a></div><div class="ttdeci">Bar * pNoI()</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00277">line.cpp:277</a></div></div>
+<div class="ttc" id="group___models_html_ga62623ad71df5279377cc69da90decc75"><div class="ttname"><a href="group___models.html#ga62623ad71df5279377cc69da90decc75">Line::fromJson</a></div><div class="ttdeci">void fromJson(QJsonObject &amp;lineJson)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00349">line.cpp:349</a></div></div>
 <div class="ttc" id="class_unit_html_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da"><div class="ttname"><a href="class_unit.html#a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da">Unit::kOhm</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00023">customtypes.h:23</a></div></div>
-<div class="ttc" id="group___models_html_ga139698332327a712f6c02d96fe73fbee"><div class="ttname"><a href="group___models.html#ga139698332327a712f6c02d96fe73fbee">Line::zPu</a></div><div class="ttdeci">complex&lt; double &gt; zPu(int32_t index)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00100">line.cpp:100</a></div></div>
-<div class="ttc" id="class_network_html"><div class="ttname"><a href="class_network.html">Network</a></div><div class="ttdoc">Represents a power distribution systems. </div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00072">network.h:72</a></div></div>
-<div class="ttc" id="group___models_html_ga8f71e477800134586652d283087ed373"><div class="ttname"><a href="group___models.html#ga8f71e477800134586652d283087ed373">Line::iPu</a></div><div class="ttdeci">complex&lt; double &gt; iPu(int32_t phase)</div><div class="ttdef"><b>Definition:</b> <a href="line_8cpp_source.html#l00126">line.cpp:126</a></div></div>
+<div class="ttc" id="class_network_html"><div class="ttname"><a href="class_network.html">Network</a></div><div class="ttdoc">Represents a power distribution systems. </div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00075">network.h:75</a></div></div>
 <div class="ttc" id="class_line_html_a2444b577ea2254994599c6f829c629a5"><div class="ttname"><a href="class_line.html#a2444b577ea2254994599c6f829c629a5">Line::eventDoubleClick</a></div><div class="ttdeci">void eventDoubleClick()</div><div class="ttdoc">eventDoubleClick </div></div>
-<div class="ttc" id="class_unit_html_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f"><div class="ttname"><a href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00045">customtypes.h:45</a></div></div>
-<div class="ttc" id="class_bar_html"><div class="ttname"><a href="class_bar.html">Bar</a></div><div class="ttdoc">Represents a busbar in power distribution systems. </div><div class="ttdef"><b>Definition:</b> <a href="bar_8h_source.html#l00111">bar.h:111</a></div></div>
+<div class="ttc" id="class_unit_html_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f"><div class="ttname"><a href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00048">customtypes.h:48</a></div></div>
+<div class="ttc" id="class_bar_html"><div class="ttname"><a href="class_bar.html">Bar</a></div><div class="ttdoc">Represents a busbar in power distribution systems. </div><div class="ttdef"><b>Definition:</b> <a href="bar_8h_source.html#l00112">bar.h:112</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:43 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

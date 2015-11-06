@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -91,41 +93,45 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">shirmoharmmadi.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="shirmoharmmadi_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef SHIRMOHARMNADI_H</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define SHIRMOHARMNADI_H</span></div>
+<a href="shirmoharmmadi_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef ALGORITHMS_SHIRMOHARMMADI_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define ALGORITHMS_SHIRMOHARMMADI_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bar_8h.html">models/bar.h</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="line_8h.html">models/line.h</a>&quot;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">models/network.h</a>&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="class_shirmoharmnadi.html">    8</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_shirmoharmnadi.html">Shirmoharmnadi</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="class_shirmoharmmadi.html">    8</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_shirmoharmmadi.html">Shirmoharmmadi</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <a class="code" href="class_shirmoharmnadi.html#ad4f137b18ebbf42dfba31b60e0ab0b60">Shirmoharmnadi</a>(<a class="code" href="class_network.html">Network</a> *network);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <a class="code" href="class_shirmoharmnadi.html#abcace04460fd4dfbc4f951ce2c7a59f7">~Shirmoharmnadi</a>();</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;  <a class="code" href="class_shirmoharmmadi.html#aa5833386f9b43019a318c81a3006e2b1">Shirmoharmmadi</a>(<a class="code" href="class_network.html">Network</a> *network);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;  <a class="code" href="class_shirmoharmmadi.html#ac89016d70d3c99339af11f3b6f1f23b2">~Shirmoharmmadi</a>();</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_shirmoharmnadi.html#a409966b1e7e6307e7cba066d1ef2d08e">   14</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="class_shirmoharmnadi.html#a409966b1e7e6307e7cba066d1ef2d08e">duration</a>;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_shirmoharmnadi.html#a4cb21130795e4e0cedd887676f769171">solve</a>();</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="class_shirmoharmmadi.html#a32ab19ff485833106bf68cd91dbc94e6">   14</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="class_shirmoharmmadi.html#a32ab19ff485833106bf68cd91dbc94e6">duration</a>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="class_shirmoharmmadi.html#afdd22da0145b033c47f4f8a6bbd37d0d">   15</a></span>&#160;  int32_t <a class="code" href="class_shirmoharmmadi.html#afdd22da0145b033c47f4f8a6bbd37d0d">usedIterations</a>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="class_shirmoharmmadi.html#aeb47da6439c2e92c7ebcc59ebb71624b">   16</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="class_shirmoharmmadi.html#aeb47da6439c2e92c7ebcc59ebb71624b">slackGeneration</a>;</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;  <a class="code" href="class_network.html">Network</a> *network_;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#endif // SHIRMOHARMNADI_H</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715">solve</a>();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <a class="code" href="class_network.html">Network</a> *network_;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#endif // ALGORITHMS_SHIRMOHARMMADI_H</span></div>
 <div class="ttc" id="bar_8h_html"><div class="ttname"><a href="bar_8h.html">bar.h</a></div><div class="ttdoc">Bar class definition. </div></div>
-<div class="ttc" id="class_shirmoharmnadi_html_abcace04460fd4dfbc4f951ce2c7a59f7"><div class="ttname"><a href="class_shirmoharmnadi.html#abcace04460fd4dfbc4f951ce2c7a59f7">Shirmoharmnadi::~Shirmoharmnadi</a></div><div class="ttdeci">~Shirmoharmnadi()</div><div class="ttdef"><b>Definition:</b> <a href="shirmoharmnadi_8cpp_source.html#l00009">shirmoharmnadi.cpp:9</a></div></div>
-<div class="ttc" id="class_shirmoharmnadi_html"><div class="ttname"><a href="class_shirmoharmnadi.html">Shirmoharmnadi</a></div><div class="ttdef"><b>Definition:</b> <a href="shirmoharmmadi_8h_source.html#l00008">shirmoharmmadi.h:8</a></div></div>
-<div class="ttc" id="class_shirmoharmnadi_html_ad4f137b18ebbf42dfba31b60e0ab0b60"><div class="ttname"><a href="class_shirmoharmnadi.html#ad4f137b18ebbf42dfba31b60e0ab0b60">Shirmoharmnadi::Shirmoharmnadi</a></div><div class="ttdeci">Shirmoharmnadi(Network *network)</div><div class="ttdef"><b>Definition:</b> <a href="shirmoharmnadi_8cpp_source.html#l00003">shirmoharmnadi.cpp:3</a></div></div>
+<div class="ttc" id="class_shirmoharmmadi_html"><div class="ttname"><a href="class_shirmoharmmadi.html">Shirmoharmmadi</a></div><div class="ttdef"><b>Definition:</b> <a href="shirmoharmmadi_8h_source.html#l00008">shirmoharmmadi.h:8</a></div></div>
+<div class="ttc" id="class_shirmoharmmadi_html_aeb47da6439c2e92c7ebcc59ebb71624b"><div class="ttname"><a href="class_shirmoharmmadi.html#aeb47da6439c2e92c7ebcc59ebb71624b">Shirmoharmmadi::slackGeneration</a></div><div class="ttdeci">double slackGeneration</div><div class="ttdef"><b>Definition:</b> <a href="shirmoharmmadi_8h_source.html#l00016">shirmoharmmadi.h:16</a></div></div>
+<div class="ttc" id="class_shirmoharmmadi_html_ac89016d70d3c99339af11f3b6f1f23b2"><div class="ttname"><a href="class_shirmoharmmadi.html#ac89016d70d3c99339af11f3b6f1f23b2">Shirmoharmmadi::~Shirmoharmmadi</a></div><div class="ttdeci">~Shirmoharmmadi()</div><div class="ttdef"><b>Definition:</b> <a href="shirmoharmnadi_8cpp_source.html#l00016">shirmoharmnadi.cpp:16</a></div></div>
+<div class="ttc" id="class_shirmoharmmadi_html_afdd22da0145b033c47f4f8a6bbd37d0d"><div class="ttname"><a href="class_shirmoharmmadi.html#afdd22da0145b033c47f4f8a6bbd37d0d">Shirmoharmmadi::usedIterations</a></div><div class="ttdeci">int32_t usedIterations</div><div class="ttdef"><b>Definition:</b> <a href="shirmoharmmadi_8h_source.html#l00015">shirmoharmmadi.h:15</a></div></div>
 <div class="ttc" id="network_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Network class definition. </div></div>
-<div class="ttc" id="class_shirmoharmnadi_html_a409966b1e7e6307e7cba066d1ef2d08e"><div class="ttname"><a href="class_shirmoharmnadi.html#a409966b1e7e6307e7cba066d1ef2d08e">Shirmoharmnadi::duration</a></div><div class="ttdeci">double duration</div><div class="ttdef"><b>Definition:</b> <a href="shirmoharmmadi_8h_source.html#l00014">shirmoharmmadi.h:14</a></div></div>
-<div class="ttc" id="class_shirmoharmnadi_html_a4cb21130795e4e0cedd887676f769171"><div class="ttname"><a href="class_shirmoharmnadi.html#a4cb21130795e4e0cedd887676f769171">Shirmoharmnadi::solve</a></div><div class="ttdeci">bool solve()</div></div>
-<div class="ttc" id="class_network_html"><div class="ttname"><a href="class_network.html">Network</a></div><div class="ttdoc">Represents a power distribution systems. </div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00072">network.h:72</a></div></div>
+<div class="ttc" id="class_shirmoharmmadi_html_aa5833386f9b43019a318c81a3006e2b1"><div class="ttname"><a href="class_shirmoharmmadi.html#aa5833386f9b43019a318c81a3006e2b1">Shirmoharmmadi::Shirmoharmmadi</a></div><div class="ttdeci">Shirmoharmmadi(Network *network)</div><div class="ttdef"><b>Definition:</b> <a href="shirmoharmnadi_8cpp_source.html#l00010">shirmoharmnadi.cpp:10</a></div></div>
+<div class="ttc" id="class_shirmoharmmadi_html_a32ab19ff485833106bf68cd91dbc94e6"><div class="ttname"><a href="class_shirmoharmmadi.html#a32ab19ff485833106bf68cd91dbc94e6">Shirmoharmmadi::duration</a></div><div class="ttdeci">double duration</div><div class="ttdef"><b>Definition:</b> <a href="shirmoharmmadi_8h_source.html#l00014">shirmoharmmadi.h:14</a></div></div>
+<div class="ttc" id="class_shirmoharmmadi_html_acb4a06c62b5d97c25bea70acd477e715"><div class="ttname"><a href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715">Shirmoharmmadi::solve</a></div><div class="ttdeci">bool solve()</div><div class="ttdef"><b>Definition:</b> <a href="shirmoharmnadi_8cpp_source.html#l00021">shirmoharmnadi.cpp:21</a></div></div>
+<div class="ttc" id="class_network_html"><div class="ttname"><a href="class_network.html">Network</a></div><div class="ttdoc">Represents a power distribution systems. </div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00075">network.h:75</a></div></div>
 <div class="ttc" id="line_8h_html"><div class="ttname"><a href="line_8h.html">line.h</a></div><div class="ttdoc">line class definition. </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:43 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

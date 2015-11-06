@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li class="current"><a href="files.html"><span>Files</span></a></li>
@@ -197,33 +199,54 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  }</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;}</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;</div>
+<div class="line"><a name="l00108"></a><span class="lineno"><a class="line" href="class_unit.html#a7bd3ed3edcb18170cd162d384075b651">  108</a></span>&#160;QString <a class="code" href="class_unit.html#a7bd3ed3edcb18170cd162d384075b651">Unit::currentUnitToStr</a>(<a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a> currentUnit)</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;{</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="keywordflow">switch</span> (currentUnit) {</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keywordflow">case</span> <a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">kAmpere</a>:</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;A&quot;</span>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  <span class="keywordflow">case</span> <a class="code" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787aa27cb5edd73099f24f2285e02396ae14">kKiloAmpere</a>:</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;kA&quot;</span>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;Unknow&quot;</span>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
 <div class="ttc" id="class_unit_html_abd363319f79f97b0a0b9a08c5ddc3cdb"><div class="ttname"><a href="class_unit.html#abd363319f79f97b0a0b9a08c5ddc3cdb">Unit::lengthUnitToStr</a></div><div class="ttdeci">static QString lengthUnitToStr(LengthUnit lengthUnit)</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8cpp_source.html#l00006">customtypes.cpp:6</a></div></div>
-<div class="ttc" id="class_unit_html_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d"><div class="ttname"><a href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d">Unit::kKiloVolts</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00040">customtypes.h:40</a></div></div>
+<div class="ttc" id="class_unit_html_a0794cf6c9682f48296dd4a5315389787"><div class="ttname"><a href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a></div><div class="ttdeci">CurrentUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00047">customtypes.h:47</a></div></div>
+<div class="ttc" id="class_unit_html_a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d"><div class="ttname"><a href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1a35a201a658c2cd89766787c657e9a54d">Unit::kKiloVolts</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00042">customtypes.h:42</a></div></div>
 <div class="ttc" id="class_unit_html_a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724"><div class="ttname"><a href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724">Unit::kMile</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00018">customtypes.h:18</a></div></div>
 <div class="ttc" id="class_unit_html_ae3ca20f4b6530f04ca6aa138ec0fa7d2"><div class="ttname"><a href="class_unit.html#ae3ca20f4b6530f04ca6aa138ec0fa7d2">Unit::impedanceUnitToStr</a></div><div class="ttdeci">static QString impedanceUnitToStr(ImpedanceUnit impedanceUnit)</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8cpp_source.html#l00034">customtypes.cpp:34</a></div></div>
-<div class="ttc" id="class_unit_html_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365"><div class="ttname"><a href="class_unit.html#ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365">Unit::kMegaVa</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00034">customtypes.h:34</a></div></div>
+<div class="ttc" id="class_unit_html_ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365"><div class="ttname"><a href="class_unit.html#ace265ae255370ccacfd5370337572c3ba6039da0ed20f8bee64305bab8bdec365">Unit::kMegaVa</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00035">customtypes.h:35</a></div></div>
 <div class="ttc" id="class_unit_html_a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8"><div class="ttname"><a href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8">Unit::kFeet</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00017">customtypes.h:17</a></div></div>
 <div class="ttc" id="customtypes_8h_html"><div class="ttname"><a href="customtypes_8h.html">customtypes.h</a></div></div>
-<div class="ttc" id="class_unit_html_ace265ae255370ccacfd5370337572c3b"><div class="ttname"><a href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a></div><div class="ttdeci">PowerUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00031">customtypes.h:31</a></div></div>
+<div class="ttc" id="class_unit_html_ace265ae255370ccacfd5370337572c3b"><div class="ttname"><a href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a></div><div class="ttdeci">PowerUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00032">customtypes.h:32</a></div></div>
+<div class="ttc" id="class_unit_html_a0794cf6c9682f48296dd4a5315389787aa27cb5edd73099f24f2285e02396ae14"><div class="ttname"><a href="class_unit.html#a0794cf6c9682f48296dd4a5315389787aa27cb5edd73099f24f2285e02396ae14">Unit::kKiloAmpere</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00049">customtypes.h:49</a></div></div>
+<div class="ttc" id="class_unit_html_a7bd3ed3edcb18170cd162d384075b651"><div class="ttname"><a href="class_unit.html#a7bd3ed3edcb18170cd162d384075b651">Unit::currentUnitToStr</a></div><div class="ttdeci">static QString currentUnitToStr(CurrentUnit currentUnit)</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8cpp_source.html#l00108">customtypes.cpp:108</a></div></div>
 <div class="ttc" id="class_unit_html_a3747e779c805df24a71961290be3fbdf"><div class="ttname"><a href="class_unit.html#a3747e779c805df24a71961290be3fbdf">Unit::ImpedanceUnit</a></div><div class="ttdeci">ImpedanceUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00022">customtypes.h:22</a></div></div>
-<div class="ttc" id="class_unit_html_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696"><div class="ttname"><a href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00032">customtypes.h:32</a></div></div>
+<div class="ttc" id="class_unit_html_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696"><div class="ttname"><a href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00033">customtypes.h:33</a></div></div>
 <div class="ttc" id="class_unit_html_a8c8921f7b225ad6063b1cb573425b9a0"><div class="ttname"><a href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a></div><div class="ttdeci">LengthUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00014">customtypes.h:14</a></div></div>
 <div class="ttc" id="class_unit_html_a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336"><div class="ttname"><a href="class_unit.html#a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336">Unit::kOhmPerMeter</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00024">customtypes.h:24</a></div></div>
 <div class="ttc" id="class_unit_html_a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919"><div class="ttname"><a href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919">Unit::kKiloMeter</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00016">customtypes.h:16</a></div></div>
-<div class="ttc" id="class_unit_html_a55b07dfa9457e1eca2c7194fe0cfc3c1"><div class="ttname"><a href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1">Unit::VoltageUnit</a></div><div class="ttdeci">VoltageUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00038">customtypes.h:38</a></div></div>
-<div class="ttc" id="class_unit_html_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c"><div class="ttname"><a href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c">Unit::kVolts</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00039">customtypes.h:39</a></div></div>
+<div class="ttc" id="class_unit_html_a55b07dfa9457e1eca2c7194fe0cfc3c1"><div class="ttname"><a href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1">Unit::VoltageUnit</a></div><div class="ttdeci">VoltageUnit</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00040">customtypes.h:40</a></div></div>
+<div class="ttc" id="class_unit_html_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c"><div class="ttname"><a href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c">Unit::kVolts</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00041">customtypes.h:41</a></div></div>
 <div class="ttc" id="class_unit_html_a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6"><div class="ttname"><a href="class_unit.html#a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6">Unit::kOhmPerKilometer</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00025">customtypes.h:25</a></div></div>
 <div class="ttc" id="class_unit_html_ad1487441b5a7eb93a3eb0aeebe947725"><div class="ttname"><a href="class_unit.html#ad1487441b5a7eb93a3eb0aeebe947725">Unit::powerUnitToStr</a></div><div class="ttdeci">static QString powerUnitToStr(PowerUnit powerUnit)</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8cpp_source.html#l00066">customtypes.cpp:66</a></div></div>
 <div class="ttc" id="class_unit_html_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b"><div class="ttname"><a href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00015">customtypes.h:15</a></div></div>
 <div class="ttc" id="class_unit_html_a3747e779c805df24a71961290be3fbdfa433b57934ca3be960ec7a60f3ea6ea87"><div class="ttname"><a href="class_unit.html#a3747e779c805df24a71961290be3fbdfa433b57934ca3be960ec7a60f3ea6ea87">Unit::kOhmPerFeet</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00026">customtypes.h:26</a></div></div>
 <div class="ttc" id="class_unit_html_a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613"><div class="ttname"><a href="class_unit.html#a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613">Unit::kOhmPerMile</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00027">customtypes.h:27</a></div></div>
 <div class="ttc" id="class_unit_html_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da"><div class="ttname"><a href="class_unit.html#a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da">Unit::kOhm</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00023">customtypes.h:23</a></div></div>
-<div class="ttc" id="class_unit_html_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2"><div class="ttname"><a href="class_unit.html#ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2">Unit::kKiloVA</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00033">customtypes.h:33</a></div></div>
+<div class="ttc" id="class_unit_html_ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2"><div class="ttname"><a href="class_unit.html#ace265ae255370ccacfd5370337572c3bac9e5154522fbb810d7aed75c3ff47cb2">Unit::kKiloVA</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00034">customtypes.h:34</a></div></div>
+<div class="ttc" id="class_unit_html_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f"><div class="ttname"><a href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a></div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8h_source.html#l00048">customtypes.h:48</a></div></div>
 <div class="ttc" id="class_unit_html_a7fa103c31f9f069961b35b6371ff0c0a"><div class="ttname"><a href="class_unit.html#a7fa103c31f9f069961b35b6371ff0c0a">Unit::voltageUnitToStr</a></div><div class="ttdeci">static QString voltageUnitToStr(VoltageUnit voltageUnit)</div><div class="ttdef"><b>Definition:</b> <a href="customtypes_8cpp_source.html#l00091">customtypes.cpp:91</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:43 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

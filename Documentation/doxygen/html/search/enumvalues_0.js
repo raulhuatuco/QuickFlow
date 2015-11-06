@@ -1,6 +1,7 @@
 var searchData=
 [
   ['kampere',['kAmpere',['../class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f',1,'Unit']]],
+  ['kampereperunit',['kAmperePerUnit',['../class_unit.html#a0794cf6c9682f48296dd4a5315389787aeed3b50e464d581cb630181a3b6a0709',1,'Unit']]],
   ['kfeet',['kFeet',['../class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8',1,'Unit']]],
   ['kkiloampere',['kKiloAmpere',['../class_unit.html#a0794cf6c9682f48296dd4a5315389787aa27cb5edd73099f24f2285e02396ae14',1,'Unit']]],
   ['kkilometer',['kKiloMeter',['../class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919',1,'Unit']]],
@@ -19,6 +20,9 @@ var searchData=
   ['kohmperkilometer',['kOhmPerKilometer',['../class_unit.html#a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6',1,'Unit']]],
   ['kohmpermeter',['kOhmPerMeter',['../class_unit.html#a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336',1,'Unit']]],
   ['kohmpermile',['kOhmPerMile',['../class_unit.html#a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613',1,'Unit']]],
+  ['kohmperunit',['kOhmPerUnit',['../class_unit.html#a3747e779c805df24a71961290be3fbdfa9327dc8628a47375d70037499f9d0910',1,'Unit']]],
   ['kva',['kVA',['../class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696',1,'Unit']]],
-  ['kvolts',['kVolts',['../class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c',1,'Unit']]]
+  ['kvaperunit',['kVaPerUnit',['../class_unit.html#ace265ae255370ccacfd5370337572c3bae056e80d620a87c61a44c359e6b05cc1',1,'Unit']]],
+  ['kvolts',['kVolts',['../class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c',1,'Unit']]],
+  ['kvoltsperunit',['kVoltsPerUnit',['../class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1ab44b1310b59fdcdc9df5bbea91da4206',1,'Unit']]]
 ];

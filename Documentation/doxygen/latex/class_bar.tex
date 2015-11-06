@@ -7,8 +7,7 @@ Represents a busbar in power distribution systems.
 
 
 
-Inheritance diagram for Bar\+:
-\nopagebreak
+Inheritance diagram for Bar\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -17,8 +16,7 @@ Inheritance diagram for Bar\+:
 \end{figure}
 
 
-Collaboration diagram for Bar\+:
-\nopagebreak
+Collaboration diagram for Bar\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -43,32 +41,20 @@ complex$<$ double $>$ \hyperlink{group___models_ga1e6f2daec86407118656d88170d1ad
 \begin{DoxyCompactList}\small\item\em Initial Voltage. \end{DoxyCompactList}\item 
 void \hyperlink{group___models_ga9b6fbc92674bfcdc9d5090795ab335a6}{set\+V} (int32\+\_\+t phase, complex$<$ double $>$ new\+Voltage, \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit\+::\+Voltage\+Unit} unit=\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit\+::k\+Volts})
 \begin{DoxyCompactList}\small\item\em Set initial voltage. \end{DoxyCompactList}\item 
-complex$<$ double $>$ \hyperlink{group___models_ga1c54bd76b2f620d970ddfed8cdae4116}{v\+Pu} (int32\+\_\+t phase)
-\begin{DoxyCompactList}\small\item\em Returns the initial voltage converted to per unit. \end{DoxyCompactList}\item 
 complex$<$ double $>$ \hyperlink{group___models_gac188071bf5f165b0acdaa4c8af82355c}{sh} (int32\+\_\+t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} unit=\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit\+::k\+V\+A})
 \begin{DoxyCompactList}\small\item\em Shutn element. \end{DoxyCompactList}\item 
 void \hyperlink{group___models_ga207abd3d0649a488e3c44cf2a501ed23}{set\+Sh} (int32\+\_\+t phase, complex$<$ double $>$ new\+Power, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} unit=\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit\+::k\+V\+A})
 \begin{DoxyCompactList}\small\item\em Set Shunt power. \end{DoxyCompactList}\item 
-complex$<$ double $>$ \hyperlink{group___models_ga7df2ed5705f06c0cf2937d25102ca847}{sh\+Pu} (int32\+\_\+t phase)
-\begin{DoxyCompactList}\small\item\em Shunt element power in pu. \end{DoxyCompactList}\item 
 complex$<$ double $>$ \hyperlink{group___models_ga02bbc279f1e133f66b12ee21e7bebcd8}{si} (int32\+\_\+t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} unit=\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit\+::k\+V\+A})
 \begin{DoxyCompactList}\small\item\em Injected power. \end{DoxyCompactList}\item 
 void \hyperlink{group___models_ga74e510be49e50e4c14550b32e1dc92f9}{set\+Si} (int32\+\_\+t phase, complex$<$ double $>$ new\+Power, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} unit=\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit\+::k\+V\+A})
 \begin{DoxyCompactList}\small\item\em Set the injected power. \end{DoxyCompactList}\item 
-complex$<$ double $>$ \hyperlink{group___models_ga8ac94a6b5f69417da962a7d87361b416}{si\+Pu} (int32\+\_\+t phase)
-\begin{DoxyCompactList}\small\item\em Injected power in per unit. \end{DoxyCompactList}\item 
 complex$<$ double $>$ \hyperlink{group___models_ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e}{r\+V} (int32\+\_\+t phase, \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit\+::\+Voltage\+Unit} unit=\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit\+::k\+Volts})
 \begin{DoxyCompactList}\small\item\em Result bar voltage. \end{DoxyCompactList}\item 
 void \hyperlink{group___models_ga2b2c5a373d87025e79d26aa9c4cea75a}{set\+R\+V} (int32\+\_\+t phase, complex$<$ double $>$ result\+Voltage, \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit\+::\+Voltage\+Unit} unit=\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit\+::k\+Volts})
 \begin{DoxyCompactList}\small\item\em Set result voltage. \end{DoxyCompactList}\item 
-complex$<$ double $>$ \hyperlink{group___models_ga7deee8820e2ee3e0db993a1e76b68700}{r\+V\+Pu} (int32\+\_\+t phase)
-\begin{DoxyCompactList}\small\item\em Result voltage in pu. \end{DoxyCompactList}\item 
-complex$<$ double $>$ \hyperlink{group___models_gac8ddd4cb566d995b70b0f83146aa12b3}{r\+Si} (int32\+\_\+t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} unit=\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit\+::k\+V\+A})
-\begin{DoxyCompactList}\small\item\em Result injected power. \end{DoxyCompactList}\item 
-void \hyperlink{group___models_ga36d3d54b66584a0557c0c141f4636d4c}{set\+R\+Si} (int32\+\_\+t phase, complex$<$ double $>$ new\+Power, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} unit=\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit\+::k\+V\+A})
-\begin{DoxyCompactList}\small\item\em Set result injected power. \end{DoxyCompactList}\item 
-complex$<$ double $>$ \hyperlink{group___models_ga1fa1b99d17dd19fafcf8309aba4fc758}{r\+Si\+Pu} (int32\+\_\+t phase)
-\begin{DoxyCompactList}\small\item\em Result injected power, in pu. \end{DoxyCompactList}\item 
+complex$<$ double $>$ \hyperlink{group___models_ga8a009531f01430aa68eba739bb0dc2ea}{r\+I} (int32\+\_\+t phase, \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit\+::\+Current\+Unit} unit=\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit\+::k\+Ampere})
+\begin{DoxyCompactList}\small\item\em Result bar current. \end{DoxyCompactList}\item 
 void \hyperlink{group___models_ga8cbd2f62d92e69ce6c8d561b682464b6}{add\+Line} (\hyperlink{class_line}{Line} $\ast$line)
 \begin{DoxyCompactList}\small\item\em Add line to bar. \end{DoxyCompactList}\item 
 void \hyperlink{group___models_ga2536c0e5cb97fb627b3520826ece2c99}{remove\+Line} (\hyperlink{class_line}{Line} $\ast$line)
@@ -113,15 +99,16 @@ void \hyperlink{group___models_gacbb6dbac607412c9c1f9dfcd0cd4d432}{paint} (Q\+Pa
 \begin{DoxyItemize}
 \item Voltage (for phases 0, 1 and 2)\+: voltage at the bar.
 \item Shunt elements (sh) power injection\+: shunt elements are represented by the power they inject in the bar.
+\item Injected power (si)\+: the power injected at the bar (here, power that is consumed is represented as a positive value and power that is generated at the bar is represented with a negative sign).
 \end{DoxyItemize}
-
-Injected power (si)\+: the power injected at the bar (here, power that is consumed is represented as a positive value and power that is generated at the bar is represented with a negative sign).
 
 The bar properties are stored in the following units\+:
 \begin{DoxyItemize}
 \item Power\+: V\+A.
-\item Voltage\+: Volts. In order to use diferent units, use the option parameter {\bfseries unit} with the desired unit.
+\item Voltage\+: Volts.
 \end{DoxyItemize}
+
+In order to use diferent units, use the option parameter {\bfseries unit} with the desired unit.
 
 Bars must be added to a network in order to be displayed by a \hyperlink{class_system_view}{System\+View}.
 
@@ -131,7 +118,7 @@ Bars must be added to a network in order to be displayed by a \hyperlink{class_s
 
 \textcolor{comment}{// External objects where the bar will be put in.}
 \textcolor{keyword}{extern} \hyperlink{class_system_view}{SystemView} systemView;
-\textcolor{keyword}{extern} \hyperlink{class_system_scene}{SystemScene} systemScene;
+\textcolor{keyword}{extern} SystemScene systemScene;
 \textcolor{keyword}{extern} \hyperlink{class_network}{Network} \hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network};
 
 \hyperlink{class_bar}{Bar} * bar = \textcolor{keyword}{new} \hyperlink{group___models_ga9cae2188fcc6cce41caa7898c64548d1}{Bar};
@@ -149,7 +136,7 @@ The values v, sh and si are the initial conditions. Results of the load flow cal
 \end{DoxyNote}
 
 
-Definition at line \hyperlink{bar_8h_source_l00111}{111} of file \hyperlink{bar_8h_source}{bar.\+h}.
+Definition at line \hyperlink{bar_8h_source_l00112}{112} of file \hyperlink{bar_8h_source}{bar.\+h}.
 
 
 
@@ -163,8 +150,7 @@ Definition at line \hyperlink{bar_8h_source_l00111}{111} of file \hyperlink{bar_
 )\hspace{0.3cm}{\ttfamily [signal]}}\label{class_bar_a66bcbd19582dddee7e171ae5a4475f4b}
 Signal emited when a double click occurs. 
 
-Here is the caller graph for this function\+:
-\nopagebreak
+Here is the caller graph for this function\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -181,7 +167,7 @@ Here is the caller graph for this function\+:
 \paragraph[{id}]{\setlength{\rightskip}{0pt plus 5cm}int32\+\_\+t Bar\+::id}\label{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}
 Id number if the bar. A bar with I\+D 0 will be the slack bar. Only one bar in a network can be a slack and every other bars need an id $>$ 0. 
 
-Definition at line \hyperlink{bar_8h_source_l00136}{136} of file \hyperlink{bar_8h_source}{bar.\+h}.
+Definition at line \hyperlink{bar_8h_source_l00137}{137} of file \hyperlink{bar_8h_source}{bar.\+h}.
 
 \hypertarget{class_bar_a23b6d4319352ef0e77ad66aade4e0209}{}\index{Bar@{Bar}!lines@{lines}}
 \index{lines@{lines}!Bar@{Bar}}
@@ -191,7 +177,7 @@ Don\textquotesingle{}t use the lines vector to manipulate lines directly. Instea
 \end{DoxyWarning}
 
 
-Definition at line \hyperlink{bar_8h_source_l00151}{151} of file \hyperlink{bar_8h_source}{bar.\+h}.
+Definition at line \hyperlink{bar_8h_source_l00152}{152} of file \hyperlink{bar_8h_source}{bar.\+h}.
 
 \hypertarget{class_bar_a80025f13884750add58cc61b318357ff}{}\index{Bar@{Bar}!network@{network}}
 \index{network@{network}!Bar@{Bar}}
@@ -201,7 +187,7 @@ This option must be not N\+U\+L\+L in order to add the bar to a scene.
 \end{DoxyWarning}
 
 
-Definition at line \hyperlink{bar_8h_source_l00143}{143} of file \hyperlink{bar_8h_source}{bar.\+h}.
+Definition at line \hyperlink{bar_8h_source_l00144}{144} of file \hyperlink{bar_8h_source}{bar.\+h}.
 
 
 

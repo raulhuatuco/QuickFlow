@@ -188,55 +188,75 @@
 00325 \textcolor{comment}{  *****************************************************************************/}
 00329   \textcolor{keywordtype}{void} on\_actionAbout\_triggered();
 00330 
-00331 \textcolor{keyword}{protected}:
-00332   \textcolor{comment}{/*****************************************************************************}
-00333 \textcolor{comment}{  * Close event.}
-00334 \textcolor{comment}{  *****************************************************************************/}
-00340   \textcolor{keywordtype}{void} \hyperlink{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}{closeEvent}(QCloseEvent *event) Q\_DECL\_OVERRIDE;
+00331   \textcolor{comment}{/*****************************************************************************}
+00332 \textcolor{comment}{   * Edit bar.}
+00333 \textcolor{comment}{   ****************************************************************************/}
+00340   \textcolor{keywordtype}{void} on\_editBar(QObject *bar);
 00341 
-00342 \textcolor{keyword}{private}:
-00343   \textcolor{comment}{/*****************************************************************************}
-00344 \textcolor{comment}{  * Private data.}
-00345 \textcolor{comment}{  *****************************************************************************/}
-00350   Ui::QuickFlow *ui;
-00351 
-00357   QSettings *settings;
-00358 
-00365   \hyperlink{class_project}{Project} *project;
-00366 
-00372   \textcolor{keywordtype}{bool} altered\_;
+00342   \textcolor{comment}{/*****************************************************************************}
+00343 \textcolor{comment}{   * Edit line.}
+00344 \textcolor{comment}{   ****************************************************************************/}
+00351   \textcolor{keywordtype}{void} on\_editLine(QObject *line);
+00352 
+00353 \textcolor{keyword}{protected}:
+00354   \textcolor{comment}{/*****************************************************************************}
+00355 \textcolor{comment}{  * Close event.}
+00356 \textcolor{comment}{  *****************************************************************************/}
+00362   \textcolor{keywordtype}{void} \hyperlink{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}{closeEvent}(QCloseEvent *event) Q\_DECL\_OVERRIDE;
+00363 
+00364 \textcolor{keyword}{private}:
+00365   \textcolor{comment}{/*****************************************************************************}
+00366 \textcolor{comment}{  * Private data.}
+00367 \textcolor{comment}{  *****************************************************************************/}
+00372   Ui::QuickFlow *ui;
 00373 
-00374   \textcolor{comment}{/*****************************************************************************}
-00375 \textcolor{comment}{  * Load application settings.}
-00376 \textcolor{comment}{  *****************************************************************************/}
-00383   \textcolor{keywordtype}{void} loadSettings();
-00384 
-00385   \textcolor{comment}{/*****************************************************************************}
-00386 \textcolor{comment}{  * Save application settings.}
-00387 \textcolor{comment}{  *****************************************************************************/}
-00392   \textcolor{keywordtype}{void} saveSettings();
-00393 
-00394   \textcolor{comment}{/*****************************************************************************}
-00395 \textcolor{comment}{  * Create application settings.}
-00396 \textcolor{comment}{  *****************************************************************************/}
-00401   \textcolor{keywordtype}{void} createSettings();
-00402 
-00403   \textcolor{comment}{/*****************************************************************************}
-00404 \textcolor{comment}{  * Upgrade application settings.}
-00405 \textcolor{comment}{  *****************************************************************************/}
-00410   \textcolor{keywordtype}{void} upgradeSettings();
-00411 
-00412   \textcolor{comment}{/*****************************************************************************}
-00413 \textcolor{comment}{   * No project interface.}
-00414 \textcolor{comment}{   *****************************************************************************/}
-00419   \textcolor{keywordtype}{void} noProjectInterface();
-00420 
-00421   \textcolor{comment}{/*****************************************************************************}
-00422 \textcolor{comment}{  * Work interface.}
-00423 \textcolor{comment}{  *****************************************************************************/}
-00428   \textcolor{keywordtype}{void} workInterface();
-00429 \};
-00430 
-00431 \textcolor{preprocessor}{#endif  // QUICKFLOW\_H}
-00432 
+00379   QSettings *settings;
+00380 
+00387   \hyperlink{class_project}{Project} *project;
+00388 
+00394   \textcolor{keywordtype}{bool} altered\_;
+00395 
+00396   \textcolor{comment}{/*****************************************************************************}
+00397 \textcolor{comment}{  * Load application settings.}
+00398 \textcolor{comment}{  *****************************************************************************/}
+00405   \textcolor{keywordtype}{void} loadSettings();
+00406 
+00407   \textcolor{comment}{/*****************************************************************************}
+00408 \textcolor{comment}{  * Save application settings.}
+00409 \textcolor{comment}{  *****************************************************************************/}
+00414   \textcolor{keywordtype}{void} saveSettings();
+00415 
+00416   \textcolor{comment}{/*****************************************************************************}
+00417 \textcolor{comment}{  * Create application settings.}
+00418 \textcolor{comment}{  *****************************************************************************/}
+00423   \textcolor{keywordtype}{void} createSettings();
+00424 
+00425   \textcolor{comment}{/*****************************************************************************}
+00426 \textcolor{comment}{  * Upgrade application settings.}
+00427 \textcolor{comment}{  *****************************************************************************/}
+00432   \textcolor{keywordtype}{void} upgradeSettings();
+00433 
+00434   \textcolor{comment}{/*****************************************************************************}
+00435 \textcolor{comment}{   * No project interface.}
+00436 \textcolor{comment}{   *****************************************************************************/}
+00441   \textcolor{keywordtype}{void} noProjectInterface();
+00442 
+00443   \textcolor{comment}{/*****************************************************************************}
+00444 \textcolor{comment}{  * Work interface.}
+00445 \textcolor{comment}{  *****************************************************************************/}
+00450   \textcolor{keywordtype}{void} workInterface();
+00451 
+00452   \textcolor{comment}{/*****************************************************************************}
+00453 \textcolor{comment}{  * connectSignals.}
+00454 \textcolor{comment}{  *****************************************************************************/}
+00455   \textcolor{keywordtype}{void} connectSignals();
+00456 
+00457   \textcolor{comment}{/*****************************************************************************}
+00458 \textcolor{comment}{  * disconnectSignals.}
+00459 \textcolor{comment}{  *****************************************************************************/}
+00460   \textcolor{keywordtype}{void} disconnectSignals();
+00461 \};
+00462 
+00463 \textcolor{preprocessor}{#endif  // QUICKFLOW\_H}
+00464 
 \end{DoxyCode}

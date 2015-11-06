@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -99,15 +101,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Inheritance diagram for NewProject:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_new_project__inherit__graph.png" border="0" usemap="#_new_project_inherit__map" alt="Inheritance graph"/></div>
-<map name="_new_project_inherit__map" id="_new_project_inherit__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for NewProject:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_new_project__coll__graph.png" border="0" usemap="#_new_project_coll__map" alt="Collaboration graph"/></div>
-<map name="_new_project_coll__map" id="_new_project_coll__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -127,9 +125,9 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:ac684c762d3c15ff4463622978193e827"><td class="memItemLeft" align="right" valign="top">QString&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_project.html#ac684c762d3c15ff4463622978193e827">dataPath</a></td></tr>
 <tr class="memdesc:ac684c762d3c15ff4463622978193e827"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="class_project.html">Project</a> path.  <a href="#ac684c762d3c15ff4463622978193e827">More...</a><br /></td></tr>
 <tr class="separator:ac684c762d3c15ff4463622978193e827"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a189825d570bc9bc35c61f7fe40de986a"><td class="memItemLeft" align="right" valign="top">u_int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_project.html#a189825d570bc9bc35c61f7fe40de986a">dataMaxIterations</a></td></tr>
-<tr class="memdesc:a189825d570bc9bc35c61f7fe40de986a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max.  <a href="#a189825d570bc9bc35c61f7fe40de986a">More...</a><br /></td></tr>
-<tr class="separator:a189825d570bc9bc35c61f7fe40de986a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42e0ddd47dd58e3634ec274e7af00ba9"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_project.html#a42e0ddd47dd58e3634ec274e7af00ba9">dataMaxIterations</a></td></tr>
+<tr class="memdesc:a42e0ddd47dd58e3634ec274e7af00ba9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max.  <a href="#a42e0ddd47dd58e3634ec274e7af00ba9">More...</a><br /></td></tr>
+<tr class="separator:a42e0ddd47dd58e3634ec274e7af00ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a186c2163239625faf8c7769a72fa988c"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_new_project.html#a186c2163239625faf8c7769a72fa988c">dataMinError</a></td></tr>
 <tr class="memdesc:a186c2163239625faf8c7769a72fa988c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Min.  <a href="#a186c2163239625faf8c7769a72fa988c">More...</a><br /></td></tr>
 <tr class="separator:a186c2163239625faf8c7769a72fa988c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -175,12 +173,12 @@ Public Attributes</h2></td></tr>
 <div class="line">                    newProject.dataName + <span class="stringliteral">&quot;.qkf&quot;</span>;</div>
 <div class="line"></div>
 <div class="line"><span class="comment">// Simulation data.</span></div>
-<div class="line">project-&gt;<a class="code" href="class_project.html#abac6e194d2d16fbdbe51627844eae60b">setMaxIterations</a>(newProject.dataMaxIterations);</div>
+<div class="line">project-&gt;<a class="code" href="class_project.html#af2046a5d542d3e3dd51cb9cb04604e8f">setMaxIterations</a>(newProject.dataMaxIterations);</div>
 <div class="line">project-&gt;<a class="code" href="class_project.html#a2cb776c39adb42a1113bf7887d0d4636">setMinError</a>(newProject.dataMinError);</div>
 <div class="line">project-&gt;<a class="code" href="class_project.html#a494c3e89851f754188c7abaedbf77ef6">setVoltageBase</a>(newProject.dataVoltageBase);</div>
 <div class="line">project-&gt;<a class="code" href="class_project.html#abb4df805b3cd3af509a41e657eb4bb83">setPowerBase</a>(newProject.dataPowerBase);</div>
 </div><!-- fragment --> 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00092">92</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00093">93</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 </div><h2 class="groupheader">Member Data Documentation</h2>
 <a class="anchor" id="a9d389065ff7f8588338069018088a20f"></a>
 <div class="memitem">
@@ -192,7 +190,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00153">153</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00154">154</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 
 </div>
 </div>
@@ -206,7 +204,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00138">138</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00139">139</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 
 </div>
 </div>
@@ -220,22 +218,22 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00133">133</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00134">134</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a189825d570bc9bc35c61f7fe40de986a"></a>
+<a class="anchor" id="a42e0ddd47dd58e3634ec274e7af00ba9"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">u_int32_t NewProject::dataMaxIterations</td>
+          <td class="memname">uint32_t NewProject::dataMaxIterations</td>
         </tr>
       </table>
 </div><div class="memdoc">
 <p>iterations. </p>
 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00113">113</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00114">114</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 
 </div>
 </div>
@@ -250,7 +248,7 @@ Public Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>error, in percentage. </p>
 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00118">118</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00119">119</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 
 </div>
 </div>
@@ -264,7 +262,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00103">103</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00104">104</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 
 </div>
 </div>
@@ -278,7 +276,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00108">108</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00109">109</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 
 </div>
 </div>
@@ -292,7 +290,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00128">128</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00129">129</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 
 </div>
 </div>
@@ -306,7 +304,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00148">148</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00149">149</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 
 </div>
 </div>
@@ -320,7 +318,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00123">123</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00124">124</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 
 </div>
 </div>
@@ -334,7 +332,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="newproject_8h_source.html#l00143">143</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
+<p>Definition at line <a class="el" href="newproject_8h_source.html#l00144">144</a> of file <a class="el" href="newproject_8h_source.html">newproject.h</a>.</p>
 
 </div>
 </div>
@@ -345,7 +343,7 @@ Public Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:44 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

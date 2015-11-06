@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -134,45 +136,27 @@ Functions</h2></td></tr>
 <tr class="memitem:ga9b6fbc92674bfcdc9d5090795ab335a6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga9b6fbc92674bfcdc9d5090795ab335a6">Bar::setV</a> (int32_t phase, complex&lt; double &gt; newVoltage, <a class="el" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1">Unit::VoltageUnit</a> unit=<a class="el" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c">Unit::kVolts</a>)</td></tr>
 <tr class="memdesc:ga9b6fbc92674bfcdc9d5090795ab335a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set initial voltage.  <a href="#ga9b6fbc92674bfcdc9d5090795ab335a6">More...</a><br /></td></tr>
 <tr class="separator:ga9b6fbc92674bfcdc9d5090795ab335a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1c54bd76b2f620d970ddfed8cdae4116"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga1c54bd76b2f620d970ddfed8cdae4116">Bar::vPu</a> (int32_t phase)</td></tr>
-<tr class="memdesc:ga1c54bd76b2f620d970ddfed8cdae4116"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the initial voltage converted to per unit.  <a href="#ga1c54bd76b2f620d970ddfed8cdae4116">More...</a><br /></td></tr>
-<tr class="separator:ga1c54bd76b2f620d970ddfed8cdae4116"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gac188071bf5f165b0acdaa4c8af82355c"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#gac188071bf5f165b0acdaa4c8af82355c">Bar::sh</a> (int32_t phase, <a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a> unit=<a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a>)</td></tr>
 <tr class="memdesc:gac188071bf5f165b0acdaa4c8af82355c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shutn element.  <a href="#gac188071bf5f165b0acdaa4c8af82355c">More...</a><br /></td></tr>
 <tr class="separator:gac188071bf5f165b0acdaa4c8af82355c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga207abd3d0649a488e3c44cf2a501ed23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga207abd3d0649a488e3c44cf2a501ed23">Bar::setSh</a> (int32_t phase, complex&lt; double &gt; newPower, <a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a> unit=<a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a>)</td></tr>
 <tr class="memdesc:ga207abd3d0649a488e3c44cf2a501ed23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set Shunt power.  <a href="#ga207abd3d0649a488e3c44cf2a501ed23">More...</a><br /></td></tr>
 <tr class="separator:ga207abd3d0649a488e3c44cf2a501ed23"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7df2ed5705f06c0cf2937d25102ca847"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga7df2ed5705f06c0cf2937d25102ca847">Bar::shPu</a> (int32_t phase)</td></tr>
-<tr class="memdesc:ga7df2ed5705f06c0cf2937d25102ca847"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shunt element power in pu.  <a href="#ga7df2ed5705f06c0cf2937d25102ca847">More...</a><br /></td></tr>
-<tr class="separator:ga7df2ed5705f06c0cf2937d25102ca847"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga02bbc279f1e133f66b12ee21e7bebcd8"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga02bbc279f1e133f66b12ee21e7bebcd8">Bar::si</a> (int32_t phase, <a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a> unit=<a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a>)</td></tr>
 <tr class="memdesc:ga02bbc279f1e133f66b12ee21e7bebcd8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Injected power.  <a href="#ga02bbc279f1e133f66b12ee21e7bebcd8">More...</a><br /></td></tr>
 <tr class="separator:ga02bbc279f1e133f66b12ee21e7bebcd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga74e510be49e50e4c14550b32e1dc92f9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga74e510be49e50e4c14550b32e1dc92f9">Bar::setSi</a> (int32_t phase, complex&lt; double &gt; newPower, <a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a> unit=<a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a>)</td></tr>
 <tr class="memdesc:ga74e510be49e50e4c14550b32e1dc92f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the injected power.  <a href="#ga74e510be49e50e4c14550b32e1dc92f9">More...</a><br /></td></tr>
 <tr class="separator:ga74e510be49e50e4c14550b32e1dc92f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8ac94a6b5f69417da962a7d87361b416"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga8ac94a6b5f69417da962a7d87361b416">Bar::siPu</a> (int32_t phase)</td></tr>
-<tr class="memdesc:ga8ac94a6b5f69417da962a7d87361b416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Injected power in per unit.  <a href="#ga8ac94a6b5f69417da962a7d87361b416">More...</a><br /></td></tr>
-<tr class="separator:ga8ac94a6b5f69417da962a7d87361b416"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e">Bar::rV</a> (int32_t phase, <a class="el" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1">Unit::VoltageUnit</a> unit=<a class="el" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c">Unit::kVolts</a>)</td></tr>
 <tr class="memdesc:ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result bar voltage.  <a href="#ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e">More...</a><br /></td></tr>
 <tr class="separator:ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2b2c5a373d87025e79d26aa9c4cea75a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga2b2c5a373d87025e79d26aa9c4cea75a">Bar::setRV</a> (int32_t phase, complex&lt; double &gt; resultVoltage, <a class="el" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1">Unit::VoltageUnit</a> unit=<a class="el" href="class_unit.html#a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c">Unit::kVolts</a>)</td></tr>
 <tr class="memdesc:ga2b2c5a373d87025e79d26aa9c4cea75a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set result voltage.  <a href="#ga2b2c5a373d87025e79d26aa9c4cea75a">More...</a><br /></td></tr>
 <tr class="separator:ga2b2c5a373d87025e79d26aa9c4cea75a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga7deee8820e2ee3e0db993a1e76b68700"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga7deee8820e2ee3e0db993a1e76b68700">Bar::rVPu</a> (int32_t phase)</td></tr>
-<tr class="memdesc:ga7deee8820e2ee3e0db993a1e76b68700"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result voltage in pu.  <a href="#ga7deee8820e2ee3e0db993a1e76b68700">More...</a><br /></td></tr>
-<tr class="separator:ga7deee8820e2ee3e0db993a1e76b68700"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:gac8ddd4cb566d995b70b0f83146aa12b3"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#gac8ddd4cb566d995b70b0f83146aa12b3">Bar::rSi</a> (int32_t phase, <a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a> unit=<a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a>)</td></tr>
-<tr class="memdesc:gac8ddd4cb566d995b70b0f83146aa12b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result injected power.  <a href="#gac8ddd4cb566d995b70b0f83146aa12b3">More...</a><br /></td></tr>
-<tr class="separator:gac8ddd4cb566d995b70b0f83146aa12b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga36d3d54b66584a0557c0c141f4636d4c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga36d3d54b66584a0557c0c141f4636d4c">Bar::setRSi</a> (int32_t phase, complex&lt; double &gt; newPower, <a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a> unit=<a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a>)</td></tr>
-<tr class="memdesc:ga36d3d54b66584a0557c0c141f4636d4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set result injected power.  <a href="#ga36d3d54b66584a0557c0c141f4636d4c">More...</a><br /></td></tr>
-<tr class="separator:ga36d3d54b66584a0557c0c141f4636d4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga1fa1b99d17dd19fafcf8309aba4fc758"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga1fa1b99d17dd19fafcf8309aba4fc758">Bar::rSiPu</a> (int32_t phase)</td></tr>
-<tr class="memdesc:ga1fa1b99d17dd19fafcf8309aba4fc758"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result injected power, in pu.  <a href="#ga1fa1b99d17dd19fafcf8309aba4fc758">More...</a><br /></td></tr>
-<tr class="separator:ga1fa1b99d17dd19fafcf8309aba4fc758"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8a009531f01430aa68eba739bb0dc2ea"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga8a009531f01430aa68eba739bb0dc2ea">Bar::rI</a> (int32_t phase, <a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a> unit=<a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a>)</td></tr>
+<tr class="memdesc:ga8a009531f01430aa68eba739bb0dc2ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Result bar current.  <a href="#ga8a009531f01430aa68eba739bb0dc2ea">More...</a><br /></td></tr>
+<tr class="separator:ga8a009531f01430aa68eba739bb0dc2ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga8cbd2f62d92e69ce6c8d561b682464b6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga8cbd2f62d92e69ce6c8d561b682464b6">Bar::addLine</a> (<a class="el" href="class_line.html">Line</a> *line)</td></tr>
 <tr class="memdesc:ga8cbd2f62d92e69ce6c8d561b682464b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add line to bar.  <a href="#ga8cbd2f62d92e69ce6c8d561b682464b6">More...</a><br /></td></tr>
 <tr class="separator:ga8cbd2f62d92e69ce6c8d561b682464b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -208,16 +192,12 @@ Functions</h2></td></tr>
 <tr class="separator:gab5370574fd93e13eb11742f7753fe1f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga409df7d11f5c5d594a13fb2f74b3b9e0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga409df7d11f5c5d594a13fb2f74b3b9e0">Line::setZ</a> (int32_t index, complex&lt; double &gt; newImpedance, <a class="el" href="class_unit.html#a3747e779c805df24a71961290be3fbdf">Unit::ImpedanceUnit</a> unit=<a class="el" href="class_unit.html#a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da">Unit::kOhm</a>)</td></tr>
 <tr class="separator:ga409df7d11f5c5d594a13fb2f74b3b9e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga139698332327a712f6c02d96fe73fbee"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga139698332327a712f6c02d96fe73fbee">Line::zPu</a> (int32_t index)</td></tr>
-<tr class="separator:ga139698332327a712f6c02d96fe73fbee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gaf81e7055102816465bdf7e19afc2d547"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#gaf81e7055102816465bdf7e19afc2d547">Line::i</a> (int32_t phase, <a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a> unit=<a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a>)</td></tr>
 <tr class="separator:gaf81e7055102816465bdf7e19afc2d547"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga9e55b06dc3e385838fdd13d5580438ef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga9e55b06dc3e385838fdd13d5580438ef">Line::setI</a> (int32_t phase, complex&lt; double &gt; newCurrent, <a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a> unit=<a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a>)</td></tr>
 <tr class="separator:ga9e55b06dc3e385838fdd13d5580438ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga8f71e477800134586652d283087ed373"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga8f71e477800134586652d283087ed373">Line::iPu</a> (int32_t phase)</td></tr>
-<tr class="separator:ga8f71e477800134586652d283087ed373"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ga84ddf17bee846a6f21c44d463252dd25"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga84ddf17bee846a6f21c44d463252dd25">Line::loss</a> (int32_t phase)</td></tr>
-<tr class="separator:ga84ddf17bee846a6f21c44d463252dd25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7909d69e419de3f460ca7abab3d91e53"><td class="memItemLeft" align="right" valign="top">complex&lt; double &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53">Line::loss</a> (int32_t phase, <a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a>)</td></tr>
+<tr class="separator:ga7909d69e419de3f460ca7abab3d91e53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:gae2e4500d0fa60dcc2ecb08b2c96954f9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#gae2e4500d0fa60dcc2ecb08b2c96954f9">Line::length</a> (<a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a> unit=<a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a>)</td></tr>
 <tr class="separator:gae2e4500d0fa60dcc2ecb08b2c96954f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga950d0b8f5d167eda430c65ca7adadbb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___models.html#ga950d0b8f5d167eda430c65ca7adadbb0">Line::setLength</a> (double newLength, <a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0">Unit::LengthUnit</a> unit=<a class="el" href="class_unit.html#a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b">Unit::kMeter</a>)</td></tr>
@@ -276,14 +256,14 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00419">419</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00352">352</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___models_ga8cbd2f62d92e69ce6c8d561b682464b6_icgraph.png" border="0" usemap="#group___models_ga8cbd2f62d92e69ce6c8d561b682464b6_icgraph" alt=""/></div>
 <map name="group___models_ga8cbd2f62d92e69ce6c8d561b682464b6_icgraph" id="group___models_ga8cbd2f62d92e69ce6c8d561b682464b6_icgraph">
-<area shape="rect" id="node2" href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170" title="Line::setNodes" alt="" coords="148,5,259,32"/></map>
+<area shape="rect" id="node2" href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170" title="Line::setNodes" alt="" coords="148,81,259,108"/><area shape="rect" id="node3" href="group___graphics.html#gae02945131494987b3ff9b59b627719b4" title="Network::addLine" alt="" coords="307,81,431,108"/><area shape="rect" id="node4" href="import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="489,5,602,32"/><area shape="rect" id="node5" href="import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="489,56,602,83"/><area shape="rect" id="node6" href="import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="489,107,602,133"/><area shape="rect" id="node7" href="group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Network::fromJson" alt="" coords="479,157,612,184"/><area shape="rect" id="node8" href="class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="660,157,755,184"/></map>
 </div>
 </p>
 
@@ -363,7 +343,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00286">286</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00414">414</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
 </div>
 </div>
@@ -381,7 +361,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>The bar bounding rect. </dd></dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00561">561</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00494">494</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -408,7 +388,16 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00232">232</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00349">349</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga62623ad71df5279377cc69da90decc75_icgraph.png" border="0" usemap="#group___models_ga62623ad71df5279377cc69da90decc75_icgraph" alt=""/></div>
+<map name="group___models_ga62623ad71df5279377cc69da90decc75_icgraph" id="group___models_ga62623ad71df5279377cc69da90decc75_icgraph">
+<area shape="rect" id="node2" href="group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Network::fromJson" alt="" coords="161,5,295,32"/><area shape="rect" id="node3" href="class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="343,5,437,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -432,7 +421,16 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00508">508</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00441">441</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga1df62f03dd3a066ceaf6588ba6bb6004_icgraph.png" border="0" usemap="#group___models_ga1df62f03dd3a066ceaf6588ba6bb6004_icgraph" alt=""/></div>
+<map name="group___models_ga1df62f03dd3a066ceaf6588ba6bb6004_icgraph" id="group___models_ga1df62f03dd3a066ceaf6588ba6bb6004_icgraph">
+<area shape="rect" id="node2" href="group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Network::fromJson" alt="" coords="157,5,291,32"/><area shape="rect" id="node3" href="class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="339,5,433,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -460,25 +458,25 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00108">108</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00162">162</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_gaf81e7055102816465bdf7e19afc2d547_cgraph.png" border="0" usemap="#group___models_gaf81e7055102816465bdf7e19afc2d547_cgraph" alt=""/></div>
+<map name="group___models_gaf81e7055102816465bdf7e19afc2d547_cgraph" id="group___models_gaf81e7055102816465bdf7e19afc2d547_cgraph">
+<area shape="rect" id="node2" href="group___graphics.html#ga433bc5c32cf2ce5329bb40b21952d885" title="Network::currentBase" alt="" coords="111,5,260,32"/></map>
 </div>
-</div>
-<a class="anchor" id="ga8f71e477800134586652d283087ed373"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">complex&lt; double &gt; Line::iPu </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>phase</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+</p>
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00126">126</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_gaf81e7055102816465bdf7e19afc2d547_icgraph.png" border="0" usemap="#group___models_gaf81e7055102816465bdf7e19afc2d547_icgraph" alt=""/></div>
+<map name="group___models_gaf81e7055102816465bdf7e19afc2d547_icgraph" id="group___models_gaf81e7055102816465bdf7e19afc2d547_icgraph">
+<area shape="rect" id="node2" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1" title="InfoLine::paint" alt="" coords="138,5,242,32"/><area shape="rect" id="node3" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="111,56,269,83"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -506,7 +504,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00304">304</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00432">432</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
 </div>
 </div>
@@ -543,7 +541,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>Used to handle item selection and geometry changes. </p><dl class="section return"><dt>Returns</dt><dd>Item change value; </dd></dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00579">579</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00513">513</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -570,7 +568,16 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00144">144</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00221">221</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9_icgraph.png" border="0" usemap="#group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9_icgraph" alt=""/></div>
+<map name="group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9_icgraph" id="group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9_icgraph">
+<area shape="rect" id="node2" href="group___models.html#gab5370574fd93e13eb11742f7753fe1f1" title="Line::z" alt="" coords="152,56,213,83"/><area shape="rect" id="node3" href="class_line_properties.html#ad434fc8e65787648a44737fb9f46b475" title="LineProperties::setOptions" alt="" coords="271,5,447,32"/><area shape="rect" id="node5" href="group___models.html#ga409df7d11f5c5d594a13fb2f74b3b9e0" title="Line::setZ" alt="" coords="143,132,223,159"/><area shape="rect" id="node4" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="279,56,438,83"/><area shape="rect" id="node6" href="import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="302,107,415,133"/><area shape="rect" id="node7" href="import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="302,157,415,184"/><area shape="rect" id="node8" href="import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="302,208,415,235"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -587,11 +594,11 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00056">56</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00057">57</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ga84ddf17bee846a6f21c44d463252dd25"></a>
+<a class="anchor" id="ga7909d69e419de3f460ca7abab3d91e53"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -599,13 +606,32 @@ Here is the call graph for this function:</div>
           <td class="memname">complex&lt; double &gt; Line::loss </td>
           <td>(</td>
           <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>phase</em></td><td>)</td>
+          <td class="paramname"><em>phase</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a>&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00135">135</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00211">211</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga7909d69e419de3f460ca7abab3d91e53_icgraph.png" border="0" usemap="#group___models_ga7909d69e419de3f460ca7abab3d91e53_icgraph" alt=""/></div>
+<map name="group___models_ga7909d69e419de3f460ca7abab3d91e53_icgraph" id="group___models_ga7909d69e419de3f460ca7abab3d91e53_icgraph">
+<area shape="rect" id="node2" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1" title="InfoLine::paint" alt="" coords="132,5,236,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -637,7 +663,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00331">331</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00459">459</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
 </div>
 </div>
@@ -669,7 +695,7 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00570">570</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00504">504</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
 
 </div>
 </div>
@@ -711,7 +737,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00340">340</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00468">468</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
 </div>
 </div>
@@ -754,7 +780,7 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <p>Overrided function that will paint the bar in the scene. </p>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00617">617</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00551">551</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
 
 </div>
 </div>
@@ -771,14 +797,14 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00168">168</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00285">285</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___models_gabbc73ddedd3075c33ae5331bd7c9829f_icgraph.png" border="0" usemap="#group___models_gabbc73ddedd3075c33ae5331bd7c9829f_icgraph" alt=""/></div>
 <map name="group___models_gabbc73ddedd3075c33ae5331bd7c9829f_icgraph" id="group___models_gabbc73ddedd3075c33ae5331bd7c9829f_icgraph">
-<area shape="rect" id="node2" href="group___models.html#ga4ea1a2074cb45968d80d6add571884a4" title="Remove all lines from this bar. " alt="" coords="140,5,264,32"/><area shape="rect" id="node3" href="class_info_line.html#a63819dbfeb257cc86be86f0fac3aa02f" title="InfoLine::InfoLine" alt="" coords="141,56,263,83"/><area shape="rect" id="node4" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1" title="InfoLine::paint" alt="" coords="150,107,254,133"/><area shape="rect" id="node5" href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170" title="Line::setNodes" alt="" coords="147,157,257,184"/></map>
+<area shape="rect" id="node2" href="group___models.html#ga4ea1a2074cb45968d80d6add571884a4" title="Remove all lines from this bar. " alt="" coords="157,5,281,32"/><area shape="rect" id="node3" href="class_info_line.html#a63819dbfeb257cc86be86f0fac3aa02f" title="InfoLine::InfoLine" alt="" coords="158,56,281,83"/><area shape="rect" id="node4" href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170" title="Line::setNodes" alt="" coords="164,107,275,133"/><area shape="rect" id="node11" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="140,157,299,184"/><area shape="rect" id="node5" href="group___graphics.html#gae02945131494987b3ff9b59b627719b4" title="Network::addLine" alt="" coords="347,107,471,133"/><area shape="rect" id="node6" href="import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="529,31,642,57"/><area shape="rect" id="node7" href="import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="529,81,642,108"/><area shape="rect" id="node8" href="import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="529,132,642,159"/><area shape="rect" id="node9" href="group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Network::fromJson" alt="" coords="519,183,652,209"/><area shape="rect" id="node10" href="class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="700,183,795,209"/></map>
 </div>
 </p>
 
@@ -797,14 +823,14 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00160">160</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00277">277</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___models_gaeafd90e84ac2f8de2a879abe9e53eef3_icgraph.png" border="0" usemap="#group___models_gaeafd90e84ac2f8de2a879abe9e53eef3_icgraph" alt=""/></div>
 <map name="group___models_gaeafd90e84ac2f8de2a879abe9e53eef3_icgraph" id="group___models_gaeafd90e84ac2f8de2a879abe9e53eef3_icgraph">
-<area shape="rect" id="node2" href="group___models.html#ga4ea1a2074cb45968d80d6add571884a4" title="Remove all lines from this bar. " alt="" coords="136,5,260,32"/><area shape="rect" id="node3" href="class_info_line.html#a63819dbfeb257cc86be86f0fac3aa02f" title="InfoLine::InfoLine" alt="" coords="137,56,259,83"/><area shape="rect" id="node4" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1" title="InfoLine::paint" alt="" coords="146,107,250,133"/><area shape="rect" id="node5" href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170" title="Line::setNodes" alt="" coords="143,157,253,184"/></map>
+<area shape="rect" id="node2" href="group___models.html#ga4ea1a2074cb45968d80d6add571884a4" title="Remove all lines from this bar. " alt="" coords="136,5,260,32"/><area shape="rect" id="node3" href="class_info_line.html#a63819dbfeb257cc86be86f0fac3aa02f" title="InfoLine::InfoLine" alt="" coords="137,56,259,83"/><area shape="rect" id="node4" href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170" title="Line::setNodes" alt="" coords="143,107,253,133"/><area shape="rect" id="node5" href="group___graphics.html#gae02945131494987b3ff9b59b627719b4" title="Network::addLine" alt="" coords="308,107,432,133"/><area shape="rect" id="node6" href="import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="490,31,603,57"/><area shape="rect" id="node7" href="import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="490,81,603,108"/><area shape="rect" id="node8" href="import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="490,132,603,159"/><area shape="rect" id="node9" href="group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Network::fromJson" alt="" coords="480,183,613,209"/><area shape="rect" id="node10" href="class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="661,183,756,209"/></map>
 </div>
 </p>
 
@@ -830,7 +856,7 @@ Here is the caller graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00427">427</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00360">360</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
@@ -856,7 +882,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00437">437</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00370">370</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -869,12 +895,12 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="gac8ddd4cb566d995b70b0f83146aa12b3"></a>
+<a class="anchor" id="ga8a009531f01430aa68eba739bb0dc2ea"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">complex&lt; double &gt; Bar::rSi </td>
+          <td class="memname">complex&lt; double &gt; Bar::rI </td>
           <td>(</td>
           <td class="paramtype">int32_t&#160;</td>
           <td class="paramname"><em>phase</em>, </td>
@@ -882,8 +908,8 @@ Here is the call graph for this function:</div>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a>&#160;</td>
-          <td class="paramname"><em>unit</em> = <code><a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a></code>&#160;</td>
+          <td class="paramtype"><a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787">Unit::CurrentUnit</a>&#160;</td>
+          <td class="paramname"><em>unit</em> = <code><a class="el" href="class_unit.html#a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f">Unit::kAmpere</a></code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -892,7 +918,7 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Returns the resulting injected power. Used by slack bar.</p>
+<p>Returns the total current injection at the bar.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">phase</td><td>Phase (0, 1 or 2). </td></tr>
@@ -900,35 +926,27 @@ Here is the call graph for this function:</div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Result injected power. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Result bar current. </dd></dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00352">352</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00324">324</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga8a009531f01430aa68eba739bb0dc2ea_cgraph.png" border="0" usemap="#group___models_ga8a009531f01430aa68eba739bb0dc2ea_cgraph" alt=""/></div>
+<map name="group___models_ga8a009531f01430aa68eba739bb0dc2ea_cgraph" id="group___models_ga8a009531f01430aa68eba739bb0dc2ea_cgraph">
+<area shape="rect" id="node2" href="group___graphics.html#ga433bc5c32cf2ce5329bb40b21952d885" title="Network::currentBase" alt="" coords="112,5,261,32"/></map>
 </div>
-</div>
-<a class="anchor" id="ga1fa1b99d17dd19fafcf8309aba4fc758"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">complex&lt; double &gt; Bar::rSiPu </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>phase</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Return the resulting bar injected power, in per unit.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">phase</td><td>Phase (0, 1 or 2).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Result injected power, in pu. </dd></dl>
+</p>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00408">408</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga8a009531f01430aa68eba739bb0dc2ea_icgraph.png" border="0" usemap="#group___models_ga8a009531f01430aa68eba739bb0dc2ea_icgraph" alt=""/></div>
+<map name="group___models_ga8a009531f01430aa68eba739bb0dc2ea_icgraph" id="group___models_ga8a009531f01430aa68eba739bb0dc2ea_icgraph">
+<area shape="rect" id="node2" href="class_info_bar.html#afa011ce96bb99021d2cbf5b24c7276bb" title="InfoBar::paint" alt="" coords="141,5,241,32"/><area shape="rect" id="node3" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="112,56,271,83"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -965,33 +983,16 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Result bar voltage. </dd></dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00298">298</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00275">275</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e_icgraph.png" border="0" usemap="#group___models_ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e_icgraph" alt=""/></div>
+<map name="group___models_ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e_icgraph" id="group___models_ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e_icgraph">
+<area shape="rect" id="node2" href="class_info_bar.html#afa011ce96bb99021d2cbf5b24c7276bb" title="InfoBar::paint" alt="" coords="145,5,245,32"/><area shape="rect" id="node3" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="116,56,275,83"/></map>
 </div>
-</div>
-<a class="anchor" id="ga7deee8820e2ee3e0db993a1e76b68700"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">complex&lt; double &gt; Bar::rVPu </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>phase</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns the resulting voltage in per unit.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">phase</td><td>Phase (0, 1 or 2).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Result voltage in pu. </dd></dl>
-
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00341">341</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+</p>
 
 </div>
 </div>
@@ -1025,7 +1026,25 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00116">116</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00186">186</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga9e55b06dc3e385838fdd13d5580438ef_cgraph.png" border="0" usemap="#group___models_ga9e55b06dc3e385838fdd13d5580438ef_cgraph" alt=""/></div>
+<map name="group___models_ga9e55b06dc3e385838fdd13d5580438ef_cgraph" id="group___models_ga9e55b06dc3e385838fdd13d5580438ef_cgraph">
+<area shape="rect" id="node2" href="group___graphics.html#ga433bc5c32cf2ce5329bb40b21952d885" title="Network::currentBase" alt="" coords="129,5,279,32"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga9e55b06dc3e385838fdd13d5580438ef_icgraph.png" border="0" usemap="#group___models_ga9e55b06dc3e385838fdd13d5580438ef_icgraph" alt=""/></div>
+<map name="group___models_ga9e55b06dc3e385838fdd13d5580438ef_icgraph" id="group___models_ga9e55b06dc3e385838fdd13d5580438ef_icgraph">
+<area shape="rect" id="node2" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="129,5,288,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -1053,7 +1072,16 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00152">152</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00249">249</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga950d0b8f5d167eda430c65ca7adadbb0_icgraph.png" border="0" usemap="#group___models_ga950d0b8f5d167eda430c65ca7adadbb0_icgraph" alt=""/></div>
+<map name="group___models_ga950d0b8f5d167eda430c65ca7adadbb0_icgraph" id="group___models_ga950d0b8f5d167eda430c65ca7adadbb0_icgraph">
+<area shape="rect" id="node2" href="import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="164,5,277,32"/><area shape="rect" id="node3" href="import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="164,56,277,83"/><area shape="rect" id="node4" href="import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="164,107,277,133"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -1081,7 +1109,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00176">176</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00293">293</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -1092,48 +1120,14 @@ Here is the call graph for this function:</div>
 </div>
 </p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_gaeeab146e6c1d7d1a688a2764a9c9a170_icgraph.png" border="0" usemap="#group___models_gaeeab146e6c1d7d1a688a2764a9c9a170_icgraph" alt=""/></div>
+<map name="group___models_gaeeab146e6c1d7d1a688a2764a9c9a170_icgraph" id="group___models_gaeeab146e6c1d7d1a688a2764a9c9a170_icgraph">
+<area shape="rect" id="node2" href="group___graphics.html#gae02945131494987b3ff9b59b627719b4" title="Network::addLine" alt="" coords="164,81,288,108"/><area shape="rect" id="node3" href="import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="346,5,459,32"/><area shape="rect" id="node4" href="import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="346,56,459,83"/><area shape="rect" id="node5" href="import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="346,107,459,133"/><area shape="rect" id="node6" href="group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Network::fromJson" alt="" coords="336,157,469,184"/><area shape="rect" id="node7" href="class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="517,157,612,184"/></map>
 </div>
-</div>
-<a class="anchor" id="ga36d3d54b66584a0557c0c141f4636d4c"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Bar::setRSi </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>phase</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">complex&lt; double &gt;&#160;</td>
-          <td class="paramname"><em>newPower</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3b">Unit::PowerUnit</a>&#160;</td>
-          <td class="paramname"><em>unit</em> = <code><a class="el" href="class_unit.html#ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696">Unit::kVA</a></code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Set the resulting value for injected power.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">phase</td><td>Phase (0, 1 or 2). </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">newPower</td><td>New result injected power. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">unit</td><td>Injected power unit. </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00380">380</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+</p>
 
 </div>
 </div>
@@ -1176,7 +1170,16 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00321">321</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00299">299</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga2b2c5a373d87025e79d26aa9c4cea75a_icgraph.png" border="0" usemap="#group___models_ga2b2c5a373d87025e79d26aa9c4cea75a_icgraph" alt=""/></div>
+<map name="group___models_ga2b2c5a373d87025e79d26aa9c4cea75a_icgraph" id="group___models_ga2b2c5a373d87025e79d26aa9c4cea75a_icgraph">
+<area shape="rect" id="node2" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="140,5,299,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -1219,7 +1222,16 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00192">192</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00191">191</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga207abd3d0649a488e3c44cf2a501ed23_icgraph.png" border="0" usemap="#group___models_ga207abd3d0649a488e3c44cf2a501ed23_icgraph" alt=""/></div>
+<map name="group___models_ga207abd3d0649a488e3c44cf2a501ed23_icgraph" id="group___models_ga207abd3d0649a488e3c44cf2a501ed23_icgraph">
+<area shape="rect" id="node2" href="import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="137,5,251,32"/><area shape="rect" id="node3" href="import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="137,56,251,83"/><area shape="rect" id="node4" href="import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="137,107,251,133"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -1262,7 +1274,16 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00259">259</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00247">247</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga74e510be49e50e4c14550b32e1dc92f9_icgraph.png" border="0" usemap="#group___models_ga74e510be49e50e4c14550b32e1dc92f9_icgraph" alt=""/></div>
+<map name="group___models_ga74e510be49e50e4c14550b32e1dc92f9_icgraph" id="group___models_ga74e510be49e50e4c14550b32e1dc92f9_icgraph">
+<area shape="rect" id="node2" href="import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="156,5,269,32"/><area shape="rect" id="node3" href="import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="156,56,269,83"/><area shape="rect" id="node4" href="import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="156,107,269,133"/><area shape="rect" id="node5" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="133,157,292,184"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -1305,7 +1326,16 @@ Here is the call graph for this function:</div>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00133">133</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00136">136</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga9b6fbc92674bfcdc9d5090795ab335a6_icgraph.png" border="0" usemap="#group___models_ga9b6fbc92674bfcdc9d5090795ab335a6_icgraph" alt=""/></div>
+<map name="group___models_ga9b6fbc92674bfcdc9d5090795ab335a6_icgraph" id="group___models_ga9b6fbc92674bfcdc9d5090795ab335a6_icgraph">
+<area shape="rect" id="node2" href="import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="131,5,244,32"/><area shape="rect" id="node3" href="import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="131,56,244,83"/><area shape="rect" id="node4" href="import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="131,107,244,133"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -1339,7 +1369,25 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00091">91</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00124">124</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0_cgraph.png" border="0" usemap="#group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0_cgraph" alt=""/></div>
+<map name="group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0_cgraph" id="group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0_cgraph">
+<area shape="rect" id="node2" href="group___models.html#gae2e4500d0fa60dcc2ecb08b2c96954f9" title="Line::length" alt="" coords="175,5,264,32"/><area shape="rect" id="node3" href="group___graphics.html#gae6794c93d37df113778c37c2c702f6d9" title="Network::impedanceBase" alt="" coords="133,56,305,83"/></map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0_icgraph.png" border="0" usemap="#group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0_icgraph" alt=""/></div>
+<map name="group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0_icgraph" id="group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0_icgraph">
+<area shape="rect" id="node2" href="import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="133,5,247,32"/><area shape="rect" id="node3" href="import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="133,56,247,83"/><area shape="rect" id="node4" href="import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="133,107,247,133"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -1376,7 +1424,16 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The power of the shunt element. </dd></dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00164">164</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00163">163</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_gac188071bf5f165b0acdaa4c8af82355c_icgraph.png" border="0" usemap="#group___models_gac188071bf5f165b0acdaa4c8af82355c_icgraph" alt=""/></div>
+<map name="group___models_gac188071bf5f165b0acdaa4c8af82355c_icgraph" id="group___models_gac188071bf5f165b0acdaa4c8af82355c_icgraph">
+<area shape="rect" id="node2" href="class_bar_properties.html#a80cba99404820272603c4da8fb708c05" title="BarProperties::setOptions" alt="" coords="117,5,289,32"/><area shape="rect" id="node3" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="124,56,283,83"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -1393,33 +1450,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00294">294</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ga7df2ed5705f06c0cf2937d25102ca847"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">complex&lt; double &gt; Bar::shPu </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>phase</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Shunt element power in pu. The power base is gettered from the network in which the bar is.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">phase</td><td>Phase (0, 1 or 2).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Shunt power in per unit. </dd></dl>
-
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00220">220</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00422">422</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
 </div>
 </div>
@@ -1456,33 +1487,16 @@ Here is the call graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Injected power. </dd></dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00231">231</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00219">219</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga02bbc279f1e133f66b12ee21e7bebcd8_icgraph.png" border="0" usemap="#group___models_ga02bbc279f1e133f66b12ee21e7bebcd8_icgraph" alt=""/></div>
+<map name="group___models_ga02bbc279f1e133f66b12ee21e7bebcd8_icgraph" id="group___models_ga02bbc279f1e133f66b12ee21e7bebcd8_icgraph">
+<area shape="rect" id="node2" href="class_bar_properties.html#a80cba99404820272603c4da8fb708c05" title="BarProperties::setOptions" alt="" coords="113,5,285,32"/><area shape="rect" id="node3" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="120,56,279,83"/></map>
 </div>
-</div>
-<a class="anchor" id="ga8ac94a6b5f69417da962a7d87361b416"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">complex&lt; double &gt; Bar::siPu </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>phase</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns the injected power in per unit.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">phase</td><td>Phase (0, 1 or 2).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>Injected power in per unit. </dd></dl>
-
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00287">287</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+</p>
 
 </div>
 </div>
@@ -1499,7 +1513,16 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00193">193</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00310">310</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga4effa7a96db465ea6e01135d5a010739_icgraph.png" border="0" usemap="#group___models_ga4effa7a96db465ea6e01135d5a010739_icgraph" alt=""/></div>
+<map name="group___models_ga4effa7a96db465ea6e01135d5a010739_icgraph" id="group___models_ga4effa7a96db465ea6e01135d5a010739_icgraph">
+<area shape="rect" id="node2" href="group___graphics.html#ga1bb9773d3935eefef84136d388786494" title="Network::toJson" alt="" coords="147,5,265,32"/><area shape="rect" id="node3" href="class_project.html#a596a875bc5be73bc5b1b71b6448c1e07" title="Project::save" alt="" coords="313,5,412,32"/><area shape="rect" id="node4" href="class_project.html#ad32a31d548ad38f4cbbe0f95879a68e5" title="Project::saveAs" alt="" coords="460,5,575,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -1517,7 +1540,16 @@ Here is the call graph for this function:</div>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>Return json object filled with bar data. </dd></dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00450">450</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00383">383</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga3eb84c42b687db6cd98e11b8bd38c86e_icgraph.png" border="0" usemap="#group___models_ga3eb84c42b687db6cd98e11b8bd38c86e_icgraph" alt=""/></div>
+<map name="group___models_ga3eb84c42b687db6cd98e11b8bd38c86e_icgraph" id="group___models_ga3eb84c42b687db6cd98e11b8bd38c86e_icgraph">
+<area shape="rect" id="node2" href="group___graphics.html#ga1bb9773d3935eefef84136d388786494" title="Network::toJson" alt="" coords="143,5,261,32"/><area shape="rect" id="node3" href="class_project.html#a596a875bc5be73bc5b1b71b6448c1e07" title="Project::save" alt="" coords="309,5,408,32"/><area shape="rect" id="node4" href="class_project.html#ad32a31d548ad38f4cbbe0f95879a68e5" title="Project::saveAs" alt="" coords="456,5,571,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -1534,14 +1566,14 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00267">267</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00384">384</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group___models_ga8fdb12651d4bc592616d241386b066b3_icgraph.png" border="0" usemap="#group___models_ga8fdb12651d4bc592616d241386b066b3_icgraph" alt=""/></div>
 <map name="group___models_ga8fdb12651d4bc592616d241386b066b3_icgraph" id="group___models_ga8fdb12651d4bc592616d241386b066b3_icgraph">
-<area shape="rect" id="node2" href="group___models.html#gad97a82d618ee0c51a9a36e44339c69e6" title="Item change. " alt="" coords="193,5,313,32"/><area shape="rect" id="node3" href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170" title="Line::setNodes" alt="" coords="198,56,309,83"/></map>
+<area shape="rect" id="node2" href="group___models.html#gad97a82d618ee0c51a9a36e44339c69e6" title="Item change. " alt="" coords="193,31,313,57"/><area shape="rect" id="node3" href="group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170" title="Line::setNodes" alt="" coords="198,81,309,108"/><area shape="rect" id="node4" href="group___graphics.html#gae02945131494987b3ff9b59b627719b4" title="Network::addLine" alt="" coords="361,81,485,108"/><area shape="rect" id="node5" href="import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="543,5,657,32"/><area shape="rect" id="node6" href="import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="543,56,657,83"/><area shape="rect" id="node7" href="import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="543,107,657,133"/><area shape="rect" id="node8" href="group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Network::fromJson" alt="" coords="533,157,667,184"/><area shape="rect" id="node9" href="class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="715,157,809,184"/></map>
 </div>
 </p>
 
@@ -1580,33 +1612,16 @@ Here is the caller graph for this function:</div>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Voltage of phase <b>phase</b>. </dd></dl>
 
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00110">110</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00112">112</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_ga1e6f2daec86407118656d88170d1adc2_icgraph.png" border="0" usemap="#group___models_ga1e6f2daec86407118656d88170d1adc2_icgraph" alt=""/></div>
+<map name="group___models_ga1e6f2daec86407118656d88170d1adc2_icgraph" id="group___models_ga1e6f2daec86407118656d88170d1adc2_icgraph">
+<area shape="rect" id="node2" href="class_bar_properties.html#a80cba99404820272603c4da8fb708c05" title="BarProperties::setOptions" alt="" coords="111,5,283,32"/><area shape="rect" id="node3" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="117,56,276,83"/></map>
 </div>
-</div>
-<a class="anchor" id="ga1c54bd76b2f620d970ddfed8cdae4116"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">complex&lt; double &gt; Bar::vPu </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>phase</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Returns the initial voltage converted to per unit, where the base voltage is the network base voltage.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">phase</td><td>Phase (0, 1 or 2).</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The initial voltage, in per unit. </dd></dl>
-
-<p>Definition at line <a class="el" href="bar_8cpp_source.html#l00153">153</a> of file <a class="el" href="bar_8cpp_source.html">bar.cpp</a>.</p>
+</p>
 
 </div>
 </div>
@@ -1634,25 +1649,25 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00083">83</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00088">88</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_gab5370574fd93e13eb11742f7753fe1f1_cgraph.png" border="0" usemap="#group___models_gab5370574fd93e13eb11742f7753fe1f1_cgraph" alt=""/></div>
+<map name="group___models_gab5370574fd93e13eb11742f7753fe1f1_cgraph" id="group___models_gab5370574fd93e13eb11742f7753fe1f1_cgraph">
+<area shape="rect" id="node2" href="group___models.html#gae2e4500d0fa60dcc2ecb08b2c96954f9" title="Line::length" alt="" coords="156,5,245,32"/><area shape="rect" id="node3" href="group___graphics.html#gae6794c93d37df113778c37c2c702f6d9" title="Network::impedanceBase" alt="" coords="115,56,287,83"/></map>
 </div>
-</div>
-<a class="anchor" id="ga139698332327a712f6c02d96fe73fbee"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">complex&lt; double &gt; Line::zPu </td>
-          <td>(</td>
-          <td class="paramtype">int32_t&#160;</td>
-          <td class="paramname"><em>index</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+</p>
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00100">100</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="group___models_gab5370574fd93e13eb11742f7753fe1f1_icgraph.png" border="0" usemap="#group___models_gab5370574fd93e13eb11742f7753fe1f1_icgraph" alt=""/></div>
+<map name="group___models_gab5370574fd93e13eb11742f7753fe1f1_icgraph" id="group___models_gab5370574fd93e13eb11742f7753fe1f1_icgraph">
+<area shape="rect" id="node2" href="class_line_properties.html#ad434fc8e65787648a44737fb9f46b475" title="LineProperties::setOptions" alt="" coords="115,5,291,32"/><area shape="rect" id="node3" href="class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="123,56,282,83"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -1695,7 +1710,7 @@ Here is the caller graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="line_8cpp_source.html#l00078">78</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
+<p>Definition at line <a class="el" href="line_8cpp_source.html#l00079">79</a> of file <a class="el" href="line_8cpp_source.html">line.cpp</a>.</p>
 
 </div>
 </div>
@@ -1719,7 +1734,7 @@ Here is the caller graph for this function:</div>
 </div><div class="memdoc">
 <p>This value is used to determine if a bar has been correctly initialized and to check if bar data is valid; </p>
 
-<p>Definition at line <a class="el" href="bar_8h_source.html#l00126">126</a> of file <a class="el" href="bar_8h_source.html">bar.h</a>.</p>
+<p>Definition at line <a class="el" href="bar_8h_source.html#l00127">127</a> of file <a class="el" href="bar_8h_source.html">bar.h</a>.</p>
 
 </div>
 </div>
@@ -1748,7 +1763,7 @@ Here is the caller graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:44 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

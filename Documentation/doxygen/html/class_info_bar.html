@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -97,15 +99,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Inheritance diagram for InfoBar:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_info_bar__inherit__graph.png" border="0" usemap="#_info_bar_inherit__map" alt="Inheritance graph"/></div>
-<map name="_info_bar_inherit__map" id="_info_bar_inherit__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for InfoBar:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_info_bar__coll__graph.png" border="0" usemap="#_info_bar_coll__map" alt="Collaboration graph"/></div>
-<map name="_info_bar_coll__map" id="_info_bar_coll__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -123,37 +121,43 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:ad54d2dd19a63caf9d2476aace60ae3c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57e9e7c40a6fd2a56dd47a4512d65489"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a57e9e7c40a6fd2a56dd47a4512d65489">kTableColums</a> = 3</td></tr>
 <tr class="separator:a57e9e7c40a6fd2a56dd47a4512d65489"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1c35ddbae0324743d90721037447571"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#aa1c35ddbae0324743d90721037447571">kBoxWidth</a> = 135.0*<a class="el" href="class_info_bar.html#a57e9e7c40a6fd2a56dd47a4512d65489">kTableColums</a></td></tr>
-<tr class="separator:aa1c35ddbae0324743d90721037447571"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba381a3838a5e064f1372f2f2b4d8e0d"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#aba381a3838a5e064f1372f2f2b4d8e0d">kBoxHeight</a> = 37.5*<a class="el" href="class_info_bar.html#ad54d2dd19a63caf9d2476aace60ae3c5">kTableRows</a></td></tr>
-<tr class="separator:aba381a3838a5e064f1372f2f2b4d8e0d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46d929f42476a6ad37422adee1783712"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a46d929f42476a6ad37422adee1783712">kLineWidth</a> = 2.0</td></tr>
-<tr class="separator:a46d929f42476a6ad37422adee1783712"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae24b5cac460550a4c86203a3dbd96ba9"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#ae24b5cac460550a4c86203a3dbd96ba9">kMarginHeadTop</a> = 5.0</td></tr>
-<tr class="separator:ae24b5cac460550a4c86203a3dbd96ba9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0cfbafbc9f780fc1366157b9c8379463"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a0cfbafbc9f780fc1366157b9c8379463">kMarginHeadBot</a> = 5.0</td></tr>
-<tr class="separator:a0cfbafbc9f780fc1366157b9c8379463"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:add145842c6a2331a7edf9e5be301e5b4"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#add145842c6a2331a7edf9e5be301e5b4">kMarginTop</a> = 5.0</td></tr>
-<tr class="separator:add145842c6a2331a7edf9e5be301e5b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67eb740893ed91c75f237cee756648cc"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a67eb740893ed91c75f237cee756648cc">kMarginBot</a> = 5.0</td></tr>
-<tr class="separator:a67eb740893ed91c75f237cee756648cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c7688259f189cb28c2682f50a59335a"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a3c7688259f189cb28c2682f50a59335a">kMarginLeft</a> = 5.0</td></tr>
-<tr class="separator:a3c7688259f189cb28c2682f50a59335a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ce020e319adf3de887bf17e803887a3"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a2ce020e319adf3de887bf17e803887a3">kMarginRight</a> = 5.0</td></tr>
-<tr class="separator:a2ce020e319adf3de887bf17e803887a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8d9aadb8292b5884eb1c02e18d36d073"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a8d9aadb8292b5884eb1c02e18d36d073">kTableLineWidth</a> = 1.0</td></tr>
-<tr class="separator:a8d9aadb8292b5884eb1c02e18d36d073"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8455611d11236c2d5cbd42414450e6e2"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a8455611d11236c2d5cbd42414450e6e2">kTextToLinePad</a> = 1.0</td></tr>
-<tr class="separator:a8455611d11236c2d5cbd42414450e6e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28fb5e5d6d399d9327f67aa768d4a3d8"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a28fb5e5d6d399d9327f67aa768d4a3d8">kBoxBaseHeight</a> = 30.0</td></tr>
-<tr class="separator:a28fb5e5d6d399d9327f67aa768d4a3d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb9c812df3577ae628cec2e149c9dd0a"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#acb9c812df3577ae628cec2e149c9dd0a">kBoxBaseWidth</a> = 60.0</td></tr>
-<tr class="separator:acb9c812df3577ae628cec2e149c9dd0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58f7773f4265d7e759f2eeb4c9aac48d"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a58f7773f4265d7e759f2eeb4c9aac48d">kBoxWidth</a> = 135.0*<a class="el" href="class_info_bar.html#a57e9e7c40a6fd2a56dd47a4512d65489">kTableColums</a></td></tr>
+<tr class="separator:a58f7773f4265d7e759f2eeb4c9aac48d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aedf2e766968ea9ba3e691f24efb8c117"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#aedf2e766968ea9ba3e691f24efb8c117">kBoxHeight</a> = 37.5*<a class="el" href="class_info_bar.html#ad54d2dd19a63caf9d2476aace60ae3c5">kTableRows</a></td></tr>
+<tr class="separator:aedf2e766968ea9ba3e691f24efb8c117"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9592abdb63cc3cfffc6e5826f998a353"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a9592abdb63cc3cfffc6e5826f998a353">kLineWidth</a> = 2.0</td></tr>
+<tr class="separator:a9592abdb63cc3cfffc6e5826f998a353"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4ec64a4c58d29eb6c7378b4621bc6c2"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#ae4ec64a4c58d29eb6c7378b4621bc6c2">kMarginHeadTop</a> = 5.0</td></tr>
+<tr class="separator:ae4ec64a4c58d29eb6c7378b4621bc6c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed15b9f28cc4a43d509c3553b032fa5e"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#aed15b9f28cc4a43d509c3553b032fa5e">kMarginHeadBot</a> = 5.0</td></tr>
+<tr class="separator:aed15b9f28cc4a43d509c3553b032fa5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a810c3286fc4d960d04ffbd31318ebff2"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a810c3286fc4d960d04ffbd31318ebff2">kMarginTop</a> = 5.0</td></tr>
+<tr class="separator:a810c3286fc4d960d04ffbd31318ebff2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18194bb46d36b00aa9f0d01f24a87617"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a18194bb46d36b00aa9f0d01f24a87617">kMarginBot</a> = 5.0</td></tr>
+<tr class="separator:a18194bb46d36b00aa9f0d01f24a87617"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2ed246fc7b7917ba8141b55cbd023d5c"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a2ed246fc7b7917ba8141b55cbd023d5c">kMarginLeft</a> = 5.0</td></tr>
+<tr class="separator:a2ed246fc7b7917ba8141b55cbd023d5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa16c67708cd2ab938e1dc8be5f168614"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#aa16c67708cd2ab938e1dc8be5f168614">kMarginRight</a> = 5.0</td></tr>
+<tr class="separator:aa16c67708cd2ab938e1dc8be5f168614"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f2f7b614000ae1d317ec3819acabbf2"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a0f2f7b614000ae1d317ec3819acabbf2">kBoxBaseHeight</a> = 30.0</td></tr>
+<tr class="separator:a0f2f7b614000ae1d317ec3819acabbf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eb5cc879199e1a927ed76eb989c4c0e"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a3eb5cc879199e1a927ed76eb989c4c0e">kBoxBaseWidth</a> = 60.0</td></tr>
+<tr class="separator:a3eb5cc879199e1a927ed76eb989c4c0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:afa011ce96bb99021d2cbf5b24c7276bb"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#afa011ce96bb99021d2cbf5b24c7276bb">paint</a> (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE</td></tr>
 <tr class="separator:afa011ce96bb99021d2cbf5b24c7276bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d49c5f446e209ac2a99f48991040745"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a9d49c5f446e209ac2a99f48991040745">setHeadFont</a> (QPainter *painter)</td></tr>
+<tr class="separator:a9d49c5f446e209ac2a99f48991040745"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bfda27ec3d1ae6b4b1c927876f594c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a2bfda27ec3d1ae6b4b1c927876f594c1">setNormalFont</a> (QPainter *painter)</td></tr>
+<tr class="separator:a2bfda27ec3d1ae6b4b1c927876f594c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5d5440d1ca77a5366e51ac9e6f6aa4d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a5d5440d1ca77a5366e51ac9e6f6aa4d3">drawMainRectangle</a> (QRectF mainRect, double lineWidth, QPainter *painter)</td></tr>
+<tr class="separator:a5d5440d1ca77a5366e51ac9e6f6aa4d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b89dc7229ecee097d9ca9c4e6fa38f2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a9b89dc7229ecee097d9ca9c4e6fa38f2">drawHeadSeparator</a> (QRectF headRect, QPainter *painter)</td></tr>
+<tr class="separator:a9b89dc7229ecee097d9ca9c4e6fa38f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a912f4b2babec3df1aad3d31bc54a6e34"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_bar.html#a912f4b2babec3df1aad3d31bc54a6e34">drawHeadText</a> (QRectF headRect, double marginTop, QString &amp;text, QPainter *painter)</td></tr>
+<tr class="separator:a912f4b2babec3df1aad3d31bc54a6e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -173,7 +177,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00011">11</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00031">31</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -199,7 +203,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00021">21</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00044">44</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
 
 </div>
 </div>
@@ -217,7 +221,160 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00176">176</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00238">238</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a9b89dc7229ecee097d9ca9c4e6fa38f2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InfoBar::drawHeadSeparator </td>
+          <td>(</td>
+          <td class="paramtype">QRectF&#160;</td>
+          <td class="paramname"><em>headRect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QPainter *&#160;</td>
+          <td class="paramname"><em>painter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00214">214</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_info_bar_a9b89dc7229ecee097d9ca9c4e6fa38f2_icgraph.png" border="0" usemap="#class_info_bar_a9b89dc7229ecee097d9ca9c4e6fa38f2_icgraph" alt=""/></div>
+<map name="class_info_bar_a9b89dc7229ecee097d9ca9c4e6fa38f2_icgraph" id="class_info_bar_a9b89dc7229ecee097d9ca9c4e6fa38f2_icgraph">
+<area shape="rect" id="node2" href="class_info_bar.html#afa011ce96bb99021d2cbf5b24c7276bb" title="InfoBar::paint" alt="" coords="240,5,340,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a912f4b2babec3df1aad3d31bc54a6e34"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InfoBar::drawHeadText </td>
+          <td>(</td>
+          <td class="paramtype">QRectF&#160;</td>
+          <td class="paramname"><em>headRect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>marginTop</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QString &amp;&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QPainter *&#160;</td>
+          <td class="paramname"><em>painter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00226">226</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_info_bar_a912f4b2babec3df1aad3d31bc54a6e34_icgraph.png" border="0" usemap="#class_info_bar_a912f4b2babec3df1aad3d31bc54a6e34_icgraph" alt=""/></div>
+<map name="class_info_bar_a912f4b2babec3df1aad3d31bc54a6e34_icgraph" id="class_info_bar_a912f4b2babec3df1aad3d31bc54a6e34_icgraph">
+<area shape="rect" id="node2" href="class_info_bar.html#afa011ce96bb99021d2cbf5b24c7276bb" title="InfoBar::paint" alt="" coords="211,5,311,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a5d5440d1ca77a5366e51ac9e6f6aa4d3"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InfoBar::drawMainRectangle </td>
+          <td>(</td>
+          <td class="paramtype">QRectF&#160;</td>
+          <td class="paramname"><em>mainRect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lineWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QPainter *&#160;</td>
+          <td class="paramname"><em>painter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00201">201</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_info_bar_a5d5440d1ca77a5366e51ac9e6f6aa4d3_icgraph.png" border="0" usemap="#class_info_bar_a5d5440d1ca77a5366e51ac9e6f6aa4d3_icgraph" alt=""/></div>
+<map name="class_info_bar_a5d5440d1ca77a5366e51ac9e6f6aa4d3_icgraph" id="class_info_bar_a5d5440d1ca77a5366e51ac9e6f6aa4d3_icgraph">
+<area shape="rect" id="node2" href="class_info_bar.html#afa011ce96bb99021d2cbf5b24c7276bb" title="InfoBar::paint" alt="" coords="240,5,340,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -259,12 +416,91 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00023">23</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
+<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00052">52</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_info_bar_afa011ce96bb99021d2cbf5b24c7276bb_cgraph.png" border="0" usemap="#class_info_bar_afa011ce96bb99021d2cbf5b24c7276bb_cgraph" alt=""/></div>
+<map name="class_info_bar_afa011ce96bb99021d2cbf5b24c7276bb_cgraph" id="class_info_bar_afa011ce96bb99021d2cbf5b24c7276bb_cgraph">
+<area shape="rect" id="node2" href="class_info_bar.html#a5d5440d1ca77a5366e51ac9e6f6aa4d3" title="InfoBar::drawMainRectangle" alt="" coords="153,5,340,32"/><area shape="rect" id="node3" href="class_info_bar.html#a9b89dc7229ecee097d9ca9c4e6fa38f2" title="InfoBar::drawHeadSeparator" alt="" coords="153,56,340,83"/><area shape="rect" id="node4" href="class_info_bar.html#a9d49c5f446e209ac2a99f48991040745" title="InfoBar::setHeadFont" alt="" coords="173,107,320,133"/><area shape="rect" id="node5" href="class_info_bar.html#a912f4b2babec3df1aad3d31bc54a6e34" title="InfoBar::drawHeadText" alt="" coords="168,157,325,184"/><area shape="rect" id="node6" href="class_info_bar.html#a2bfda27ec3d1ae6b4b1c927876f594c1" title="InfoBar::setNormalFont" alt="" coords="167,208,326,235"/><area shape="rect" id="node7" href="class_data_table.html#a8a8cd6f95caaaff148993f8e28eeb703" title="DataTable::setSize" alt="" coords="179,259,314,285"/><area shape="rect" id="node8" href="class_unit.html#a7fa103c31f9f069961b35b6371ff0c0a" title="Unit::voltageUnitToStr" alt="" coords="171,309,323,336"/><area shape="rect" id="node9" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff" title="DataTable::setText" alt="" coords="179,360,314,387"/><area shape="rect" id="node10" href="class_unit.html#a7bd3ed3edcb18170cd162d384075b651" title="Unit::currentUnitToStr" alt="" coords="171,411,322,437"/><area shape="rect" id="node11" href="group___models.html#ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e" title="Result bar voltage. " alt="" coords="215,461,278,488"/><area shape="rect" id="node12" href="group___models.html#ga8a009531f01430aa68eba739bb0dc2ea" title="Result bar current. " alt="" coords="217,512,276,539"/><area shape="rect" id="node14" href="class_data_table.html#a3a3695e88dcd4d4aad5cc941ec7e6e55" title="DataTable::drawTable" alt="" coords="171,563,322,589"/><area shape="rect" id="node13" href="group___graphics.html#ga433bc5c32cf2ce5329bb40b21952d885" title="Network::currentBase" alt="" coords="388,512,537,539"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a9d49c5f446e209ac2a99f48991040745"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InfoBar::setHeadFont </td>
+          <td>(</td>
+          <td class="paramtype">QPainter *&#160;</td>
+          <td class="paramname"><em>painter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00179">179</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_info_bar_a9d49c5f446e209ac2a99f48991040745_icgraph.png" border="0" usemap="#class_info_bar_a9d49c5f446e209ac2a99f48991040745_icgraph" alt=""/></div>
+<map name="class_info_bar_a9d49c5f446e209ac2a99f48991040745_icgraph" id="class_info_bar_a9d49c5f446e209ac2a99f48991040745_icgraph">
+<area shape="rect" id="node2" href="class_info_bar.html#afa011ce96bb99021d2cbf5b24c7276bb" title="InfoBar::paint" alt="" coords="200,5,300,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a2bfda27ec3d1ae6b4b1c927876f594c1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InfoBar::setNormalFont </td>
+          <td>(</td>
+          <td class="paramtype">QPainter *&#160;</td>
+          <td class="paramname"><em>painter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infobar_8cpp_source.html#l00190">190</a> of file <a class="el" href="infobar_8cpp_source.html">infobar.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_info_bar_a2bfda27ec3d1ae6b4b1c927876f594c1_icgraph.png" border="0" usemap="#class_info_bar_a2bfda27ec3d1ae6b4b1c927876f594c1_icgraph" alt=""/></div>
+<map name="class_info_bar_a2bfda27ec3d1ae6b4b1c927876f594c1_icgraph" id="class_info_bar_a2bfda27ec3d1ae6b4b1c927876f594c1_icgraph">
+<area shape="rect" id="node2" href="class_info_bar.html#afa011ce96bb99021d2cbf5b24c7276bb" title="InfoBar::paint" alt="" coords="212,5,312,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="a28fb5e5d6d399d9327f67aa768d4a3d8"></a>
+<a class="anchor" id="a0f2f7b614000ae1d317ec3819acabbf2"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -272,7 +508,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoBar::kBoxBaseHeight = 30.0</td>
+          <td class="memname">const double InfoBar::kBoxBaseHeight = 30.0</td>
         </tr>
       </table>
   </td>
@@ -282,11 +518,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infobar_8h_source.html#l00039">39</a> of file <a class="el" href="infobar_8h_source.html">infobar.h</a>.</p>
+<p>Definition at line <a class="el" href="infobar_8h_source.html#l00034">34</a> of file <a class="el" href="infobar_8h_source.html">infobar.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="acb9c812df3577ae628cec2e149c9dd0a"></a>
+<a class="anchor" id="a3eb5cc879199e1a927ed76eb989c4c0e"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -294,7 +530,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoBar::kBoxBaseWidth = 60.0</td>
+          <td class="memname">const double InfoBar::kBoxBaseWidth = 60.0</td>
         </tr>
       </table>
   </td>
@@ -304,11 +540,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infobar_8h_source.html#l00040">40</a> of file <a class="el" href="infobar_8h_source.html">infobar.h</a>.</p>
+<p>Definition at line <a class="el" href="infobar_8h_source.html#l00035">35</a> of file <a class="el" href="infobar_8h_source.html">infobar.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aba381a3838a5e064f1372f2f2b4d8e0d"></a>
+<a class="anchor" id="aedf2e766968ea9ba3e691f24efb8c117"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -316,7 +552,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoBar::kBoxHeight = 37.5*<a class="el" href="class_info_bar.html#ad54d2dd19a63caf9d2476aace60ae3c5">kTableRows</a></td>
+          <td class="memname">const double InfoBar::kBoxHeight = 37.5*<a class="el" href="class_info_bar.html#ad54d2dd19a63caf9d2476aace60ae3c5">kTableRows</a></td>
         </tr>
       </table>
   </td>
@@ -330,7 +566,7 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="aa1c35ddbae0324743d90721037447571"></a>
+<a class="anchor" id="a58f7773f4265d7e759f2eeb4c9aac48d"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -338,7 +574,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoBar::kBoxWidth = 135.0*<a class="el" href="class_info_bar.html#a57e9e7c40a6fd2a56dd47a4512d65489">kTableColums</a></td>
+          <td class="memname">const double InfoBar::kBoxWidth = 135.0*<a class="el" href="class_info_bar.html#a57e9e7c40a6fd2a56dd47a4512d65489">kTableColums</a></td>
         </tr>
       </table>
   </td>
@@ -352,7 +588,7 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="a46d929f42476a6ad37422adee1783712"></a>
+<a class="anchor" id="a9592abdb63cc3cfffc6e5826f998a353"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -360,7 +596,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoBar::kLineWidth = 2.0</td>
+          <td class="memname">const double InfoBar::kLineWidth = 2.0</td>
         </tr>
       </table>
   </td>
@@ -374,7 +610,7 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="a67eb740893ed91c75f237cee756648cc"></a>
+<a class="anchor" id="a18194bb46d36b00aa9f0d01f24a87617"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -382,7 +618,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoBar::kMarginBot = 5.0</td>
+          <td class="memname">const double InfoBar::kMarginBot = 5.0</td>
         </tr>
       </table>
   </td>
@@ -396,7 +632,7 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="a0cfbafbc9f780fc1366157b9c8379463"></a>
+<a class="anchor" id="aed15b9f28cc4a43d509c3553b032fa5e"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -404,7 +640,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoBar::kMarginHeadBot = 5.0</td>
+          <td class="memname">const double InfoBar::kMarginHeadBot = 5.0</td>
         </tr>
       </table>
   </td>
@@ -418,7 +654,7 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="ae24b5cac460550a4c86203a3dbd96ba9"></a>
+<a class="anchor" id="ae4ec64a4c58d29eb6c7378b4621bc6c2"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -426,7 +662,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoBar::kMarginHeadTop = 5.0</td>
+          <td class="memname">const double InfoBar::kMarginHeadTop = 5.0</td>
         </tr>
       </table>
   </td>
@@ -440,7 +676,7 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="a3c7688259f189cb28c2682f50a59335a"></a>
+<a class="anchor" id="a2ed246fc7b7917ba8141b55cbd023d5c"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -448,7 +684,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoBar::kMarginLeft = 5.0</td>
+          <td class="memname">const double InfoBar::kMarginLeft = 5.0</td>
         </tr>
       </table>
   </td>
@@ -462,7 +698,7 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="a2ce020e319adf3de887bf17e803887a3"></a>
+<a class="anchor" id="aa16c67708cd2ab938e1dc8be5f168614"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -470,7 +706,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoBar::kMarginRight = 5.0</td>
+          <td class="memname">const double InfoBar::kMarginRight = 5.0</td>
         </tr>
       </table>
   </td>
@@ -484,7 +720,7 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="add145842c6a2331a7edf9e5be301e5b4"></a>
+<a class="anchor" id="a810c3286fc4d960d04ffbd31318ebff2"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -492,7 +728,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoBar::kMarginTop = 5.0</td>
+          <td class="memname">const double InfoBar::kMarginTop = 5.0</td>
         </tr>
       </table>
   </td>
@@ -528,28 +764,6 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="a8d9aadb8292b5884eb1c02e18d36d073"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const qreal InfoBar::kTableLineWidth = 1.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="infobar_8h_source.html#l00034">34</a> of file <a class="el" href="infobar_8h_source.html">infobar.h</a>.</p>
-
-</div>
-</div>
 <a class="anchor" id="ad54d2dd19a63caf9d2476aace60ae3c5"></a>
 <div class="memitem">
 <div class="memproto">
@@ -572,28 +786,6 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="a8455611d11236c2d5cbd42414450e6e2"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const qreal InfoBar::kTextToLinePad = 1.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="infobar_8h_source.html#l00035">35</a> of file <a class="el" href="infobar_8h_source.html">infobar.h</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="infobar_8h_source.html">infobar.h</a></li>
 <li><a class="el" href="infobar_8cpp_source.html">infobar.cpp</a></li>
@@ -601,7 +793,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:44 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

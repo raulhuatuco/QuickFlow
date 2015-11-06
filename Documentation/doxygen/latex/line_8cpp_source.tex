@@ -27,325 +27,445 @@
 00023 \textcolor{comment}{ */}
 00024 
 00043 \textcolor{preprocessor}{#include "\hyperlink{line_8h}{models/line.h}"}
-00044 \textcolor{preprocessor}{#include <QGraphicsScene>}
-00045 \textcolor{preprocessor}{#include <QGraphicsItem>}
-00046 \textcolor{preprocessor}{#include <QPainter>}
-00047 
-00048 \textcolor{comment}{/*******************************************************************************}
-00049 \textcolor{comment}{ * Const initialization.}
-00050 \textcolor{comment}{ ******************************************************************************/}
-00051 \textcolor{keyword}{const} int32\_t \hyperlink{group___models_gadc334bd07c6126abc56e531d7e3e72b4}{Line::kInvalidNode} = -1;
-00052 
-00053 \textcolor{comment}{/*******************************************************************************}
-00054 \textcolor{comment}{ * Constructor.}
-00055 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00056}{}\hyperlink{group___models_gacc11b8a429d8cdd63ba6803dff5602b3}{00056} \hyperlink{group___models_gacc11b8a429d8cdd63ba6803dff5602b3}{Line::Line}() :
-00057   nodes(QPair<int32\_t, int32\_t>(kInvalidNode, kInvalidNode)),
-00058   network(NULL),
-00059   length\_(0.0),
-00060   pNoI\_(NULL),
-00061   pNoF\_(NULL),
-00062   infoLine(NULL)
-00063 \{
-00064   setFlag(ItemIsSelectable);
-00065   setFlag(ItemSendsGeometryChanges);
-00066   setZValue(0.0); \textcolor{comment}{// Lines are placed under bars and info boxes.}
-00067 
-00068   \textcolor{keywordflow}{for}(int32\_t k = 0; k<6; k++)
-00069     z\_[k] = qInf();
-00070 
-00071   \textcolor{keywordflow}{for} (int32\_t k = 0; k<3; k++)
-00072     i\_[k] = 0.0;
-00073 \}
-00074 
-00075 \textcolor{comment}{/*******************************************************************************}
-00076 \textcolor{comment}{ * Destructor.}
-00077 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00078}{}\hyperlink{group___models_gaabe85f48d22d92b62257091f48174fac}{00078} \hyperlink{group___models_gaabe85f48d22d92b62257091f48174fac}{Line::~Line}() \{\}
-00079 
-00080 \textcolor{comment}{/*******************************************************************************}
-00081 \textcolor{comment}{ * Impedance.}
-00082 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00083}{}\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{00083} complex<double> \hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{Line::z}(int32\_t index, \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} unit)
-00084 \{
-00085 
-00086 \}
-00087 
-00088 \textcolor{comment}{/*******************************************************************************}
-00089 \textcolor{comment}{ * Set impedance.}
-00090 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00091}{}\hyperlink{group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0}{00091} \textcolor{keywordtype}{void} \hyperlink{group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0}{Line::setZ}(int32\_t index, complex<double> newImpedance,
-00092                 \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} unit)
-00093 \{
+00044 \textcolor{preprocessor}{#include "\hyperlink{math__constants_8h}{math\_constants.h}"}
+00045 \textcolor{preprocessor}{#include <QGraphicsScene>}
+00046 \textcolor{preprocessor}{#include <QGraphicsItem>}
+00047 \textcolor{preprocessor}{#include <QPainter>}
+00048 
+00049 \textcolor{comment}{/*******************************************************************************}
+00050 \textcolor{comment}{ * Const initialization.}
+00051 \textcolor{comment}{ ******************************************************************************/}
+00052 \textcolor{keyword}{const} int32\_t \hyperlink{group___models_gadc334bd07c6126abc56e531d7e3e72b4}{Line::kInvalidNode} = -1;
+00053 
+00054 \textcolor{comment}{/*******************************************************************************}
+00055 \textcolor{comment}{ * Constructor.}
+00056 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00057}{}\hyperlink{group___models_gacc11b8a429d8cdd63ba6803dff5602b3}{00057} \hyperlink{group___models_gacc11b8a429d8cdd63ba6803dff5602b3}{Line::Line}() :
+00058   nodes(QPair<int32\_t, int32\_t>(kInvalidNode, kInvalidNode)),
+00059   network(NULL),
+00060   length\_(0.0),
+00061   pNoI\_(NULL),
+00062   pNoF\_(NULL),
+00063   infoLine(NULL)
+00064 \{
+00065   setFlag(ItemIsSelectable);
+00066   setFlag(ItemSendsGeometryChanges);
+00067   setZValue(0.0); \textcolor{comment}{// Lines are placed under bars and info boxes.}
+00068 
+00069   \textcolor{keywordflow}{for}(int32\_t k = 0; k<6; k++)
+00070     z\_[k] = qInf();
+00071 
+00072   \textcolor{keywordflow}{for} (int32\_t k = 0; k<3; k++)
+00073     i\_[k] = 0.0;
+00074 \}
+00075 
+00076 \textcolor{comment}{/*******************************************************************************}
+00077 \textcolor{comment}{ * Destructor.}
+00078 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00079}{}\hyperlink{group___models_gaabe85f48d22d92b62257091f48174fac}{00079} \hyperlink{group___models_gaabe85f48d22d92b62257091f48174fac}{Line::~Line}()
+00080 \{
+00081   \textcolor{keywordflow}{if}(infoLine != NULL)
+00082     \textcolor{keyword}{delete} infoLine;
+00083 \}
+00084 
+00085 \textcolor{comment}{/*******************************************************************************}
+00086 \textcolor{comment}{ * Impedance.}
+00087 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00088}{}\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{00088} complex<double> \hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{Line::z}(int32\_t index, \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} unit)
+00089 \{
+00090   \textcolor{keywordflow}{switch} (unit) \{
+00091   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit::kOhm}:
+00092     \textcolor{keywordflow}{return} z\_[index];
+00093     \textcolor{keywordflow}{break};
 00094 
-00095 \}
-00096 
-00097 \textcolor{comment}{/*******************************************************************************}
-00098 \textcolor{comment}{ * Impedance in per unit.}
-00099 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00100}{}\hyperlink{group___models_ga139698332327a712f6c02d96fe73fbee}{00100} complex<double> \hyperlink{group___models_ga139698332327a712f6c02d96fe73fbee}{Line::zPu}(int32\_t index)
-00101 \{
+00095   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336}{Unit::kOhmPerMeter}:
+00096     \textcolor{keywordflow}{return} z\_[index]/\hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length}();
+00097     \textcolor{keywordflow}{break};
+00098 
+00099   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6}{Unit::kOhmPerKilometer}:
+00100     \textcolor{keywordflow}{return} z\_[index]/\hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919}{Unit::kKiloMeter});
+00101     \textcolor{keywordflow}{break};
 00102 
-00103 \}
-00104 
-00105 \textcolor{comment}{/*******************************************************************************}
-00106 \textcolor{comment}{ * Current.}
-00107 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00108}{}\hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{00108} complex<double> \hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{Line::i}(int32\_t phase, \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit)
-00109 \{
+00103   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa433b57934ca3be960ec7a60f3ea6ea87}{Unit::kOhmPerFeet}:
+00104     \textcolor{keywordflow}{return} z\_[index]/\hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8}{Unit::kFeet});
+00105     \textcolor{keywordflow}{break};
+00106 
+00107   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613}{Unit::kOhmPerMile}:
+00108     \textcolor{keywordflow}{return} z\_[index]/\hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724}{Unit::kMile});
+00109     \textcolor{keywordflow}{break};
 00110 
-00111 \}
-00112 
-00113 \textcolor{comment}{/*******************************************************************************}
-00114 \textcolor{comment}{ * Set current.}
-00115 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00116}{}\hyperlink{group___models_ga9e55b06dc3e385838fdd13d5580438ef}{00116} \textcolor{keywordtype}{void} \hyperlink{group___models_ga9e55b06dc3e385838fdd13d5580438ef}{Line::setI}(int32\_t phase, complex<double> newCurrent,
-00117                 \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit)
-00118 \{
-00119 
-00120 \}
-00121 
-00122 
-00123 \textcolor{comment}{/*******************************************************************************}
-00124 \textcolor{comment}{ * Current in per unit.}
-00125 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00126}{}\hyperlink{group___models_ga8f71e477800134586652d283087ed373}{00126} complex<double> \hyperlink{group___models_ga8f71e477800134586652d283087ed373}{Line::iPu}(int32\_t phase)
-00127 \{
-00128 
-00129 \}
-00130 
+00111   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa9327dc8628a47375d70037499f9d0910}{Unit::kOhmPerUnit}:
+00112     \textcolor{keywordflow}{return} z\_[index]/\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{group___graphics_gae6794c93d37df113778c37c2c702f6d9}{impedanceBase}();
+00113     \textcolor{keywordflow}{break};
+00114 
+00115   \textcolor{keywordflow}{default}:
+00116     \textcolor{keywordflow}{return} z\_[index];
+00117     \textcolor{keywordflow}{break};
+00118   \}
+00119 \}
+00120 
+00121 \textcolor{comment}{/*******************************************************************************}
+00122 \textcolor{comment}{ * Set impedance.}
+00123 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00124}{}\hyperlink{group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0}{00124} \textcolor{keywordtype}{void} \hyperlink{group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0}{Line::setZ}(int32\_t index, complex<double> newImpedance,
+00125                 \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} unit)
+00126 \{
+00127   \textcolor{keywordflow}{switch} (unit) \{
+00128   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit::kOhm}:
+00129     z\_[index] = newImpedance;
+00130     \textcolor{keywordflow}{break};
 00131 
-00132 \textcolor{comment}{/*******************************************************************************}
-00133 \textcolor{comment}{ * Line loss.}
-00134 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00135}{}\hyperlink{group___models_ga84ddf17bee846a6f21c44d463252dd25}{00135} complex<double> \hyperlink{group___models_ga84ddf17bee846a6f21c44d463252dd25}{Line::loss}(int32\_t phase)
-00136 \{
-00137 
-00138 \}
+00132   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa35e9ca44deb5a35fdb576111cf0db336}{Unit::kOhmPerMeter}:
+00133     z\_[index] = newImpedance*\hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length}();
+00134     \textcolor{keywordflow}{break};
+00135 
+00136   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa56a0289d2ddeff7ca4aa8ba410df79d6}{Unit::kOhmPerKilometer}:
+00137     z\_[index] = newImpedance*\hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919}{Unit::kKiloMeter});
+00138     \textcolor{keywordflow}{break};
 00139 
-00140 
-00141 \textcolor{comment}{/*******************************************************************************}
-00142 \textcolor{comment}{ * Line length.}
-00143 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00144}{}\hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{00144} \textcolor{keywordtype}{double} \hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{Line::length}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} unit)
-00145 \{
-00146 
-00147 \}
-00148 
-00149 \textcolor{comment}{/*******************************************************************************}
-00150 \textcolor{comment}{ * Set line length.}
-00151 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00152}{}\hyperlink{group___models_ga950d0b8f5d167eda430c65ca7adadbb0}{00152} \textcolor{keywordtype}{void} \hyperlink{group___models_ga950d0b8f5d167eda430c65ca7adadbb0}{Line::setLength}(\textcolor{keywordtype}{double} newLength, \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} unit)
-00153 \{
-00154 
-00155 \}
+00140   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa433b57934ca3be960ec7a60f3ea6ea87}{Unit::kOhmPerFeet}:
+00141     z\_[index] = newImpedance*\hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8}{Unit::kFeet});
+00142     \textcolor{keywordflow}{break};
+00143 
+00144   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa1d5bb04c9ecda66b09891af21cd4f613}{Unit::kOhmPerMile}:
+00145     z\_[index] = newImpedance*\hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724}{Unit::kMile});
+00146     \textcolor{keywordflow}{break};
+00147 
+00148   \textcolor{keywordflow}{case} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa9327dc8628a47375d70037499f9d0910}{Unit::kOhmPerUnit}:
+00149     z\_[index] = newImpedance*\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{group___graphics_gae6794c93d37df113778c37c2c702f6d9}{impedanceBase}();
+00150     \textcolor{keywordflow}{break};
+00151 
+00152   \textcolor{keywordflow}{default}:
+00153     z\_[index] = newImpedance;
+00154     \textcolor{keywordflow}{break};
+00155   \}
 00156 
-00157 \textcolor{comment}{/*******************************************************************************}
-00158 \textcolor{comment}{ * pNoI.}
-00159 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00160}{}\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{00160} \hyperlink{class_bar}{Bar} *\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{Line::pNoI}()
-00161 \{
-00162   \textcolor{keywordflow}{return} pNoI\_;
-00163 \}
-00164 
-00165 \textcolor{comment}{/*******************************************************************************}
-00166 \textcolor{comment}{ * pNoF.}
-00167 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00168}{}\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{00168} \hyperlink{class_bar}{Bar} *\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{Line::pNoF}()
-00169 \{
-00170   \textcolor{keywordflow}{return} pNoF\_;
-00171 \}
+00157 \}
+00158 
+00159 \textcolor{comment}{/*******************************************************************************}
+00160 \textcolor{comment}{ * Current.}
+00161 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00162}{}\hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{00162} complex<double> \hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{Line::i}(int32\_t phase, \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit)
+00163 \{
+00164   \textcolor{keywordflow}{switch} (unit) \{
+00165   \textcolor{keywordflow}{case} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit::kAmpere}:
+00166     \textcolor{keywordflow}{return} i\_[phase];
+00167     \textcolor{keywordflow}{break};
+00168 
+00169   \textcolor{keywordflow}{case} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aa27cb5edd73099f24f2285e02396ae14}{Unit::kKiloAmpere}:
+00170     \textcolor{keywordflow}{return} i\_[phase]/1000.0;
+00171     \textcolor{keywordflow}{break};
 00172 
-00173 \textcolor{comment}{/*******************************************************************************}
-00174 \textcolor{comment}{ * setNodes.}
-00175 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00176}{}\hyperlink{group___models_gaeeab146e6c1d7d1a688a2764a9c9a170}{00176} \textcolor{keywordtype}{void} \hyperlink{group___models_gaeeab146e6c1d7d1a688a2764a9c9a170}{Line::setNodes}(\hyperlink{class_bar}{Bar} *pNoI, \hyperlink{class_bar}{Bar} *pNoF)
-00177 \{
-00178   pNoI\_ = \hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI};
-00179   pNoF\_ = \hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF};
-00180 
-00181   \textcolor{keywordflow}{if} ((pNoI != NULL) && (pNoF != NULL)) \{
-00182     pNoI->\hyperlink{group___models_ga8cbd2f62d92e69ce6c8d561b682464b6}{addLine}(\textcolor{keyword}{this});
-00183     pNoF->\hyperlink{group___models_ga8cbd2f62d92e69ce6c8d561b682464b6}{addLine}(\textcolor{keyword}{this});
-00184   \}
-00185 
-00186   \hyperlink{group___models_ga8fdb12651d4bc592616d241386b066b3}{updatePosition}();
-00187 \}
-00188 
-00189 
-00190 \textcolor{comment}{/*******************************************************************************}
-00191 \textcolor{comment}{ * toJson.}
-00192 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00193}{}\hyperlink{group___models_ga4effa7a96db465ea6e01135d5a010739}{00193} QJsonObject \hyperlink{group___models_ga4effa7a96db465ea6e01135d5a010739}{Line::toJson}()
-00194 \{
-00195   QJsonObject jsonLine;
-00196 
-00197   \textcolor{comment}{// Nodes}
-00198   jsonLine.insert(\textcolor{stringliteral}{"noI"}, \hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.first);
-00199   jsonLine.insert(\textcolor{stringliteral}{"noF"}, \hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.second);
-00200 
-00201   \textcolor{comment}{// Impedance}
-00202 \textcolor{comment}{//  jsonLine.insert("Zaa", Zaa.real());}
-00203 \textcolor{comment}{//  jsonLine.insert("Zaai", Zaa.imag());}
-00204 \textcolor{comment}{//  jsonLine.insert("Zab", Zab.real());}
-00205 \textcolor{comment}{//  jsonLine.insert("Zabi", Zab.imag());}
-00206 \textcolor{comment}{//  jsonLine.insert("Zac", Zac.real());}
-00207 \textcolor{comment}{//  jsonLine.insert("Zaci", Zac.imag());}
-00208 \textcolor{comment}{//  jsonLine.insert("Zbb", Zbb.real());}
-00209 \textcolor{comment}{//  jsonLine.insert("Zbbi", Zbb.imag());}
-00210 \textcolor{comment}{//  jsonLine.insert("Zbc", Zbc.real());}
-00211 \textcolor{comment}{//  jsonLine.insert("Zbci", Zbc.imag());}
-00212 \textcolor{comment}{//  jsonLine.insert("Zcc", Zcc.real());}
-00213 \textcolor{comment}{//  jsonLine.insert("Zcci", Zcc.imag());}
+00173   \textcolor{keywordflow}{case} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aeed3b50e464d581cb630181a3b6a0709}{Unit::kAmperePerUnit}:
+00174     \textcolor{keywordflow}{return} i\_[phase]/\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{group___graphics_ga433bc5c32cf2ce5329bb40b21952d885}{currentBase}();
+00175     \textcolor{keywordflow}{break};
+00176 
+00177   \textcolor{keywordflow}{default}:
+00178     \textcolor{keywordflow}{return} i\_[phase];
+00179     \textcolor{keywordflow}{break};
+00180   \}
+00181 \}
+00182 
+00183 \textcolor{comment}{/*******************************************************************************}
+00184 \textcolor{comment}{ * Set current.}
+00185 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00186}{}\hyperlink{group___models_ga9e55b06dc3e385838fdd13d5580438ef}{00186} \textcolor{keywordtype}{void} \hyperlink{group___models_ga9e55b06dc3e385838fdd13d5580438ef}{Line::setI}(int32\_t phase, complex<double> newCurrent,
+00187                 \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit)
+00188 \{
+00189   \textcolor{keywordflow}{switch} (unit) \{
+00190   \textcolor{keywordflow}{case} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit::kAmpere}:
+00191     i\_[phase] = newCurrent;
+00192     \textcolor{keywordflow}{break};
+00193 
+00194   \textcolor{keywordflow}{case} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aa27cb5edd73099f24f2285e02396ae14}{Unit::kKiloAmpere}:
+00195     i\_[phase] = newCurrent*1000.0;
+00196     \textcolor{keywordflow}{break};
+00197 
+00198   \textcolor{keywordflow}{case} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aeed3b50e464d581cb630181a3b6a0709}{Unit::kAmperePerUnit}:
+00199     i\_[phase] = newCurrent*\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{group___graphics_ga433bc5c32cf2ce5329bb40b21952d885}{currentBase}();
+00200     \textcolor{keywordflow}{break};
+00201 
+00202   \textcolor{keywordflow}{default}:
+00203     i\_[phase] = newCurrent;
+00204     \textcolor{keywordflow}{break};
+00205   \}
+00206 \}
+00207 
+00208 \textcolor{comment}{/*******************************************************************************}
+00209 \textcolor{comment}{ * Line loss.}
+00210 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00211}{}\hyperlink{group___models_ga7909d69e419de3f460ca7abab3d91e53}{00211} complex<double> \hyperlink{group___models_ga7909d69e419de3f460ca7abab3d91e53}{Line::loss}(int32\_t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit})
+00212 \{
+00213   Q\_UNUSED(phase);
 00214 
-00215 \textcolor{comment}{//  // Current}
-00216 \textcolor{comment}{//  jsonLine.insert("Ia", Ia.real());}
-00217 \textcolor{comment}{//  jsonLine.insert("Iai", Ia.imag());}
-00218 \textcolor{comment}{//  jsonLine.insert("Ib", Ib.real());}
-00219 \textcolor{comment}{//  jsonLine.insert("Ibi", Ib.imag());}
-00220 \textcolor{comment}{//  jsonLine.insert("Ic", Ic.real());}
-00221 \textcolor{comment}{//  jsonLine.insert("Ici", Ic.imag());}
-00222 
-00223 \textcolor{comment}{//  // Length}
-00224 \textcolor{comment}{//  jsonLine.insert("length", length);}
-00225 
-00226   \textcolor{keywordflow}{return} jsonLine;
-00227 \}
-00228 
-00229 \textcolor{comment}{/*******************************************************************************}
-00230 \textcolor{comment}{ * fromJson.}
-00231 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00232}{}\hyperlink{group___models_ga62623ad71df5279377cc69da90decc75}{00232} \textcolor{keywordtype}{void} \hyperlink{group___models_ga62623ad71df5279377cc69da90decc75}{Line::fromJson}(QJsonObject &jsonLine)
-00233 \{
-00234   \textcolor{comment}{// Get NoI & NoF}
-00235   \hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.first = jsonLine.value(\textcolor{stringliteral}{"noI"}).toInt();
-00236   \hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.second = jsonLine.value(\textcolor{stringliteral}{"noF"}).toInt();
-00237 
-00238   \textcolor{comment}{// Impedance}
-00239 \textcolor{comment}{//  Zaa.real(jsonLine.value("Zaa").toDouble());}
-00240 \textcolor{comment}{//  Zaa.imag(jsonLine.value("Zaai").toDouble());}
-00241 \textcolor{comment}{//  Zab.real(jsonLine.value("Zab").toDouble());}
-00242 \textcolor{comment}{//  Zab.imag(jsonLine.value("Zabi").toDouble());}
-00243 \textcolor{comment}{//  Zac.real(jsonLine.value("Zac").toDouble());}
-00244 \textcolor{comment}{//  Zac.imag(jsonLine.value("Zaci").toDouble());}
-00245 \textcolor{comment}{//  Zbb.real(jsonLine.value("Zbb").toDouble());}
-00246 \textcolor{comment}{//  Zbb.imag(jsonLine.value("Zbbi").toDouble());}
-00247 \textcolor{comment}{//  Zbc.real(jsonLine.value("Zbc").toDouble());}
-00248 \textcolor{comment}{//  Zbc.imag(jsonLine.value("Zbci").toDouble());}
-00249 \textcolor{comment}{//  Zcc.real(jsonLine.value("Zcc").toDouble());}
-00250 \textcolor{comment}{//  Zcc.imag(jsonLine.value("Zcci").toDouble());}
-00251 
-00252 \textcolor{comment}{//  // Current}
-00253 \textcolor{comment}{//  Ia.real(jsonLine.value("Ia").toDouble());}
-00254 \textcolor{comment}{//  Ia.imag(jsonLine.value("Iai").toDouble());}
-00255 \textcolor{comment}{//  Ib.real(jsonLine.value("Ib").toDouble());}
-00256 \textcolor{comment}{//  Ib.imag(jsonLine.value("Ibi").toDouble());}
-00257 \textcolor{comment}{//  Ic.real(jsonLine.value("Ic").toDouble());}
-00258 \textcolor{comment}{//  Ic.imag(jsonLine.value("Ici").toDouble());}
+00215   \textcolor{keywordflow}{return} 0.0;
+00216 \}
+00217 
+00218 \textcolor{comment}{/*******************************************************************************}
+00219 \textcolor{comment}{ * Line length.}
+00220 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00221}{}\hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{00221} \textcolor{keywordtype}{double} \hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{Line::length}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} unit)
+00222 \{
+00223   \textcolor{keywordflow}{switch} (unit) \{
+00224   \textcolor{keywordflow}{case} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter}:
+00225     \textcolor{keywordflow}{return} length\_;
+00226     \textcolor{keywordflow}{break};
+00227 
+00228   \textcolor{keywordflow}{case} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919}{Unit::kKiloMeter}:
+00229     \textcolor{keywordflow}{return} length\_/1000.0;
+00230     \textcolor{keywordflow}{break};
+00231 
+00232   \textcolor{keywordflow}{case} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8}{Unit::kFeet}:
+00233     \textcolor{keywordflow}{return} length\_*3.28084;
+00234     \textcolor{keywordflow}{break};
+00235 
+00236   \textcolor{keywordflow}{case} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724}{Unit::kMile}:
+00237     \textcolor{keywordflow}{return} length\_*0.000621371;
+00238     \textcolor{keywordflow}{break};
+00239 
+00240   \textcolor{keywordflow}{default}:
+00241     \textcolor{keywordflow}{return} length\_;
+00242     \textcolor{keywordflow}{break};
+00243   \}
+00244 \}
+00245 
+00246 \textcolor{comment}{/*******************************************************************************}
+00247 \textcolor{comment}{ * Set line length.}
+00248 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00249}{}\hyperlink{group___models_ga950d0b8f5d167eda430c65ca7adadbb0}{00249} \textcolor{keywordtype}{void} \hyperlink{group___models_ga950d0b8f5d167eda430c65ca7adadbb0}{Line::setLength}(\textcolor{keywordtype}{double} newLength, \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} unit)
+00250 \{
+00251   \textcolor{keywordflow}{switch} (unit) \{
+00252   \textcolor{keywordflow}{case} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit::kMeter}:
+00253     length\_ = newLength;
+00254     \textcolor{keywordflow}{break};
+00255 
+00256   \textcolor{keywordflow}{case} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a1c04f3dd196dbe1832a2658215b0d919}{Unit::kKiloMeter}:
+00257     length\_ = newLength*1000.0;
+00258     \textcolor{keywordflow}{break};
 00259 
-00260   \textcolor{comment}{// Length}
-00261   length\_ = jsonLine.value(\textcolor{stringliteral}{"length"}).toDouble();
-00262 \}
+00260   \textcolor{keywordflow}{case} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a9ac9b167b0ebce477fb53d6ace04ddc8}{Unit::kFeet}:
+00261     length\_ = newLength*3.28084;
+00262     \textcolor{keywordflow}{break};
 00263 
-00264 \textcolor{comment}{/*******************************************************************************}
-00265 \textcolor{comment}{ * updatePosition.}
-00266 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00267}{}\hyperlink{group___models_ga8fdb12651d4bc592616d241386b066b3}{00267} \textcolor{keywordtype}{void} \hyperlink{group___models_ga8fdb12651d4bc592616d241386b066b3}{Line::updatePosition}()
-00268 \{
-00269   prepareGeometryChange();
-00270 
-00271   coords = QLineF(pNoI\_->pos(), pNoF\_->pos());
-00272 
-00273   qreal radAngle = coords.angle() * M\_PI / 180.0;
-00274   qreal dx = \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network::lineWidth} * sin(radAngle);
-00275   qreal dy = \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network::lineWidth} * cos(radAngle);
-00276   QPointF offset1 = QPointF(dx, dy);
-00277   QPointF offset2 = QPointF(-dx, -dy);
-00278   selectionArea.clear();
-00279   selectionArea << coords.p1() + offset1 << coords.p1() + offset2
-00280                 << coords.p2() + offset2 << coords.p2() + offset1;
-00281 \}
-00282 
-00283 \textcolor{comment}{/*******************************************************************************}
-00284 \textcolor{comment}{ * boundingRect.}
-00285 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00286}{}\hyperlink{group___models_gad15c3af158d3b966c04be7e18cee5aea}{00286} QRectF \hyperlink{group___models_gad15c3af158d3b966c04be7e18cee5aea}{Line::boundingRect}()\textcolor{keyword}{ const}
-00287 \textcolor{keyword}{}\{
-00288   \textcolor{keywordflow}{return} selectionArea.boundingRect();
-00289 \}
-00290 
-00291 \textcolor{comment}{/*******************************************************************************}
-00292 \textcolor{comment}{ * shape.}
-00293 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00294}{}\hyperlink{group___models_gaf1736b829a643d99052ef6428ddd5b16}{00294} QPainterPath \hyperlink{group___models_gaf1736b829a643d99052ef6428ddd5b16}{Line::shape}()\textcolor{keyword}{ const}
-00295 \textcolor{keyword}{}\{
-00296   QPainterPath path;
-00297   path.addPolygon(selectionArea);
-00298   \textcolor{keywordflow}{return} path;
-00299 \}
-00300 
-00301 \textcolor{comment}{/*******************************************************************************}
-00302 \textcolor{comment}{ * itemChange.}
-00303 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00304}{}\hyperlink{group___models_ga5fcee3f23eb50e34f730d602a3802b93}{00304} QVariant \hyperlink{group___models_ga5fcee3f23eb50e34f730d602a3802b93}{Line::itemChange}(QGraphicsItem::GraphicsItemChange change,
-00305                           \textcolor{keyword}{const} QVariant &value)
-00306 \{
-00307   \textcolor{keywordflow}{if} (change == ItemSelectedChange) \{
-00308     \textcolor{keywordflow}{if} (value == \textcolor{keyword}{true}) \{
-00309       \textcolor{comment}{// if multiple items are selectec, we don't want to show the info box.}
-00310       \textcolor{keywordflow}{if}(!(scene()->selectedItems().size() > 1)) \{
-00311         \textcolor{keywordflow}{if} (infoLine == NULL) \{
-00312           infoLine = \textcolor{keyword}{new} \hyperlink{class_info_line}{InfoLine}(\textcolor{keyword}{this});
-00313           scene()->addItem(infoLine);
-00314         \}
-00315       \}
-00316     \} \textcolor{keywordflow}{else} \{
-00317       \textcolor{keywordflow}{if} (infoLine != NULL) \{
-00318         scene()->removeItem(infoLine);
-00319         \textcolor{keyword}{delete} infoLine;
-00320         infoLine = NULL;
-00321       \}
-00322     \}
-00323   \}
-00324 
-00325   \textcolor{keywordflow}{return} QGraphicsObject::itemChange(change, value);
-00326 \}
-00327 
-00328 \textcolor{comment}{/*******************************************************************************}
-00329 \textcolor{comment}{ * mouseDoubleClickEvent.}
-00330 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00331}{}\hyperlink{group___models_ga9a1fee5b1606ab0deedd04bdab99be70}{00331} \textcolor{keywordtype}{void} \hyperlink{group___models_ga9a1fee5b1606ab0deedd04bdab99be70}{Line::mouseDoubleClickEvent}(QGraphicsSceneMouseEvent *event)
-00332 \{
-00333   Q\_UNUSED(event);
-00334   emit \hyperlink{class_line_a2444b577ea2254994599c6f829c629a5}{eventDoubleClick}();
-00335 \}
-00336 
-00337 \textcolor{comment}{/*******************************************************************************}
-00338 \textcolor{comment}{ * paint.}
-00339 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{line_8cpp_source_l00340}{}\hyperlink{group___models_ga0aa64aed379d434be5942edf572b444b}{00340} \textcolor{keywordtype}{void} \hyperlink{group___models_ga0aa64aed379d434be5942edf572b444b}{Line::paint}(QPainter *painter, \textcolor{keyword}{const} QStyleOptionGraphicsItem *option,
-00341                  QWidget *widget)
-00342 \{
-00343   Q\_UNUSED(option);
-00344   Q\_UNUSED(widget);
+00264   \textcolor{keywordflow}{case} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0a2ebde742068bbee0510de32fbb4cd724}{Unit::kMile}:
+00265     length\_ = newLength*0.000621371;
+00266     \textcolor{keywordflow}{break};
+00267 
+00268   \textcolor{keywordflow}{default}:
+00269     length\_ = newLength;
+00270     \textcolor{keywordflow}{break};
+00271   \}
+00272 \}
+00273 
+00274 \textcolor{comment}{/*******************************************************************************}
+00275 \textcolor{comment}{ * pNoI.}
+00276 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00277}{}\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{00277} \hyperlink{class_bar}{Bar} *\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{Line::pNoI}()
+00278 \{
+00279   \textcolor{keywordflow}{return} pNoI\_;
+00280 \}
+00281 
+00282 \textcolor{comment}{/*******************************************************************************}
+00283 \textcolor{comment}{ * pNoF.}
+00284 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00285}{}\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{00285} \hyperlink{class_bar}{Bar} *\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{Line::pNoF}()
+00286 \{
+00287   \textcolor{keywordflow}{return} pNoF\_;
+00288 \}
+00289 
+00290 \textcolor{comment}{/*******************************************************************************}
+00291 \textcolor{comment}{ * setNodes.}
+00292 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00293}{}\hyperlink{group___models_gaeeab146e6c1d7d1a688a2764a9c9a170}{00293} \textcolor{keywordtype}{void} \hyperlink{group___models_gaeeab146e6c1d7d1a688a2764a9c9a170}{Line::setNodes}(\hyperlink{class_bar}{Bar} *pNoI, \hyperlink{class_bar}{Bar} *pNoF)
+00294 \{
+00295   pNoI\_ = \hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI};
+00296   pNoF\_ = \hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF};
+00297 
+00298   \textcolor{keywordflow}{if} ((pNoI != NULL) && (pNoF != NULL)) \{
+00299     pNoI->\hyperlink{group___models_ga8cbd2f62d92e69ce6c8d561b682464b6}{addLine}(\textcolor{keyword}{this});
+00300     pNoF->\hyperlink{group___models_ga8cbd2f62d92e69ce6c8d561b682464b6}{addLine}(\textcolor{keyword}{this});
+00301   \}
+00302 
+00303   \hyperlink{group___models_ga8fdb12651d4bc592616d241386b066b3}{updatePosition}();
+00304 \}
+00305 
+00306 
+00307 \textcolor{comment}{/*******************************************************************************}
+00308 \textcolor{comment}{ * toJson.}
+00309 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00310}{}\hyperlink{group___models_ga4effa7a96db465ea6e01135d5a010739}{00310} QJsonObject \hyperlink{group___models_ga4effa7a96db465ea6e01135d5a010739}{Line::toJson}()
+00311 \{
+00312   QJsonObject jsonLine;
+00313 
+00314   \textcolor{comment}{// Nodes}
+00315   jsonLine.insert(\textcolor{stringliteral}{"noI"}, \hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.first);
+00316   jsonLine.insert(\textcolor{stringliteral}{"noF"}, \hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.second);
+00317 
+00318   \textcolor{comment}{// Impedance}
+00319   jsonLine.insert(\textcolor{stringliteral}{"Zaa"}, z\_[0].real());
+00320   jsonLine.insert(\textcolor{stringliteral}{"Zaai"}, z\_[0].imag());
+00321   jsonLine.insert(\textcolor{stringliteral}{"Zab"}, z\_[1].real());
+00322   jsonLine.insert(\textcolor{stringliteral}{"Zabi"}, z\_[1].imag());
+00323   jsonLine.insert(\textcolor{stringliteral}{"Zac"}, z\_[2].real());
+00324   jsonLine.insert(\textcolor{stringliteral}{"Zaci"}, z\_[2].imag());
+00325   jsonLine.insert(\textcolor{stringliteral}{"Zbb"}, z\_[3].real());
+00326   jsonLine.insert(\textcolor{stringliteral}{"Zbbi"}, z\_[3].imag());
+00327   jsonLine.insert(\textcolor{stringliteral}{"Zbc"}, z\_[4].real());
+00328   jsonLine.insert(\textcolor{stringliteral}{"Zbci"}, z\_[4].imag());
+00329   jsonLine.insert(\textcolor{stringliteral}{"Zcc"}, z\_[5].real());
+00330   jsonLine.insert(\textcolor{stringliteral}{"Zcci"}, z\_[5].imag());
+00331 
+00332   \textcolor{comment}{// Current}
+00333   jsonLine.insert(\textcolor{stringliteral}{"Ia"}, i\_[0].real());
+00334   jsonLine.insert(\textcolor{stringliteral}{"Iai"}, i\_[0].imag());
+00335   jsonLine.insert(\textcolor{stringliteral}{"Ib"}, i\_[1].real());
+00336   jsonLine.insert(\textcolor{stringliteral}{"Ibi"}, i\_[1].imag());
+00337   jsonLine.insert(\textcolor{stringliteral}{"Ic"}, i\_[2].real());
+00338   jsonLine.insert(\textcolor{stringliteral}{"Ici"}, i\_[2].imag());
+00339 
+00340   \textcolor{comment}{// Length}
+00341   jsonLine.insert(\textcolor{stringliteral}{"length"}, length\_);
+00342 
+00343   \textcolor{keywordflow}{return} jsonLine;
+00344 \}
 00345 
-00346 \textcolor{comment}{//  Network *network = static\_cast<Network *>(parentItem());}
-00347 
-00348 \textcolor{comment}{//  if (isSelected())}
-00349 \textcolor{comment}{//    painter->setPen(QPen(network->selectedColor, Network::lineWidth,}
-00350 \textcolor{comment}{//                         Qt::SolidLine));}
-00351 \textcolor{comment}{//  else}
-00352 \textcolor{comment}{//    painter->setPen(QPen(network->lineColor, Network::lineWidth, Qt::SolidLine));}
-00353 
-00354 \textcolor{comment}{//  painter->drawLine(coords.p1(), coords.p2());}
-00355 
-00356   \textcolor{keywordflow}{if} (isSelected())
-00357     painter->setPen(QPen(Qt::red, \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network::lineWidth},
-00358                          Qt::SolidLine));
-00359   \textcolor{keywordflow}{else}
-00360     painter->setPen(QPen(Qt::black, \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network::lineWidth}, Qt::SolidLine));
-00361 
-00362   painter->drawLine(coords.p1(), coords.p2());
-00363 \}
-00364 
+00346 \textcolor{comment}{/*******************************************************************************}
+00347 \textcolor{comment}{ * fromJson.}
+00348 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00349}{}\hyperlink{group___models_ga62623ad71df5279377cc69da90decc75}{00349} \textcolor{keywordtype}{void} \hyperlink{group___models_ga62623ad71df5279377cc69da90decc75}{Line::fromJson}(QJsonObject &jsonLine)
+00350 \{
+00351   \textcolor{comment}{// Get NoI & NoF}
+00352   \hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.first = jsonLine.value(\textcolor{stringliteral}{"noI"}).toInt();
+00353   \hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.second = jsonLine.value(\textcolor{stringliteral}{"noF"}).toInt();
+00354 
+00355   \textcolor{comment}{// Impedance}
+00356   z\_[0].real(jsonLine.value(\textcolor{stringliteral}{"Zaa"}).toDouble());
+00357   z\_[0].imag(jsonLine.value(\textcolor{stringliteral}{"Zaai"}).toDouble());
+00358   z\_[1].real(jsonLine.value(\textcolor{stringliteral}{"Zab"}).toDouble());
+00359   z\_[1].imag(jsonLine.value(\textcolor{stringliteral}{"Zabi"}).toDouble());
+00360   z\_[2].real(jsonLine.value(\textcolor{stringliteral}{"Zac"}).toDouble());
+00361   z\_[2].imag(jsonLine.value(\textcolor{stringliteral}{"Zaci"}).toDouble());
+00362   z\_[3].real(jsonLine.value(\textcolor{stringliteral}{"Zbb"}).toDouble());
+00363   z\_[3].imag(jsonLine.value(\textcolor{stringliteral}{"Zbbi"}).toDouble());
+00364   z\_[4].real(jsonLine.value(\textcolor{stringliteral}{"Zbc"}).toDouble());
+00365   z\_[4].imag(jsonLine.value(\textcolor{stringliteral}{"Zbci"}).toDouble());
+00366   z\_[5].real(jsonLine.value(\textcolor{stringliteral}{"Zcc"}).toDouble());
+00367   z\_[5].imag(jsonLine.value(\textcolor{stringliteral}{"Zcci"}).toDouble());
+00368 
+00369   \textcolor{comment}{// Current}
+00370   i\_[0].real(jsonLine.value(\textcolor{stringliteral}{"Ia"}).toDouble());
+00371   i\_[0].imag(jsonLine.value(\textcolor{stringliteral}{"Iai"}).toDouble());
+00372   i\_[1].real(jsonLine.value(\textcolor{stringliteral}{"Ib"}).toDouble());
+00373   i\_[1].imag(jsonLine.value(\textcolor{stringliteral}{"Ibi"}).toDouble());
+00374   i\_[2].real(jsonLine.value(\textcolor{stringliteral}{"Ic"}).toDouble());
+00375   i\_[2].imag(jsonLine.value(\textcolor{stringliteral}{"Ici"}).toDouble());
+00376 
+00377   \textcolor{comment}{// Length}
+00378   length\_ = jsonLine.value(\textcolor{stringliteral}{"length"}).toDouble();
+00379 \}
+00380 
+00381 \textcolor{comment}{/*******************************************************************************}
+00382 \textcolor{comment}{ * updatePosition.}
+00383 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00384}{}\hyperlink{group___models_ga8fdb12651d4bc592616d241386b066b3}{00384} \textcolor{keywordtype}{void} \hyperlink{group___models_ga8fdb12651d4bc592616d241386b066b3}{Line::updatePosition}()
+00385 \{
+00386   prepareGeometryChange();
+00387 
+00388   \textcolor{keywordtype}{double} yOffset = 0.0;
+00389   \textcolor{keywordtype}{double} xOffset = 0.0;
+00390 
+00391   \textcolor{keywordflow}{if}(\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network} != NULL) \{
+00392     xOffset = \hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{class_network_a9f5c70be28a45320802bd0ac3947d114}{xOffset};
+00393     yOffset = \hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{class_network_a771b16f7eb4459d0ca7141c048b1ab59}{yOffset};
+00394   \}
+00395 
+00396   QPoint p1(pNoI\_->x() + xOffset, pNoI\_->y() + yOffset);
+00397   QPoint p2(pNoF\_->x() + xOffset, pNoF\_->y() + yOffset);
+00398 
+00399   coords = QLineF(p1, p2);
+00400 
+00401   qreal radAngle = coords.angle() * \hyperlink{math__constants_8h_a368d99984512d9a6c6f18b37b4446431}{kPI} / 180.0;
+00402   qreal dx = \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network::lineWidth} * sin(radAngle);
+00403   qreal dy = \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network::lineWidth} * cos(radAngle);
+00404   QPointF offset1 = QPointF(dx, dy);
+00405   QPointF offset2 = QPointF(-dx, -dy);
+00406   selectionArea.clear();
+00407   selectionArea << coords.p1() + offset1 << coords.p1() + offset2
+00408                 << coords.p2() + offset2 << coords.p2() + offset1;
+00409 \}
+00410 
+00411 \textcolor{comment}{/*******************************************************************************}
+00412 \textcolor{comment}{ * boundingRect.}
+00413 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00414}{}\hyperlink{group___models_gad15c3af158d3b966c04be7e18cee5aea}{00414} QRectF \hyperlink{group___models_gad15c3af158d3b966c04be7e18cee5aea}{Line::boundingRect}()\textcolor{keyword}{ const}
+00415 \textcolor{keyword}{}\{
+00416   \textcolor{keywordflow}{return} selectionArea.boundingRect();
+00417 \}
+00418 
+00419 \textcolor{comment}{/*******************************************************************************}
+00420 \textcolor{comment}{ * shape.}
+00421 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00422}{}\hyperlink{group___models_gaf1736b829a643d99052ef6428ddd5b16}{00422} QPainterPath \hyperlink{group___models_gaf1736b829a643d99052ef6428ddd5b16}{Line::shape}()\textcolor{keyword}{ const}
+00423 \textcolor{keyword}{}\{
+00424   QPainterPath path;
+00425   path.addPolygon(selectionArea);
+00426   \textcolor{keywordflow}{return} path;
+00427 \}
+00428 
+00429 \textcolor{comment}{/*******************************************************************************}
+00430 \textcolor{comment}{ * itemChange.}
+00431 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00432}{}\hyperlink{group___models_ga5fcee3f23eb50e34f730d602a3802b93}{00432} QVariant \hyperlink{group___models_ga5fcee3f23eb50e34f730d602a3802b93}{Line::itemChange}(QGraphicsItem::GraphicsItemChange change,
+00433                           \textcolor{keyword}{const} QVariant &value)
+00434 \{
+00435   \textcolor{keywordflow}{if} (change == ItemSelectedChange) \{
+00436     \textcolor{keywordflow}{if} (value == \textcolor{keyword}{true}) \{
+00437       \textcolor{comment}{// if multiple items are selectec, we don't want to show the info box.}
+00438       \textcolor{keywordflow}{if}(!(scene()->selectedItems().size() > 1)) \{
+00439         \textcolor{keywordflow}{if} (infoLine == NULL) \{
+00440           infoLine = \textcolor{keyword}{new} \hyperlink{class_info_line}{InfoLine}(\textcolor{keyword}{this});
+00441           scene()->addItem(infoLine);
+00442         \}
+00443       \}
+00444     \} \textcolor{keywordflow}{else} \{
+00445       \textcolor{keywordflow}{if} (infoLine != NULL) \{
+00446         scene()->removeItem(infoLine);
+00447         \textcolor{keyword}{delete} infoLine;
+00448         infoLine = NULL;
+00449       \}
+00450     \}
+00451   \}
+00452 
+00453   \textcolor{keywordflow}{return} QGraphicsObject::itemChange(change, value);
+00454 \}
+00455 
+00456 \textcolor{comment}{/*******************************************************************************}
+00457 \textcolor{comment}{ * mouseDoubleClickEvent.}
+00458 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00459}{}\hyperlink{group___models_ga9a1fee5b1606ab0deedd04bdab99be70}{00459} \textcolor{keywordtype}{void} \hyperlink{group___models_ga9a1fee5b1606ab0deedd04bdab99be70}{Line::mouseDoubleClickEvent}(QGraphicsSceneMouseEvent *event)
+00460 \{
+00461   Q\_UNUSED(event);
+00462   emit \hyperlink{class_line_a2444b577ea2254994599c6f829c629a5}{eventDoubleClick}();
+00463 \}
+00464 
+00465 \textcolor{comment}{/*******************************************************************************}
+00466 \textcolor{comment}{ * paint.}
+00467 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{line_8cpp_source_l00468}{}\hyperlink{group___models_ga0aa64aed379d434be5942edf572b444b}{00468} \textcolor{keywordtype}{void} \hyperlink{group___models_ga0aa64aed379d434be5942edf572b444b}{Line::paint}(QPainter *painter, \textcolor{keyword}{const} QStyleOptionGraphicsItem *option,
+00469                  QWidget *widget)
+00470 \{
+00471   Q\_UNUSED(option);
+00472   Q\_UNUSED(widget);
+00473 
+00474   \textcolor{keywordflow}{if} (isSelected())
+00475     painter->setPen(QPen(\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{selectedColor}, 
+      \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network::lineWidth},
+00476                          Qt::SolidLine));
+00477   \textcolor{keywordflow}{else}
+00478     painter->setPen(QPen(\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{class_network_a453db7f1a994603fe4d38ac5899eb09c}{lineColor}, \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network::lineWidth}, 
+      Qt::SolidLine));
+00479 
+00480   painter->drawLine(coords.p1(), coords.p2());
+00481 \}
+00482 
 \end{DoxyCode}

@@ -33,225 +33,261 @@
 \hypertarget{lineproperties_8cpp_source_l00029}{}\hyperlink{class_line_properties_ad434fc8e65787648a44737fb9f46b475}{00029} \textcolor{keywordtype}{void} \hyperlink{class_line_properties_ad434fc8e65787648a44737fb9f46b475}{LineProperties::setOptions}(\hyperlink{class_project}{Project} *project, 
       \hyperlink{class_line}{Line} *line)
 00030 \{
-00031 \textcolor{comment}{//  // Adjust apearance according to line.}
-00032 \textcolor{comment}{//  if (line == NULL) \{}
-00033 \textcolor{comment}{//    setWindowTitle(tr("New Line"));}
-00034 \textcolor{comment}{//    line\_ = new Line;}
-00035 \textcolor{comment}{//    isNew = true;}
+00031   \textcolor{comment}{// Adjust apearance according to line.}
+00032   \textcolor{keywordflow}{if} (line == NULL) \{
+00033     setWindowTitle(tr(\textcolor{stringliteral}{"New Line"}));
+00034     line\_ = \textcolor{keyword}{new} \hyperlink{class_line}{Line};
+00035     isNew = \textcolor{keyword}{true};
 00036 
-00037 \textcolor{comment}{//    // Fill line ids combobox.}
-00038 \textcolor{comment}{//    foreach (Bar *bar, project->network->bars) \{}
-00039 \textcolor{comment}{//      ui->noI->addItem(QString::number(bar->id));}
-00040 \textcolor{comment}{//      ui->noF->addItem(QString::number(bar->id));}
-00041 \textcolor{comment}{//    \}}
+00037     \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00038       ui->network->addItem(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
+00039     \}
+00040 
+00041     \hyperlink{class_network}{Network} *network = project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.value(ui->network->currentText(),NULL);
 00042 
-00043 \textcolor{comment}{//  \} else \{}
-00044 \textcolor{comment}{//    setWindowTitle(tr("Edit Line from node ") + QString::number(}
-00045 \textcolor{comment}{//                     line->noI) + tr(" to node ") \(\backslash\)}
-00046 \textcolor{comment}{//                   + QString::number(line->noF));}
-00047 \textcolor{comment}{//    line\_ = line;}
-00048 \textcolor{comment}{//    isNew = false;}
-00049 
-00050 \textcolor{comment}{//    // Fill line ids combobox.}
-00051 \textcolor{comment}{//    ui->noI->addItem(QString::number(line->noI));}
-00052 \textcolor{comment}{//    ui->noF->addItem(QString::number(line->noF));}
-00053 \textcolor{comment}{//    ui->noI->setEnabled(false);}
-00054 \textcolor{comment}{//    ui->noF->setEnabled(false);}
-00055 \textcolor{comment}{//  \}}
-00056 
-00057 \textcolor{comment}{//  // Store project parameters.}
-00058 \textcolor{comment}{//  project\_ = project;}
-00059 
-00060 \textcolor{comment}{//  // Store parameters.}
-00061 \textcolor{comment}{//  // Length.}
-00062 \textcolor{comment}{//  ui->length->setText(QString::number(line\_->length));}
-00063 
-00064 \textcolor{comment}{//  // Impedance.}
-00065 \textcolor{comment}{//  ui->Zaa->setText(QString::number(line\_->Zaa.real()));}
-00066 \textcolor{comment}{//  ui->Zaai->setText(QString::number(line\_->Zaa.imag()));}
-00067 \textcolor{comment}{//  ui->Zab->setText(QString::number(line\_->Zab.real()));}
-00068 \textcolor{comment}{//  ui->Zabi->setText(QString::number(line\_->Zab.imag()));}
-00069 \textcolor{comment}{//  ui->Zac->setText(QString::number(line\_->Zac.real()));}
-00070 \textcolor{comment}{//  ui->Zaci->setText(QString::number(line\_->Zac.imag()));}
-00071 \textcolor{comment}{//  ui->Zbb->setText(QString::number(line\_->Zbb.real()));}
-00072 \textcolor{comment}{//  ui->Zbbi->setText(QString::number(line\_->Zbb.imag()));}
-00073 \textcolor{comment}{//  ui->Zbc->setText(QString::number(line\_->Zbc.real()));}
-00074 \textcolor{comment}{//  ui->Zbci->setText(QString::number(line\_->Zbc.imag()));}
-00075 \textcolor{comment}{//  ui->Zcc->setText(QString::number(line\_->Zcc.real()));}
-00076 \textcolor{comment}{//  ui->Zcci->setText(QString::number(line\_->Zcc.imag()));}
-00077 
-00078 \textcolor{comment}{//  // Set units.}
-00079 \textcolor{comment}{//  // Length.}
-00080 \textcolor{comment}{//  ui->lengthUn->setText(tr("[") + Unit::lengthUnitToStr(project->unit()) +}
-00081 \textcolor{comment}{//                        tr("]"));}
-00082 
-00083 \textcolor{comment}{//  // Impedance.}
-00084 \textcolor{comment}{//  ui->impedanceUn1->setText(tr("[") + Unit::impedanceUnitToStr(}
-00085 \textcolor{comment}{//                              project->impedanceUnit()) + tr("]"));}
-00086 \textcolor{comment}{//  ui->impedanceUn2->setText(tr("[") + Unit::impedanceUnitToStr(}
-00087 \textcolor{comment}{//                              project->impedanceUnit()) + tr("]"));}
-00088 \textcolor{comment}{//  ui->impedanceUn3->setText(tr("[") + Unit::impedanceUnitToStr(}
-00089 \textcolor{comment}{//                              project->impedanceUnit()) + tr("]"));}
-00090 \textcolor{comment}{//  ui->impedanceUn5->setText(tr("[") + Unit::impedanceUnitToStr(}
-00091 \textcolor{comment}{//                              project->impedanceUnit()) + tr("]"));}
-00092 \textcolor{comment}{//  ui->impedanceUn6->setText(tr("[") + Unit::impedanceUnitToStr(}
-00093 \textcolor{comment}{//                              project->impedanceUnit()) + tr("]"));}
-00094 \textcolor{comment}{//  ui->impedanceUn8->setText(tr("[") + Unit::impedanceUnitToStr(}
-00095 \textcolor{comment}{//                              project->impedanceUnit()) + tr("]"));}
-00096 \}
-00097 
-00098 \textcolor{comment}{/*******************************************************************************}
-00099 \textcolor{comment}{ * Botton Box Accepted.}
-00100 \textcolor{comment}{ ******************************************************************************/}
-00101 \textcolor{keywordtype}{void} LineProperties::on\_buttonBox\_accepted()
-00102 \{
-00103   \textcolor{comment}{// Check for valid data.}
-00104   \textcolor{comment}{// Nodes.}
-00105 \textcolor{comment}{//  if(ui->noI->currentText() == ui->noF->currentText()) \{}
-00106 \textcolor{comment}{//    QMessageBox::information(this, "Invalid parameter",}
-00107 \textcolor{comment}{//                             "Initial and final nodes must be diferent.",}
-00108 \textcolor{comment}{//                             QMessageBox::Ok);}
-00109 \textcolor{comment}{//    ui->noI->setFocus();}
-00110 \textcolor{comment}{//    return;}
-00111 \textcolor{comment}{//  \}}
-00112 
-00113 \textcolor{comment}{//  // Check if line already exists for new lines.}
-00114 \textcolor{comment}{//  if(isNew) \{}
-00115 \textcolor{comment}{//    if(project\_->network->getLineByNodes(ui->noI->currentText().toInt(),}
-00116 \textcolor{comment}{//                                         ui->noF->currentText().toInt()) != NULL) \{}
-00117 \textcolor{comment}{//      QMessageBox::information(this, "Invalid parameter",}
-00118 \textcolor{comment}{//                               "Line already exist.",}
-00119 \textcolor{comment}{//                               QMessageBox::Ok);}
-00120 \textcolor{comment}{//      ui->noI->setFocus();}
-00121 \textcolor{comment}{//      return;}
-00122 \textcolor{comment}{//    \}}
-00123 \textcolor{comment}{//  \}}
-00124 
-00125 \textcolor{comment}{//  // Length.}
-00126 \textcolor{comment}{//  if (ui->length->text().isEmpty()) \{}
-00127 \textcolor{comment}{//    QMessageBox::information(this, "Invalid parameter",}
-00128 \textcolor{comment}{//                             "Parameter Length is empty.",}
-00129 \textcolor{comment}{//                             QMessageBox::Ok);}
-00130 \textcolor{comment}{//    ui->length->setFocus();}
-00131 \textcolor{comment}{//    return;}
-00132 \textcolor{comment}{//  \}}
-00133 
-00134 \textcolor{comment}{//  // Impedance.}
-00135 \textcolor{comment}{//  //Zaa.}
-00136 \textcolor{comment}{//  if (!validImpedance(ui->Zaa))}
-00137 \textcolor{comment}{//    return;}
-00138 
-00139 \textcolor{comment}{//  //Zaai.}
-00140 \textcolor{comment}{//  if (!validImpedance(ui->Zaai))}
-00141 \textcolor{comment}{//    return;}
-00142 
-00143 \textcolor{comment}{//  //Zab.}
-00144 \textcolor{comment}{//  if (!validImpedance(ui->Zab))}
-00145 \textcolor{comment}{//    return;}
-00146 
-00147 \textcolor{comment}{//  //Zabi.}
-00148 \textcolor{comment}{//  if (!validImpedance(ui->Zabi))}
-00149 \textcolor{comment}{//    return;}
+00043     \textcolor{comment}{// Fill bar ids combobox.}
+00044     \textcolor{keywordflow}{foreach} (\hyperlink{class_bar}{Bar} *bar, network->\hyperlink{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{bars}) \{
+00045       ui->noI->addItem(QString::number(bar->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id}));
+00046       ui->noF->addItem(QString::number(bar->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id}));
+00047     \}
+00048 
+00049   \} \textcolor{keywordflow}{else} \{
+00050     setWindowTitle(tr(\textcolor{stringliteral}{"Edit Line from node "}) + QString::number(
+00051                      line->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.first) + tr(\textcolor{stringliteral}{" to node "}) \(\backslash\)
+00052                    + QString::number(line->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.second));
+00053     line\_ = \hyperlink{class_line_properties_ae99691d680b4df7bac3419b5588bd777}{line};
+00054     isNew = \textcolor{keyword}{false};
+00055 
+00056     ui->network->addItem(line->\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
+00057     ui->network->setEnabled(\textcolor{keyword}{false});
+00058 
+00059     \textcolor{comment}{// Fill line ids combobox.}
+00060     ui->noI->addItem(QString::number(line->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.first));
+00061     ui->noF->addItem(QString::number(line->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.second));
+00062     ui->noI->setEnabled(\textcolor{keyword}{false});
+00063     ui->noF->setEnabled(\textcolor{keyword}{false});
+00064   \}
+00065 
+00066   \textcolor{comment}{// Store project parameters.}
+00067   project\_ = project;
+00068 
+00069   \textcolor{comment}{// Store parameters.}
+00070   \textcolor{comment}{// Length.}
+00071   ui->length->setText(QString::number(line\_->\hyperlink{group___models_gae2e4500d0fa60dcc2ecb08b2c96954f9}{length}(project->\hyperlink{class_project_a40cd2f59a4a708897e5997942c046f4d}{lengthUnit}())));
+00072 
+00073   \textcolor{comment}{// Impedance.}
+00074   ui->Zaa->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(0,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).real()));
+00075   ui->Zaai->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(0,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).imag()));
+00076   ui->Zab->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(1,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).real()));
+00077   ui->Zabi->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(1,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).imag()));
+00078   ui->Zac->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(2,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).real()));
+00079   ui->Zaci->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(2,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).imag()));
+00080   ui->Zbb->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(3,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).real()));
+00081   ui->Zbbi->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(3,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).imag()));
+00082   ui->Zbc->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(4,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).real()));
+00083   ui->Zbci->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(4,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).imag()));
+00084   ui->Zcc->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(5,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).real()));
+00085   ui->Zcci->setText(QString::number(line\_->\hyperlink{group___models_gab5370574fd93e13eb11742f7753fe1f1}{z}(5,project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()).imag()));
+00086 
+00087   \textcolor{comment}{// Set units.}
+00088   \textcolor{comment}{// Length.}
+00089   ui->lengthUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_abd363319f79f97b0a0b9a08c5ddc3cdb}{Unit::lengthUnitToStr}(project->
+      \hyperlink{class_project_a40cd2f59a4a708897e5997942c046f4d}{lengthUnit}()) +
+00090                         tr(\textcolor{stringliteral}{"]"}));
+00091 
+00092   \textcolor{comment}{// Impedance.}
+00093   ui->impedanceUn1->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ae3ca20f4b6530f04ca6aa138ec0fa7d2}{Unit::impedanceUnitToStr}(
+00094                               project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()) + tr(\textcolor{stringliteral}{"]"}));
+00095   ui->impedanceUn2->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ae3ca20f4b6530f04ca6aa138ec0fa7d2}{Unit::impedanceUnitToStr}(
+00096                               project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()) + tr(\textcolor{stringliteral}{"]"}));
+00097   ui->impedanceUn3->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ae3ca20f4b6530f04ca6aa138ec0fa7d2}{Unit::impedanceUnitToStr}(
+00098                               project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()) + tr(\textcolor{stringliteral}{"]"}));
+00099   ui->impedanceUn5->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ae3ca20f4b6530f04ca6aa138ec0fa7d2}{Unit::impedanceUnitToStr}(
+00100                               project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()) + tr(\textcolor{stringliteral}{"]"}));
+00101   ui->impedanceUn6->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ae3ca20f4b6530f04ca6aa138ec0fa7d2}{Unit::impedanceUnitToStr}(
+00102                               project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()) + tr(\textcolor{stringliteral}{"]"}));
+00103   ui->impedanceUn8->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ae3ca20f4b6530f04ca6aa138ec0fa7d2}{Unit::impedanceUnitToStr}(
+00104                               project->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}()) + tr(\textcolor{stringliteral}{"]"}));
+00105 \}
+00106 
+\hypertarget{lineproperties_8cpp_source_l00107}{}\hyperlink{class_line_properties_ae99691d680b4df7bac3419b5588bd777}{00107} \hyperlink{class_line}{Line} *\hyperlink{class_line_properties_ae99691d680b4df7bac3419b5588bd777}{LineProperties::line}()
+00108 \{
+00109   \textcolor{keywordflow}{return} line\_;
+00110 \}
+00111 
+00112 \textcolor{comment}{/*******************************************************************************}
+00113 \textcolor{comment}{ * Botton Box Accepted.}
+00114 \textcolor{comment}{ ******************************************************************************/}
+00115 \textcolor{keywordtype}{void} LineProperties::on\_buttonBox\_accepted()
+00116 \{
+00117 
+00118   \hyperlink{class_network}{Network} *network = project\_->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.value(ui->network->currentText(), NULL);
+00119 
+00120   \textcolor{keywordflow}{if} (network == NULL) \{
+00121     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Invalid network."},
+00122                              QMessageBox::Ok);
+00123     ui->network->setFocus();
+00124     \textcolor{keywordflow}{return};
+00125   \}
+00126 
+00127   \textcolor{comment}{// Check for valid data.}
+00128   \textcolor{comment}{// Nodes.}
+00129   \textcolor{keywordflow}{if}(ui->noI->currentText() == ui->noF->currentText()) \{
+00130     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"},
+00131                              \textcolor{stringliteral}{"Initial and final nodes must be diferent."},
+00132                              QMessageBox::Ok);
+00133     ui->noI->setFocus();
+00134     \textcolor{keywordflow}{return};
+00135   \}
+00136 
+00137   \textcolor{comment}{// Check if line already exists for new lines.}
+00138   QPair<int32\_t, int32\_t> nodes(ui->noI->currentText().toInt(),
+00139                                 ui->noF->currentText().toInt());
+00140 
+00141   \textcolor{keywordflow}{if}(isNew) \{
+00142     \textcolor{keywordflow}{if}(network->\hyperlink{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{getLineByNodes}(nodes) != NULL) \{
+00143       QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"},
+00144                                \textcolor{stringliteral}{"Line already exist."},
+00145                                QMessageBox::Ok);
+00146       ui->noI->setFocus();
+00147       \textcolor{keywordflow}{return};
+00148     \}
+00149   \}
 00150 
-00151 \textcolor{comment}{//  //Zac.}
-00152 \textcolor{comment}{//  if (!validImpedance(ui->Zac))}
-00153 \textcolor{comment}{//    return;}
-00154 
-00155 \textcolor{comment}{//  //Zaci.}
-00156 \textcolor{comment}{//  if (!validImpedance(ui->Zaci))}
-00157 \textcolor{comment}{//    return;}
-00158 
-00159 \textcolor{comment}{//  //Zbb.}
-00160 \textcolor{comment}{//  if (!validImpedance(ui->Zbb))}
-00161 \textcolor{comment}{//    return;}
-00162 
-00163 \textcolor{comment}{//  //Zbbi.}
-00164 \textcolor{comment}{//  if (!validImpedance(ui->Zbbi))}
-00165 \textcolor{comment}{//    return;}
-00166 
-00167 \textcolor{comment}{//  //Zbc.}
-00168 \textcolor{comment}{//  if (!validImpedance(ui->Zbc))}
-00169 \textcolor{comment}{//    return;}
-00170 
-00171 \textcolor{comment}{//  //Zbci.}
-00172 \textcolor{comment}{//  if (!validImpedance(ui->Zbci))}
-00173 \textcolor{comment}{//    return;}
-00174 
-00175 \textcolor{comment}{//  //Zcc.}
-00176 \textcolor{comment}{//  if (!validImpedance(ui->Zcc))}
-00177 \textcolor{comment}{//    return;}
-00178 
-00179 \textcolor{comment}{//  //Zcci.}
-00180 \textcolor{comment}{//  if (!validImpedance(ui->Zcci))}
-00181 \textcolor{comment}{//    return;}
-00182 
-00183 \textcolor{comment}{//  // Set nodes if it's a new line.}
-00184 \textcolor{comment}{//  if(isNew) \{}
-00185 \textcolor{comment}{//    // Set noI and noF.}
-00186 \textcolor{comment}{//    line\_->noI = ui->noI->currentText().toInt();}
-00187 \textcolor{comment}{//    line\_->noF = ui->noF->currentText().toInt();}
-00188 \textcolor{comment}{//  \}}
-00189 
-00190 \textcolor{comment}{//  // Set impedance.}
-00191 
-00192 \textcolor{comment}{//  line\_->Zaa.real(ui->Zaa->text().toDouble());}
-00193 \textcolor{comment}{//  line\_->Zaa.imag(ui->Zaai->text().toDouble());}
-00194 
-00195 \textcolor{comment}{//  line\_->Zab.real(ui->Zab->text().toDouble());}
-00196 \textcolor{comment}{//  line\_->Zab.imag(ui->Zabi->text().toDouble());}
-00197 
-00198 \textcolor{comment}{//  line\_->Zac.real(ui->Zac->text().toDouble());}
-00199 \textcolor{comment}{//  line\_->Zac.imag(ui->Zaci->text().toDouble());}
+00151   \textcolor{comment}{// Length.}
+00152   \textcolor{keywordflow}{if} (ui->length->text().isEmpty()) \{
+00153     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"},
+00154                              \textcolor{stringliteral}{"Parameter Length is empty."},
+00155                              QMessageBox::Ok);
+00156     ui->length->setFocus();
+00157     \textcolor{keywordflow}{return};
+00158   \}
+00159 
+00160   \textcolor{comment}{// Impedance.}
+00161   \textcolor{comment}{//Zaa.}
+00162   \textcolor{keywordflow}{if} (!validImpedance(ui->Zaa))
+00163     \textcolor{keywordflow}{return};
+00164 
+00165   \textcolor{comment}{//Zaai.}
+00166   \textcolor{keywordflow}{if} (!validImpedance(ui->Zaai))
+00167     \textcolor{keywordflow}{return};
+00168 
+00169   \textcolor{comment}{//Zab.}
+00170   \textcolor{keywordflow}{if} (!validImpedance(ui->Zab))
+00171     \textcolor{keywordflow}{return};
+00172 
+00173   \textcolor{comment}{//Zabi.}
+00174   \textcolor{keywordflow}{if} (!validImpedance(ui->Zabi))
+00175     \textcolor{keywordflow}{return};
+00176 
+00177   \textcolor{comment}{//Zac.}
+00178   \textcolor{keywordflow}{if} (!validImpedance(ui->Zac))
+00179     \textcolor{keywordflow}{return};
+00180 
+00181   \textcolor{comment}{//Zaci.}
+00182   \textcolor{keywordflow}{if} (!validImpedance(ui->Zaci))
+00183     \textcolor{keywordflow}{return};
+00184 
+00185   \textcolor{comment}{//Zbb.}
+00186   \textcolor{keywordflow}{if} (!validImpedance(ui->Zbb))
+00187     \textcolor{keywordflow}{return};
+00188 
+00189   \textcolor{comment}{//Zbbi.}
+00190   \textcolor{keywordflow}{if} (!validImpedance(ui->Zbbi))
+00191     \textcolor{keywordflow}{return};
+00192 
+00193   \textcolor{comment}{//Zbc.}
+00194   \textcolor{keywordflow}{if} (!validImpedance(ui->Zbc))
+00195     \textcolor{keywordflow}{return};
+00196 
+00197   \textcolor{comment}{//Zbci.}
+00198   \textcolor{keywordflow}{if} (!validImpedance(ui->Zbci))
+00199     \textcolor{keywordflow}{return};
 00200 
-00201 \textcolor{comment}{//  line\_->Zbb.real(ui->Zbb->text().toDouble());}
-00202 \textcolor{comment}{//  line\_->Zbb.imag(ui->Zbbi->text().toDouble());}
-00203 
-00204 \textcolor{comment}{//  line\_->Zbc.real(ui->Zbc->text().toDouble());}
-00205 \textcolor{comment}{//  line\_->Zbc.imag(ui->Zbci->text().toDouble());}
-00206 
-00207 \textcolor{comment}{//  line\_->Zcc.real(ui->Zcc->text().toDouble());}
-00208 \textcolor{comment}{//  line\_->Zcc.imag(ui->Zcci->text().toDouble());}
-00209 
-00210 \textcolor{comment}{//  line\_->length = ui->length->text().toDouble();}
-00211 
-00212 \textcolor{comment}{//  // Add new line to network.}
-00213 \textcolor{comment}{//  if (isNew) \{}
-00214 \textcolor{comment}{//    if(!project\_->network->addLine(line\_)) \{}
-00215 \textcolor{comment}{//      QMessageBox::critical(this, "Invalid Line", "Can't add new line to project.",}
-00216 \textcolor{comment}{//                            QMessageBox::Ok);}
-00217 \textcolor{comment}{//      delete line\_;}
-00218 \textcolor{comment}{//      reject();}
-00219 \textcolor{comment}{//    \}}
-00220 \textcolor{comment}{//  \}}
-00221 
-00222 \textcolor{comment}{//  accept();}
-00223 \}
-00224 
-00225 \textcolor{comment}{/*******************************************************************************}
-00226 \textcolor{comment}{ * Botton Box Rejected.}
-00227 \textcolor{comment}{ ******************************************************************************/}
-00228 \textcolor{keywordtype}{void} LineProperties::on\_buttonBox\_rejected()
-00229 \{
-00230   reject();
-00231 \}
-00232 
-00233 \textcolor{comment}{/*******************************************************************************}
-00234 \textcolor{comment}{ * validImpedance.}
-00235 \textcolor{comment}{ ******************************************************************************/}
-00236 \textcolor{keywordtype}{bool} LineProperties::validImpedance(QLineEdit *input)
-00237 \{
-00238   \textcolor{keywordtype}{bool} isDouble;
-00239   input->text().toDouble(&isDouble);
-00240 
-00241   \textcolor{keywordflow}{if} (input->text().isEmpty() || !isDouble) \{
+00201   \textcolor{comment}{//Zcc.}
+00202   \textcolor{keywordflow}{if} (!validImpedance(ui->Zcc))
+00203     \textcolor{keywordflow}{return};
+00204 
+00205   \textcolor{comment}{//Zcci.}
+00206   \textcolor{keywordflow}{if} (!validImpedance(ui->Zcci))
+00207     \textcolor{keywordflow}{return};
+00208 
+00209   \textcolor{comment}{// Set nodes and network if it's a new line.}
+00210   \textcolor{keywordflow}{if}(isNew) \{
+00211     \textcolor{comment}{// Set noI and noF.}
+00212     line\_->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes} = nodes;
+00213     \textcolor{comment}{// Set network.}
+00214     line\_->\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network} = network;
+00215   \}
+00216 
+00217   \textcolor{comment}{// Set length}
+00218   line\_->\hyperlink{group___models_ga950d0b8f5d167eda430c65ca7adadbb0}{setLength}(ui->length->text().toDouble(), project\_->\hyperlink{class_project_a40cd2f59a4a708897e5997942c046f4d}{lengthUnit}());
+00219 
+00220   \textcolor{comment}{// Set impedance.}
+00221   complex<double> z;
+00222 
+00223   z.real(ui->Zaa->text().toDouble());
+00224   z.imag(ui->Zaai->text().toDouble());
+00225   line\_->\hyperlink{group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0}{setZ}(0, z, project\_->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}());
+00226 
+00227   z.real(ui->Zab->text().toDouble());
+00228   z.imag(ui->Zabi->text().toDouble());
+00229   line\_->\hyperlink{group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0}{setZ}(1, z, project\_->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}());
+00230 
+00231   z.real(ui->Zac->text().toDouble());
+00232   z.imag(ui->Zaci->text().toDouble());
+00233   line\_->\hyperlink{group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0}{setZ}(2, z, project\_->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}());
+00234 
+00235   z.real(ui->Zbb->text().toDouble());
+00236   z.imag(ui->Zbbi->text().toDouble());
+00237   line\_->\hyperlink{group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0}{setZ}(3, z, project\_->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}());
+00238 
+00239   z.real(ui->Zbc->text().toDouble());
+00240   z.imag(ui->Zbci->text().toDouble());
+00241   line\_->\hyperlink{group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0}{setZ}(4, z, project\_->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}());
 00242 
-00243     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"},
-00244                              \textcolor{stringliteral}{"Parameter "} + input->objectName() + \textcolor{stringliteral}{" is invalid."},
-00245                              QMessageBox::Ok);
-00246     input->setFocus();
-00247     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
-00248   \} \textcolor{keywordflow}{else} \{
-00249     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
-00250   \}
-00251 \}
+00243   z.real(ui->Zcc->text().toDouble());
+00244   z.imag(ui->Zcci->text().toDouble());
+00245   line\_->\hyperlink{group___models_ga409df7d11f5c5d594a13fb2f74b3b9e0}{setZ}(5, z, project\_->\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{impedanceUnit}());
+00246 
+00247   \textcolor{comment}{// Add new line to project.}
+00248   \textcolor{keywordflow}{if} (isNew) \{
+00249     \textcolor{keywordflow}{if}(!network->\hyperlink{group___graphics_gae02945131494987b3ff9b59b627719b4}{addLine}(line\_)) \{
+00250       QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid Line"}, \textcolor{stringliteral}{"Can't add new line to project."},
+00251                             QMessageBox::Ok);
+00252       \textcolor{keyword}{delete} line\_;
+00253       reject();
+00254     \}
+00255   \}
+00256 
+00257   accept();
+00258 \}
+00259 
+00260 \textcolor{comment}{/*******************************************************************************}
+00261 \textcolor{comment}{ * Botton Box Rejected.}
+00262 \textcolor{comment}{ ******************************************************************************/}
+00263 \textcolor{keywordtype}{void} LineProperties::on\_buttonBox\_rejected()
+00264 \{
+00265   reject();
+00266 \}
+00267 
+00268 \textcolor{comment}{/*******************************************************************************}
+00269 \textcolor{comment}{ * validImpedance.}
+00270 \textcolor{comment}{ ******************************************************************************/}
+00271 \textcolor{keywordtype}{bool} LineProperties::validImpedance(QLineEdit *input)
+00272 \{
+00273   \textcolor{keywordtype}{bool} isDouble;
+00274   input->text().toDouble(&isDouble);
+00275 
+00276   \textcolor{keywordflow}{if} (input->text().isEmpty() || !isDouble) \{
+00277 
+00278     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"},
+00279                              \textcolor{stringliteral}{"Parameter "} + input->objectName() + \textcolor{stringliteral}{" is invalid."},
+00280                              QMessageBox::Ok);
+00281     input->setFocus();
+00282     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00283   \} \textcolor{keywordflow}{else} \{
+00284     \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+00285   \}
+00286 \}
 \end{DoxyCode}

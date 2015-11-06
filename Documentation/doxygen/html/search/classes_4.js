@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['network',['Network',['../class_network.html',1,'']]],
-  ['newnetwork',['NewNetwork',['../class_new_network.html',1,'']]],
-  ['newproject',['NewProject',['../class_new_project.html',1,'']]]
+  ['infobar',['InfoBar',['../class_info_bar.html',1,'']]],
+  ['infoline',['InfoLine',['../class_info_line.html',1,'']]]
 ];

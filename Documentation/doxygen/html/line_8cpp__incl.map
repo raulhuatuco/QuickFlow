@@ -1,8 +1,9 @@
 <map id="line.cpp" name="line.cpp">
-<area shape="rect" id="node2" href="$line_8h.html" title="line class definition. " alt="" coords="430,80,529,107"/>
-<area shape="rect" id="node6" href="$bar_8h.html" title="Bar class definition. " alt="" coords="375,155,472,181"/>
-<area shape="rect" id="node11" href="$network_8h.html" title="Network class definition. " alt="" coords="161,229,286,256"/>
-<area shape="rect" id="node19" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="689,155,816,181"/>
-<area shape="rect" id="node7" href="$customtypes_8h.html" title="customtypes.h" alt="" coords="276,304,384,331"/>
-<area shape="rect" id="node16" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="361,229,486,256"/>
+<area shape="rect" id="node2" href="$line_8h.html" title="line class definition. " alt="" coords="383,80,481,107"/>
+<area shape="rect" id="node21" href="$math__constants_8h.html" title="math_constants.h" alt="" coords="921,80,1047,107"/>
+<area shape="rect" id="node6" href="$bar_8h.html" title="Bar class definition. " alt="" coords="334,155,431,181"/>
+<area shape="rect" id="node11" href="$network_8h.html" title="Network class definition. " alt="" coords="419,229,544,256"/>
+<area shape="rect" id="node20" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="549,155,675,181"/>
+<area shape="rect" id="node7" href="$customtypes_8h.html" title="customtypes.h" alt="" coords="129,304,237,331"/>
+<area shape="rect" id="node17" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="568,229,693,256"/>
 </map>

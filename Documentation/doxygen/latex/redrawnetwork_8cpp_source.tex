@@ -1,0 +1,116 @@
+\hypertarget{redrawnetwork_8cpp_source}{}\subsection{redrawnetwork.\+cpp}
+\label{redrawnetwork_8cpp_source}\index{redrawnetwork.\+cpp@{redrawnetwork.\+cpp}}
+
+\begin{DoxyCode}
+00001 \textcolor{preprocessor}{#include "\hyperlink{redrawnetwork_8h}{redrawnetwork.h}"}
+00002 
+00003 
+00004 \textcolor{preprocessor}{#include <ogdf/layered/SugiyamaLayout.h>}
+00005 \textcolor{preprocessor}{#include <ogdf/layered/OptimalRanking.h>}
+00006 \textcolor{preprocessor}{#include <ogdf/layered/MedianHeuristic.h>}
+00007 \textcolor{preprocessor}{#include <ogdf/layered/OptimalHierarchyLayout.h>}
+00008 \textcolor{preprocessor}{#include <ogdf/layered/FastHierarchyLayout.h>}
+00009 \textcolor{preprocessor}{#include <ogdf/layered/BarycenterHeuristic.h>}
+00010 \textcolor{preprocessor}{#include <ogdf/energybased/MultilevelLayout.h>}
+00011 \textcolor{preprocessor}{#include <ogdf/misclayout/BertaultLayout.h>}
+00012 
+00013 \textcolor{keyword}{using namespace }\hyperlink{namespaceogdf}{ogdf};
+00014 
+\hypertarget{redrawnetwork_8cpp_source_l00015}{}\hyperlink{class_redraw_network_a1fe3edb8c57780eb62f7de8f03dfeda3}{00015} \hyperlink{class_redraw_network_a1fe3edb8c57780eb62f7de8f03dfeda3}{RedrawNetwork::RedrawNetwork}(\hyperlink{class_network}{Network} *network) :
+00016   network\_(network)
+00017 \{
+00018 \}
+00019 
+\hypertarget{redrawnetwork_8cpp_source_l00020}{}\hyperlink{class_redraw_network_ac7b5f7fdb2b88e7d8bb580834e93b1e8}{00020} \hyperlink{class_redraw_network_ac7b5f7fdb2b88e7d8bb580834e93b1e8}{RedrawNetwork::~RedrawNetwork}()
+00021 \{
+00022 \}
+00023 
+\hypertarget{redrawnetwork_8cpp_source_l00024}{}\hyperlink{class_redraw_network_a94d53ddf8ee00c4ef6d56bb988333103}{00024} \textcolor{keywordtype}{void} \hyperlink{class_redraw_network_a94d53ddf8ee00c4ef6d56bb988333103}{RedrawNetwork::sugiyamaFast}()
+00025 \{
+00026   createGraph();
+00027 
+00028   SugiyamaLayout SL;
+00029   SL.setRanking(\textcolor{keyword}{new} OptimalRanking);
+00030   SL.setCrossMin(\textcolor{keyword}{new} BarycenterHeuristic);
+00031   FastHierarchyLayout *fhl = \textcolor{keyword}{new} FastHierarchyLayout;
+00032   fhl->layerDistance(40.0);    \textcolor{comment}{// set layer distance to 40.0}
+00033   fhl->nodeDistance(20.0); \textcolor{comment}{// set node distance to 20.0.}
+00034   SL.setLayout(fhl);
+00035   SL.call(GA);
+00036 
+00037   applyChanges();
+00038 \}
+00039 
+\hypertarget{redrawnetwork_8cpp_source_l00040}{}\hyperlink{class_redraw_network_aee0ae606982145e66bba825421d610f8}{00040} \textcolor{keywordtype}{void} \hyperlink{class_redraw_network_aee0ae606982145e66bba825421d610f8}{RedrawNetwork::sugiyama}()
+00041 \{
+00042   createGraph();
+00043 
+00044   SugiyamaLayout SL;
+00045   SL.setRanking(\textcolor{keyword}{new} OptimalRanking);
+00046   SL.setCrossMin(\textcolor{keyword}{new} MedianHeuristic);
+00047   OptimalHierarchyLayout *ohl = \textcolor{keyword}{new} OptimalHierarchyLayout;
+00048   SL.setLayout(ohl);
+00049   SL.call(GA);
+00050 
+00051   applyChanges();
+00052 \}
+00053 
+\hypertarget{redrawnetwork_8cpp_source_l00054}{}\hyperlink{class_redraw_network_a56a92ad06ae0198ee60160aa66aa0ce1}{00054} \textcolor{keywordtype}{void} \hyperlink{class_redraw_network_a56a92ad06ae0198ee60160aa66aa0ce1}{RedrawNetwork::multiLevel}()
+00055 \{
+00056   createGraph();
+00057 
+00058   MultilevelLayout MLL;
+00059   MLL.call( GA );
+00060 
+00061   applyChanges();
+00062 \}
+00063 
+00064 \textcolor{keywordtype}{void} RedrawNetwork::createGraph()
+00065 \{
+00066 \textcolor{comment}{// Create graph attributes for this graph}
+00067   GA.init(G, GraphAttributes::nodeGraphics | GraphAttributes::edgeGraphics |
+00068           GraphAttributes::nodeLabel | GraphAttributes::nodeStyle |
+00069           GraphAttributes::edgeType | GraphAttributes::edgeArrow |
+00070           GraphAttributes::edgeStyle);
+00071 
+00072   node n;
+00073 
+00074   \textcolor{keywordflow}{foreach}(\hyperlink{class_bar}{Bar} *bar, network\_->\hyperlink{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{bars}) \{
+00075     n = G.newNode(bar->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id});
+00076     nodeMap.insert(bar->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id},n);
+00077   \}
+00078 
+00079   forall\_nodes(n, G) \{
+00080     GA.height(n) = \hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{Network::barIconSize};
+00081     GA.width(n) = \hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{Network::barIconSize};
+00082     GA.shape(n) = shRect;
+00083   \}
+00084 
+00085   \textcolor{keywordflow}{foreach}(\hyperlink{class_line}{Line} *line, network\_->\hyperlink{class_network_acda0fd42e712e460a08a0e96511ee7eb}{lines}) \{
+00086     node noI = nodeMap.value(line->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.first);
+00087     node noF = nodeMap.value(line->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.second);
+00088     G.newEdge(noI, noF);
+00089   \}
+00090 
+00091   edge e;
+00092   forall\_edges(e, G) \{
+00093     \textcolor{comment}{// Commented to test bends.}
+00094    GA.bends(e);
+00095     GA.arrowType(e) = eaNone;
+00096   \}
+00097 \}
+00098 
+00099 \textcolor{keywordtype}{void} RedrawNetwork::applyChanges()
+00100 \{
+00101   node n;
+00102 
+00103   forall\_nodes(n, G) \{  \textcolor{comment}{// iterate through all the node in the graph}
+00104     \textcolor{keywordtype}{double} x = GA.x(n);
+00105     \textcolor{keywordtype}{double} y = GA.y(n);
+00106     \textcolor{keywordtype}{int} \textcolor{keywordtype}{id} = n->index();
+00107     \hyperlink{class_bar}{Bar} *bar = network\_->\hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(\textcolor{keywordtype}{id});
+00108 
+00109     bar->setPos(y, x);
+00110   \}
+00111 \}
+\end{DoxyCode}

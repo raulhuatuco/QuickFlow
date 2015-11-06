@@ -7,8 +7,7 @@ Widget to visualise Networks.
 
 
 
-Inheritance diagram for System\+View\+:
-\nopagebreak
+Inheritance diagram for System\+View\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -17,14 +16,20 @@ Inheritance diagram for System\+View\+:
 \end{figure}
 
 
-Collaboration diagram for System\+View\+:
-\nopagebreak
+Collaboration diagram for System\+View\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=165pt]{class_system_view__coll__graph}
 \end{center}
 \end{figure}
+\subsubsection*{Signals}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{class_system_view_a90bd4b070c8abaa5995899154421eb44}{bar\+Properties} (Q\+Object $\ast$)
+\item 
+void \hyperlink{class_system_view_a58c4a0bf68178ab59066819118214360}{line\+Properties} (Q\+Object $\ast$)
+\end{DoxyCompactItemize}
 \subsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -41,12 +46,20 @@ void \hyperlink{group___graphics_gac1bf0b6a80216df74a8da1cb8ac5f0e8}{zoom\+Fit} 
 void \hyperlink{group___graphics_gae183447d0777c7b2b940a977f9b64c3f}{add\+Network} (\hyperlink{class_network}{Network} $\ast$network)
 \begin{DoxyCompactList}\small\item\em add\+Network \end{DoxyCompactList}\item 
 void \hyperlink{group___graphics_ga2078ad08ff93b9a8683d567e3f9f714e}{remove\+Network} (\hyperlink{class_network}{Network} $\ast$network)
-\begin{DoxyCompactList}\small\item\em remove\+Network \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em remove\+Network \end{DoxyCompactList}\item 
+void \hyperlink{group___graphics_gac4e02019d41c203c788ff1e6f3ee460e}{add\+Bar} (\hyperlink{class_bar}{Bar} $\ast$bar)
+\item 
+void \hyperlink{group___graphics_ga1e96b08395a2f1b961dedbb3e8c99a50}{remove\+Bar} (\hyperlink{class_bar}{Bar} $\ast$bar)
+\item 
+void \hyperlink{group___graphics_gaed2fb15d518cab9a52ea1ee258846bfc}{add\+Line} (\hyperlink{class_line}{Line} $\ast$line)
+\item 
+void \hyperlink{group___graphics_ga4af1d763d9b9c02933e62d1f6231ad18}{remove\+Line} (\hyperlink{class_line}{Line} $\ast$line)
+\end{DoxyCompactItemize}
 \subsubsection*{Protected Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}{wheel\+Event} (Q\+Wheel\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
-\begin{DoxyCompactList}\small\item\em Opens the bar properties editor for bar {\bfseries bar}. \end{DoxyCompactList}\item 
+\item 
 void \hyperlink{group___graphics_gab19e233cd697852dd71140971cb6e122}{mouse\+Move\+Event} (Q\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
 \item 
 void \hyperlink{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{mouse\+Press\+Event} (Q\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
@@ -68,6 +81,45 @@ void \hyperlink{group___graphics_gaa8a2664405194bbe29daa454aead7416}{mouse\+Rele
  
 
 Definition at line \hyperlink{systemview_8h_source_l00064}{64} of file \hyperlink{systemview_8h_source}{systemview.\+h}.
+
+
+
+\subsubsection{Member Function Documentation}
+\hypertarget{class_system_view_a90bd4b070c8abaa5995899154421eb44}{}\index{System\+View@{System\+View}!bar\+Properties@{bar\+Properties}}
+\index{bar\+Properties@{bar\+Properties}!System\+View@{System\+View}}
+\paragraph[{bar\+Properties}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::bar\+Properties (
+\begin{DoxyParamCaption}
+\item[{Q\+Object $\ast$}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_system_view_a90bd4b070c8abaa5995899154421eb44}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_system_view_a90bd4b070c8abaa5995899154421eb44_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{class_system_view_a58c4a0bf68178ab59066819118214360}{}\index{System\+View@{System\+View}!line\+Properties@{line\+Properties}}
+\index{line\+Properties@{line\+Properties}!System\+View@{System\+View}}
+\paragraph[{line\+Properties}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::line\+Properties (
+\begin{DoxyParamCaption}
+\item[{Q\+Object $\ast$}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [signal]}}\label{class_system_view_a58c4a0bf68178ab59066819118214360}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{class_system_view_a58c4a0bf68178ab59066819118214360_icgraph}
+\end{center}
+\end{figure}
+
 
 
 

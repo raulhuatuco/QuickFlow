@@ -3,197 +3,257 @@
 
 \begin{DoxyCode}
 00001 \textcolor{preprocessor}{#include "\hyperlink{infoline_8h}{infoline.h}"}
-00002 
-00003 \textcolor{preprocessor}{#include <QPainter>}
-00004 \textcolor{preprocessor}{#include <QString>}
-00005 \textcolor{preprocessor}{#include <complex>}
-00006 
-00007 \textcolor{comment}{/*******************************************************************************}
-00008 \textcolor{comment}{ * InfoLine.}
-00009 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{infoline_8cpp_source_l00010}{}\hyperlink{class_info_line_a63819dbfeb257cc86be86f0fac3aa02f}{00010} \hyperlink{class_info_line_a63819dbfeb257cc86be86f0fac3aa02f}{InfoLine::InfoLine}(\hyperlink{class_line}{Line} *line) :
-00011   line\_(line)
-00012 \{
-00013   setZValue(2);
-00014   qreal px = (line->\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI}()->x() + line->\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF}()->x()) / 2;
-00015   qreal py = (line->\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI}()->y() + line->\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF}()->y()) / 2;
-00016 
-00017   setPos(px,py);
-00018 \}
-00019 
-00020 \textcolor{comment}{/*******************************************************************************}
-00021 \textcolor{comment}{ * ~InfoLine.}
-00022 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{infoline_8cpp_source_l00023}{}\hyperlink{class_info_line_ac3497eeb5f2719fb4fac42434955597d}{00023} \hyperlink{class_info_line_ac3497eeb5f2719fb4fac42434955597d}{InfoLine::~InfoLine}() \{\}
-00024 
-00025 \textcolor{comment}{/*******************************************************************************}
-00026 \textcolor{comment}{ * paint.}
-00027 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{infoline_8cpp_source_l00028}{}\hyperlink{class_info_line_ac696c9944716774dfe85a40ac5a434e1}{00028} \textcolor{keywordtype}{void} \hyperlink{class_info_line_ac696c9944716774dfe85a40ac5a434e1}{InfoLine::paint}(QPainter *painter,
-00029                      \textcolor{keyword}{const} QStyleOptionGraphicsItem *option,
-00030                      QWidget *widget)
-00031 \{
-00032   Q\_UNUSED(option);
-00033   Q\_UNUSED(widget);
-00034 
-00035   \textcolor{comment}{// Draw main rectangle.}
-00036   painter->setPen(QPen(Qt::black, \hyperlink{class_info_line_a18390d54c56cd68cf6e767a5df7404d8}{kLineWidth}, Qt::SolidLine));
-00037   painter->setBrush(Qt::white);
-00038   QRectF main\_rect =
-00039     QRectF(-\hyperlink{class_info_line_af71f2b91ea77398bd770b973b71e2896}{kBoxWidth} / 2, -\hyperlink{class_info_line_a279cafcac8d844a00bd27dde524102dd}{kBoxHeight} - \hyperlink{class_info_line_ab332e0b1c83e5ab8f551e3f39b2dfc55}{kBoxBaseHeight}, 
-      \hyperlink{class_info_line_af71f2b91ea77398bd770b973b71e2896}{kBoxWidth}, \hyperlink{class_info_line_a279cafcac8d844a00bd27dde524102dd}{kBoxHeight});
-00040   painter->drawRect(main\_rect);
+00002 \textcolor{preprocessor}{#include <QPainter>}
+00003 \textcolor{preprocessor}{#include <QString>}
+00004 \textcolor{preprocessor}{#include <complex>}
+00005 \textcolor{preprocessor}{#include "\hyperlink{math__constants_8h}{math\_constants.h}"}
+00006 \textcolor{preprocessor}{#include "\hyperlink{datatable_8h}{datatable.h}"}
+00007 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
+00008 \textcolor{preprocessor}{#include "\hyperlink{customtypes_8h}{customtypes.h}"}
+00009 
+00010 \textcolor{comment}{/*******************************************************************************}
+00011 \textcolor{comment}{ * Static constants.}
+00012 \textcolor{comment}{ ******************************************************************************/}
+00013 \textcolor{keyword}{const} \textcolor{keywordtype}{int} \hyperlink{class_info_line_a95cdc7a95cde6db7c6faceda995d26b9}{InfoLine::kTableRows}  = 4;
+00014 \textcolor{keyword}{const} \textcolor{keywordtype}{int} \hyperlink{class_info_line_a9fc071b08eb913cf3afc623835ad2fd8}{InfoLine::kTableColums} = 3;
+00015 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{class_info_line_a33821aa140dc03829357d4006e9c153c}{InfoLine::kBoxWidth}= 135.0*kTableColums;
+00016 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{class_info_line_a9e459549795bab79ae3b6c184dc78a00}{InfoLine::kBoxHeight} = 37.5*kTableRows;
+00017 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{class_info_line_ad072bc8ef178113c36c3d480c7d637ac}{InfoLine::kLineWidth} = 2.0;
+00018 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{class_info_line_a73e02db68396f0c4b66d0cf80bd37c83}{InfoLine::kMarginHeadTop} = 5.0;
+00019 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{class_info_line_a82ed1944ec4a41af19e377a243c2332d}{InfoLine::kMarginHeadBot} = 5.0;
+00020 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{class_info_line_a995100424420038664880195f5e51f50}{InfoLine::kMarginTop} = 5.0;
+00021 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{class_info_line_ab4bd85105aabcb9d1230225c15873da2}{InfoLine::kMarginBot} = 5.0;
+00022 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{class_info_line_a68232e6e5e3b63a4b6aced3d99291ad7}{InfoLine::kMarginLeft} = 5.0;
+00023 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{class_info_line_a0f0bd713ed9c1c8012bbd29dbd1db75e}{InfoLine::kMarginRight} = 5.0;
+00024 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{class_info_line_ab50f47aa54c45def219859e9da3755e6}{InfoLine::kBoxBaseHeight} = 30.0;
+00025 \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{class_info_line_aad905589137b80ba75d9a1c49535eb1a}{InfoLine::kBoxBaseWidth} = 60.0;
+00026 
+00027 \textcolor{comment}{/*******************************************************************************}
+00028 \textcolor{comment}{ * Constructor.}
+00029 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{infoline_8cpp_source_l00030}{}\hyperlink{class_info_line_a63819dbfeb257cc86be86f0fac3aa02f}{00030} \hyperlink{class_info_line_a63819dbfeb257cc86be86f0fac3aa02f}{InfoLine::InfoLine}(\hyperlink{class_line}{Line} *line) :
+00031   line\_(line)
+00032 \{
+00033   setZValue(2);
+00034   \textcolor{keywordtype}{double} px = (line->\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI}()->x() + line->\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF}()->x()) / 2 +
+00035               line->\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{class_network_a9f5c70be28a45320802bd0ac3947d114}{xOffset};
+00036   \textcolor{keywordtype}{double} py = (line->\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI}()->y() + line->\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF}()->y()) / 2 +
+00037               line->\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{class_network_a771b16f7eb4459d0ca7141c048b1ab59}{yOffset};
+00038 
+00039   setPos(px,py);
+00040 \}
 00041 
-00042   \textcolor{comment}{// Set Head font size.}
-00043   QFont font;
-00044   font.setPointSize(font.pointSize() * 1.25);
-00045   painter->setFont(font);
-00046 
-00047   \textcolor{comment}{// Draw Head separation.}
-00048   qreal headHeight = \hyperlink{class_info_line_aa08e22c99ce13c2fc57a9d9c9de4d99f}{kMarginHeadTop} + \hyperlink{class_info_line_a3d981c2b5f55052aad8d105177be443d}{kMarginHeadBot} + font.pointSize();
+00042 \textcolor{comment}{/*******************************************************************************}
+00043 \textcolor{comment}{ * Destructor.}
+00044 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{infoline_8cpp_source_l00045}{}\hyperlink{class_info_line_ac3497eeb5f2719fb4fac42434955597d}{00045} \hyperlink{class_info_line_ac3497eeb5f2719fb4fac42434955597d}{InfoLine::~InfoLine}()
+00046 \{
+00047 
+00048 \}
 00049 
-00050   painter->drawLine(QPointF(-\hyperlink{class_info_line_af71f2b91ea77398bd770b973b71e2896}{kBoxWidth}/2,
-00051                             -\hyperlink{class_info_line_a279cafcac8d844a00bd27dde524102dd}{kBoxHeight} - \hyperlink{class_info_line_ab332e0b1c83e5ab8f551e3f39b2dfc55}{kBoxBaseHeight} + headHeight),
-00052                     QPointF(\hyperlink{class_info_line_af71f2b91ea77398bd770b973b71e2896}{kBoxWidth}/2, -\hyperlink{class_info_line_a279cafcac8d844a00bd27dde524102dd}{kBoxHeight} - 
-      \hyperlink{class_info_line_ab332e0b1c83e5ab8f551e3f39b2dfc55}{kBoxBaseHeight} + headHeight));
-00053 
-00054   \textcolor{comment}{// Head Text.}
-00055   QString head = \textcolor{stringliteral}{"Line "} + QString::number(line\_->\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI}()->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id}) + \textcolor{stringliteral}{" -> "} +
-00056                  QString::number(line\_->\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF}()->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id});
-00057 
-00058   \textcolor{comment}{// Draw Head Text.}
-00059   painter->drawText(-\hyperlink{class_info_line_af71f2b91ea77398bd770b973b71e2896}{kBoxWidth}/2, -\hyperlink{class_info_line_a279cafcac8d844a00bd27dde524102dd}{kBoxHeight} - 
-      \hyperlink{class_info_line_ab332e0b1c83e5ab8f551e3f39b2dfc55}{kBoxBaseHeight} + \hyperlink{class_info_line_aa08e22c99ce13c2fc57a9d9c9de4d99f}{kMarginHeadTop},
-00060                     \hyperlink{class_info_line_af71f2b91ea77398bd770b973b71e2896}{kBoxWidth}, font.pointSize(), Qt::AlignCenter, head );
-00061 
-00062   \textcolor{comment}{// Revert font size.}
-00063   font.setPointSize(font.pointSize() / 1.25);
+00050 \textcolor{comment}{/*******************************************************************************}
+00051 \textcolor{comment}{ * Paint.}
+00052 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{infoline_8cpp_source_l00053}{}\hyperlink{class_info_line_ac696c9944716774dfe85a40ac5a434e1}{00053} \textcolor{keywordtype}{void} \hyperlink{class_info_line_ac696c9944716774dfe85a40ac5a434e1}{InfoLine::paint}(QPainter *painter, \textcolor{keyword}{const} QStyleOptionGraphicsItem *option,
+00054                      QWidget *widget)
+00055 \{
+00056   Q\_UNUSED(option);
+00057   Q\_UNUSED(widget);
+00058 
+00059   \textcolor{comment}{// Draw main rectangle.}
+00060   QRectF mainRect(-\hyperlink{class_info_line_a33821aa140dc03829357d4006e9c153c}{kBoxWidth} / 2, -\hyperlink{class_info_line_a9e459549795bab79ae3b6c184dc78a00}{kBoxHeight} - 
+      \hyperlink{class_info_line_ab50f47aa54c45def219859e9da3755e6}{kBoxBaseHeight}, \hyperlink{class_info_line_a33821aa140dc03829357d4006e9c153c}{kBoxWidth},
+00061                   \hyperlink{class_info_line_a9e459549795bab79ae3b6c184dc78a00}{kBoxHeight});
+00062   \hyperlink{class_info_line_a3a0f83ad98fe674513dab679e22cba42}{drawMainRectangle}(mainRect, \hyperlink{class_info_line_ad072bc8ef178113c36c3d480c7d637ac}{kLineWidth}, painter);
+00063 
 00064 
-00065   \textcolor{comment}{// Table points.}
-00066   qreal tableXi = -\hyperlink{class_info_line_af71f2b91ea77398bd770b973b71e2896}{kBoxWidth}/2.0 + \hyperlink{class_info_line_a480271b6a9d683ab36c0c6ef142a461f}{kMarginLeft};
-00067   qreal tableYi = -\hyperlink{class_info_line_a279cafcac8d844a00bd27dde524102dd}{kBoxHeight} - \hyperlink{class_info_line_ab332e0b1c83e5ab8f551e3f39b2dfc55}{kBoxBaseHeight} + headHeight + 
-      \hyperlink{class_info_line_ab0b7394c3710ba9d88da13a484069302}{kMarginTop};
-00068 
-00069   qreal tableXf = \hyperlink{class_info_line_af71f2b91ea77398bd770b973b71e2896}{kBoxWidth}/2.0 - \hyperlink{class_info_line_af945da2dfe0437816b9e1fe8e6668692}{kMarginRight};
-00070   qreal tableYf = - \hyperlink{class_info_line_ab332e0b1c83e5ab8f551e3f39b2dfc55}{kBoxBaseHeight} - \hyperlink{class_info_line_a82acf816389449ddce739e8abb6e0fdc}{kMarginBot};
-00071 
-00072   qreal tableDx = (tableXf - tableXi);
-00073   qreal tableDy = (tableYf - tableYi);
-00074 
-00075   \textcolor{comment}{// Set table pen.}
-00076   painter->setPen(QPen(Qt::lightGray, \hyperlink{class_info_line_a9d03a53c9bca9357e502a1e423ff4541}{kTableLineWidth}, Qt::SolidLine));
-00077 
-00078   \textcolor{comment}{// Draw table colums.}
-00079   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=1; i<\hyperlink{class_info_line_a9fc071b08eb913cf3afc623835ad2fd8}{kTableColums}; i++) \{
-00080     qreal x = tableXi + tableDx*\textcolor{keyword}{static\_cast<}qreal\textcolor{keyword}{>}(i)/static\_cast<qreal>
-00081               (kTableColums);
-00082     painter->drawLine(x, tableYi, x, tableYf);
-00083   \}
-00084 
-00085   \textcolor{comment}{// Draw table rows.}
-00086   \textcolor{keywordflow}{for}(\textcolor{keywordtype}{int} i=1; i<\hyperlink{class_info_line_a95cdc7a95cde6db7c6faceda995d26b9}{kTableRows}; i++) \{
-00087     qreal y = tableYi + tableDy*\textcolor{keyword}{static\_cast<}qreal\textcolor{keyword}{>}(i)/static\_cast<qreal>
-00088               (kTableRows);
-00089     painter->drawLine(tableXi,
-00090                       y,
-00091                       tableXf,
-00092                       y);
-00093   \}
-00094 
-00095 
-00096   \textcolor{comment}{// Table text is gray.}
-00097   painter->setPen(QPen(Qt::gray, \hyperlink{class_info_line_a9d03a53c9bca9357e502a1e423ff4541}{kTableLineWidth}, Qt::SolidLine));
-00098 
-00099   \textcolor{comment}{// Draw table 0-1 text.}
-00100   \textcolor{comment}{// Current.}
-00101   qreal x = tableXi + tableDx/\textcolor{keyword}{static\_cast<}qreal\textcolor{keyword}{>}(\hyperlink{class_info_line_a9fc071b08eb913cf3afc623835ad2fd8}{kTableColums});
-00102   qreal y = tableYi;
-00103   qreal w = tableDx/\textcolor{keyword}{static\_cast<}qreal\textcolor{keyword}{>}(\hyperlink{class_info_line_a9fc071b08eb913cf3afc623835ad2fd8}{kTableColums});
-00104   qreal h = tableDy/\textcolor{keyword}{static\_cast<}qreal\textcolor{keyword}{>}(\hyperlink{class_info_line_a95cdc7a95cde6db7c6faceda995d26b9}{kTableRows});
-00105   painter->drawText(x,y,w,h, Qt::AlignCenter, \textcolor{stringliteral}{"Current [A]"});
-00106 
-00107   \textcolor{comment}{//Draw table 0-2 text}
-00108   \textcolor{comment}{// Loss.}
-00109   x = tableXi + 2*tableDx/\textcolor{keyword}{static\_cast<}qreal\textcolor{keyword}{>}(\hyperlink{class_info_line_a9fc071b08eb913cf3afc623835ad2fd8}{kTableColums});
-00110   painter->drawText(x,y,w,h, Qt::AlignCenter, \textcolor{stringliteral}{"Loss [VA]"});
-00111 
-00112   \textcolor{comment}{//Draw table 1-0 text}
-00113   \textcolor{comment}{// Phase A.}
-00114   x = tableXi;
-00115   y = tableYi + tableDy/\textcolor{keyword}{static\_cast<}qreal\textcolor{keyword}{>}(\hyperlink{class_info_line_a95cdc7a95cde6db7c6faceda995d26b9}{kTableRows});
-00116   painter->drawText(x,y,w,h, Qt::AlignCenter, \textcolor{stringliteral}{"Phase A"});
+00065   \textcolor{keywordtype}{double} headHeight = \hyperlink{class_info_line_a73e02db68396f0c4b66d0cf80bd37c83}{kMarginHeadTop} +\hyperlink{class_info_line_a82ed1944ec4a41af19e377a243c2332d}{kMarginHeadBot} + painter->font().
+      pointSize()
+00066                       *1.25;
+00067 
+00068   QRectF headRect(mainRect.x(), mainRect.y(), mainRect.width(), headHeight);
+00069 
+00070   \textcolor{comment}{// Draw Head separation.}
+00071   \hyperlink{class_info_line_a53e9012a9cef4f07f1d4872c6d250c08}{drawHeadSeparator}(headRect, painter);
+00072 
+00073   \textcolor{comment}{// Draw head text.}
+00074   \hyperlink{class_info_line_a389ea4f5085b60d03022b94e636f11d1}{setHeadFont}(painter);
+00075   QString headText = \textcolor{stringliteral}{"("} + line\_->\hyperlink{class_line_aefdf6a6c3e3775b5a16b344c1d33964e}{network}->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name} + \textcolor{stringliteral}{") "} + \textcolor{stringliteral}{"Line "} +
+00076                      QString::number(line\_->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.first) + \textcolor{stringliteral}{" -> "} +
+00077                      QString::number(line\_->\hyperlink{class_line_afd17c40d656e6a8d677cb22df5f0c70b}{nodes}.second);
+00078   \hyperlink{class_info_line_a043932fa92604badc063e09691195609}{drawHeadText}(headRect, \hyperlink{class_info_line_a73e02db68396f0c4b66d0cf80bd37c83}{kMarginHeadTop}, headText, painter);
+00079 
+00080   \textcolor{comment}{// Revert font size.}
+00081   \hyperlink{class_info_line_a4d5084d616c878cb717e8445db0023c1}{setNormalFont}(painter);
+00082 
+00083   \textcolor{comment}{// Draw data table.}
+00084   QRectF tableRect;
+00085   tableRect.setX(mainRect.x() + \hyperlink{class_info_line_a68232e6e5e3b63a4b6aced3d99291ad7}{kMarginLeft});
+00086   tableRect.setY(mainRect.y() + headRect.height() + \hyperlink{class_info_line_a995100424420038664880195f5e51f50}{kMarginTop});
+00087   tableRect.setWidth(mainRect.width() - \hyperlink{class_info_line_a0f0bd713ed9c1c8012bbd29dbd1db75e}{kMarginRight});
+00088   tableRect.setHeight(mainRect.height() - headRect.height() - \hyperlink{class_info_line_a995100424420038664880195f5e51f50}{kMarginTop} -
+00089                       \hyperlink{class_info_line_ab4bd85105aabcb9d1230225c15873da2}{kMarginBot});
+00090 
+00091   \hyperlink{class_data_table}{DataTable} dataTable(\hyperlink{class_info_line_a95cdc7a95cde6db7c6faceda995d26b9}{kTableRows}, \hyperlink{class_info_line_a9fc071b08eb913cf3afc623835ad2fd8}{kTableColums});
+00092   dataTable.\hyperlink{class_data_table_a8a8cd6f95caaaff148993f8e28eeb703}{setSize}(tableRect);
+00093 
+00094   \textcolor{comment}{// Current head.}
+00095   QString table0x1 = \textcolor{stringliteral}{"Current ["};
+00096   table0x1.append(\hyperlink{class_unit_a7bd3ed3edcb18170cd162d384075b651}{Unit::currentUnitToStr}(
+      \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit}));
+00097   table0x1.append(\textcolor{stringliteral}{"]"});
+00098   dataTable.\hyperlink{class_data_table_aee0d28c77116b51360f0124a529cb3ff}{setText}(table0x1, 0, 1);
+00099 
+00100   \textcolor{comment}{// Loss head.}
+00101   QString table0x2 = \textcolor{stringliteral}{"Loss ["};
+00102   table0x2.append(\hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(\hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}));
+00103   table0x2.append(\textcolor{stringliteral}{"]"});
+00104   dataTable.\hyperlink{class_data_table_aee0d28c77116b51360f0124a529cb3ff}{setText}(table0x2, 0, 2);
+00105 
+00106   \textcolor{comment}{// Phase A head.}
+00107   QString table1x0 = \textcolor{stringliteral}{"Phase A"};
+00108   dataTable.\hyperlink{class_data_table_aee0d28c77116b51360f0124a529cb3ff}{setText}(table1x0, 1, 0);
+00109 
+00110   \textcolor{comment}{// Phase B head.}
+00111   QString table2x0 = \textcolor{stringliteral}{"Phase B"};
+00112   dataTable.\hyperlink{class_data_table_aee0d28c77116b51360f0124a529cb3ff}{setText}(table2x0, 2, 0);
+00113 
+00114   \textcolor{comment}{// Phase C head.}
+00115   QString table3x0 = \textcolor{stringliteral}{"Phase C"};
+00116   dataTable.\hyperlink{class_data_table_aee0d28c77116b51360f0124a529cb3ff}{setText}(table3x0, 3, 0);
 00117 
-00118   QString buffer; \textcolor{comment}{// buffer used to hold numeric values.}
-00119 
-00120   \textcolor{comment}{//Draw table 1-1 text}
-00121   \textcolor{comment}{// Ia.}
-00122 
-00123   x = tableXi + tableDx/\textcolor{keyword}{static\_cast<}qreal\textcolor{keyword}{>}(\hyperlink{class_info_line_a9fc071b08eb913cf3afc623835ad2fd8}{kTableColums});
-00124 \textcolor{comment}{//  buffer = QString::number(abs(line\_->Ia)) + " / " + QString::number(arg(}
-00125 \textcolor{comment}{//             line\_->Ia)*180.0/M\_PI) + "°";}
-00126 \textcolor{comment}{//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);}
-00127 
-00128 \textcolor{comment}{//  //Draw table 1-2 text}
-00129 \textcolor{comment}{//  // La.}
-00130 \textcolor{comment}{//  x = tableXi + 2*tableDx/static\_cast<qreal>(kTableColums);}
-00131 \textcolor{comment}{//  buffer = QString::number(line\_->lossA().real()) + " + " + QString::number(}
-00132 \textcolor{comment}{//             line\_->lossA().imag()) + "i";}
-00133 \textcolor{comment}{//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);}
-00134 
-00135 \textcolor{comment}{//  //Draw table 2-0 text}
-00136 \textcolor{comment}{//  // Phase B.}
-00137 \textcolor{comment}{//  x = tableXi;}
-00138 \textcolor{comment}{//  y = tableYi + 2*tableDy/static\_cast<qreal>(kTableRows);}
-00139 \textcolor{comment}{//  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase B");}
-00140 
-00143 \textcolor{comment}{//  x = tableXi + tableDx/static\_cast<qreal>(kTableColums);}
-00144 \textcolor{comment}{//  buffer = QString::number(abs(line\_->Ib)) + " / " + QString::number(arg(}
-00145 \textcolor{comment}{//             line\_->Ib)*180.0/M\_PI) + "°";}
-00146 \textcolor{comment}{//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);}
-00147 
-00148 \textcolor{comment}{//  //Draw table 2-2 text}
-00149 \textcolor{comment}{//  // Lb.}
-00150 \textcolor{comment}{//  x = tableXi + 2*tableDx/static\_cast<qreal>(kTableColums);}
-00151 \textcolor{comment}{//  buffer = QString::number(line\_->lossB().real()) + " + " + QString::number(}
-00152 \textcolor{comment}{//             line\_->lossB().imag()) + "i";}
-00153 \textcolor{comment}{//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);}
-00154 
-00155 \textcolor{comment}{//  //Draw table 3-0 text}
-00156 \textcolor{comment}{//  // Phase C.}
-00157 \textcolor{comment}{//  x = tableXi;}
-00158 \textcolor{comment}{//  y = tableYi + 3*tableDy/static\_cast<qreal>(kTableRows);}
-00159 \textcolor{comment}{//  painter->drawText(x,y,w,h, Qt::AlignCenter, "Phase C");}
-00160 
-00161 \textcolor{comment}{//  //Draw table 3-1 text}
-00162 \textcolor{comment}{//  // Ic.}
-00163 \textcolor{comment}{//  x = tableXi + tableDx/static\_cast<qreal>(kTableColums);}
-00164 \textcolor{comment}{//  buffer = QString::number(abs(line\_->Ic)) + " / " + QString::number(arg(}
-00165 \textcolor{comment}{//             line\_->Ic)*180.0/M\_PI) + "°";}
-00166 \textcolor{comment}{//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);}
+00118   \textcolor{comment}{// Current Phase A.}
+00119   QString table1x1 = QString::number(abs(line\_->\hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{i}(0, \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit})));
+00120   table1x1.append(\textcolor{stringliteral}{" / "});
+00121   table1x1.append(QString::number(arg(line\_->\hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{i}(0,
+00122                                       \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit})*180.0/
+      \hyperlink{math__constants_8h_a368d99984512d9a6c6f18b37b4446431}{kPI})));
+00123   table1x1.append(\textcolor{stringliteral}{"°"});
+00124   dataTable.\hyperlink{class_data_table_aee0d28c77116b51360f0124a529cb3ff}{setText}(table1x1, 1, 1);
+00125 
+00126   \textcolor{comment}{// Loss Phase A.}
+00127   QString table1x2 = QString::number(abs(line\_->\hyperlink{group___models_ga7909d69e419de3f460ca7abab3d91e53}{loss}(0, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit})));
+00128   table1x2.append(\textcolor{stringliteral}{" / "});
+00129   table1x2.append(QString::number(arg(line\_->\hyperlink{group___models_ga7909d69e419de3f460ca7abab3d91e53}{loss}(0,
+00130                                       \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit})*180.0/
+      \hyperlink{math__constants_8h_a368d99984512d9a6c6f18b37b4446431}{kPI})));
+00131   table1x2.append(\textcolor{stringliteral}{"°"});
+00132   dataTable.\hyperlink{class_data_table_aee0d28c77116b51360f0124a529cb3ff}{setText}(table1x2, 1, 2);
+00133 
+00134   \textcolor{comment}{// Current Phase B.}
+00135   QString table2x1 = QString::number(abs(line\_->\hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{i}(1, \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit})));
+00136   table2x1.append(\textcolor{stringliteral}{" / "});
+00137   table2x1.append(QString::number(arg(line\_->\hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{i}(1,
+00138                                       \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit})*180.0/
+      \hyperlink{math__constants_8h_a368d99984512d9a6c6f18b37b4446431}{kPI})));
+00139   table2x1.append(\textcolor{stringliteral}{"°"});
+00140   dataTable.\hyperlink{class_data_table_aee0d28c77116b51360f0124a529cb3ff}{setText}(table2x1, 2, 1);
+00141 
+00142   \textcolor{comment}{// Loss Phase B.}
+00143   QString table2x2 = QString::number(abs(line\_->\hyperlink{group___models_ga7909d69e419de3f460ca7abab3d91e53}{loss}(1, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit})));
+00144   table2x2.append(\textcolor{stringliteral}{" / "});
+00145   table2x2.append(QString::number(arg(line\_->\hyperlink{group___models_ga7909d69e419de3f460ca7abab3d91e53}{loss}(1,
+00146                                       \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit})*180.0/
+      \hyperlink{math__constants_8h_a368d99984512d9a6c6f18b37b4446431}{kPI})));
+00147   table2x2.append(\textcolor{stringliteral}{"°"});
+00148   dataTable.\hyperlink{class_data_table_aee0d28c77116b51360f0124a529cb3ff}{setText}(table2x2, 2, 2);
+00149 
+00150   \textcolor{comment}{// Current Phase C.}
+00151   QString table3x1 = QString::number(abs(line\_->\hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{i}(2, \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit})));
+00152   table3x1.append(\textcolor{stringliteral}{" / "});
+00153   table3x1.append(QString::number(arg(line\_->\hyperlink{group___models_gaf81e7055102816465bdf7e19afc2d547}{i}(2,
+00154                                       \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit})*180.0/
+      \hyperlink{math__constants_8h_a368d99984512d9a6c6f18b37b4446431}{kPI})));
+00155   table3x1.append(\textcolor{stringliteral}{"°"});
+00156   dataTable.\hyperlink{class_data_table_aee0d28c77116b51360f0124a529cb3ff}{setText}(table3x1, 3, 1);
+00157 
+00158   \textcolor{comment}{// Loss Phase C.}
+00159   QString table3x2 = QString::number(abs(line\_->\hyperlink{group___models_ga7909d69e419de3f460ca7abab3d91e53}{loss}(2, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit})));
+00160   table3x2.append(\textcolor{stringliteral}{" / "});
+00161   table3x2.append(QString::number(arg(line\_->\hyperlink{group___models_ga7909d69e419de3f460ca7abab3d91e53}{loss}(2,
+00162                                       \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit})*180.0/
+      \hyperlink{math__constants_8h_a368d99984512d9a6c6f18b37b4446431}{kPI})));
+00163   table3x2.append(\textcolor{stringliteral}{"°"});
+00164   dataTable.\hyperlink{class_data_table_aee0d28c77116b51360f0124a529cb3ff}{setText}(table3x1, 3, 2);
+00165 
+00166   dataTable.\hyperlink{class_data_table_a3a3695e88dcd4d4aad5cc941ec7e6e55}{drawTable}(painter);
 00167 
-00168 \textcolor{comment}{//  //Draw table 3-2 text}
-00169 \textcolor{comment}{//  // Lc.}
-00170 \textcolor{comment}{//  x = tableXi + 2*tableDx/static\_cast<qreal>(kTableColums);}
-00171 \textcolor{comment}{//  buffer = QString::number(line\_->lossC().real()) + " + " + QString::number(}
-00172 \textcolor{comment}{//             line\_->lossC().imag()) + "i";}
-00173 \textcolor{comment}{//  painter->drawText(x,y,w,h, Qt::AlignCenter, buffer);}
-00174 
-00175 \textcolor{comment}{//  // Draw base.}
-00176 \textcolor{comment}{//  painter->setPen(QPen(Qt::black, kLineWidth, Qt::SolidLine));}
-00177 \textcolor{comment}{//  painter->setBrush(Qt::black);}
-00178 \textcolor{comment}{//  QPolygonF pol\_base;}
-00179 \textcolor{comment}{//  pol\_base << QPointF(-kBoxBaseWidth/2, -kBoxBaseHeight) << QPointF(0.0, 0.0)}
-00180 \textcolor{comment}{//           << QPointF(kBoxBaseWidth/2, -kBoxBaseHeight);}
-00181 \textcolor{comment}{//  painter->drawPolygon(pol\_base);}
-00182 \}
-00183 
-00184 \textcolor{comment}{/*******************************************************************************}
-00185 \textcolor{comment}{ * boundingRect.}
-00186 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{infoline_8cpp_source_l00187}{}\hyperlink{class_info_line_a3103eee5d5a8b4fd53d428f9aea01830}{00187} QRectF \hyperlink{class_info_line_a3103eee5d5a8b4fd53d428f9aea01830}{InfoLine::boundingRect}()\textcolor{keyword}{ const}
-00188 \textcolor{keyword}{}\{
-00189   \textcolor{keywordflow}{return} QRectF(-\hyperlink{class_info_line_af71f2b91ea77398bd770b973b71e2896}{kBoxWidth} / 2, -\hyperlink{class_info_line_a279cafcac8d844a00bd27dde524102dd}{kBoxHeight} - \hyperlink{class_info_line_ab332e0b1c83e5ab8f551e3f39b2dfc55}{kBoxBaseHeight}, 
-      \hyperlink{class_info_line_af71f2b91ea77398bd770b973b71e2896}{kBoxWidth},
-00190                 \hyperlink{class_info_line_a279cafcac8d844a00bd27dde524102dd}{kBoxHeight} + \hyperlink{class_info_line_ab332e0b1c83e5ab8f551e3f39b2dfc55}{kBoxBaseHeight});
-00191 \}
+00168   \textcolor{comment}{// Draw base.}
+00169   painter->setPen(QPen(Qt::black, \hyperlink{class_info_line_ad072bc8ef178113c36c3d480c7d637ac}{kLineWidth}, Qt::SolidLine));
+00170   painter->setBrush(Qt::black);
+00171   QPolygonF pol\_base;
+00172   pol\_base << QPointF(-\hyperlink{class_info_line_aad905589137b80ba75d9a1c49535eb1a}{kBoxBaseWidth}/2, -\hyperlink{class_info_line_ab50f47aa54c45def219859e9da3755e6}{kBoxBaseHeight}) << QPointF(0.0, 0.0)
+00173            << QPointF(\hyperlink{class_info_line_aad905589137b80ba75d9a1c49535eb1a}{kBoxBaseWidth}/2, -\hyperlink{class_info_line_ab50f47aa54c45def219859e9da3755e6}{kBoxBaseHeight});
+00174   painter->drawPolygon(pol\_base);
+00175 \}
+00176 
+00177 
+00178 \textcolor{comment}{/*******************************************************************************}
+00179 \textcolor{comment}{ * Set head font size.}
+00180 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{infoline_8cpp_source_l00181}{}\hyperlink{class_info_line_a389ea4f5085b60d03022b94e636f11d1}{00181} \textcolor{keywordtype}{void} \hyperlink{class_info_line_a389ea4f5085b60d03022b94e636f11d1}{InfoLine::setHeadFont}(QPainter *painter)
+00182 \{
+00183   \textcolor{comment}{// Set head font size.}
+00184   QFont font;
+00185   font.setPointSize(font.pointSize() * 1.25);
+00186   painter->setFont(font);
+00187 \}
+00188 
+00189 \textcolor{comment}{/*******************************************************************************}
+00190 \textcolor{comment}{ * Set normal font size.}
+00191 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{infoline_8cpp_source_l00192}{}\hyperlink{class_info_line_a4d5084d616c878cb717e8445db0023c1}{00192} \textcolor{keywordtype}{void} \hyperlink{class_info_line_a4d5084d616c878cb717e8445db0023c1}{InfoLine::setNormalFont}(QPainter *painter)
+00193 \{
+00194   \textcolor{comment}{// Set normal font size.}
+00195   QFont font;
+00196   font.setPointSize(painter->font().pointSize() / 1.25);
+00197   painter->setFont(font);
+00198 \}
+00199 
+00200 \textcolor{comment}{/*******************************************************************************}
+00201 \textcolor{comment}{ * Draw main rectangle.}
+00202 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{infoline_8cpp_source_l00203}{}\hyperlink{class_info_line_a3a0f83ad98fe674513dab679e22cba42}{00203} \textcolor{keywordtype}{void} \hyperlink{class_info_line_a3a0f83ad98fe674513dab679e22cba42}{InfoLine::drawMainRectangle}(QRectF mainRect,\textcolor{keywordtype}{double} lineWidth,
+00204                                  QPainter *painter)
+00205 \{
+00206   \textcolor{comment}{// Draw main rectangle.}
+00207   painter->setPen(QPen(Qt::black, lineWidth, Qt::SolidLine));
+00208   painter->setBrush(Qt::white);
+00209   painter->drawRect(mainRect);
+00210 
+00211 \}
+00212 
+00213 \textcolor{comment}{/*******************************************************************************}
+00214 \textcolor{comment}{ * Draw head separator.}
+00215 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{infoline_8cpp_source_l00216}{}\hyperlink{class_info_line_a53e9012a9cef4f07f1d4872c6d250c08}{00216} \textcolor{keywordtype}{void} \hyperlink{class_info_line_a53e9012a9cef4f07f1d4872c6d250c08}{InfoLine::drawHeadSeparator}(QRectF headRect, QPainter *painter)
+00217 \{
+00218 
+00219   QPointF p1(headRect.x(), headRect.y() + headRect.height());
+00220   QPointF p2(headRect.x() + headRect.width(), headRect.y() + headRect.height());
+00221 
+00222   painter->drawLine(p1, p2);
+00223 \}
+00224 
+00225 \textcolor{comment}{/*******************************************************************************}
+00226 \textcolor{comment}{ * Draw head text.}
+00227 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{infoline_8cpp_source_l00228}{}\hyperlink{class_info_line_a043932fa92604badc063e09691195609}{00228} \textcolor{keywordtype}{void} \hyperlink{class_info_line_a043932fa92604badc063e09691195609}{InfoLine::drawHeadText}(QRectF headRect, \textcolor{keywordtype}{double} marginTop, QString &text,
+00229                             QPainter *painter)
+00230 \{
+00231   \textcolor{comment}{// Draw Head Text.}
+00232   painter->drawText(headRect.x(), headRect.y() + marginTop,
+00233                     headRect.width(), painter->font().pointSize(),
+00234                     Qt::AlignCenter, text);
+00235 \}
+00236 
+00237 \textcolor{comment}{/*******************************************************************************}
+00238 \textcolor{comment}{ * Bounding Rectangle.}
+00239 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{infoline_8cpp_source_l00240}{}\hyperlink{class_info_line_a3103eee5d5a8b4fd53d428f9aea01830}{00240} QRectF \hyperlink{class_info_line_a3103eee5d5a8b4fd53d428f9aea01830}{InfoLine::boundingRect}()\textcolor{keyword}{ const}
+00241 \textcolor{keyword}{}\{
+00242   \textcolor{keywordflow}{return} QRectF(-\hyperlink{class_info_line_a33821aa140dc03829357d4006e9c153c}{kBoxWidth} / 2, -\hyperlink{class_info_line_a9e459549795bab79ae3b6c184dc78a00}{kBoxHeight} - \hyperlink{class_info_line_ab50f47aa54c45def219859e9da3755e6}{kBoxBaseHeight}, 
+      \hyperlink{class_info_line_a33821aa140dc03829357d4006e9c153c}{kBoxWidth},
+00243                 \hyperlink{class_info_line_a9e459549795bab79ae3b6c184dc78a00}{kBoxHeight} + \hyperlink{class_info_line_ab50f47aa54c45def219859e9da3755e6}{kBoxBaseHeight});
+00244 \}
 \end{DoxyCode}

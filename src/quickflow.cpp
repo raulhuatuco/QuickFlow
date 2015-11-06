@@ -56,7 +56,7 @@
 #include "models/network.h"
 
 #include "algorithms/import.h"
-#include "algorithms/redraw.h"
+#include "algorithms/redrawnetwork.h"
 #include "algorithms/shirmoharmmadi.h"
 
 /*****************************************************************************
@@ -629,7 +629,8 @@ void QuickFlow::on_actionSugiyama_triggered()
 {
 
   foreach(Network *network, project->networks) {
-    redrawSugiyama(network);
+    RedrawNetwork redraw(network);
+    redraw.sugiyama();
   }
 
   setAltered(true);
@@ -642,7 +643,8 @@ void QuickFlow::on_actionSugiyama_triggered()
 void QuickFlow::on_actionSugiyama_Fast_triggered()
 {
   foreach(Network *network, project->networks) {
-    redrawSugiyamaFast(network);
+    RedrawNetwork redraw(network);
+    redraw.sugiyamaFast();
   }
 
   setAltered(true);
@@ -655,7 +657,8 @@ void QuickFlow::on_actionSugiyama_Fast_triggered()
 void QuickFlow::on_actionMulti_level_triggered()
 {
   foreach(Network *network, project->networks) {
-    redrawMultiLevel(network);
+    RedrawNetwork redraw(network);
+    redraw.multiLevel();
   }
 
   setAltered(true);

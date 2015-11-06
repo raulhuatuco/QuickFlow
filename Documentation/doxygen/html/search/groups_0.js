@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['graphics',['Graphics',['../group___graphics.html',1,'']]]
+  ['algorithms',['Algorithms',['../group___algorithms.html',1,'']]]
 ];

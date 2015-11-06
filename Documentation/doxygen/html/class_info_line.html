@@ -22,9 +22,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
+  <td id="projectlogo"><img alt="Logo" src="AppIcon.ico"/></td>
   <td style="padding-left: 0.5em;">
    <div id="projectname">Quick Flow
-   &#160;<span id="projectnumber">0.0.5</span>
+   &#160;<span id="projectnumber">0.0.1</span>
    </div>
    <div id="projectbrief">Graphical tool to analyse power flow (load flow) in electrical energy distribution systems.</div>
   </td>
@@ -40,6 +41,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   <div id="navrow1" class="tabs">
     <ul class="tablist">
       <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
       <li><a href="modules.html"><span>Modules</span></a></li>
       <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
@@ -97,15 +99,11 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Inheritance diagram for InfoLine:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_info_line__inherit__graph.png" border="0" usemap="#_info_line_inherit__map" alt="Inheritance graph"/></div>
-<map name="_info_line_inherit__map" id="_info_line_inherit__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for InfoLine:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_info_line__coll__graph.png" border="0" usemap="#_info_line_coll__map" alt="Collaboration graph"/></div>
-<map name="_info_line_coll__map" id="_info_line_coll__map">
-</map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
@@ -123,41 +121,47 @@ Static Public Attributes</h2></td></tr>
 <tr class="separator:a95cdc7a95cde6db7c6faceda995d26b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9fc071b08eb913cf3afc623835ad2fd8"><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">kTableColums</a> = 3</td></tr>
 <tr class="separator:a9fc071b08eb913cf3afc623835ad2fd8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af71f2b91ea77398bd770b973b71e2896"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#af71f2b91ea77398bd770b973b71e2896">kBoxWidth</a> = 135.0*<a class="el" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">kTableColums</a></td></tr>
-<tr class="separator:af71f2b91ea77398bd770b973b71e2896"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a279cafcac8d844a00bd27dde524102dd"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a279cafcac8d844a00bd27dde524102dd">kBoxHeight</a> = 37.5*<a class="el" href="class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9">kTableRows</a></td></tr>
-<tr class="separator:a279cafcac8d844a00bd27dde524102dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18390d54c56cd68cf6e767a5df7404d8"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a18390d54c56cd68cf6e767a5df7404d8">kLineWidth</a> = 2.0</td></tr>
-<tr class="separator:a18390d54c56cd68cf6e767a5df7404d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa08e22c99ce13c2fc57a9d9c9de4d99f"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#aa08e22c99ce13c2fc57a9d9c9de4d99f">kMarginHeadTop</a> = 5.0</td></tr>
-<tr class="separator:aa08e22c99ce13c2fc57a9d9c9de4d99f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d981c2b5f55052aad8d105177be443d"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a3d981c2b5f55052aad8d105177be443d">kMarginHeadBot</a> = 5.0</td></tr>
-<tr class="separator:a3d981c2b5f55052aad8d105177be443d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0b7394c3710ba9d88da13a484069302"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#ab0b7394c3710ba9d88da13a484069302">kMarginTop</a> = 5.0</td></tr>
-<tr class="separator:ab0b7394c3710ba9d88da13a484069302"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a82acf816389449ddce739e8abb6e0fdc"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a82acf816389449ddce739e8abb6e0fdc">kMarginBot</a> = 5.0</td></tr>
-<tr class="separator:a82acf816389449ddce739e8abb6e0fdc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a480271b6a9d683ab36c0c6ef142a461f"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a480271b6a9d683ab36c0c6ef142a461f">kMarginLeft</a> = 5.0</td></tr>
-<tr class="separator:a480271b6a9d683ab36c0c6ef142a461f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af945da2dfe0437816b9e1fe8e6668692"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#af945da2dfe0437816b9e1fe8e6668692">kMarginRight</a> = 5.0</td></tr>
-<tr class="separator:af945da2dfe0437816b9e1fe8e6668692"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d03a53c9bca9357e502a1e423ff4541"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a9d03a53c9bca9357e502a1e423ff4541">kTableLineWidth</a> = 1.0</td></tr>
-<tr class="separator:a9d03a53c9bca9357e502a1e423ff4541"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a858d0872a7e51d40ff6c87af5736db54"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a858d0872a7e51d40ff6c87af5736db54">kTextToLinePad</a> = 1.0</td></tr>
-<tr class="separator:a858d0872a7e51d40ff6c87af5736db54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab332e0b1c83e5ab8f551e3f39b2dfc55"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#ab332e0b1c83e5ab8f551e3f39b2dfc55">kBoxBaseHeight</a> = 30.0</td></tr>
-<tr class="separator:ab332e0b1c83e5ab8f551e3f39b2dfc55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a53e6553a87f670410cf66ed735f91550"><td class="memItemLeft" align="right" valign="top">static const qreal&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a53e6553a87f670410cf66ed735f91550">kBoxBaseWidth</a> = 60.0</td></tr>
-<tr class="separator:a53e6553a87f670410cf66ed735f91550"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33821aa140dc03829357d4006e9c153c"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a33821aa140dc03829357d4006e9c153c">kBoxWidth</a> = 135.0*<a class="el" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">kTableColums</a></td></tr>
+<tr class="separator:a33821aa140dc03829357d4006e9c153c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9e459549795bab79ae3b6c184dc78a00"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a9e459549795bab79ae3b6c184dc78a00">kBoxHeight</a> = 37.5*<a class="el" href="class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9">kTableRows</a></td></tr>
+<tr class="separator:a9e459549795bab79ae3b6c184dc78a00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad072bc8ef178113c36c3d480c7d637ac"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#ad072bc8ef178113c36c3d480c7d637ac">kLineWidth</a> = 2.0</td></tr>
+<tr class="separator:ad072bc8ef178113c36c3d480c7d637ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a73e02db68396f0c4b66d0cf80bd37c83"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a73e02db68396f0c4b66d0cf80bd37c83">kMarginHeadTop</a> = 5.0</td></tr>
+<tr class="separator:a73e02db68396f0c4b66d0cf80bd37c83"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82ed1944ec4a41af19e377a243c2332d"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a82ed1944ec4a41af19e377a243c2332d">kMarginHeadBot</a> = 5.0</td></tr>
+<tr class="separator:a82ed1944ec4a41af19e377a243c2332d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a995100424420038664880195f5e51f50"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a995100424420038664880195f5e51f50">kMarginTop</a> = 5.0</td></tr>
+<tr class="separator:a995100424420038664880195f5e51f50"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4bd85105aabcb9d1230225c15873da2"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#ab4bd85105aabcb9d1230225c15873da2">kMarginBot</a> = 5.0</td></tr>
+<tr class="separator:ab4bd85105aabcb9d1230225c15873da2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a68232e6e5e3b63a4b6aced3d99291ad7"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a68232e6e5e3b63a4b6aced3d99291ad7">kMarginLeft</a> = 5.0</td></tr>
+<tr class="separator:a68232e6e5e3b63a4b6aced3d99291ad7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f0bd713ed9c1c8012bbd29dbd1db75e"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a0f0bd713ed9c1c8012bbd29dbd1db75e">kMarginRight</a> = 5.0</td></tr>
+<tr class="separator:a0f0bd713ed9c1c8012bbd29dbd1db75e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab50f47aa54c45def219859e9da3755e6"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#ab50f47aa54c45def219859e9da3755e6">kBoxBaseHeight</a> = 30.0</td></tr>
+<tr class="separator:ab50f47aa54c45def219859e9da3755e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad905589137b80ba75d9a1c49535eb1a"><td class="memItemLeft" align="right" valign="top">static const double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#aad905589137b80ba75d9a1c49535eb1a">kBoxBaseWidth</a> = 60.0</td></tr>
+<tr class="separator:aad905589137b80ba75d9a1c49535eb1a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ac696c9944716774dfe85a40ac5a434e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1">paint</a> (QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) Q_DECL_OVERRIDE</td></tr>
 <tr class="separator:ac696c9944716774dfe85a40ac5a434e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a389ea4f5085b60d03022b94e636f11d1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a389ea4f5085b60d03022b94e636f11d1">setHeadFont</a> (QPainter *painter)</td></tr>
+<tr class="separator:a389ea4f5085b60d03022b94e636f11d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4d5084d616c878cb717e8445db0023c1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a4d5084d616c878cb717e8445db0023c1">setNormalFont</a> (QPainter *painter)</td></tr>
+<tr class="separator:a4d5084d616c878cb717e8445db0023c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a0f83ad98fe674513dab679e22cba42"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a3a0f83ad98fe674513dab679e22cba42">drawMainRectangle</a> (QRectF mainRect, double lineWidth, QPainter *painter)</td></tr>
+<tr class="separator:a3a0f83ad98fe674513dab679e22cba42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a53e9012a9cef4f07f1d4872c6d250c08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a53e9012a9cef4f07f1d4872c6d250c08">drawHeadSeparator</a> (QRectF headRect, QPainter *painter)</td></tr>
+<tr class="separator:a53e9012a9cef4f07f1d4872c6d250c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a043932fa92604badc063e09691195609"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_info_line.html#a043932fa92604badc063e09691195609">drawHeadText</a> (QRectF headRect, double marginTop, QString &amp;text, QPainter *painter)</td></tr>
+<tr class="separator:a043932fa92604badc063e09691195609"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00013">13</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8h_source.html#l00012">12</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a63819dbfeb257cc86be86f0fac3aa02f"></a>
 <div class="memitem">
@@ -173,7 +177,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00010">10</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00030">30</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
@@ -199,7 +203,7 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00023">23</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00045">45</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
 
 </div>
 </div>
@@ -217,7 +221,160 @@ Here is the call graph for this function:</div>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00187">187</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00240">240</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a53e9012a9cef4f07f1d4872c6d250c08"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InfoLine::drawHeadSeparator </td>
+          <td>(</td>
+          <td class="paramtype">QRectF&#160;</td>
+          <td class="paramname"><em>headRect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QPainter *&#160;</td>
+          <td class="paramname"><em>painter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00216">216</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_info_line_a53e9012a9cef4f07f1d4872c6d250c08_icgraph.png" border="0" usemap="#class_info_line_a53e9012a9cef4f07f1d4872c6d250c08_icgraph" alt=""/></div>
+<map name="class_info_line_a53e9012a9cef4f07f1d4872c6d250c08_icgraph" id="class_info_line_a53e9012a9cef4f07f1d4872c6d250c08_icgraph">
+<area shape="rect" id="node2" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1" title="InfoLine::paint" alt="" coords="244,5,348,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a043932fa92604badc063e09691195609"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InfoLine::drawHeadText </td>
+          <td>(</td>
+          <td class="paramtype">QRectF&#160;</td>
+          <td class="paramname"><em>headRect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>marginTop</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QString &amp;&#160;</td>
+          <td class="paramname"><em>text</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QPainter *&#160;</td>
+          <td class="paramname"><em>painter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00228">228</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_info_line_a043932fa92604badc063e09691195609_icgraph.png" border="0" usemap="#class_info_line_a043932fa92604badc063e09691195609_icgraph" alt=""/></div>
+<map name="class_info_line_a043932fa92604badc063e09691195609_icgraph" id="class_info_line_a043932fa92604badc063e09691195609_icgraph">
+<area shape="rect" id="node2" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1" title="InfoLine::paint" alt="" coords="215,5,319,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a3a0f83ad98fe674513dab679e22cba42"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InfoLine::drawMainRectangle </td>
+          <td>(</td>
+          <td class="paramtype">QRectF&#160;</td>
+          <td class="paramname"><em>mainRect</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>lineWidth</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">QPainter *&#160;</td>
+          <td class="paramname"><em>painter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00203">203</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_info_line_a3a0f83ad98fe674513dab679e22cba42_icgraph.png" border="0" usemap="#class_info_line_a3a0f83ad98fe674513dab679e22cba42_icgraph" alt=""/></div>
+<map name="class_info_line_a3a0f83ad98fe674513dab679e22cba42_icgraph" id="class_info_line_a3a0f83ad98fe674513dab679e22cba42_icgraph">
+<area shape="rect" id="node2" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1" title="InfoLine::paint" alt="" coords="244,5,348,32"/></map>
+</div>
+</p>
 
 </div>
 </div>
@@ -259,21 +416,91 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00028">28</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00053">53</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
 
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="class_info_line_ac696c9944716774dfe85a40ac5a434e1_cgraph.png" border="0" usemap="#class_info_line_ac696c9944716774dfe85a40ac5a434e1_cgraph" alt=""/></div>
 <map name="class_info_line_ac696c9944716774dfe85a40ac5a434e1_cgraph" id="class_info_line_ac696c9944716774dfe85a40ac5a434e1_cgraph">
-<area shape="rect" id="node2" href="group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3" title="Line::pNoI" alt="" coords="159,5,242,32"/><area shape="rect" id="node3" href="group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f" title="Line::pNoF" alt="" coords="157,56,244,83"/></map>
+<area shape="rect" id="node2" href="class_info_line.html#a3a0f83ad98fe674513dab679e22cba42" title="InfoLine::drawMainRectangle" alt="" coords="157,5,348,32"/><area shape="rect" id="node3" href="class_info_line.html#a53e9012a9cef4f07f1d4872c6d250c08" title="InfoLine::drawHeadSeparator" alt="" coords="157,56,348,83"/><area shape="rect" id="node4" href="class_info_line.html#a389ea4f5085b60d03022b94e636f11d1" title="InfoLine::setHeadFont" alt="" coords="177,107,328,133"/><area shape="rect" id="node5" href="class_info_line.html#a043932fa92604badc063e09691195609" title="InfoLine::drawHeadText" alt="" coords="172,157,333,184"/><area shape="rect" id="node6" href="class_info_line.html#a4d5084d616c878cb717e8445db0023c1" title="InfoLine::setNormalFont" alt="" coords="171,208,334,235"/><area shape="rect" id="node7" href="class_data_table.html#a8a8cd6f95caaaff148993f8e28eeb703" title="DataTable::setSize" alt="" coords="185,259,320,285"/><area shape="rect" id="node8" href="class_unit.html#a7bd3ed3edcb18170cd162d384075b651" title="Unit::currentUnitToStr" alt="" coords="177,309,328,336"/><area shape="rect" id="node9" href="class_data_table.html#aee0d28c77116b51360f0124a529cb3ff" title="DataTable::setText" alt="" coords="185,360,320,387"/><area shape="rect" id="node10" href="class_unit.html#ad1487441b5a7eb93a3eb0aeebe947725" title="Unit::powerUnitToStr" alt="" coords="180,411,325,437"/><area shape="rect" id="node11" href="group___models.html#gaf81e7055102816465bdf7e19afc2d547" title="Line::i" alt="" coords="224,461,281,488"/><area shape="rect" id="node13" href="group___models.html#ga7909d69e419de3f460ca7abab3d91e53" title="Line::loss" alt="" coords="213,512,292,539"/><area shape="rect" id="node14" href="class_data_table.html#a3a3695e88dcd4d4aad5cc941ec7e6e55" title="DataTable::drawTable" alt="" coords="177,563,328,589"/><area shape="rect" id="node12" href="group___graphics.html#ga433bc5c32cf2ce5329bb40b21952d885" title="Network::currentBase" alt="" coords="396,461,545,488"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a389ea4f5085b60d03022b94e636f11d1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InfoLine::setHeadFont </td>
+          <td>(</td>
+          <td class="paramtype">QPainter *&#160;</td>
+          <td class="paramname"><em>painter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00181">181</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_info_line_a389ea4f5085b60d03022b94e636f11d1_icgraph.png" border="0" usemap="#class_info_line_a389ea4f5085b60d03022b94e636f11d1_icgraph" alt=""/></div>
+<map name="class_info_line_a389ea4f5085b60d03022b94e636f11d1_icgraph" id="class_info_line_a389ea4f5085b60d03022b94e636f11d1_icgraph">
+<area shape="rect" id="node2" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1" title="InfoLine::paint" alt="" coords="204,5,308,32"/></map>
+</div>
+</p>
+
+</div>
+</div>
+<a class="anchor" id="a4d5084d616c878cb717e8445db0023c1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void InfoLine::setNormalFont </td>
+          <td>(</td>
+          <td class="paramtype">QPainter *&#160;</td>
+          <td class="paramname"><em>painter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infoline_8cpp_source.html#l00192">192</a> of file <a class="el" href="infoline_8cpp_source.html">infoline.cpp</a>.</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="class_info_line_a4d5084d616c878cb717e8445db0023c1_icgraph.png" border="0" usemap="#class_info_line_a4d5084d616c878cb717e8445db0023c1_icgraph" alt=""/></div>
+<map name="class_info_line_a4d5084d616c878cb717e8445db0023c1_icgraph" id="class_info_line_a4d5084d616c878cb717e8445db0023c1_icgraph">
+<area shape="rect" id="node2" href="class_info_line.html#ac696c9944716774dfe85a40ac5a434e1" title="InfoLine::paint" alt="" coords="216,5,320,32"/></map>
 </div>
 </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a class="anchor" id="ab332e0b1c83e5ab8f551e3f39b2dfc55"></a>
+<a class="anchor" id="ab50f47aa54c45def219859e9da3755e6"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -281,7 +508,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoLine::kBoxBaseHeight = 30.0</td>
+          <td class="memname">const double InfoLine::kBoxBaseHeight = 30.0</td>
         </tr>
       </table>
   </td>
@@ -291,11 +518,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00039">39</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8h_source.html#l00034">34</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a53e6553a87f670410cf66ed735f91550"></a>
+<a class="anchor" id="aad905589137b80ba75d9a1c49535eb1a"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -303,7 +530,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoLine::kBoxBaseWidth = 60.0</td>
+          <td class="memname">const double InfoLine::kBoxBaseWidth = 60.0</td>
         </tr>
       </table>
   </td>
@@ -313,11 +540,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00040">40</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8h_source.html#l00035">35</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a279cafcac8d844a00bd27dde524102dd"></a>
+<a class="anchor" id="a9e459549795bab79ae3b6c184dc78a00"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -325,29 +552,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoLine::kBoxHeight = 37.5*<a class="el" href="class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9">kTableRows</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00021">21</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="af71f2b91ea77398bd770b973b71e2896"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const qreal InfoLine::kBoxWidth = 135.0*<a class="el" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">kTableColums</a></td>
+          <td class="memname">const double InfoLine::kBoxHeight = 37.5*<a class="el" href="class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9">kTableRows</a></td>
         </tr>
       </table>
   </td>
@@ -361,7 +566,7 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="a18390d54c56cd68cf6e767a5df7404d8"></a>
+<a class="anchor" id="a33821aa140dc03829357d4006e9c153c"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -369,7 +574,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoLine::kLineWidth = 2.0</td>
+          <td class="memname">const double InfoLine::kBoxWidth = 135.0*<a class="el" href="class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8">kTableColums</a></td>
         </tr>
       </table>
   </td>
@@ -379,11 +584,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00022">22</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8h_source.html#l00019">19</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a82acf816389449ddce739e8abb6e0fdc"></a>
+<a class="anchor" id="ad072bc8ef178113c36c3d480c7d637ac"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -391,7 +596,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoLine::kMarginBot = 5.0</td>
+          <td class="memname">const double InfoLine::kLineWidth = 2.0</td>
         </tr>
       </table>
   </td>
@@ -401,11 +606,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00030">30</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8h_source.html#l00021">21</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a3d981c2b5f55052aad8d105177be443d"></a>
+<a class="anchor" id="ab4bd85105aabcb9d1230225c15873da2"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -413,7 +618,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoLine::kMarginHeadBot = 5.0</td>
+          <td class="memname">const double InfoLine::kMarginBot = 5.0</td>
         </tr>
       </table>
   </td>
@@ -423,11 +628,11 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00026">26</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8h_source.html#l00029">29</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aa08e22c99ce13c2fc57a9d9c9de4d99f"></a>
+<a class="anchor" id="a82ed1944ec4a41af19e377a243c2332d"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -435,7 +640,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoLine::kMarginHeadTop = 5.0</td>
+          <td class="memname">const double InfoLine::kMarginHeadBot = 5.0</td>
         </tr>
       </table>
   </td>
@@ -449,7 +654,7 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="a480271b6a9d683ab36c0c6ef142a461f"></a>
+<a class="anchor" id="a73e02db68396f0c4b66d0cf80bd37c83"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -457,7 +662,51 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoLine::kMarginLeft = 5.0</td>
+          <td class="memname">const double InfoLine::kMarginHeadTop = 5.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infoline_8h_source.html#l00024">24</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a68232e6e5e3b63a4b6aced3d99291ad7"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double InfoLine::kMarginLeft = 5.0</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="infoline_8h_source.html#l00030">30</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a0f0bd713ed9c1c8012bbd29dbd1db75e"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const double InfoLine::kMarginRight = 5.0</td>
         </tr>
       </table>
   </td>
@@ -471,7 +720,7 @@ Here is the call graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="af945da2dfe0437816b9e1fe8e6668692"></a>
+<a class="anchor" id="a995100424420038664880195f5e51f50"></a>
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
@@ -479,7 +728,7 @@ Here is the call graph for this function:</div>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const qreal InfoLine::kMarginRight = 5.0</td>
+          <td class="memname">const double InfoLine::kMarginTop = 5.0</td>
         </tr>
       </table>
   </td>
@@ -489,29 +738,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00032">32</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ab0b7394c3710ba9d88da13a484069302"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const qreal InfoLine::kMarginTop = 5.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00029">29</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8h_source.html#l00028">28</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
 
 </div>
 </div>
@@ -533,29 +760,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00017">17</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a9d03a53c9bca9357e502a1e423ff4541"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const qreal InfoLine::kTableLineWidth = 1.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00035">35</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8h_source.html#l00016">16</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
 
 </div>
 </div>
@@ -577,29 +782,7 @@ Here is the call graph for this function:</div>
 </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00016">16</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a858d0872a7e51d40ff6c87af5736db54"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const qreal InfoLine::kTextToLinePad = 1.0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="infoline_8h_source.html#l00036">36</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
+<p>Definition at line <a class="el" href="infoline_8h_source.html#l00015">15</a> of file <a class="el" href="infoline_8h_source.html">infoline.h</a>.</p>
 
 </div>
 </div>
@@ -610,7 +793,7 @@ Here is the call graph for this function:</div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Oct 6 2015 02:51:50 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 2 2015 07:26:44 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

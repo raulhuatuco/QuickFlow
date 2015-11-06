@@ -1,6 +1,11 @@
 <map id="Line::pNoI" name="Line::pNoI">
 <area shape="rect" id="node2" href="$group___models.html#ga4ea1a2074cb45968d80d6add571884a4" title="Remove all lines from this bar. " alt="" coords="136,5,260,32"/>
 <area shape="rect" id="node3" href="$class_info_line.html#a63819dbfeb257cc86be86f0fac3aa02f" title="InfoLine::InfoLine" alt="" coords="137,56,259,83"/>
-<area shape="rect" id="node4" href="$class_info_line.html#ac696c9944716774dfe85a40ac5a434e1" title="InfoLine::paint" alt="" coords="146,107,250,133"/>
-<area shape="rect" id="node5" href="$group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170" title="Line::setNodes" alt="" coords="143,157,253,184"/>
+<area shape="rect" id="node4" href="$group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170" title="Line::setNodes" alt="" coords="143,107,253,133"/>
+<area shape="rect" id="node5" href="$group___graphics.html#gae02945131494987b3ff9b59b627719b4" title="Network::addLine" alt="" coords="308,107,432,133"/>
+<area shape="rect" id="node6" href="$import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="490,31,603,57"/>
+<area shape="rect" id="node7" href="$import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="490,81,603,108"/>
+<area shape="rect" id="node8" href="$import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="490,132,603,159"/>
+<area shape="rect" id="node9" href="$group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Network::fromJson" alt="" coords="480,183,613,209"/>
+<area shape="rect" id="node10" href="$class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="661,183,756,209"/>
 </map>
