@@ -43,6 +43,7 @@
 #include "models/bar.h"
 #include <QGraphicsScene>
 #include <QPainter>
+#include "math_constants.h"
 
 /*******************************************************************************
  * Const initialization.
@@ -61,40 +62,6 @@ Bar::Bar()
   setFlag(ItemIsSelectable);
   setFlag(ItemSendsGeometryChanges); // Needed to refresh line drawing.
   setZValue(1.0); // Will be above lines and under info boxes.
-
-  // zero fill data.
-  for (int32_t i = 0; i<=2; i++) {
-    v_[i] = 0.0;
-    sh_[i] = 0.0;
-    si_[i] = 0.0;
-    rV_[i] = 0.0;
-    rSi_[i] = 0.0;
-  }
-}
-
-/*******************************************************************************
- * Constructor with initial conditions.
- ******************************************************************************/
-Bar::Bar(complex<double> initialV, complex<double> initialSh,
-         complex<double> initialSi)
-  : QGraphicsObject(),
-    id(kInvalidId),
-    network(NULL),
-    infoBar(NULL)
-{
-  setFlag(ItemIsSelectable);
-  setFlag(ItemSendsGeometryChanges); // Needed to refresh line drawing.
-  setZValue(1.0); // Will be above lines and under info boxes.
-
-  // Fill initial conditions.
-  for (int32_t i = 0; i<=2; i++) {
-    v_[i] = initialV;
-    sh_[i] = initialSh;
-    si_[i] = initialSi;
-    // Results are still zero.
-    rV_[i] = 0.0;
-    rSi_[i] = 0.0;
-  }
 }
 
 /*******************************************************************************
@@ -113,15 +80,15 @@ complex<double> Bar::v(int32_t phase, Unit::VoltageUnit unit)
 {
   switch (unit) {
   case Unit::kVolts:
-    return v_[phase];
+    return v_[phase]*network->voltageBase;
     break;
 
   case Unit::kKiloVolts:
-    return v_[phase]/1000.0;
+    return v_[phase]*network->voltageBase/1000.0;
     break;
 
   case Unit::kVoltsPerUnit:
-    return v_[phase]/network->voltageBase;
+    return v_[phase];
     break;
 
   default:
@@ -138,15 +105,15 @@ void Bar::setV(int32_t phase, complex<double> newVoltage,
 {
   switch (unit) {
   case Unit::kVolts:
-    v_[phase] = newVoltage;
+    v_[phase] = newVoltage/network->voltageBase;
     break;
 
   case Unit::kKiloVolts:
-    v_[phase] = newVoltage*1000.0;
+    v_[phase] = newVoltage*1000.0/network->voltageBase;
     break;
 
   case Unit::kVoltsPerUnit:
-    v_[phase] = newVoltage*network->voltageBase;
+    v_[phase] = newVoltage;
     break;
 
   default:
@@ -164,19 +131,19 @@ complex<double> Bar::sh(int32_t phase, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    return sh_[phase];
+    return sh_[phase]*network->powerBase;
     break;
 
   case Unit::kKiloVA:
-    return sh_[phase]/1000.0;
+    return sh_[phase]*network->powerBase/1000.0;
     break;
 
   case Unit::kMegaVa:
-    return sh_[phase]/1000000.0;
+    return sh_[phase]*network->powerBase/1000000.0;
     break;
 
   case Unit::kVaPerUnit:
-    return sh_[phase]/network->powerBase;
+    return sh_[phase];
     break;
 
   default:
@@ -192,19 +159,19 @@ void Bar::setSh(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    sh_[phase] = newPower;
+    sh_[phase] = newPower/network->powerBase;
     break;
 
   case Unit::kKiloVA:
-    sh_[phase] = newPower*1000.0;
+    sh_[phase] = newPower*1000.0/network->powerBase;
     break;
 
   case Unit::kMegaVa:
-    sh_[phase] = newPower*1000000.0;
+    sh_[phase] = newPower*1000000.0/network->powerBase;
     break;
 
   case Unit::kVaPerUnit:
-    sh_[phase] = newPower*network->powerBase;
+    sh_[phase] = newPower;
     break;
 
   default:
@@ -220,19 +187,19 @@ complex<double> Bar::si(int32_t phase, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    return si_[phase];
+    return si_[phase]*network->powerBase;
     break;
 
   case Unit::kKiloVA:
-    return si_[phase]/1000.0;
+    return si_[phase]*network->powerBase/1000.0;
     break;
 
   case Unit::kMegaVa:
-    return si_[phase]/1000000.0;
+    return si_[phase]*network->powerBase/1000000.0;
     break;
 
   case Unit::kVaPerUnit:
-    return si_[phase]/network->powerBase;
+    return si_[phase];
     break;
 
   default:
@@ -248,19 +215,19 @@ void Bar::setSi(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    si_[phase] = newPower;
+    si_[phase] = newPower/network->powerBase;
     break;
 
   case Unit::kKiloVA:
-    si_[phase] = newPower*1000.0;
+    si_[phase] = newPower*1000.0/network->powerBase;
     break;
 
   case Unit::kMegaVa:
-    si_[phase] = newPower*1000000.0;
+    si_[phase] = newPower*1000000.0/network->powerBase;
     break;
 
   case Unit::kVaPerUnit:
-    si_[phase] = newPower*network->powerBase;
+    si_[phase] = newPower;
     break;
 
   default:
@@ -276,15 +243,15 @@ complex<double> Bar::rV(int32_t phase, Unit::VoltageUnit unit)
 {
   switch (unit) {
   case Unit::kVolts:
-    return rV_[phase];
+    return rV_[phase]*network->voltageBase;
     break;
 
   case Unit::kKiloVolts:
-    return rV_[phase]/1000.0;
+    return rV_[phase]*network->voltageBase/1000.0;
     break;
 
   case Unit::kVoltsPerUnit:
-    return rV_[phase]/network->voltageBase;
+    return rV_[phase];
     break;
 
   default:
@@ -301,15 +268,15 @@ void Bar::setRV(int32_t phase, complex<double> resultVoltage,
 {
   switch (unit) {
   case Unit::kVolts:
-    rV_[phase] = resultVoltage;
+    rV_[phase] = resultVoltage/network->voltageBase;
     break;
 
   case Unit::kKiloVolts:
-    rV_[phase] = resultVoltage*1000.0;
+    rV_[phase] = resultVoltage*1000.0/network->voltageBase;
     break;
 
   case Unit::kVoltsPerUnit:
-    rV_[phase] = resultVoltage*network->voltageBase;
+    rV_[phase] = resultVoltage;
     break;
 
   default:
@@ -325,25 +292,24 @@ complex<double> Bar::rI(int32_t phase, Unit::CurrentUnit unit)
 {
   complex<double> i;
 
-  i = conj((si_[phase]-sh_[phase])/rV_[phase]);
+  i = conj((sh_[phase]-si_[phase])/(kSQRT3*rV_[phase]));
 
   switch (unit) {
   case Unit::kAmpere:
-    return i;
+    i = i*network->currentBase();
     break;
 
   case Unit::kKiloAmpere:
-    return i/1000.0;
+    i = i*network->currentBase()/1000.0;
     break;
 
   case Unit::kAmperePerUnit:
-    return i/network->currentBase();
     break;
 
   default:
-    return i;
     break;
   }
+  return i;
 }
 
 /*******************************************************************************

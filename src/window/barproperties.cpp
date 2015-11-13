@@ -20,16 +20,16 @@ BarProperties::BarProperties(QWidget *parent) :
   ui->Vbi->setValidator(new QDoubleValidator(this));
   ui->Vci->setValidator(new QDoubleValidator(this));
 
-  ui->Sha->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
-  ui->Shb->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
-  ui->Shc->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
+  ui->Sha->setValidator(new QDoubleValidator(this));
+  ui->Shb->setValidator(new QDoubleValidator(this));
+  ui->Shc->setValidator(new QDoubleValidator(this));
   ui->Shai->setValidator(new QDoubleValidator(this));
   ui->Shbi->setValidator(new QDoubleValidator(this));
   ui->Shci->setValidator(new QDoubleValidator(this));
 
-  ui->Sia->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
-  ui->Sib->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
-  ui->Sic->setValidator(new QDoubleValidator(0,qInf(), 1000, this));
+  ui->Sia->setValidator(new QDoubleValidator(this));
+  ui->Sib->setValidator(new QDoubleValidator(this));
+  ui->Sic->setValidator(new QDoubleValidator(this));
   ui->Siai->setValidator(new QDoubleValidator(this));
   ui->Sibi->setValidator(new QDoubleValidator(this));
   ui->Sici->setValidator(new QDoubleValidator(this));

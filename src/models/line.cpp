@@ -65,12 +65,6 @@ Line::Line() :
   setFlag(ItemIsSelectable);
   setFlag(ItemSendsGeometryChanges);
   setZValue(0.0); // Lines are placed under bars and info boxes.
-
-  for(int32_t k = 0; k<6; k++)
-    z_[k] = qInf();
-
-  for (int32_t k = 0; k<3; k++)
-    i_[k] = 0.0;
 }
 
 /*******************************************************************************
@@ -89,31 +83,31 @@ complex<double> Line::z(int32_t index, Unit::ImpedanceUnit unit)
 {
   switch (unit) {
   case Unit::kOhm:
-    return z_[index];
+    return z_[index]*network->impedanceBase();
     break;
 
   case Unit::kOhmPerMeter:
-    return z_[index]/length();
+    return z_[index]*network->impedanceBase()/length();
     break;
 
   case Unit::kOhmPerKilometer:
-    return z_[index]/length(Unit::kKiloMeter);
+    return z_[index]*network->impedanceBase()/length(Unit::kKiloMeter);
     break;
 
   case Unit::kOhmPerFeet:
-    return z_[index]/length(Unit::kFeet);
+    return z_[index]*network->impedanceBase()/length(Unit::kFeet);
     break;
 
   case Unit::kOhmPerMile:
-    return z_[index]/length(Unit::kMile);
+    return z_[index]*network->impedanceBase()/length(Unit::kMile);
     break;
 
   case Unit::kOhmPerUnit:
-    return z_[index]/network->impedanceBase();
+    return z_[index]*network->impedanceBase()/network->impedanceBase();
     break;
 
   default:
-    return z_[index];
+    return z_[index]*network->impedanceBase()/network->impedanceBase();
     break;
   }
 }
@@ -126,27 +120,27 @@ void Line::setZ(int32_t index, complex<double> newImpedance,
 {
   switch (unit) {
   case Unit::kOhm:
-    z_[index] = newImpedance;
+    z_[index] = newImpedance/network->impedanceBase();
     break;
 
   case Unit::kOhmPerMeter:
-    z_[index] = newImpedance*length();
+    z_[index] = newImpedance*length()/network->impedanceBase();
     break;
 
   case Unit::kOhmPerKilometer:
-    z_[index] = newImpedance*length(Unit::kKiloMeter);
+    z_[index] = newImpedance*length(Unit::kKiloMeter)/network->impedanceBase();
     break;
 
   case Unit::kOhmPerFeet:
-    z_[index] = newImpedance*length(Unit::kFeet);
+    z_[index] = newImpedance*length(Unit::kFeet)/network->impedanceBase();
     break;
 
   case Unit::kOhmPerMile:
-    z_[index] = newImpedance*length(Unit::kMile);
+    z_[index] = newImpedance*length(Unit::kMile)/network->impedanceBase();
     break;
 
   case Unit::kOhmPerUnit:
-    z_[index] = newImpedance*network->impedanceBase();
+    z_[index] = newImpedance;
     break;
 
   default:
@@ -163,15 +157,15 @@ complex<double> Line::i(int32_t phase, Unit::CurrentUnit unit)
 {
   switch (unit) {
   case Unit::kAmpere:
-    return i_[phase];
+    return i_[phase]*network->currentBase();
     break;
 
   case Unit::kKiloAmpere:
-    return i_[phase]/1000.0;
+    return i_[phase]*network->currentBase()/1000.0;
     break;
 
   case Unit::kAmperePerUnit:
-    return i_[phase]/network->currentBase();
+    return i_[phase];
     break;
 
   default:
@@ -188,15 +182,15 @@ void Line::setI(int32_t phase, complex<double> newCurrent,
 {
   switch (unit) {
   case Unit::kAmpere:
-    i_[phase] = newCurrent;
+    i_[phase] = newCurrent/network->currentBase();
     break;
 
   case Unit::kKiloAmpere:
-    i_[phase] = newCurrent*1000.0;
+    i_[phase] = newCurrent*1000.0/network->currentBase();
     break;
 
   case Unit::kAmperePerUnit:
-    i_[phase] = newCurrent*network->currentBase();
+    i_[phase] = newCurrent;
     break;
 
   default:
@@ -258,11 +252,11 @@ void Line::setLength(double newLength, Unit::LengthUnit unit)
     break;
 
   case Unit::kFeet:
-    length_ = newLength*3.28084;
+    length_ = newLength/3.28084;
     break;
 
   case Unit::kMile:
-    length_ = newLength*0.000621371;
+    length_ = newLength/0.000621371;
     break;
 
   default:

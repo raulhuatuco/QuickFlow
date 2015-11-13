@@ -22,7 +22,7 @@ impedancia(ohm,ohm/m,ohm/km,ohm/ft,ohm/milla)
 1
 
 Demanda(VAR,kVAR,MVAR)
-2
+3
 
 
 				 kVA    kV_hihg      kV_low    R1%    X1%   R0%    X0%

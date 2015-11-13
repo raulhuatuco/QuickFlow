@@ -49,6 +49,7 @@
 #include <QValidator>
 
 #include "customtypes.h"
+#include "math_constants.h"
 
 /*******************************************************************************
  * WindowNewProject
@@ -199,7 +200,7 @@ void NewProject::on_buttonBox_accepted()
 
   dataMaxIterations = ui->maxIterations->text().toUInt();
   dataMinError = ui->minError->text().toDouble();
-  dataVoltageBase = ui->voltageBase->text().toDouble();
+  dataVoltageBase = ui->voltageBase->text().toDouble()/kSQRT3;
   dataPowerBase = ui->powerBase->text().toDouble();
 
   dataLengthUnit = ui->lengthUnit->currentData().value<Unit::LengthUnit>();

@@ -56,7 +56,6 @@ SOURCES += main.cpp\
     window/lineproperties.cpp \
     window/newproject.cpp \
     window/barproperties.cpp \
-    algorithms/shirmoharmnadi.cpp \
     models/bar.cpp \
     models/line.cpp \
     models/network.cpp \
@@ -70,7 +69,8 @@ SOURCES += main.cpp\
     algorithms/radiallayer.cpp \
     algorithms/cespedes.cpp \
     window/searchbar.cpp \
-    algorithms/redrawnetwork.cpp
+    algorithms/redrawnetwork.cpp \
+    algorithms/shirmoharmmadi.cpp
     
 # Project header files.
 HEADERS  += \

@@ -70,7 +70,7 @@ using std::complex;
  * SysteView widget.
  * A bar with id equals to 0 is an alimentator (Slack bar).
  * Bar properties are:
- *  - Voltage (for phases 0, 1 and 2): voltage at the bar.
+ *  - Voltage (for phases 0, 1 and 2): line voltage (Vline) at the bar.
  *  - Shunt elements (sh) power injection: shunt elements are represented by the
  *    power they inject in the bar.
  *  - Injected power (si): the power injected at the bar (here, power that is
@@ -78,8 +78,13 @@ using std::complex;
  *    the bar is represented with a negative sign).
  *
  * The bar properties are stored in the following units:
- *  - Power: VA.
- *  - Voltage: Volts.
+ *  - Power: VA per unit.
+ *  - Voltage: Volts per unit.
+ *
+ * Current is calculated based on power and voltage.
+ * The I equation is as follow:
+ * 
+ * Iline = conj((Sh - Si)/(sqrt(3)*Vline));
  * 
  * In order to use diferent units, use the option parameter \b unit with the
  * desired unit.
@@ -161,22 +166,6 @@ public:
   Bar();
 
   /*****************************************************************************
-   * Constructor with initial conditions.
-   ****************************************************************************/
-  /*!
-   * \brief Constructor.
-   * This constructor is used when the bar needes to be initialized with
-   * pre-defined values.
-   * Note that the initial values will be applied to all phases.
-   *
-   * \param[in] initialV Initial voltage of the bar.
-   * \param[in] initialSh Initial shunt elements power.
-   * \param[in] initialSi Initial injected power.
-   */
-  Bar(complex<double> initialV, complex<double> initialSh = 0.0,
-      complex<double> initialSi = 0.0);
-
-  /*****************************************************************************
    * Destructor.
    ****************************************************************************/
   /*!
@@ -197,7 +186,7 @@ public:
    *
    * \return Voltage of phase \b phase.
    */
-  complex<double> v(int32_t phase, Unit::VoltageUnit unit = Unit::kVolts);
+  complex<double> v(int32_t phase, Unit::VoltageUnit unit = Unit::kVoltsPerUnit);
 
   /*****************************************************************************
    * Set initial Voltage.
@@ -211,7 +200,7 @@ public:
    * \param[in] unit Unit of the new voltage.
    */
   void setV(int32_t phase, complex<double> newVoltage,
-            Unit::VoltageUnit unit = Unit::kVolts);
+            Unit::VoltageUnit unit = Unit::kVoltsPerUnit);
 
   /*****************************************************************************
    * Shunt Power.
@@ -225,7 +214,7 @@ public:
    *
    * \return The power of the shunt element.
    */
-  complex<double> sh(int32_t phase, Unit::PowerUnit unit = Unit::kVA);
+  complex<double> sh(int32_t phase, Unit::PowerUnit unit = Unit::kVaPerUnit);
 
   /*****************************************************************************
    * Set Shunt Power.
@@ -239,7 +228,7 @@ public:
    * \param[in] unit Shunt power unit.
    */
   void setSh(int32_t phase, complex<double> newPower,
-             Unit::PowerUnit unit = Unit::kVA);
+             Unit::PowerUnit unit = Unit::kVaPerUnit);
 
   /*****************************************************************************
    * Injected power.
@@ -253,7 +242,7 @@ public:
    *
    * \return Injected power.
    */
-  complex<double> si(int32_t phase, Unit::PowerUnit unit = Unit::kVA);
+  complex<double> si(int32_t phase, Unit::PowerUnit unit = Unit::kVaPerUnit);
 
   /*****************************************************************************
    * Set Injected power.
@@ -268,7 +257,7 @@ public:
    * \param[in] unit New injected power unit.
    */
   void setSi(int32_t phase, complex<double> newPower,
-             Unit::PowerUnit unit = Unit::kVA);
+             Unit::PowerUnit unit = Unit::kVaPerUnit);
 
   /*****************************************************************************
    * Result voltage.
@@ -282,7 +271,7 @@ public:
    *
    * \return Result bar voltage.
    */
-  complex<double> rV(int32_t phase, Unit::VoltageUnit unit = Unit::kVolts);
+  complex<double> rV(int32_t phase, Unit::VoltageUnit unit = Unit::kVoltsPerUnit);
 
   /*****************************************************************************
    * Set result voltage.
@@ -297,7 +286,7 @@ public:
    * \param[in] unit Result unit.
    */
   void setRV(int32_t phase, complex<double> resultVoltage,
-             Unit::VoltageUnit unit = Unit::kVolts);
+             Unit::VoltageUnit unit = Unit::kVoltsPerUnit);
 
   /*****************************************************************************
    * Result value for bar current.
@@ -311,7 +300,8 @@ public:
    *
    * \return Result bar current.
    */
-  complex<double> rI(int32_t phase, Unit::CurrentUnit unit = Unit::kAmpere);
+  complex<double> rI(int32_t phase,
+                     Unit::CurrentUnit unit = Unit::kAmperePerUnit);
 
   /*****************************************************************************
   * Add Line.

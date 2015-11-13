@@ -101,13 +101,13 @@ public:
   /*****************************************************************************
    * Impedance.
    ****************************************************************************/
-  complex<double>  z(int32_t index, Unit::ImpedanceUnit unit = Unit::kOhm);
+  complex<double>  z(int32_t index, Unit::ImpedanceUnit unit = Unit::kOhmPerUnit);
 
   /*****************************************************************************
    * Set impedance.
    ****************************************************************************/
   void setZ(int32_t index, complex<double> newImpedance,
-            Unit::ImpedanceUnit unit = Unit::kOhm);
+            Unit::ImpedanceUnit unit = Unit::kOhmPerUnit);
 
   /*****************************************************************************
    * Current.
@@ -118,7 +118,7 @@ public:
    * Set current.
    ****************************************************************************/
   void setI(int32_t phase, complex<double> newCurrent,
-            Unit::CurrentUnit unit = Unit::kAmpere);
+            Unit::CurrentUnit unit = Unit::kAmperePerUnit);
 
   /*****************************************************************************
    * Compute the loss in the line.
