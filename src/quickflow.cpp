@@ -653,10 +653,15 @@ void QuickFlow::on_actionSearch_Bar_triggered()
   searchBar.setOptions(project);
 
   if (searchBar.exec() == QDialog::Accepted) {
+    QRectF fitRect = searchBar.bar()->sceneBoundingRect();
 
+    fitRect.setX(fitRect.x() -100);
+    fitRect.setY(fitRect.y() - 100);
+    fitRect.setWidth(fitRect.width() + 100);
+    fitRect.setHeight(fitRect.height() + 100);
+
+    ui->systemView->fitInView(fitRect, Qt::KeepAspectRatio);
   }
-
-
 }
 
 /*******************************************************************************

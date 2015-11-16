@@ -35,8 +35,8 @@
  * This file defines the SearchBar class.
  *
  * \author David Krepsky
- * \version 0.1
- * \date 10/2015
+ * \version 0.2
+ * \date 11/2015
  * \copyright David Krepsky
  */
 
@@ -45,6 +45,7 @@
 
 #include <QDialog>
 #include "project.h"
+#include "models/bar.h"
 
 namespace Ui
 {
@@ -56,35 +57,10 @@ class SearchBar;
  * \brief Window to search for a bar inside a network.
  *
  * ### Overview
- * After creating a new network or importing one, it is necessary to make it
- * have a "good look". This is hard to do by hand for systems composed of
- * thousands of bars and lines. In order to automate the repositioning of
- * elements in an organised and clean way, the RedrawNetwork class provides some
- * graph drawing algorithms that makes all the needed calculation in order to
- * rearrange the network elements.
+ * SearchBar class provides a window that will select the bar to search.
  *
- * The following graph drawing algorithms are present:
- *  - Sugiyama: Classical Sugiyama algorithm for layered graphs.
- *  - SugiyamaFast: Same as above, but with a faster method.
- *  - Multilevel: Usefull to give a nice view of how the system expands.
- *
- * This class uses the Open Graphics Drawing Framework (OGDF) to provide its
- * functionalities.
- * Please make sure to have ogdf and coin binaries if compilled with dynamic
- * link.
- * More info about OGDF: http://www.ogdf.net/doku.php
- *
- * ### Example
- * \code
- * // Code to redraw a network (network is a pointer to a Network object).
- *  RedrawNetwork redraw(network);
- *  redraw.sugiyama();
- *
- * \endcode
- *
- * \todo Improve removeOffset to consider slack initial position.
- * \bug Can't delete Graph or GA objects.
- *
+ * If accepted, id() gives the bar id to search for and network() gives the
+ * network pointer.
  */
 class SearchBar : public QDialog
 {
@@ -92,17 +68,28 @@ class SearchBar : public QDialog
 
 public:
   explicit SearchBar(QWidget *parent = 0);
+
   ~SearchBar();
 
   void setOptions(Project *project);
 
+  Bar *bar();
+
+private slots:
+  void on_search_clicked();
+  
+  void on_cancel_clicked();
+  
 private:
   Ui::SearchBar *ui;
+
   Project *project_;
 
+  Bar *bar_;
 };
 
 #endif  // WINDOW_SEARCHBAR_H
+
 /*!
  * \}
  */
