@@ -28,140 +28,60 @@
  */
 
 /*!
- * \file newproject.h
+ * \file projectproperties.h
  *
- * \brief NewProject class definition.
+ * \brief ProjectProperties class definition.
  *
- * This file defines the NewProject class.
+ * This file defines the ProjectProperties class.
  *
  * \author David Krepsky
- * \version 0.2
+ * \version 0.3
  * \date 10/2015
  * \copyright David Krepsky
  */
 
-#ifndef WINDOW_NEWPROJECT_H
-#define WINDOW_NEWPROJECT_H
+#ifndef WINDOW_PROJECTPROPERTIES_H
+#define WINDOW_PROJECTPROPERTIES_H
 
 #include <cstdint>
 #include <QDialog>
 #include <QString>
 #include <QDir>
 
+#include "project.h"
 #include "customtypes.h"
 
 namespace Ui
 {
-class NewProject;
+class ProjectProperties;
 }
 
 /*!
- * \class NewProject
- * \brief  Gets user input to create a new project.
+ * \class ProjectProperties
+ * \brief  Gets user input to create or edit a project.
  *
  * ### Overview
- * This class implements a dialog that will get user input to create a new
- * project. All parameters are validade for their respective type.
+ * This class implements a dialog that will get user input to create or edit a
+ * project. All parameters are validated for their respective type.
  *
  * In order to verify user confirmation, check for the QDialog::Accepted
  * response.
  *
- * User input is passed through the data* properties.
- *
- * ### Example
- * \code
- * NewProject newProject(this);
- *
- * // If canceled return
- * if (newProject.exec() != QDialog::Accepted) {
- *   return;
- * }
- *
- * // Create project object and fill settings.
- * Project *project = new Project;
- * project->name = newProject.dataName;
- * project->filePath = newProject.dataPath + QDir::separator() +
- *                     newProject.dataName + ".qkf";
- *
- * // Simulation data.
- * project->setMaxIterations(newProject.dataMaxIterations);
- * project->setMinError(newProject.dataMinError);
- * project->setVoltageBase(newProject.dataVoltageBase);
- * project->setPowerBase(newProject.dataPowerBase);
- * \endcode
  */
-class NewProject : public QDialog
+class ProjectProperties : public QDialog
 {
   Q_OBJECT
 
 public:
   /*****************************************************************************
-  * Properties.
-  *****************************************************************************/
-  /*!
-   * \brief Project name.
-   */
-  QString dataName;
-
-  /*!
-   * \brief Project path.
-   */
-  QString dataPath;
-
-  /*!
-   * \brief Max. iterations.
-   */
-  uint32_t dataMaxIterations;
-
-  /*!
-   * \brief Min. error, in percentage.
-   */
-  double dataMinError;
-
-  /*!
-   * \brief Voltage base, in volts.
-   */
-  double dataVoltageBase;
-
-  /*!
-   * \brief Power base, in VA.
-   */
-  double dataPowerBase;
-
-  /*!
-   * \brief Length unit.
-   */
-  Unit::LengthUnit dataLengthUnit;
-
-  /*!
-   * \brief Impedance unit.
-   */
-  Unit::ImpedanceUnit dataImpedanceUnit;
-
-  /*!
-   * \brief Voltage unit.
-   */
-  Unit::VoltageUnit dataVoltageUnit;
-
-  /*!
-   * \brief Power unit.
-   */
-  Unit::PowerUnit dataPowerUnit;
-
-  /*!
-   * \brief Current unit.
-   */
-  Unit::CurrentUnit dataCurrentUnit;
-
-  /*****************************************************************************
   * Constructor.
   *****************************************************************************/
   /*!
-   * \brief NewProject constructor.
+   * \brief ProjectProperties constructor.
    *
    * \param[in] parent Parent widget.
    */
-  explicit NewProject(QWidget *parent = 0);
+  explicit ProjectProperties(QWidget *parent = 0);
 
   /*****************************************************************************
   * Destructor.
@@ -170,12 +90,34 @@ public:
    * \brief Destructor.
    * Destroy user interface.
    */
-  ~NewProject();
+  ~ProjectProperties();
 
-private slots:
   /*****************************************************************************
-  * Name text changed..
+  * Set options.
   *****************************************************************************/
+  /*!
+   * \brief Set the project to be edited.
+   *
+   * To create a new project, pass NULL as the parameter.
+   *
+   * \param[in] project Project to be edited. If NULL, a new project is created.
+   */
+  void setOptions(Project *project);
+
+  /*****************************************************************************
+  * Project.
+  *****************************************************************************/
+  /*!
+   * \brief Project being edited.
+   * \return Address of the project being edited.
+   */
+  Project *project();
+
+
+  /*****************************************************************************
+  * Slots.
+  *****************************************************************************/
+private slots:
   /*!
    * \brief Handles a project name change.
    * Adjust the file path line edit to conform with the new name.
@@ -184,9 +126,6 @@ private slots:
    */
   void on_name_textChanged(const QString &arg1);
 
-  /*****************************************************************************
-  * Path text change.
-  *****************************************************************************/
   /*!
    * \brief Handles text changes in the path line edit.
    * Adjust the file path line edit to conform with the new path.
@@ -195,28 +134,18 @@ private slots:
    */
   void on_path_textChanged(const QString &arg1);
 
-
-  /*****************************************************************************
-  * Location button clicked.
-  *****************************************************************************/
   /*!
    * \brief Search the project save directory.
    * Open the path search dialog to select the output directory.
    */
   void on_location_clicked();
 
-  /*****************************************************************************
-  * Accepted.
-  *****************************************************************************/
   /*!
    * \brief User accepted.
    * Validade all data and fill the data* fields.
    */
   void on_buttonBox_accepted();
 
-  /*****************************************************************************
-  * Rejected.
-  *****************************************************************************/
   /*!
    * \brief User caceled.
    * User pressed the cancel button.
@@ -230,10 +159,20 @@ private:
   /*!
    * \brief User interface.
    */
-  Ui::NewProject *ui;
+  Ui::ProjectProperties *ui;
+
+  /*!
+   * \brief Project to be edited.
+   */
+  Project *project_;
+  
+  /*!
+   * \brief True if a new project has been created.
+   */
+  bool isNew;
 };
 
-#endif  // WINDOW_NEWPROJECT_H
+#endif  // WINDOW_PROJECTPROPERTIES_H
 
 /*!
  * \}

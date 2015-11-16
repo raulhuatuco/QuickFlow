@@ -23,7 +23,7 @@
  */
 
 /*!
- * \addtogroup Graphics
+ * \addtogroup Models
  * \{
  */
 
@@ -35,16 +35,17 @@
  * This is the implementation of the Network class.
  *
  * \author David Krepsky
- * \version 0.1
- * \date 09/2015
+ * \version 0.2
+ * \date 11/2015
  * \copyright David Krepsky
  */
 
-#include <QJsonArray>
 #include "models/network.h"
 
+#include <QJsonArray>
+
 /*******************************************************************************
- * Const.
+ * Constants.
  ******************************************************************************/
 const double Network::barIconSize = 15.0;
 const double Network::lineWidth = 4.0;
@@ -57,10 +58,6 @@ uint32_t Network::maxIterations = 1000;
 
 double Network::minError = 0.01;
 
-double Network::voltageBase = 23000.0;
-
-double Network::powerBase = 2500000.0;
-
 Unit::LengthUnit Network::lengthUnit = Unit::kMeter;
 
 Unit::ImpedanceUnit Network::impedanceUnit = Unit::kOhm;
@@ -70,22 +67,6 @@ Unit::VoltageUnit Network::voltageUnit = Unit::kVolts;
 Unit::PowerUnit Network::powerUnit = Unit::kVA;
 
 Unit::CurrentUnit Network::currentUnit = Unit::kAmpere;
-
-/*******************************************************************************
- * Current Base.
- ******************************************************************************/
-double Network::currentBase()
-{
-  return powerBase/(sqrt(3)*voltageBase);
-}
-
-/*******************************************************************************
- * Impedance Base.
- ******************************************************************************/
-double Network::impedanceBase()
-{
-  return voltageBase*voltageBase/powerBase;
-}
 
 /*******************************************************************************
  * Constructor.
@@ -113,7 +94,7 @@ Network::~Network()
 }
 
 /*******************************************************************************
- * addBar.
+ * Add bar.
  ******************************************************************************/
 bool Network::addBar(Bar *bar)
 {
@@ -128,7 +109,7 @@ bool Network::addBar(Bar *bar)
 }
 
 /*******************************************************************************
- * addLine.
+ * Add line.
  ******************************************************************************/
 bool Network::addLine(Line *line)
 {
@@ -153,7 +134,7 @@ bool Network::addLine(Line *line)
 }
 
 /*******************************************************************************
- * getBarById.
+ * Remove bar.
  ******************************************************************************/
 void Network::removeBar(int32_t id)
 {
@@ -161,7 +142,7 @@ void Network::removeBar(int32_t id)
 }
 
 /*******************************************************************************
- * getBarById.
+ * Remove bar.
  ******************************************************************************/
 void Network::removeBar(Bar *bar)
 {
@@ -169,7 +150,7 @@ void Network::removeBar(Bar *bar)
 }
 
 /*******************************************************************************
- * getBarById.
+ * Remove line.
  ******************************************************************************/
 void Network::removeLine(QPair<int32_t, int32_t> nodes)
 {
@@ -177,7 +158,7 @@ void Network::removeLine(QPair<int32_t, int32_t> nodes)
 }
 
 /*******************************************************************************
- * getBarById.
+ * Remove line.
  ******************************************************************************/
 void Network::removeLine(Line *line)
 {
@@ -185,7 +166,7 @@ void Network::removeLine(Line *line)
 }
 
 /*******************************************************************************
- * getBarById.
+ * Get bar by id.
  ******************************************************************************/
 Bar *Network::getBarById(uint32_t id)
 {
@@ -193,7 +174,7 @@ Bar *Network::getBarById(uint32_t id)
 }
 
 /*******************************************************************************
- * getLineByNodes.
+ * Get line by nodes.
  ******************************************************************************/
 Line *Network::getLineByNodes(QPair<int32_t, int32_t> nodes)
 {
@@ -214,6 +195,8 @@ QJsonObject Network::toJson()
   netJson.insert("barSlackFillColor", barSlackFillColor.name());
   netJson.insert("barPqFillColor", barPqFillColor.name());
   netJson.insert("lineColor", lineColor.name());
+  netJson.insert("voltageBase", voltageBase_);
+  netJson.insert("powerBase", powerBase_);
 
   QJsonArray barArray;
   foreach(Bar *bar,bars) {
@@ -242,6 +225,8 @@ void Network::fromJson(QJsonObject &netJson)
   barSlackFillColor.setNamedColor(netJson.value("barSlackFillColor").toString());
   barPqFillColor.setNamedColor(netJson.value("barPqFillColor").toString());
   lineColor.setNamedColor(netJson.value("lineColor").toString());
+  voltageBase_ = netJson.value("voltageBase").toDouble();
+  powerBase_ = netJson.value("powerBase").toDouble();
 
   QJsonArray barArray(netJson.value("barArray").toArray());
 
@@ -263,6 +248,54 @@ void Network::fromJson(QJsonObject &netJson)
     line->fromJson(jsonLine);
     addLine(line);
   }
+}
+
+/*******************************************************************************
+ * Current base.
+ ******************************************************************************/
+double Network::currentBase()
+{
+  return powerBase_/voltageBase_;
+}
+
+/*******************************************************************************
+ * Impedance base.
+ ******************************************************************************/
+double Network::impedanceBase()
+{
+  return voltageBase_*(voltageBase_/powerBase_);
+}
+
+/*******************************************************************************
+ * Voltage base.
+ ******************************************************************************/
+double Network::voltageBase()
+{
+  return voltageBase_;
+}
+
+/*******************************************************************************
+ * Power base.
+ ******************************************************************************/
+double Network::powerBase()
+{
+  return powerBase_;
+}
+
+/*******************************************************************************
+ * Set voltage base.
+ ******************************************************************************/
+void Network::setVoltageBase(double voltage)
+{
+  voltageBase_ = voltage;
+}
+
+/*******************************************************************************
+ * Set power base.
+ ******************************************************************************/
+void Network::setPowerBase(double power)
+{
+  powerBase_ = power;
 }
 
 /*!

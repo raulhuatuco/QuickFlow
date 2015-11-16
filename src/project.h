@@ -29,14 +29,6 @@ public:
 
   void setMinError(double minError);
 
-  double voltageBase();
-
-  void setVoltageBase(double voltageBase);
-
-  double powerBase();
-
-  void setPowerBase(double powerBase);
-
   Unit::LengthUnit lengthUnit();
 
   void setLengthUn(Unit::LengthUnit unit);

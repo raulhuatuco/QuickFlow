@@ -74,11 +74,12 @@ bool Shirmoharmmadi::solve()
   QElapsedTimer timer;
   timer.start();
 
-  // Initialize the results with the current bar voltage.
+  // Set Initial voltage to 1pu.
+  double initialVoltage = network_->voltageBase();
   foreach(Bar *bar, network_->bars) {
-    bar->setRV(0, bar->v(0));
-    bar->setRV(1, bar->v(1));
-    bar->setRV(2, bar->v(2));
+    bar->setV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
+    bar->setV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
+    bar->setV(2, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
   }
 
   // Initialize at iteration 0 and error inf;
@@ -188,17 +189,17 @@ void Shirmoharmmadi::doForwardSweep(RadialLayer &radLayer)
           bVoltage[1] = bar->rV(1,Unit::kVoltsPerUnit);
           bVoltage[2] = bar->rV(2,Unit::kVoltsPerUnit);
 
-          bVoltage[0] += line->z(0, Unit::kOhmPerUnit)*line->i(0,Unit::kAmperePerUnit);
-          bVoltage[0] += line->z(1, Unit::kOhmPerUnit)*line->i(1, Unit::kAmperePerUnit);
-          bVoltage[0] += line->z(2,Unit::kOhmPerUnit)*line->i(2, Unit::kAmperePerUnit);
+          bVoltage[0] -= line->z(0, Unit::kOhmPerUnit)*line->i(0,Unit::kAmperePerUnit);
+          bVoltage[0] -= line->z(1, Unit::kOhmPerUnit)*line->i(1, Unit::kAmperePerUnit);
+          bVoltage[0] -= line->z(2,Unit::kOhmPerUnit)*line->i(2, Unit::kAmperePerUnit);
 
-          bVoltage[1] += line->z(1, Unit::kOhmPerUnit)*line->i(0,Unit::kAmperePerUnit);
-          bVoltage[1] += line->z(3, Unit::kOhmPerUnit)*line->i(1, Unit::kAmperePerUnit);
-          bVoltage[1] += line->z(4,Unit::kOhmPerUnit)*line->i(2, Unit::kAmperePerUnit);
+          bVoltage[1] -= line->z(1, Unit::kOhmPerUnit)*line->i(0,Unit::kAmperePerUnit);
+          bVoltage[1] -= line->z(3, Unit::kOhmPerUnit)*line->i(1, Unit::kAmperePerUnit);
+          bVoltage[1] -= line->z(4,Unit::kOhmPerUnit)*line->i(2, Unit::kAmperePerUnit);
 
-          bVoltage[2] += line->z(2, Unit::kOhmPerUnit)*line->i(0,Unit::kAmperePerUnit);
-          bVoltage[2] += line->z(4, Unit::kOhmPerUnit)*line->i(1, Unit::kAmperePerUnit);
-          bVoltage[2] += line->z(5,Unit::kOhmPerUnit)*line->i(2, Unit::kAmperePerUnit);
+          bVoltage[2] -= line->z(2, Unit::kOhmPerUnit)*line->i(0,Unit::kAmperePerUnit);
+          bVoltage[2] -= line->z(4, Unit::kOhmPerUnit)*line->i(1, Unit::kAmperePerUnit);
+          bVoltage[2] -= line->z(5,Unit::kOhmPerUnit)*line->i(2, Unit::kAmperePerUnit);
 
           line->pNoF()->setRV(0, bVoltage[0], Unit::kVoltsPerUnit);
           line->pNoF()->setRV(1, bVoltage[1], Unit::kVoltsPerUnit);
@@ -221,15 +222,15 @@ void Shirmoharmmadi::computeSlackCurrent()
   complex<double> iSlack[3];
 
   foreach(Line *sline, slack->lines) {
-    iSlack[0] += sline->i(0);
-    iSlack[1] += sline->i(1);
-    iSlack[2] += sline->i(2);
+    iSlack[0] -= sline->i(0, Unit::kAmperePerUnit);
+    iSlack[1] -= sline->i(1, Unit::kAmperePerUnit);
+    iSlack[2] -= sline->i(2, Unit::kAmperePerUnit);
   }
 
   complex<double> siSlack[3];
-  siSlack[0] = slack->v(0)*iSlack[0];
-  siSlack[1] = slack->v(1)*iSlack[1];
-  siSlack[2] = slack->v(2)*iSlack[2];
+  siSlack[0] = slack->rV(0)*conj(iSlack[0]);
+  siSlack[1] = slack->rV(1)*conj(iSlack[1]);
+  siSlack[2] = slack->rV(2)*conj(iSlack[2]);
 
   slack->setSi(0, siSlack[0]);
   slack->setSi(1, siSlack[2]);
@@ -244,44 +245,35 @@ double Shirmoharmmadi::maxError()
   // Holds the last maximum error.
   double maxError = 0.0;
 
-  // Get the highest error in the network.
-  foreach(Bar *bar, network_->bars) {
-    double currentError = absError(bar);
+  Bar *slack = network_->getBarById(0);
 
-    if(currentError > maxError) {
-      maxError = currentError;
+  complex<double> deltaS[3];
+
+  deltaS[0] = slack->si(0, Unit::kVA) - oldSlackPower[0];
+  deltaS[1] = slack->si(1, Unit::kVA) - oldSlackPower[1];
+  deltaS[2] = slack->si(2, Unit::kVA) - oldSlackPower[2];
+
+  for (int i=0; i<3; i++) {
+    double realError;
+    double imagError;
+
+    realError = abs(deltaS[i].real());
+    imagError = abs(deltaS[i].imag());
+
+    if(realError > maxError) {
+      maxError = realError;
+    }
+
+    if(imagError > maxError) {
+      maxError = imagError;
     }
   }
 
+  oldSlackPower[0] = slack->si(0, Unit::kVA);
+  oldSlackPower[1] = slack->si(1, Unit::kVA);
+  oldSlackPower[2] = slack->si(2, Unit::kVA);
+
   return maxError;
-}
-
-/*******************************************************************************
- * Compute absolute bar error.
- ******************************************************************************/
-double Shirmoharmmadi::absError(Bar *bar)
-{
-  // Compute max error.
-  complex<double> sFinal, sInitial, v, i, error;
-
-  /* This line should be removed, it is here because there is a problem with
-   * the slack bar current. */
-  if(bar->id == 0)
-    return 0;
-
-  sInitial = bar->si(0, Unit::kVaPerUnit);
-
-  v = bar->rV(0, Unit::kVoltsPerUnit);
-  i = bar->rI(0, Unit::kAmperePerUnit);
-  sFinal = v*conj(i)*kSQRT3;
-
-
-  error = sFinal - sInitial;
-
-  double errorReal = fabs(error.real());
-  double errorImag = fabs(error.imag());
-
-  return (errorReal > errorImag) ? errorReal : errorImag;
 }
 
 /*!

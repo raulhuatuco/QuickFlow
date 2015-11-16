@@ -5,6 +5,8 @@
 #include <QMessageBox>
 #include <QValidator>
 
+#include "math_constants.h"
+
 NetworkProperties::NetworkProperties(QWidget *parent) :
   QDialog(parent),
   ui(new Ui::NetworkProperties),
@@ -21,6 +23,10 @@ NetworkProperties::NetworkProperties(QWidget *parent) :
   // Add data validators.
   ui->xOffset->setValidator(new QDoubleValidator(this));
   ui->yOffset->setValidator(new QDoubleValidator(this));
+
+  ui->voltageBase->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
+  ui->powerBase->setValidator(new QDoubleValidator(0, qInf(), 1000, this));
+
 }
 
 NetworkProperties::~NetworkProperties()
@@ -37,10 +43,45 @@ void NetworkProperties::setOptions(Project *project, Network *network)
     isNew = true;
 
   } else {
-    setWindowTitle(tr("Edit network "));
+    setWindowTitle(tr("Edit network ") + network->name);
     network_ = network;
     isNew = false;
-    // Todo: initialize colors from network.
+
+    // Initialize colors from network.
+    QString slackColor =
+      QString("border: 2px solid #000000;" \
+              "\nborder-radius: 6px;" \
+              "\nbackground-color: %1;" \
+              "\nselection-background-color: %2;").arg(
+        network->barSlackFillColor.name()).arg(network->barSlackFillColor.name());
+    ui->slackColor->setStyleSheet(slackColor);
+
+    QString pqColor =
+      QString("border: 2px solid #000000;" \
+              "\nborder-radius: 6px;" \
+              "\nbackground-color: %1;" \
+              "\nselection-background-color: %2;").arg(
+        network->barPqFillColor.name()).arg(network->barPqFillColor.name());
+    ui->pqColor->setStyleSheet(pqColor);
+
+    QString lineColor =
+      QString("border: 2px solid #000000;" \
+              "\nborder-radius: 6px;" \
+              "\nbackground-color: %1;" \
+              "\nselection-background-color: %2;").arg(
+        network->lineColor.name()).arg(network->lineColor.name());
+    ui->lineColor->setStyleSheet(lineColor);
+
+    QString borderColor =
+      QString("border: 2px solid #000000;" \
+              "\nborder-radius: 6px;" \
+              "\nbackground-color: %1;" \
+              "\nselection-background-color: %2;").arg(
+        network->barStrokeColor.name()).arg(network->barStrokeColor.name());
+    ui->barBorderColor->setStyleSheet(borderColor);
+
+    ui->voltageBase->setText(QString::number(network->voltageBase()*kSQRT3));
+    ui->powerBase->setText(QString::number(network->powerBase()*3.0));
   }
 
   // Store project parameters.
@@ -133,6 +174,24 @@ void NetworkProperties::on_buttonBox_accepted()
     ui->yOffset->setText("0");
   }
 
+  // Check for empty voltage base.
+  if(ui->voltageBase->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid voltage base",
+                             "Select a voltage base.",
+                             QMessageBox::Ok);
+    ui->voltageBase->setFocus();
+    return;
+  }
+
+  // Check for empty power base.
+  if(ui->powerBase->text().isEmpty()) {
+    QMessageBox::information(this, "Invalid power base",
+                             "Select a power base.",
+                             QMessageBox::Ok);
+    ui->powerBase->setFocus();
+    return;
+  }
+
   network_->name = ui->networkName->text();
   network_->barSlackFillColor = slack;
   network_->barPqFillColor = pq;
@@ -140,6 +199,9 @@ void NetworkProperties::on_buttonBox_accepted()
   network_->lineColor = line;
   network_->xOffset = ui->xOffset->text().toDouble();
   network_->yOffset = ui->yOffset->text().toDouble();
+
+  network_->setVoltageBase(ui->voltageBase->text().toDouble()/kSQRT3);
+  network_->setPowerBase(ui->powerBase->text().toDouble()/3.0);
 
   if(isNew)
     project_->networks.insert(network_->name, network_);

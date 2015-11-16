@@ -44,7 +44,7 @@
 #include "ui_quickflow.h"
 
 
-#include "window/newproject.h"
+#include "window/projectproperties.h"
 #include "window/networkproperties.h"
 #include "window/barproperties.h"
 #include "window/lineproperties.h"
@@ -184,48 +184,20 @@ void QuickFlow::on_actionNew_triggered()
     if (project != NULL) return;
   }
 
-  // Open New Project window and gather the project settings.
-  // NOTE: windowNewProject MUST provide valid data.
-  NewProject newProject(this);
+  ProjectProperties projectProperties(this);
+  projectProperties.setOptions(NULL);
 
   // If canceled return
-  if (newProject.exec() != QDialog::Accepted) {
+  if (projectProperties.exec() != QDialog::Accepted) {
     return;
   }
 
-  // Create project object and fill settings.
-  project = new Project;
-  project->name = newProject.dataName;
-  project->filePath = newProject.dataPath + QDir::separator() +
-                      newProject.dataName + ".qkf";
-
-  // Simulation data.
-  project->setMaxIterations(newProject.dataMaxIterations);
-  project->setMinError(newProject.dataMinError);
-  project->setVoltageBase(newProject.dataVoltageBase);
-  project->setPowerBase(newProject.dataPowerBase);
-
-  // Units.
-  project->setLengthUn(newProject.dataLengthUnit);
-  project->setImpedanceUn(newProject.dataImpedanceUnit);
-  project->setVoltageUn(newProject.dataVoltageUnit);
-  project->setPowerUn(newProject.dataPowerUnit);
-  project->setCurrentUnit(newProject.dataCurrentUnit);
-
-  // Try to save project.
-  bool save_ok = project->save();
-
-  if (!save_ok) {
-    QMessageBox::critical(this, "File write error",
-                          "Cannot write .qkf file.", QMessageBox::Ok);
-    delete project;
-    project = NULL;
-    return;
-  }
+  // Save project pointer
+  project = projectProperties.project();
 
   // New project is Ok
   // Change window title to indicate that the project is open
-  setWindowTitle("QkFlow - " + newProject.dataName);
+  setWindowTitle("QkFlow - " + project->name);
   // Enable interface
   workInterface();
 }
@@ -248,9 +220,11 @@ void QuickFlow::on_actionOpen_triggered()
   QFileDialog projectFile(this);
   projectFile.setFileMode(QFileDialog::ExistingFile);
   projectFile.setAcceptMode(QFileDialog::AcceptOpen);
-  projectFile.setNameFilter(tr("QkFlow Project (*.qkf)"));
-  projectFile.setDirectory(QStandardPaths::standardLocations(
-                             QStandardPaths::HomeLocation)[0]);
+  projectFile.setNameFilter(tr("QuickFlow Project (*.qkf)"));
+  QString initialPath = QStandardPaths::standardLocations(
+                          QStandardPaths::DocumentsLocation)[0] + "/QuickFlow";
+
+  projectFile.setDirectory(initialPath);
 
   // Check if user has canceled the opening.
   if (projectFile.exec() != QDialog::Accepted) {
@@ -274,7 +248,7 @@ void QuickFlow::on_actionOpen_triggered()
 
   // New project is Ok.
   // Change window title to indicate that the project is open.
-  setWindowTitle("QkFlow - " + project->name);
+  setWindowTitle("QuickFlow - " + project->name);
   // Enable interface.
   workInterface();
 
@@ -309,9 +283,10 @@ void QuickFlow::on_actionSave_as_triggered()
   // Get file location from user.
   QFileDialog projectFile(this);
   projectFile.setAcceptMode(QFileDialog::AcceptSave);
-  projectFile.setNameFilter(tr("QkFlow Project (*.qkf)"));
-  projectFile.setDirectory(QStandardPaths::standardLocations(
-                             QStandardPaths::HomeLocation)[0]);
+  projectFile.setNameFilter(tr("QuickFlow Project (*.qkf)"));
+  QString initialPath = QStandardPaths::standardLocations(
+                          QStandardPaths::DocumentsLocation)[0] + "/QuickFlow";
+  projectFile.setDirectory(initialPath);
 
   // Check if user has canceled the opening.
   if (projectFile.exec() != QDialog::Accepted) {
@@ -461,26 +436,30 @@ void QuickFlow::on_action_txt_type_1_triggered()
     }
   }
 
-  NetworkProperties newNetwork(this);
-  newNetwork.setOptions(project, NULL);
-
-  if (newNetwork.exec() == QDialog::Rejected) {
-    // User canceled import, return.
-    return;
-  }
-
   // Try to import network.
-  Network *network = newNetwork.network();
+  Network *network = new Network;
+
   bool importOk = importTxtType1(fileName, network);
 
   // Impor success.
   if(importOk) {
+    project->networks.insert(network->name, network);
+
+    NetworkProperties newNetwork(this);
+    newNetwork.setOptions(project, network);
+
+    if (newNetwork.exec() == QDialog::Rejected) {
+      project->networks.remove(network->name);
+      delete network;
+      return;
+    }
+
     ui->systemView->addNetwork(network);
     ui->systemView->zoomFit();
     setAltered(true);
   } else {
-    project->networks.remove(network->name);
     delete network;
+    return;
   }
 }
 
@@ -710,6 +689,18 @@ void QuickFlow::on_actionRun_triggered()
 }
 
 /*******************************************************************************
+ * Settings action.
+ ******************************************************************************/
+void QuickFlow::on_actionSettings_triggered()
+{
+  ProjectProperties projectProperties(this);
+
+  projectProperties.setOptions(project);
+
+  projectProperties.exec();
+}
+
+/*******************************************************************************
  * About action.
  ******************************************************************************/
 void QuickFlow::on_actionAbout_triggered()
@@ -918,3 +909,41 @@ void QuickFlow::disconnectSignals()
 /*!
  * \}
  */
+
+
+
+void QuickFlow::on_actionExport_image_triggered()
+{
+
+  // Get file location from user.
+  QFileDialog imgFile(this);
+  imgFile.setAcceptMode(QFileDialog::AcceptSave);
+  QStringList filters;
+  filters << "PNG (*.png)";
+  filters << "JPG (*.jpg)";
+  filters << "BMP (*.bmp)";
+
+  imgFile.setNameFilters(filters);
+  QString initialPath = QStandardPaths::standardLocations(
+                          QStandardPaths::DocumentsLocation)[0] + "/QuickFlow";
+  imgFile.setDirectory(initialPath);
+
+  // Check if user has canceled the opening.
+  if (imgFile.exec() != QDialog::Accepted) {
+    return;
+  }
+
+  QString imgPath =  imgFile.selectedFiles()[0];
+
+  double w = ui->systemView->scene()->sceneRect().width();
+  double h = ui->systemView->scene()->sceneRect().height();
+
+  QImage img(static_cast<int> (w), static_cast<int> (h),
+             QImage::Format_ARGB32_Premultiplied);
+  img.fill(ui->systemView->backgroundBrush().color());
+  QPainter p(&img);
+  p.setRenderHint(QPainter::Antialiasing);
+  ui->systemView->scene()->render(&p);
+  p.end();
+  img.save(imgPath);
+}

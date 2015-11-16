@@ -4,6 +4,7 @@
 #include <QtWidgets>
 #include "models/network.h"
 #include "algorithms/redrawnetwork.h"
+#include "math_constants.h"
 
 static int32_t getNextLineInt(QTextStream *stream, QString keyWord,
                               int32_t *intVal)
@@ -71,6 +72,27 @@ bool importTxtType1(QString &fileName, Network *network)
   }
 
   lineCnt += processedLines;
+
+  // Get voltage base.
+  QString lineTxt;
+  double voltageBase;
+
+  do {
+    if(stream.atEnd()) {
+      QMessageBox::critical(NULL, "Invalid File.",
+                            "The file " + fileName +
+                            " doesn't provide the voltage base.",
+                            QMessageBox::Ok);
+      file.close();
+      return false;
+    }
+
+    lineTxt = stream.readLine();
+    lineCnt++;
+  } while(!lineTxt.contains("Voltagem_base_da_rede"));
+
+  stream >> voltageBase;
+  network->setVoltageBase(voltageBase*1000.0/kSQRT3);
 
   // Get Length Unit.
   int32_t LenUn;
@@ -192,9 +214,29 @@ bool importTxtType1(QString &fileName, Network *network)
     break;
   }
 
-  // Get Bars.
-  QString lineTxt;
+  // Get power base.
+  double powerBase;
 
+  do {
+    if(stream.atEnd()) {
+      QMessageBox::critical(NULL, "Invalid File.",
+                            "The file " + fileName +
+                            " doesn't provide the power base.",
+                            QMessageBox::Ok);
+      file.close();
+      return false;
+    }
+
+    lineTxt = stream.readLine();
+    lineCnt++;
+  } while(!lineTxt.contains("kV_hihg"));
+
+  QString dummy;
+  stream >> dummy >> powerBase;
+
+  network->setPowerBase(powerBase*1000.0/3);
+
+  // Get Bars.
   do {
     lineTxt = stream.readLine();
     lineCnt++;
@@ -231,15 +273,6 @@ bool importTxtType1(QString &fileName, Network *network)
     bar = new Bar;
     bar->id = id - idBase;
 
-    bar->setSh(0, complex<double>(Sha, Shai), powerUnit);
-    bar->setSh(1, complex<double>(Shb, Shbi), powerUnit);
-    bar->setSh(2, complex<double>(Shc, Shci), powerUnit);
-
-    bar->setSi(0, complex<double>(Sia, Siai), powerUnit);
-    bar->setSi(1, complex<double>(Sib, Sibi), powerUnit);
-    bar->setSi(2, complex<double>(Sic, Sici), powerUnit);
-
-
     if (!network->addBar(bar)) {
       QMessageBox::critical(NULL, "Invalid Bar.",
                             "Invalid Bar " + QString::number(id) + "at line " +
@@ -250,16 +283,26 @@ bool importTxtType1(QString &fileName, Network *network)
       return false;
     }
 
+    bar->setSh(0, complex<double>(Sha, Shai), powerUnit);
+    bar->setSh(1, complex<double>(Shb, Shbi), powerUnit);
+    bar->setSh(2, complex<double>(Shc, Shci), powerUnit);
+
+    bar->setSi(0, complex<double>(Sia, Siai), powerUnit);
+    bar->setSi(1, complex<double>(Sib, Sibi), powerUnit);
+    bar->setSi(2, complex<double>(Sic, Sici), powerUnit);
+
     // Set Initial voltage to 1pu.
-    bar->setV(0, 1, Unit::kVoltsPerUnit);
-    bar->setV(1, 1, Unit::kVoltsPerUnit);
-    bar->setV(2, 1, Unit::kVoltsPerUnit);
+    double initialVoltage = network->voltageBase();
+
+    bar->setV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
+    bar->setV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
+    bar->setV(2, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
 
     lineTxt = stream.readLine();
     lineCnt++;
   }
 
-  // Get Lines.
+// Get Lines.
   do {
     if(stream.atEnd()) {
       QMessageBox::critical(NULL, "Invalid File.",
@@ -281,7 +324,6 @@ bool importTxtType1(QString &fileName, Network *network)
   double Zbc, Zbci;
   double Zcc, Zcci;
   double length;
-  QString dummy;
 
   Line *line;
 
@@ -296,15 +338,6 @@ bool importTxtType1(QString &fileName, Network *network)
     line->nodes.first = noI - idBase;
     line->nodes.second = noF - idBase;
 
-    line->setLength(length, lengthUnit);
-
-    line->setZ(0, complex<double>(Zaa, Zaai), impedanceUnit);
-    line->setZ(1, complex<double>(Zab, Zabi), impedanceUnit);
-    line->setZ(2, complex<double>(Zac, Zaci), impedanceUnit);
-    line->setZ(3, complex<double>(Zbb, Zbbi), impedanceUnit);
-    line->setZ(4, complex<double>(Zbc, Zbci), impedanceUnit);
-    line->setZ(5, complex<double>(Zcc, Zcci), impedanceUnit);
-
     if (!network->addLine(line)) {
       QMessageBox::critical(NULL, "Invalid Line.",
                             "Invalid Line at line " +
@@ -314,6 +347,15 @@ bool importTxtType1(QString &fileName, Network *network)
       file.close();
       return false;
     }
+
+    line->setLength(length, lengthUnit);
+
+    line->setZ(0, complex<double>(Zaa, Zaai), impedanceUnit);
+    line->setZ(1, complex<double>(Zab, Zabi), impedanceUnit);
+    line->setZ(2, complex<double>(Zac, Zaci), impedanceUnit);
+    line->setZ(3, complex<double>(Zbb, Zbbi), impedanceUnit);
+    line->setZ(4, complex<double>(Zbc, Zbci), impedanceUnit);
+    line->setZ(5, complex<double>(Zcc, Zcci), impedanceUnit);
 
     lineTxt = stream.readLine();
     lineCnt++;

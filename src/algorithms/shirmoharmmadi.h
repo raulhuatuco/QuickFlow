@@ -44,6 +44,7 @@
 #define ALGORITHMS_SHIRMOHARMMADI_H
 
 
+#include <complex>
 #include "radiallayer.h"
 #include "models/bar.h"
 #include "models/line.h"
@@ -112,7 +113,7 @@ public:
   double totalLoss;
 
   /*****************************************************************************
-   * Constructor.
+   * Public methods.
    ****************************************************************************/
   /*!
    * \brief Shirmoharmmadi class constructor.
@@ -123,17 +124,11 @@ public:
    */
   Shirmoharmmadi(Network *network);
 
-  /*****************************************************************************
-   * Destructor.
-   ****************************************************************************/
   /*!
    * \brief Destructor.
    */
   ~Shirmoharmmadi();
 
-  /*****************************************************************************
-   * Solve network.
-   ****************************************************************************/
   /*!
    * \brief Solve the power flow for the especified network.
    *
@@ -143,15 +138,20 @@ public:
 
 private:
   /*****************************************************************************
-   * Constants.
+   * Private data.
    ****************************************************************************/
   /*!
    * \brief Internal pointer for the Network object that will be solved.
    */
   Network *network_;
 
+  /*!
+   * \brief Holds the power at slack bar from the previous iteration.
+   */
+  complex<double> oldSlackPower[3];
+
   /*****************************************************************************
-   * Backward sweep.
+   * Private methods.
    ****************************************************************************/
   /*!
    * \brief Execute the backward sweep.
@@ -160,10 +160,7 @@ private:
    * direction to the slack bar, calculating every line current.
    */
   void doBackwardSweep(RadialLayer &radLayer);
-  
-  /*****************************************************************************
-   * Forward sweep.
-   ****************************************************************************/
+
   /*!
    * \brief Execute the forward sweep.
    *
@@ -171,40 +168,22 @@ private:
    * direction to the farest layer, calculating every bar voltage.
    */
   void doForwardSweep(RadialLayer &radLayer);
-  
-  /*****************************************************************************
-   * Compute slack current.
-   ****************************************************************************/
+
   /*!
    * \brief Compute slack bar current.
-   * 
+   *
    * Will sum the current of every line connected to the slack bar.
    */
   void computeSlackCurrent();
-  
-  /*****************************************************************************
-   * Compute maximum error.
-   ****************************************************************************/
+
   /*!
    * \brief Compute iteration max. error.
-   * 
+   *
    * Will get the greatest error produced by the iteration.
    *
    * \return Returns the max. error found.
    */
   double maxError();
-  
-  /*****************************************************************************
-   * Compute absolute bar error.
-   ****************************************************************************/
-  /*!
-   * \brief Compute the error for a bar.
-   * 
-   * Will return the error in bar \b bar.
-   *
-   * \return Returns bar error.
-   */
-  double absError(Bar *bar);
 };
 
 #endif // ALGORITHMS_SHIRMOHARMMADI_H

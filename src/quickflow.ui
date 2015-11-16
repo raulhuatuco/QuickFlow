@@ -68,6 +68,7 @@
     <addaction name="separator"/>
     <addaction name="menuImport"/>
     <addaction name="actionExport"/>
+    <addaction name="actionExport_image"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -456,6 +457,11 @@
    </property>
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionExport_image">
+   <property name="text">
+    <string>Export image</string>
    </property>
   </action>
  </widget>

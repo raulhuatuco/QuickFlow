@@ -98,9 +98,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   dataTable.setText(table0x1, 0, 1);
 
   // Loss head.
-  QString table0x2 = "Loss [";
-  table0x2.append(Unit::powerUnitToStr(Network::powerUnit));
-  table0x2.append("]");
+  QString table0x2 = "Loss [W , VAR]";
   dataTable.setText(table0x2, 0, 2);
 
   // Phase A head.
@@ -116,51 +114,54 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   dataTable.setText(table3x0, 3, 0);
 
   // Current Phase A.
-  QString table1x1 = QString::number(abs(line_->i(0, Network::currentUnit)));
+  QString table1x1 = QString::number(abs(line_->i(0, Network::currentUnit))*3.0,
+                                     'g', 6);
   table1x1.append(" / ");
   table1x1.append(QString::number(arg(line_->i(0,
-                                      Network::currentUnit)*180.0/kPI)));
+                                      Network::currentUnit))*180.0/kPI, 'g', 6));
   table1x1.append("°");
   dataTable.setText(table1x1, 1, 1);
 
   // Loss Phase A.
-  QString table1x2 = QString::number(abs(line_->loss(0, Network::powerUnit)));
-  table1x2.append(" / ");
-  table1x2.append(QString::number(arg(line_->loss(0,
-                                      Network::powerUnit)*180.0/kPI)));
-  table1x2.append("°");
+  QString table1x2 = QString::number(line_->loss(0, Network::powerUnit).real(),
+                                     'g', 6);
+  table1x2.append(" , ");
+  table1x2.append(QString::number(line_->loss(0, Network::powerUnit).imag(), 'g',
+                                  6));
   dataTable.setText(table1x2, 1, 2);
 
   // Current Phase B.
-  QString table2x1 = QString::number(abs(line_->i(1, Network::currentUnit)));
+  QString table2x1 = QString::number(abs(line_->i(1, Network::currentUnit))*3.0,
+                                     'g', 6);
   table2x1.append(" / ");
   table2x1.append(QString::number(arg(line_->i(1,
-                                      Network::currentUnit)*180.0/kPI)));
+                                      Network::currentUnit))*180.0/kPI, 'g', 6));
   table2x1.append("°");
   dataTable.setText(table2x1, 2, 1);
 
   // Loss Phase B.
-  QString table2x2 = QString::number(abs(line_->loss(1, Network::powerUnit)));
-  table2x2.append(" / ");
-  table2x2.append(QString::number(arg(line_->loss(1,
-                                      Network::powerUnit)*180.0/kPI)));
-  table2x2.append("°");
+  QString table2x2 = QString::number(line_->loss(1, Network::powerUnit).real(),
+                                     'g', 6);
+  table2x2.append(" , ");
+  table2x2.append(QString::number(line_->loss(1, Network::powerUnit).imag(), 'g',
+                                  6));
   dataTable.setText(table2x2, 2, 2);
 
   // Current Phase C.
-  QString table3x1 = QString::number(abs(line_->i(2, Network::currentUnit)));
+  QString table3x1 = QString::number(abs(line_->i(2, Network::currentUnit))*3.0,
+                                     'g', 6);
   table3x1.append(" / ");
   table3x1.append(QString::number(arg(line_->i(2,
-                                      Network::currentUnit)*180.0/kPI)));
+                                      Network::currentUnit))*180.0/kPI, 'g', 6));
   table3x1.append("°");
   dataTable.setText(table3x1, 3, 1);
 
   // Loss Phase C.
-  QString table3x2 = QString::number(abs(line_->loss(2, Network::powerUnit)));
+  QString table3x2 = QString::number(line_->loss(2, Network::powerUnit).real(),
+                                     'g', 6);
   table3x2.append(" / ");
-  table3x2.append(QString::number(arg(line_->loss(2,
-                                      Network::powerUnit)*180.0/kPI)));
-  table3x2.append("°");
+  table3x2.append(QString::number(line_->loss(2, Network::powerUnit).imag(), 'g',
+                                  6));
   dataTable.setText(table3x1, 3, 2);
 
   dataTable.drawTable(painter);

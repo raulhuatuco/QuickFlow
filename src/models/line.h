@@ -112,7 +112,7 @@ public:
   /*****************************************************************************
    * Current.
    ****************************************************************************/
-  complex<double> i(int32_t phase, Unit::CurrentUnit unit = Unit::kAmpere);
+  complex<double> i(int32_t phase, Unit::CurrentUnit unit = Unit::kAmperePerUnit);
 
   /*****************************************************************************
    * Set current.
@@ -123,7 +123,7 @@ public:
   /*****************************************************************************
    * Compute the loss in the line.
    ****************************************************************************/
-  complex<double> loss(int32_t phase, Unit::PowerUnit);
+  complex<double> loss(int32_t phase, Unit::PowerUnit unit);
 
   /*****************************************************************************
    * Line length.

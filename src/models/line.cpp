@@ -103,11 +103,11 @@ complex<double> Line::z(int32_t index, Unit::ImpedanceUnit unit)
     break;
 
   case Unit::kOhmPerUnit:
-    return z_[index]*network->impedanceBase()/network->impedanceBase();
+    return z_[index];
     break;
 
   default:
-    return z_[index]*network->impedanceBase()/network->impedanceBase();
+    return z_[index];
     break;
   }
 }
@@ -202,9 +202,32 @@ void Line::setI(int32_t phase, complex<double> newCurrent,
 /*******************************************************************************
  * Line loss.
  ******************************************************************************/
-complex<double> Line::loss(int32_t phase, Unit::PowerUnit)
+complex<double> Line::loss(int32_t phase, Unit::PowerUnit unit)
 {
-  Q_UNUSED(phase);
+  complex<double> vi, vf, loss;
+
+  vi = pNoI()->rV(phase);
+  vf = pNoF()->rV(phase);
+
+  loss = (vi - vf)*conj(i_[phase]);
+
+  switch (unit) {
+  case Unit::kVA:
+    return loss*network->powerBase();
+    break;
+
+  case Unit::kKiloVA:
+    return loss*network->powerBase()/1000.0;
+    break;
+
+  case Unit::kVaPerUnit:
+    return loss;
+    break;
+
+  default:
+    return loss;
+    break;
+  }
 
   return 0.0;
 }

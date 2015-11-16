@@ -114,50 +114,56 @@ void InfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   dataTable.setText(table3x0, 3, 0);
 
   // Voltage Phase A.
-  QString table1x1 = QString::number(abs(bar_->rV(0, Network::voltageUnit)));
+  QString table1x1 = QString::number(abs(bar_->rV(0,
+                                         Network::voltageUnit)), 'g', 6);
   table1x1.append(" / ");
   table1x1.append(QString::number(arg(bar_->rV(0,
-                                      Network::voltageUnit))*180.0/kPI));
+                                      Network::voltageUnit))*180.0/kPI, 'g', 6));
   table1x1.append("°");
   dataTable.setText(table1x1, 1, 1);
 
   // Current Phase A.
-  QString table1x2 = QString::number(abs(bar_->rI(0, Network::currentUnit)));
+  QString table1x2 = QString::number(3.0*abs(bar_->rI(0, Network::currentUnit)),
+                                     'g', 6);
   table1x2.append(" / ");
   table1x2.append(QString::number(std::arg(bar_->rI(0,
-                                  Network::currentUnit))*180.0/kPI));
+                                  Network::currentUnit))*180.0/kPI, 'g', 6));
   table1x2.append("°");
   dataTable.setText(table1x2, 1, 2);
 
   // Voltage Phase B.
-  QString table2x1 = QString::number(abs(bar_->rV(1, Network::voltageUnit)));
+  QString table2x1 = QString::number(abs(bar_->rV(1,
+                                         Network::voltageUnit)), 'g', 6);
   table2x1.append(" / ");
   table2x1.append(QString::number(arg(bar_->rV(1,
-                                      Network::voltageUnit))*180.0/kPI));
+                                      Network::voltageUnit))*180.0/kPI, 'g', 6));
   table2x1.append("°");
   dataTable.setText(table2x1, 2, 1);
 
   // Current Phase B.
-  QString table2x2 = QString::number(abs(bar_->rI(1, Network::currentUnit)));
+  QString table2x2 = QString::number(3.0*abs(bar_->rI(1, Network::currentUnit)),
+                                     'g', 6);
   table2x2.append(" / ");
   table2x2.append(QString::number(arg(bar_->rI(1,
-                                      Network::currentUnit))*180.0/kPI));
+                                      Network::currentUnit))*180.0/kPI, 'g', 6));
   table2x2.append("°");
   dataTable.setText(table2x2, 2, 2);
 
   // Voltage Phase C.
-  QString table3x1 = QString::number(abs(bar_->rV(2, Network::voltageUnit)));
+  QString table3x1 = QString::number(abs(bar_->rV(2,
+                                         Network::voltageUnit)), 'g', 6);
   table3x1.append(" / ");
   table3x1.append(QString::number(arg(bar_->rV(2,
-                                      Network::voltageUnit))*180.0/kPI));
+                                      Network::voltageUnit))*180.0/kPI, 'g', 6));
   table3x1.append("°");
   dataTable.setText(table3x1, 3, 1);
 
   // Current Phase C.
-  QString table3x2 = QString::number(abs(bar_->rI(2, Network::currentUnit)));
+  QString table3x2 = QString::number(3.0*abs(bar_->rI(2, Network::currentUnit)),
+                                     'g', 6);
   table3x2.append(" / ");
   table3x2.append(QString::number(arg(bar_->rI(2,
-                                      Network::currentUnit))*180.0/kPI));
+                                      Network::currentUnit))*180.0/kPI, 'g', 6));
   table3x2.append("°");
   dataTable.setText(table3x2, 3, 2);
 

@@ -83,9 +83,9 @@ using std::complex;
  *
  * Current is calculated based on power and voltage.
  * The I equation is as follow:
- * 
+ *
  * Iline = conj((Sh - Si)/(sqrt(3)*Vline));
- * 
+ *
  * In order to use diferent units, use the option parameter \b unit with the
  * desired unit.
  *
@@ -132,7 +132,7 @@ public:
   static const int32_t kInvalidId;
 
   /*****************************************************************************
-   * Properties.
+   * Public data.
    ****************************************************************************/
   /*!
    * \brief The bar id.
@@ -157,7 +157,7 @@ public:
   QVector<Line *> lines;
 
   /*****************************************************************************
-   * Constructor.
+   * Public methods.
    ****************************************************************************/
   /*!
    * \brief Constructor.
@@ -165,18 +165,12 @@ public:
    */
   Bar();
 
-  /*****************************************************************************
-   * Destructor.
-   ****************************************************************************/
   /*!
    * \brief Destructor.
    * Bar destructor.
    */
   virtual ~Bar();
 
-  /*****************************************************************************
-   * Initial Voltage.
-   ****************************************************************************/
   /*!
    * \brief Initial Voltage.
    * Returns the initial voltage in the specified unit.
@@ -188,9 +182,6 @@ public:
    */
   complex<double> v(int32_t phase, Unit::VoltageUnit unit = Unit::kVoltsPerUnit);
 
-  /*****************************************************************************
-   * Set initial Voltage.
-   ****************************************************************************/
   /*!
    * \brief Set initial voltage.
    * Set the initial voltage of the selected phase.
@@ -202,9 +193,6 @@ public:
   void setV(int32_t phase, complex<double> newVoltage,
             Unit::VoltageUnit unit = Unit::kVoltsPerUnit);
 
-  /*****************************************************************************
-   * Shunt Power.
-   ****************************************************************************/
   /*!
    * \brief Shutn element.
    * Power injected by the shunt element.
@@ -216,9 +204,6 @@ public:
    */
   complex<double> sh(int32_t phase, Unit::PowerUnit unit = Unit::kVaPerUnit);
 
-  /*****************************************************************************
-   * Set Shunt Power.
-   ****************************************************************************/
   /*!
    * \brief Set Shunt power.
    * Set the shunt element injected power.
@@ -230,9 +215,6 @@ public:
   void setSh(int32_t phase, complex<double> newPower,
              Unit::PowerUnit unit = Unit::kVaPerUnit);
 
-  /*****************************************************************************
-   * Injected power.
-   ****************************************************************************/
   /*!
    * \brief Injected power.
    * Injected power at the bar. Generated power is negative, load is positive.
@@ -244,9 +226,6 @@ public:
    */
   complex<double> si(int32_t phase, Unit::PowerUnit unit = Unit::kVaPerUnit);
 
-  /*****************************************************************************
-   * Set Injected power.
-   ****************************************************************************/
   /*!
    * \brief Set the injected power.
    * Set the injected power at the bar. Generated power is negative, load is
@@ -259,9 +238,6 @@ public:
   void setSi(int32_t phase, complex<double> newPower,
              Unit::PowerUnit unit = Unit::kVaPerUnit);
 
-  /*****************************************************************************
-   * Result voltage.
-   ****************************************************************************/
   /*!
    * \brief Result bar voltage.
    * Returns the voltage of the bar after the calculations.
@@ -273,9 +249,6 @@ public:
    */
   complex<double> rV(int32_t phase, Unit::VoltageUnit unit = Unit::kVoltsPerUnit);
 
-  /*****************************************************************************
-   * Set result voltage.
-   ****************************************************************************/
   /*!
    * \brief Set result voltage.
    * Set the result voltage after calculations.
@@ -288,9 +261,6 @@ public:
   void setRV(int32_t phase, complex<double> resultVoltage,
              Unit::VoltageUnit unit = Unit::kVoltsPerUnit);
 
-  /*****************************************************************************
-   * Result value for bar current.
-   ****************************************************************************/
   /*!
    * \brief Result bar current.
    * Returns the total current injection at the bar.
@@ -303,9 +273,6 @@ public:
   complex<double> rI(int32_t phase,
                      Unit::CurrentUnit unit = Unit::kAmperePerUnit);
 
-  /*****************************************************************************
-  * Add Line.
-  *****************************************************************************/
   /*!
    * \brief Add line to bar.
    *
@@ -313,9 +280,6 @@ public:
    */
   void addLine(Line *line);
 
-  /*****************************************************************************
-  * Remove Line.
-  *****************************************************************************/
   /*!
    * \brief Remove line link;
    *
@@ -324,17 +288,11 @@ public:
   void removeLine(Line *line);
 
 
-  /*****************************************************************************
-  * Remove Lines.
-  *****************************************************************************/
   /*!
    * \brief Remove all lines from this bar.
    */
   void removeLines();
 
-  /*****************************************************************************
-  * Bar to Json.
-  *****************************************************************************/
   /*!
    * \brief Convert bar data to json object.
    *
@@ -342,9 +300,6 @@ public:
    */
   QJsonObject toJson();
 
-  /*****************************************************************************
-  * Bar from Json.
-  *****************************************************************************/
   /*!
    * \brief Fill bar data from Json data.
    *
@@ -352,9 +307,6 @@ public:
    */
   void fromJson(QJsonObject &jsonBar);
 
-  /*****************************************************************************
-  * Bounding Rect.
-  *****************************************************************************/
   /*!
    * \brief Bar bounding rect.
    *
@@ -374,7 +326,7 @@ signals:
 
 protected:
   /*****************************************************************************
-  * Mouse Double click.
+  * Protected methods.
   *****************************************************************************/
   /*!
    * \brief Mouse double click event.
@@ -383,9 +335,6 @@ protected:
    */
   void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
 
-  /*****************************************************************************
-  * Item Change.
-  *****************************************************************************/
   /*!
    * \brief Item change.
    *  Used to handle item selection and geometry changes.
@@ -394,9 +343,6 @@ protected:
   QVariant itemChange(GraphicsItemChange change,
                       const QVariant &value) Q_DECL_OVERRIDE;
 
-  /*****************************************************************************
-  * Paint.
-  *****************************************************************************/
   /*!
    * \brief Bar paint function.
    * Overrided function that will paint the bar in the scene.

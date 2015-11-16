@@ -58,38 +58,6 @@ void Project::setMinError(double minError)
 }
 
 /*******************************************************************************
- * voltageBase.
- ******************************************************************************/
-double Project::voltageBase()
-{
-  return Network::voltageBase;
-}
-
-/*******************************************************************************
- * setVoltageBase.
- ******************************************************************************/
-void Project::setVoltageBase(double voltageBase)
-{
-  Network::voltageBase = voltageBase;
-}
-
-/*******************************************************************************
- * powerBase.
- ******************************************************************************/
-double Project::powerBase()
-{
-  return Network::powerBase;
-}
-
-/*******************************************************************************
- * setPowerBase.
- ******************************************************************************/
-void Project::setPowerBase(double powerBase)
-{
-  Network::powerBase = powerBase;
-}
-
-/*******************************************************************************
  * lengthUn.
  ******************************************************************************/
 Unit::LengthUnit Project::lengthUnit()
@@ -192,8 +160,6 @@ bool Project::save()
   projectJson.insert("maxIterations",
                      static_cast<int32_t> (Network::maxIterations));
   projectJson.insert("minError", Network::minError);
-  projectJson.insert("voltageBase", Network::voltageBase);
-  projectJson.insert("powerBase", Network::powerBase);
   projectJson.insert("lengthUnit", Network::lengthUnit);
   projectJson.insert("impedanceUnit", Network::impedanceUnit);
   projectJson.insert("voltageUnit", Network::voltageUnit);
@@ -269,8 +235,6 @@ bool Project::load()
   // Extract network info.
   Network::maxIterations = projectJson.value("maxIterations").toDouble();
   Network::minError = projectJson.value("minError").toDouble();
-  Network::voltageBase = projectJson.value("voltageBase").toDouble();
-  Network::powerBase = projectJson.value("powerBase").toDouble();
   Network::lengthUnit =
     static_cast<Unit::LengthUnit> (projectJson.value("lengthUnit").toInt());
   Network::impedanceUnit =

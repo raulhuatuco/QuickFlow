@@ -54,7 +54,6 @@ SOURCES += main.cpp\
     project.cpp \
     customtypes.cpp \
     window/lineproperties.cpp \
-    window/newproject.cpp \
     window/barproperties.cpp \
     models/bar.cpp \
     models/line.cpp \
@@ -70,7 +69,8 @@ SOURCES += main.cpp\
     algorithms/cespedes.cpp \
     window/searchbar.cpp \
     algorithms/redrawnetwork.cpp \
-    algorithms/shirmoharmmadi.cpp
+    algorithms/shirmoharmmadi.cpp \
+    window/projectproperties.cpp
     
 # Project header files.
 HEADERS  += \
@@ -78,7 +78,6 @@ HEADERS  += \
     project.h \
     customtypes.h \
     window/lineproperties.h \
-    window/newproject.h \
     window/barproperties.h \
     models/bar.h \
     models/line.h \
@@ -95,17 +94,18 @@ HEADERS  += \
     algorithms/cespedes.h \
     math_constants.h \
     window/searchbar.h \
-    algorithms/redrawnetwork.h
+    algorithms/redrawnetwork.h \
+    window/projectproperties.h
 
 # Forms.
 FORMS    += \
     window/lineproperties.ui \
     window/barproperties.ui \
-    window/newproject.ui \
     quickflow.ui \
     window/about.ui \
     window/networkproperties.ui \
-    window/searchbar.ui
+    window/searchbar.ui \
+    window/projectproperties.ui
 
 # Resources.
 RESOURCES += \

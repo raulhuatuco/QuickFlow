@@ -80,11 +80,11 @@ complex<double> Bar::v(int32_t phase, Unit::VoltageUnit unit)
 {
   switch (unit) {
   case Unit::kVolts:
-    return v_[phase]*network->voltageBase;
+    return v_[phase]*network->voltageBase();
     break;
 
   case Unit::kKiloVolts:
-    return v_[phase]*network->voltageBase/1000.0;
+    return v_[phase]*network->voltageBase()/1000.0;
     break;
 
   case Unit::kVoltsPerUnit:
@@ -105,11 +105,11 @@ void Bar::setV(int32_t phase, complex<double> newVoltage,
 {
   switch (unit) {
   case Unit::kVolts:
-    v_[phase] = newVoltage/network->voltageBase;
+    v_[phase] = newVoltage/network->voltageBase();
     break;
 
   case Unit::kKiloVolts:
-    v_[phase] = newVoltage*1000.0/network->voltageBase;
+    v_[phase] = newVoltage*1000.0/network->voltageBase();
     break;
 
   case Unit::kVoltsPerUnit:
@@ -131,15 +131,15 @@ complex<double> Bar::sh(int32_t phase, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    return sh_[phase]*network->powerBase;
+    return sh_[phase]*network->powerBase();
     break;
 
   case Unit::kKiloVA:
-    return sh_[phase]*network->powerBase/1000.0;
+    return sh_[phase]*network->powerBase()/1000.0;
     break;
 
   case Unit::kMegaVa:
-    return sh_[phase]*network->powerBase/1000000.0;
+    return sh_[phase]*network->powerBase()/1000000.0;
     break;
 
   case Unit::kVaPerUnit:
@@ -159,15 +159,15 @@ void Bar::setSh(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    sh_[phase] = newPower/network->powerBase;
+    sh_[phase] = newPower/network->powerBase();
     break;
 
   case Unit::kKiloVA:
-    sh_[phase] = newPower*1000.0/network->powerBase;
+    sh_[phase] = newPower*1000.0/network->powerBase();
     break;
 
   case Unit::kMegaVa:
-    sh_[phase] = newPower*1000000.0/network->powerBase;
+    sh_[phase] = newPower*1000000.0/network->powerBase();
     break;
 
   case Unit::kVaPerUnit:
@@ -187,15 +187,15 @@ complex<double> Bar::si(int32_t phase, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    return si_[phase]*network->powerBase;
+    return si_[phase]*network->powerBase();
     break;
 
   case Unit::kKiloVA:
-    return si_[phase]*network->powerBase/1000.0;
+    return si_[phase]*network->powerBase()/1000.0;
     break;
 
   case Unit::kMegaVa:
-    return si_[phase]*network->powerBase/1000000.0;
+    return si_[phase]*network->powerBase()/1000000.0;
     break;
 
   case Unit::kVaPerUnit:
@@ -215,15 +215,15 @@ void Bar::setSi(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    si_[phase] = newPower/network->powerBase;
+    si_[phase] = newPower/network->powerBase();
     break;
 
   case Unit::kKiloVA:
-    si_[phase] = newPower*1000.0/network->powerBase;
+    si_[phase] = newPower*1000.0/network->powerBase();
     break;
 
   case Unit::kMegaVa:
-    si_[phase] = newPower*1000000.0/network->powerBase;
+    si_[phase] = newPower*1000000.0/network->powerBase();
     break;
 
   case Unit::kVaPerUnit:
@@ -243,11 +243,11 @@ complex<double> Bar::rV(int32_t phase, Unit::VoltageUnit unit)
 {
   switch (unit) {
   case Unit::kVolts:
-    return rV_[phase]*network->voltageBase;
+    return rV_[phase]*network->voltageBase();
     break;
 
   case Unit::kKiloVolts:
-    return rV_[phase]*network->voltageBase/1000.0;
+    return rV_[phase]*network->voltageBase()/1000.0;
     break;
 
   case Unit::kVoltsPerUnit:
@@ -268,11 +268,11 @@ void Bar::setRV(int32_t phase, complex<double> resultVoltage,
 {
   switch (unit) {
   case Unit::kVolts:
-    rV_[phase] = resultVoltage/network->voltageBase;
+    rV_[phase] = resultVoltage/network->voltageBase();
     break;
 
   case Unit::kKiloVolts:
-    rV_[phase] = resultVoltage*1000.0/network->voltageBase;
+    rV_[phase] = resultVoltage*1000.0/network->voltageBase();
     break;
 
   case Unit::kVoltsPerUnit:
@@ -292,7 +292,7 @@ complex<double> Bar::rI(int32_t phase, Unit::CurrentUnit unit)
 {
   complex<double> i;
 
-  i = conj((sh_[phase]-si_[phase])/(kSQRT3*rV_[phase]));
+  i = -(conj(si_[phase]/rV_[phase]) - conj(sh_[phase]/rV_[phase]));
 
   switch (unit) {
   case Unit::kAmpere:
@@ -309,6 +309,7 @@ complex<double> Bar::rI(int32_t phase, Unit::CurrentUnit unit)
   default:
     break;
   }
+
   return i;
 }
 
