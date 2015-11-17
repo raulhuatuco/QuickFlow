@@ -55,19 +55,20 @@ const int32_t Bar::kInvalidId = -1;
  ******************************************************************************/
 Bar::Bar()
   : QGraphicsObject(),
-    id(kInvalidId),
     network(NULL),
     infoBar(NULL),
-    barLabel(NULL)
+    id_(kInvalidId),
+    barLabel(this)
 {
   setFlag(ItemIsSelectable);
   setFlag(ItemSendsGeometryChanges); // Needed to refresh line drawing.
   setZValue(1.0); // Will be above lines and under info boxes.
 
   // Add bar label.
-  barLabel = new QGraphicsTextItem(this);
-  barLabel->setX(-1.3*Network::barIconSize);
-  barLabel->setY(-2.0*Network::barIconSize);
+  // The 1.3 and 2.0 values were determined experimentaly.
+  // They will position the label at the top left corner of the bar.
+  barLabel.setX(-1.3*Network::barIconSize);
+  barLabel.setY(-2.0*Network::barIconSize);
 
 }
 
@@ -78,6 +79,23 @@ Bar::~Bar()
 {
   if (infoBar != NULL)
     delete infoBar;
+}
+
+/*******************************************************************************
+ * Bar id.
+ ******************************************************************************/
+int32_t Bar::id()
+{
+  return id_;
+}
+
+/*******************************************************************************
+ * Set bar id.
+ ******************************************************************************/
+void Bar::setBarId(int32_t id)
+{
+  id_ = id;
+  barLabel.setPlainText(QString::number(id_));
 }
 
 /*******************************************************************************
@@ -360,7 +378,7 @@ QJsonObject Bar::toJson()
   QJsonObject jsonBar;
 
   // Bar Id.
-  jsonBar.insert("id", id);
+  jsonBar.insert("id", id_);
 
   // Voltage.
   jsonBar.insert("Va", v_[0].real());
@@ -415,7 +433,8 @@ QJsonObject Bar::toJson()
 void Bar::fromJson(QJsonObject &jsonBar)
 {
   // Get Id.
-  id = jsonBar.value("id").toInt();
+  id_ = jsonBar.value("id").toInt();
+  barLabel.setPlainText(QString::number(id_));
 
   // Voltage.
   v_[0].real(jsonBar.value("Va").toDouble());
@@ -497,7 +516,7 @@ QVariant Bar::itemChange(QGraphicsItem::GraphicsItemChange change,
   else if (change == ItemSelectedChange) {
     if (value == true) {
       // if multiple bars are selectec, we don't want to show the info box.
-      if(!(scene()->selectedItems().size() > 1)) {
+      if(!(scene()->selectedItems().size() >= 1)) {
         // Check if box already exists.
         if (infoBar == NULL) {
           // Create a new box.
@@ -530,9 +549,7 @@ void Bar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
   painter->setPen(network->barStrokeColor);
 
-  barLabel->setPlainText(QString::number(id));
-
-  if(id > 0)
+  if(id_ > 0)
     drawPq(painter);
   else
     drawSlack(painter);

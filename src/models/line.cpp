@@ -452,7 +452,7 @@ QVariant Line::itemChange(QGraphicsItem::GraphicsItemChange change,
   if (change == ItemSelectedChange) {
     if (value == true) {
       // if multiple items are selectec, we don't want to show the info box.
-      if(!(scene()->selectedItems().size() > 1)) {
+      if(!(scene()->selectedItems().size() >= 1)) {
         if (infoLine == NULL) {
           infoLine = new InfoLine(this);
           scene()->addItem(infoLine);

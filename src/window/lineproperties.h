@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QMap>
 #include <QLineEdit>
-#include "customtypes.h"
+#include "unit.h"
 #include "project.h"
 #include "models/line.h"
 #include "models/bar.h"
@@ -22,7 +22,7 @@ public:
   explicit LineProperties(QWidget *parent = 0);
   ~LineProperties();
 
-  void setOptions(Project *project, Line *line);
+  bool setOptions(Project *project, Line *line);
 
   Line *line();
 

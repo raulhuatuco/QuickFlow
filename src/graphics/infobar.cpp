@@ -6,7 +6,7 @@
 #include "math_constants.h"
 #include "datatable.h"
 #include "models/network.h"
-#include "customtypes.h"
+#include "unit.h"
 
 /*******************************************************************************
  * Static constants.
@@ -72,7 +72,7 @@ void InfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   // Draw head text.
   setHeadFont(painter);
   QString headText = "(" + bar_->network->name + ") " + "Bar " +
-                     QString::number(bar_->id);
+                     QString::number(bar_->id());
   drawHeadText(headRect, kMarginHeadTop, headText, painter);
 
   // Revert font size.

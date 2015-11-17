@@ -151,8 +151,8 @@ void RedrawNetwork::createGraph()
   node n;
 
   foreach(Bar *bar, network_->bars) {
-    n = graph->newNode(bar->id);
-    nodeMap.insert(bar->id,n);
+    n = graph->newNode(bar->id());
+    nodeMap.insert(bar->id(),n);
   }
 
   forall_nodes(n, *graph) {
@@ -202,7 +202,7 @@ void RedrawNetwork::removeOffset()
   slack->setY(0);
 
   foreach(Bar *bar, network_->bars) {
-    if(bar->id != 0) {
+    if(bar->id() != 0) {
       bar->setX(bar->x() - xOffset);
       bar->setY(bar->y() - yOffset);
     }

@@ -26,8 +26,16 @@ LineProperties::~LineProperties()
 /*******************************************************************************
  * setOptions.
  ******************************************************************************/
-void LineProperties::setOptions(Project *project, Line *line)
+bool LineProperties::setOptions(Project *project, Line *line)
 {
+
+  // Check if project contains a network.
+  if(project->networks.isEmpty()) {
+    QMessageBox::critical(this, "Not networks found", "First create a new network.",
+                          QMessageBox::Ok);
+    return false;
+  }
+
   // Adjust apearance according to line.
   if (line == NULL) {
     setWindowTitle(tr("New Line"));
@@ -42,10 +50,11 @@ void LineProperties::setOptions(Project *project, Line *line)
 
     // Fill bar ids combobox.
     foreach (Bar *bar, network->bars) {
-      ui->noI->addItem(QString::number(bar->id));
-      ui->noF->addItem(QString::number(bar->id));
+      ui->noI->addItem(QString::number(bar->id()));
+      ui->noF->addItem(QString::number(bar->id()));
     }
 
+    line_->network = network;
   } else {
     setWindowTitle(tr("Edit Line from node ") + QString::number(
                      line->nodes.first) + tr(" to node ") \
@@ -102,6 +111,8 @@ void LineProperties::setOptions(Project *project, Line *line)
                               project->impedanceUnit()) + tr("]"));
   ui->impedanceUn8->setText(tr("[") + Unit::impedanceUnitToStr(
                               project->impedanceUnit()) + tr("]"));
+
+  return true;
 }
 
 Line *LineProperties::line()

@@ -46,7 +46,7 @@
 #include <QJsonObject>
 #include <QGraphicsObject>
 #include <complex>
-#include "customtypes.h"
+#include "unit.h"
 #include "models/line.h"
 #include "models/network.h"
 #include "graphics/infobar.h"
@@ -134,13 +134,6 @@ public:
    * Public data.
    ****************************************************************************/
   /*!
-   * \brief The bar id.
-   * Id number if the bar. A bar with ID 0 will be the slack bar. Only one bar
-   * in a network can be a slack and every other bars need an id > 0.
-   */
-  int32_t id;
-
-  /*!
    * \brief A reference to the Network where the bar is.
    * This option is used internaly to determine color settings and units.
    * \warning This option must be not NULL in order to add the bar to a scene.
@@ -169,6 +162,24 @@ public:
    * Bar destructor.
    */
   virtual ~Bar();
+
+  /*!
+   * \brief The bar id.
+   * An id < 0 is an invalid bar.
+   * An id = 0 is a slack bar.
+   *
+   * \return The bar id.
+   */
+  int32_t id();
+
+  /*!
+   * \brief Set the bar id.
+   *  Id number if the bar. A bar with ID 0 will be the slack bar. Only one bar
+   * in a network can be a slack and every other bars need an id > 0.
+   *
+   * \param[in] id The new bar id.
+   */
+  void setBarId(int32_t id);
 
   /*!
    * \brief Initial Voltage.
@@ -362,6 +373,11 @@ private:
   InfoBar *infoBar;
 
   /*!
+   * \brief Holds the bar id.
+   */
+  int32_t id_;
+
+  /*!
    * \brief Bar voltage.
    * Holds the initial voltage for phases 0, 1 and 2.
    */
@@ -395,7 +411,7 @@ private:
   /*!
    * \brief Used to print the bar id in the view.
    */
-  QGraphicsTextItem *barLabel;
+  QGraphicsTextItem barLabel;
 
   /*****************************************************************************
   * Private methods.

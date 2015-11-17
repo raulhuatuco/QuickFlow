@@ -1,5 +1,5 @@
-#ifndef UNIT
-#define UNIT
+#ifndef UNIT_H
+#define UNIT_H
 
 #include <QString>
 #include <QMetaType>
@@ -63,5 +63,6 @@ Q_DECLARE_METATYPE(Unit::ImpedanceUnit)
 Q_DECLARE_METATYPE(Unit::PowerUnit)
 Q_DECLARE_METATYPE(Unit::VoltageUnit)
 Q_DECLARE_METATYPE(Unit::CurrentUnit)
-#endif // UNIT
+
+#endif // UNIT_H
 

@@ -42,7 +42,6 @@
 
 #include "window/barproperties.h"
 #include "window/lineproperties.h"
-
 #include "graphics/systemview.h"
 #include <QColor>
 #include <QBrush>

@@ -99,10 +99,10 @@ Network::~Network()
 bool Network::addBar(Bar *bar)
 {
   // Check if bar exists.
-  if(getBarById(bar->id) != NULL)
+  if(getBarById(bar->id()) != NULL)
     return false;
 
-  bars.insert(bar->id, bar);
+  bars.insert(bar->id(), bar);
   bar->network = this;
 
   return true;

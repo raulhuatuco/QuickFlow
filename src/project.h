@@ -5,7 +5,7 @@
 
 #include <QString>
 #include <QHash>
-#include "customtypes.h"
+#include "unit.h"
 #include "models/network.h"
 
 class Project

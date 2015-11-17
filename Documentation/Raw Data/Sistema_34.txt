@@ -1,10 +1,10 @@
 Tipo_de_Sistema(Monofasico(1),Trifasico(3))
 3
 
-NumBarras     
+Numero_barras     
 34
   
-NumLinhas     
+Numero_linhas     
 33 
 
 Voltagem_base_da_rede(kV)
@@ -13,20 +13,20 @@ Voltagem_base_da_rede(kV)
 Voltagem_referencia_da_rede(kV)
 24.9
 
-comprimento(m,km,ft,millas)
+comprimento_das_linhas(m,km,ft,millas)
 2
 
-impedancia(ohm,ohm/m,ohm/km,ohm/ft,ohm/milla)
+Unidade_da_impedancia(ohm,ohm/m,ohm/km,ohm/ft,ohm/milla)
 3
 
-Demanda(VA,kVA)
+Unidade_da_Demanda(VA,kVA)
 2
 				 kVA    kV_hihg      kV_low    R1%    X1%   R0%    X0%
-subestacion		2500       69.0        24.9     1     8      0     8
+subestacao		2500       69.0        24.9     1     8      0     8
 
 
   
-[nó] tipo        [SCMa]              [SCMb]              [SCMc]               [Ca]                [Cb]                [Cc]         ModeloCarga(Pconst,Icons,Zconst)     
+Barra tipo        [SCMa]              [SCMb]              [SCMc]               [Ca]                [Cb]                [Cc]         ModeloCarga(Pconst,Icons,Zconst)     
 800   3      0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000     0.000         1
 802   0	     0.000     0.000    15.000     7.500    12.500     7.000     0.000     0.000     0.000     0.000     0.000     0.000         1
 806   0      0.000     0.000    15.000     7.500    12.500     7.000     0.000     0.000     0.000     0.000     0.000     0.000         1

@@ -46,7 +46,7 @@
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QValidator>
-#include "customtypes.h"
+#include "unit.h"
 #include "math_constants.h"
 
 /*******************************************************************************

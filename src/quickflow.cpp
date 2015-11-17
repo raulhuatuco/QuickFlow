@@ -159,6 +159,7 @@ void QuickFlow::on_actionZoomOut_triggered()
  ******************************************************************************/
 void QuickFlow::on_actionZoomFit_triggered()
 {
+  ui->systemView->scene()->update();
   ui->systemView->zoomFit();
 }
 
@@ -378,12 +379,12 @@ void QuickFlow::on_actionAdd_Network_triggered()
 void QuickFlow::on_actionAddBar_triggered()
 {
   BarProperties barProperties(this);
-  barProperties.setOptions(project, NULL);
 
-  if (barProperties.exec() == QDialog::Accepted) {
-    setAltered(true);
-    ui->systemView->addBar(barProperties.bar());
-  }
+  if(barProperties.setOptions(project, NULL))
+    if (barProperties.exec() == QDialog::Accepted) {
+      setAltered(true);
+      ui->systemView->addBar(barProperties.bar());
+    }
 }
 
 /*******************************************************************************
@@ -392,12 +393,12 @@ void QuickFlow::on_actionAddBar_triggered()
 void QuickFlow::on_actionAddLine_triggered()
 {
   LineProperties lineProperties(this);
-  lineProperties.setOptions(project, NULL);
 
-  if (lineProperties.exec() == QDialog::Accepted) {
-    setAltered(true);
-    ui->systemView->addLine(lineProperties.line());
-  }
+  if(lineProperties.setOptions(project, NULL))
+    if (lineProperties.exec() == QDialog::Accepted) {
+      setAltered(true);
+      ui->systemView->addLine(lineProperties.line());
+    }
 }
 
 /*******************************************************************************
@@ -499,26 +500,30 @@ void QuickFlow::on_action_txt_type_2_triggered()
     }
   }
 
-  NetworkProperties newNetwork(this);
-  newNetwork.setOptions(project, NULL);
-
-  if (newNetwork.exec() == QDialog::Rejected) {
-    // User canceled import, return.
-    return;
-  }
-
   // Try to import network.
-  Network *network = newNetwork.network();
+  Network *network = new Network;
+
   bool importOk = importTxtType2(fileName, network);
 
   // Impor success.
   if(importOk) {
+    project->networks.insert(network->name, network);
+
+    NetworkProperties newNetwork(this);
+    newNetwork.setOptions(project, network);
+
+    if (newNetwork.exec() == QDialog::Rejected) {
+      project->networks.remove(network->name);
+      delete network;
+      return;
+    }
+
     ui->systemView->addNetwork(network);
     ui->systemView->zoomFit();
     setAltered(true);
   } else {
-    project->networks.remove(network->name);
     delete network;
+    return;
   }
 }
 
@@ -558,26 +563,30 @@ void QuickFlow::on_action_txt_type_3_triggered()
     }
   }
 
-  NetworkProperties newNetwork(this);
-  newNetwork.setOptions(project, NULL);
-
-  if (newNetwork.exec() == QDialog::Rejected) {
-    // User canceled import, return.
-    return;
-  }
-
   // Try to import network.
-  Network *network = newNetwork.network();
+  Network *network = new Network;
+
   bool importOk = importTxtType3(fileName, network);
 
   // Impor success.
   if(importOk) {
+    project->networks.insert(network->name, network);
+
+    NetworkProperties newNetwork(this);
+    newNetwork.setOptions(project, network);
+
+    if (newNetwork.exec() == QDialog::Rejected) {
+      project->networks.remove(network->name);
+      delete network;
+      return;
+    }
+
     ui->systemView->addNetwork(network);
     ui->systemView->zoomFit();
     setAltered(true);
   } else {
-    project->networks.remove(network->name);
     delete network;
+    return;
   }
 }
 
@@ -714,6 +723,9 @@ void QuickFlow::on_actionAbout_triggered()
   about.exec();
 }
 
+/*******************************************************************************
+ * Edit bar action.
+ ******************************************************************************/
 void QuickFlow::on_editBar(QObject *bar)
 {
   BarProperties barProperties(this);
@@ -724,6 +736,9 @@ void QuickFlow::on_editBar(QObject *bar)
   }
 }
 
+/*******************************************************************************
+ * Edit line action.
+ ******************************************************************************/
 void QuickFlow::on_editLine(QObject *line)
 {
   LineProperties lineProperties(this);

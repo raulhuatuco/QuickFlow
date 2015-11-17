@@ -52,7 +52,6 @@ TEMPLATE = app
 SOURCES += main.cpp\
     quickflow.cpp \
     project.cpp \
-    customtypes.cpp \
     window/lineproperties.cpp \
     window/barproperties.cpp \
     models/bar.cpp \
@@ -70,13 +69,13 @@ SOURCES += main.cpp\
     window/searchbar.cpp \
     algorithms/redrawnetwork.cpp \
     algorithms/shirmoharmmadi.cpp \
-    window/projectproperties.cpp
+    window/projectproperties.cpp \
+    unit.cpp
     
 # Project header files.
 HEADERS  += \
     quickflow.h\
     project.h \
-    customtypes.h \
     window/lineproperties.h \
     window/barproperties.h \
     models/bar.h \
@@ -95,7 +94,8 @@ HEADERS  += \
     math_constants.h \
     window/searchbar.h \
     algorithms/redrawnetwork.h \
-    window/projectproperties.h
+    window/projectproperties.h \
+    unit.h
 
 # Forms.
 FORMS    += \

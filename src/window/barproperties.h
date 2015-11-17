@@ -2,7 +2,7 @@
 #define WINDOWBARPROPERTIES_H
 
 #include <QDialog>
-#include "customtypes.h"
+#include "unit.h"
 #include "project.h"
 
 namespace Ui
@@ -17,13 +17,15 @@ class BarProperties : public QDialog
 public:
   explicit BarProperties(QWidget *parent = 0);
   ~BarProperties();
-  void setOptions(Project *project, Bar *bar);
+  bool setOptions(Project *project, Bar *bar);
   Bar *bar();
 
 private slots:
   void on_buttonBox_accepted();
   void on_buttonBox_rejected();
 
+  void on_network_currentIndexChanged(const QString &arg1);
+  
 private:
   Ui::BarProperties *ui;
   Project *project_;

@@ -2,6 +2,7 @@
 #include "ui_barproperties.h"
 #include <QValidator>
 #include <QMessageBox>
+#include "math_constants.h"
 
 /*******************************************************************************
  * WindowBarProperties.
@@ -49,31 +50,53 @@ BarProperties::~BarProperties()
 /*******************************************************************************
  * setOptions.
  ******************************************************************************/
-void BarProperties::setOptions(Project *project, Bar *bar)
+bool BarProperties::setOptions(Project *project, Bar *bar)
 {
+  // Check if project contains a network.
+  if(project->networks.isEmpty()) {
+    QMessageBox::critical(this, "Not networks found", "First create a new network.",
+                          QMessageBox::Ok);
+    return false;
+  }
+
+  // Store project parameters.
+  project_ = project;
+
   // Adjust apearance according to bar.
   if (bar == NULL) {
-    setWindowTitle(tr("New Bar"));
     // Create a new bar.
-    ui->id->setValue(0);
     bar_ = new Bar;
     isNew = true;
+
+    // Adjust window.
+    setWindowTitle(tr("New Bar"));
+    ui->id->setValue(0);
+
     foreach(Network *network, project->networks) {
       ui->network->addItem(network->name);
     }
+
+    bar_->network = project->networks.value(ui->network->currentText());
+
+    // Set voltage to 1pu.
+    double initialVoltage = bar_->network->voltageBase();
+
+    bar_->setV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
+    bar_->setV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
+    bar_->setV(2, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
+
   } else {
-    setWindowTitle(tr("Edit Bar ") + QString::number(bar->id));
-    ui->id->setEnabled(false);
     // Store parameters.
     bar_ = bar;
-    ui->id->setValue(bar_->id);
     isNew = false;
-    ui->network->addItem(bar->network->name);
-    ui->network->setEnabled(false);
-  }
 
-// Store project parameters.
-  project_ = project;
+    // Adjust window.
+    setWindowTitle(tr("Edit Bar ") + QString::number(bar_->id()));
+    ui->id->setEnabled(false);
+    ui->id->setValue(bar_->id());
+    ui->network->setEnabled(false);
+    ui->network->addItem(bar_->network->name);
+  }
 
 // Fill Bar data.
   ui->Va->setText(QString::number(bar_->v(0,Network::voltageUnit).real()));
@@ -119,6 +142,8 @@ void BarProperties::setOptions(Project *project, Bar *bar)
                      tr("]"));
   ui->SicUn->setText(tr("[") + Unit::powerUnitToStr(Network::powerUnit) +
                      tr("]"));
+
+  return true;
 }
 
 Bar *BarProperties::bar()
@@ -304,7 +329,7 @@ void BarProperties::on_buttonBox_accepted()
 
   // Replace Bar Data.
   // Id.
-  bar_->id = ui->id->value();
+  bar_->setBarId(ui->id->value());
 
   // Network
   bar_->network = network;
@@ -378,4 +403,25 @@ void BarProperties::on_buttonBox_accepted()
 void BarProperties::on_buttonBox_rejected()
 {
   reject();
+}
+
+/*******************************************************************************
+ * Network changed.
+ ******************************************************************************/
+void BarProperties::on_network_currentIndexChanged(const QString &arg1)
+{
+  if(isNew)
+    bar_->network = project_->networks.value(arg1);
+
+  double initialVoltage = bar_->network->voltageBase();
+
+  bar_->setV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
+  bar_->setV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
+  bar_->setV(2, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
+  ui->Va->setText(QString::number(bar_->v(0,Network::voltageUnit).real()));
+  ui->Vb->setText(QString::number(bar_->v(1,Network::voltageUnit).real()));
+  ui->Vc->setText(QString::number(bar_->v(2,Network::voltageUnit).real()));
+  ui->Vai->setText(QString::number(bar_->v(0,Network::voltageUnit).imag()));
+  ui->Vbi->setText(QString::number(bar_->v(1,Network::voltageUnit).imag()));
+  ui->Vci->setText(QString::number(bar_->v(2,Network::voltageUnit).imag()));
 }

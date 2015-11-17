@@ -5,7 +5,7 @@
 #include "math_constants.h"
 #include "datatable.h"
 #include "models/network.h"
-#include "customtypes.h"
+#include "unit.h"
 
 /*******************************************************************************
  * Static constants.
@@ -162,7 +162,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   table3x2.append(" / ");
   table3x2.append(QString::number(line_->loss(2, Network::powerUnit).imag(), 'g',
                                   6));
-  dataTable.setText(table3x1, 3, 2);
+  dataTable.setText(table3x2, 3, 2);
 
   dataTable.drawTable(painter);
 
