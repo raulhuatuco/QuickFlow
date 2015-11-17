@@ -36,7 +36,7 @@
  *
  * \author David Krepsky
  * \version 0.2
- * \date 10/2015
+ * \date 11/2015
  * \copyright David Krepsky
  */
 
@@ -64,6 +64,10 @@ class NetworkProperties;
  * response.
  *
  * To create a new network, use setOptions(project, NULL).
+ *
+ * Note that we use the Style Sheets feature from Qt in the color pickers.
+ * This was a decision based on the fact that there is no other easy way to
+ * setup a color picker button.
  */
 class NetworkProperties : public QDialog
 {
@@ -71,7 +75,7 @@ class NetworkProperties : public QDialog
 
 public:
   /*****************************************************************************
-  * Constructor.
+  * Public methods.
   *****************************************************************************/
   /*!
    * \brief Class constructor.
@@ -79,35 +83,29 @@ public:
    */
   explicit NetworkProperties(QWidget *parent = 0);
 
-  /*****************************************************************************
-  * Destructor.
-  *****************************************************************************/
   /*!
    * \brief Destructor.
    */
   ~NetworkProperties();
 
-  /*****************************************************************************
-  * Set options.
-  *****************************************************************************/
   /*!
    * \brief Set edit options.
+   *
    * \param[in] project Project in use.
-   * \param[in,out] network Network to be edited. To create a new one, pass NULL.
+   * \param[in,out] network Network to be edited. To create a new one, pass NULL
+   * to this parameter.
    */
   void setOptions(Project *project, Network *network);
 
-  /*****************************************************************************
-  * Network.
-  *****************************************************************************/
   /*!
-   * \brief Network used.
-   * \return Pointer to the nerwork edited/created.
-   */
+    * \brief Network used.
+    *
+    * \return Pointer to the nerwork edited/created.
+    */
   Network *network();
 
   /*****************************************************************************
-  *Slots.
+  * Slots.
   *****************************************************************************/
 private slots:
   /*!

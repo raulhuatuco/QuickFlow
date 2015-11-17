@@ -55,6 +55,8 @@ SearchBar::SearchBar(QWidget *parent) :
 {
   ui->setupUi(this);
 
+  // Create validator.
+  // Since id won't be greater than 1000000, the max boundary is set to 1000000.
   ui->id->setValidator(new QIntValidator(0, 1000000, this));
 }
 
@@ -109,8 +111,8 @@ void SearchBar::on_search_clicked()
     return;
   }
 
+  // Search bar.
   Network *network = project_->networks.value(ui->networks->currentText());
-
   bar_ = network->getBarById(ui->id->text().toInt());
 
   if(bar_ == NULL) {

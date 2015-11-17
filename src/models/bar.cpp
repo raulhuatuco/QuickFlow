@@ -57,11 +57,18 @@ Bar::Bar()
   : QGraphicsObject(),
     id(kInvalidId),
     network(NULL),
-    infoBar(NULL)
+    infoBar(NULL),
+    barLabel(NULL)
 {
   setFlag(ItemIsSelectable);
   setFlag(ItemSendsGeometryChanges); // Needed to refresh line drawing.
   setZValue(1.0); // Will be above lines and under info boxes.
+
+  // Add bar label.
+  barLabel = new QGraphicsTextItem(this);
+  barLabel->setX(-1.3*Network::barIconSize);
+  barLabel->setY(-2.0*Network::barIconSize);
+
 }
 
 /*******************************************************************************
@@ -522,6 +529,8 @@ void Bar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   Q_UNUSED(widget);
 
   painter->setPen(network->barStrokeColor);
+
+  barLabel->setPlainText(QString::number(id));
 
   if(id > 0)
     drawPq(painter);

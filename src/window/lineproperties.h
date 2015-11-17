@@ -1,5 +1,5 @@
-#ifndef LINEPROPERTIES_H
-#define LINEPROPERTIES_H
+#ifndef WINDOW_LINEPROPERTIES_H
+#define WINDOW_LINEPROPERTIES_H
 
 #include <QDialog>
 #include <QMap>

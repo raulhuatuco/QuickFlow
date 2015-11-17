@@ -31,6 +31,12 @@
          <verstretch>0</verstretch>
         </sizepolicy>
        </property>
+       <property name="toolTip">
+        <string>Select network</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>3</number>
+       </property>
       </widget>
      </item>
     </layout>
@@ -46,6 +52,12 @@
      </item>
      <item>
       <widget class="QLineEdit" name="id">
+       <property name="toolTip">
+        <string>Bar to be searched</string>
+       </property>
+       <property name="toolTipDuration">
+        <number>3</number>
+       </property>
        <property name="text">
         <string>0</string>
        </property>

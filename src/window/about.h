@@ -35,13 +35,13 @@
  * This file defines the About window class.
  *
  * \author David Krepsky
- * \version 0.2
- * \date 10/2015
+ * \version 0.3
+ * \date 11/2015
  * \copyright David Krepsky
  */
 
-#ifndef ABOUT_H
-#define ABOUT_H
+#ifndef WINDOW_ABOUT_H
+#define WINDOW_ABOUT_H
 
 #include <QDialog>
 
@@ -57,13 +57,6 @@ class about;
  * ### Overview
  * Contains information about the author and the software.
  * Should be linked to an action (about action).
- *
- * ### Example
- * \code
- * // Just invoke the exec somewhere in your code.
- * About about(this);
- * about.exec();
- * \endcode
  */
 class About : public QDialog
 {
@@ -71,7 +64,7 @@ class About : public QDialog
 
 public:
   /*****************************************************************************
-  * Constructor.
+  * Public methods.
   *****************************************************************************/
   /*!
    * \brief Constructor.
@@ -81,9 +74,6 @@ public:
    */
   explicit About(QWidget *parent = 0);
 
-  /*****************************************************************************
-  * Destructor.
-  *****************************************************************************/
   /*!
    * \brief Destructor.
    * Destroy user interface.
@@ -92,7 +82,7 @@ public:
 
 private slots:
   /*****************************************************************************
-  * Ok button clicked.
+  * Slots.
   *****************************************************************************/
   /*!
    * \brief Ok button.

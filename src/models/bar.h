@@ -35,8 +35,8 @@
  * This file defines the Bar class.
  *
  * \author David Krepsky
- * \version 0.2
- * \date 10/2015
+ * \version 0.3
+ * \date 11/2015
  * \copyright David Krepsky
  */
 
@@ -84,7 +84,7 @@ using std::complex;
  * Current is calculated based on power and voltage.
  * The I equation is as follow:
  *
- * Iline = conj((Sh - Si)/(sqrt(3)*Vline));
+ * Iline = -conj((Sh - Si)/Vphase);
  *
  * In order to use diferent units, use the option parameter \b unit with the
  * desired unit.
@@ -119,9 +119,8 @@ class Bar : public QGraphicsObject
   Q_OBJECT
 
 public:
-
   /*****************************************************************************
-   * Constants.
+   * Public Constants.
    ****************************************************************************/
   /*!
    * \brief Indicates an invalid bar.
@@ -393,9 +392,13 @@ private:
    */
   complex<double> rSi_[3];
 
+  /*!
+   * \brief Used to print the bar id in the view.
+   */
+  QGraphicsTextItem *barLabel;
 
   /*****************************************************************************
-  * Draw Slack.
+  * Private methods.
   *****************************************************************************/
   /*!
    * \brief Draw Slack Bar.
@@ -405,9 +408,6 @@ private:
    */
   void drawSlack(QPainter *painter);
 
-  /*****************************************************************************
-  * Draw PQ.
-  *****************************************************************************/
   /*!
    * \brief Draw Pq Bar.
    * Draw a PQ bar.

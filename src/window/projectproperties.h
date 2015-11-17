@@ -36,7 +36,7 @@
  *
  * \author David Krepsky
  * \version 0.3
- * \date 10/2015
+ * \date 11/2015
  * \copyright David Krepsky
  */
 
@@ -47,7 +47,6 @@
 #include <QDialog>
 #include <QString>
 #include <QDir>
-
 #include "project.h"
 #include "customtypes.h"
 
@@ -74,7 +73,7 @@ class ProjectProperties : public QDialog
 
 public:
   /*****************************************************************************
-  * Constructor.
+  * Public methods.
   *****************************************************************************/
   /*!
    * \brief ProjectProperties constructor.
@@ -83,41 +82,32 @@ public:
    */
   explicit ProjectProperties(QWidget *parent = 0);
 
-  /*****************************************************************************
-  * Destructor.
-  *****************************************************************************/
   /*!
    * \brief Destructor.
    * Destroy user interface.
    */
   ~ProjectProperties();
 
-  /*****************************************************************************
-  * Set options.
-  *****************************************************************************/
   /*!
    * \brief Set the project to be edited.
    *
    * To create a new project, pass NULL as the parameter.
    *
-   * \param[in] project Project to be edited. If NULL, a new project is created.
+   * \param[in,out] project Project to be edited. If NULL, a new project is
+   * created.
    */
   void setOptions(Project *project);
 
-  /*****************************************************************************
-  * Project.
-  *****************************************************************************/
   /*!
    * \brief Project being edited.
    * \return Address of the project being edited.
    */
   Project *project();
 
-
+private slots:
   /*****************************************************************************
   * Slots.
   *****************************************************************************/
-private slots:
   /*!
    * \brief Handles a project name change.
    * Adjust the file path line edit to conform with the new name.
@@ -165,7 +155,7 @@ private:
    * \brief Project to be edited.
    */
   Project *project_;
-  
+
   /*!
    * \brief True if a new project has been created.
    */

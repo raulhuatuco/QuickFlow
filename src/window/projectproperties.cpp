@@ -28,7 +28,7 @@
  */
 
 /*!
- * \file ProjectProperties.cpp
+ * \file projectproperties.cpp
  *
  * \brief Implementation of the ProjectProperties class.
  *
@@ -36,23 +36,21 @@
  *
  * \author David Krepsky
  * \version 0.3
- * \date 10/2015
+ * \date 11/2015
  * \copyright David Krepsky
  */
 
 #include "projectproperties.h"
 #include "ui_projectproperties.h"
-
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QStandardPaths>
 #include <QValidator>
-
 #include "customtypes.h"
 #include "math_constants.h"
 
 /*******************************************************************************
- * WindowProjectProperties
+ * Constructor.
  ******************************************************************************/
 ProjectProperties::ProjectProperties(QWidget *parent)
   : QDialog(parent),
@@ -88,13 +86,14 @@ ProjectProperties::ProjectProperties(QWidget *parent)
   ui->currentUnit->addItem("A", qVariantFromValue(Unit::kAmpere));
   ui->currentUnit->addItem("kA", qVariantFromValue(Unit::kKiloAmpere));
 
+  // Set initial path.
   QString initialPath = QStandardPaths::standardLocations(
                           QStandardPaths::DocumentsLocation)[0] + "/QuickFlow";
   ui->path->setText(initialPath);
 }
 
 /*******************************************************************************
- * ~WindowProjectProperties
+ * Destructor.
  ******************************************************************************/
 ProjectProperties::~ProjectProperties()
 {
@@ -106,13 +105,20 @@ ProjectProperties::~ProjectProperties()
  ******************************************************************************/
 void ProjectProperties::setOptions(Project *project)
 {
+  // Check if it's to create a new project or to edit one and changes the
+  // interface accordingly.
   if(project == NULL) {
+    // Create a new project
     project_ = new Project;
     setWindowTitle("New Project");
     isNew = true;
+
   } else {
+    // Edit a project.
     project_ = project;
     setWindowTitle("Edit " + project->name);
+
+    // Load project data to fill the interface.
     ui->name->setText(project->name);
 
     QString projectPath = project->filePath.left(project->filePath.lastIndexOf(
@@ -252,6 +258,7 @@ void ProjectProperties::on_buttonBox_accepted()
  ******************************************************************************/
 void ProjectProperties::on_buttonBox_rejected()
 {
+  // If a new project has been created, we need to delete it.
   if(isNew) {
     delete project_;
     project_ = NULL;
