@@ -74,6 +74,9 @@ Line::~Line()
 {
   if(infoLine != NULL)
     delete infoLine;
+
+  pNoI_->removeLine(this);
+  pNoF_->removeLine(this);
 }
 
 /*******************************************************************************

@@ -146,7 +146,7 @@ void Network::removeBar(int32_t id)
  ******************************************************************************/
 void Network::removeBar(Bar *bar)
 {
-  delete bar;
+  bars.remove(bar->id());
 }
 
 /*******************************************************************************
@@ -162,7 +162,7 @@ void Network::removeLine(QPair<int32_t, int32_t> nodes)
  ******************************************************************************/
 void Network::removeLine(Line *line)
 {
-  delete line;
+  lines.remove(line->nodes);
 }
 
 /*******************************************************************************

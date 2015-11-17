@@ -110,9 +110,9 @@ public:
   void removeBar(Bar *bar);
 
   void addLine(Line *line);
-  
+
   void removeLine(Line *line);
-  
+
 signals:
 
   void barProperties(QObject *);
@@ -143,6 +143,9 @@ protected:
    *
    */
   void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+
+  void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+  
 private:
   /*!
    * \brief kZoomStep

@@ -79,6 +79,10 @@ Bar::~Bar()
 {
   if (infoBar != NULL)
     delete infoBar;
+  
+  foreach(Line *line, lines) {
+    removeLine(line);
+  }
 }
 
 /*******************************************************************************
@@ -364,8 +368,6 @@ void Bar::removeLines()
   foreach (Line *line, lines) {
     line->pNoI()->removeLine(line);
     line->pNoF()->removeLine(line);
-    scene()->removeItem(line);
-    delete line;
   }
 }
 

@@ -225,3 +225,50 @@ void SystemView::mouseReleaseEvent(QMouseEvent *event)
   QGraphicsView::mouseReleaseEvent(event);
 }
 
+/*******************************************************************************
+ * Key press event.
+ ******************************************************************************/
+void SystemView::keyPressEvent(QKeyEvent *event)
+{
+  if(event->key() == Qt::Key_Delete) {
+    if(scene()->selectedItems().size() >= 1) {
+      QMessageBox::StandardButton reply;
+      reply = QMessageBox::question(this, "Delete elements",
+                                    QString::number(scene()->selectedItems().size()) +
+                                    " element(s) will be removed. Are you sure?",
+                                    QMessageBox::Yes|QMessageBox::No);
+
+      if (reply == QMessageBox::Yes) {
+        foreach(QGraphicsItem *item, scene()->selectedItems()) {
+          if(items().indexOf(item) != -1) {
+            Bar *bar = dynamic_cast<Bar *> (item);
+
+            if(bar != NULL) {
+              foreach(Line *line, bar->lines) {
+                scene()->removeItem(line);
+                line->network->removeLine(line);
+                delete line;
+              }
+
+              scene()->removeItem(bar);
+              bar->network->removeBar(bar);
+              delete bar;
+
+            } else {
+              Line *line = dynamic_cast<Line *> (item);
+
+              if(line != NULL) {
+                scene()->removeItem(line);
+                line->network->removeLine(line);
+                delete line;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  QGraphicsView::keyPressEvent(event);
+}
+
