@@ -45,6 +45,7 @@
 
 #include <QJsonObject>
 #include <QGraphicsObject>
+#include <QPointer>
 #include <complex>
 #include "unit.h"
 #include "models/line.h"
@@ -138,7 +139,7 @@ public:
    * This option is used internaly to determine color settings and units.
    * \warning This option must be not NULL in order to add the bar to a scene.
    */
-  Network *network;
+  QPointer<Network> network;
 
   /*!
    * \brief Lines connected to this bar.
@@ -146,7 +147,7 @@ public:
    * \warning Don't use the lines vector to manipulate lines directly. Instead,
    * use the provided add and remove functions.
    */
-  QVector<Line *> lines;
+  QVector<QPointer<Line>> lines;
 
   /*****************************************************************************
    * Public methods.
@@ -288,14 +289,14 @@ public:
    *
    * \param[in] line Line to be linked.
    */
-  void addLine(Line *line);
+  void addLine(QPointer<Line> line);
 
   /*!
    * \brief Remove line link;
    *
    * \param[in] line Line to be removed.
    */
-  void removeLine(Line *line);
+  void removeLine(QPointer<Line> line);
 
 
   /*!

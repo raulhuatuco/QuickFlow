@@ -79,8 +79,8 @@ Bar::~Bar()
 {
   if (infoBar != NULL)
     delete infoBar;
-  
-  foreach(Line *line, lines) {
+
+  foreach(QPointer<Line> line, lines) {
     removeLine(line);
   }
 }
@@ -345,15 +345,16 @@ complex<double> Bar::rI(int32_t phase, Unit::CurrentUnit unit)
 /*******************************************************************************
  * addLine.
  ******************************************************************************/
-void Bar::addLine(Line *line)
+void Bar::addLine(QPointer<Line> line)
 {
-  lines.append(line);
+  if(line)
+    lines.append(line);
 }
 
 /*******************************************************************************
  * removeLine.
  ******************************************************************************/
-void Bar::removeLine(Line *line)
+void Bar::removeLine(QPointer<Line> line)
 {
   int index = lines.indexOf(line);
 
@@ -365,7 +366,7 @@ void Bar::removeLine(Line *line)
  ******************************************************************************/
 void Bar::removeLines()
 {
-  foreach (Line *line, lines) {
+  foreach (QPointer<Line> line, lines) {
     line->pNoI()->removeLine(line);
     line->pNoF()->removeLine(line);
   }
@@ -510,7 +511,7 @@ QVariant Bar::itemChange(QGraphicsItem::GraphicsItemChange change,
 {
   // if bar moved,update lines to the current position.
   if (change == ItemPositionHasChanged) {
-    foreach (Line *line, lines) {
+    foreach (QPointer<Line> line, lines) {
       line->updatePosition();
     }
   }
