@@ -58,6 +58,7 @@
 #include "algorithms/import.h"
 #include "algorithms/redrawnetwork.h"
 #include "algorithms/shirmoharmmadi.h"
+#include "algorithms/cespedes.h"
 
 /*****************************************************************************
 * Const.
@@ -690,11 +691,15 @@ void QuickFlow::on_actionRun_triggered()
                                "Used iterations: " + QString::number(fluxo.usedIterations),
                                QMessageBox::Ok);
     } else {
-      Shirmoharmmadi fluxo(network);
+      Cespedes fluxo(network);
+      fluxo.solve();
       QMessageBox::information(this, "Duration",
                                "Simulation duration: " +
                                QString::number(fluxo.duration) + " [ms] \n" +
-                               "Used iterations: " + QString::number(fluxo.usedIterations),
+                               "Used iterations: " + QString::number(fluxo.usedIterations)
+                               + "\nTotal Loss: " + QString::number(fluxo.totalLoss.real()
+                                   *network->powerBase()) + " Watts, " +  QString::number(fluxo.totalLoss.imag()
+                                       *network->powerBase()) + " VAR, ",
                                QMessageBox::Ok);
     }
   }

@@ -123,7 +123,7 @@ public:
   /*****************************************************************************
    * Compute the loss in the line.
    ****************************************************************************/
-  complex<double> loss(int32_t phase, Unit::PowerUnit unit);
+  complex<double> loss(int32_t phase, Unit::PowerUnit unit = Unit::kVaPerUnit);
 
   /*****************************************************************************
    * Line length.
