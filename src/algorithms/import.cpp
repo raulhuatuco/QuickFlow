@@ -361,9 +361,6 @@ bool importTxtType1(QString &fileName, Network *network)
     lineCnt++;
   }
 
-  RedrawNetwork redraw(network);
-  redraw.sugiyamaFast();
-
   file.close();
   return true;
 }
@@ -707,9 +704,6 @@ bool importTxtType2(QString &fileName, Network *network)
     lineCnt++;
   }
 
-  RedrawNetwork redraw(network);
-  redraw.sugiyamaFast();
-
   file.close();
   return true;
 }
@@ -1052,9 +1046,6 @@ bool importTxtType3(QString &fileName, Network *network)
     lineTxt = stream.readLine();
     lineCnt++;
   }
-
-  RedrawNetwork redraw(network);
-  redraw.sugiyamaFast();
 
   file.close();
   return true;

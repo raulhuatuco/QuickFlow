@@ -51,13 +51,20 @@ private:
    * \brief Internal pointer for the Network object that will be solved.
    */
   Network *network_;
-  
+
   QMap<Bar *, complex<double> > barPower[3];
   QMap<Line *, complex<double> > lineLoss[3];
 
   /*****************************************************************************
    * Private methods.
    ****************************************************************************/
+  /*!
+    * \brief flatStart
+    *
+    * \todo add comment to flatstart cespedes.
+    */
+  void flatStart();
+
   /*!
    * \brief Execute the backward sweep.
    *
@@ -89,8 +96,30 @@ private:
    * \return Returns the max. error found.
    */
   double maxError();
-  
+
+  /*!
+   * \brief solveBiquadratic
+   * \param b
+   * \param c
+   * \return
+   */
   double solveBiquadratic(double b, double c);
+
+  /*!
+   * \brief calcLineCurrent
+   */
+  void calcLineCurrent();
+
+  /*!
+   * \brief calcBarCurrent
+   */
+  void calcBarCurrent();
+
+  /*!
+   * \brief saveLineLoss
+   */
+  void saveLineLoss();
+
 };
 
 #endif // CESPEDES_H

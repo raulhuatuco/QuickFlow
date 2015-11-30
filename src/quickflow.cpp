@@ -347,17 +347,13 @@ void QuickFlow::on_actionClose_triggered()
     }
   }
 
-  foreach(Network *network, project->networks) {
-    ui->systemView->removeNetwork(network);
-  }
-
-  ui->systemView->zoomFit();
-
   delete project;
   project = NULL;
   altered_ = false;
   noProjectInterface();
   setWindowTitle("QuickFlow");
+
+  ui->systemView->zoomFit();
 }
 
 
@@ -463,6 +459,9 @@ void QuickFlow::on_action_txt_type_1_triggered()
     delete network;
     return;
   }
+
+  RedrawNetwork redraw(network);
+  redraw.sugiyamaFast();
 }
 
 /*******************************************************************************
@@ -526,6 +525,9 @@ void QuickFlow::on_action_txt_type_2_triggered()
     delete network;
     return;
   }
+
+  RedrawNetwork redraw(network);
+  redraw.sugiyamaFast();
 }
 
 /*******************************************************************************
@@ -589,6 +591,9 @@ void QuickFlow::on_action_txt_type_3_triggered()
     delete network;
     return;
   }
+
+  RedrawNetwork redraw(network);
+  redraw.sugiyamaFast();
 }
 
 /*******************************************************************************

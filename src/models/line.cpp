@@ -559,9 +559,9 @@ void Line::showInfo()
 void Line::hideInfo()
 {
   if (!infoLine.isNull()) {
-    scene()->removeItem(infoLine.data());
-    delete infoLine.data();
-    infoLine.clear();
+    scene()->removeItem(infoLine);
+    delete infoLine;
+    infoLine == NULL;
   }
 }
 

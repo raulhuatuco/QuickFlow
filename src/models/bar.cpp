@@ -72,8 +72,8 @@ Bar::Bar()
   // Add bar label.
   // The 1.3 and 2.0 values were determined experimentaly.
   // They will position the label at the top left corner of the bar.
-  barLabel.setX(-1.3*Network::barIconSize);
-  barLabel.setY(-2.0*Network::barIconSize);
+  barLabel.setX(1.3*Network::barIconSize);
+  barLabel.setY(2.0*Network::barIconSize);
 }
 
 /*******************************************************************************
@@ -124,16 +124,7 @@ Network *Bar::network()
 void Bar::setNetwork(Network *network)
 {
   network_ = network;
-
-  // Adjust barLabel position to include the network offset.
-  // The 1.3 and 2.0 values were determined experimentaly.
-  // They will position the label at the top left corner of the bar.
-  double labelX, labelY;
-  labelX = -1.3*Network::barIconSize + (network_.isNull()) ? 0 :
-           network_->xOffset;
-  labelY = -2.0*Network::barIconSize + (network_.isNull()) ? 0 :
-           network_->yOffset;
-  barLabel.setPos(labelX, labelY);
+  adjustLabelPosition();
 }
 
 /*******************************************************************************
@@ -543,6 +534,8 @@ QVariant Bar::itemChange(QGraphicsItem::GraphicsItemChange change,
       if(line)
         line->updatePosition();
     }
+
+    adjustLabelPosition();
   }
   // if bar is selected, show information box.
   else if (change == ItemSelectedChange) {
@@ -574,6 +567,24 @@ void Bar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   else
     drawSlack(painter);
 
+}
+
+/*******************************************************************************
+ * Adjust label position.
+ ******************************************************************************/
+void Bar::adjustLabelPosition()
+{
+  // Adjust barLabel position to include the network offset.
+  // The 1.3 and 2.0 values were determined experimentaly.
+  // They will position the label at the top left corner of the bar.
+  double labelX, labelY;
+  labelX =  (network_.isNull()) ? 0 : network_->xOffset;
+  labelX += -1.3*Network::barIconSize;
+
+  labelY = (network_.isNull()) ? 0 : network_->yOffset;
+  labelY += -2.0*Network::barIconSize;
+
+  barLabel.setPos(labelX, labelY);
 }
 
 /*******************************************************************************

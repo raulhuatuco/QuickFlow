@@ -516,6 +516,11 @@ private:
   * Private methods.
   *****************************************************************************/
   /*!
+   * \brief adjustLabelPosition
+   */
+  void adjustLabelPosition();
+
+  /*!
    * \brief Show information box.
    *
    * This function will create a window with InfoBar class that will display

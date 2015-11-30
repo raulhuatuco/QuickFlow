@@ -125,7 +125,7 @@ void InfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   dataTable.setText(table1x1, 1, 1);
 
   // Current Phase A.
-  QString table1x2 = QString::number(3.0*abs(bar_->rI(0, Network::currentUnit)),
+  QString table1x2 = QString::number(abs(bar_->rI(0, Network::currentUnit)),
                                      'g', 6);
   table1x2.append(" / ");
   table1x2.append(QString::number(std::arg(bar_->rI(0,
@@ -143,7 +143,7 @@ void InfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   dataTable.setText(table2x1, 2, 1);
 
   // Current Phase B.
-  QString table2x2 = QString::number(3.0*abs(bar_->rI(1, Network::currentUnit)),
+  QString table2x2 = QString::number(abs(bar_->rI(1, Network::currentUnit)),
                                      'g', 6);
   table2x2.append(" / ");
   table2x2.append(QString::number(arg(bar_->rI(1,
@@ -161,7 +161,7 @@ void InfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   dataTable.setText(table3x1, 3, 1);
 
   // Current Phase C.
-  QString table3x2 = QString::number(3.0*abs(bar_->rI(2, Network::currentUnit)),
+  QString table3x2 = QString::number(abs(bar_->rI(2, Network::currentUnit)),
                                      'g', 6);
   table3x2.append(" / ");
   table3x2.append(QString::number(arg(bar_->rI(2,

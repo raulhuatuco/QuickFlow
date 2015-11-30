@@ -20,23 +20,6 @@ bool Cespedes::solve()
   QElapsedTimer timer;
   timer.start();
 
-  // Set Initial voltage to 1pu. fill barPower.
-  double initialVoltage = network_->voltageBase();
-  foreach(Bar *bar, network_->bars) {
-    bar->setV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
-    bar->setV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
-    bar->setV(2, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
-    barPower[0].insert(bar, 0.0);
-    barPower[1].insert(bar, 0.0);
-    barPower[2].insert(bar, 0.0);
-  }
-
-  foreach (Line *line, network_->lines) {
-    lineLoss[0].insert(line, 0.0);
-    lineLoss[1].insert(line, 0.0);
-    lineLoss[2].insert(line, 0.0);
-  }
-
   // Initialize at iteration 0 and error inf;
   uint32_t iteration = 0;
   double iterationError = qInf();
@@ -44,6 +27,8 @@ bool Cespedes::solve()
   // Create a radial layer to operate the algorithm.
   RadialLayer radLayer(network_);
   radLayer.calculate();
+
+  flatStart();
 
   do {
     // Calculates the backward sweep.
@@ -62,13 +47,53 @@ bool Cespedes::solve()
   } while(( (network_->powerBase()*iterationError) > network_->minError) &&
           (iteration < network_->maxIterations));
 
-  duration = timer.elapsed();
+  saveLineLoss();
+
+  calcBarCurrent();
+
+  calcLineCurrent();
+
   usedIterations = iteration;
+  duration = timer.elapsed();
 
   if (iteration < network_->maxIterations)
     return true;
   else
     return false;
+}
+
+void Cespedes::flatStart()
+{
+  // Set Initial voltage to 1pu. fill barPower.
+  double initialVoltage = network_->voltageBase();
+  foreach(Bar *bar, network_->bars) {
+    bar->setV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
+    bar->setV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
+    bar->setV(2, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
+    barPower[0].insert(bar, 0.0);
+    barPower[1].insert(bar, 0.0);
+    barPower[2].insert(bar, 0.0);
+
+    bar->setRI(0, 0.0);
+    bar->setRI(1, 0.0);
+    bar->setRI(2, 0.0);
+  }
+
+  foreach (Line *line, network_->lines) {
+    lineLoss[0].insert(line, 0.0);
+    lineLoss[1].insert(line, 0.0);
+    lineLoss[2].insert(line, 0.0);
+
+    // Reset current.
+    line->setI(0, 0.0);
+    line->setI(1, 0.0);
+    line->setI(2, 0.0);
+
+    // Reset loss.
+    line->setLoss(0, 0.0);
+    line->setLoss(1, 0.0);
+    line->setLoss(2, 0.0);
+  }
 }
 
 void Cespedes::doBackwardSweep(RadialLayer &radLayer)
@@ -160,9 +185,9 @@ void Cespedes::doForwardSweep(RadialLayer &radLayer)
       Vr[1] = solveBiquadratic(b[1], c[1]);
       Vr[2] = solveBiquadratic(b[2], c[2]);
 
-      bar->setRV(0, Vr[0]);
-      bar->setRV(1, Vr[1]);
-      bar->setRV(2, Vr[2]);
+      bar->setRV(0, std::polar(Vr[0], 0.0));
+      bar->setRV(1, std::polar(Vr[1], 120.0*kPI/180.0));
+      bar->setRV(2, std::polar(Vr[2], 240.0*kPI/180.0));
     }
 
   }
@@ -248,5 +273,44 @@ double Cespedes::solveBiquadratic(double b, double c)
   r = (x1>0) ? x1 : x2;
 
   return sqrt(r);
+}
+
+void Cespedes::calcLineCurrent()
+{
+  complex<double> i[3];
+
+  foreach(Line *line, network_->lines) {
+    i[0] = sqrt(abs(line->loss(0))/ abs(line->z(0)));
+    i[1] = sqrt(abs(line->loss(1))/ abs(line->z(1)));
+    i[2] = sqrt(abs(line->loss(2))/ abs(line->z(2)));
+
+    line->setI(0, i[0]);
+    line->setI(1, i[1]);
+    line->setI(2, i[2]);
+  }
+}
+
+void Cespedes::calcBarCurrent()
+{
+  complex<double> i[3];
+
+  foreach(Bar *bar, network_->bars) {
+    i[0] = (abs(bar->si(0) - bar->sh(0))/ abs(bar->rV(0)));
+    i[1] = (abs(bar->si(1) - bar->sh(1))/ abs(bar->rV(1)));
+    i[2] = (abs(bar->si(2) - bar->sh(2))/ abs(bar->rV(2)));
+
+    bar->setRI(0, i[0]);
+    bar->setRI(1, i[1]);
+    bar->setRI(2, i[2]);
+  }
+}
+
+void Cespedes::saveLineLoss()
+{
+  foreach(Line *line, network_->lines) {
+    line->setLoss(0, lineLoss[0][line]);
+    line->setLoss(1, lineLoss[1][line]);
+    line->setLoss(2, lineLoss[2][line]);
+  }
 }
 

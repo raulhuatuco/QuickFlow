@@ -5,13 +5,14 @@
 
 #include <QString>
 #include <QHash>
+#include <QPointer>
 #include "unit.h"
 #include "models/network.h"
 
 class Project
 {
 public:
-  QHash<QString, Network *> networks;
+  QHash<QString, QPointer<Network> > networks;
 
   QString name;
 

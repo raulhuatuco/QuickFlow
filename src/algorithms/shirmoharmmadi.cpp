@@ -130,8 +130,8 @@ void Shirmoharmmadi::flatStart()
 
     // Set initial current to 0 amps.
     bar->setRI(0, 0.0);
-    bar->setRI(1, 0.0);
-    bar->setRI(2, 0.0);
+    bar->setRI(1, 120.0);
+    bar->setRI(2, -120.0);
   }
 
   foreach(Line *line, network_->lines) {

@@ -18,8 +18,9 @@ Project::Project()
  ******************************************************************************/
 Project::~Project()
 {
-  foreach(Network *network, networks) {
-    delete network;
+  foreach(QPointer<Network> network, networks) {
+    if(!network.isNull())
+      delete network;
   }
 }
 
