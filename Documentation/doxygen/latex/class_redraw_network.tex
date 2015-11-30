@@ -8,15 +8,15 @@ Algorithm that reposition every element in a network.
 \subsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_redraw_network_a1fe3edb8c57780eb62f7de8f03dfeda3}{Redraw\+Network} (\hyperlink{class_network}{Network} $\ast$network)
+\hyperlink{group___algorithms_ga1fe3edb8c57780eb62f7de8f03dfeda3}{Redraw\+Network} (\hyperlink{class_network}{Network} $\ast$network)
 \begin{DoxyCompactList}\small\item\em Class constructor. \end{DoxyCompactList}\item 
-\hyperlink{class_redraw_network_ac7b5f7fdb2b88e7d8bb580834e93b1e8}{$\sim$\+Redraw\+Network} ()
+\hyperlink{group___algorithms_gac7b5f7fdb2b88e7d8bb580834e93b1e8}{$\sim$\+Redraw\+Network} ()
 \begin{DoxyCompactList}\small\item\em Class destructor. \end{DoxyCompactList}\item 
-void \hyperlink{class_redraw_network_a94d53ddf8ee00c4ef6d56bb988333103}{sugiyama\+Fast} ()
+void \hyperlink{group___algorithms_ga94d53ddf8ee00c4ef6d56bb988333103}{sugiyama\+Fast} ()
 \begin{DoxyCompactList}\small\item\em Redraws using Sugiyama Fast algorithm. \end{DoxyCompactList}\item 
-void \hyperlink{class_redraw_network_aee0ae606982145e66bba825421d610f8}{sugiyama} ()
+void \hyperlink{group___algorithms_gaee0ae606982145e66bba825421d610f8}{sugiyama} ()
 \begin{DoxyCompactList}\small\item\em Redraws using Sugiyama algorithm. \end{DoxyCompactList}\item 
-void \hyperlink{class_redraw_network_a56a92ad06ae0198ee60160aa66aa0ce1}{multi\+Level} ()
+void \hyperlink{group___algorithms_ga56a92ad06ae0198ee60160aa66aa0ce1}{multi\+Level} ()
 \begin{DoxyCompactList}\small\item\em Redraws with Multilevel algorithm. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -42,91 +42,13 @@ This class uses the Open Graphics Drawing Framework (O\+G\+D\+F) to provide its 
 \end{DoxyCode}
 
 
+\begin{DoxyRefDesc}{Todo}
+\item[\hyperlink{todo__todo000001}{Todo}]Improve remove\+Offset to consider slack initial position. \end{DoxyRefDesc}
 \begin{DoxyRefDesc}{Bug}
-\item[\hyperlink{bug__bug000001}{Bug}]Offset inserted at slack bar.\end{DoxyRefDesc}
+\item[\hyperlink{bug__bug000001}{Bug}]Can\textquotesingle{}t delete Graph or G\+A objects.\end{DoxyRefDesc}
 
 
-Definition at line \hyperlink{redrawnetwork_8h_source_l00094}{94} of file \hyperlink{redrawnetwork_8h_source}{redrawnetwork.\+h}.
-
-
-
-\subsubsection{Constructor \& Destructor Documentation}
-\hypertarget{class_redraw_network_a1fe3edb8c57780eb62f7de8f03dfeda3}{}\index{Redraw\+Network@{Redraw\+Network}!Redraw\+Network@{Redraw\+Network}}
-\index{Redraw\+Network@{Redraw\+Network}!Redraw\+Network@{Redraw\+Network}}
-\paragraph[{Redraw\+Network}]{\setlength{\rightskip}{0pt plus 5cm}Redraw\+Network\+::\+Redraw\+Network (
-\begin{DoxyParamCaption}
-\item[{{\bf Network} $\ast$}]{network}
-\end{DoxyParamCaption}
-)}\label{class_redraw_network_a1fe3edb8c57780eb62f7de8f03dfeda3}
-A valid pointer to a \hyperlink{class_network}{Network} object is needed.
-
-
-\begin{DoxyParams}[1]{Parameters}
-\mbox{\tt in}  & {\em network} & \hyperlink{class_network}{Network} to be redrawn. \\
-\hline
-\end{DoxyParams}
-
-
-Definition at line \hyperlink{redrawnetwork_8cpp_source_l00015}{15} of file \hyperlink{redrawnetwork_8cpp_source}{redrawnetwork.\+cpp}.
-
-\hypertarget{class_redraw_network_ac7b5f7fdb2b88e7d8bb580834e93b1e8}{}\index{Redraw\+Network@{Redraw\+Network}!````~Redraw\+Network@{$\sim$\+Redraw\+Network}}
-\index{````~Redraw\+Network@{$\sim$\+Redraw\+Network}!Redraw\+Network@{Redraw\+Network}}
-\paragraph[{$\sim$\+Redraw\+Network}]{\setlength{\rightskip}{0pt plus 5cm}Redraw\+Network\+::$\sim$\+Redraw\+Network (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_redraw_network_ac7b5f7fdb2b88e7d8bb580834e93b1e8}
-Free used memory. 
-
-Definition at line \hyperlink{redrawnetwork_8cpp_source_l00020}{20} of file \hyperlink{redrawnetwork_8cpp_source}{redrawnetwork.\+cpp}.
-
-
-
-\subsubsection{Member Function Documentation}
-\hypertarget{class_redraw_network_a56a92ad06ae0198ee60160aa66aa0ce1}{}\index{Redraw\+Network@{Redraw\+Network}!multi\+Level@{multi\+Level}}
-\index{multi\+Level@{multi\+Level}!Redraw\+Network@{Redraw\+Network}}
-\paragraph[{multi\+Level}]{\setlength{\rightskip}{0pt plus 5cm}void Redraw\+Network\+::multi\+Level (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_redraw_network_a56a92ad06ae0198ee60160aa66aa0ce1}
-Provides a nice way to see how a system expands from the slack bar. 
-
-Definition at line \hyperlink{redrawnetwork_8cpp_source_l00054}{54} of file \hyperlink{redrawnetwork_8cpp_source}{redrawnetwork.\+cpp}.
-
-\hypertarget{class_redraw_network_aee0ae606982145e66bba825421d610f8}{}\index{Redraw\+Network@{Redraw\+Network}!sugiyama@{sugiyama}}
-\index{sugiyama@{sugiyama}!Redraw\+Network@{Redraw\+Network}}
-\paragraph[{sugiyama}]{\setlength{\rightskip}{0pt plus 5cm}void Redraw\+Network\+::sugiyama (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_redraw_network_aee0ae606982145e66bba825421d610f8}
-Really nice looking for radial networks. 
-
-Definition at line \hyperlink{redrawnetwork_8cpp_source_l00040}{40} of file \hyperlink{redrawnetwork_8cpp_source}{redrawnetwork.\+cpp}.
-
-\hypertarget{class_redraw_network_a94d53ddf8ee00c4ef6d56bb988333103}{}\index{Redraw\+Network@{Redraw\+Network}!sugiyama\+Fast@{sugiyama\+Fast}}
-\index{sugiyama\+Fast@{sugiyama\+Fast}!Redraw\+Network@{Redraw\+Network}}
-\paragraph[{sugiyama\+Fast}]{\setlength{\rightskip}{0pt plus 5cm}void Redraw\+Network\+::sugiyama\+Fast (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_redraw_network_a94d53ddf8ee00c4ef6d56bb988333103}
-This will draw faster than the Sugiyama, but with a lower quality result. 
-
-Definition at line \hyperlink{redrawnetwork_8cpp_source_l00024}{24} of file \hyperlink{redrawnetwork_8cpp_source}{redrawnetwork.\+cpp}.
-
-
-
-Here is the caller graph for this function\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{class_redraw_network_a94d53ddf8ee00c4ef6d56bb988333103_icgraph}
-\end{center}
-\end{figure}
-
+Definition at line \hyperlink{redrawnetwork_8h_source_l00095}{95} of file \hyperlink{redrawnetwork_8h_source}{redrawnetwork.\+h}.
 
 
 

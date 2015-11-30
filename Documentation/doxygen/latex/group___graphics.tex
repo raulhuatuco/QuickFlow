@@ -1,10 +1,5 @@
 \hypertarget{group___graphics}{}\subsection{Graphics}
 \label{group___graphics}\index{Graphics@{Graphics}}
-\subsubsection*{Files}
-\begin{DoxyCompactItemize}
-\item 
-file \hyperlink{network_8cpp}{network.\+cpp}
-\begin{DoxyCompactList}\small\item\em Implementation of \hyperlink{class_network}{Network} class. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -43,60 +38,7 @@ void \hyperlink{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{System\+Vie
 \item 
 void \hyperlink{group___graphics_gaa8a2664405194bbe29daa454aead7416}{System\+View\+::mouse\+Release\+Event} (Q\+Mouse\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
 \item 
-static double \hyperlink{group___graphics_ga433bc5c32cf2ce5329bb40b21952d885}{Network\+::current\+Base} ()
-\item 
-static double \hyperlink{group___graphics_gae6794c93d37df113778c37c2c702f6d9}{Network\+::impedance\+Base} ()
-\item 
-\hyperlink{group___graphics_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}{Network\+::\+Network} ()
-\item 
-\hyperlink{group___graphics_ga7a4e19cdb4bf0c7ecf82baa643831492}{Network\+::$\sim$\+Network} ()
-\item 
-bool \hyperlink{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}{Network\+::add\+Bar} (\hyperlink{class_bar}{Bar} $\ast$bar)
-\item 
-bool \hyperlink{group___graphics_gae02945131494987b3ff9b59b627719b4}{Network\+::add\+Line} (\hyperlink{class_line}{Line} $\ast$line)
-\item 
-void \hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{Network\+::remove\+Bar} (int32\+\_\+t id)
-\item 
-void \hyperlink{group___graphics_ga7dea7690987c58fa61ffaa0326b68b68}{Network\+::remove\+Bar} (\hyperlink{class_bar}{Bar} $\ast$bar)
-\item 
-void \hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{Network\+::remove\+Line} (Q\+Pair$<$ int32\+\_\+t, int32\+\_\+t $>$ nodes)
-\item 
-void \hyperlink{group___graphics_ga4fd51288aa75614593977ce8aab9100f}{Network\+::remove\+Line} (\hyperlink{class_line}{Line} $\ast$line)
-\item 
-\hyperlink{class_bar}{Bar} $\ast$ \hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{Network\+::get\+Bar\+By\+Id} (uint32\+\_\+t id)
-\item 
-\hyperlink{class_line}{Line} $\ast$ \hyperlink{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{Network\+::get\+Line\+By\+Nodes} (Q\+Pair$<$ int32\+\_\+t, int32\+\_\+t $>$ nodes)
-\item 
-Q\+Json\+Object \hyperlink{group___graphics_ga1bb9773d3935eefef84136d388786494}{Network\+::to\+Json} ()
-\item 
-void \hyperlink{group___graphics_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1}{Network\+::from\+Json} (Q\+Json\+Object \&net\+Json)
-\end{DoxyCompactItemize}
-\subsubsection*{Variables}
-\begin{DoxyCompactItemize}
-\item 
-static const double \hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{Network\+::bar\+Icon\+Size} = 15.\+0
-\item 
-static const double \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{Network\+::line\+Width} = 4.\+0
-\item 
-static const Q\+Color \hyperlink{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{Network\+::selected\+Color} = Qt\+::red
-\item 
-static uint32\+\_\+t \hyperlink{group___graphics_ga318dee060bc577eacd67d332efbbe1b2}{Network\+::max\+Iterations} = 1000
-\item 
-static double \hyperlink{group___graphics_gabcdc973129d3dda7572b7a1c388da1b5}{Network\+::min\+Error} = 0.\+01
-\item 
-static double \hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{Network\+::voltage\+Base} = 23000.\+0
-\item 
-static double \hyperlink{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{Network\+::power\+Base} = 2500000.\+0
-\item 
-static \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit\+::\+Length\+Unit} \hyperlink{group___graphics_gae46c0e2bf39b343875e3c69066fe2652}{Network\+::length\+Unit} = \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0abfa41ebe7ee649a1f02c9b8ae570434b}{Unit\+::k\+Meter}
-\item 
-static \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit\+::\+Impedance\+Unit} \hyperlink{group___graphics_ga5f3d72699a723c64a89d22e34df708ff}{Network\+::impedance\+Unit} = \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdfa6b9c74d1763eefbaf751eeecff0bd9da}{Unit\+::k\+Ohm}
-\item 
-static \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit\+::\+Voltage\+Unit} \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network\+::voltage\+Unit} = \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit\+::k\+Volts}
-\item 
-static \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit\+::\+Power\+Unit} \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network\+::power\+Unit} = \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit\+::k\+V\+A}
-\item 
-static \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit\+::\+Current\+Unit} \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network\+::current\+Unit} = \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit\+::k\+Ampere}
+void \hyperlink{group___graphics_gac28465709119ef75862b33480ad23f56}{System\+View\+::key\+Press\+Event} (Q\+Key\+Event $\ast$event) Q\+\_\+\+D\+E\+C\+L\+\_\+\+O\+V\+E\+R\+R\+I\+D\+E
 \end{DoxyCompactItemize}
 
 
@@ -113,48 +55,16 @@ static \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit\+::\+Curren
 )}\label{group___graphics_gac4e02019d41c203c788ff1e6f3ee460e}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00138}{138} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00137}{137} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 
 
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{group___graphics_gac4e02019d41c203c788ff1e6f3ee460e_icgraph}
-\end{center}
-\end{figure}
-
-
-\hypertarget{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}{}\index{Graphics@{Graphics}!add\+Bar@{add\+Bar}}
-\index{add\+Bar@{add\+Bar}!Graphics@{Graphics}}
-\paragraph[{add\+Bar}]{\setlength{\rightskip}{0pt plus 5cm}bool Network\+::add\+Bar (
-\begin{DoxyParamCaption}
-\item[{{\bf Bar} $\ast$}]{bar}
-\end{DoxyParamCaption}
-)}\label{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00118}{118} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
-
-
-
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=314pt]{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01_icgraph}
 \end{center}
 \end{figure}
 
@@ -168,48 +78,16 @@ Here is the caller graph for this function\+:\nopagebreak
 )}\label{group___graphics_gaed2fb15d518cab9a52ea1ee258846bfc}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00155}{155} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00154}{154} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 
 
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=350pt]{group___graphics_gaed2fb15d518cab9a52ea1ee258846bfc_icgraph}
-\end{center}
-\end{figure}
-
-
-\hypertarget{group___graphics_gae02945131494987b3ff9b59b627719b4}{}\index{Graphics@{Graphics}!add\+Line@{add\+Line}}
-\index{add\+Line@{add\+Line}!Graphics@{Graphics}}
-\paragraph[{add\+Line}]{\setlength{\rightskip}{0pt plus 5cm}bool Network\+::add\+Line (
-\begin{DoxyParamCaption}
-\item[{{\bf Line} $\ast$}]{line}
-\end{DoxyParamCaption}
-)}\label{group___graphics_gae02945131494987b3ff9b59b627719b4}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00133}{133} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
-
-
-
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{group___graphics_gae02945131494987b3ff9b59b627719b4_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{group___graphics_gae02945131494987b3ff9b59b627719b4_icgraph}
 \end{center}
 \end{figure}
 
@@ -228,11 +106,12 @@ Here is the caller graph for this function\+:\nopagebreak
 \end{DoxyParams}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00112}{112} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00111}{111} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -241,123 +120,25 @@ Here is the call graph for this function\+:\nopagebreak
 \end{figure}
 
 
-\hypertarget{group___graphics_ga433bc5c32cf2ce5329bb40b21952d885}{}\index{Graphics@{Graphics}!current\+Base@{current\+Base}}
-\index{current\+Base@{current\+Base}!Graphics@{Graphics}}
-\paragraph[{current\+Base}]{\setlength{\rightskip}{0pt plus 5cm}double Network\+::current\+Base (
+\hypertarget{group___graphics_gac28465709119ef75862b33480ad23f56}{}\index{Graphics@{Graphics}!key\+Press\+Event@{key\+Press\+Event}}
+\index{key\+Press\+Event@{key\+Press\+Event}!Graphics@{Graphics}}
+\paragraph[{key\+Press\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void System\+View\+::key\+Press\+Event (
 \begin{DoxyParamCaption}
-{}
+\item[{Q\+Key\+Event $\ast$}]{event}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_ga433bc5c32cf2ce5329bb40b21952d885}
+)\hspace{0.3cm}{\ttfamily [protected]}}\label{group___graphics_gac28465709119ef75862b33480ad23f56}
 
 
-Definition at line \hyperlink{network_8cpp_source_l00077}{77} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00231}{231} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 
 
-Here is the caller graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{group___graphics_ga433bc5c32cf2ce5329bb40b21952d885_icgraph}
-\end{center}
-\end{figure}
-
-
-\hypertarget{group___graphics_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1}{}\index{Graphics@{Graphics}!from\+Json@{from\+Json}}
-\index{from\+Json@{from\+Json}!Graphics@{Graphics}}
-\paragraph[{from\+Json}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::from\+Json (
-\begin{DoxyParamCaption}
-\item[{Q\+Json\+Object \&}]{net\+Json}
-\end{DoxyParamCaption}
-)}\label{group___graphics_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00236}{236} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
-
-
-
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{group___graphics_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=287pt]{group___graphics_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1_icgraph}
-\end{center}
-\end{figure}
-
-
-\hypertarget{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{}\index{Graphics@{Graphics}!get\+Bar\+By\+Id@{get\+Bar\+By\+Id}}
-\index{get\+Bar\+By\+Id@{get\+Bar\+By\+Id}!Graphics@{Graphics}}
-\paragraph[{get\+Bar\+By\+Id}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bar} $\ast$ Network\+::get\+Bar\+By\+Id (
-\begin{DoxyParamCaption}
-\item[{uint32\+\_\+t}]{id}
-\end{DoxyParamCaption}
-)}\label{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00190}{190} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
-
-
-
-Here is the caller graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0_icgraph}
-\end{center}
-\end{figure}
-
-
-\hypertarget{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{}\index{Graphics@{Graphics}!get\+Line\+By\+Nodes@{get\+Line\+By\+Nodes}}
-\index{get\+Line\+By\+Nodes@{get\+Line\+By\+Nodes}!Graphics@{Graphics}}
-\paragraph[{get\+Line\+By\+Nodes}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Line} $\ast$ Network\+::get\+Line\+By\+Nodes (
-\begin{DoxyParamCaption}
-\item[{Q\+Pair$<$ int32\+\_\+t, int32\+\_\+t $>$}]{nodes}
-\end{DoxyParamCaption}
-)}\label{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00198}{198} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
-
-
-
-Here is the caller graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{group___graphics_ga8f090b85a7779695cb9f05b6395b3044_icgraph}
-\end{center}
-\end{figure}
-
-
-\hypertarget{group___graphics_gae6794c93d37df113778c37c2c702f6d9}{}\index{Graphics@{Graphics}!impedance\+Base@{impedance\+Base}}
-\index{impedance\+Base@{impedance\+Base}!Graphics@{Graphics}}
-\paragraph[{impedance\+Base}]{\setlength{\rightskip}{0pt plus 5cm}double Network\+::impedance\+Base (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_gae6794c93d37df113778c37c2c702f6d9}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00085}{85} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
-
-
-
-Here is the caller graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{group___graphics_gae6794c93d37df113778c37c2c702f6d9_icgraph}
+\includegraphics[width=350pt]{group___graphics_gac28465709119ef75862b33480ad23f56_cgraph}
 \end{center}
 \end{figure}
 
@@ -371,7 +152,7 @@ Here is the caller graph for this function\+:\nopagebreak
 )\hspace{0.3cm}{\ttfamily [protected]}}\label{group___graphics_gab19e233cd697852dd71140971cb6e122}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00188}{188} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00187}{187} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 \hypertarget{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{}\index{Graphics@{Graphics}!mouse\+Press\+Event@{mouse\+Press\+Event}}
 \index{mouse\+Press\+Event@{mouse\+Press\+Event}!Graphics@{Graphics}}
@@ -382,7 +163,7 @@ Definition at line \hyperlink{systemview_8cpp_source_l00188}{188} of file \hyper
 )\hspace{0.3cm}{\ttfamily [protected]}}\label{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00205}{205} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00204}{204} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 \hypertarget{group___graphics_gaa8a2664405194bbe29daa454aead7416}{}\index{Graphics@{Graphics}!mouse\+Release\+Event@{mouse\+Release\+Event}}
 \index{mouse\+Release\+Event@{mouse\+Release\+Event}!Graphics@{Graphics}}
@@ -393,18 +174,7 @@ Definition at line \hyperlink{systemview_8cpp_source_l00205}{205} of file \hyper
 )\hspace{0.3cm}{\ttfamily [protected]}}\label{group___graphics_gaa8a2664405194bbe29daa454aead7416}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00219}{219} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
-
-\hypertarget{group___graphics_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}{}\index{Graphics@{Graphics}!Network@{Network}}
-\index{Network@{Network}!Graphics@{Graphics}}
-\paragraph[{Network}]{\setlength{\rightskip}{0pt plus 5cm}Network\+::\+Network (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{group___graphics_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00093}{93} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00218}{218} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 \hypertarget{group___graphics_ga1e96b08395a2f1b961dedbb3e8c99a50}{}\index{Graphics@{Graphics}!remove\+Bar@{remove\+Bar}}
 \index{remove\+Bar@{remove\+Bar}!Graphics@{Graphics}}
@@ -415,11 +185,12 @@ Definition at line \hyperlink{network_8cpp_source_l00093}{93} of file \hyperlink
 )}\label{group___graphics_ga1e96b08395a2f1b961dedbb3e8c99a50}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00147}{147} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00146}{146} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 
 
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -427,39 +198,6 @@ Here is the caller graph for this function\+:\nopagebreak
 \end{center}
 \end{figure}
 
-
-\hypertarget{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{}\index{Graphics@{Graphics}!remove\+Bar@{remove\+Bar}}
-\index{remove\+Bar@{remove\+Bar}!Graphics@{Graphics}}
-\paragraph[{remove\+Bar}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::remove\+Bar (
-\begin{DoxyParamCaption}
-\item[{int32\+\_\+t}]{id}
-\end{DoxyParamCaption}
-)}\label{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00158}{158} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
-
-
-
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=331pt]{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c_cgraph}
-\end{center}
-\end{figure}
-
-
-\hypertarget{group___graphics_ga7dea7690987c58fa61ffaa0326b68b68}{}\index{Graphics@{Graphics}!remove\+Bar@{remove\+Bar}}
-\index{remove\+Bar@{remove\+Bar}!Graphics@{Graphics}}
-\paragraph[{remove\+Bar}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::remove\+Bar (
-\begin{DoxyParamCaption}
-\item[{{\bf Bar} $\ast$}]{bar}
-\end{DoxyParamCaption}
-)}\label{group___graphics_ga7dea7690987c58fa61ffaa0326b68b68}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00166}{166} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
 
 \hypertarget{group___graphics_ga4af1d763d9b9c02933e62d1f6231ad18}{}\index{Graphics@{Graphics}!remove\+Line@{remove\+Line}}
 \index{remove\+Line@{remove\+Line}!Graphics@{Graphics}}
@@ -470,11 +208,12 @@ Definition at line \hyperlink{network_8cpp_source_l00166}{166} of file \hyperlin
 )}\label{group___graphics_ga4af1d763d9b9c02933e62d1f6231ad18}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00164}{164} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00163}{163} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 
 
-Here is the caller graph for this function\+:\nopagebreak
+Here is the caller graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -482,39 +221,6 @@ Here is the caller graph for this function\+:\nopagebreak
 \end{center}
 \end{figure}
 
-
-\hypertarget{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{}\index{Graphics@{Graphics}!remove\+Line@{remove\+Line}}
-\index{remove\+Line@{remove\+Line}!Graphics@{Graphics}}
-\paragraph[{remove\+Line}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::remove\+Line (
-\begin{DoxyParamCaption}
-\item[{Q\+Pair$<$ int32\+\_\+t, int32\+\_\+t $>$}]{nodes}
-\end{DoxyParamCaption}
-)}\label{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00174}{174} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
-
-
-
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{group___graphics_ga1eef3317224a7a06348fce07e581a9ad_cgraph}
-\end{center}
-\end{figure}
-
-
-\hypertarget{group___graphics_ga4fd51288aa75614593977ce8aab9100f}{}\index{Graphics@{Graphics}!remove\+Line@{remove\+Line}}
-\index{remove\+Line@{remove\+Line}!Graphics@{Graphics}}
-\paragraph[{remove\+Line}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+::remove\+Line (
-\begin{DoxyParamCaption}
-\item[{{\bf Line} $\ast$}]{line}
-\end{DoxyParamCaption}
-)}\label{group___graphics_ga4fd51288aa75614593977ce8aab9100f}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00182}{182} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
 
 \hypertarget{group___graphics_ga2078ad08ff93b9a8683d567e3f9f714e}{}\index{Graphics@{Graphics}!remove\+Network@{remove\+Network}}
 \index{remove\+Network@{remove\+Network}!Graphics@{Graphics}}
@@ -530,11 +236,12 @@ Definition at line \hyperlink{network_8cpp_source_l00182}{182} of file \hyperlin
 \end{DoxyParams}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00126}{126} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00125}{125} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 
 
-Here is the call graph for this function\+:\nopagebreak
+Here is the call graph for this function\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -557,40 +264,7 @@ Here is the call graph for this function\+:\nopagebreak
 \end{DoxyParams}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00055}{55} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
-
-\hypertarget{group___graphics_ga1bb9773d3935eefef84136d388786494}{}\index{Graphics@{Graphics}!to\+Json@{to\+Json}}
-\index{to\+Json@{to\+Json}!Graphics@{Graphics}}
-\paragraph[{to\+Json}]{\setlength{\rightskip}{0pt plus 5cm}Q\+Json\+Object Network\+::to\+Json (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{group___graphics_ga1bb9773d3935eefef84136d388786494}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00206}{206} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
-
-
-
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=275pt]{group___graphics_ga1bb9773d3935eefef84136d388786494_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{group___graphics_ga1bb9773d3935eefef84136d388786494_icgraph}
-\end{center}
-\end{figure}
-
+Definition at line \hyperlink{systemview_8cpp_source_l00054}{54} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 \hypertarget{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}{}\index{Graphics@{Graphics}!wheel\+Event@{wheel\+Event}}
 \index{wheel\+Event@{wheel\+Event}!Graphics@{Graphics}}
@@ -601,7 +275,7 @@ Here is the caller graph for this function\+:\nopagebreak
 )\hspace{0.3cm}{\ttfamily [protected]}}\label{group___graphics_gaab2fa6cebf9022eb6bf31497c0789675}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00174}{174} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00173}{173} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 \hypertarget{group___graphics_gac1bf0b6a80216df74a8da1cb8ac5f0e8}{}\index{Graphics@{Graphics}!zoom\+Fit@{zoom\+Fit}}
 \index{zoom\+Fit@{zoom\+Fit}!Graphics@{Graphics}}
@@ -612,7 +286,7 @@ Definition at line \hyperlink{systemview_8cpp_source_l00174}{174} of file \hyper
 )}\label{group___graphics_gac1bf0b6a80216df74a8da1cb8ac5f0e8}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00104}{104} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00103}{103} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 \hypertarget{group___graphics_ga93170319ee5fbf9098353b383fc8a368}{}\index{Graphics@{Graphics}!zoom\+In@{zoom\+In}}
 \index{zoom\+In@{zoom\+In}!Graphics@{Graphics}}
@@ -623,7 +297,7 @@ Definition at line \hyperlink{systemview_8cpp_source_l00104}{104} of file \hyper
 )}\label{group___graphics_ga93170319ee5fbf9098353b383fc8a368}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00088}{88} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00087}{87} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 \hypertarget{group___graphics_gaf971471c76265ec21cdde2aafe9b609f}{}\index{Graphics@{Graphics}!zoom\+Out@{zoom\+Out}}
 \index{zoom\+Out@{zoom\+Out}!Graphics@{Graphics}}
@@ -634,18 +308,7 @@ Definition at line \hyperlink{systemview_8cpp_source_l00088}{88} of file \hyperl
 )}\label{group___graphics_gaf971471c76265ec21cdde2aafe9b609f}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00096}{96} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
-
-\hypertarget{group___graphics_ga7a4e19cdb4bf0c7ecf82baa643831492}{}\index{Graphics@{Graphics}!````~Network@{$\sim$\+Network}}
-\index{````~Network@{$\sim$\+Network}!Graphics@{Graphics}}
-\paragraph[{$\sim$\+Network}]{\setlength{\rightskip}{0pt plus 5cm}Network\+::$\sim$\+Network (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{group___graphics_ga7a4e19cdb4bf0c7ecf82baa643831492}
-
-
-Definition at line \hyperlink{network_8cpp_source_l00104}{104} of file \hyperlink{network_8cpp_source}{network.\+cpp}.
+Definition at line \hyperlink{systemview_8cpp_source_l00095}{95} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 
 \hypertarget{group___graphics_ga0091352981c1efa5498819b69698db44}{}\index{Graphics@{Graphics}!````~System\+View@{$\sim$\+System\+View}}
 \index{````~System\+View@{$\sim$\+System\+View}!Graphics@{Graphics}}
@@ -656,92 +319,5 @@ Definition at line \hyperlink{network_8cpp_source_l00104}{104} of file \hyperlin
 )}\label{group___graphics_ga0091352981c1efa5498819b69698db44}
 
 
-Definition at line \hyperlink{systemview_8cpp_source_l00080}{80} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
-
-
-
-\subsubsection{Variable Documentation}
-\hypertarget{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{}\index{Graphics@{Graphics}!bar\+Icon\+Size@{bar\+Icon\+Size}}
-\index{bar\+Icon\+Size@{bar\+Icon\+Size}!Graphics@{Graphics}}
-\paragraph[{bar\+Icon\+Size}]{\setlength{\rightskip}{0pt plus 5cm}const double Network\+::bar\+Icon\+Size = 15.\+0\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_gaa334bbc93b3fde219840e95e23198b53}
-
-
-Definition at line \hyperlink{network_8h_source_l00084}{84} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{}\index{Graphics@{Graphics}!current\+Unit@{current\+Unit}}
-\index{current\+Unit@{current\+Unit}!Graphics@{Graphics}}
-\paragraph[{current\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Current\+Unit} Network\+::current\+Unit = {\bf Unit\+::k\+Ampere}\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}
-
-
-Definition at line \hyperlink{network_8h_source_l00109}{109} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{group___graphics_ga5f3d72699a723c64a89d22e34df708ff}{}\index{Graphics@{Graphics}!impedance\+Unit@{impedance\+Unit}}
-\index{impedance\+Unit@{impedance\+Unit}!Graphics@{Graphics}}
-\paragraph[{impedance\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Impedance\+Unit} Network\+::impedance\+Unit = {\bf Unit\+::k\+Ohm}\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_ga5f3d72699a723c64a89d22e34df708ff}
-
-
-Definition at line \hyperlink{network_8h_source_l00103}{103} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{group___graphics_gae46c0e2bf39b343875e3c69066fe2652}{}\index{Graphics@{Graphics}!length\+Unit@{length\+Unit}}
-\index{length\+Unit@{length\+Unit}!Graphics@{Graphics}}
-\paragraph[{length\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Length\+Unit} Network\+::length\+Unit = {\bf Unit\+::k\+Meter}\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_gae46c0e2bf39b343875e3c69066fe2652}
-
-
-Definition at line \hyperlink{network_8h_source_l00101}{101} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{}\index{Graphics@{Graphics}!line\+Width@{line\+Width}}
-\index{line\+Width@{line\+Width}!Graphics@{Graphics}}
-\paragraph[{line\+Width}]{\setlength{\rightskip}{0pt plus 5cm}const double Network\+::line\+Width = 4.\+0\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}
-
-
-Definition at line \hyperlink{network_8h_source_l00086}{86} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{group___graphics_ga318dee060bc577eacd67d332efbbe1b2}{}\index{Graphics@{Graphics}!max\+Iterations@{max\+Iterations}}
-\index{max\+Iterations@{max\+Iterations}!Graphics@{Graphics}}
-\paragraph[{max\+Iterations}]{\setlength{\rightskip}{0pt plus 5cm}uint32\+\_\+t Network\+::max\+Iterations = 1000\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_ga318dee060bc577eacd67d332efbbe1b2}
-
-
-Definition at line \hyperlink{network_8h_source_l00093}{93} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{group___graphics_gabcdc973129d3dda7572b7a1c388da1b5}{}\index{Graphics@{Graphics}!min\+Error@{min\+Error}}
-\index{min\+Error@{min\+Error}!Graphics@{Graphics}}
-\paragraph[{min\+Error}]{\setlength{\rightskip}{0pt plus 5cm}double Network\+::min\+Error = 0.\+01\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_gabcdc973129d3dda7572b7a1c388da1b5}
-
-
-Definition at line \hyperlink{network_8h_source_l00095}{95} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{}\index{Graphics@{Graphics}!power\+Base@{power\+Base}}
-\index{power\+Base@{power\+Base}!Graphics@{Graphics}}
-\paragraph[{power\+Base}]{\setlength{\rightskip}{0pt plus 5cm}double Network\+::power\+Base = 2500000.\+0\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_ga74bb7aa495d422f1f092acdf958df989}
-
-
-Definition at line \hyperlink{network_8h_source_l00099}{99} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{}\index{Graphics@{Graphics}!power\+Unit@{power\+Unit}}
-\index{power\+Unit@{power\+Unit}!Graphics@{Graphics}}
-\paragraph[{power\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Power\+Unit} Network\+::power\+Unit = {\bf Unit\+::k\+V\+A}\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}
-
-
-Definition at line \hyperlink{network_8h_source_l00107}{107} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{}\index{Graphics@{Graphics}!selected\+Color@{selected\+Color}}
-\index{selected\+Color@{selected\+Color}!Graphics@{Graphics}}
-\paragraph[{selected\+Color}]{\setlength{\rightskip}{0pt plus 5cm}const Q\+Color Network\+::selected\+Color = Qt\+::red\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}
-
-
-Definition at line \hyperlink{network_8h_source_l00088}{88} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{}\index{Graphics@{Graphics}!voltage\+Base@{voltage\+Base}}
-\index{voltage\+Base@{voltage\+Base}!Graphics@{Graphics}}
-\paragraph[{voltage\+Base}]{\setlength{\rightskip}{0pt plus 5cm}double Network\+::voltage\+Base = 23000.\+0\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}
-
-
-Definition at line \hyperlink{network_8h_source_l00097}{97} of file \hyperlink{network_8h_source}{network.\+h}.
-
-\hypertarget{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{}\index{Graphics@{Graphics}!voltage\+Unit@{voltage\+Unit}}
-\index{voltage\+Unit@{voltage\+Unit}!Graphics@{Graphics}}
-\paragraph[{voltage\+Unit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Unit\+::\+Voltage\+Unit} Network\+::voltage\+Unit = {\bf Unit\+::k\+Volts}\hspace{0.3cm}{\ttfamily [static]}}\label{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}
-
-
-Definition at line \hyperlink{network_8h_source_l00105}{105} of file \hyperlink{network_8h_source}{network.\+h}.
+Definition at line \hyperlink{systemview_8cpp_source_l00079}{79} of file \hyperlink{systemview_8cpp_source}{systemview.\+cpp}.
 

@@ -31,193 +31,146 @@
 00045 
 00046 \textcolor{preprocessor}{#include <QJsonObject>}
 00047 \textcolor{preprocessor}{#include <QGraphicsObject>}
-00048 \textcolor{preprocessor}{#include <complex>}
-00049 \textcolor{preprocessor}{#include "\hyperlink{customtypes_8h}{customtypes.h}"}
-00050 \textcolor{preprocessor}{#include "\hyperlink{line_8h}{models/line.h}"}
-00051 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
-00052 \textcolor{preprocessor}{#include "\hyperlink{infobar_8h}{graphics/infobar.h}"}
-00053 
-00054 QT\_BEGIN\_NAMESPACE
-00055 \textcolor{keyword}{class }\hyperlink{class_line}{Line};
-00056 \textcolor{keyword}{class }\hyperlink{class_network}{Network};
-00057 \textcolor{keyword}{class }\hyperlink{class_info_bar}{InfoBar};
-00058 QT\_END\_NAMESPACE
-00059 
-00060 \textcolor{keyword}{using} std::complex;
-00061 
-\hypertarget{bar_8h_source_l00112}{}\hyperlink{class_bar}{00112} \textcolor{keyword}{class }\hyperlink{class_bar}{Bar} : \textcolor{keyword}{public} QGraphicsObject
-00113 \{
-00114   Q\_OBJECT
-00115 
-00116 \textcolor{keyword}{public}:
-00117 
-00118   \textcolor{comment}{/*****************************************************************************}
-00119 \textcolor{comment}{   * Constants.}
-00120 \textcolor{comment}{   ****************************************************************************/}
-\hypertarget{bar_8h_source_l00127}{}\hyperlink{group___models_ga9919592c0397ed41448dfb20b607d738}{00127}   \textcolor{keyword}{static} \textcolor{keyword}{const} int32\_t \hyperlink{group___models_ga9919592c0397ed41448dfb20b607d738}{kInvalidId};
-00128 
-00129   \textcolor{comment}{/*****************************************************************************}
-00130 \textcolor{comment}{   * Properties.}
-00131 \textcolor{comment}{   ****************************************************************************/}
-\hypertarget{bar_8h_source_l00137}{}\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{00137}   int32\_t \hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id};
-00138 
-\hypertarget{bar_8h_source_l00144}{}\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{00144}   \hyperlink{class_network}{Network} *\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network};
-00145 
-\hypertarget{bar_8h_source_l00152}{}\hyperlink{class_bar_a23b6d4319352ef0e77ad66aade4e0209}{00152}   QVector<Line *> \hyperlink{class_bar_a23b6d4319352ef0e77ad66aade4e0209}{lines};
-00153 
-00154   \textcolor{comment}{/*****************************************************************************}
-00155 \textcolor{comment}{   * Constructor.}
-00156 \textcolor{comment}{   ****************************************************************************/}
-00161   \hyperlink{group___models_ga9cae2188fcc6cce41caa7898c64548d1}{Bar}();
-00162 
-00163   \textcolor{comment}{/*****************************************************************************}
-00164 \textcolor{comment}{   * Constructor with initial conditions.}
-00165 \textcolor{comment}{   ****************************************************************************/}
-00176   \hyperlink{group___models_ga9cae2188fcc6cce41caa7898c64548d1}{Bar}(complex<double> initialV, complex<double> initialSh = 0.0,
-00177       complex<double> initialSi = 0.0);
-00178 
-00179   \textcolor{comment}{/*****************************************************************************}
-00180 \textcolor{comment}{   * Destructor.}
-00181 \textcolor{comment}{   ****************************************************************************/}
-00186   \textcolor{keyword}{virtual} \hyperlink{group___models_ga9c7ebea0c189423591741ac438985316}{~Bar}();
-00187 
-00188   \textcolor{comment}{/*****************************************************************************}
-00189 \textcolor{comment}{   * Initial Voltage.}
-00190 \textcolor{comment}{   ****************************************************************************/}
-00200   complex<double> \hyperlink{group___models_ga1e6f2daec86407118656d88170d1adc2}{v}(int32\_t phase, \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit = 
-      \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts});
-00201 
-00202   \textcolor{comment}{/*****************************************************************************}
-00203 \textcolor{comment}{   * Set initial Voltage.}
-00204 \textcolor{comment}{   ****************************************************************************/}
-00213   \textcolor{keywordtype}{void} \hyperlink{group___models_ga9b6fbc92674bfcdc9d5090795ab335a6}{setV}(int32\_t phase, complex<double> newVoltage,
-00214             \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit = \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts});
-00215 
-00216   \textcolor{comment}{/*****************************************************************************}
-00217 \textcolor{comment}{   * Shunt Power.}
-00218 \textcolor{comment}{   ****************************************************************************/}
-00228   complex<double> \hyperlink{group___models_gac188071bf5f165b0acdaa4c8af82355c}{sh}(int32\_t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit = 
-      \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA});
-00229 
-00230   \textcolor{comment}{/*****************************************************************************}
-00231 \textcolor{comment}{   * Set Shunt Power.}
-00232 \textcolor{comment}{   ****************************************************************************/}
-00241   \textcolor{keywordtype}{void} \hyperlink{group___models_ga207abd3d0649a488e3c44cf2a501ed23}{setSh}(int32\_t phase, complex<double> newPower,
-00242              \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit = \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA});
-00243 
-00244   \textcolor{comment}{/*****************************************************************************}
-00245 \textcolor{comment}{   * Injected power.}
-00246 \textcolor{comment}{   ****************************************************************************/}
-00256   complex<double> \hyperlink{group___models_ga02bbc279f1e133f66b12ee21e7bebcd8}{si}(int32\_t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit = 
-      \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA});
-00257 
-00258   \textcolor{comment}{/*****************************************************************************}
-00259 \textcolor{comment}{   * Set Injected power.}
-00260 \textcolor{comment}{   ****************************************************************************/}
-00270   \textcolor{keywordtype}{void} \hyperlink{group___models_ga74e510be49e50e4c14550b32e1dc92f9}{setSi}(int32\_t phase, complex<double> newPower,
-00271              \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit = \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3ba72b181a842ae2759488a2fa1410d3696}{Unit::kVA});
-00272 
-00273   \textcolor{comment}{/*****************************************************************************}
-00274 \textcolor{comment}{   * Result voltage.}
-00275 \textcolor{comment}{   ****************************************************************************/}
-00285   complex<double> \hyperlink{group___models_ga2d1f6bfbd8abaf168bb75bd8e5cd9b5e}{rV}(int32\_t phase, \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit = 
-      \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts});
-00286 
-00287   \textcolor{comment}{/*****************************************************************************}
-00288 \textcolor{comment}{   * Set result voltage.}
-00289 \textcolor{comment}{   ****************************************************************************/}
-00299   \textcolor{keywordtype}{void} \hyperlink{group___models_ga2b2c5a373d87025e79d26aa9c4cea75a}{setRV}(int32\_t phase, complex<double> resultVoltage,
-00300              \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit = \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts});
-00301 
-00302   \textcolor{comment}{/*****************************************************************************}
-00303 \textcolor{comment}{   * Result value for bar current.}
-00304 \textcolor{comment}{   ****************************************************************************/}
-00314   complex<double> \hyperlink{group___models_ga8a009531f01430aa68eba739bb0dc2ea}{rI}(int32\_t phase, \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit = 
-      \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787a368a3c470f0b590a6100dda717a7dd4f}{Unit::kAmpere});
+00048 \textcolor{preprocessor}{#include <QPointer>}
+00049 \textcolor{preprocessor}{#include <complex>}
+00050 \textcolor{preprocessor}{#include "\hyperlink{unit_8h}{unit.h}"}
+00051 \textcolor{preprocessor}{#include "\hyperlink{line_8h}{models/line.h}"}
+00052 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
+00053 \textcolor{preprocessor}{#include "\hyperlink{infobar_8h}{graphics/infobar.h}"}
+00054 
+00055 QT\_BEGIN\_NAMESPACE
+00056 \textcolor{keyword}{class }\hyperlink{class_line}{Line};
+00057 \textcolor{keyword}{class }\hyperlink{class_network}{Network};
+00058 \textcolor{keyword}{class }\hyperlink{class_info_bar}{InfoBar};
+00059 QT\_END\_NAMESPACE
+00060 
+00061 \textcolor{keyword}{using} std::complex;
+00062 
+\hypertarget{bar_8h_source_l00134}{}\hyperlink{class_bar}{00134} \textcolor{keyword}{class }\hyperlink{class_bar}{Bar} : \textcolor{keyword}{public} QGraphicsObject
+00135 \{
+00136   Q\_OBJECT
+00137 
+00138 \textcolor{keyword}{public}:
+00139   \textcolor{comment}{/*****************************************************************************}
+00140 \textcolor{comment}{   * Public Constants.}
+00141 \textcolor{comment}{   ****************************************************************************/}
+\hypertarget{bar_8h_source_l00148}{}\hyperlink{group___models_ga9919592c0397ed41448dfb20b607d738}{00148}   \textcolor{keyword}{static} \textcolor{keyword}{const} int32\_t \hyperlink{group___models_ga9919592c0397ed41448dfb20b607d738}{kInvalidId};
+00149 
+00150   \textcolor{comment}{/*****************************************************************************}
+00151 \textcolor{comment}{   * Public data.}
+00152 \textcolor{comment}{   ****************************************************************************/}
+\hypertarget{bar_8h_source_l00165}{}\hyperlink{class_bar_a5aabf1f4ac22e20e9cb702a3a7e08eea}{00165}   QVector<QPointer<Line>> \hyperlink{class_bar_a5aabf1f4ac22e20e9cb702a3a7e08eea}{lines};
+00166 
+00167   \textcolor{comment}{/*****************************************************************************}
+00168 \textcolor{comment}{   * Public methods.}
+00169 \textcolor{comment}{   ****************************************************************************/}
+00175   \hyperlink{group___models_ga9cae2188fcc6cce41caa7898c64548d1}{Bar}();
+00176 
+00183   \hyperlink{group___models_ga9c7ebea0c189423591741ac438985316}{~Bar}();
+00184 
+00199   int32\_t \hyperlink{group___models_gacf0fb781a73856bb7beb823304465e13}{id}();
+00200 
+00208   \textcolor{keywordtype}{void} \hyperlink{group___models_gae3cf341a76cc4589fe3203d0a3ed2ac0}{setBarId}(int32\_t \textcolor{keywordtype}{id});
+00209 
+00217   \hyperlink{class_network}{Network} *\hyperlink{group___models_gab0594d5d7313e8749bb85434b255db9a}{network}();
+00218 
+00226   \textcolor{keywordtype}{void} \hyperlink{group___models_gade9a307fdb6a81871787899ec1af5833}{setNetwork}(\hyperlink{class_network}{Network} *\hyperlink{group___models_gab0594d5d7313e8749bb85434b255db9a}{network});
+00227 
+00238   complex<double> \hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(int8\_t phase, \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit = 
+      \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1ab44b1310b59fdcdc9df5bbea91da4206}{Unit::kVoltsPerUnit});
+00239 
+00249   \textcolor{keywordtype}{void} \hyperlink{group___models_ga8d1e70b2d11ed4245e81b8b20858079d}{setV}(int8\_t phase, complex<double> newVoltage,
+00250             \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit = \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1ab44b1310b59fdcdc9df5bbea91da4206}{Unit::kVoltsPerUnit});
+00251 
+00263   complex<double> \hyperlink{group___models_gac020fff2f22a9caab71f21205b5773f8}{sh}(int8\_t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit = 
+      \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bae056e80d620a87c61a44c359e6b05cc1}{Unit::kVaPerUnit});
+00264 
+00275   \textcolor{keywordtype}{void} \hyperlink{group___models_gafd91c7f15566b9d5a68a197efeaeaf26}{setSh}(int8\_t phase, complex<double> newPower,
+00276              \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit = \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bae056e80d620a87c61a44c359e6b05cc1}{Unit::kVaPerUnit});
+00277 
+00289   complex<double> \hyperlink{group___models_ga9af07eb85c2c76eb3bc73e25bb842c1e}{si}(int8\_t phase, \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit = 
+      \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bae056e80d620a87c61a44c359e6b05cc1}{Unit::kVaPerUnit});
+00290 
+00301   \textcolor{keywordtype}{void} \hyperlink{group___models_ga85e2a9b8a281900333fd65d1b532acfd}{setSi}(int8\_t phase, complex<double> newPower,
+00302              \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} unit = \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3bae056e80d620a87c61a44c359e6b05cc1}{Unit::kVaPerUnit});
+00303 
+00314   complex<double> \hyperlink{group___models_ga6c83eb997f5038e0b9bbd5472582e0a8}{rV}(int8\_t phase, \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit = 
+      \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1ab44b1310b59fdcdc9df5bbea91da4206}{Unit::kVoltsPerUnit});
 00315 
-00316   \textcolor{comment}{/*****************************************************************************}
-00317 \textcolor{comment}{  * Add Line.}
-00318 \textcolor{comment}{  *****************************************************************************/}
-00324   \textcolor{keywordtype}{void} \hyperlink{group___models_ga8cbd2f62d92e69ce6c8d561b682464b6}{addLine}(\hyperlink{class_line}{Line} *line);
-00325 
-00326   \textcolor{comment}{/*****************************************************************************}
-00327 \textcolor{comment}{  * Remove Line.}
-00328 \textcolor{comment}{  *****************************************************************************/}
-00334   \textcolor{keywordtype}{void} \hyperlink{group___models_ga2536c0e5cb97fb627b3520826ece2c99}{removeLine}(\hyperlink{class_line}{Line} *line);
-00335 
-00336 
-00337   \textcolor{comment}{/*****************************************************************************}
-00338 \textcolor{comment}{  * Remove Lines.}
-00339 \textcolor{comment}{  *****************************************************************************/}
-00343   \textcolor{keywordtype}{void} \hyperlink{group___models_ga4ea1a2074cb45968d80d6add571884a4}{removeLines}();
-00344 
-00345   \textcolor{comment}{/*****************************************************************************}
-00346 \textcolor{comment}{  * Bar to Json.}
-00347 \textcolor{comment}{  *****************************************************************************/}
-00353   QJsonObject \hyperlink{group___models_ga3eb84c42b687db6cd98e11b8bd38c86e}{toJson}();
-00354 
-00355   \textcolor{comment}{/*****************************************************************************}
-00356 \textcolor{comment}{  * Bar from Json.}
-00357 \textcolor{comment}{  *****************************************************************************/}
-00363   \textcolor{keywordtype}{void} \hyperlink{group___models_ga1df62f03dd3a066ceaf6588ba6bb6004}{fromJson}(QJsonObject &jsonBar);
-00364 
-00365   \textcolor{comment}{/*****************************************************************************}
-00366 \textcolor{comment}{  * Bounding Rect.}
-00367 \textcolor{comment}{  *****************************************************************************/}
-00373   QRectF \hyperlink{group___models_ga8279d8109019cc7e139e2023690496be}{boundingRect}() const Q\_DECL\_OVERRIDE;
-00374 
-00375 signals:
-00376   \textcolor{comment}{/*****************************************************************************}
-00377 \textcolor{comment}{  * Signals.}
-00378 \textcolor{comment}{  *****************************************************************************/}
-00383   \textcolor{keywordtype}{void} \hyperlink{class_bar_a66bcbd19582dddee7e171ae5a4475f4b}{eventDoubleClick}();
-00384 
-00385 protected:
-00386   \textcolor{comment}{/*****************************************************************************}
-00387 \textcolor{comment}{  * Mouse Double click.}
-00388 \textcolor{comment}{  *****************************************************************************/}
-00394   \textcolor{keywordtype}{void} \hyperlink{group___models_ga1945e7b4401fa9ad7475274d9fb12a72}{mouseDoubleClickEvent}(QGraphicsSceneMouseEvent *event);
+00325   \textcolor{keywordtype}{void} \hyperlink{group___models_ga96ab396a6e953a0356f60adb1784ee37}{setRV}(int8\_t phase, complex<double> resultVoltage,
+00326              \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} unit = \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1ab44b1310b59fdcdc9df5bbea91da4206}{Unit::kVoltsPerUnit});
+00327 
+00338   complex<double> \hyperlink{group___models_ga50eb46f3510205a9d6cb5e6547fa86df}{rI}(int8\_t phase,
+00339                      \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit = 
+      \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aeed3b50e464d581cb630181a3b6a0709}{Unit::kAmperePerUnit});
+00340 
+00350   \textcolor{keywordtype}{void} \hyperlink{group___models_gaf7a406f8952b1e874c95c41b0955d250}{setRI}(int8\_t phase, complex<double> resultCurrent,
+00351              \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit = \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787aeed3b50e464d581cb630181a3b6a0709}{Unit::kAmperePerUnit});
+00352 
+00358   \textcolor{keywordtype}{void} \hyperlink{group___models_gabb1a3b7653d4e2327c4bf728210f197e}{addLine}(QPointer<Line> line);
+00359 
+00365   \textcolor{keywordtype}{void} \hyperlink{group___models_gaec9faaf687415c27cd1d0527e1b94504}{removeLine}(QPointer<Line> line);
+00366 
+00370   \textcolor{keywordtype}{void} \hyperlink{group___models_ga4ea1a2074cb45968d80d6add571884a4}{removeLines}();
+00371 
+00377   QJsonObject \hyperlink{group___models_ga3eb84c42b687db6cd98e11b8bd38c86e}{toJson}();
+00378 
+00384   \textcolor{keywordtype}{void} \hyperlink{group___models_ga1df62f03dd3a066ceaf6588ba6bb6004}{fromJson}(QJsonObject &jsonBar);
+00385 
+00394   QRectF \hyperlink{group___models_ga8279d8109019cc7e139e2023690496be}{boundingRect}() const Q\_DECL\_OVERRIDE;
 00395 
-00396   \textcolor{comment}{/*****************************************************************************}
-00397 \textcolor{comment}{  * Item Change.}
-00398 \textcolor{comment}{  *****************************************************************************/}
-00404   QVariant \hyperlink{group___models_gad97a82d618ee0c51a9a36e44339c69e6}{itemChange}(GraphicsItemChange change,
-00405                       const QVariant &value) Q\_DECL\_OVERRIDE;
+00396 signals:
+00397   \textcolor{comment}{/*****************************************************************************}
+00398 \textcolor{comment}{  * Signals.}
+00399 \textcolor{comment}{  *****************************************************************************/}
+00405   \textcolor{keywordtype}{void} \hyperlink{class_bar_a66bcbd19582dddee7e171ae5a4475f4b}{eventDoubleClick}();
 00406 
-00407   \textcolor{comment}{/*****************************************************************************}
-00408 \textcolor{comment}{  * Paint.}
-00409 \textcolor{comment}{  *****************************************************************************/}
-00414   \textcolor{keywordtype}{void} \hyperlink{group___models_gacbb6dbac607412c9c1f9dfcd0cd4d432}{paint}(QPainter *painter, const QStyleOptionGraphicsItem *option,
-00415              QWidget *widget) Q\_DECL\_OVERRIDE;
-00416 
-00417 private:
-00418   \textcolor{comment}{/*****************************************************************************}
-00419 \textcolor{comment}{  * Private data.}
-00420 \textcolor{comment}{  *****************************************************************************/}
-00427   \hyperlink{class_info_bar}{InfoBar} *infoBar;
-00428 
-00433   complex<\textcolor{keywordtype}{double}> v\_[3];
-00434 
-00440   complex<\textcolor{keywordtype}{double}> sh\_[3];
-00441 
-00446   complex<\textcolor{keywordtype}{double}> si\_[3];
-00447 
-00452   complex<\textcolor{keywordtype}{double}> rV\_[3];
-00453 
-00458   complex<\textcolor{keywordtype}{double}> rSi\_[3];
-00459 
-00460 
-00461   \textcolor{comment}{/*****************************************************************************}
-00462 \textcolor{comment}{  * Draw Slack.}
-00463 \textcolor{comment}{  *****************************************************************************/}
-00470   \textcolor{keywordtype}{void} drawSlack(QPainter *painter);
-00471 
-00472   \textcolor{comment}{/*****************************************************************************}
-00473 \textcolor{comment}{  * Draw PQ.}
-00474 \textcolor{comment}{  *****************************************************************************/}
-00481   \textcolor{keywordtype}{void} drawPq(QPainter *painter);
-00482 \};
-00483 
-00484 \textcolor{preprocessor}{#endif  // MODELS\_BAR\_H}
-00485 
+00407 protected:
+00408   \textcolor{comment}{/*****************************************************************************}
+00409 \textcolor{comment}{  * Protected methods.}
+00410 \textcolor{comment}{  *****************************************************************************/}
+00419   \textcolor{keywordtype}{void} \hyperlink{group___models_ga1945e7b4401fa9ad7475274d9fb12a72}{mouseDoubleClickEvent}(QGraphicsSceneMouseEvent *event);
+00420 
+00431   QVariant \hyperlink{group___models_gad97a82d618ee0c51a9a36e44339c69e6}{itemChange}(GraphicsItemChange change,
+00432                       const QVariant &value) Q\_DECL\_OVERRIDE;
+00433 
+00444   \textcolor{keywordtype}{void} \hyperlink{group___models_gacbb6dbac607412c9c1f9dfcd0cd4d432}{paint}(QPainter *painter, const QStyleOptionGraphicsItem *option,
+00445              QWidget *widget) Q\_DECL\_OVERRIDE;
+00446 
+00447 private:
+00448   \textcolor{comment}{/*****************************************************************************}
+00449 \textcolor{comment}{  * Private data.}
+00450 \textcolor{comment}{  *****************************************************************************/}
+00454   int32\_t id\_;
+00455 
+00463   QPointer<\hyperlink{class_network}{Network}> network\_;
+00464 
+00472   \hyperlink{class_info_bar}{InfoBar} *infoBar;
+00473 
+00479   complex<\textcolor{keywordtype}{double}> v\_[3];
+00480 
+00487   complex<\textcolor{keywordtype}{double}> sh\_[3];
+00488 
+00494   complex<\textcolor{keywordtype}{double}> si\_[3];
+00495 
+00501   complex<\textcolor{keywordtype}{double}> rV\_[3];
+00502 
+00508   complex<\textcolor{keywordtype}{double}> rI\_[3];
+00509 
+00513   QGraphicsTextItem barLabel;
+00514 
+00515   \textcolor{comment}{/*****************************************************************************}
+00516 \textcolor{comment}{  * Private methods.}
+00517 \textcolor{comment}{  *****************************************************************************/}
+00524   \textcolor{keywordtype}{void} showInfo();
+00525 
+00531   \textcolor{keywordtype}{void} hideInfo();
+00532 
+00541   \textcolor{keywordtype}{void} drawSlack(QPainter *painter);
+00542 
+00550   \textcolor{keywordtype}{void} drawPq(QPainter *painter);
+00551 \};
+00552 
+00553 \textcolor{preprocessor}{#endif  // MODELS\_BAR\_H}
+00554 
 \end{DoxyCode}

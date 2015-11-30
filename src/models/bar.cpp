@@ -35,7 +35,7 @@
  * This is the implementation of the Bar class.
  *
  * \author David Krepsky
- * \version 0.2
+ * \version 0.3
  * \date 10/2015
  * \copyright David Krepsky
  */
@@ -55,21 +55,25 @@ const int32_t Bar::kInvalidId = -1;
  ******************************************************************************/
 Bar::Bar()
   : QGraphicsObject(),
-    network(NULL),
-    infoBar(NULL),
     id_(kInvalidId),
+    network_(NULL),
+    infoBar(NULL),
     barLabel(this)
 {
+  // Bars can be selected.
   setFlag(ItemIsSelectable);
-  setFlag(ItemSendsGeometryChanges); // Needed to refresh line drawing.
-  setZValue(1.0); // Will be above lines and under info boxes.
+
+  // Needed to enable position changing.
+  setFlag(ItemSendsGeometryChanges);
+
+  // Will be above lines and under info boxes.
+  setZValue(1.0);
 
   // Add bar label.
   // The 1.3 and 2.0 values were determined experimentaly.
   // They will position the label at the top left corner of the bar.
   barLabel.setX(-1.3*Network::barIconSize);
   barLabel.setY(-2.0*Network::barIconSize);
-
 }
 
 /*******************************************************************************
@@ -77,12 +81,16 @@ Bar::Bar()
  ******************************************************************************/
 Bar::~Bar()
 {
-  if (infoBar != NULL)
-    delete infoBar;
+  hideInfo();
 
-  foreach(QPointer<Line> line, lines) {
-    removeLine(line);
-  }
+  removeLines();
+
+  // Note that we need to check for dangling pointers before removing.
+  if(scene() != NULL)
+    scene()->removeItem(this);
+
+  if(!network_.isNull())
+    network_->removeBar(this);
 }
 
 /*******************************************************************************
@@ -103,17 +111,43 @@ void Bar::setBarId(int32_t id)
 }
 
 /*******************************************************************************
+ * Network.
+ ******************************************************************************/
+Network *Bar::network()
+{
+  return network_;
+}
+
+/*******************************************************************************
+ * Set network.
+ ******************************************************************************/
+void Bar::setNetwork(Network *network)
+{
+  network_ = network;
+
+  // Adjust barLabel position to include the network offset.
+  // The 1.3 and 2.0 values were determined experimentaly.
+  // They will position the label at the top left corner of the bar.
+  double labelX, labelY;
+  labelX = -1.3*Network::barIconSize + (network_.isNull()) ? 0 :
+           network_->xOffset;
+  labelY = -2.0*Network::barIconSize + (network_.isNull()) ? 0 :
+           network_->yOffset;
+  barLabel.setPos(labelX, labelY);
+}
+
+/*******************************************************************************
  * Initial Voltage.
  ******************************************************************************/
-complex<double> Bar::v(int32_t phase, Unit::VoltageUnit unit)
+complex<double> Bar::v(int8_t phase, Unit::VoltageUnit unit)
 {
   switch (unit) {
   case Unit::kVolts:
-    return v_[phase]*network->voltageBase();
+    return v_[phase]*network_->voltageBase();
     break;
 
   case Unit::kKiloVolts:
-    return v_[phase]*network->voltageBase()/1000.0;
+    return v_[phase]*network_->voltageBase()/1000.0;
     break;
 
   case Unit::kVoltsPerUnit:
@@ -129,16 +163,16 @@ complex<double> Bar::v(int32_t phase, Unit::VoltageUnit unit)
 /*******************************************************************************
  * Set initial Voltage.
  ******************************************************************************/
-void Bar::setV(int32_t phase, complex<double> newVoltage,
+void Bar::setV(int8_t phase, complex<double> newVoltage,
                Unit::VoltageUnit unit)
 {
   switch (unit) {
   case Unit::kVolts:
-    v_[phase] = newVoltage/network->voltageBase();
+    v_[phase] = newVoltage/network_->voltageBase();
     break;
 
   case Unit::kKiloVolts:
-    v_[phase] = newVoltage*1000.0/network->voltageBase();
+    v_[phase] = newVoltage*1000.0/network_->voltageBase();
     break;
 
   case Unit::kVoltsPerUnit:
@@ -156,19 +190,19 @@ void Bar::setV(int32_t phase, complex<double> newVoltage,
 /*******************************************************************************
  * Get Shunt Element Power.
  ******************************************************************************/
-complex<double> Bar::sh(int32_t phase, Unit::PowerUnit unit)
+complex<double> Bar::sh(int8_t phase, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    return sh_[phase]*network->powerBase();
+    return sh_[phase]*network_->powerBase();
     break;
 
   case Unit::kKiloVA:
-    return sh_[phase]*network->powerBase()/1000.0;
+    return sh_[phase]*network_->powerBase()/1000.0;
     break;
 
   case Unit::kMegaVa:
-    return sh_[phase]*network->powerBase()/1000000.0;
+    return sh_[phase]*network_->powerBase()/1000000.0;
     break;
 
   case Unit::kVaPerUnit:
@@ -184,19 +218,19 @@ complex<double> Bar::sh(int32_t phase, Unit::PowerUnit unit)
 /*******************************************************************************
  * Set Shunt Element Power.
  ******************************************************************************/
-void Bar::setSh(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
+void Bar::setSh(int8_t phase, complex<double> newPower, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    sh_[phase] = newPower/network->powerBase();
+    sh_[phase] = newPower/network_->powerBase();
     break;
 
   case Unit::kKiloVA:
-    sh_[phase] = newPower*1000.0/network->powerBase();
+    sh_[phase] = newPower*1000.0/network_->powerBase();
     break;
 
   case Unit::kMegaVa:
-    sh_[phase] = newPower*1000000.0/network->powerBase();
+    sh_[phase] = newPower*1000000.0/network_->powerBase();
     break;
 
   case Unit::kVaPerUnit:
@@ -212,19 +246,19 @@ void Bar::setSh(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
 /*******************************************************************************
  * Injected power.
  ******************************************************************************/
-complex<double> Bar::si(int32_t phase, Unit::PowerUnit unit)
+complex<double> Bar::si(int8_t phase, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    return si_[phase]*network->powerBase();
+    return si_[phase]*network_->powerBase();
     break;
 
   case Unit::kKiloVA:
-    return si_[phase]*network->powerBase()/1000.0;
+    return si_[phase]*network_->powerBase()/1000.0;
     break;
 
   case Unit::kMegaVa:
-    return si_[phase]*network->powerBase()/1000000.0;
+    return si_[phase]*network_->powerBase()/1000000.0;
     break;
 
   case Unit::kVaPerUnit:
@@ -240,19 +274,19 @@ complex<double> Bar::si(int32_t phase, Unit::PowerUnit unit)
 /*******************************************************************************
  * Set Injected power.
  ******************************************************************************/
-void Bar::setSi(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
+void Bar::setSi(int8_t phase, complex<double> newPower, Unit::PowerUnit unit)
 {
   switch (unit) {
   case Unit::kVA:
-    si_[phase] = newPower/network->powerBase();
+    si_[phase] = newPower/network_->powerBase();
     break;
 
   case Unit::kKiloVA:
-    si_[phase] = newPower*1000.0/network->powerBase();
+    si_[phase] = newPower*1000.0/network_->powerBase();
     break;
 
   case Unit::kMegaVa:
-    si_[phase] = newPower*1000000.0/network->powerBase();
+    si_[phase] = newPower*1000000.0/network_->powerBase();
     break;
 
   case Unit::kVaPerUnit:
@@ -268,15 +302,15 @@ void Bar::setSi(int32_t phase, complex<double> newPower, Unit::PowerUnit unit)
 /*******************************************************************************
  * Result voltage.
  ******************************************************************************/
-complex<double> Bar::rV(int32_t phase, Unit::VoltageUnit unit)
+complex<double> Bar::rV(int8_t phase, Unit::VoltageUnit unit)
 {
   switch (unit) {
   case Unit::kVolts:
-    return rV_[phase]*network->voltageBase();
+    return rV_[phase]*network_->voltageBase();
     break;
 
   case Unit::kKiloVolts:
-    return rV_[phase]*network->voltageBase()/1000.0;
+    return rV_[phase]*network_->voltageBase()/1000.0;
     break;
 
   case Unit::kVoltsPerUnit:
@@ -292,16 +326,16 @@ complex<double> Bar::rV(int32_t phase, Unit::VoltageUnit unit)
 /*******************************************************************************
  * Set result voltage.
  ******************************************************************************/
-void Bar::setRV(int32_t phase, complex<double> resultVoltage,
+void Bar::setRV(int8_t phase, complex<double> resultVoltage,
                 Unit::VoltageUnit unit)
 {
   switch (unit) {
   case Unit::kVolts:
-    rV_[phase] = resultVoltage/network->voltageBase();
+    rV_[phase] = resultVoltage/network_->voltageBase();
     break;
 
   case Unit::kKiloVolts:
-    rV_[phase] = resultVoltage*1000.0/network->voltageBase();
+    rV_[phase] = resultVoltage*1000.0/network_->voltageBase();
     break;
 
   case Unit::kVoltsPerUnit:
@@ -317,58 +351,84 @@ void Bar::setRV(int32_t phase, complex<double> resultVoltage,
 /*******************************************************************************
  * Result value for bar current.
  ******************************************************************************/
-complex<double> Bar::rI(int32_t phase, Unit::CurrentUnit unit)
+complex<double> Bar::rI(int8_t phase, Unit::CurrentUnit unit)
 {
-  complex<double> i;
-
-  i = -(conj(si_[phase]/rV_[phase]) - conj(sh_[phase]/rV_[phase]));
-
   switch (unit) {
   case Unit::kAmpere:
-    i = i*network->currentBase();
+    return rI_[phase]*network_->currentBase();
     break;
 
   case Unit::kKiloAmpere:
-    i = i*network->currentBase()/1000.0;
+    return rI_[phase]*network_->currentBase()/1000.0;
     break;
 
   case Unit::kAmperePerUnit:
+    return rI_[phase];
     break;
 
   default:
+    return rI_[phase];
     break;
   }
-
-  return i;
 }
 
 /*******************************************************************************
- * addLine.
+ * Set result value for bar current.
+ ******************************************************************************/
+void Bar::setRI(int8_t phase, complex<double> resultCurrent,
+                Unit::CurrentUnit unit)
+{
+  switch (unit) {
+  case Unit::kAmpere:
+    rI_[phase] = resultCurrent/network_->currentBase();
+    break;
+
+  case Unit::kKiloAmpere:
+    rI_[phase] = resultCurrent*1000.0/network_->currentBase();
+    break;
+
+  case Unit::kAmperePerUnit:
+    rI_[phase] = resultCurrent;
+    break;
+
+  default:
+    rI_[phase] = resultCurrent;
+    break;
+  }
+}
+
+/*******************************************************************************
+ * Add line.
  ******************************************************************************/
 void Bar::addLine(QPointer<Line> line)
 {
-  if(line)
+  // Check for dangling pointer.
+  if(!line.isNull())
     lines.append(line);
 }
 
 /*******************************************************************************
- * removeLine.
+ * Remove line.
  ******************************************************************************/
 void Bar::removeLine(QPointer<Line> line)
 {
-  int index = lines.indexOf(line);
+  if(!line.isNull()) {
+    int index = lines.indexOf(line);
 
-  if (index != -1) lines.removeAt(index);
+    if (index != -1) lines.removeAt(index);
+  }
 }
 
 /*******************************************************************************
- * removeLines.
+ * Remove lines.
  ******************************************************************************/
 void Bar::removeLines()
 {
   foreach (QPointer<Line> line, lines) {
-    line->pNoI()->removeLine(line);
-    line->pNoF()->removeLine(line);
+    if(!line.isNull())
+      delete line;
+    else
+      lines.remove(lines.indexOf(line));
   }
 }
 
@@ -406,22 +466,6 @@ QJsonObject Bar::toJson()
   jsonBar.insert("Sibi", si_[1].imag());
   jsonBar.insert("Sic", si_[2].real());
   jsonBar.insert("Sici", si_[2].imag());
-
-  // Result Voltage.
-  jsonBar.insert("rVa", rV_[0].real());
-  jsonBar.insert("rVai", rV_[0].imag());
-  jsonBar.insert("rVb", rV_[1].real());
-  jsonBar.insert("rVbi", rV_[1].imag());
-  jsonBar.insert("rVc", rV_[2].real());
-  jsonBar.insert("rVci", rV_[2].imag());
-
-  // Result Injected Power.
-  jsonBar.insert("rSia", rSi_[0].real());
-  jsonBar.insert("rSiai", rSi_[0].imag());
-  jsonBar.insert("rSib", rSi_[1].real());
-  jsonBar.insert("rSibi", rSi_[1].imag());
-  jsonBar.insert("rSic", rSi_[2].real());
-  jsonBar.insert("rSici", rSi_[2].imag());
 
   // Position.
   jsonBar.insert("x", x());
@@ -463,22 +507,6 @@ void Bar::fromJson(QJsonObject &jsonBar)
   si_[2].real(jsonBar.value("Sic").toDouble());
   si_[2].imag(jsonBar.value("Sici").toDouble());
 
-  // Result Voltage.
-  rV_[0].real(jsonBar.value("rVa").toDouble());
-  rV_[0].imag(jsonBar.value("rVai").toDouble());
-  rV_[1].real(jsonBar.value("rVb").toDouble());
-  rV_[1].imag(jsonBar.value("rVbi").toDouble());
-  rV_[2].real(jsonBar.value("rVc").toDouble());
-  rV_[2].imag(jsonBar.value("rVci").toDouble());
-
-  // Result Injected Power.
-  rSi_[0].real(jsonBar.value("rSga").toDouble());
-  rSi_[0].imag(jsonBar.value("rSgai").toDouble());
-  rSi_[1].real(jsonBar.value("rSgb").toDouble());
-  rSi_[1].imag(jsonBar.value("rSgbi").toDouble());
-  rSi_[2].real(jsonBar.value("rSgc").toDouble());
-  rSi_[2].imag(jsonBar.value("rSgci").toDouble());
-
   // Get Position.
   setX(jsonBar.value("x").toDouble());
   setY(jsonBar.value("y").toDouble());
@@ -489,8 +517,8 @@ void Bar::fromJson(QJsonObject &jsonBar)
  ******************************************************************************/
 QRectF Bar::boundingRect() const
 {
-  return QRectF(-Network::barIconSize / 2 + network->xOffset,
-                -Network::barIconSize / 2 + network->yOffset,
+  return QRectF(-Network::barIconSize / 2 + network_->xOffset,
+                -Network::barIconSize / 2 + network_->yOffset,
                 Network::barIconSize, Network::barIconSize);
 }
 
@@ -511,30 +539,19 @@ QVariant Bar::itemChange(QGraphicsItem::GraphicsItemChange change,
 {
   // if bar moved,update lines to the current position.
   if (change == ItemPositionHasChanged) {
-    foreach (QPointer<Line> line, lines) {
-      line->updatePosition();
+    foreach (Line *line, lines) {
+      if(line)
+        line->updatePosition();
     }
   }
   // if bar is selected, show information box.
   else if (change == ItemSelectedChange) {
     if (value == true) {
-      // if multiple bars are selectec, we don't want to show the info box.
-      if(!(scene()->selectedItems().size() >= 1)) {
-        // Check if box already exists.
-        if (infoBar == NULL) {
-          // Create a new box.
-          infoBar = new InfoBar(this);
-          scene()->addItem(infoBar);
-        }
-      }
+      showInfo();
     }
-    // Box has been deselected.
+    // Bar has been deselected.
     else {
-      if (infoBar != NULL) {
-        scene()->removeItem(infoBar);
-        delete infoBar;
-        infoBar = NULL;
-      }
+      hideInfo();
     }
   }
 
@@ -550,7 +567,7 @@ void Bar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   Q_UNUSED(option);
   Q_UNUSED(widget);
 
-  painter->setPen(network->barStrokeColor);
+  painter->setPen(network_->barContourColor);
 
   if(id_ > 0)
     drawPq(painter);
@@ -560,14 +577,42 @@ void Bar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 }
 
 /*******************************************************************************
+ * Show info.
+ ******************************************************************************/
+void Bar::showInfo()
+{
+  // if multiple items are selected, we don't want to show the info box.
+  if(!(scene()->selectedItems().size() >= 1)) {
+    // Check if box already exists.
+    if (infoBar == NULL) {
+      // Create a new box.
+      infoBar = new InfoBar(this);
+      scene()->addItem(infoBar);
+    }
+  }
+}
+
+/*******************************************************************************
+ * Hide info.
+ ******************************************************************************/
+void Bar::hideInfo()
+{
+  if (infoBar != NULL) {
+    scene()->removeItem(infoBar);
+    delete infoBar;
+    infoBar = NULL;
+  }
+}
+
+/*******************************************************************************
  * drawSlack.
  ******************************************************************************/
 void Bar::drawSlack(QPainter *painter)
 {
   if (isSelected()) {
-    painter->setBrush(network->selectedColor);
+    painter->setBrush(network_->selectedColor);
   } else {
-    painter->setBrush(network->barSlackFillColor);
+    painter->setBrush(network_->slackBarColor);
   }
 
   painter->drawRect(boundingRect());
@@ -580,9 +625,9 @@ void Bar::drawPq(QPainter *painter)
 {
 
   if (isSelected()) {
-    painter->setBrush(network->selectedColor);
+    painter->setBrush(network_->selectedColor);
   } else {
-    painter->setBrush(network->barPqFillColor);
+    painter->setBrush(network_->pqBarColor);
   }
 
   painter->drawEllipse(boundingRect());

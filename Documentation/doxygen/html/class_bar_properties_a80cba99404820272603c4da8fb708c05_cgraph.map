@@ -1,8 +1,0 @@
-<map id="BarProperties::setOptions" name="BarProperties::setOptions">
-<area shape="rect" id="node2" href="$class_bar_properties.html#a65d09e7315764cd4ad33b5a0ded32090" title="BarProperties::bar" alt="" coords="238,5,365,32"/>
-<area shape="rect" id="node3" href="$group___models.html#ga1e6f2daec86407118656d88170d1adc2" title="Initial Voltage. " alt="" coords="273,56,330,83"/>
-<area shape="rect" id="node4" href="$group___models.html#gac188071bf5f165b0acdaa4c8af82355c" title="Shutn element. " alt="" coords="269,107,333,133"/>
-<area shape="rect" id="node5" href="$group___models.html#ga02bbc279f1e133f66b12ee21e7bebcd8" title="Injected power. " alt="" coords="271,157,331,184"/>
-<area shape="rect" id="node6" href="$class_unit.html#a7fa103c31f9f069961b35b6371ff0c0a" title="Unit::voltageUnitToStr" alt="" coords="225,208,377,235"/>
-<area shape="rect" id="node7" href="$class_unit.html#ad1487441b5a7eb93a3eb0aeebe947725" title="Unit::powerUnitToStr" alt="" coords="229,259,374,285"/>
-</map>

@@ -1,6 +1,6 @@
 <map id="Line::setNodes" name="Line::setNodes">
-<area shape="rect" id="node2" href="$group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3" title="Line::pNoI" alt="" coords="193,5,275,32"/>
-<area shape="rect" id="node3" href="$group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f" title="Line::pNoF" alt="" coords="191,56,277,83"/>
-<area shape="rect" id="node4" href="$group___models.html#ga8cbd2f62d92e69ce6c8d561b682464b6" title="Add line to bar. " alt="" coords="187,107,281,133"/>
-<area shape="rect" id="node5" href="$group___models.html#ga8fdb12651d4bc592616d241386b066b3" title="Line::updatePosition" alt="" coords="164,157,304,184"/>
+<area shape="rect" id="node2" href="$group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3" title="Pointer to initial node (bar). " alt="" coords="193,5,275,32"/>
+<area shape="rect" id="node3" href="$group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f" title="Pointer to final node (bar). " alt="" coords="191,56,277,83"/>
+<area shape="rect" id="node4" href="$group___models.html#gabb1a3b7653d4e2327c4bf728210f197e" title="Add line to bar. " alt="" coords="187,107,281,133"/>
+<area shape="rect" id="node5" href="$group___models.html#ga8fdb12651d4bc592616d241386b066b3" title="Update position. " alt="" coords="164,157,304,184"/>
 </map>

@@ -1,12 +1,12 @@
 <map id="systemview.cpp" name="systemview.cpp">
-<area shape="rect" id="node2" href="$barproperties_8h.html" title="window/barproperties.h" alt="" coords="155,80,311,107"/>
-<area shape="rect" id="node25" href="$lineproperties_8h.html" title="window/lineproperties.h" alt="" coords="369,80,527,107"/>
-<area shape="rect" id="node27" href="$systemview_8h.html" title="graphics/systemview.h" alt="" coords="893,80,1049,107"/>
-<area shape="rect" id="node4" href="$customtypes_8h.html" title="customtypes.h" alt="" coords="107,379,215,405"/>
-<area shape="rect" id="node8" href="$project_8h.html" title="project.h" alt="" coords="149,155,221,181"/>
-<area shape="rect" id="node11" href="$network_8h.html" title="Network class definition. " alt="" coords="543,229,668,256"/>
-<area shape="rect" id="node17" href="$bar_8h.html" title="Bar class definition. " alt="" coords="354,304,451,331"/>
-<area shape="rect" id="node20" href="$line_8h.html" title="line class definition. " alt="" coords="697,379,796,405"/>
-<area shape="rect" id="node24" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="340,379,465,405"/>
-<area shape="rect" id="node21" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="683,453,810,480"/>
+<area shape="rect" id="node2" href="$barproperties_8h.html" title="window/barproperties.h" alt="" coords="119,80,275,107"/>
+<area shape="rect" id="node26" href="$lineproperties_8h.html" title="window/lineproperties.h" alt="" coords="695,80,854,107"/>
+<area shape="rect" id="node28" href="$systemview_8h.html" title="graphics/systemview.h" alt="" coords="909,80,1065,107"/>
+<area shape="rect" id="node4" href="$unit_8h.html" title="unit.h" alt="" coords="138,379,193,405"/>
+<area shape="rect" id="node8" href="$project_8h.html" title="project.h" alt="" coords="208,155,280,181"/>
+<area shape="rect" id="node11" href="$network_8h.html" title="Network class definition. " alt="" coords="620,229,745,256"/>
+<area shape="rect" id="node18" href="$bar_8h.html" title="Bar class definition. " alt="" coords="738,304,835,331"/>
+<area shape="rect" id="node21" href="$line_8h.html" title="Line class definition. " alt="" coords="763,379,861,405"/>
+<area shape="rect" id="node25" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="491,379,616,405"/>
+<area shape="rect" id="node22" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="813,453,939,480"/>
 </map>

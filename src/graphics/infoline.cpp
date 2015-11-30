@@ -32,9 +32,9 @@ InfoLine::InfoLine(Line *line) :
 {
   setZValue(2);
   double px = (line->pNoI()->x() + line->pNoF()->x()) / 2 +
-              line->network->xOffset;
+              line->network()->xOffset;
   double py = (line->pNoI()->y() + line->pNoF()->y()) / 2 +
-              line->network->yOffset;
+              line->network()->yOffset;
 
   setPos(px,py);
 }
@@ -72,7 +72,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
   // Draw head text.
   setHeadFont(painter);
-  QString headText = "(" + line_->network->name + ") " + "Line " +
+  QString headText = "(" + line_->network()->name + ") " + "Line " +
                      QString::number(line_->nodes.first) + " -> " +
                      QString::number(line_->nodes.second);
   drawHeadText(headRect, kMarginHeadTop, headText, painter);

@@ -76,10 +76,10 @@ bool BarProperties::setOptions(Project *project, Bar *bar)
       ui->network->addItem(network->name);
     }
 
-    bar_->network = project->networks.value(ui->network->currentText());
+    bar_->setNetwork(project->networks.value(ui->network->currentText()));
 
     // Set voltage to 1pu.
-    double initialVoltage = bar_->network->voltageBase();
+    double initialVoltage = bar_->network()->voltageBase();
 
     bar_->setV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
     bar_->setV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
@@ -95,7 +95,7 @@ bool BarProperties::setOptions(Project *project, Bar *bar)
     ui->id->setEnabled(false);
     ui->id->setValue(bar_->id());
     ui->network->setEnabled(false);
-    ui->network->addItem(bar_->network->name);
+    ui->network->addItem(bar_->network()->name);
   }
 
 // Fill Bar data.
@@ -332,7 +332,7 @@ void BarProperties::on_buttonBox_accepted()
   bar_->setBarId(ui->id->value());
 
   // Network
-  bar_->network = network;
+  bar_->setNetwork(network);
 
   // Voltage.
   complex<double> voltage;
@@ -411,9 +411,9 @@ void BarProperties::on_buttonBox_rejected()
 void BarProperties::on_network_currentIndexChanged(const QString &arg1)
 {
   if(isNew)
-    bar_->network = project_->networks.value(arg1);
+    bar_->setNetwork(project_->networks.value(arg1));
 
-  double initialVoltage = bar_->network->voltageBase();
+  double initialVoltage = bar_->network()->voltageBase();
 
   bar_->setV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
   bar_->setV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);

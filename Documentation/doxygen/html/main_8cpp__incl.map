@@ -1,10 +1,10 @@
 <map id="main.cpp" name="main.cpp">
-<area shape="rect" id="node2" href="$quickflow_8h.html" title="Main window class definition. " alt="" coords="436,80,524,107"/>
-<area shape="rect" id="node6" href="$project_8h.html" title="project.h" alt="" coords="575,155,647,181"/>
-<area shape="rect" id="node10" href="$customtypes_8h.html" title="customtypes.h" alt="" coords="814,379,922,405"/>
-<area shape="rect" id="node13" href="$network_8h.html" title="Network class definition. " alt="" coords="381,229,507,256"/>
-<area shape="rect" id="node19" href="$bar_8h.html" title="Bar class definition. " alt="" coords="633,304,730,331"/>
-<area shape="rect" id="node22" href="$line_8h.html" title="line class definition. " alt="" coords="257,379,356,405"/>
-<area shape="rect" id="node26" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="612,379,737,405"/>
-<area shape="rect" id="node23" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="243,453,370,480"/>
+<area shape="rect" id="node2" href="$quickflow_8h.html" title="Main window class definition. " alt="" coords="143,80,231,107"/>
+<area shape="rect" id="node6" href="$project_8h.html" title="project.h" alt="" coords="282,155,354,181"/>
+<area shape="rect" id="node10" href="$unit_8h.html" title="unit.h" alt="" coords="328,379,383,405"/>
+<area shape="rect" id="node13" href="$network_8h.html" title="Network class definition. " alt="" coords="601,229,726,256"/>
+<area shape="rect" id="node20" href="$bar_8h.html" title="Bar class definition. " alt="" coords="776,304,873,331"/>
+<area shape="rect" id="node23" href="$line_8h.html" title="Line class definition. " alt="" coords="751,379,850,405"/>
+<area shape="rect" id="node27" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="1055,379,1181,405"/>
+<area shape="rect" id="node24" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="729,453,856,480"/>
 </map>

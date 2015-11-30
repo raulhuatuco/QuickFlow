@@ -6,6 +6,7 @@
 #include "math_constants.h"
 #include "models/bar.h"
 #include "models/line.h"
+#include "models/network.h"
 
 Cespedes::Cespedes(Network *network) :
   network_(network)
@@ -228,8 +229,8 @@ double Cespedes::maxError()
     newTotalLoss += loss;
   }
 
-  double errP =  abs(newTotalLoss.real() - totalLoss.real());
-  double errQ =  abs(newTotalLoss.imag() - totalLoss.imag());
+  double errP =  fabs(newTotalLoss.real() - totalLoss.real());
+  double errQ =  fabs(newTotalLoss.imag() - totalLoss.imag());
 
   totalLoss = newTotalLoss;
 

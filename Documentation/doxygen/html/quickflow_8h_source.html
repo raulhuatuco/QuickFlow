@@ -289,81 +289,85 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
 <div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;  <span class="keywordtype">void</span> on_editLine(QObject *line);</div>
 <div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<span class="comment">  * Close event.</span></div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___window.html#gac8cc1bb329961a0781ffed7b6f2ab402">closeEvent</a>(QCloseEvent *event) Q_DECL_OVERRIDE;</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="comment">  * Private data.</span></div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;  Ui::QuickFlow *ui;</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;  QSettings *settings;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;  <a class="code" href="class_project.html">Project</a> *project;</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;  <span class="keywordtype">bool</span> altered_;</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="comment">  * Load application settings.</span></div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;  <span class="keywordtype">void</span> loadSettings();</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;</div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment">  * Save application settings.</span></div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;  <span class="keywordtype">void</span> saveSettings();</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment">  * Create application settings.</span></div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;  <span class="keywordtype">void</span> createSettings();</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment">  * Upgrade application settings.</span></div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;  <span class="keywordtype">void</span> upgradeSettings();</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;<span class="comment">   * No project interface.</span></div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="comment">   *****************************************************************************/</span></div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;  <span class="keywordtype">void</span> noProjectInterface();</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;<span class="comment">  * Work interface.</span></div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;  <span class="keywordtype">void</span> workInterface();</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;<span class="comment">  * connectSignals.</span></div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;  <span class="keywordtype">void</span> connectSignals();</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="comment">  * disconnectSignals.</span></div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;  <span class="keywordtype">void</span> disconnectSignals();</div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;};</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;<span class="preprocessor">#endif  // QUICKFLOW_H</span></div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;  <span class="keywordtype">void</span> on_actionSettings_triggered();</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;  <span class="keywordtype">void</span> on_actionExport_image_triggered();</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;  </div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment">  * Close event.</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;  <span class="keywordtype">void</span> <a class="code" href="group___window.html#gac8cc1bb329961a0781ffed7b6f2ab402">closeEvent</a>(QCloseEvent *event) Q_DECL_OVERRIDE;</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="comment">  * Private data.</span></div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;  Ui::QuickFlow *ui;</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;  QSettings *settings;</div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;  <a class="code" href="class_project.html">Project</a> *project;</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;  <span class="keywordtype">bool</span> altered_;</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="comment">  * Load application settings.</span></div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;  <span class="keywordtype">void</span> loadSettings();</div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;<span class="comment">  * Save application settings.</span></div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;  <span class="keywordtype">void</span> saveSettings();</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;<span class="comment">  * Create application settings.</span></div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;  <span class="keywordtype">void</span> createSettings();</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="comment">  * Upgrade application settings.</span></div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;  <span class="keywordtype">void</span> upgradeSettings();</div>
+<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;</div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="comment">   * No project interface.</span></div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;<span class="comment">   *****************************************************************************/</span></div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;  <span class="keywordtype">void</span> noProjectInterface();</div>
+<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;</div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="comment">  * Work interface.</span></div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;  <span class="keywordtype">void</span> workInterface();</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="comment">  * connectSignals.</span></div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;  <span class="keywordtype">void</span> connectSignals();</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;</div>
+<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="comment">  * disconnectSignals.</span></div>
+<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;<span class="comment">  *****************************************************************************/</span></div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;  <span class="keywordtype">void</span> disconnectSignals();</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;};</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;<span class="preprocessor">#endif  // QUICKFLOW_H</span></div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;</div>
 <div class="ttc" id="project_8h_html"><div class="ttname"><a href="project_8h.html">project.h</a></div></div>
 <div class="ttc" id="class_quick_flow_html"><div class="ttname"><a href="class_quick_flow.html">QuickFlow</a></div><div class="ttdoc">This is the main window of the software. </div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8h_source.html#l00069">quickflow.h:69</a></div></div>
 <div class="ttc" id="namespace_ui_html"><div class="ttname"><a href="namespace_ui.html">Ui</a></div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8h_source.html#l00052">quickflow.h:52</a></div></div>
-<div class="ttc" id="group___window_html_ga7689e2608835392fce3f4c95a7a542db"><div class="ttname"><a href="group___window.html#ga7689e2608835392fce3f4c95a7a542db">QuickFlow::QuickFlow</a></div><div class="ttdeci">QuickFlow(QWidget *parent=0)</div><div class="ttdoc">Constructor. </div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8cpp_source.html#l00070">quickflow.cpp:70</a></div></div>
+<div class="ttc" id="group___window_html_ga7689e2608835392fce3f4c95a7a542db"><div class="ttname"><a href="group___window.html#ga7689e2608835392fce3f4c95a7a542db">QuickFlow::QuickFlow</a></div><div class="ttdeci">QuickFlow(QWidget *parent=0)</div><div class="ttdoc">Constructor. </div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8cpp_source.html#l00071">quickflow.cpp:71</a></div></div>
 <div class="ttc" id="class_project_html"><div class="ttname"><a href="class_project.html">Project</a></div><div class="ttdef"><b>Definition:</b> <a href="project_8h_source.html#l00011">project.h:11</a></div></div>
-<div class="ttc" id="group___window_html_ga5d9148467ef65c48419bf020ee107a45"><div class="ttname"><a href="group___window.html#ga5d9148467ef65c48419bf020ee107a45">QuickFlow::isAltered</a></div><div class="ttdeci">bool isAltered()</div><div class="ttdoc">Check if project is altered Check the altered flag. </div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8cpp_source.html#l00118">quickflow.cpp:118</a></div></div>
-<div class="ttc" id="group___window_html_gac8cc1bb329961a0781ffed7b6f2ab402"><div class="ttname"><a href="group___window.html#gac8cc1bb329961a0781ffed7b6f2ab402">QuickFlow::closeEvent</a></div><div class="ttdeci">void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE</div><div class="ttdoc">Handles software termination. </div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8cpp_source.html#l00744">quickflow.cpp:744</a></div></div>
+<div class="ttc" id="group___window_html_ga5d9148467ef65c48419bf020ee107a45"><div class="ttname"><a href="group___window.html#ga5d9148467ef65c48419bf020ee107a45">QuickFlow::isAltered</a></div><div class="ttdeci">bool isAltered()</div><div class="ttdoc">Check if project is altered Check the altered flag. </div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8cpp_source.html#l00119">quickflow.cpp:119</a></div></div>
+<div class="ttc" id="group___window_html_gac8cc1bb329961a0781ffed7b6f2ab402"><div class="ttname"><a href="group___window.html#gac8cc1bb329961a0781ffed7b6f2ab402">QuickFlow::closeEvent</a></div><div class="ttdeci">void closeEvent(QCloseEvent *event) Q_DECL_OVERRIDE</div><div class="ttdoc">Handles software termination. </div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8cpp_source.html#l00760">quickflow.cpp:760</a></div></div>
 <div class="ttc" id="group___window_html_gabfc3b1280bdae9a9c046d56b1459ab99"><div class="ttname"><a href="group___window.html#gabfc3b1280bdae9a9c046d56b1459ab99">QuickFlow::kVersion</a></div><div class="ttdeci">static const QString kVersion</div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8h_source.html#l00077">quickflow.h:77</a></div></div>
-<div class="ttc" id="group___window_html_ga985823a0db64246b3a15eed2f397e0a4"><div class="ttname"><a href="group___window.html#ga985823a0db64246b3a15eed2f397e0a4">QuickFlow::~QuickFlow</a></div><div class="ttdeci">~QuickFlow()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8cpp_source.html#l00109">quickflow.cpp:109</a></div></div>
-<div class="ttc" id="group___window_html_ga4b63ea5ca52a9eea14db0a22b5a133f8"><div class="ttname"><a href="group___window.html#ga4b63ea5ca52a9eea14db0a22b5a133f8">QuickFlow::setAltered</a></div><div class="ttdeci">void setAltered(bool altered)</div><div class="ttdoc">Set the altered flag. </div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8cpp_source.html#l00126">quickflow.cpp:126</a></div></div>
+<div class="ttc" id="group___window_html_ga985823a0db64246b3a15eed2f397e0a4"><div class="ttname"><a href="group___window.html#ga985823a0db64246b3a15eed2f397e0a4">QuickFlow::~QuickFlow</a></div><div class="ttdeci">~QuickFlow()</div><div class="ttdoc">Destructor. </div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8cpp_source.html#l00110">quickflow.cpp:110</a></div></div>
+<div class="ttc" id="group___window_html_ga4b63ea5ca52a9eea14db0a22b5a133f8"><div class="ttname"><a href="group___window.html#ga4b63ea5ca52a9eea14db0a22b5a133f8">QuickFlow::setAltered</a></div><div class="ttdeci">void setAltered(bool altered)</div><div class="ttdoc">Set the altered flag. </div><div class="ttdef"><b>Definition:</b> <a href="quickflow_8cpp_source.html#l00127">quickflow.cpp:127</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 2 2015 07:26:43 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 30 2015 03:42:14 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>

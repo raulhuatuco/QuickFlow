@@ -35,16 +35,16 @@
  * This is the implementation of the Line class.
  *
  * \author David Krepsky
- * \version 0.1
- * \date 09/2015
+ * \version 0.3
+ * \date 11/2015
  * \copyright David Krepsky
  */
 
 #include "models/line.h"
-#include "math_constants.h"
 #include <QGraphicsScene>
 #include <QGraphicsItem>
 #include <QPainter>
+#include "math_constants.h"
 
 /*******************************************************************************
  * Const initialization.
@@ -52,19 +52,26 @@
 const int32_t Line::kInvalidNode = -1;
 
 /*******************************************************************************
+ * Private const initialization.
+ ******************************************************************************/
+const int8_t Line::kImpedanceMatrixMap[3][3] = {{0, 1, 2}, {1, 3, 4}, {2, 4, 5}};
+
+/*******************************************************************************
  * Constructor.
  ******************************************************************************/
 Line::Line() :
+  QGraphicsObject(),
   nodes(QPair<int32_t, int32_t>(kInvalidNode, kInvalidNode)),
-  network(NULL),
-  length_(0.0),
+  network_(NULL),
   pNoI_(NULL),
   pNoF_(NULL),
-  infoLine(NULL)
+  length_(0.0)
 {
   setFlag(ItemIsSelectable);
   setFlag(ItemSendsGeometryChanges);
-  setZValue(0.0); // Lines are placed under bars and info boxes.
+
+  // Lines are placed under bars and info boxes.
+  setZValue(0.0);
 }
 
 /*******************************************************************************
@@ -72,37 +79,61 @@ Line::Line() :
  ******************************************************************************/
 Line::~Line()
 {
-  if(infoLine != NULL)
-    delete infoLine;
+  hideInfo();
 
-  pNoI_->removeLine(this);
-  pNoF_->removeLine(this);
+  if(scene() != NULL)
+    scene()->removeItem(this);
+
+  if(!network_.isNull())
+    network_->removeLine(this);
+
+  if(!pNoI_.isNull())
+    pNoI_->removeLine(this);
+
+  if(!pNoF_.isNull())
+    pNoF_->removeLine(this);
+}
+
+/*******************************************************************************
+ * Network.
+ ******************************************************************************/
+Network *Line::network()
+{
+  return network_;
+}
+
+/*******************************************************************************
+ * Set network.
+ ******************************************************************************/
+void Line::setNetwork(Network *network)
+{
+  network_ = network;
 }
 
 /*******************************************************************************
  * Impedance.
  ******************************************************************************/
-complex<double> Line::z(int32_t index, Unit::ImpedanceUnit unit)
+complex<double> Line::z(int8_t index, Unit::ImpedanceUnit unit)
 {
   switch (unit) {
   case Unit::kOhm:
-    return z_[index]*network->impedanceBase();
+    return z_[index]*network_->impedanceBase();
     break;
 
   case Unit::kOhmPerMeter:
-    return z_[index]*network->impedanceBase()/length();
+    return z_[index]*network_->impedanceBase()/length();
     break;
 
   case Unit::kOhmPerKilometer:
-    return z_[index]*network->impedanceBase()/length(Unit::kKiloMeter);
+    return z_[index]*network_->impedanceBase()/length(Unit::kKiloMeter);
     break;
 
   case Unit::kOhmPerFeet:
-    return z_[index]*network->impedanceBase()/length(Unit::kFeet);
+    return z_[index]*network_->impedanceBase()/length(Unit::kFeet);
     break;
 
   case Unit::kOhmPerMile:
-    return z_[index]*network->impedanceBase()/length(Unit::kMile);
+    return z_[index]*network_->impedanceBase()/length(Unit::kMile);
     break;
 
   case Unit::kOhmPerUnit:
@@ -111,6 +142,53 @@ complex<double> Line::z(int32_t index, Unit::ImpedanceUnit unit)
 
   default:
     return z_[index];
+    break;
+  }
+}
+
+/*******************************************************************************
+ * Impedance.
+ ******************************************************************************/
+complex<double> Line::z(int8_t line, int8_t colum, Unit::ImpedanceUnit unit)
+{
+  int8_t index = kImpedanceMatrixMap[line][colum];
+
+  return z(index, unit);
+}
+
+/*******************************************************************************
+ * Set impedance.
+ ******************************************************************************/
+void Line::setZ(int8_t index, complex<double> newImpedance,
+                Unit::ImpedanceUnit unit)
+{
+  switch (unit) {
+  case Unit::kOhm:
+    z_[index] = newImpedance/network_->impedanceBase();
+    break;
+
+  case Unit::kOhmPerMeter:
+    z_[index] = newImpedance*length()/network_->impedanceBase();
+    break;
+
+  case Unit::kOhmPerKilometer:
+    z_[index] = newImpedance*length(Unit::kKiloMeter)/network_->impedanceBase();
+    break;
+
+  case Unit::kOhmPerFeet:
+    z_[index] = newImpedance*length(Unit::kFeet)/network_->impedanceBase();
+    break;
+
+  case Unit::kOhmPerMile:
+    z_[index] = newImpedance*length(Unit::kMile)/network_->impedanceBase();
+    break;
+
+  case Unit::kOhmPerUnit:
+    z_[index] = newImpedance;
+    break;
+
+  default:
+    z_[index] = newImpedance;
     break;
   }
 }
@@ -118,53 +196,25 @@ complex<double> Line::z(int32_t index, Unit::ImpedanceUnit unit)
 /*******************************************************************************
  * Set impedance.
  ******************************************************************************/
-void Line::setZ(int32_t index, complex<double> newImpedance,
+void Line::setZ(int8_t line, int8_t colum, complex<double> newImpedance,
                 Unit::ImpedanceUnit unit)
 {
-  switch (unit) {
-  case Unit::kOhm:
-    z_[index] = newImpedance/network->impedanceBase();
-    break;
-
-  case Unit::kOhmPerMeter:
-    z_[index] = newImpedance*length()/network->impedanceBase();
-    break;
-
-  case Unit::kOhmPerKilometer:
-    z_[index] = newImpedance*length(Unit::kKiloMeter)/network->impedanceBase();
-    break;
-
-  case Unit::kOhmPerFeet:
-    z_[index] = newImpedance*length(Unit::kFeet)/network->impedanceBase();
-    break;
-
-  case Unit::kOhmPerMile:
-    z_[index] = newImpedance*length(Unit::kMile)/network->impedanceBase();
-    break;
-
-  case Unit::kOhmPerUnit:
-    z_[index] = newImpedance;
-    break;
-
-  default:
-    z_[index] = newImpedance;
-    break;
-  }
-
+  int8_t index = kImpedanceMatrixMap[line][colum];
+  setZ(index, newImpedance, unit);
 }
 
 /*******************************************************************************
  * Current.
  ******************************************************************************/
-complex<double> Line::i(int32_t phase, Unit::CurrentUnit unit)
+complex<double> Line::i(int8_t phase, Unit::CurrentUnit unit)
 {
   switch (unit) {
   case Unit::kAmpere:
-    return i_[phase]*network->currentBase();
+    return i_[phase]*network_->currentBase();
     break;
 
   case Unit::kKiloAmpere:
-    return i_[phase]*network->currentBase()/1000.0;
+    return i_[phase]*network_->currentBase()/1000.0;
     break;
 
   case Unit::kAmperePerUnit:
@@ -180,16 +230,16 @@ complex<double> Line::i(int32_t phase, Unit::CurrentUnit unit)
 /*******************************************************************************
  * Set current.
  ******************************************************************************/
-void Line::setI(int32_t phase, complex<double> newCurrent,
+void Line::setI(int8_t phase, complex<double> newCurrent,
                 Unit::CurrentUnit unit)
 {
   switch (unit) {
   case Unit::kAmpere:
-    i_[phase] = newCurrent/network->currentBase();
+    i_[phase] = newCurrent/network_->currentBase();
     break;
 
   case Unit::kKiloAmpere:
-    i_[phase] = newCurrent*1000.0/network->currentBase();
+    i_[phase] = newCurrent*1000.0/network_->currentBase();
     break;
 
   case Unit::kAmperePerUnit:
@@ -205,34 +255,49 @@ void Line::setI(int32_t phase, complex<double> newCurrent,
 /*******************************************************************************
  * Line loss.
  ******************************************************************************/
-complex<double> Line::loss(int32_t phase, Unit::PowerUnit unit)
+complex<double> Line::loss(int8_t phase, Unit::PowerUnit unit)
 {
-  complex<double> vi, vf, loss;
-
-  vi = pNoI()->rV(phase);
-  vf = pNoF()->rV(phase);
-
-  loss = (vi - vf)*conj(i_[phase]);
-
   switch (unit) {
   case Unit::kVA:
-    return loss*network->powerBase();
+    return loss_[phase]*network_->powerBase();
     break;
 
   case Unit::kKiloVA:
-    return loss*network->powerBase()/1000.0;
+    return loss_[phase]*network_->powerBase()/1000.0;
     break;
 
   case Unit::kVaPerUnit:
-    return loss;
+    return loss_[phase];
     break;
 
   default:
-    return loss;
+    return loss_[phase];
     break;
   }
+}
 
-  return 0.0;
+/*******************************************************************************
+ * Set loss.
+ ******************************************************************************/
+void Line::setLoss(int8_t phase, complex<double> newLoss, Unit::PowerUnit unit)
+{
+  switch (unit) {
+  case Unit::kVA:
+    loss_[phase] = newLoss/network_->powerBase();
+    break;
+
+  case Unit::kKiloVA:
+    loss_[phase] = newLoss*1000.0/network_->powerBase();
+    break;
+
+  case Unit::kVaPerUnit:
+    loss_[phase] = newLoss;
+    break;
+
+  default:
+    loss_[phase] = newLoss;
+    break;
+  }
 }
 
 /*******************************************************************************
@@ -292,7 +357,7 @@ void Line::setLength(double newLength, Unit::LengthUnit unit)
 }
 
 /*******************************************************************************
- * pNoI.
+ * Pointer node initial.
  ******************************************************************************/
 Bar *Line::pNoI()
 {
@@ -300,7 +365,7 @@ Bar *Line::pNoI()
 }
 
 /*******************************************************************************
- * pNoF.
+ * Pointer node final.
  ******************************************************************************/
 Bar *Line::pNoF()
 {
@@ -308,7 +373,7 @@ Bar *Line::pNoF()
 }
 
 /*******************************************************************************
- * setNodes.
+ * Set nodes.
  ******************************************************************************/
 void Line::setNodes(Bar *pNoI, Bar *pNoF)
 {
@@ -323,9 +388,8 @@ void Line::setNodes(Bar *pNoI, Bar *pNoF)
   updatePosition();
 }
 
-
 /*******************************************************************************
- * toJson.
+ * To Json.
  ******************************************************************************/
 QJsonObject Line::toJson()
 {
@@ -349,14 +413,6 @@ QJsonObject Line::toJson()
   jsonLine.insert("Zcc", z_[5].real());
   jsonLine.insert("Zcci", z_[5].imag());
 
-  // Current
-  jsonLine.insert("Ia", i_[0].real());
-  jsonLine.insert("Iai", i_[0].imag());
-  jsonLine.insert("Ib", i_[1].real());
-  jsonLine.insert("Ibi", i_[1].imag());
-  jsonLine.insert("Ic", i_[2].real());
-  jsonLine.insert("Ici", i_[2].imag());
-
   // Length
   jsonLine.insert("length", length_);
 
@@ -364,7 +420,7 @@ QJsonObject Line::toJson()
 }
 
 /*******************************************************************************
- * fromJson.
+ * From Json.
  ******************************************************************************/
 void Line::fromJson(QJsonObject &jsonLine)
 {
@@ -386,20 +442,12 @@ void Line::fromJson(QJsonObject &jsonLine)
   z_[5].real(jsonLine.value("Zcc").toDouble());
   z_[5].imag(jsonLine.value("Zcci").toDouble());
 
-  // Current
-  i_[0].real(jsonLine.value("Ia").toDouble());
-  i_[0].imag(jsonLine.value("Iai").toDouble());
-  i_[1].real(jsonLine.value("Ib").toDouble());
-  i_[1].imag(jsonLine.value("Ibi").toDouble());
-  i_[2].real(jsonLine.value("Ic").toDouble());
-  i_[2].imag(jsonLine.value("Ici").toDouble());
-
   // Length
   length_ = jsonLine.value("length").toDouble();
 }
 
 /*******************************************************************************
- * updatePosition.
+ * Ppdate position.
  ******************************************************************************/
 void Line::updatePosition()
 {
@@ -408,9 +456,9 @@ void Line::updatePosition()
   double yOffset = 0.0;
   double xOffset = 0.0;
 
-  if(network != NULL) {
-    xOffset = network->xOffset;
-    yOffset = network->yOffset;
+  if(!network_.isNull()) {
+    xOffset = network_->xOffset;
+    yOffset = network_->yOffset;
   }
 
   QPoint p1(pNoI_->x() + xOffset, pNoI_->y() + yOffset);
@@ -429,7 +477,7 @@ void Line::updatePosition()
 }
 
 /*******************************************************************************
- * boundingRect.
+ * Bounding rect.
  ******************************************************************************/
 QRectF Line::boundingRect() const
 {
@@ -437,7 +485,7 @@ QRectF Line::boundingRect() const
 }
 
 /*******************************************************************************
- * shape.
+ * Shape.
  ******************************************************************************/
 QPainterPath Line::shape() const
 {
@@ -447,26 +495,17 @@ QPainterPath Line::shape() const
 }
 
 /*******************************************************************************
- * itemChange.
+ * Item change.
  ******************************************************************************/
 QVariant Line::itemChange(QGraphicsItem::GraphicsItemChange change,
                           const QVariant &value)
 {
+  // Show information if item is selected.
   if (change == ItemSelectedChange) {
     if (value == true) {
-      // if multiple items are selectec, we don't want to show the info box.
-      if(!(scene()->selectedItems().size() >= 1)) {
-        if (infoLine == NULL) {
-          infoLine = new InfoLine(this);
-          scene()->addItem(infoLine);
-        }
-      }
+      showInfo();
     } else {
-      if (infoLine != NULL) {
-        scene()->removeItem(infoLine);
-        delete infoLine;
-        infoLine = NULL;
-      }
+      hideInfo();
     }
   }
 
@@ -483,7 +522,7 @@ void Line::mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event)
 }
 
 /*******************************************************************************
- * paint.
+ * Paint.
  ******************************************************************************/
 void Line::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
                  QWidget *widget)
@@ -492,15 +531,40 @@ void Line::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   Q_UNUSED(widget);
 
   if (isSelected())
-    painter->setPen(QPen(network->selectedColor, Network::lineWidth,
+    painter->setPen(QPen(network_->selectedColor, Network::lineWidth,
                          Qt::SolidLine));
   else
-    painter->setPen(QPen(network->lineColor, Network::lineWidth, Qt::SolidLine));
+    painter->setPen(QPen(network_->lineColor, Network::lineWidth, Qt::SolidLine));
 
   painter->drawLine(coords.p1(), coords.p2());
+}
+
+/*******************************************************************************
+ * Show information.
+ ******************************************************************************/
+void Line::showInfo()
+{
+  // if multiple items are selectec, we don't want to show the info box.
+  if(!(scene()->selectedItems().size() >= 1)) {
+    if (infoLine.isNull()) {
+      infoLine = new InfoLine(this);
+      scene()->addItem(infoLine);
+    }
+  }
+}
+
+/*******************************************************************************
+ * Hide information.
+ ******************************************************************************/
+void Line::hideInfo()
+{
+  if (!infoLine.isNull()) {
+    scene()->removeItem(infoLine.data());
+    delete infoLine.data();
+    infoLine.clear();
+  }
 }
 
 /*!
  * \}
  */
-

@@ -59,9 +59,9 @@
 00110   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga1e96b08395a2f1b961dedbb3e8c99a50}{removeBar}(\hyperlink{class_bar}{Bar} *bar);
 00111 
 00112   \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaed2fb15d518cab9a52ea1ee258846bfc}{addLine}(\hyperlink{class_line}{Line} *line);
-00113   
+00113 
 00114   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga4af1d763d9b9c02933e62d1f6231ad18}{removeLine}(\hyperlink{class_line}{Line} *line);
-00115   
+00115 
 00116 signals:
 00117 
 00118   \textcolor{keywordtype}{void} \hyperlink{class_system_view_a90bd4b070c8abaa5995899154421eb44}{barProperties}(QObject *);
@@ -76,16 +76,19 @@
 00139   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga42d4a485d6d9bd891d9505a5213cf783}{mousePressEvent}(QMouseEvent *event) Q\_DECL\_OVERRIDE;
 00140 
 00145   \textcolor{keywordtype}{void} \hyperlink{group___graphics_gaa8a2664405194bbe29daa454aead7416}{mouseReleaseEvent}(QMouseEvent *event) Q\_DECL\_OVERRIDE;
-00146 \textcolor{keyword}{private}:
-00150   \textcolor{keyword}{static} \textcolor{keyword}{const} qreal kZoomStep;
-00151 
-00155   QPoint oldPos;
-00156 
-00157   QSignalMapper *barDoubleClick;
-00158 
-00159   QSignalMapper *lineDoubleClick;
-00160 \};
+00146 
+00147   \textcolor{keywordtype}{void} \hyperlink{group___graphics_gac28465709119ef75862b33480ad23f56}{keyPressEvent}(QKeyEvent *event) Q\_DECL\_OVERRIDE;
+00148   
+00149 \textcolor{keyword}{private}:
+00153   \textcolor{keyword}{static} \textcolor{keyword}{const} qreal kZoomStep;
+00154 
+00158   QPoint oldPos;
+00159 
+00160   QSignalMapper *barDoubleClick;
 00161 
-00162 \textcolor{preprocessor}{#endif  // GRAPHICS\_SYSTEMVIEW\_H}
-00163 
+00162   QSignalMapper *lineDoubleClick;
+00163 \};
+00164 
+00165 \textcolor{preprocessor}{#endif  // GRAPHICS\_SYSTEMVIEW\_H}
+00166 
 \end{DoxyCode}

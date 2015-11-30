@@ -2,6 +2,7 @@
 #define GRAPHICS_INFOBAR_H
 
 #include <QGraphicsItem>
+#include <QGraphicsObject>
 #include <QPoint>
 #include "models/bar.h"
 
@@ -9,8 +10,10 @@ QT_BEGIN_NAMESPACE
 class Bar;
 QT_END_NAMESPACE
 
-class InfoBar : public QGraphicsItem
+class InfoBar : public QGraphicsObject
 {
+Q_OBJECT
+
 public:
   static const int kTableRows;
   static const int kTableColums;

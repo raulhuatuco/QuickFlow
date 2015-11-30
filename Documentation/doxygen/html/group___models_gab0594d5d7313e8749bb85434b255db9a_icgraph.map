@@ -1,0 +1,13 @@
+<map id="Bar::network" name="Bar::network">
+<area shape="rect" id="node2" href="$group___models.html#gade9a307fdb6a81871787899ec1af5833" title="Set bar network. " alt="" coords="187,81,305,108"/>
+<area shape="rect" id="node3" href="$class_bar_properties.html#a0a9a2284b5aad8acbade86ccec7adbf8" title="BarProperties::setOptions" alt="" coords="391,31,563,57"/>
+<area shape="rect" id="node10" href="$class_info_bar.html#aab5c08f226901c8827a97efbdfb5122a" title="InfoBar::InfoBar" alt="" coords="189,132,303,159"/>
+<area shape="rect" id="node11" href="$class_info_bar.html#afa011ce96bb99021d2cbf5b24c7276bb" title="InfoBar::paint" alt="" coords="196,183,296,209"/>
+<area shape="rect" id="node12" href="$group___graphics.html#gac28465709119ef75862b33480ad23f56" title="SystemView::keyPressEvent" alt="" coords="149,233,343,260"/>
+<area shape="rect" id="node4" href="$group___models.html#ga8c5dfef0216731246f7411e1a5fbee01" title="Add bar. " alt="" coords="417,81,537,108"/>
+<area shape="rect" id="node5" href="$import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="621,5,734,32"/>
+<area shape="rect" id="node6" href="$import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="621,56,734,83"/>
+<area shape="rect" id="node7" href="$import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="621,107,734,133"/>
+<area shape="rect" id="node8" href="$group___models.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Load from Json object. " alt="" coords="611,157,744,184"/>
+<area shape="rect" id="node9" href="$class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="792,157,887,184"/>
+</map>

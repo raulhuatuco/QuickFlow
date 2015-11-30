@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['i',['i',['../group___models.html#gaf81e7055102816465bdf7e19afc2d547',1,'Line']]],
-  ['impedancebase',['impedanceBase',['../group___graphics.html#gae6794c93d37df113778c37c2c702f6d9',1,'Network']]],
+  ['i',['i',['../group___models.html#ga2ad899adaa4f2e25b38c58e076db94ea',1,'Line']]],
+  ['id',['id',['../group___models.html#gacf0fb781a73856bb7beb823304465e13',1,'Bar']]],
+  ['impedancebase',['impedanceBase',['../group___models.html#gae6794c93d37df113778c37c2c702f6d9',1,'Network']]],
   ['impedanceunit',['impedanceUnit',['../class_project.html#ad0725b9aa4445dd6d21d4e15df482d3b',1,'Project']]],
   ['impedanceunittostr',['impedanceUnitToStr',['../class_unit.html#ae3ca20f4b6530f04ca6aa138ec0fa7d2',1,'Unit']]],
   ['importtxttype1',['importTxtType1',['../import_8cpp.html#ab30ac380d5e14f830ebc8eb839fbbdf0',1,'importTxtType1(QString &amp;fileName, Network *network):&#160;import.cpp'],['../import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0',1,'importTxtType1(QString &amp;fileName, Network *network):&#160;import.cpp']]],

@@ -29,14 +29,14 @@
 00043 \textcolor{preprocessor}{#ifndef MODELS\_NETWORK\_H}
 00044 \textcolor{preprocessor}{#define MODELS\_NETWORK\_H}
 00045 
-00046 \textcolor{preprocessor}{#include <cstdint>}
-00047 
-00048 \textcolor{preprocessor}{#include <QGraphicsScene>}
-00049 \textcolor{preprocessor}{#include <QObject>}
-00050 \textcolor{preprocessor}{#include <QVector>}
-00051 \textcolor{preprocessor}{#include <QJsonObject>}
-00052 \textcolor{preprocessor}{#include <QMap>}
-00053 \textcolor{preprocessor}{#include "\hyperlink{customtypes_8h}{customtypes.h}"}
+00046 \textcolor{preprocessor}{#include <QGraphicsScene>}
+00047 \textcolor{preprocessor}{#include <QObject>}
+00048 \textcolor{preprocessor}{#include <QVector>}
+00049 \textcolor{preprocessor}{#include <QJsonObject>}
+00050 \textcolor{preprocessor}{#include <QMap>}
+00051 \textcolor{preprocessor}{#include <QPointer>}
+00052 \textcolor{preprocessor}{#include <cstdint>}
+00053 \textcolor{preprocessor}{#include "\hyperlink{unit_8h}{unit.h}"}
 00054 \textcolor{preprocessor}{#include "\hyperlink{bar_8h}{models/bar.h}"}
 00055 \textcolor{preprocessor}{#include "\hyperlink{line_8h}{models/line.h}"}
 00056 
@@ -45,131 +45,107 @@
 00059 \textcolor{keyword}{class }\hyperlink{class_line}{Line};
 00060 QT\_END\_NAMESPACE
 00061 
-\hypertarget{network_8h_source_l00075}{}\hyperlink{class_network}{00075} \textcolor{keyword}{class }\hyperlink{class_network}{Network} : \textcolor{keyword}{public} QObject
-00076 \{
-00077   Q\_OBJECT
-00078 
-00079 \textcolor{keyword}{public}:
-00080 
-00081   \textcolor{comment}{/*****************************************************************************}
-00082 \textcolor{comment}{   * Const.}
-00083 \textcolor{comment}{   ****************************************************************************/}
-\hypertarget{network_8h_source_l00084}{}\hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{00084}   \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{group___graphics_gaa334bbc93b3fde219840e95e23198b53}{barIconSize};
-00085 
-\hypertarget{network_8h_source_l00086}{}\hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{00086}   \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{group___graphics_ga3f810634c9908d62d33a1ab09a76c147}{lineWidth};
-00087 
-\hypertarget{network_8h_source_l00088}{}\hyperlink{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{00088}   \textcolor{keyword}{static} \textcolor{keyword}{const} QColor \hyperlink{group___graphics_gaa9e21b8e2a24b0495e776a51e1aeed94}{selectedColor};
-00089 
-00090   \textcolor{comment}{/*****************************************************************************}
-00091 \textcolor{comment}{   * Static data.}
-00092 \textcolor{comment}{   ****************************************************************************/}
-\hypertarget{network_8h_source_l00093}{}\hyperlink{group___graphics_ga318dee060bc577eacd67d332efbbe1b2}{00093}   \textcolor{keyword}{static} uint32\_t \hyperlink{group___graphics_ga318dee060bc577eacd67d332efbbe1b2}{maxIterations};
-00094 
-\hypertarget{network_8h_source_l00095}{}\hyperlink{group___graphics_gabcdc973129d3dda7572b7a1c388da1b5}{00095}   \textcolor{keyword}{static} \textcolor{keywordtype}{double} \hyperlink{group___graphics_gabcdc973129d3dda7572b7a1c388da1b5}{minError};
-00096 
-\hypertarget{network_8h_source_l00097}{}\hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{00097}   \textcolor{keyword}{static} \textcolor{keywordtype}{double} \hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{voltageBase};
-00098 
-\hypertarget{network_8h_source_l00099}{}\hyperlink{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{00099}   \textcolor{keyword}{static} \textcolor{keywordtype}{double} \hyperlink{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{powerBase};
-00100 
-\hypertarget{network_8h_source_l00101}{}\hyperlink{group___graphics_gae46c0e2bf39b343875e3c69066fe2652}{00101}   \textcolor{keyword}{static} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} \hyperlink{group___graphics_gae46c0e2bf39b343875e3c69066fe2652}{lengthUnit};
-00102 
-\hypertarget{network_8h_source_l00103}{}\hyperlink{group___graphics_ga5f3d72699a723c64a89d22e34df708ff}{00103}   \textcolor{keyword}{static} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} \hyperlink{group___graphics_ga5f3d72699a723c64a89d22e34df708ff}{impedanceUnit};
-00104 
-\hypertarget{network_8h_source_l00105}{}\hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{00105}   \textcolor{keyword}{static} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{voltageUnit};
-00106 
-\hypertarget{network_8h_source_l00107}{}\hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{00107}   \textcolor{keyword}{static} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{powerUnit};
-00108 
-\hypertarget{network_8h_source_l00109}{}\hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{00109}   \textcolor{keyword}{static} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{currentUnit};
-00110 
-00111   \textcolor{comment}{/*****************************************************************************}
-00112 \textcolor{comment}{   * Properties.}
-00113 \textcolor{comment}{   ****************************************************************************/}
-\hypertarget{network_8h_source_l00114}{}\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{00114}   QString \hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name};
-00115 
-\hypertarget{network_8h_source_l00116}{}\hyperlink{class_network_a9f5c70be28a45320802bd0ac3947d114}{00116}   \textcolor{keywordtype}{double} \hyperlink{class_network_a9f5c70be28a45320802bd0ac3947d114}{xOffset};
-00117 
-\hypertarget{network_8h_source_l00118}{}\hyperlink{class_network_a771b16f7eb4459d0ca7141c048b1ab59}{00118}   \textcolor{keywordtype}{double} \hyperlink{class_network_a771b16f7eb4459d0ca7141c048b1ab59}{yOffset};
-00119 
-\hypertarget{network_8h_source_l00120}{}\hyperlink{class_network_ad69052271ab0a9899948815b6201f2c6}{00120}   QColor \hyperlink{class_network_ad69052271ab0a9899948815b6201f2c6}{barStrokeColor};
-00121 
-\hypertarget{network_8h_source_l00122}{}\hyperlink{class_network_ad78d9a206daf4ba0780067b5043c7f5c}{00122}   QColor \hyperlink{class_network_ad78d9a206daf4ba0780067b5043c7f5c}{barSlackFillColor};
+\hypertarget{network_8h_source_l00094}{}\hyperlink{class_network}{00094} \textcolor{keyword}{class }\hyperlink{class_network}{Network} : \textcolor{keyword}{public} QObject
+00095 \{
+00096   Q\_OBJECT
+00097 
+00098 \textcolor{keyword}{public}:
+00099   \textcolor{comment}{/*****************************************************************************}
+00100 \textcolor{comment}{   * Constant data.}
+00101 \textcolor{comment}{   ****************************************************************************/}
+\hypertarget{network_8h_source_l00108}{}\hyperlink{group___models_gaa334bbc93b3fde219840e95e23198b53}{00108}   \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{group___models_gaa334bbc93b3fde219840e95e23198b53}{barIconSize};
+00109 
+\hypertarget{network_8h_source_l00115}{}\hyperlink{group___models_ga3f810634c9908d62d33a1ab09a76c147}{00115}   \textcolor{keyword}{static} \textcolor{keyword}{const} \textcolor{keywordtype}{double} \hyperlink{group___models_ga3f810634c9908d62d33a1ab09a76c147}{lineWidth};
+00116 
+\hypertarget{network_8h_source_l00122}{}\hyperlink{group___models_gaa9e21b8e2a24b0495e776a51e1aeed94}{00122}   \textcolor{keyword}{static} \textcolor{keyword}{const} QColor \hyperlink{group___models_gaa9e21b8e2a24b0495e776a51e1aeed94}{selectedColor};
 00123 
-\hypertarget{network_8h_source_l00124}{}\hyperlink{class_network_a386f492f548ec13f5d0e350c4f2217aa}{00124}   QColor \hyperlink{class_network_a386f492f548ec13f5d0e350c4f2217aa}{barPqFillColor};
-00125 
-\hypertarget{network_8h_source_l00126}{}\hyperlink{class_network_a453db7f1a994603fe4d38ac5899eb09c}{00126}   QColor \hyperlink{class_network_a453db7f1a994603fe4d38ac5899eb09c}{lineColor};
-00127 
-\hypertarget{network_8h_source_l00128}{}\hyperlink{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{00128}   QMap<int32\_t, Bar *> \hyperlink{class_network_a7fe628f7de34a96235cbd3f2cee4aff2}{bars};
-00129 
-\hypertarget{network_8h_source_l00130}{}\hyperlink{class_network_acda0fd42e712e460a08a0e96511ee7eb}{00130}   QMap<QPair<int32\_t, int32\_t>, \hyperlink{class_line}{Line} *> \hyperlink{class_network_acda0fd42e712e460a08a0e96511ee7eb}{lines};
-00131 
-00132   \textcolor{comment}{/*****************************************************************************}
-00133 \textcolor{comment}{   * Class functions.}
-00134 \textcolor{comment}{   ****************************************************************************/}
-00135   \textcolor{keyword}{static} \textcolor{keywordtype}{double} \hyperlink{group___graphics_ga433bc5c32cf2ce5329bb40b21952d885}{currentBase}();
-00136 
-00137   \textcolor{keyword}{static} \textcolor{keywordtype}{double} \hyperlink{group___graphics_gae6794c93d37df113778c37c2c702f6d9}{impedanceBase}();
-00138 
-00139   \textcolor{comment}{/*****************************************************************************}
-00140 \textcolor{comment}{   * Constructor.}
-00141 \textcolor{comment}{   ****************************************************************************/}
-00142   \hyperlink{group___graphics_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}{Network}();
-00143 
-00144   \textcolor{comment}{/*****************************************************************************}
-00145 \textcolor{comment}{   * Destructor.}
-00146 \textcolor{comment}{   ****************************************************************************/}
-00147   \hyperlink{group___graphics_ga7a4e19cdb4bf0c7ecf82baa643831492}{~Network}();
-00148 
-00149   \textcolor{comment}{/*****************************************************************************}
-00150 \textcolor{comment}{   * Add bar.}
-00151 \textcolor{comment}{   ****************************************************************************/}
-00152   \textcolor{keywordtype}{bool} \hyperlink{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}{addBar}(\hyperlink{class_bar}{Bar} *bar);
-00153 
-00154   \textcolor{comment}{/*****************************************************************************}
-00155 \textcolor{comment}{   * Add line.}
-00156 \textcolor{comment}{   ****************************************************************************/}
-00157   \textcolor{keywordtype}{bool} \hyperlink{group___graphics_gae02945131494987b3ff9b59b627719b4}{addLine}(\hyperlink{class_line}{Line} *line);
-00158 
-00159   \textcolor{comment}{/*****************************************************************************}
-00160 \textcolor{comment}{   * Remove bar by id.}
-00161 \textcolor{comment}{   ****************************************************************************/}
-00162   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{removeBar}(int32\_t \textcolor{keywordtype}{id});
+00124   \textcolor{comment}{/*****************************************************************************}
+00125 \textcolor{comment}{   * Static data.}
+00126 \textcolor{comment}{   ****************************************************************************/}
+\hypertarget{network_8h_source_l00134}{}\hyperlink{group___models_ga318dee060bc577eacd67d332efbbe1b2}{00134}   \textcolor{keyword}{static} uint32\_t \hyperlink{group___models_ga318dee060bc577eacd67d332efbbe1b2}{maxIterations};
+00135 
+\hypertarget{network_8h_source_l00141}{}\hyperlink{group___models_gabcdc973129d3dda7572b7a1c388da1b5}{00141}   \textcolor{keyword}{static} \textcolor{keywordtype}{double} \hyperlink{group___models_gabcdc973129d3dda7572b7a1c388da1b5}{minError};
+00142 
+\hypertarget{network_8h_source_l00148}{}\hyperlink{group___models_gae46c0e2bf39b343875e3c69066fe2652}{00148}   \textcolor{keyword}{static} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} \hyperlink{group___models_gae46c0e2bf39b343875e3c69066fe2652}{lengthUnit};
+00149 
+\hypertarget{network_8h_source_l00155}{}\hyperlink{group___models_ga5f3d72699a723c64a89d22e34df708ff}{00155}   \textcolor{keyword}{static} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} \hyperlink{group___models_ga5f3d72699a723c64a89d22e34df708ff}{impedanceUnit};
+00156 
+\hypertarget{network_8h_source_l00162}{}\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{00162}   \textcolor{keyword}{static} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} \hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{voltageUnit};
 00163 
-00164   \textcolor{comment}{/*****************************************************************************}
-00165 \textcolor{comment}{   * Remove bar by pointer.}
-00166 \textcolor{comment}{   ****************************************************************************/}
-00167   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga997ce4f03d316b9f138f2e64e6ca400c}{removeBar}(\hyperlink{class_bar}{Bar} *bar);
-00168 
-00169   \textcolor{comment}{/*****************************************************************************}
-00170 \textcolor{comment}{   * Remove line by nodes.}
-00171 \textcolor{comment}{   ****************************************************************************/}
-00172   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{removeLine}(QPair<int32\_t, int32\_t> nodes);
-00173 
-00174   \textcolor{comment}{/*****************************************************************************}
-00175 \textcolor{comment}{   * Remove line by pointer.}
-00176 \textcolor{comment}{   ****************************************************************************/}
-00177   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga1eef3317224a7a06348fce07e581a9ad}{removeLine}(\hyperlink{class_line}{Line} *line);
+00164 
+\hypertarget{network_8h_source_l00170}{}\hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{00170}   \textcolor{keyword}{static} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{powerUnit};
+00171 
+\hypertarget{network_8h_source_l00177}{}\hyperlink{group___models_gac6a26db5fef2b1dd2a00faf6340d1702}{00177}   \textcolor{keyword}{static} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} \hyperlink{group___models_gac6a26db5fef2b1dd2a00faf6340d1702}{currentUnit};
 00178 
 00179   \textcolor{comment}{/*****************************************************************************}
-00180 \textcolor{comment}{   * Get bar by id.}
+00180 \textcolor{comment}{   * Public data.}
 00181 \textcolor{comment}{   ****************************************************************************/}
-00182   \hyperlink{class_bar}{Bar} *\hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(uint32\_t \textcolor{keywordtype}{id});
-00183 
-00184   \textcolor{comment}{/*****************************************************************************}
-00185 \textcolor{comment}{   * Get line by nodes.}
-00186 \textcolor{comment}{   ****************************************************************************/}
-00187   \hyperlink{class_line}{Line} *\hyperlink{group___graphics_ga8f090b85a7779695cb9f05b6395b3044}{getLineByNodes}(QPair<int32\_t, int32\_t> nodes);
+\hypertarget{network_8h_source_l00187}{}\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{00187}   QString \hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name};
 00188 
-00189   \textcolor{comment}{/*****************************************************************************}
-00190 \textcolor{comment}{   * Network to Json.}
-00191 \textcolor{comment}{   ****************************************************************************/}
-00192   QJsonObject \hyperlink{group___graphics_ga1bb9773d3935eefef84136d388786494}{toJson}();
-00193 
-00194   \textcolor{comment}{/*****************************************************************************}
-00195 \textcolor{comment}{   * Network from Json.}
-00196 \textcolor{comment}{   ****************************************************************************/}
-00197   \textcolor{keywordtype}{void} \hyperlink{group___graphics_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1}{fromJson}(QJsonObject &netJson);
-00198 \};
-00199 
-00200 \textcolor{preprocessor}{#endif  // MODELS\_NETWORK\_H}
-00201 
+\hypertarget{network_8h_source_l00196}{}\hyperlink{class_network_a9f5c70be28a45320802bd0ac3947d114}{00196}   \textcolor{keywordtype}{double} \hyperlink{class_network_a9f5c70be28a45320802bd0ac3947d114}{xOffset};
+00197 
+\hypertarget{network_8h_source_l00205}{}\hyperlink{class_network_a771b16f7eb4459d0ca7141c048b1ab59}{00205}   \textcolor{keywordtype}{double} \hyperlink{class_network_a771b16f7eb4459d0ca7141c048b1ab59}{yOffset};
+00206 
+\hypertarget{network_8h_source_l00212}{}\hyperlink{class_network_a20c58a0630bdbbade527d55ba48d924c}{00212}   QColor \hyperlink{class_network_a20c58a0630bdbbade527d55ba48d924c}{barContourColor};
+00213 
+\hypertarget{network_8h_source_l00219}{}\hyperlink{class_network_ac6c44cb1f88cd67a4fab7eff948e2d1d}{00219}   QColor \hyperlink{class_network_ac6c44cb1f88cd67a4fab7eff948e2d1d}{slackBarColor};
+00220 
+\hypertarget{network_8h_source_l00226}{}\hyperlink{class_network_a610c48c9e2dd9555f9b354ab72fb96cc}{00226}   QColor \hyperlink{class_network_a610c48c9e2dd9555f9b354ab72fb96cc}{pqBarColor};
+00227 
+\hypertarget{network_8h_source_l00233}{}\hyperlink{class_network_a453db7f1a994603fe4d38ac5899eb09c}{00233}   QColor \hyperlink{class_network_a453db7f1a994603fe4d38ac5899eb09c}{lineColor};
+00234 
+\hypertarget{network_8h_source_l00242}{}\hyperlink{class_network_ae37a8418e42adf765b143cdc9d992b6c}{00242}   QMap<int32\_t, QPointer<Bar> > \hyperlink{class_network_ae37a8418e42adf765b143cdc9d992b6c}{bars};
+00243 
+\hypertarget{network_8h_source_l00252}{}\hyperlink{class_network_a49659f95d02baf087707c5a94fa23d90}{00252}   QMap<QPair<int32\_t, int32\_t>, QPointer<Line> > \hyperlink{class_network_a49659f95d02baf087707c5a94fa23d90}{lines};
+00253 
+00254   \textcolor{comment}{/*****************************************************************************}
+00255 \textcolor{comment}{   * Public methods.}
+00256 \textcolor{comment}{   ****************************************************************************/}
+00262   \hyperlink{group___models_ga3cc2fb4f8fa4d507077e8da85ce5a1c8}{Network}();
+00263 
+00271   \hyperlink{group___models_ga7a4e19cdb4bf0c7ecf82baa643831492}{~Network}();
+00272 
+00284   \textcolor{keywordtype}{bool} \hyperlink{group___models_ga8c5dfef0216731246f7411e1a5fbee01}{addBar}(\hyperlink{class_bar}{Bar} *bar);
+00285 
+00307   \textcolor{keywordtype}{bool} \hyperlink{group___models_gae02945131494987b3ff9b59b627719b4}{addLine}(\hyperlink{class_line}{Line} *line);
+00308 
+00316   \textcolor{keywordtype}{void} \hyperlink{group___models_ga997ce4f03d316b9f138f2e64e6ca400c}{removeBar}(int32\_t \textcolor{keywordtype}{id});
+00317 
+00325   \textcolor{keywordtype}{void} \hyperlink{group___models_ga997ce4f03d316b9f138f2e64e6ca400c}{removeBar}(\hyperlink{class_bar}{Bar} *bar);
+00326 
+00334   \textcolor{keywordtype}{void} \hyperlink{group___models_ga1eef3317224a7a06348fce07e581a9ad}{removeLine}(QPair<int32\_t, int32\_t> nodes);
+00335 
+00343   \textcolor{keywordtype}{void} \hyperlink{group___models_ga1eef3317224a7a06348fce07e581a9ad}{removeLine}(\hyperlink{class_line}{Line} *line);
+00344 
+00355   \hyperlink{class_bar}{Bar} *\hyperlink{group___models_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(uint32\_t \textcolor{keywordtype}{id});
+00356 
+00366   \hyperlink{class_line}{Line} *\hyperlink{group___models_ga8f090b85a7779695cb9f05b6395b3044}{getLineByNodes}(QPair<int32\_t, int32\_t> nodes);
+00367 
+00379   QJsonObject \hyperlink{group___models_ga1bb9773d3935eefef84136d388786494}{toJson}();
+00380 
+00390   \textcolor{keywordtype}{void} \hyperlink{group___models_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1}{fromJson}(QJsonObject &netJson);
+00391 
+00404   \textcolor{keywordtype}{double} \hyperlink{group___models_ga433bc5c32cf2ce5329bb40b21952d885}{currentBase}();
+00405 
+00417   \textcolor{keywordtype}{double} \hyperlink{group___models_gae6794c93d37df113778c37c2c702f6d9}{impedanceBase}();
+00418 
+00427   \textcolor{keywordtype}{double} \hyperlink{group___models_ga88cd2506aaf0b19513e41f00608093e0}{voltageBase}();
+00428 
+00437   \textcolor{keywordtype}{double} \hyperlink{group___models_ga6fdbd7d04d12a3f1215c92e2e20eabdb}{powerBase}();
+00438 
+00446   \textcolor{keywordtype}{void} \hyperlink{group___models_gac2787bb9c323716baa2e6fba06136f2b}{setVoltageBase}(\textcolor{keywordtype}{double} voltage);
+00447 
+00455   \textcolor{keywordtype}{void} \hyperlink{group___models_ga3ba9ef05ea0c5037a415cfab25d03a0d}{setPowerBase}(\textcolor{keywordtype}{double} power);
+00456 
+00457 \textcolor{keyword}{private}:
+00458   \textcolor{comment}{/*****************************************************************************}
+00459 \textcolor{comment}{   * Private data.}
+00460 \textcolor{comment}{   ****************************************************************************/}
+00464   \textcolor{keywordtype}{double} voltageBase\_;
+00465 
+00469   \textcolor{keywordtype}{double} powerBase\_;
+00470 \};
+00471 
+00472 \textcolor{preprocessor}{#endif  // MODELS\_NETWORK\_H}
+00473 
 \end{DoxyCode}

@@ -2,28 +2,83 @@
 \label{shirmoharmmadi_8h_source}\index{shirmoharmmadi.\+h@{shirmoharmmadi.\+h}}
 
 \begin{DoxyCode}
-00001 \textcolor{preprocessor}{#ifndef ALGORITHMS\_SHIRMOHARMMADI\_H}
-00002 \textcolor{preprocessor}{#define ALGORITHMS\_SHIRMOHARMMADI\_H}
-00003 
-00004 \textcolor{preprocessor}{#include "\hyperlink{bar_8h}{models/bar.h}"}
-00005 \textcolor{preprocessor}{#include "\hyperlink{line_8h}{models/line.h}"}
-00006 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
-00007 
-\hypertarget{shirmoharmmadi_8h_source_l00008}{}\hyperlink{class_shirmoharmmadi}{00008} \textcolor{keyword}{class }\hyperlink{class_shirmoharmmadi}{Shirmoharmmadi}
-00009 \{
-00010 \textcolor{keyword}{public}:
-00011   \hyperlink{class_shirmoharmmadi_aa5833386f9b43019a318c81a3006e2b1}{Shirmoharmmadi}(\hyperlink{class_network}{Network} *network);
-00012   \hyperlink{class_shirmoharmmadi_ac89016d70d3c99339af11f3b6f1f23b2}{~Shirmoharmmadi}();
-00013 
-\hypertarget{shirmoharmmadi_8h_source_l00014}{}\hyperlink{class_shirmoharmmadi_a32ab19ff485833106bf68cd91dbc94e6}{00014}   \textcolor{keywordtype}{double} \hyperlink{class_shirmoharmmadi_a32ab19ff485833106bf68cd91dbc94e6}{duration};
-\hypertarget{shirmoharmmadi_8h_source_l00015}{}\hyperlink{class_shirmoharmmadi_afdd22da0145b033c47f4f8a6bbd37d0d}{00015}   int32\_t \hyperlink{class_shirmoharmmadi_afdd22da0145b033c47f4f8a6bbd37d0d}{usedIterations};
-\hypertarget{shirmoharmmadi_8h_source_l00016}{}\hyperlink{class_shirmoharmmadi_aeb47da6439c2e92c7ebcc59ebb71624b}{00016}   \textcolor{keywordtype}{double} \hyperlink{class_shirmoharmmadi_aeb47da6439c2e92c7ebcc59ebb71624b}{slackGeneration};
-00017 
-00018   \textcolor{keywordtype}{bool} \hyperlink{class_shirmoharmmadi_acb4a06c62b5d97c25bea70acd477e715}{solve}();
-00019 
-00020 \textcolor{keyword}{private}:
-00021   \hyperlink{class_network}{Network} *network\_;
-00022 \};
-00023 
-00024 \textcolor{preprocessor}{#endif // ALGORITHMS\_SHIRMOHARMMADI\_H}
+00001 \textcolor{comment}{/*}
+00002 \textcolor{comment}{ * The MIT License (MIT)}
+00003 \textcolor{comment}{ *}
+00004 \textcolor{comment}{ * Copyright (c) 2015 David Krepsky}
+00005 \textcolor{comment}{ *}
+00006 \textcolor{comment}{ * Permission is hereby granted, free of charge, to any person obtaining a copy}
+00007 \textcolor{comment}{ * of this software and associated documentation files (the "Software"), to deal}
+00008 \textcolor{comment}{ * in the Software without restriction, including without limitation the rights}
+00009 \textcolor{comment}{ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}
+00010 \textcolor{comment}{ * copies of the Software, and to permit persons to whom the Software is}
+00011 \textcolor{comment}{ * furnished to do so, subject to the following conditions:}
+00012 \textcolor{comment}{ *}
+00013 \textcolor{comment}{ * The above copyright notice and this permission notice shall be included in}
+00014 \textcolor{comment}{ * all copies or substantial portions of the Software.}
+00015 \textcolor{comment}{ *}
+00016 \textcolor{comment}{ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}
+00017 \textcolor{comment}{ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}
+00018 \textcolor{comment}{ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}
+00019 \textcolor{comment}{ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}
+00020 \textcolor{comment}{ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}
+00021 \textcolor{comment}{ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}
+00022 \textcolor{comment}{ * SOFTWARE.}
+00023 \textcolor{comment}{ */}
+00024 
+00043 \textcolor{preprocessor}{#ifndef ALGORITHMS\_SHIRMOHARMMADI\_H}
+00044 \textcolor{preprocessor}{#define ALGORITHMS\_SHIRMOHARMMADI\_H}
+00045 
+00046 
+00047 \textcolor{preprocessor}{#include <complex>}
+00048 \textcolor{preprocessor}{#include "\hyperlink{radiallayer_8h}{radiallayer.h}"}
+00049 \textcolor{preprocessor}{#include "\hyperlink{bar_8h}{models/bar.h}"}
+00050 \textcolor{preprocessor}{#include "\hyperlink{line_8h}{models/line.h}"}
+00051 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
+00052 
+\hypertarget{shirmoharmmadi_8h_source_l00089}{}\hyperlink{class_shirmoharmmadi}{00089} \textcolor{keyword}{class }\hyperlink{class_shirmoharmmadi}{Shirmoharmmadi}
+00090 \{
+00091 \textcolor{keyword}{public}:
+00092   \textcolor{comment}{/*****************************************************************************}
+00093 \textcolor{comment}{   * Public data.}
+00094 \textcolor{comment}{   ****************************************************************************/}
+\hypertarget{shirmoharmmadi_8h_source_l00098}{}\hyperlink{class_shirmoharmmadi_a32ab19ff485833106bf68cd91dbc94e6}{00098}   \textcolor{keywordtype}{double} \hyperlink{class_shirmoharmmadi_a32ab19ff485833106bf68cd91dbc94e6}{duration};
+00099 
+\hypertarget{shirmoharmmadi_8h_source_l00103}{}\hyperlink{class_shirmoharmmadi_afdd22da0145b033c47f4f8a6bbd37d0d}{00103}   int32\_t \hyperlink{class_shirmoharmmadi_afdd22da0145b033c47f4f8a6bbd37d0d}{usedIterations};
+00104 
+\hypertarget{shirmoharmmadi_8h_source_l00108}{}\hyperlink{class_shirmoharmmadi_aeb47da6439c2e92c7ebcc59ebb71624b}{00108}   \textcolor{keywordtype}{double} \hyperlink{class_shirmoharmmadi_aeb47da6439c2e92c7ebcc59ebb71624b}{slackGeneration};
+00109 
+\hypertarget{shirmoharmmadi_8h_source_l00113}{}\hyperlink{class_shirmoharmmadi_a0c02ead0472b54a84fc746a13b8d02b2}{00113}   \textcolor{keywordtype}{double} \hyperlink{class_shirmoharmmadi_a0c02ead0472b54a84fc746a13b8d02b2}{totalLoss};
+00114 
+00115   \textcolor{comment}{/*****************************************************************************}
+00116 \textcolor{comment}{   * Public methods.}
+00117 \textcolor{comment}{   ****************************************************************************/}
+00125   \hyperlink{group___algorithms_gaa5833386f9b43019a318c81a3006e2b1}{Shirmoharmmadi}(\hyperlink{class_network}{Network} *network);
+00126 
+00130   \hyperlink{group___algorithms_gac89016d70d3c99339af11f3b6f1f23b2}{~Shirmoharmmadi}();
+00131 
+00137   \textcolor{keywordtype}{bool} \hyperlink{group___algorithms_gacb4a06c62b5d97c25bea70acd477e715}{solve}();
+00138 
+00139 \textcolor{keyword}{private}:
+00140   \textcolor{comment}{/*****************************************************************************}
+00141 \textcolor{comment}{   * Private data.}
+00142 \textcolor{comment}{   ****************************************************************************/}
+00146   \hyperlink{class_network}{Network} *network\_;
+00147 
+00151   complex<double> oldSlackPower[3];
+00152 
+00153   \textcolor{comment}{/*****************************************************************************}
+00154 \textcolor{comment}{   * Private methods.}
+00155 \textcolor{comment}{   ****************************************************************************/}
+00162   \textcolor{keywordtype}{void} doBackwardSweep(\hyperlink{class_radial_layer}{RadialLayer} &radLayer);
+00163 
+00170   \textcolor{keywordtype}{void} doForwardSweep(\hyperlink{class_radial_layer}{RadialLayer} &radLayer);
+00171 
+00177   \textcolor{keywordtype}{void} computeSlackCurrent();
+00178 
+00186   \textcolor{keywordtype}{double} maxError();
+00187 \};
+00188 
+00189 \textcolor{preprocessor}{#endif // ALGORITHMS\_SHIRMOHARMMADI\_H}
+00190 
 \end{DoxyCode}

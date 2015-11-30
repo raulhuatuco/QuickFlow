@@ -1,11 +1,10 @@
 var searchData=
 [
-  ['main',['main',['../main_8cpp.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main.cpp']]],
-  ['maxiterations',['maxIterations',['../class_project.html#ab9d6426396a75f2fcaeadcddcd0fac64',1,'Project']]],
-  ['minerror',['minError',['../class_project.html#a457ed8d3b0ea5816f928977509f69a34',1,'Project']]],
-  ['mousedoubleclickevent',['mouseDoubleClickEvent',['../group___models.html#ga1945e7b4401fa9ad7475274d9fb12a72',1,'Bar::mouseDoubleClickEvent()'],['../group___models.html#ga9a1fee5b1606ab0deedd04bdab99be70',1,'Line::mouseDoubleClickEvent()']]],
-  ['mousemoveevent',['mouseMoveEvent',['../group___graphics.html#gab19e233cd697852dd71140971cb6e122',1,'SystemView']]],
-  ['mousepressevent',['mousePressEvent',['../group___graphics.html#ga42d4a485d6d9bd891d9505a5213cf783',1,'SystemView']]],
-  ['mousereleaseevent',['mouseReleaseEvent',['../group___graphics.html#gaa8a2664405194bbe29daa454aead7416',1,'SystemView']]],
-  ['multilevel',['multiLevel',['../class_redraw_network.html#a56a92ad06ae0198ee60160aa66aa0ce1',1,'RedrawNetwork']]]
+  ['length',['length',['../group___models.html#gae2e4500d0fa60dcc2ecb08b2c96954f9',1,'Line']]],
+  ['lengthunit',['lengthUnit',['../class_project.html#a40cd2f59a4a708897e5997942c046f4d',1,'Project']]],
+  ['lengthunittostr',['lengthUnitToStr',['../class_unit.html#abd363319f79f97b0a0b9a08c5ddc3cdb',1,'Unit']]],
+  ['line',['Line',['../group___models.html#gacc11b8a429d8cdd63ba6803dff5602b3',1,'Line::Line()'],['../class_line_properties.html#ae99691d680b4df7bac3419b5588bd777',1,'LineProperties::line()']]],
+  ['lineproperties',['LineProperties',['../class_line_properties.html#a0bc0d7c02db0a4ea920d040f76679fec',1,'LineProperties::LineProperties()'],['../class_system_view.html#a58c4a0bf68178ab59066819118214360',1,'SystemView::lineProperties()']]],
+  ['load',['load',['../class_project.html#a1e373892a0383371132ce68fa5f8813d',1,'Project']]],
+  ['loss',['loss',['../group___models.html#ga511d4e89d613d4f222480476f2da3abe',1,'Line']]]
 ];

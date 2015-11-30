@@ -1,19 +1,21 @@
 <map id="quickflow.cpp" name="quickflow.cpp">
-<area shape="rect" id="node2" href="$quickflow_8h.html" title="Main window class definition. " alt="" coords="152,80,240,107"/>
-<area shape="rect" id="node13" href="$network_8h.html" title="Network class definition. " alt="" coords="943,229,1068,256"/>
-<area shape="rect" id="node19" href="$bar_8h.html" title="Bar class definition. " alt="" coords="1237,304,1334,331"/>
-<area shape="rect" id="node22" href="$line_8h.html" title="line class definition. " alt="" coords="1480,379,1579,405"/>
-<area shape="rect" id="node28" href="$newproject_8h.html" title="NewProject class definition. " alt="" coords="264,80,408,107"/>
-<area shape="rect" id="node31" href="$networkproperties_8h.html" title="window/networkproperties.h" alt="" coords="776,80,960,107"/>
-<area shape="rect" id="node32" href="$barproperties_8h.html" title="window/barproperties.h" alt="" coords="433,80,589,107"/>
-<area shape="rect" id="node33" href="$lineproperties_8h.html" title="window/lineproperties.h" alt="" coords="1331,80,1490,107"/>
-<area shape="rect" id="node35" href="$about_8h.html" title="About class definition. " alt="" coords="985,80,1098,107"/>
-<area shape="rect" id="node36" href="$searchbar_8h.html" title="window/searchbar.h" alt="" coords="613,80,752,107"/>
-<area shape="rect" id="node37" href="$import_8h.html" title="algorithms/import.h" alt="" coords="1173,80,1307,107"/>
-<area shape="rect" id="node38" href="$redrawnetwork_8h.html" title="RedrawNetwork class definition. " alt="" coords="1669,155,1851,181"/>
-<area shape="rect" id="node42" href="$shirmoharmmadi_8h.html" title="algorithms/shirmoharmmadi.h" alt="" coords="1298,155,1491,181"/>
-<area shape="rect" id="node6" href="$project_8h.html" title="project.h" alt="" coords="647,155,719,181"/>
-<area shape="rect" id="node10" href="$customtypes_8h.html" title="customtypes.h" alt="" coords="529,379,637,405"/>
-<area shape="rect" id="node26" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="1229,379,1355,405"/>
-<area shape="rect" id="node23" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="1573,453,1699,480"/>
+<area shape="rect" id="node2" href="$quickflow_8h.html" title="Main window class definition. " alt="" coords="128,80,216,107"/>
+<area shape="rect" id="node13" href="$network_8h.html" title="Network class definition. " alt="" coords="1011,229,1136,256"/>
+<area shape="rect" id="node20" href="$bar_8h.html" title="Bar class definition. " alt="" coords="1422,304,1519,331"/>
+<area shape="rect" id="node23" href="$line_8h.html" title="Line class definition. " alt="" coords="1599,379,1697,405"/>
+<area shape="rect" id="node29" href="$projectproperties_8h.html" title="ProjectProperties class definition. " alt="" coords="241,80,418,107"/>
+<area shape="rect" id="node32" href="$networkproperties_8h.html" title="NetworkProperties class definition. " alt="" coords="623,80,807,107"/>
+<area shape="rect" id="node33" href="$barproperties_8h.html" title="window/barproperties.h" alt="" coords="442,80,598,107"/>
+<area shape="rect" id="node34" href="$lineproperties_8h.html" title="window/lineproperties.h" alt="" coords="1234,80,1393,107"/>
+<area shape="rect" id="node36" href="$about_8h.html" title="About class definition. " alt="" coords="994,80,1107,107"/>
+<area shape="rect" id="node37" href="$searchbar_8h.html" title="SearchBar class definition. " alt="" coords="831,80,969,107"/>
+<area shape="rect" id="node38" href="$import_8h.html" title="algorithms/import.h" alt="" coords="801,155,935,181"/>
+<area shape="rect" id="node39" href="$redrawnetwork_8h.html" title="RedrawNetwork class definition. " alt="" coords="1991,155,2174,181"/>
+<area shape="rect" id="node43" href="$shirmoharmmadi_8h.html" title="Definition of Shirmoharmmadi algorithm. " alt="" coords="1469,80,1662,107"/>
+<area shape="rect" id="node45" href="$cespedes_8h.html" title="algorithms/cespedes.h" alt="" coords="1725,80,1878,107"/>
+<area shape="rect" id="node6" href="$project_8h.html" title="project.h" alt="" coords="561,155,633,181"/>
+<area shape="rect" id="node10" href="$unit_8h.html" title="unit.h" alt="" coords="735,379,790,405"/>
+<area shape="rect" id="node27" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="1399,379,1524,405"/>
+<area shape="rect" id="node24" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="1647,453,1774,480"/>
+<area shape="rect" id="node44" href="$radiallayer_8h.html" title="radiallayer.h" alt="" coords="1519,155,1611,181"/>
 </map>

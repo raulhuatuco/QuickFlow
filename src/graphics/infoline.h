@@ -2,6 +2,7 @@
 #define GRAPHICS_INFOLINE_H
 
 #include <QGraphicsItem>
+#include <QGraphicsObject>
 #include <QPoint>
 #include "models/line.h"
 
@@ -9,8 +10,10 @@ QT_BEGIN_NAMESPACE
 class Line;
 QT_END_NAMESPACE
 
-class InfoLine : public QGraphicsItem
+class InfoLine : public QGraphicsObject
 {
+Q_OBJECT
+
 public:
   static const int kTableRows;
   static const int kTableColums;

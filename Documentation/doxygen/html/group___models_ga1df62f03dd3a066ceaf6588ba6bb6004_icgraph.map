@@ -1,4 +1,4 @@
 <map id="Bar::fromJson" name="Bar::fromJson">
-<area shape="rect" id="node2" href="$group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Network::fromJson" alt="" coords="157,5,291,32"/>
+<area shape="rect" id="node2" href="$group___models.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Load from Json object. " alt="" coords="157,5,291,32"/>
 <area shape="rect" id="node3" href="$class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="339,5,433,32"/>
 </map>

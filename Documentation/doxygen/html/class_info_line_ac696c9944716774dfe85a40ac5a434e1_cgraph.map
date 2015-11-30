@@ -2,14 +2,13 @@
 <area shape="rect" id="node2" href="$class_info_line.html#a3a0f83ad98fe674513dab679e22cba42" title="InfoLine::drawMainRectangle" alt="" coords="157,5,348,32"/>
 <area shape="rect" id="node3" href="$class_info_line.html#a53e9012a9cef4f07f1d4872c6d250c08" title="InfoLine::drawHeadSeparator" alt="" coords="157,56,348,83"/>
 <area shape="rect" id="node4" href="$class_info_line.html#a389ea4f5085b60d03022b94e636f11d1" title="InfoLine::setHeadFont" alt="" coords="177,107,328,133"/>
-<area shape="rect" id="node5" href="$class_info_line.html#a043932fa92604badc063e09691195609" title="InfoLine::drawHeadText" alt="" coords="172,157,333,184"/>
-<area shape="rect" id="node6" href="$class_info_line.html#a4d5084d616c878cb717e8445db0023c1" title="InfoLine::setNormalFont" alt="" coords="171,208,334,235"/>
-<area shape="rect" id="node7" href="$class_data_table.html#a8a8cd6f95caaaff148993f8e28eeb703" title="DataTable::setSize" alt="" coords="185,259,320,285"/>
-<area shape="rect" id="node8" href="$class_unit.html#a7bd3ed3edcb18170cd162d384075b651" title="Unit::currentUnitToStr" alt="" coords="177,309,328,336"/>
-<area shape="rect" id="node9" href="$class_data_table.html#aee0d28c77116b51360f0124a529cb3ff" title="DataTable::setText" alt="" coords="185,360,320,387"/>
-<area shape="rect" id="node10" href="$class_unit.html#ad1487441b5a7eb93a3eb0aeebe947725" title="Unit::powerUnitToStr" alt="" coords="180,411,325,437"/>
-<area shape="rect" id="node11" href="$group___models.html#gaf81e7055102816465bdf7e19afc2d547" title="Line::i" alt="" coords="224,461,281,488"/>
-<area shape="rect" id="node13" href="$group___models.html#ga7909d69e419de3f460ca7abab3d91e53" title="Line::loss" alt="" coords="213,512,292,539"/>
-<area shape="rect" id="node14" href="$class_data_table.html#a3a3695e88dcd4d4aad5cc941ec7e6e55" title="DataTable::drawTable" alt="" coords="177,563,328,589"/>
-<area shape="rect" id="node12" href="$group___graphics.html#ga433bc5c32cf2ce5329bb40b21952d885" title="Network::currentBase" alt="" coords="396,461,545,488"/>
+<area shape="rect" id="node5" href="$group___models.html#gaa4cfa330c9c53ddaf86c8f5c17ba1ee0" title="Network. " alt="" coords="203,157,303,184"/>
+<area shape="rect" id="node6" href="$class_info_line.html#a043932fa92604badc063e09691195609" title="InfoLine::drawHeadText" alt="" coords="172,208,333,235"/>
+<area shape="rect" id="node7" href="$class_info_line.html#a4d5084d616c878cb717e8445db0023c1" title="InfoLine::setNormalFont" alt="" coords="171,259,334,285"/>
+<area shape="rect" id="node8" href="$class_data_table.html#a8a8cd6f95caaaff148993f8e28eeb703" title="DataTable::setSize" alt="" coords="185,309,320,336"/>
+<area shape="rect" id="node9" href="$class_unit.html#a7bd3ed3edcb18170cd162d384075b651" title="Unit::currentUnitToStr" alt="" coords="177,360,328,387"/>
+<area shape="rect" id="node10" href="$class_data_table.html#aee0d28c77116b51360f0124a529cb3ff" title="DataTable::setText" alt="" coords="185,411,320,437"/>
+<area shape="rect" id="node11" href="$group___models.html#ga2ad899adaa4f2e25b38c58e076db94ea" title="Line current. " alt="" coords="224,461,281,488"/>
+<area shape="rect" id="node12" href="$group___models.html#ga511d4e89d613d4f222480476f2da3abe" title="Line loss. " alt="" coords="213,512,292,539"/>
+<area shape="rect" id="node13" href="$class_data_table.html#a3a3695e88dcd4d4aad5cc941ec7e6e55" title="DataTable::drawTable" alt="" coords="177,563,328,589"/>
 </map>

@@ -1,9 +1,9 @@
 <map id="radiallayer.cpp" name="radiallayer.cpp">
-<area shape="rect" id="node2" href="$radiallayer_8h.html" title="radiallayer.h" alt="" coords="445,80,537,107"/>
-<area shape="rect" id="node3" href="$network_8h.html" title="Network class definition. " alt="" coords="428,155,553,181"/>
-<area shape="rect" id="node10" href="$customtypes_8h.html" title="customtypes.h" alt="" coords="318,304,426,331"/>
-<area shape="rect" id="node14" href="$bar_8h.html" title="Bar class definition. " alt="" coords="603,229,701,256"/>
-<area shape="rect" id="node17" href="$line_8h.html" title="line class definition. " alt="" coords="579,304,677,331"/>
-<area shape="rect" id="node21" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="889,304,1015,331"/>
-<area shape="rect" id="node18" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="565,379,691,405"/>
+<area shape="rect" id="node2" href="$radiallayer_8h.html" title="radiallayer.h" alt="" coords="447,80,539,107"/>
+<area shape="rect" id="node3" href="$network_8h.html" title="Network class definition. " alt="" coords="430,155,555,181"/>
+<area shape="rect" id="node11" href="$unit_8h.html" title="unit.h" alt="" coords="999,304,1053,331"/>
+<area shape="rect" id="node15" href="$bar_8h.html" title="Bar class definition. " alt="" coords="543,229,640,256"/>
+<area shape="rect" id="node18" href="$line_8h.html" title="Line class definition. " alt="" coords="518,304,617,331"/>
+<area shape="rect" id="node22" href="$infobar_8h.html" title="graphics/infobar.h" alt="" coords="835,304,961,331"/>
+<area shape="rect" id="node19" href="$infoline_8h.html" title="graphics/infoline.h" alt="" coords="497,379,624,405"/>
 </map>

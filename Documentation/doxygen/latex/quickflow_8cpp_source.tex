@@ -30,7 +30,7 @@
 00044 \textcolor{preprocessor}{#include "ui\_quickflow.h"}
 00045 
 00046 
-00047 \textcolor{preprocessor}{#include "\hyperlink{newproject_8h}{window/newproject.h}"}
+00047 \textcolor{preprocessor}{#include "\hyperlink{projectproperties_8h}{window/projectproperties.h}"}
 00048 \textcolor{preprocessor}{#include "\hyperlink{networkproperties_8h}{window/networkproperties.h}"}
 00049 \textcolor{preprocessor}{#include "\hyperlink{barproperties_8h}{window/barproperties.h}"}
 00050 \textcolor{preprocessor}{#include "\hyperlink{lineproperties_8h}{window/lineproperties.h}"}
@@ -44,861 +44,913 @@
 00058 \textcolor{preprocessor}{#include "\hyperlink{import_8h}{algorithms/import.h}"}
 00059 \textcolor{preprocessor}{#include "\hyperlink{redrawnetwork_8h}{algorithms/redrawnetwork.h}"}
 00060 \textcolor{preprocessor}{#include "\hyperlink{shirmoharmmadi_8h}{algorithms/shirmoharmmadi.h}"}
-00061 
-00062 \textcolor{comment}{/*****************************************************************************}
-00063 \textcolor{comment}{* Const.}
-00064 \textcolor{comment}{*****************************************************************************/}
-00065 \textcolor{keyword}{const} QString \hyperlink{group___window_gabfc3b1280bdae9a9c046d56b1459ab99}{QuickFlow::kVersion} = \textcolor{stringliteral}{"0.0.5"};
-00066 
-00067 \textcolor{comment}{/*******************************************************************************}
-00068 \textcolor{comment}{ * Constructor.}
-00069 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{quickflow_8cpp_source_l00070}{}\hyperlink{group___window_ga7689e2608835392fce3f4c95a7a542db}{00070} \hyperlink{group___window_ga7689e2608835392fce3f4c95a7a542db}{QuickFlow::QuickFlow}(QWidget *parent)
-00071   : QMainWindow(parent),
-00072     ui(new \hyperlink{namespace_ui}{Ui}::\hyperlink{class_quick_flow}{QuickFlow}),
-00073     project(NULL),
-00074     altered\_ (false)
-00075 \{
-00076   \textcolor{comment}{// Set-up user interface.}
-00077   ui->setupUi(\textcolor{keyword}{this});
-00078 
-00079   \textcolor{comment}{// Adjust initial interface to disable project related actions.}
-00080   noProjectInterface();
-00081 
-00082   \textcolor{comment}{// Set application info.}
-00083   QCoreApplication::setOrganizationName(\textcolor{stringliteral}{"DKrepsky"});
-00084   QCoreApplication::setOrganizationDomain(\textcolor{stringliteral}{"dkrepsky.blogspot.com.br"});
-00085   QCoreApplication::setApplicationName(\textcolor{stringliteral}{"QuickFlow"});
-00086   QCoreApplication::setApplicationVersion(\hyperlink{group___window_gabfc3b1280bdae9a9c046d56b1459ab99}{kVersion});
-00087 
-00088   \textcolor{comment}{// Check for settings existence and version.}
-00089   settings = \textcolor{keyword}{new} QSettings(\textcolor{keyword}{this});
-00090 
-00091   \textcolor{keywordflow}{if} (settings->contains(\textcolor{stringliteral}{"version"})) \{
-00092     \textcolor{keywordflow}{if} (settings->value(\textcolor{stringliteral}{"version"}).toString() == \hyperlink{group___window_gabfc3b1280bdae9a9c046d56b1459ab99}{kVersion})
-00093       \textcolor{comment}{// If exists and is in the current version, use it.}
-00094       loadSettings();
-00095     \textcolor{keywordflow}{else}
-00096       \textcolor{comment}{// Update to the new program version.}
-00097       upgradeSettings();
-00098   \} \textcolor{keywordflow}{else} \{
-00099     \textcolor{comment}{// If there is no settings availiable, create a new one with default values.}
-00100     createSettings();
-00101   \}
-00102 
-00103   connectSignals();
-00104 \}
-00105 
-00106 \textcolor{comment}{/*******************************************************************************}
-00107 \textcolor{comment}{ * Destructor.}
-00108 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{quickflow_8cpp_source_l00109}{}\hyperlink{group___window_ga985823a0db64246b3a15eed2f397e0a4}{00109} \hyperlink{group___window_ga985823a0db64246b3a15eed2f397e0a4}{QuickFlow::~QuickFlow}()
-00110 \{
-00111   disconnectSignals();
-00112   \textcolor{keyword}{delete} ui;
-00113 \}
-00114 
-00115 \textcolor{comment}{/*******************************************************************************}
-00116 \textcolor{comment}{ * Is altered.}
-00117 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{quickflow_8cpp_source_l00118}{}\hyperlink{group___window_ga5d9148467ef65c48419bf020ee107a45}{00118} \textcolor{keywordtype}{bool} \hyperlink{group___window_ga5d9148467ef65c48419bf020ee107a45}{QuickFlow::isAltered}()
-00119 \{
-00120   \textcolor{keywordflow}{return} altered\_;
-00121 \}
-00122 
-00123 \textcolor{comment}{/*******************************************************************************}
-00124 \textcolor{comment}{ * Set altered.}
-00125 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{quickflow_8cpp_source_l00126}{}\hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{00126} \textcolor{keywordtype}{void} \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{QuickFlow::setAltered}(\textcolor{keywordtype}{bool} altered)
-00127 \{
-00128   altered\_ = altered;
-00129 
-00130   \textcolor{keywordflow}{if}(altered\_) \{
-00131     ui->actionSave->setEnabled(\textcolor{keyword}{true});
-00132     \textcolor{comment}{// Change window title to indicate that the project is altered.}
-00133     setWindowTitle(\textcolor{stringliteral}{"QkFlow - *"} + project->\hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name});
-00134   \} \textcolor{keywordflow}{else} \{
-00135     ui->actionSave->setEnabled(\textcolor{keyword}{false});
-00136     \textcolor{comment}{// Change window title to indicate that the project has been saved.}
-00137     setWindowTitle(\textcolor{stringliteral}{"QkFlow - "} + project->\hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name});
-00138   \}
-00139 \}
-00140 
-00141 \textcolor{comment}{/*******************************************************************************}
-00142 \textcolor{comment}{ * Zoom in action.}
-00143 \textcolor{comment}{ ******************************************************************************/}
-00144 \textcolor{keywordtype}{void} QuickFlow::on\_actionZoomIn\_triggered()
-00145 \{
-00146   ui->systemView->zoomIn();
-00147 \}
-00148 
-00149 \textcolor{comment}{/*******************************************************************************}
-00150 \textcolor{comment}{ * Zoom out action.}
-00151 \textcolor{comment}{ ******************************************************************************/}
-00152 \textcolor{keywordtype}{void} QuickFlow::on\_actionZoomOut\_triggered()
-00153 \{
-00154   ui->systemView->zoomOut();
-00155 \}
-00156 
-00157 \textcolor{comment}{/*******************************************************************************}
-00158 \textcolor{comment}{ * Zoom fit action.}
-00159 \textcolor{comment}{ ******************************************************************************/}
-00160 \textcolor{keywordtype}{void} QuickFlow::on\_actionZoomFit\_triggered()
-00161 \{
-00162   ui->systemView->zoomFit();
-00163 \}
-00164 
-00165 \textcolor{comment}{/*******************************************************************************}
-00166 \textcolor{comment}{ * Exit action.}
-00167 \textcolor{comment}{ ******************************************************************************/}
-00168 \textcolor{keywordtype}{void} QuickFlow::on\_actionExit\_triggered()
-00169 \{
-00170   close();
-00171 \}
-00172 
-00173 \textcolor{comment}{/*******************************************************************************}
-00174 \textcolor{comment}{ * New project action.}
-00175 \textcolor{comment}{ ******************************************************************************/}
-00176 \textcolor{keywordtype}{void} QuickFlow::on\_actionNew\_triggered()
-00177 \{
-00178   \textcolor{comment}{// Check if there is a project already opened.}
-00179   \textcolor{keywordflow}{if} (project != NULL) \{
-00180     \textcolor{comment}{// Close project}
-00181     ui->actionClose->trigger();
-00182 
-00183     \textcolor{comment}{// If close didnt succed, cancel new project.}
-00184     \textcolor{keywordflow}{if} (project != NULL) \textcolor{keywordflow}{return};
-00185   \}
-00186 
-00187   \textcolor{comment}{// Open New Project window and gather the project settings.}
-00188   \textcolor{comment}{// NOTE: windowNewProject MUST provide valid data.}
-00189   \hyperlink{class_new_project}{NewProject} newProject(\textcolor{keyword}{this});
-00190 
-00191   \textcolor{comment}{// If canceled return}
-00192   \textcolor{keywordflow}{if} (newProject.exec() != QDialog::Accepted) \{
-00193     \textcolor{keywordflow}{return};
-00194   \}
-00195 
-00196   \textcolor{comment}{// Create project object and fill settings.}
-00197   project = \textcolor{keyword}{new} \hyperlink{class_project}{Project};
-00198   project->\hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name} = newProject.dataName;
-00199   project->\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = newProject.dataPath + QDir::separator() +
-00200                       newProject.dataName + \textcolor{stringliteral}{".qkf"};
-00201 
-00202   \textcolor{comment}{// Simulation data.}
-00203   project->\hyperlink{class_project_af2046a5d542d3e3dd51cb9cb04604e8f}{setMaxIterations}(newProject.dataMaxIterations);
-00204   project->\hyperlink{class_project_a2cb776c39adb42a1113bf7887d0d4636}{setMinError}(newProject.dataMinError);
-00205   project->\hyperlink{class_project_a494c3e89851f754188c7abaedbf77ef6}{setVoltageBase}(newProject.dataVoltageBase);
-00206   project->\hyperlink{class_project_abb4df805b3cd3af509a41e657eb4bb83}{setPowerBase}(newProject.dataPowerBase);
-00207 
-00208   \textcolor{comment}{// Units.}
-00209   project->\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{setLengthUn}(newProject.dataLengthUnit);
-00210   project->\hyperlink{class_project_a995d050781923522ae2a02728346d199}{setImpedanceUn}(newProject.dataImpedanceUnit);
-00211   project->\hyperlink{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{setVoltageUn}(newProject.dataVoltageUnit);
-00212   project->\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{setPowerUn}(newProject.dataPowerUnit);
-00213   project->\hyperlink{class_project_a64d9800bc3acafcfa4d3f45ee5aacc6d}{setCurrentUnit}(newProject.dataCurrentUnit);
-00214 
-00215   \textcolor{comment}{// Try to save project.}
-00216   \textcolor{keywordtype}{bool} save\_ok = project->\hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{save}();
-00217 
-00218   \textcolor{keywordflow}{if} (!save\_ok) \{
-00219     QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"File write error"},
-00220                           \textcolor{stringliteral}{"Cannot write .qkf file."}, QMessageBox::Ok);
-00221     \textcolor{keyword}{delete} project;
-00222     project = NULL;
-00223     \textcolor{keywordflow}{return};
-00224   \}
-00225 
-00226   \textcolor{comment}{// New project is Ok}
-00227   \textcolor{comment}{// Change window title to indicate that the project is open}
-00228   setWindowTitle(\textcolor{stringliteral}{"QkFlow - "} + newProject.dataName);
-00229   \textcolor{comment}{// Enable interface}
-00230   workInterface();
-00231 \}
-00232 
-00233 \textcolor{comment}{/*******************************************************************************}
-00234 \textcolor{comment}{ * Open project action.}
-00235 \textcolor{comment}{ ******************************************************************************/}
-00236 \textcolor{keywordtype}{void} QuickFlow::on\_actionOpen\_triggered()
-00237 \{
-00238   \textcolor{comment}{// Check if there is a project already opened.}
-00239   \textcolor{keywordflow}{if} (project != NULL) \{
-00240     \textcolor{comment}{// Close project.}
-00241     ui->actionClose->trigger();
+00061 \textcolor{preprocessor}{#include "\hyperlink{cespedes_8h}{algorithms/cespedes.h}"}
+00062 
+00063 \textcolor{comment}{/*****************************************************************************}
+00064 \textcolor{comment}{* Const.}
+00065 \textcolor{comment}{*****************************************************************************/}
+00066 \textcolor{keyword}{const} QString \hyperlink{group___window_gabfc3b1280bdae9a9c046d56b1459ab99}{QuickFlow::kVersion} = \textcolor{stringliteral}{"0.0.5"};
+00067 
+00068 \textcolor{comment}{/*******************************************************************************}
+00069 \textcolor{comment}{ * Constructor.}
+00070 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{quickflow_8cpp_source_l00071}{}\hyperlink{group___window_ga7689e2608835392fce3f4c95a7a542db}{00071} \hyperlink{group___window_ga7689e2608835392fce3f4c95a7a542db}{QuickFlow::QuickFlow}(QWidget *parent)
+00072   : QMainWindow(parent),
+00073     ui(new \hyperlink{namespace_ui}{Ui}::\hyperlink{class_quick_flow}{QuickFlow}),
+00074     project(NULL),
+00075     altered\_ (false)
+00076 \{
+00077   \textcolor{comment}{// Set-up user interface.}
+00078   ui->setupUi(\textcolor{keyword}{this});
+00079 
+00080   \textcolor{comment}{// Adjust initial interface to disable project related actions.}
+00081   noProjectInterface();
+00082 
+00083   \textcolor{comment}{// Set application info.}
+00084   QCoreApplication::setOrganizationName(\textcolor{stringliteral}{"DKrepsky"});
+00085   QCoreApplication::setOrganizationDomain(\textcolor{stringliteral}{"dkrepsky.blogspot.com.br"});
+00086   QCoreApplication::setApplicationName(\textcolor{stringliteral}{"QuickFlow"});
+00087   QCoreApplication::setApplicationVersion(\hyperlink{group___window_gabfc3b1280bdae9a9c046d56b1459ab99}{kVersion});
+00088 
+00089   \textcolor{comment}{// Check for settings existence and version.}
+00090   settings = \textcolor{keyword}{new} QSettings(\textcolor{keyword}{this});
+00091 
+00092   \textcolor{keywordflow}{if} (settings->contains(\textcolor{stringliteral}{"version"})) \{
+00093     \textcolor{keywordflow}{if} (settings->value(\textcolor{stringliteral}{"version"}).toString() == \hyperlink{group___window_gabfc3b1280bdae9a9c046d56b1459ab99}{kVersion})
+00094       \textcolor{comment}{// If exists and is in the current version, use it.}
+00095       loadSettings();
+00096     \textcolor{keywordflow}{else}
+00097       \textcolor{comment}{// Update to the new program version.}
+00098       upgradeSettings();
+00099   \} \textcolor{keywordflow}{else} \{
+00100     \textcolor{comment}{// If there is no settings availiable, create a new one with default values.}
+00101     createSettings();
+00102   \}
+00103 
+00104   connectSignals();
+00105 \}
+00106 
+00107 \textcolor{comment}{/*******************************************************************************}
+00108 \textcolor{comment}{ * Destructor.}
+00109 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{quickflow_8cpp_source_l00110}{}\hyperlink{group___window_ga985823a0db64246b3a15eed2f397e0a4}{00110} \hyperlink{group___window_ga985823a0db64246b3a15eed2f397e0a4}{QuickFlow::~QuickFlow}()
+00111 \{
+00112   disconnectSignals();
+00113   \textcolor{keyword}{delete} ui;
+00114 \}
+00115 
+00116 \textcolor{comment}{/*******************************************************************************}
+00117 \textcolor{comment}{ * Is altered.}
+00118 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{quickflow_8cpp_source_l00119}{}\hyperlink{group___window_ga5d9148467ef65c48419bf020ee107a45}{00119} \textcolor{keywordtype}{bool} \hyperlink{group___window_ga5d9148467ef65c48419bf020ee107a45}{QuickFlow::isAltered}()
+00120 \{
+00121   \textcolor{keywordflow}{return} altered\_;
+00122 \}
+00123 
+00124 \textcolor{comment}{/*******************************************************************************}
+00125 \textcolor{comment}{ * Set altered.}
+00126 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{quickflow_8cpp_source_l00127}{}\hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{00127} \textcolor{keywordtype}{void} \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{QuickFlow::setAltered}(\textcolor{keywordtype}{bool} altered)
+00128 \{
+00129   altered\_ = altered;
+00130 
+00131   \textcolor{keywordflow}{if}(altered\_) \{
+00132     ui->actionSave->setEnabled(\textcolor{keyword}{true});
+00133     \textcolor{comment}{// Change window title to indicate that the project is altered.}
+00134     setWindowTitle(\textcolor{stringliteral}{"QkFlow - *"} + project->\hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name});
+00135   \} \textcolor{keywordflow}{else} \{
+00136     ui->actionSave->setEnabled(\textcolor{keyword}{false});
+00137     \textcolor{comment}{// Change window title to indicate that the project has been saved.}
+00138     setWindowTitle(\textcolor{stringliteral}{"QkFlow - "} + project->\hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name});
+00139   \}
+00140 \}
+00141 
+00142 \textcolor{comment}{/*******************************************************************************}
+00143 \textcolor{comment}{ * Zoom in action.}
+00144 \textcolor{comment}{ ******************************************************************************/}
+00145 \textcolor{keywordtype}{void} QuickFlow::on\_actionZoomIn\_triggered()
+00146 \{
+00147   ui->systemView->zoomIn();
+00148 \}
+00149 
+00150 \textcolor{comment}{/*******************************************************************************}
+00151 \textcolor{comment}{ * Zoom out action.}
+00152 \textcolor{comment}{ ******************************************************************************/}
+00153 \textcolor{keywordtype}{void} QuickFlow::on\_actionZoomOut\_triggered()
+00154 \{
+00155   ui->systemView->zoomOut();
+00156 \}
+00157 
+00158 \textcolor{comment}{/*******************************************************************************}
+00159 \textcolor{comment}{ * Zoom fit action.}
+00160 \textcolor{comment}{ ******************************************************************************/}
+00161 \textcolor{keywordtype}{void} QuickFlow::on\_actionZoomFit\_triggered()
+00162 \{
+00163   ui->systemView->scene()->update();
+00164   ui->systemView->zoomFit();
+00165 \}
+00166 
+00167 \textcolor{comment}{/*******************************************************************************}
+00168 \textcolor{comment}{ * Exit action.}
+00169 \textcolor{comment}{ ******************************************************************************/}
+00170 \textcolor{keywordtype}{void} QuickFlow::on\_actionExit\_triggered()
+00171 \{
+00172   close();
+00173 \}
+00174 
+00175 \textcolor{comment}{/*******************************************************************************}
+00176 \textcolor{comment}{ * New project action.}
+00177 \textcolor{comment}{ ******************************************************************************/}
+00178 \textcolor{keywordtype}{void} QuickFlow::on\_actionNew\_triggered()
+00179 \{
+00180   \textcolor{comment}{// Check if there is a project already opened.}
+00181   \textcolor{keywordflow}{if} (project != NULL) \{
+00182     \textcolor{comment}{// Close project}
+00183     ui->actionClose->trigger();
+00184 
+00185     \textcolor{comment}{// If close didnt succed, cancel new project.}
+00186     \textcolor{keywordflow}{if} (project != NULL) \textcolor{keywordflow}{return};
+00187   \}
+00188 
+00189   \hyperlink{class_project_properties}{ProjectProperties} projectProperties(\textcolor{keyword}{this});
+00190   projectProperties.setOptions(NULL);
+00191 
+00192   \textcolor{comment}{// If canceled return}
+00193   \textcolor{keywordflow}{if} (projectProperties.exec() != QDialog::Accepted) \{
+00194     \textcolor{keywordflow}{return};
+00195   \}
+00196 
+00197   \textcolor{comment}{// Save project pointer}
+00198   project = projectProperties.project();
+00199 
+00200   \textcolor{comment}{// New project is Ok}
+00201   \textcolor{comment}{// Change window title to indicate that the project is open}
+00202   setWindowTitle(\textcolor{stringliteral}{"QkFlow - "} + project->\hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name});
+00203   \textcolor{comment}{// Enable interface}
+00204   workInterface();
+00205 \}
+00206 
+00207 \textcolor{comment}{/*******************************************************************************}
+00208 \textcolor{comment}{ * Open project action.}
+00209 \textcolor{comment}{ ******************************************************************************/}
+00210 \textcolor{keywordtype}{void} QuickFlow::on\_actionOpen\_triggered()
+00211 \{
+00212   \textcolor{comment}{// Check if there is a project already opened.}
+00213   \textcolor{keywordflow}{if} (project != NULL) \{
+00214     \textcolor{comment}{// Close project.}
+00215     ui->actionClose->trigger();
+00216 
+00217     \textcolor{comment}{// If close didnt succed, cancel new project.}
+00218     \textcolor{keywordflow}{if} (project != NULL) \textcolor{keywordflow}{return};
+00219   \}
+00220 
+00221   \textcolor{comment}{// Open file dialog to select the project file.}
+00222   QFileDialog projectFile(\textcolor{keyword}{this});
+00223   projectFile.setFileMode(QFileDialog::ExistingFile);
+00224   projectFile.setAcceptMode(QFileDialog::AcceptOpen);
+00225   projectFile.setNameFilter(tr(\textcolor{stringliteral}{"QuickFlow Project (*.qkf)"}));
+00226   QString initialPath = QStandardPaths::standardLocations(
+00227                           QStandardPaths::DocumentsLocation)[0] + \textcolor{stringliteral}{"/QuickFlow"};
+00228 
+00229   projectFile.setDirectory(initialPath);
+00230 
+00231   \textcolor{comment}{// Check if user has canceled the opening.}
+00232   \textcolor{keywordflow}{if} (projectFile.exec() != QDialog::Accepted) \{
+00233     \textcolor{keywordflow}{return};
+00234   \}
+00235 
+00236   \textcolor{comment}{// Grab filename.}
+00237   QString fileName = projectFile.selectedFiles()[0];
+00238 
+00239   \textcolor{comment}{// Create project object and load from file.}
+00240   project = \textcolor{keyword}{new} \hyperlink{class_project}{Project};
+00241   project->\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = fileName;
 00242 
-00243     \textcolor{comment}{// If close didnt succed, cancel new project.}
-00244     \textcolor{keywordflow}{if} (project != NULL) \textcolor{keywordflow}{return};
-00245   \}
-00246 
-00247   \textcolor{comment}{// Open file dialog to select the project file.}
-00248   QFileDialog projectFile(\textcolor{keyword}{this});
-00249   projectFile.setFileMode(QFileDialog::ExistingFile);
-00250   projectFile.setAcceptMode(QFileDialog::AcceptOpen);
-00251   projectFile.setNameFilter(tr(\textcolor{stringliteral}{"QkFlow Project (*.qkf)"}));
-00252   projectFile.setDirectory(QStandardPaths::standardLocations(
-00253                              QStandardPaths::HomeLocation)[0]);
-00254 
-00255   \textcolor{comment}{// Check if user has canceled the opening.}
-00256   \textcolor{keywordflow}{if} (projectFile.exec() != QDialog::Accepted) \{
-00257     \textcolor{keywordflow}{return};
-00258   \}
-00259 
-00260   \textcolor{comment}{// Grab filename.}
-00261   QString fileName = projectFile.selectedFiles()[0];
+00243   \textcolor{keywordflow}{if} (project->\hyperlink{class_project_a1e373892a0383371132ce68fa5f8813d}{load}() != \textcolor{keyword}{true}) \{
+00244     QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"File read error"}, \textcolor{stringliteral}{"Cannot read .qkf file."},
+00245                           QMessageBox::Ok);
+00246     \textcolor{keyword}{delete} project;
+00247     project = NULL;
+00248     \textcolor{keywordflow}{return};
+00249   \}
+00250 
+00251   \textcolor{comment}{// New project is Ok.}
+00252   \textcolor{comment}{// Change window title to indicate that the project is open.}
+00253   setWindowTitle(\textcolor{stringliteral}{"QuickFlow - "} + project->\hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name});
+00254   \textcolor{comment}{// Enable interface.}
+00255   workInterface();
+00256 
+00257   \textcolor{comment}{// Add networks}
+00258   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00259     ui->systemView->addNetwork(network);
+00260   \}
+00261 \}
 00262 
-00263   \textcolor{comment}{// Create project object and load from file.}
-00264   project = \textcolor{keyword}{new} \hyperlink{class_project}{Project};
-00265   project->\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = fileName;
-00266 
-00267   \textcolor{keywordflow}{if} (project->\hyperlink{class_project_a1e373892a0383371132ce68fa5f8813d}{load}() != \textcolor{keyword}{true}) \{
-00268     QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"File read error"}, \textcolor{stringliteral}{"Cannot read .qkf file."},
-00269                           QMessageBox::Ok);
-00270     \textcolor{keyword}{delete} project;
-00271     project = NULL;
-00272     \textcolor{keywordflow}{return};
-00273   \}
-00274 
-00275   \textcolor{comment}{// New project is Ok.}
-00276   \textcolor{comment}{// Change window title to indicate that the project is open.}
-00277   setWindowTitle(\textcolor{stringliteral}{"QkFlow - "} + project->\hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name});
-00278   \textcolor{comment}{// Enable interface.}
-00279   workInterface();
-00280 
-00281   \textcolor{comment}{// Add networks}
-00282   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
-00283     ui->systemView->addNetwork(network);
-00284   \}
-00285 \}
-00286 
-00287 \textcolor{comment}{/*******************************************************************************}
-00288 \textcolor{comment}{ * Save project action.}
-00289 \textcolor{comment}{ ******************************************************************************/}
-00290 \textcolor{keywordtype}{void} QuickFlow::on\_actionSave\_triggered()
-00291 \{
-00292   \textcolor{comment}{// Check for alterations}
-00293   \textcolor{keywordflow}{if} (altered\_) \{
-00294     \textcolor{keywordflow}{if} (project->\hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{save}() != \textcolor{keyword}{true}) \{
-00295       QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Write to file failed"},
-00296                             \textcolor{stringliteral}{"Cannot save project."}, QMessageBox::Ok);
-00297       \textcolor{keywordflow}{return};
-00298     \}
-00299   \}
+00263 \textcolor{comment}{/*******************************************************************************}
+00264 \textcolor{comment}{ * Save project action.}
+00265 \textcolor{comment}{ ******************************************************************************/}
+00266 \textcolor{keywordtype}{void} QuickFlow::on\_actionSave\_triggered()
+00267 \{
+00268   \textcolor{comment}{// Check for alterations}
+00269   \textcolor{keywordflow}{if} (altered\_) \{
+00270     \textcolor{keywordflow}{if} (project->\hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{save}() != \textcolor{keyword}{true}) \{
+00271       QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Write to file failed"},
+00272                             \textcolor{stringliteral}{"Cannot save project."}, QMessageBox::Ok);
+00273       \textcolor{keywordflow}{return};
+00274     \}
+00275   \}
+00276 
+00277   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{false});
+00278 \}
+00279 
+00280 \textcolor{comment}{/*******************************************************************************}
+00281 \textcolor{comment}{ * Save project as action.}
+00282 \textcolor{comment}{ ******************************************************************************/}
+00283 \textcolor{keywordtype}{void} QuickFlow::on\_actionSave\_as\_triggered()
+00284 \{
+00285   \textcolor{comment}{// Get file location from user.}
+00286   QFileDialog projectFile(\textcolor{keyword}{this});
+00287   projectFile.setAcceptMode(QFileDialog::AcceptSave);
+00288   projectFile.setNameFilter(tr(\textcolor{stringliteral}{"QuickFlow Project (*.qkf)"}));
+00289   QString initialPath = QStandardPaths::standardLocations(
+00290                           QStandardPaths::DocumentsLocation)[0] + \textcolor{stringliteral}{"/QuickFlow"};
+00291   projectFile.setDirectory(initialPath);
+00292 
+00293   \textcolor{comment}{// Check if user has canceled the opening.}
+00294   \textcolor{keywordflow}{if} (projectFile.exec() != QDialog::Accepted) \{
+00295     \textcolor{keywordflow}{return};
+00296   \}
+00297 
+00298   \textcolor{comment}{// Grab filename.}
+00299   QString filePath = projectFile.selectedFiles()[0];
 00300 
-00301   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{false});
-00302 \}
-00303 
-00304 \textcolor{comment}{/*******************************************************************************}
-00305 \textcolor{comment}{ * Save project as action.}
-00306 \textcolor{comment}{ ******************************************************************************/}
-00307 \textcolor{keywordtype}{void} QuickFlow::on\_actionSave\_as\_triggered()
-00308 \{
-00309   \textcolor{comment}{// Get file location from user.}
-00310   QFileDialog projectFile(\textcolor{keyword}{this});
-00311   projectFile.setAcceptMode(QFileDialog::AcceptSave);
-00312   projectFile.setNameFilter(tr(\textcolor{stringliteral}{"QkFlow Project (*.qkf)"}));
-00313   projectFile.setDirectory(QStandardPaths::standardLocations(
-00314                              QStandardPaths::HomeLocation)[0]);
-00315 
-00316   \textcolor{comment}{// Check if user has canceled the opening.}
-00317   \textcolor{keywordflow}{if} (projectFile.exec() != QDialog::Accepted) \{
-00318     \textcolor{keywordflow}{return};
-00319   \}
-00320 
-00321   \textcolor{comment}{// Grab filename.}
-00322   QString filePath = projectFile.selectedFiles()[0];
-00323 
-00324   \textcolor{comment}{// Try to save.}
-00325   \textcolor{keywordflow}{if} (project->\hyperlink{class_project_ad32a31d548ad38f4cbbe0f95879a68e5}{saveAs}(filePath) != \textcolor{keyword}{true}) \{
-00326     QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Write to file failed"},
-00327                           \textcolor{stringliteral}{"Cannot save project."}, QMessageBox::Ok);
-00328     \textcolor{keywordflow}{return};
-00329   \}
-00330 
-00331   \textcolor{comment}{// Adjust Project settings.}
-00332   project->\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = filePath;
+00301   \textcolor{comment}{// Try to save.}
+00302   \textcolor{keywordflow}{if} (project->\hyperlink{class_project_ad32a31d548ad38f4cbbe0f95879a68e5}{saveAs}(filePath) != \textcolor{keyword}{true}) \{
+00303     QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Write to file failed"},
+00304                           \textcolor{stringliteral}{"Cannot save project."}, QMessageBox::Ok);
+00305     \textcolor{keywordflow}{return};
+00306   \}
+00307 
+00308   \textcolor{comment}{// Adjust Project settings.}
+00309   project->\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = filePath;
+00310 
+00311   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{false});
+00312 \}
+00313 
+00314 \textcolor{comment}{/*******************************************************************************}
+00315 \textcolor{comment}{* Close project action.}
+00316 \textcolor{comment}{******************************************************************************/}
+00317 \textcolor{keywordtype}{void} QuickFlow::on\_actionClose\_triggered()
+00318 \{
+00319   \textcolor{comment}{// Check if project is open}
+00320   \textcolor{keywordflow}{if} (project == NULL) \{
+00321     \textcolor{comment}{// Disable interface and return}
+00322     noProjectInterface();
+00323     \textcolor{keywordflow}{return};
+00324   \}
+00325 
+00326   \textcolor{comment}{// A project is open. Check for alterations and try to save.}
+00327   \textcolor{comment}{// Check whether it does need to save the project or not}
+00328   \textcolor{keywordflow}{if} (altered\_) \{
+00329     \textcolor{comment}{// Ask user to discard changes}
+00330     \textcolor{keywordtype}{int} button = QMessageBox::question(
+00331                    \textcolor{keyword}{this}, \textcolor{stringliteral}{"Save"}, \textcolor{stringliteral}{"There are unsaved changes, save it?"},
+00332                    QMessageBox::Discard | QMessageBox::Cancel | QMessageBox::Save);
 00333 
-00334   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{false});
-00335 \}
-00336 
-00337 \textcolor{comment}{/*******************************************************************************}
-00338 \textcolor{comment}{* Close project action.}
-00339 \textcolor{comment}{******************************************************************************/}
-00340 \textcolor{keywordtype}{void} QuickFlow::on\_actionClose\_triggered()
-00341 \{
-00342   \textcolor{comment}{// Check if project is open}
-00343   \textcolor{keywordflow}{if} (project == NULL) \{
-00344     \textcolor{comment}{// Disable interface and return}
-00345     noProjectInterface();
-00346     \textcolor{keywordflow}{return};
-00347   \}
-00348 
-00349   \textcolor{comment}{// A project is open. Check for alterations and try to save.}
-00350   \textcolor{comment}{// Check whether it does need to save the project or not}
-00351   \textcolor{keywordflow}{if} (altered\_) \{
-00352     \textcolor{comment}{// Ask user to discard changes}
-00353     \textcolor{keywordtype}{int} button = QMessageBox::question(
-00354                    \textcolor{keyword}{this}, \textcolor{stringliteral}{"Save"}, \textcolor{stringliteral}{"There are unsaved changes, save it?"},
-00355                    QMessageBox::Discard | QMessageBox::Cancel | QMessageBox::Save);
-00356 
-00357     \textcolor{comment}{// User wants to save}
-00358     \textcolor{keywordflow}{if} (button == QMessageBox::Save) \{
-00359       \textcolor{comment}{// Try to save}
-00360       ui->actionSave->trigger();
-00361 
-00362       \textcolor{comment}{// Check if save is Ok}
-00363       \textcolor{keywordflow}{if} (altered\_) \{
-00364         \textcolor{comment}{// User canceled}
-00365         \textcolor{keywordflow}{return};
-00366       \}
-00367     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (button == QMessageBox::Cancel) \{
-00368       \textcolor{comment}{// User canceled}
-00369       \textcolor{keywordflow}{return};
-00370     \}
-00371   \}
-00372 
-00373   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
-00374     ui->systemView->removeNetwork(network);
-00375   \}
+00334     \textcolor{comment}{// User wants to save}
+00335     \textcolor{keywordflow}{if} (button == QMessageBox::Save) \{
+00336       \textcolor{comment}{// Try to save}
+00337       ui->actionSave->trigger();
+00338 
+00339       \textcolor{comment}{// Check if save is Ok}
+00340       \textcolor{keywordflow}{if} (altered\_) \{
+00341         \textcolor{comment}{// User canceled}
+00342         \textcolor{keywordflow}{return};
+00343       \}
+00344     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (button == QMessageBox::Cancel) \{
+00345       \textcolor{comment}{// User canceled}
+00346       \textcolor{keywordflow}{return};
+00347     \}
+00348   \}
+00349 
+00350   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00351     ui->systemView->removeNetwork(network);
+00352   \}
+00353 
+00354   ui->systemView->zoomFit();
+00355 
+00356   \textcolor{keyword}{delete} project;
+00357   project = NULL;
+00358   altered\_ = \textcolor{keyword}{false};
+00359   noProjectInterface();
+00360   setWindowTitle(\textcolor{stringliteral}{"QuickFlow"});
+00361 \}
+00362 
+00363 
+00364 \textcolor{comment}{/*******************************************************************************}
+00365 \textcolor{comment}{* Add network action.}
+00366 \textcolor{comment}{******************************************************************************/}
+00367 \textcolor{keywordtype}{void} QuickFlow::on\_actionAdd\_Network\_triggered()
+00368 \{
+00369   \hyperlink{class_network_properties}{NetworkProperties} newNetwork(\textcolor{keyword}{this});
+00370   newNetwork.setOptions(project, NULL);
+00371 
+00372   \textcolor{keywordflow}{if} (newNetwork.exec() == QDialog::Accepted) \{
+00373     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00374   \}
+00375 \}
 00376 
-00377   ui->systemView->zoomFit();
-00378 
-00379   \textcolor{keyword}{delete} project;
-00380   project = NULL;
-00381   altered\_ = \textcolor{keyword}{false};
-00382   noProjectInterface();
-00383   setWindowTitle(\textcolor{stringliteral}{"QuickFlow"});
-00384 \}
-00385 
-00386 
-00387 \textcolor{comment}{/*******************************************************************************}
-00388 \textcolor{comment}{* Add network action.}
-00389 \textcolor{comment}{******************************************************************************/}
-00390 \textcolor{keywordtype}{void} QuickFlow::on\_actionAdd\_Network\_triggered()
-00391 \{
-00392   \hyperlink{class_network_properties}{NetworkProperties} newNetwork(\textcolor{keyword}{this});
-00393   newNetwork.setOptions(project, NULL);
-00394 
-00395   \textcolor{keywordflow}{if} (newNetwork.exec() == QDialog::Accepted) \{
-00396     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00397   \}
-00398 \}
-00399 
-00400 \textcolor{comment}{/*******************************************************************************}
-00401 \textcolor{comment}{ * Add bar action.}
-00402 \textcolor{comment}{ ******************************************************************************/}
-00403 \textcolor{keywordtype}{void} QuickFlow::on\_actionAddBar\_triggered()
-00404 \{
-00405   \hyperlink{class_bar_properties}{BarProperties} barProperties(\textcolor{keyword}{this});
-00406   barProperties.setOptions(project, NULL);
-00407 
-00408   \textcolor{keywordflow}{if} (barProperties.exec() == QDialog::Accepted) \{
-00409     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00410     ui->systemView->addBar(barProperties.bar());
-00411   \}
-00412 \}
-00413 
-00414 \textcolor{comment}{/*******************************************************************************}
-00415 \textcolor{comment}{ * Add line action.}
-00416 \textcolor{comment}{ ******************************************************************************/}
-00417 \textcolor{keywordtype}{void} QuickFlow::on\_actionAddLine\_triggered()
-00418 \{
-00419   \hyperlink{class_line_properties}{LineProperties} lineProperties(\textcolor{keyword}{this});
-00420   lineProperties.setOptions(project, NULL);
-00421 
-00422   \textcolor{keywordflow}{if} (lineProperties.exec() == QDialog::Accepted) \{
-00423     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00424     ui->systemView->addLine(lineProperties.line());
-00425   \}
-00426 \}
-00427 
-00428 \textcolor{comment}{/*******************************************************************************}
-00429 \textcolor{comment}{ * Import txt type 1 action.}
-00430 \textcolor{comment}{ ******************************************************************************/}
-00431 \textcolor{keywordtype}{void} QuickFlow::on\_action\_txt\_type\_1\_triggered()
-00432 \{
-00433   \textcolor{comment}{// Get file location from user.}
-00434   QFileDialog txtFile(\textcolor{keyword}{this});
-00435   txtFile.setAcceptMode(QFileDialog::AcceptOpen);
-00436   txtFile.setFileMode(QFileDialog::ExistingFile);
-00437   txtFile.setNameFilter(tr(\textcolor{stringliteral}{"Text File Type 1(*.txt)"}));
-00438   txtFile.setDirectory(QStandardPaths::standardLocations(
-00439                          QStandardPaths::HomeLocation)[0]);
+00377 \textcolor{comment}{/*******************************************************************************}
+00378 \textcolor{comment}{ * Add bar action.}
+00379 \textcolor{comment}{ ******************************************************************************/}
+00380 \textcolor{keywordtype}{void} QuickFlow::on\_actionAddBar\_triggered()
+00381 \{
+00382   \hyperlink{class_bar_properties}{BarProperties} barProperties(\textcolor{keyword}{this});
+00383 
+00384   \textcolor{keywordflow}{if}(barProperties.setOptions(project, NULL))
+00385     \textcolor{keywordflow}{if} (barProperties.exec() == QDialog::Accepted) \{
+00386       \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00387       ui->systemView->addBar(barProperties.bar());
+00388     \}
+00389 \}
+00390 
+00391 \textcolor{comment}{/*******************************************************************************}
+00392 \textcolor{comment}{ * Add line action.}
+00393 \textcolor{comment}{ ******************************************************************************/}
+00394 \textcolor{keywordtype}{void} QuickFlow::on\_actionAddLine\_triggered()
+00395 \{
+00396   \hyperlink{class_line_properties}{LineProperties} lineProperties(\textcolor{keyword}{this});
+00397 
+00398   \textcolor{keywordflow}{if}(lineProperties.setOptions(project, NULL))
+00399     \textcolor{keywordflow}{if} (lineProperties.exec() == QDialog::Accepted) \{
+00400       \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00401       ui->systemView->addLine(lineProperties.line());
+00402     \}
+00403 \}
+00404 
+00405 \textcolor{comment}{/*******************************************************************************}
+00406 \textcolor{comment}{ * Import txt type 1 action.}
+00407 \textcolor{comment}{ ******************************************************************************/}
+00408 \textcolor{keywordtype}{void} QuickFlow::on\_action\_txt\_type\_1\_triggered()
+00409 \{
+00410   \textcolor{comment}{// Get file location from user.}
+00411   QFileDialog txtFile(\textcolor{keyword}{this});
+00412   txtFile.setAcceptMode(QFileDialog::AcceptOpen);
+00413   txtFile.setFileMode(QFileDialog::ExistingFile);
+00414   txtFile.setNameFilter(tr(\textcolor{stringliteral}{"Text File Type 1(*.txt)"}));
+00415   txtFile.setDirectory(QStandardPaths::standardLocations(
+00416                          QStandardPaths::HomeLocation)[0]);
+00417 
+00418   \textcolor{comment}{// Check if user has canceled the opening.}
+00419   \textcolor{keywordflow}{if} (txtFile.exec() != QDialog::Accepted) \{
+00420     \textcolor{keywordflow}{return};
+00421   \}
+00422 
+00423   \textcolor{comment}{// Grab filename.}
+00424   QString fileName = txtFile.selectedFiles()[0];
+00425 
+00426   \textcolor{comment}{// Check if there is a project already opened.}
+00427   \textcolor{keywordflow}{if} (project == NULL) \{
+00428     \textcolor{comment}{// Create a new project.}
+00429     on\_actionNew\_triggered();
+00430 
+00431     \textcolor{comment}{// Check if project has been created.}
+00432     \textcolor{keywordflow}{if}(project == NULL) \{
+00433       \textcolor{comment}{// User canceled, cancel import.}
+00434       QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Need a project to import"},
+00435                             \textcolor{stringliteral}{"A project is needed in order to import networks."},
+00436                             QMessageBox::Ok);
+00437       \textcolor{keywordflow}{return};
+00438     \}
+00439   \}
 00440 
-00441   \textcolor{comment}{// Check if user has canceled the opening.}
-00442   \textcolor{keywordflow}{if} (txtFile.exec() != QDialog::Accepted) \{
-00443     \textcolor{keywordflow}{return};
-00444   \}
+00441   \textcolor{comment}{// Try to import network.}
+00442   \hyperlink{class_network}{Network} *network = \textcolor{keyword}{new} \hyperlink{class_network}{Network};
+00443 
+00444   \textcolor{keywordtype}{bool} importOk = \hyperlink{import_8cpp_ab30ac380d5e14f830ebc8eb839fbbdf0}{importTxtType1}(fileName, network);
 00445 
-00446   \textcolor{comment}{// Grab filename.}
-00447   QString fileName = txtFile.selectedFiles()[0];
-00448 
-00449   \textcolor{comment}{// Check if there is a project already opened.}
-00450   \textcolor{keywordflow}{if} (project == NULL) \{
-00451     \textcolor{comment}{// Create a new project.}
-00452     on\_actionNew\_triggered();
-00453 
-00454     \textcolor{comment}{// Check if project has been created.}
-00455     \textcolor{keywordflow}{if}(project == NULL) \{
-00456       \textcolor{comment}{// User canceled, cancel import.}
-00457       QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Need a project to import"},
-00458                             \textcolor{stringliteral}{"A project is needed in order to import networks."},
-00459                             QMessageBox::Ok);
-00460       \textcolor{keywordflow}{return};
-00461     \}
-00462   \}
-00463 
-00464   \hyperlink{class_network_properties}{NetworkProperties} newNetwork(\textcolor{keyword}{this});
-00465   newNetwork.setOptions(project, NULL);
-00466 
-00467   \textcolor{keywordflow}{if} (newNetwork.exec() == QDialog::Rejected) \{
-00468     \textcolor{comment}{// User canceled import, return.}
-00469     \textcolor{keywordflow}{return};
-00470   \}
-00471 
-00472   \textcolor{comment}{// Try to import network.}
-00473   \hyperlink{class_network}{Network} *network = newNetwork.network();
-00474   \textcolor{keywordtype}{bool} importOk = \hyperlink{import_8cpp_ab30ac380d5e14f830ebc8eb839fbbdf0}{importTxtType1}(fileName, network);
-00475 
-00476   \textcolor{comment}{// Impor success.}
-00477   \textcolor{keywordflow}{if}(importOk) \{
-00478     ui->systemView->addNetwork(network);
-00479     ui->systemView->zoomFit();
-00480     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00481   \} \textcolor{keywordflow}{else} \{
-00482     project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.remove(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
-00483     \textcolor{keyword}{delete} network;
+00446   \textcolor{comment}{// Impor success.}
+00447   \textcolor{keywordflow}{if}(importOk) \{
+00448     project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.insert(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name}, network);
+00449 
+00450     \hyperlink{class_network_properties}{NetworkProperties} newNetwork(\textcolor{keyword}{this});
+00451     newNetwork.setOptions(project, network);
+00452 
+00453     \textcolor{keywordflow}{if} (newNetwork.exec() == QDialog::Rejected) \{
+00454       project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.remove(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
+00455       \textcolor{keyword}{delete} network;
+00456       \textcolor{keywordflow}{return};
+00457     \}
+00458 
+00459     ui->systemView->addNetwork(network);
+00460     ui->systemView->zoomFit();
+00461     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00462   \} \textcolor{keywordflow}{else} \{
+00463     \textcolor{keyword}{delete} network;
+00464     \textcolor{keywordflow}{return};
+00465   \}
+00466 \}
+00467 
+00468 \textcolor{comment}{/*******************************************************************************}
+00469 \textcolor{comment}{ * Import txt type 2 action.}
+00470 \textcolor{comment}{ ******************************************************************************/}
+00471 \textcolor{keywordtype}{void} QuickFlow::on\_action\_txt\_type\_2\_triggered()
+00472 \{
+00473   \textcolor{comment}{// Get file location from user.}
+00474   QFileDialog txtFile(\textcolor{keyword}{this});
+00475   txtFile.setAcceptMode(QFileDialog::AcceptOpen);
+00476   txtFile.setFileMode(QFileDialog::ExistingFile);
+00477   txtFile.setNameFilter(tr(\textcolor{stringliteral}{"Text File Type 1(*.txt)"}));
+00478   txtFile.setDirectory(QStandardPaths::standardLocations(
+00479                          QStandardPaths::HomeLocation)[0]);
+00480 
+00481   \textcolor{comment}{// Check if user has canceled the opening.}
+00482   \textcolor{keywordflow}{if} (txtFile.exec() != QDialog::Accepted) \{
+00483     \textcolor{keywordflow}{return};
 00484   \}
-00485 \}
-00486 
-00487 \textcolor{comment}{/*******************************************************************************}
-00488 \textcolor{comment}{ * Import txt type 2 action.}
-00489 \textcolor{comment}{ ******************************************************************************/}
-00490 \textcolor{keywordtype}{void} QuickFlow::on\_action\_txt\_type\_2\_triggered()
-00491 \{
-00492   \textcolor{comment}{// Get file location from user.}
-00493   QFileDialog txtFile(\textcolor{keyword}{this});
-00494   txtFile.setAcceptMode(QFileDialog::AcceptOpen);
-00495   txtFile.setFileMode(QFileDialog::ExistingFile);
-00496   txtFile.setNameFilter(tr(\textcolor{stringliteral}{"Text File Type 1(*.txt)"}));
-00497   txtFile.setDirectory(QStandardPaths::standardLocations(
-00498                          QStandardPaths::HomeLocation)[0]);
-00499 
-00500   \textcolor{comment}{// Check if user has canceled the opening.}
-00501   \textcolor{keywordflow}{if} (txtFile.exec() != QDialog::Accepted) \{
-00502     \textcolor{keywordflow}{return};
-00503   \}
-00504 
-00505   \textcolor{comment}{// Grab filename.}
-00506   QString fileName = txtFile.selectedFiles()[0];
-00507 
-00508   \textcolor{comment}{// Check if there is a project already opened.}
-00509   \textcolor{keywordflow}{if} (project == NULL) \{
-00510     \textcolor{comment}{// Create a new project.}
-00511     on\_actionNew\_triggered();
+00485 
+00486   \textcolor{comment}{// Grab filename.}
+00487   QString fileName = txtFile.selectedFiles()[0];
+00488 
+00489   \textcolor{comment}{// Check if there is a project already opened.}
+00490   \textcolor{keywordflow}{if} (project == NULL) \{
+00491     \textcolor{comment}{// Create a new project.}
+00492     on\_actionNew\_triggered();
+00493 
+00494     \textcolor{comment}{// Check if project has been created.}
+00495     \textcolor{keywordflow}{if}(project == NULL) \{
+00496       \textcolor{comment}{// User canceled, cancel import.}
+00497       QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Need a project to import"},
+00498                             \textcolor{stringliteral}{"A project is needed in order to import networks."},
+00499                             QMessageBox::Ok);
+00500       \textcolor{keywordflow}{return};
+00501     \}
+00502   \}
+00503 
+00504   \textcolor{comment}{// Try to import network.}
+00505   \hyperlink{class_network}{Network} *network = \textcolor{keyword}{new} \hyperlink{class_network}{Network};
+00506 
+00507   \textcolor{keywordtype}{bool} importOk = \hyperlink{import_8cpp_aef466de21b145a0fdf215dd1a6409924}{importTxtType2}(fileName, network);
+00508 
+00509   \textcolor{comment}{// Impor success.}
+00510   \textcolor{keywordflow}{if}(importOk) \{
+00511     project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.insert(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name}, network);
 00512 
-00513     \textcolor{comment}{// Check if project has been created.}
-00514     \textcolor{keywordflow}{if}(project == NULL) \{
-00515       \textcolor{comment}{// User canceled, cancel import.}
-00516       QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Need a project to import"},
-00517                             \textcolor{stringliteral}{"A project is needed in order to import networks."},
-00518                             QMessageBox::Ok);
+00513     \hyperlink{class_network_properties}{NetworkProperties} newNetwork(\textcolor{keyword}{this});
+00514     newNetwork.setOptions(project, network);
+00515 
+00516     \textcolor{keywordflow}{if} (newNetwork.exec() == QDialog::Rejected) \{
+00517       project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.remove(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
+00518       \textcolor{keyword}{delete} network;
 00519       \textcolor{keywordflow}{return};
 00520     \}
-00521   \}
-00522 
-00523   \hyperlink{class_network_properties}{NetworkProperties} newNetwork(\textcolor{keyword}{this});
-00524   newNetwork.setOptions(project, NULL);
-00525 
-00526   \textcolor{keywordflow}{if} (newNetwork.exec() == QDialog::Rejected) \{
-00527     \textcolor{comment}{// User canceled import, return.}
-00528     \textcolor{keywordflow}{return};
-00529   \}
+00521 
+00522     ui->systemView->addNetwork(network);
+00523     ui->systemView->zoomFit();
+00524     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00525   \} \textcolor{keywordflow}{else} \{
+00526     \textcolor{keyword}{delete} network;
+00527     \textcolor{keywordflow}{return};
+00528   \}
+00529 \}
 00530 
-00531   \textcolor{comment}{// Try to import network.}
-00532   \hyperlink{class_network}{Network} *network = newNetwork.network();
-00533   \textcolor{keywordtype}{bool} importOk = \hyperlink{import_8cpp_aef466de21b145a0fdf215dd1a6409924}{importTxtType2}(fileName, network);
-00534 
-00535   \textcolor{comment}{// Impor success.}
-00536   \textcolor{keywordflow}{if}(importOk) \{
-00537     ui->systemView->addNetwork(network);
-00538     ui->systemView->zoomFit();
-00539     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00540   \} \textcolor{keywordflow}{else} \{
-00541     project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.remove(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
-00542     \textcolor{keyword}{delete} network;
-00543   \}
-00544 \}
-00545 
-00546 \textcolor{comment}{/*******************************************************************************}
-00547 \textcolor{comment}{ * Import txt type 3 action.}
-00548 \textcolor{comment}{ ******************************************************************************/}
-00549 \textcolor{keywordtype}{void} QuickFlow::on\_action\_txt\_type\_3\_triggered()
-00550 \{
-00551   \textcolor{comment}{// Get file location from user.}
-00552   QFileDialog txtFile(\textcolor{keyword}{this});
-00553   txtFile.setAcceptMode(QFileDialog::AcceptOpen);
-00554   txtFile.setFileMode(QFileDialog::ExistingFile);
-00555   txtFile.setNameFilter(tr(\textcolor{stringliteral}{"Text File Type 1(*.txt)"}));
-00556   txtFile.setDirectory(QStandardPaths::standardLocations(
-00557                          QStandardPaths::HomeLocation)[0]);
-00558 
-00559   \textcolor{comment}{// Check if user has canceled the opening.}
-00560   \textcolor{keywordflow}{if} (txtFile.exec() != QDialog::Accepted) \{
-00561     \textcolor{keywordflow}{return};
-00562   \}
-00563 
-00564   \textcolor{comment}{// Grab filename.}
-00565   QString fileName = txtFile.selectedFiles()[0];
+00531 \textcolor{comment}{/*******************************************************************************}
+00532 \textcolor{comment}{ * Import txt type 3 action.}
+00533 \textcolor{comment}{ ******************************************************************************/}
+00534 \textcolor{keywordtype}{void} QuickFlow::on\_action\_txt\_type\_3\_triggered()
+00535 \{
+00536   \textcolor{comment}{// Get file location from user.}
+00537   QFileDialog txtFile(\textcolor{keyword}{this});
+00538   txtFile.setAcceptMode(QFileDialog::AcceptOpen);
+00539   txtFile.setFileMode(QFileDialog::ExistingFile);
+00540   txtFile.setNameFilter(tr(\textcolor{stringliteral}{"Text File Type 1(*.txt)"}));
+00541   txtFile.setDirectory(QStandardPaths::standardLocations(
+00542                          QStandardPaths::HomeLocation)[0]);
+00543 
+00544   \textcolor{comment}{// Check if user has canceled the opening.}
+00545   \textcolor{keywordflow}{if} (txtFile.exec() != QDialog::Accepted) \{
+00546     \textcolor{keywordflow}{return};
+00547   \}
+00548 
+00549   \textcolor{comment}{// Grab filename.}
+00550   QString fileName = txtFile.selectedFiles()[0];
+00551 
+00552   \textcolor{comment}{// Check if there is a project already opened.}
+00553   \textcolor{keywordflow}{if} (project == NULL) \{
+00554     \textcolor{comment}{// Create a new project.}
+00555     on\_actionNew\_triggered();
+00556 
+00557     \textcolor{comment}{// Check if project has been created.}
+00558     \textcolor{keywordflow}{if}(project == NULL) \{
+00559       \textcolor{comment}{// User canceled, cancel import.}
+00560       QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Need a project to import"},
+00561                             \textcolor{stringliteral}{"A project is needed in order to import networks."},
+00562                             QMessageBox::Ok);
+00563       \textcolor{keywordflow}{return};
+00564     \}
+00565   \}
 00566 
-00567   \textcolor{comment}{// Check if there is a project already opened.}
-00568   \textcolor{keywordflow}{if} (project == NULL) \{
-00569     \textcolor{comment}{// Create a new project.}
-00570     on\_actionNew\_triggered();
+00567   \textcolor{comment}{// Try to import network.}
+00568   \hyperlink{class_network}{Network} *network = \textcolor{keyword}{new} \hyperlink{class_network}{Network};
+00569 
+00570   \textcolor{keywordtype}{bool} importOk = \hyperlink{import_8cpp_acd1a54d4b2a28043b1489f0be7423ecd}{importTxtType3}(fileName, network);
 00571 
-00572     \textcolor{comment}{// Check if project has been created.}
-00573     \textcolor{keywordflow}{if}(project == NULL) \{
-00574       \textcolor{comment}{// User canceled, cancel import.}
-00575       QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Need a project to import"},
-00576                             \textcolor{stringliteral}{"A project is needed in order to import networks."},
-00577                             QMessageBox::Ok);
-00578       \textcolor{keywordflow}{return};
-00579     \}
-00580   \}
-00581 
-00582   \hyperlink{class_network_properties}{NetworkProperties} newNetwork(\textcolor{keyword}{this});
-00583   newNetwork.setOptions(project, NULL);
+00572   \textcolor{comment}{// Impor success.}
+00573   \textcolor{keywordflow}{if}(importOk) \{
+00574     project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.insert(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name}, network);
+00575 
+00576     \hyperlink{class_network_properties}{NetworkProperties} newNetwork(\textcolor{keyword}{this});
+00577     newNetwork.setOptions(project, network);
+00578 
+00579     \textcolor{keywordflow}{if} (newNetwork.exec() == QDialog::Rejected) \{
+00580       project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.remove(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
+00581       \textcolor{keyword}{delete} network;
+00582       \textcolor{keywordflow}{return};
+00583     \}
 00584 
-00585   \textcolor{keywordflow}{if} (newNetwork.exec() == QDialog::Rejected) \{
-00586     \textcolor{comment}{// User canceled import, return.}
-00587     \textcolor{keywordflow}{return};
-00588   \}
-00589 
-00590   \textcolor{comment}{// Try to import network.}
-00591   \hyperlink{class_network}{Network} *network = newNetwork.network();
-00592   \textcolor{keywordtype}{bool} importOk = \hyperlink{import_8cpp_acd1a54d4b2a28043b1489f0be7423ecd}{importTxtType3}(fileName, network);
+00585     ui->systemView->addNetwork(network);
+00586     ui->systemView->zoomFit();
+00587     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00588   \} \textcolor{keywordflow}{else} \{
+00589     \textcolor{keyword}{delete} network;
+00590     \textcolor{keywordflow}{return};
+00591   \}
+00592 \}
 00593 
-00594   \textcolor{comment}{// Impor success.}
-00595   \textcolor{keywordflow}{if}(importOk) \{
-00596     ui->systemView->addNetwork(network);
-00597     ui->systemView->zoomFit();
-00598     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00599   \} \textcolor{keywordflow}{else} \{
-00600     project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.remove(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
-00601     \textcolor{keyword}{delete} network;
-00602   \}
-00603 \}
-00604 
-00605 \textcolor{comment}{/*******************************************************************************}
-00606 \textcolor{comment}{ * Cespedes action.}
-00607 \textcolor{comment}{ ******************************************************************************/}
-00608 \textcolor{keywordtype}{void} QuickFlow::on\_actionCespedes\_triggered()
-00609 \{
-00610   \textcolor{keywordflow}{if}(ui->actionShirmoharmmadi->isChecked()) \{
-00611     ui->actionShirmoharmmadi->setChecked(\textcolor{keyword}{false});
-00612   \}
-00613 \}
-00614 
-00615 \textcolor{comment}{/*******************************************************************************}
-00616 \textcolor{comment}{ * Shirmoharmmadi action.}
-00617 \textcolor{comment}{ ******************************************************************************/}
-00618 \textcolor{keywordtype}{void} QuickFlow::on\_actionShirmoharmmadi\_triggered()
-00619 \{
-00620   \textcolor{keywordflow}{if}(ui->actionCespedes->isChecked()) \{
-00621     ui->actionCespedes->setChecked(\textcolor{keyword}{false});
-00622   \}
-00623 \}
+00594 \textcolor{comment}{/*******************************************************************************}
+00595 \textcolor{comment}{ * Cespedes action.}
+00596 \textcolor{comment}{ ******************************************************************************/}
+00597 \textcolor{keywordtype}{void} QuickFlow::on\_actionCespedes\_triggered()
+00598 \{
+00599   \textcolor{keywordflow}{if}(ui->actionShirmoharmmadi->isChecked()) \{
+00600     ui->actionShirmoharmmadi->setChecked(\textcolor{keyword}{false});
+00601   \}
+00602 \}
+00603 
+00604 \textcolor{comment}{/*******************************************************************************}
+00605 \textcolor{comment}{ * Shirmoharmmadi action.}
+00606 \textcolor{comment}{ ******************************************************************************/}
+00607 \textcolor{keywordtype}{void} QuickFlow::on\_actionShirmoharmmadi\_triggered()
+00608 \{
+00609   \textcolor{keywordflow}{if}(ui->actionCespedes->isChecked()) \{
+00610     ui->actionCespedes->setChecked(\textcolor{keyword}{false});
+00611   \}
+00612 \}
+00613 
+00614 \textcolor{comment}{/*******************************************************************************}
+00615 \textcolor{comment}{ * Sugiyama graph algorithm action.}
+00616 \textcolor{comment}{ ******************************************************************************/}
+00617 \textcolor{keywordtype}{void} QuickFlow::on\_actionSugiyama\_triggered()
+00618 \{
+00619 
+00620   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00621     \hyperlink{class_redraw_network}{RedrawNetwork} redraw(network);
+00622     redraw.sugiyama();
+00623   \}
 00624 
-00625 \textcolor{comment}{/*******************************************************************************}
-00626 \textcolor{comment}{ * Sugiyama graph algorithm action.}
-00627 \textcolor{comment}{ ******************************************************************************/}
-00628 \textcolor{keywordtype}{void} QuickFlow::on\_actionSugiyama\_triggered()
-00629 \{
-00630 
-00631   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
-00632     \hyperlink{class_redraw_network}{RedrawNetwork} redraw(network);
-00633     redraw.sugiyama();
-00634   \}
-00635 
-00636   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00637   ui->systemView->zoomFit();
-00638 \}
-00639 
-00640 \textcolor{comment}{/*******************************************************************************}
-00641 \textcolor{comment}{ * Sugiyama fast graph algorithm action.}
-00642 \textcolor{comment}{ ******************************************************************************/}
-00643 \textcolor{keywordtype}{void} QuickFlow::on\_actionSugiyama\_Fast\_triggered()
-00644 \{
-00645   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
-00646     \hyperlink{class_redraw_network}{RedrawNetwork} redraw(network);
-00647     redraw.sugiyamaFast();
-00648   \}
-00649 
-00650   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00651   ui->systemView->zoomFit();
-00652 \}
-00653 
-00654 \textcolor{comment}{/*******************************************************************************}
-00655 \textcolor{comment}{ *  Multi-level graph algorithm action.}
-00656 \textcolor{comment}{ ******************************************************************************/}
-00657 \textcolor{keywordtype}{void} QuickFlow::on\_actionMulti\_level\_triggered()
-00658 \{
-00659   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
-00660     \hyperlink{class_redraw_network}{RedrawNetwork} redraw(network);
-00661     redraw.multiLevel();
-00662   \}
-00663 
-00664   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00665   ui->systemView->zoomFit();
-00666 \}
+00625   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00626   ui->systemView->zoomFit();
+00627 \}
+00628 
+00629 \textcolor{comment}{/*******************************************************************************}
+00630 \textcolor{comment}{ * Sugiyama fast graph algorithm action.}
+00631 \textcolor{comment}{ ******************************************************************************/}
+00632 \textcolor{keywordtype}{void} QuickFlow::on\_actionSugiyama\_Fast\_triggered()
+00633 \{
+00634   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00635     \hyperlink{class_redraw_network}{RedrawNetwork} redraw(network);
+00636     redraw.sugiyamaFast();
+00637   \}
+00638 
+00639   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00640   ui->systemView->zoomFit();
+00641 \}
+00642 
+00643 \textcolor{comment}{/*******************************************************************************}
+00644 \textcolor{comment}{ *  Multi-level graph algorithm action.}
+00645 \textcolor{comment}{ ******************************************************************************/}
+00646 \textcolor{keywordtype}{void} QuickFlow::on\_actionMulti\_level\_triggered()
+00647 \{
+00648   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00649     \hyperlink{class_redraw_network}{RedrawNetwork} redraw(network);
+00650     redraw.multiLevel();
+00651   \}
+00652 
+00653   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00654   ui->systemView->zoomFit();
+00655 \}
+00656 
+00657 \textcolor{comment}{/*******************************************************************************}
+00658 \textcolor{comment}{ * Search bar action.}
+00659 \textcolor{comment}{ ******************************************************************************/}
+00660 \textcolor{keywordtype}{void} QuickFlow::on\_actionSearch\_Bar\_triggered()
+00661 \{
+00662   \hyperlink{class_search_bar}{SearchBar} searchBar(\textcolor{keyword}{this});
+00663   searchBar.setOptions(project);
+00664 
+00665   \textcolor{keywordflow}{if} (searchBar.exec() == QDialog::Accepted) \{
+00666     QRectF fitRect = searchBar.bar()->sceneBoundingRect();
 00667 
-00668 \textcolor{comment}{/*******************************************************************************}
-00669 \textcolor{comment}{ * Search bar action.}
-00670 \textcolor{comment}{ ******************************************************************************/}
-00671 \textcolor{keywordtype}{void} QuickFlow::on\_actionSearch\_Bar\_triggered()
-00672 \{
-00673   \hyperlink{class_search_bar}{SearchBar} searchBar(\textcolor{keyword}{this});
-00674   searchBar.setOptions(project);
-00675 
-00676   \textcolor{keywordflow}{if} (searchBar.exec() == QDialog::Accepted) \{
-00677 
-00678   \}
-00679 
-00680 
-00681 \}
-00682 
-00683 \textcolor{comment}{/*******************************************************************************}
-00684 \textcolor{comment}{ * Run action.}
-00685 \textcolor{comment}{ ******************************************************************************/}
-00686 \textcolor{keywordtype}{void} QuickFlow::on\_actionRun\_triggered()
-00687 \{
-00688   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
-00689     \textcolor{keywordflow}{if}(ui->actionShirmoharmmadi->isChecked()) \{
-00690 
-00691       \hyperlink{class_shirmoharmmadi}{Shirmoharmmadi} fluxo(network);
-00692       fluxo.solve();
-00693 
-00694       QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Duration"},
-00695                                \textcolor{stringliteral}{"Simulation duration: "} +
-00696                                QString::number(fluxo.duration) + \textcolor{stringliteral}{" [ms] \(\backslash\)n"} +
-00697                                \textcolor{stringliteral}{"Used iterations: "} + QString::number(fluxo.usedIterations),
-00698                                QMessageBox::Ok);
-00699     \} \textcolor{keywordflow}{else} \{
-00700       \hyperlink{class_shirmoharmmadi}{Shirmoharmmadi} fluxo(network);
-00701       QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Duration"},
-00702                                \textcolor{stringliteral}{"Simulation duration: "} +
-00703                                QString::number(fluxo.duration) + \textcolor{stringliteral}{" [ms] \(\backslash\)n"} +
-00704                                \textcolor{stringliteral}{"Used iterations: "} + QString::number(fluxo.usedIterations),
-00705                                QMessageBox::Ok);
-00706     \}
-00707   \}
-00708 
-00709   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00710 \}
-00711 
-00712 \textcolor{comment}{/*******************************************************************************}
-00713 \textcolor{comment}{ * About action.}
-00714 \textcolor{comment}{ ******************************************************************************/}
-00715 \textcolor{keywordtype}{void} QuickFlow::on\_actionAbout\_triggered()
-00716 \{
-00717   \hyperlink{class_about}{About} about(\textcolor{keyword}{this});
-00718   about.exec();
-00719 \}
-00720 
-00721 \textcolor{keywordtype}{void} QuickFlow::on\_editBar(QObject *bar)
-00722 \{
-00723   \hyperlink{class_bar_properties}{BarProperties} barProperties(\textcolor{keyword}{this});
-00724   barProperties.setOptions(project, static\_cast<Bar *>(bar));
-00725 
-00726   \textcolor{keywordflow}{if} (barProperties.exec() == QDialog::Accepted) \{
-00727     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00728   \}
+00668     fitRect.setX(fitRect.x() -100);
+00669     fitRect.setY(fitRect.y() - 100);
+00670     fitRect.setWidth(fitRect.width() + 100);
+00671     fitRect.setHeight(fitRect.height() + 100);
+00672 
+00673     ui->systemView->fitInView(fitRect, Qt::KeepAspectRatio);
+00674   \}
+00675 \}
+00676 
+00677 \textcolor{comment}{/*******************************************************************************}
+00678 \textcolor{comment}{ * Run action.}
+00679 \textcolor{comment}{ ******************************************************************************/}
+00680 \textcolor{keywordtype}{void} QuickFlow::on\_actionRun\_triggered()
+00681 \{
+00682   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00683     \textcolor{keywordflow}{if}(ui->actionShirmoharmmadi->isChecked()) \{
+00684 
+00685       \hyperlink{class_shirmoharmmadi}{Shirmoharmmadi} fluxo(network);
+00686       fluxo.solve();
+00687 
+00688       QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Duration"},
+00689                                \textcolor{stringliteral}{"Simulation duration: "} +
+00690                                QString::number(fluxo.duration) + \textcolor{stringliteral}{" [ms] \(\backslash\)n"} +
+00691                                \textcolor{stringliteral}{"Used iterations: "} + QString::number(fluxo.usedIterations),
+00692                                QMessageBox::Ok);
+00693     \} \textcolor{keywordflow}{else} \{
+00694       \hyperlink{class_cespedes}{Cespedes} fluxo(network);
+00695       fluxo.solve();
+00696       QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Duration"},
+00697                                \textcolor{stringliteral}{"Simulation duration: "} +
+00698                                QString::number(fluxo.duration) + \textcolor{stringliteral}{" [ms] \(\backslash\)n"} +
+00699                                \textcolor{stringliteral}{"Used iterations: "} + QString::number(fluxo.usedIterations)
+00700                                + \textcolor{stringliteral}{"\(\backslash\)nTotal Loss: "} + QString::number(fluxo.totalLoss.real()
+00701                                    *network->\hyperlink{group___models_ga6fdbd7d04d12a3f1215c92e2e20eabdb}{powerBase}()) + \textcolor{stringliteral}{" Watts, "} +  QString::number(fluxo.
+      totalLoss.imag()
+00702                                        *network->\hyperlink{group___models_ga6fdbd7d04d12a3f1215c92e2e20eabdb}{powerBase}()) + \textcolor{stringliteral}{" VAR, "},
+00703                                QMessageBox::Ok);
+00704     \}
+00705   \}
+00706 
+00707   \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00708 \}
+00709 
+00710 \textcolor{comment}{/*******************************************************************************}
+00711 \textcolor{comment}{ * Settings action.}
+00712 \textcolor{comment}{ ******************************************************************************/}
+00713 \textcolor{keywordtype}{void} QuickFlow::on\_actionSettings\_triggered()
+00714 \{
+00715   \hyperlink{class_project_properties}{ProjectProperties} projectProperties(\textcolor{keyword}{this});
+00716 
+00717   projectProperties.setOptions(project);
+00718 
+00719   projectProperties.exec();
+00720 \}
+00721 
+00722 \textcolor{comment}{/*******************************************************************************}
+00723 \textcolor{comment}{ * About action.}
+00724 \textcolor{comment}{ ******************************************************************************/}
+00725 \textcolor{keywordtype}{void} QuickFlow::on\_actionAbout\_triggered()
+00726 \{
+00727   \hyperlink{class_about}{About} about(\textcolor{keyword}{this});
+00728   about.exec();
 00729 \}
 00730 
-00731 \textcolor{keywordtype}{void} QuickFlow::on\_editLine(QObject *line)
-00732 \{
-00733   \hyperlink{class_line_properties}{LineProperties} lineProperties(\textcolor{keyword}{this});
-00734   lineProperties.setOptions(project, static\_cast<Line *>(line));
-00735 
-00736   \textcolor{keywordflow}{if} (lineProperties.exec() == QDialog::Accepted) \{
-00737     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
-00738   \}
-00739 \}
-00740 
-00741 \textcolor{comment}{/*******************************************************************************}
-00742 \textcolor{comment}{ * Close event.}
-00743 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{quickflow_8cpp_source_l00744}{}\hyperlink{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}{00744} \textcolor{keywordtype}{void} \hyperlink{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}{QuickFlow::closeEvent}(QCloseEvent *event)
-00745 \{
-00746   \textcolor{comment}{// Hook to application exit.}
-00747   \textcolor{comment}{// Check for unsaved changes.}
-00748   \textcolor{keywordflow}{if} (altered\_) \{
-00749     \textcolor{comment}{// Try to close project, saving the changes.}
-00750     ui->actionClose->trigger();
+00731 \textcolor{comment}{/*******************************************************************************}
+00732 \textcolor{comment}{ * Edit bar action.}
+00733 \textcolor{comment}{ ******************************************************************************/}
+00734 \textcolor{keywordtype}{void} QuickFlow::on\_editBar(QObject *bar)
+00735 \{
+00736   \hyperlink{class_bar_properties}{BarProperties} barProperties(\textcolor{keyword}{this});
+00737   barProperties.setOptions(project, static\_cast<Bar *>(bar));
+00738 
+00739   \textcolor{keywordflow}{if} (barProperties.exec() == QDialog::Accepted) \{
+00740     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00741   \}
+00742 \}
+00743 
+00744 \textcolor{comment}{/*******************************************************************************}
+00745 \textcolor{comment}{ * Edit line action.}
+00746 \textcolor{comment}{ ******************************************************************************/}
+00747 \textcolor{keywordtype}{void} QuickFlow::on\_editLine(QObject *line)
+00748 \{
+00749   \hyperlink{class_line_properties}{LineProperties} lineProperties(\textcolor{keyword}{this});
+00750   lineProperties.setOptions(project, static\_cast<Line *>(line));
 00751 
-00752     \textcolor{comment}{// Check for a  cancel}
-00753     \textcolor{keywordflow}{if} (altered\_) \{
-00754       \textcolor{comment}{// User doesnt want to quit}
-00755       \textcolor{keyword}{event}->ignore();
-00756       \textcolor{keywordflow}{return};
-00757     \}
-00758   \}
-00759 
-00760   saveSettings();
-00761   \textcolor{keyword}{event}->accept();
-00762 \}
-00763 
-00764 \textcolor{comment}{/*******************************************************************************}
-00765 \textcolor{comment}{ * Load application settings.}
-00766 \textcolor{comment}{ ******************************************************************************/}
-00767 \textcolor{keywordtype}{void} QuickFlow::loadSettings()
-00768 \{
-00769   \textcolor{comment}{// systemView background.}
-00770   QBrush bkbrush;
-00771   bkbrush.setColor(settings->value(\textcolor{stringliteral}{"systemView\_background"}).value<QColor>());
-00772   bkbrush.setStyle(Qt::SolidPattern);
-00773   ui->systemView->setBackgroundBrush(bkbrush);
-00774 \}
+00752   \textcolor{keywordflow}{if} (lineProperties.exec() == QDialog::Accepted) \{
+00753     \hyperlink{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{setAltered}(\textcolor{keyword}{true});
+00754   \}
+00755 \}
+00756 
+00757 \textcolor{comment}{/*******************************************************************************}
+00758 \textcolor{comment}{ * Close event.}
+00759 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{quickflow_8cpp_source_l00760}{}\hyperlink{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}{00760} \textcolor{keywordtype}{void} \hyperlink{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}{QuickFlow::closeEvent}(QCloseEvent *event)
+00761 \{
+00762   \textcolor{comment}{// Hook to application exit.}
+00763   \textcolor{comment}{// Check for unsaved changes.}
+00764   \textcolor{keywordflow}{if} (altered\_) \{
+00765     \textcolor{comment}{// Try to close project, saving the changes.}
+00766     ui->actionClose->trigger();
+00767 
+00768     \textcolor{comment}{// Check for a  cancel}
+00769     \textcolor{keywordflow}{if} (altered\_) \{
+00770       \textcolor{comment}{// User doesnt want to quit}
+00771       \textcolor{keyword}{event}->ignore();
+00772       \textcolor{keywordflow}{return};
+00773     \}
+00774   \}
 00775 
-00776 \textcolor{comment}{/*******************************************************************************}
-00777 \textcolor{comment}{ * Save application settings.}
-00778 \textcolor{comment}{ ******************************************************************************/}
-00779 \textcolor{keywordtype}{void} QuickFlow::saveSettings()
-00780 \{
-00781   \textcolor{comment}{// systemView background.}
-00782   settings->setValue(\textcolor{stringliteral}{"systemView\_background"}, ui->systemView->backgroundBrush());
-00783 
-00784   \textcolor{comment}{// Save settings.}
-00785   settings->sync();
-00786 \}
-00787 
-00788 \textcolor{comment}{/*******************************************************************************}
-00789 \textcolor{comment}{ * Create application settings.}
-00790 \textcolor{comment}{ ******************************************************************************/}
-00791 \textcolor{keywordtype}{void} QuickFlow::createSettings()
-00792 \{
-00793   \textcolor{comment}{// Save version.}
-00794   settings->setValue(\textcolor{stringliteral}{"version"}, \hyperlink{group___window_gabfc3b1280bdae9a9c046d56b1459ab99}{kVersion});
-00795 
-00796 \textcolor{comment}{//  systemView background.}
-00797   QBrush bkbrush;
-00798   bkbrush.setColor(Qt::white);
-00799   bkbrush.setStyle(Qt::SolidPattern);
-00800   ui->systemView->setBackgroundBrush(bkbrush);
-00801 
-00802   \textcolor{comment}{// Store settings.}
-00803   saveSettings();
-00804 \}
-00805 
-00806 \textcolor{comment}{/*******************************************************************************}
-00807 \textcolor{comment}{ * Upgrade application settings.}
-00808 \textcolor{comment}{ ******************************************************************************/}
-00809 \textcolor{keywordtype}{void} QuickFlow::upgradeSettings()
-00810 \{
-00811   \textcolor{comment}{// Remove everything and create a default.}
-00812   settings->clear();
-00813   createSettings();
-00814 \}
-00815 
-00816 \textcolor{comment}{/*******************************************************************************}
-00817 \textcolor{comment}{ * No project interface.}
-00818 \textcolor{comment}{ ******************************************************************************/}
-00819 \textcolor{keywordtype}{void} QuickFlow::noProjectInterface()
-00820 \{
-00821   \textcolor{comment}{// Project actions.}
-00822   ui->actionNew->setEnabled(\textcolor{keyword}{true});
-00823   ui->actionOpen->setEnabled(\textcolor{keyword}{true});
-00824   ui->actionSave->setEnabled(\textcolor{keyword}{false});
-00825   ui->actionSave\_as->setEnabled(\textcolor{keyword}{false});
-00826   ui->actionClose->setEnabled(\textcolor{keyword}{false});
-00827   ui->actionSettings->setEnabled(\textcolor{keyword}{false});
-00828 
-00829   \textcolor{comment}{// Simulation actions.}
-00830   ui->actionRun->setEnabled(\textcolor{keyword}{false});
-00831   ui->actionExport->setEnabled(\textcolor{keyword}{false});
-00832 
-00833   \textcolor{comment}{// Zoom actions.}
-00834   ui->actionZoomFit->setEnabled(\textcolor{keyword}{false});
-00835   ui->actionZoomIn->setEnabled(\textcolor{keyword}{false});
-00836   ui->actionZoomOut->setEnabled(\textcolor{keyword}{false});
-00837 
-00838   \textcolor{comment}{// Power network actions}
-00839   ui->actionAdd\_Network->setEnabled(\textcolor{keyword}{false});
-00840   ui->actionAddBar->setEnabled(\textcolor{keyword}{false});
-00841   ui->actionAddLine->setEnabled(\textcolor{keyword}{false});
-00842   ui->actionSearch\_Bar->setEnabled(\textcolor{keyword}{false});
-00843 
-00844   \textcolor{comment}{// Algorithms actions.}
-00845   ui->actionShirmoharmmadi->setEnabled(\textcolor{keyword}{false});
-00846   ui->actionCespedes->setEnabled(\textcolor{keyword}{false});
-00847   ui->actionSugiyama->setEnabled(\textcolor{keyword}{false});
-00848   ui->actionSugiyama\_Fast->setEnabled(\textcolor{keyword}{false});
-00849   ui->actionMulti\_level->setEnabled(\textcolor{keyword}{false});
-00850 
-00851   \textcolor{comment}{// Disable viewer.}
-00852   ui->systemView->setEnabled(\textcolor{keyword}{false});
-00853 \}
-00854 
-00855 \textcolor{comment}{/*******************************************************************************}
-00856 \textcolor{comment}{ * Work interface.}
-00857 \textcolor{comment}{ ******************************************************************************/}
-00858 \textcolor{keywordtype}{void} QuickFlow::workInterface()
-00859 \{
-00860   \textcolor{comment}{// Project actions.}
-00861   ui->actionNew->setEnabled(\textcolor{keyword}{true});
-00862   ui->actionOpen->setEnabled(\textcolor{keyword}{true});
-00863   ui->actionSave->setEnabled(\textcolor{keyword}{false});
-00864   ui->actionSave\_as->setEnabled(\textcolor{keyword}{true});
-00865   ui->actionClose->setEnabled(\textcolor{keyword}{true});
-00866   ui->actionSettings->setEnabled(\textcolor{keyword}{true});
-00867 
-00868   \textcolor{comment}{// Simulation actions.}
-00869   ui->actionRun->setEnabled(\textcolor{keyword}{true});
-00870   ui->actionExport->setEnabled(\textcolor{keyword}{true});
-00871 
-00872   \textcolor{comment}{// Zoom actions.}
-00873   ui->actionZoomFit->setEnabled(\textcolor{keyword}{true});
-00874   ui->actionZoomIn->setEnabled(\textcolor{keyword}{true});
-00875   ui->actionZoomOut->setEnabled(\textcolor{keyword}{true});
-00876 
-00877   \textcolor{comment}{// Power network actions}
-00878   ui->actionAdd\_Network->setEnabled(\textcolor{keyword}{true});
-00879   ui->actionAddBar->setEnabled(\textcolor{keyword}{true});
-00880   ui->actionAddLine->setEnabled(\textcolor{keyword}{true});
-00881   ui->actionSearch\_Bar->setEnabled(\textcolor{keyword}{true});
-00882 
-00883   \textcolor{comment}{// Algorithms actions.}
-00884   ui->actionShirmoharmmadi->setEnabled(\textcolor{keyword}{true});
-00885   ui->actionCespedes->setEnabled(\textcolor{keyword}{true});
-00886   ui->actionSugiyama->setEnabled(\textcolor{keyword}{true});
-00887   ui->actionSugiyama\_Fast->setEnabled(\textcolor{keyword}{true});
-00888   ui->actionMulti\_level->setEnabled(\textcolor{keyword}{true});
-00889 
-00890   \textcolor{comment}{// Enable viewer}
-00891   ui->systemView->setEnabled(\textcolor{keyword}{true});
-00892 \}
-00893 
-00894 \textcolor{comment}{/*******************************************************************************}
-00895 \textcolor{comment}{ * Connect Signals.}
-00896 \textcolor{comment}{ ******************************************************************************/}
-00897 \textcolor{keywordtype}{void} QuickFlow::connectSignals()
-00898 \{
-00899   connect(ui->systemView, SIGNAL(barProperties(QObject *)), \textcolor{keyword}{this},
-00900           SLOT(on\_editBar(QObject *)));
-00901 
-00902   connect(ui->systemView, SIGNAL(lineProperties(QObject *)), \textcolor{keyword}{this},
-00903           SLOT(on\_editLine(QObject *)));
-00904 \}
+00776   saveSettings();
+00777   \textcolor{keyword}{event}->accept();
+00778 \}
+00779 
+00780 \textcolor{comment}{/*******************************************************************************}
+00781 \textcolor{comment}{ * Load application settings.}
+00782 \textcolor{comment}{ ******************************************************************************/}
+00783 \textcolor{keywordtype}{void} QuickFlow::loadSettings()
+00784 \{
+00785   \textcolor{comment}{// systemView background.}
+00786   QBrush bkbrush;
+00787   bkbrush.setColor(settings->value(\textcolor{stringliteral}{"systemView\_background"}).value<QColor>());
+00788   bkbrush.setStyle(Qt::SolidPattern);
+00789   ui->systemView->setBackgroundBrush(bkbrush);
+00790 \}
+00791 
+00792 \textcolor{comment}{/*******************************************************************************}
+00793 \textcolor{comment}{ * Save application settings.}
+00794 \textcolor{comment}{ ******************************************************************************/}
+00795 \textcolor{keywordtype}{void} QuickFlow::saveSettings()
+00796 \{
+00797   \textcolor{comment}{// systemView background.}
+00798   settings->setValue(\textcolor{stringliteral}{"systemView\_background"}, ui->systemView->backgroundBrush());
+00799 
+00800   \textcolor{comment}{// Save settings.}
+00801   settings->sync();
+00802 \}
+00803 
+00804 \textcolor{comment}{/*******************************************************************************}
+00805 \textcolor{comment}{ * Create application settings.}
+00806 \textcolor{comment}{ ******************************************************************************/}
+00807 \textcolor{keywordtype}{void} QuickFlow::createSettings()
+00808 \{
+00809   \textcolor{comment}{// Save version.}
+00810   settings->setValue(\textcolor{stringliteral}{"version"}, \hyperlink{group___window_gabfc3b1280bdae9a9c046d56b1459ab99}{kVersion});
+00811 
+00812 \textcolor{comment}{//  systemView background.}
+00813   QBrush bkbrush;
+00814   bkbrush.setColor(Qt::white);
+00815   bkbrush.setStyle(Qt::SolidPattern);
+00816   ui->systemView->setBackgroundBrush(bkbrush);
+00817 
+00818   \textcolor{comment}{// Store settings.}
+00819   saveSettings();
+00820 \}
+00821 
+00822 \textcolor{comment}{/*******************************************************************************}
+00823 \textcolor{comment}{ * Upgrade application settings.}
+00824 \textcolor{comment}{ ******************************************************************************/}
+00825 \textcolor{keywordtype}{void} QuickFlow::upgradeSettings()
+00826 \{
+00827   \textcolor{comment}{// Remove everything and create a default.}
+00828   settings->clear();
+00829   createSettings();
+00830 \}
+00831 
+00832 \textcolor{comment}{/*******************************************************************************}
+00833 \textcolor{comment}{ * No project interface.}
+00834 \textcolor{comment}{ ******************************************************************************/}
+00835 \textcolor{keywordtype}{void} QuickFlow::noProjectInterface()
+00836 \{
+00837   \textcolor{comment}{// Project actions.}
+00838   ui->actionNew->setEnabled(\textcolor{keyword}{true});
+00839   ui->actionOpen->setEnabled(\textcolor{keyword}{true});
+00840   ui->actionSave->setEnabled(\textcolor{keyword}{false});
+00841   ui->actionSave\_as->setEnabled(\textcolor{keyword}{false});
+00842   ui->actionClose->setEnabled(\textcolor{keyword}{false});
+00843   ui->actionSettings->setEnabled(\textcolor{keyword}{false});
+00844 
+00845   \textcolor{comment}{// Simulation actions.}
+00846   ui->actionRun->setEnabled(\textcolor{keyword}{false});
+00847   ui->actionExport->setEnabled(\textcolor{keyword}{false});
+00848 
+00849   \textcolor{comment}{// Zoom actions.}
+00850   ui->actionZoomFit->setEnabled(\textcolor{keyword}{false});
+00851   ui->actionZoomIn->setEnabled(\textcolor{keyword}{false});
+00852   ui->actionZoomOut->setEnabled(\textcolor{keyword}{false});
+00853 
+00854   \textcolor{comment}{// Power network actions}
+00855   ui->actionAdd\_Network->setEnabled(\textcolor{keyword}{false});
+00856   ui->actionAddBar->setEnabled(\textcolor{keyword}{false});
+00857   ui->actionAddLine->setEnabled(\textcolor{keyword}{false});
+00858   ui->actionSearch\_Bar->setEnabled(\textcolor{keyword}{false});
+00859 
+00860   \textcolor{comment}{// Algorithms actions.}
+00861   ui->actionShirmoharmmadi->setEnabled(\textcolor{keyword}{false});
+00862   ui->actionCespedes->setEnabled(\textcolor{keyword}{false});
+00863   ui->actionSugiyama->setEnabled(\textcolor{keyword}{false});
+00864   ui->actionSugiyama\_Fast->setEnabled(\textcolor{keyword}{false});
+00865   ui->actionMulti\_level->setEnabled(\textcolor{keyword}{false});
+00866 
+00867   \textcolor{comment}{// Disable viewer.}
+00868   ui->systemView->setEnabled(\textcolor{keyword}{false});
+00869 \}
+00870 
+00871 \textcolor{comment}{/*******************************************************************************}
+00872 \textcolor{comment}{ * Work interface.}
+00873 \textcolor{comment}{ ******************************************************************************/}
+00874 \textcolor{keywordtype}{void} QuickFlow::workInterface()
+00875 \{
+00876   \textcolor{comment}{// Project actions.}
+00877   ui->actionNew->setEnabled(\textcolor{keyword}{true});
+00878   ui->actionOpen->setEnabled(\textcolor{keyword}{true});
+00879   ui->actionSave->setEnabled(\textcolor{keyword}{false});
+00880   ui->actionSave\_as->setEnabled(\textcolor{keyword}{true});
+00881   ui->actionClose->setEnabled(\textcolor{keyword}{true});
+00882   ui->actionSettings->setEnabled(\textcolor{keyword}{true});
+00883 
+00884   \textcolor{comment}{// Simulation actions.}
+00885   ui->actionRun->setEnabled(\textcolor{keyword}{true});
+00886   ui->actionExport->setEnabled(\textcolor{keyword}{true});
+00887 
+00888   \textcolor{comment}{// Zoom actions.}
+00889   ui->actionZoomFit->setEnabled(\textcolor{keyword}{true});
+00890   ui->actionZoomIn->setEnabled(\textcolor{keyword}{true});
+00891   ui->actionZoomOut->setEnabled(\textcolor{keyword}{true});
+00892 
+00893   \textcolor{comment}{// Power network actions}
+00894   ui->actionAdd\_Network->setEnabled(\textcolor{keyword}{true});
+00895   ui->actionAddBar->setEnabled(\textcolor{keyword}{true});
+00896   ui->actionAddLine->setEnabled(\textcolor{keyword}{true});
+00897   ui->actionSearch\_Bar->setEnabled(\textcolor{keyword}{true});
+00898 
+00899   \textcolor{comment}{// Algorithms actions.}
+00900   ui->actionShirmoharmmadi->setEnabled(\textcolor{keyword}{true});
+00901   ui->actionCespedes->setEnabled(\textcolor{keyword}{true});
+00902   ui->actionSugiyama->setEnabled(\textcolor{keyword}{true});
+00903   ui->actionSugiyama\_Fast->setEnabled(\textcolor{keyword}{true});
+00904   ui->actionMulti\_level->setEnabled(\textcolor{keyword}{true});
 00905 
-00906 \textcolor{comment}{/*******************************************************************************}
-00907 \textcolor{comment}{ * Disconnect Signals.}
-00908 \textcolor{comment}{ ******************************************************************************/}
-00909 \textcolor{keywordtype}{void} QuickFlow::disconnectSignals()
-00910 \{
-00911   disconnect(ui->systemView, SIGNAL(barProperties(QObject *)), \textcolor{keyword}{this},
-00912              SLOT(on\_editBar(QObject *)));
-00913 
-00914   disconnect(ui->systemView, SIGNAL(lineProperties(QObject *)), \textcolor{keyword}{this},
-00915              SLOT(on\_editLine(QObject *)));
-00916 \}
+00906   \textcolor{comment}{// Enable viewer}
+00907   ui->systemView->setEnabled(\textcolor{keyword}{true});
+00908 \}
+00909 
+00910 \textcolor{comment}{/*******************************************************************************}
+00911 \textcolor{comment}{ * Connect Signals.}
+00912 \textcolor{comment}{ ******************************************************************************/}
+00913 \textcolor{keywordtype}{void} QuickFlow::connectSignals()
+00914 \{
+00915   connect(ui->systemView, SIGNAL(barProperties(QObject *)), \textcolor{keyword}{this},
+00916           SLOT(on\_editBar(QObject *)));
 00917 
+00918   connect(ui->systemView, SIGNAL(lineProperties(QObject *)), \textcolor{keyword}{this},
+00919           SLOT(on\_editLine(QObject *)));
+00920 \}
+00921 
+00922 \textcolor{comment}{/*******************************************************************************}
+00923 \textcolor{comment}{ * Disconnect Signals.}
+00924 \textcolor{comment}{ ******************************************************************************/}
+00925 \textcolor{keywordtype}{void} QuickFlow::disconnectSignals()
+00926 \{
+00927   disconnect(ui->systemView, SIGNAL(barProperties(QObject *)), \textcolor{keyword}{this},
+00928              SLOT(on\_editBar(QObject *)));
+00929 
+00930   disconnect(ui->systemView, SIGNAL(lineProperties(QObject *)), \textcolor{keyword}{this},
+00931              SLOT(on\_editLine(QObject *)));
+00932 \}
+00933 
+00940 \textcolor{keywordtype}{void} QuickFlow::on\_actionExport\_image\_triggered()
+00941 \{
+00942 
+00943   \textcolor{comment}{// Get file location from user.}
+00944   QFileDialog imgFile(\textcolor{keyword}{this});
+00945   imgFile.setAcceptMode(QFileDialog::AcceptSave);
+00946   QStringList filters;
+00947   filters << \textcolor{stringliteral}{"PNG (*.png)"};
+00948   filters << \textcolor{stringliteral}{"JPG (*.jpg)"};
+00949   filters << \textcolor{stringliteral}{"BMP (*.bmp)"};
+00950 
+00951   imgFile.setNameFilters(filters);
+00952   QString initialPath = QStandardPaths::standardLocations(
+00953                           QStandardPaths::DocumentsLocation)[0] + \textcolor{stringliteral}{"/QuickFlow"};
+00954   imgFile.setDirectory(initialPath);
+00955 
+00956   \textcolor{comment}{// Check if user has canceled the opening.}
+00957   \textcolor{keywordflow}{if} (imgFile.exec() != QDialog::Accepted) \{
+00958     \textcolor{keywordflow}{return};
+00959   \}
+00960 
+00961   QString imgPath =  imgFile.selectedFiles()[0];
+00962 
+00963   \textcolor{keywordtype}{double} w = ui->systemView->scene()->sceneRect().width();
+00964   \textcolor{keywordtype}{double} h = ui->systemView->scene()->sceneRect().height();
+00965 
+00966   QImage img(static\_cast<int> (w), static\_cast<int> (h),
+00967              QImage::Format\_ARGB32\_Premultiplied);
+00968   img.fill(ui->systemView->backgroundBrush().color());
+00969   QPainter p(&img);
+00970   p.setRenderHint(QPainter::Antialiasing);
+00971   ui->systemView->scene()->render(&p);
+00972   p.end();
+00973   img.save(imgPath);
+00974 \}
 \end{DoxyCode}

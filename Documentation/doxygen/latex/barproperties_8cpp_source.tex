@@ -6,391 +6,439 @@
 00002 \textcolor{preprocessor}{#include "ui\_barproperties.h"}
 00003 \textcolor{preprocessor}{#include <QValidator>}
 00004 \textcolor{preprocessor}{#include <QMessageBox>}
-00005 
-00006 \textcolor{comment}{/*******************************************************************************}
-00007 \textcolor{comment}{ * WindowBarProperties.}
-00008 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{barproperties_8cpp_source_l00009}{}\hyperlink{class_bar_properties_a7c14a54f430cabfe872869799076025b}{00009} \hyperlink{class_bar_properties_a7c14a54f430cabfe872869799076025b}{BarProperties::BarProperties}(QWidget *parent) :
-00010   QDialog(parent),
-00011   ui(new \hyperlink{namespace_ui}{Ui}::\hyperlink{class_bar_properties}{BarProperties})
-00012 \{
-00013   ui->setupUi(\textcolor{keyword}{this});
-00014 
-00015   \textcolor{comment}{// Create input validators.}
-00016   ui->Va->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
-00017   ui->Vb->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
-00018   ui->Vc->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
-00019   ui->Vai->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
-00020   ui->Vbi->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
-00021   ui->Vci->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
-00022 
-00023   ui->Sha->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
-00024   ui->Shb->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
-00025   ui->Shc->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
-00026   ui->Shai->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
-00027   ui->Shbi->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
-00028   ui->Shci->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
-00029 
-00030   ui->Sia->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
-00031   ui->Sib->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
-00032   ui->Sic->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
-00033   ui->Siai->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
-00034   ui->Sibi->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
-00035   ui->Sici->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
-00036 
-00037   ui->px->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
-00038   ui->py->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
-00039 \}
-00040 
-00041 \textcolor{comment}{/*******************************************************************************}
-00042 \textcolor{comment}{ * ~WindowBarProperties.}
-00043 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{barproperties_8cpp_source_l00044}{}\hyperlink{class_bar_properties_a639b4da849970025a2935ee965d6a465}{00044} \hyperlink{class_bar_properties_a639b4da849970025a2935ee965d6a465}{BarProperties::~BarProperties}()
-00045 \{
-00046   \textcolor{keyword}{delete} ui;
-00047 \}
-00048 
-00049 \textcolor{comment}{/*******************************************************************************}
-00050 \textcolor{comment}{ * setOptions.}
-00051 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{barproperties_8cpp_source_l00052}{}\hyperlink{class_bar_properties_a80cba99404820272603c4da8fb708c05}{00052} \textcolor{keywordtype}{void} \hyperlink{class_bar_properties_a80cba99404820272603c4da8fb708c05}{BarProperties::setOptions}(\hyperlink{class_project}{Project} *project, 
+00005 \textcolor{preprocessor}{#include "\hyperlink{math__constants_8h}{math\_constants.h}"}
+00006 
+00007 \textcolor{comment}{/*******************************************************************************}
+00008 \textcolor{comment}{ * WindowBarProperties.}
+00009 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{barproperties_8cpp_source_l00010}{}\hyperlink{class_bar_properties_a7c14a54f430cabfe872869799076025b}{00010} \hyperlink{class_bar_properties_a7c14a54f430cabfe872869799076025b}{BarProperties::BarProperties}(QWidget *parent) :
+00011   QDialog(parent),
+00012   ui(new \hyperlink{namespace_ui}{Ui}::\hyperlink{class_bar_properties}{BarProperties})
+00013 \{
+00014   ui->setupUi(\textcolor{keyword}{this});
+00015 
+00016   \textcolor{comment}{// Create input validators.}
+00017   ui->Va->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
+00018   ui->Vb->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
+00019   ui->Vc->setValidator(\textcolor{keyword}{new} QDoubleValidator(0,qInf(), 1000, \textcolor{keyword}{this}));
+00020   ui->Vai->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00021   ui->Vbi->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00022   ui->Vci->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00023 
+00024   ui->Sha->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00025   ui->Shb->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00026   ui->Shc->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00027   ui->Shai->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00028   ui->Shbi->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00029   ui->Shci->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00030 
+00031   ui->Sia->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00032   ui->Sib->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00033   ui->Sic->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00034   ui->Siai->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00035   ui->Sibi->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00036   ui->Sici->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00037 
+00038   ui->px->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00039   ui->py->setValidator(\textcolor{keyword}{new} QDoubleValidator(\textcolor{keyword}{this}));
+00040 \}
+00041 
+00042 \textcolor{comment}{/*******************************************************************************}
+00043 \textcolor{comment}{ * ~WindowBarProperties.}
+00044 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{barproperties_8cpp_source_l00045}{}\hyperlink{class_bar_properties_a639b4da849970025a2935ee965d6a465}{00045} \hyperlink{class_bar_properties_a639b4da849970025a2935ee965d6a465}{BarProperties::~BarProperties}()
+00046 \{
+00047   \textcolor{keyword}{delete} ui;
+00048 \}
+00049 
+00050 \textcolor{comment}{/*******************************************************************************}
+00051 \textcolor{comment}{ * setOptions.}
+00052 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{barproperties_8cpp_source_l00053}{}\hyperlink{class_bar_properties_a0a9a2284b5aad8acbade86ccec7adbf8}{00053} \textcolor{keywordtype}{bool} \hyperlink{class_bar_properties_a0a9a2284b5aad8acbade86ccec7adbf8}{BarProperties::setOptions}(\hyperlink{class_project}{Project} *project, 
       \hyperlink{class_bar}{Bar} *bar)
-00053 \{
-00054   \textcolor{comment}{// Adjust apearance according to bar.}
-00055   \textcolor{keywordflow}{if} (bar == NULL) \{
-00056     setWindowTitle(tr(\textcolor{stringliteral}{"New Bar"}));
-00057     \textcolor{comment}{// Create a new bar.}
-00058     ui->id->setValue(0);
-00059     bar\_ = \textcolor{keyword}{new} \hyperlink{class_bar}{Bar};
-00060     isNew = \textcolor{keyword}{true};
-00061     \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
-00062       ui->network->addItem(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
-00063     \}
-00064   \} \textcolor{keywordflow}{else} \{
-00065     setWindowTitle(tr(\textcolor{stringliteral}{"Edit Bar "}) + QString::number(bar->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id}));
-00066     ui->id->setEnabled(\textcolor{keyword}{false});
-00067     \textcolor{comment}{// Store parameters.}
-00068     bar\_ = \hyperlink{class_bar_properties_a65d09e7315764cd4ad33b5a0ded32090}{bar};
-00069     ui->id->setValue(bar\_->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id});
-00070     isNew = \textcolor{keyword}{false};
-00071     ui->network->addItem(bar->\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network}->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
-00072     ui->network->setEnabled(\textcolor{keyword}{false});
-00073   \}
+00054 \{
+00055   \textcolor{comment}{// Check if project contains a network.}
+00056   \textcolor{keywordflow}{if}(project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.isEmpty()) \{
+00057     QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Not networks found"}, \textcolor{stringliteral}{"First create a new network."},
+00058                           QMessageBox::Ok);
+00059     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00060   \}
+00061 
+00062   \textcolor{comment}{// Store project parameters.}
+00063   project\_ = project;
+00064 
+00065   \textcolor{comment}{// Adjust apearance according to bar.}
+00066   \textcolor{keywordflow}{if} (bar == NULL) \{
+00067     \textcolor{comment}{// Create a new bar.}
+00068     bar\_ = \textcolor{keyword}{new} \hyperlink{class_bar}{Bar};
+00069     isNew = \textcolor{keyword}{true};
+00070 
+00071     \textcolor{comment}{// Adjust window.}
+00072     setWindowTitle(tr(\textcolor{stringliteral}{"New Bar"}));
+00073     ui->id->setValue(0);
 00074 
-00075 \textcolor{comment}{// Store project parameters.}
-00076   project\_ = project;
-00077 
-00078 \textcolor{comment}{// Fill Bar data.}
-00079   ui->Va->setText(QString::number(bar\_->\hyperlink{group___models_ga1e6f2daec86407118656d88170d1adc2}{v}(0,\hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).real()));
-00080   ui->Vb->setText(QString::number(bar\_->\hyperlink{group___models_ga1e6f2daec86407118656d88170d1adc2}{v}(1,\hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).real()));
-00081   ui->Vc->setText(QString::number(bar\_->\hyperlink{group___models_ga1e6f2daec86407118656d88170d1adc2}{v}(2,\hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).real()));
-00082   ui->Vai->setText(QString::number(bar\_->\hyperlink{group___models_ga1e6f2daec86407118656d88170d1adc2}{v}(0,\hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).imag()));
-00083   ui->Vbi->setText(QString::number(bar\_->\hyperlink{group___models_ga1e6f2daec86407118656d88170d1adc2}{v}(1,\hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).imag()));
-00084   ui->Vci->setText(QString::number(bar\_->\hyperlink{group___models_ga1e6f2daec86407118656d88170d1adc2}{v}(2,\hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).imag()));
-00085   ui->Sha->setText(QString::number(bar\_->\hyperlink{group___models_gac188071bf5f165b0acdaa4c8af82355c}{sh}(0, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
-00086   ui->Shb->setText(QString::number(bar\_->\hyperlink{group___models_gac188071bf5f165b0acdaa4c8af82355c}{sh}(1, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
-00087   ui->Shc->setText(QString::number(bar\_->\hyperlink{group___models_gac188071bf5f165b0acdaa4c8af82355c}{sh}(2, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
-00088   ui->Shai->setText(QString::number(bar\_->\hyperlink{group___models_gac188071bf5f165b0acdaa4c8af82355c}{sh}(0, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
-00089   ui->Shbi->setText(QString::number(bar\_->\hyperlink{group___models_gac188071bf5f165b0acdaa4c8af82355c}{sh}(1, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
-00090   ui->Shci->setText(QString::number(bar\_->\hyperlink{group___models_gac188071bf5f165b0acdaa4c8af82355c}{sh}(2, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
-00091   ui->Sia->setText(QString::number(bar\_->\hyperlink{group___models_ga02bbc279f1e133f66b12ee21e7bebcd8}{si}(0, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
-00092   ui->Sib->setText(QString::number(bar\_->\hyperlink{group___models_ga02bbc279f1e133f66b12ee21e7bebcd8}{si}(1, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
-00093   ui->Sic->setText(QString::number(bar\_->\hyperlink{group___models_ga02bbc279f1e133f66b12ee21e7bebcd8}{si}(2, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
-00094   ui->Siai->setText(QString::number(bar\_->\hyperlink{group___models_ga02bbc279f1e133f66b12ee21e7bebcd8}{si}(0, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
-00095   ui->Sibi->setText(QString::number(bar\_->\hyperlink{group___models_ga02bbc279f1e133f66b12ee21e7bebcd8}{si}(1, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
-00096   ui->Sici->setText(QString::number(bar\_->\hyperlink{group___models_ga02bbc279f1e133f66b12ee21e7bebcd8}{si}(2, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
-00097   ui->px->setText(QString::number(bar\_->x()));
-00098   ui->py->setText(QString::number(bar\_->y()));
-00099 
-00100   \textcolor{comment}{// Set units.}
-00101   \textcolor{comment}{// Voltage.}
-00102   ui->VaUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_a7fa103c31f9f069961b35b6371ff0c0a}{Unit::voltageUnitToStr}(
-      \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}) +
-00103                     tr(\textcolor{stringliteral}{"]"}));
-00104   ui->VbUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_a7fa103c31f9f069961b35b6371ff0c0a}{Unit::voltageUnitToStr}(
-      \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}) +
-00105                     tr(\textcolor{stringliteral}{"]"}));
-00106   ui->VcUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_a7fa103c31f9f069961b35b6371ff0c0a}{Unit::voltageUnitToStr}(
-      \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}) +
-00107                     tr(\textcolor{stringliteral}{"]"}));
-00108 
-00109   \textcolor{comment}{// Power.}
-00110   ui->ShaUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
-      \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
-00111                      tr(\textcolor{stringliteral}{"]"}));
-00112   ui->SiaUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
-      \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
-00113                      tr(\textcolor{stringliteral}{"]"}));
-00114   ui->ShbUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
-      \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
-00115                      tr(\textcolor{stringliteral}{"]"}));
-00116   ui->SibUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
-      \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
-00117                      tr(\textcolor{stringliteral}{"]"}));
-00118   ui->ShcUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
-      \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
-00119                      tr(\textcolor{stringliteral}{"]"}));
-00120   ui->SicUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
-      \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
-00121                      tr(\textcolor{stringliteral}{"]"}));
-00122 \}
-00123 
-\hypertarget{barproperties_8cpp_source_l00124}{}\hyperlink{class_bar_properties_a65d09e7315764cd4ad33b5a0ded32090}{00124} \hyperlink{class_bar}{Bar} *\hyperlink{class_bar_properties_a65d09e7315764cd4ad33b5a0ded32090}{BarProperties::bar}()
-00125 \{
-00126   \textcolor{keywordflow}{return} bar\_;
-00127 \}
-00128 
-00129 \textcolor{comment}{/*******************************************************************************}
-00130 \textcolor{comment}{ * Botton Box Accepted.}
-00131 \textcolor{comment}{ ******************************************************************************/}
-00132 \textcolor{keywordtype}{void} BarProperties::on\_buttonBox\_accepted()
-00133 \{
-00134 
-00135   \hyperlink{class_network}{Network} *network = project\_->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.value(ui->network->currentText(), NULL);
-00136 
-00137   \textcolor{keywordflow}{if} (network == NULL) \{
-00138     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Invalid network."},
-00139                              QMessageBox::Ok);
-00140     ui->network->setFocus();
-00141     \textcolor{keywordflow}{return};
-00142   \}
-00143 
-00144   \textcolor{comment}{// Check for valid id.}
-00145   \textcolor{keywordflow}{if}(isNew) \{
-00146     \textcolor{keywordflow}{if} (network->\hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(ui->id->value()) != NULL) \{
-00147       QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Id already in use."},
-00148                                QMessageBox::Ok);
-00149       ui->id->setFocus();
-00150       \textcolor{keywordflow}{return};
-00151     \}
-00152   \}
+00075     \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00076       ui->network->addItem(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
+00077     \}
+00078 
+00079     bar\_->\hyperlink{group___models_gade9a307fdb6a81871787899ec1af5833}{setNetwork}(project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.value(ui->network->currentText()));
+00080 
+00081     \textcolor{comment}{// Set voltage to 1pu.}
+00082     \textcolor{keywordtype}{double} initialVoltage = bar\_->\hyperlink{group___models_gab0594d5d7313e8749bb85434b255db9a}{network}()->\hyperlink{group___models_ga88cd2506aaf0b19513e41f00608093e0}{voltageBase}();
+00083 
+00084     bar\_->\hyperlink{group___models_ga8d1e70b2d11ed4245e81b8b20858079d}{setV}(0, std::polar(initialVoltage, 0.0), \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts});
+00085     bar\_->\hyperlink{group___models_ga8d1e70b2d11ed4245e81b8b20858079d}{setV}(1, std::polar(initialVoltage, 120.0*\hyperlink{math__constants_8h_a368d99984512d9a6c6f18b37b4446431}{kPI}/180.0), 
+      \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts});
+00086     bar\_->\hyperlink{group___models_ga8d1e70b2d11ed4245e81b8b20858079d}{setV}(2, std::polar(initialVoltage, 240.0*\hyperlink{math__constants_8h_a368d99984512d9a6c6f18b37b4446431}{kPI}/180.0), 
+      \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts});
+00087 
+00088   \} \textcolor{keywordflow}{else} \{
+00089     \textcolor{comment}{// Store parameters.}
+00090     bar\_ = \hyperlink{class_bar_properties_a65d09e7315764cd4ad33b5a0ded32090}{bar};
+00091     isNew = \textcolor{keyword}{false};
+00092 
+00093     \textcolor{comment}{// Adjust window.}
+00094     setWindowTitle(tr(\textcolor{stringliteral}{"Edit Bar "}) + QString::number(bar\_->\hyperlink{group___models_gacf0fb781a73856bb7beb823304465e13}{id}()));
+00095     ui->id->setEnabled(\textcolor{keyword}{false});
+00096     ui->id->setValue(bar\_->\hyperlink{group___models_gacf0fb781a73856bb7beb823304465e13}{id}());
+00097     ui->network->setEnabled(\textcolor{keyword}{false});
+00098     ui->network->addItem(bar\_->\hyperlink{group___models_gab0594d5d7313e8749bb85434b255db9a}{network}()->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
+00099   \}
+00100 
+00101 \textcolor{comment}{// Fill Bar data.}
+00102   ui->Va->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(0,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).real()));
+00103   ui->Vb->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(1,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).real()));
+00104   ui->Vc->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(2,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).real()));
+00105   ui->Vai->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(0,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).imag()));
+00106   ui->Vbi->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(1,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).imag()));
+00107   ui->Vci->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(2,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).imag()));
+00108   ui->Sha->setText(QString::number(bar\_->\hyperlink{group___models_gac020fff2f22a9caab71f21205b5773f8}{sh}(0, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
+00109   ui->Shb->setText(QString::number(bar\_->\hyperlink{group___models_gac020fff2f22a9caab71f21205b5773f8}{sh}(1, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
+00110   ui->Shc->setText(QString::number(bar\_->\hyperlink{group___models_gac020fff2f22a9caab71f21205b5773f8}{sh}(2, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
+00111   ui->Shai->setText(QString::number(bar\_->\hyperlink{group___models_gac020fff2f22a9caab71f21205b5773f8}{sh}(0, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
+00112   ui->Shbi->setText(QString::number(bar\_->\hyperlink{group___models_gac020fff2f22a9caab71f21205b5773f8}{sh}(1, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
+00113   ui->Shci->setText(QString::number(bar\_->\hyperlink{group___models_gac020fff2f22a9caab71f21205b5773f8}{sh}(2, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
+00114   ui->Sia->setText(QString::number(bar\_->\hyperlink{group___models_ga9af07eb85c2c76eb3bc73e25bb842c1e}{si}(0, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
+00115   ui->Sib->setText(QString::number(bar\_->\hyperlink{group___models_ga9af07eb85c2c76eb3bc73e25bb842c1e}{si}(1, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
+00116   ui->Sic->setText(QString::number(bar\_->\hyperlink{group___models_ga9af07eb85c2c76eb3bc73e25bb842c1e}{si}(2, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).real()));
+00117   ui->Siai->setText(QString::number(bar\_->\hyperlink{group___models_ga9af07eb85c2c76eb3bc73e25bb842c1e}{si}(0, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
+00118   ui->Sibi->setText(QString::number(bar\_->\hyperlink{group___models_ga9af07eb85c2c76eb3bc73e25bb842c1e}{si}(1, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
+00119   ui->Sici->setText(QString::number(bar\_->\hyperlink{group___models_ga9af07eb85c2c76eb3bc73e25bb842c1e}{si}(2, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}).imag()));
+00120   ui->px->setText(QString::number(bar\_->x()));
+00121   ui->py->setText(QString::number(bar\_->y()));
+00122 
+00123   \textcolor{comment}{// Set units.}
+00124   \textcolor{comment}{// Voltage.}
+00125   ui->VaUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_a7fa103c31f9f069961b35b6371ff0c0a}{Unit::voltageUnitToStr}(
+      \hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}) +
+00126                     tr(\textcolor{stringliteral}{"]"}));
+00127   ui->VbUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_a7fa103c31f9f069961b35b6371ff0c0a}{Unit::voltageUnitToStr}(
+      \hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}) +
+00128                     tr(\textcolor{stringliteral}{"]"}));
+00129   ui->VcUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_a7fa103c31f9f069961b35b6371ff0c0a}{Unit::voltageUnitToStr}(
+      \hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}) +
+00130                     tr(\textcolor{stringliteral}{"]"}));
+00131 
+00132   \textcolor{comment}{// Power.}
+00133   ui->ShaUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
+      \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
+00134                      tr(\textcolor{stringliteral}{"]"}));
+00135   ui->SiaUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
+      \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
+00136                      tr(\textcolor{stringliteral}{"]"}));
+00137   ui->ShbUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
+      \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
+00138                      tr(\textcolor{stringliteral}{"]"}));
+00139   ui->SibUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
+      \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
+00140                      tr(\textcolor{stringliteral}{"]"}));
+00141   ui->ShcUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
+      \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
+00142                      tr(\textcolor{stringliteral}{"]"}));
+00143   ui->SicUn->setText(tr(\textcolor{stringliteral}{"["}) + \hyperlink{class_unit_ad1487441b5a7eb93a3eb0aeebe947725}{Unit::powerUnitToStr}(
+      \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit}) +
+00144                      tr(\textcolor{stringliteral}{"]"}));
+00145 
+00146   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+00147 \}
+00148 
+\hypertarget{barproperties_8cpp_source_l00149}{}\hyperlink{class_bar_properties_a65d09e7315764cd4ad33b5a0ded32090}{00149} \hyperlink{class_bar}{Bar} *\hyperlink{class_bar_properties_a65d09e7315764cd4ad33b5a0ded32090}{BarProperties::bar}()
+00150 \{
+00151   \textcolor{keywordflow}{return} bar\_;
+00152 \}
 00153 
-00154 \textcolor{comment}{//  // Check for empty fields.}
-00155 \textcolor{comment}{//  // Voltages.}
-00156 \textcolor{comment}{//  // Real Part.}
-00157   \textcolor{keywordflow}{if} (ui->Va->text().isEmpty()) \{
-00158     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Va is empty."},
-00159                              QMessageBox::Ok);
-00160     ui->Va->setFocus();
-00161     \textcolor{keywordflow}{return};
-00162   \}
-00163 
-00164   \textcolor{keywordflow}{if} (ui->Vb->text().isEmpty()) \{
-00165     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Vb is empty."},
-00166                              QMessageBox::Ok);
-00167     ui->Vb->setFocus();
-00168     \textcolor{keywordflow}{return};
-00169   \}
-00170 
-00171   \textcolor{keywordflow}{if} (ui->Vc->text().isEmpty()) \{
-00172     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Vc is empty."},
-00173                              QMessageBox::Ok);
-00174     ui->Vc->setFocus();
-00175     \textcolor{keywordflow}{return};
-00176   \}
-00177 
-00178   \textcolor{comment}{// Imaginary Part.}
-00179   \textcolor{keywordflow}{if} (ui->Vai->text().isEmpty()) \{
-00180     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Va is empty."},
-00181                              QMessageBox::Ok);
-00182     ui->Vai->setFocus();
-00183     \textcolor{keywordflow}{return};
-00184   \}
-00185 
-00186   \textcolor{keywordflow}{if} (ui->Vbi->text().isEmpty()) \{
-00187     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Vb is empty."},
-00188                              QMessageBox::Ok);
-00189     ui->Vbi->setFocus();
-00190     \textcolor{keywordflow}{return};
-00191   \}
-00192 
-00193   \textcolor{keywordflow}{if} (ui->Vci->text().isEmpty()) \{
-00194     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Vc is empty."},
-00195                              QMessageBox::Ok);
-00196     ui->Vci->setFocus();
-00197     \textcolor{keywordflow}{return};
-00198   \}
-00199 
-00200   \textcolor{comment}{// Generated Power.}
-00201   \textcolor{comment}{// Real Part.}
-00202   \textcolor{keywordflow}{if} (ui->Sha->text().isEmpty()) \{
-00203     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sha is empty."},
-00204                              QMessageBox::Ok);
-00205     ui->Sha->setFocus();
-00206     \textcolor{keywordflow}{return};
-00207   \}
-00208 
-00209   \textcolor{keywordflow}{if} (ui->Shb->text().isEmpty()) \{
-00210     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Shb is empty."},
-00211                              QMessageBox::Ok);
-00212     ui->Shb->setFocus();
-00213     \textcolor{keywordflow}{return};
-00214   \}
-00215 
-00216   \textcolor{keywordflow}{if} (ui->Shc->text().isEmpty()) \{
-00217     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Shc is empty."},
-00218                              QMessageBox::Ok);
-00219     ui->Shc->setFocus();
-00220     \textcolor{keywordflow}{return};
-00221   \}
-00222 
-00223   \textcolor{comment}{// Imaginary Part.}
-00224   \textcolor{keywordflow}{if} (ui->Shai->text().isEmpty()) \{
-00225     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sha is empty."},
-00226                              QMessageBox::Ok);
-00227     ui->Shai->setFocus();
-00228     \textcolor{keywordflow}{return};
-00229   \}
-00230 
-00231   \textcolor{keywordflow}{if} (ui->Shbi->text().isEmpty()) \{
-00232     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Shb is empty."},
-00233                              QMessageBox::Ok);
-00234     ui->Shbi->setFocus();
-00235     \textcolor{keywordflow}{return};
-00236   \}
-00237 
-00238   \textcolor{keywordflow}{if} (ui->Shci->text().isEmpty()) \{
-00239     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Shc is empty."},
-00240                              QMessageBox::Ok);
-00241     ui->Shci->setFocus();
-00242     \textcolor{keywordflow}{return};
-00243   \}
-00244 
-00245   \textcolor{comment}{// Consumed Power.}
-00246   \textcolor{comment}{// Real Part.}
-00247   \textcolor{keywordflow}{if} (ui->Sia->text().isEmpty()) \{
-00248     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sia is empty."},
-00249                              QMessageBox::Ok);
-00250     ui->Sia->setFocus();
-00251     \textcolor{keywordflow}{return};
-00252   \}
-00253 
-00254   \textcolor{keywordflow}{if} (ui->Sib->text().isEmpty()) \{
-00255     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sib is empty."},
-00256                              QMessageBox::Ok);
-00257     ui->Sib->setFocus();
-00258     \textcolor{keywordflow}{return};
-00259   \}
-00260 
-00261   \textcolor{keywordflow}{if} (ui->Sic->text().isEmpty()) \{
-00262     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sic is empty."},
-00263                              QMessageBox::Ok);
-00264     ui->Sic->setFocus();
-00265     \textcolor{keywordflow}{return};
-00266   \}
-00267 
-00268   \textcolor{comment}{// Imaginary Part.}
-00269   \textcolor{keywordflow}{if} (ui->Siai->text().isEmpty()) \{
-00270     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sia is empty."},
-00271                              QMessageBox::Ok);
-00272     ui->Siai->setFocus();
-00273     \textcolor{keywordflow}{return};
-00274   \}
-00275 
-00276   \textcolor{keywordflow}{if} (ui->Sibi->text().isEmpty()) \{
-00277     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sib is empty."},
-00278                              QMessageBox::Ok);
-00279     ui->Sibi->setFocus();
-00280     \textcolor{keywordflow}{return};
-00281   \}
-00282 
-00283   \textcolor{keywordflow}{if} (ui->Sici->text().isEmpty()) \{
-00284     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sic is empty."},
-00285                              QMessageBox::Ok);
-00286     ui->Sici->setFocus();
-00287     \textcolor{keywordflow}{return};
-00288   \}
-00289 
-00290   \textcolor{comment}{// Position}
-00291   \textcolor{keywordflow}{if} (ui->px->text().isEmpty()) \{
-00292     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter X is empty."},
-00293                              QMessageBox::Ok);
-00294     ui->px->setFocus();
-00295     \textcolor{keywordflow}{return};
-00296   \}
-00297 
-00298   \textcolor{keywordflow}{if} (ui->py->text().isEmpty()) \{
-00299     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Y is empty."},
-00300                              QMessageBox::Ok);
-00301     ui->py->setFocus();
-00302     \textcolor{keywordflow}{return};
-00303   \}
-00304 
-00305   \textcolor{comment}{// Replace Bar Data.}
-00306   \textcolor{comment}{// Id.}
-00307   bar\_->\hyperlink{class_bar_a9dc5c6a6d44fe412ae34ef8a881b8dce}{id} = ui->id->value();
-00308 
-00309   \textcolor{comment}{// Network}
-00310   bar\_->\hyperlink{class_bar_a80025f13884750add58cc61b318357ff}{network} = network;
-00311 
-00312   \textcolor{comment}{// Voltage.}
-00313   complex<double> voltage;
-00314   voltage.real(ui->Va->text().toDouble());
-00315   voltage.imag(ui->Vai->text().toDouble());
-00316   bar\_->\hyperlink{group___models_ga9b6fbc92674bfcdc9d5090795ab335a6}{setV}(0,voltage, \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit});
-00317 
-00318   voltage.real(ui->Vb->text().toDouble());
-00319   voltage.imag(ui->Vbi->text().toDouble());
-00320   bar\_->\hyperlink{group___models_ga9b6fbc92674bfcdc9d5090795ab335a6}{setV}(1, voltage, \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit});
-00321 
+00154 \textcolor{comment}{/*******************************************************************************}
+00155 \textcolor{comment}{ * Botton Box Accepted.}
+00156 \textcolor{comment}{ ******************************************************************************/}
+00157 \textcolor{keywordtype}{void} BarProperties::on\_buttonBox\_accepted()
+00158 \{
+00159 
+00160   \hyperlink{class_network}{Network} *network = project\_->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.value(ui->network->currentText(), NULL);
+00161 
+00162   \textcolor{keywordflow}{if} (network == NULL) \{
+00163     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Invalid network."},
+00164                              QMessageBox::Ok);
+00165     ui->network->setFocus();
+00166     \textcolor{keywordflow}{return};
+00167   \}
+00168 
+00169   \textcolor{comment}{// Check for valid id.}
+00170   \textcolor{keywordflow}{if}(isNew) \{
+00171     \textcolor{keywordflow}{if} (network->\hyperlink{group___models_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(ui->id->value()) != NULL) \{
+00172       QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Id already in use."},
+00173                                QMessageBox::Ok);
+00174       ui->id->setFocus();
+00175       \textcolor{keywordflow}{return};
+00176     \}
+00177   \}
+00178 
+00179 \textcolor{comment}{//  // Check for empty fields.}
+00180 \textcolor{comment}{//  // Voltages.}
+00181 \textcolor{comment}{//  // Real Part.}
+00182   \textcolor{keywordflow}{if} (ui->Va->text().isEmpty()) \{
+00183     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Va is empty."},
+00184                              QMessageBox::Ok);
+00185     ui->Va->setFocus();
+00186     \textcolor{keywordflow}{return};
+00187   \}
+00188 
+00189   \textcolor{keywordflow}{if} (ui->Vb->text().isEmpty()) \{
+00190     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Vb is empty."},
+00191                              QMessageBox::Ok);
+00192     ui->Vb->setFocus();
+00193     \textcolor{keywordflow}{return};
+00194   \}
+00195 
+00196   \textcolor{keywordflow}{if} (ui->Vc->text().isEmpty()) \{
+00197     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Vc is empty."},
+00198                              QMessageBox::Ok);
+00199     ui->Vc->setFocus();
+00200     \textcolor{keywordflow}{return};
+00201   \}
+00202 
+00203   \textcolor{comment}{// Imaginary Part.}
+00204   \textcolor{keywordflow}{if} (ui->Vai->text().isEmpty()) \{
+00205     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Va is empty."},
+00206                              QMessageBox::Ok);
+00207     ui->Vai->setFocus();
+00208     \textcolor{keywordflow}{return};
+00209   \}
+00210 
+00211   \textcolor{keywordflow}{if} (ui->Vbi->text().isEmpty()) \{
+00212     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Vb is empty."},
+00213                              QMessageBox::Ok);
+00214     ui->Vbi->setFocus();
+00215     \textcolor{keywordflow}{return};
+00216   \}
+00217 
+00218   \textcolor{keywordflow}{if} (ui->Vci->text().isEmpty()) \{
+00219     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Vc is empty."},
+00220                              QMessageBox::Ok);
+00221     ui->Vci->setFocus();
+00222     \textcolor{keywordflow}{return};
+00223   \}
+00224 
+00225   \textcolor{comment}{// Generated Power.}
+00226   \textcolor{comment}{// Real Part.}
+00227   \textcolor{keywordflow}{if} (ui->Sha->text().isEmpty()) \{
+00228     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sha is empty."},
+00229                              QMessageBox::Ok);
+00230     ui->Sha->setFocus();
+00231     \textcolor{keywordflow}{return};
+00232   \}
+00233 
+00234   \textcolor{keywordflow}{if} (ui->Shb->text().isEmpty()) \{
+00235     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Shb is empty."},
+00236                              QMessageBox::Ok);
+00237     ui->Shb->setFocus();
+00238     \textcolor{keywordflow}{return};
+00239   \}
+00240 
+00241   \textcolor{keywordflow}{if} (ui->Shc->text().isEmpty()) \{
+00242     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Shc is empty."},
+00243                              QMessageBox::Ok);
+00244     ui->Shc->setFocus();
+00245     \textcolor{keywordflow}{return};
+00246   \}
+00247 
+00248   \textcolor{comment}{// Imaginary Part.}
+00249   \textcolor{keywordflow}{if} (ui->Shai->text().isEmpty()) \{
+00250     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sha is empty."},
+00251                              QMessageBox::Ok);
+00252     ui->Shai->setFocus();
+00253     \textcolor{keywordflow}{return};
+00254   \}
+00255 
+00256   \textcolor{keywordflow}{if} (ui->Shbi->text().isEmpty()) \{
+00257     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Shb is empty."},
+00258                              QMessageBox::Ok);
+00259     ui->Shbi->setFocus();
+00260     \textcolor{keywordflow}{return};
+00261   \}
+00262 
+00263   \textcolor{keywordflow}{if} (ui->Shci->text().isEmpty()) \{
+00264     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Shc is empty."},
+00265                              QMessageBox::Ok);
+00266     ui->Shci->setFocus();
+00267     \textcolor{keywordflow}{return};
+00268   \}
+00269 
+00270   \textcolor{comment}{// Consumed Power.}
+00271   \textcolor{comment}{// Real Part.}
+00272   \textcolor{keywordflow}{if} (ui->Sia->text().isEmpty()) \{
+00273     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sia is empty."},
+00274                              QMessageBox::Ok);
+00275     ui->Sia->setFocus();
+00276     \textcolor{keywordflow}{return};
+00277   \}
+00278 
+00279   \textcolor{keywordflow}{if} (ui->Sib->text().isEmpty()) \{
+00280     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sib is empty."},
+00281                              QMessageBox::Ok);
+00282     ui->Sib->setFocus();
+00283     \textcolor{keywordflow}{return};
+00284   \}
+00285 
+00286   \textcolor{keywordflow}{if} (ui->Sic->text().isEmpty()) \{
+00287     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sic is empty."},
+00288                              QMessageBox::Ok);
+00289     ui->Sic->setFocus();
+00290     \textcolor{keywordflow}{return};
+00291   \}
+00292 
+00293   \textcolor{comment}{// Imaginary Part.}
+00294   \textcolor{keywordflow}{if} (ui->Siai->text().isEmpty()) \{
+00295     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sia is empty."},
+00296                              QMessageBox::Ok);
+00297     ui->Siai->setFocus();
+00298     \textcolor{keywordflow}{return};
+00299   \}
+00300 
+00301   \textcolor{keywordflow}{if} (ui->Sibi->text().isEmpty()) \{
+00302     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sib is empty."},
+00303                              QMessageBox::Ok);
+00304     ui->Sibi->setFocus();
+00305     \textcolor{keywordflow}{return};
+00306   \}
+00307 
+00308   \textcolor{keywordflow}{if} (ui->Sici->text().isEmpty()) \{
+00309     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Sic is empty."},
+00310                              QMessageBox::Ok);
+00311     ui->Sici->setFocus();
+00312     \textcolor{keywordflow}{return};
+00313   \}
+00314 
+00315   \textcolor{comment}{// Position}
+00316   \textcolor{keywordflow}{if} (ui->px->text().isEmpty()) \{
+00317     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter X is empty."},
+00318                              QMessageBox::Ok);
+00319     ui->px->setFocus();
+00320     \textcolor{keywordflow}{return};
+00321   \}
 00322 
-00323   voltage.real(ui->Vc->text().toDouble());
-00324   voltage.imag(ui->Vci->text().toDouble());
-00325   bar\_->\hyperlink{group___models_ga9b6fbc92674bfcdc9d5090795ab335a6}{setV}(2, voltage, \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit});
-00326 
-00327   \textcolor{comment}{// Generated power.}
-00328   complex<double> shunt;
+00323   \textcolor{keywordflow}{if} (ui->py->text().isEmpty()) \{
+00324     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter Y is empty."},
+00325                              QMessageBox::Ok);
+00326     ui->py->setFocus();
+00327     \textcolor{keywordflow}{return};
+00328   \}
 00329 
-00330   shunt.real(ui->Sha->text().toDouble());
-00331   shunt.imag(ui->Shai->text().toDouble());
-00332   bar\_->\hyperlink{group___models_ga207abd3d0649a488e3c44cf2a501ed23}{setSh}(0, shunt, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
+00330   \textcolor{comment}{// Replace Bar Data.}
+00331   \textcolor{comment}{// Id.}
+00332   bar\_->\hyperlink{group___models_gae3cf341a76cc4589fe3203d0a3ed2ac0}{setBarId}(ui->id->value());
 00333 
-00334   shunt.real(ui->Shb->text().toDouble());
-00335   shunt.imag(ui->Shbi->text().toDouble());
-00336   bar\_->\hyperlink{group___models_ga207abd3d0649a488e3c44cf2a501ed23}{setSh}(1, shunt, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
-00337 
-00338   shunt.real(ui->Shc->text().toDouble());
-00339   shunt.imag(ui->Shci->text().toDouble());
-00340   bar\_->\hyperlink{group___models_ga207abd3d0649a488e3c44cf2a501ed23}{setSh}(2, shunt, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
-00341 
-00342   \textcolor{comment}{// Consumed power.}
-00343   complex<double> injected;
-00344   injected.real(ui->Sia->text().toDouble());
-00345   injected.imag(ui->Siai->text().toDouble());
-00346   bar\_->\hyperlink{group___models_ga74e510be49e50e4c14550b32e1dc92f9}{setSi}(0, injected, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
+00334   \textcolor{comment}{// Network}
+00335   bar\_->\hyperlink{group___models_gade9a307fdb6a81871787899ec1af5833}{setNetwork}(network);
+00336 
+00337   \textcolor{comment}{// Voltage.}
+00338   complex<double> voltage;
+00339   voltage.real(ui->Va->text().toDouble());
+00340   voltage.imag(ui->Vai->text().toDouble());
+00341   bar\_->\hyperlink{group___models_ga8d1e70b2d11ed4245e81b8b20858079d}{setV}(0,voltage, \hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit});
+00342 
+00343   voltage.real(ui->Vb->text().toDouble());
+00344   voltage.imag(ui->Vbi->text().toDouble());
+00345   bar\_->\hyperlink{group___models_ga8d1e70b2d11ed4245e81b8b20858079d}{setV}(1, voltage, \hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit});
+00346 
 00347 
-00348   injected.real(ui->Sib->text().toDouble());
-00349   injected.imag(ui->Sibi->text().toDouble());
-00350   bar\_->\hyperlink{group___models_ga74e510be49e50e4c14550b32e1dc92f9}{setSi}(1, injected, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
+00348   voltage.real(ui->Vc->text().toDouble());
+00349   voltage.imag(ui->Vci->text().toDouble());
+00350   bar\_->\hyperlink{group___models_ga8d1e70b2d11ed4245e81b8b20858079d}{setV}(2, voltage, \hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit});
 00351 
-00352   injected.real(ui->Sic->text().toDouble());
-00353   injected.imag(ui->Sici->text().toDouble());
-00354   bar\_->\hyperlink{group___models_ga74e510be49e50e4c14550b32e1dc92f9}{setSi}(2, injected, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
-00355 
-00356   \textcolor{comment}{// Position}
-00357   \textcolor{keywordflow}{if}((ui->px->text().toDouble() != bar\_->x()) ||
-00358       (ui->py->text().toDouble() != bar\_->y())) \{
-00359     bar\_->setPos(ui->px->text().toDouble(), ui->py->text().toDouble());
-00360   \}
-00361 
-00362   \textcolor{comment}{// Add Bar to project.}
-00363   \textcolor{keywordflow}{if} (isNew) \{
-00364     \textcolor{keywordflow}{if}(!network->\hyperlink{group___graphics_ga8c5dfef0216731246f7411e1a5fbee01}{addBar}(bar\_)) \{
-00365       QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid Bar"}, \textcolor{stringliteral}{"Can't add new bar to project."},
-00366                             QMessageBox::Ok);
-00367       \textcolor{keyword}{delete} bar\_;
-00368       reject();
-00369     \}
-00370   \}
-00371 
-00372   accept();
-00373 \}
-00374 
-00375 \textcolor{comment}{/*******************************************************************************}
-00376 \textcolor{comment}{ * Botton Box Rejected.}
-00377 \textcolor{comment}{ ******************************************************************************/}
-00378 \textcolor{keywordtype}{void} BarProperties::on\_buttonBox\_rejected()
-00379 \{
-00380   reject();
-00381 \}
+00352   \textcolor{comment}{// Generated power.}
+00353   complex<double> shunt;
+00354 
+00355   shunt.real(ui->Sha->text().toDouble());
+00356   shunt.imag(ui->Shai->text().toDouble());
+00357   bar\_->\hyperlink{group___models_gafd91c7f15566b9d5a68a197efeaeaf26}{setSh}(0, shunt, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
+00358 
+00359   shunt.real(ui->Shb->text().toDouble());
+00360   shunt.imag(ui->Shbi->text().toDouble());
+00361   bar\_->\hyperlink{group___models_gafd91c7f15566b9d5a68a197efeaeaf26}{setSh}(1, shunt, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
+00362 
+00363   shunt.real(ui->Shc->text().toDouble());
+00364   shunt.imag(ui->Shci->text().toDouble());
+00365   bar\_->\hyperlink{group___models_gafd91c7f15566b9d5a68a197efeaeaf26}{setSh}(2, shunt, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
+00366 
+00367   \textcolor{comment}{// Consumed power.}
+00368   complex<double> injected;
+00369   injected.real(ui->Sia->text().toDouble());
+00370   injected.imag(ui->Siai->text().toDouble());
+00371   bar\_->\hyperlink{group___models_ga85e2a9b8a281900333fd65d1b532acfd}{setSi}(0, injected, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
+00372 
+00373   injected.real(ui->Sib->text().toDouble());
+00374   injected.imag(ui->Sibi->text().toDouble());
+00375   bar\_->\hyperlink{group___models_ga85e2a9b8a281900333fd65d1b532acfd}{setSi}(1, injected, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
+00376 
+00377   injected.real(ui->Sic->text().toDouble());
+00378   injected.imag(ui->Sici->text().toDouble());
+00379   bar\_->\hyperlink{group___models_ga85e2a9b8a281900333fd65d1b532acfd}{setSi}(2, injected, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
+00380 
+00381   \textcolor{comment}{// Position}
+00382   \textcolor{keywordflow}{if}((ui->px->text().toDouble() != bar\_->x()) ||
+00383       (ui->py->text().toDouble() != bar\_->y())) \{
+00384     bar\_->setPos(ui->px->text().toDouble(), ui->py->text().toDouble());
+00385   \}
+00386 
+00387   \textcolor{comment}{// Add Bar to project.}
+00388   \textcolor{keywordflow}{if} (isNew) \{
+00389     \textcolor{keywordflow}{if}(!network->\hyperlink{group___models_ga8c5dfef0216731246f7411e1a5fbee01}{addBar}(bar\_)) \{
+00390       QMessageBox::critical(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid Bar"}, \textcolor{stringliteral}{"Can't add new bar to project."},
+00391                             QMessageBox::Ok);
+00392       \textcolor{keyword}{delete} bar\_;
+00393       reject();
+00394     \}
+00395   \}
+00396 
+00397   accept();
+00398 \}
+00399 
+00400 \textcolor{comment}{/*******************************************************************************}
+00401 \textcolor{comment}{ * Botton Box Rejected.}
+00402 \textcolor{comment}{ ******************************************************************************/}
+00403 \textcolor{keywordtype}{void} BarProperties::on\_buttonBox\_rejected()
+00404 \{
+00405   reject();
+00406 \}
+00407 
+00408 \textcolor{comment}{/*******************************************************************************}
+00409 \textcolor{comment}{ * Network changed.}
+00410 \textcolor{comment}{ ******************************************************************************/}
+00411 \textcolor{keywordtype}{void} BarProperties::on\_network\_currentIndexChanged(\textcolor{keyword}{const} QString &arg1)
+00412 \{
+00413   \textcolor{keywordflow}{if}(isNew)
+00414     bar\_->\hyperlink{group___models_gade9a307fdb6a81871787899ec1af5833}{setNetwork}(project\_->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.value(arg1));
+00415 
+00416   \textcolor{keywordtype}{double} initialVoltage = bar\_->\hyperlink{group___models_gab0594d5d7313e8749bb85434b255db9a}{network}()->\hyperlink{group___models_ga88cd2506aaf0b19513e41f00608093e0}{voltageBase}();
+00417 
+00418   bar\_->\hyperlink{group___models_ga8d1e70b2d11ed4245e81b8b20858079d}{setV}(0, std::polar(initialVoltage, 0.0), \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts});
+00419   bar\_->\hyperlink{group___models_ga8d1e70b2d11ed4245e81b8b20858079d}{setV}(1, std::polar(initialVoltage, 120.0*\hyperlink{math__constants_8h_a368d99984512d9a6c6f18b37b4446431}{kPI}/180.0), \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts});
+00420   bar\_->\hyperlink{group___models_ga8d1e70b2d11ed4245e81b8b20858079d}{setV}(2, std::polar(initialVoltage, 240.0*\hyperlink{math__constants_8h_a368d99984512d9a6c6f18b37b4446431}{kPI}/180.0), \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1aa54b2473993a702a3923525765bd6e4c}{Unit::kVolts});
+00421   ui->Va->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(0,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).real()));
+00422   ui->Vb->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(1,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).real()));
+00423   ui->Vc->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(2,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).real()));
+00424   ui->Vai->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(0,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).imag()));
+00425   ui->Vbi->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(1,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).imag()));
+00426   ui->Vci->setText(QString::number(bar\_->\hyperlink{group___models_gab3ed62a7f2eb9c41a0b84543f1ef8d3b}{v}(2,\hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit}).imag()));
+00427 \}
 \end{DoxyCode}

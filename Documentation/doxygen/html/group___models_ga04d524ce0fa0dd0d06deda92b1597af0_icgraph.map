@@ -1,0 +1,14 @@
+<map id="Network::getBarById" name="Network::getBarById">
+<area shape="rect" id="node2" href="$group___models.html#ga8c5dfef0216731246f7411e1a5fbee01" title="Add bar. " alt="" coords="213,81,333,108"/>
+<area shape="rect" id="node8" href="$group___models.html#gae02945131494987b3ff9b59b627719b4" title="Add line. " alt="" coords="211,132,335,159"/>
+<area shape="rect" id="node9" href="$group___models.html#ga997ce4f03d316b9f138f2e64e6ca400c" title="Remove bar. " alt="" coords="201,196,344,223"/>
+<area shape="rect" id="node11" href="$class_radial_layer.html#a971680f24ba6c516afedbc49d8c22cab" title="RadialLayer::calculate" alt="" coords="197,259,348,285"/>
+<area shape="rect" id="node3" href="$import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="436,157,549,184"/>
+<area shape="rect" id="node4" href="$import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="436,5,549,32"/>
+<area shape="rect" id="node5" href="$import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="436,56,549,83"/>
+<area shape="rect" id="node6" href="$group___models.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Load from Json object. " alt="" coords="426,107,559,133"/>
+<area shape="rect" id="node7" href="$class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="637,107,732,133"/>
+<area shape="rect" id="node10" href="$group___graphics.html#gac28465709119ef75862b33480ad23f56" title="SystemView::keyPressEvent" alt="" coords="396,208,589,235"/>
+<area shape="rect" id="node12" href="$class_cespedes.html#a067d624d68effc0eced09b18f2a16fc0" title="Solve the power flow for the especified network. " alt="" coords="433,309,553,336"/>
+<area shape="rect" id="node13" href="$group___algorithms.html#gacb4a06c62b5d97c25bea70acd477e715" title="Solve the power flow for the especified network. " alt="" coords="413,259,572,285"/>
+</map>

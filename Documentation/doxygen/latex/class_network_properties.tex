@@ -2,7 +2,13 @@
 \label{class_network_properties}\index{Network\+Properties@{Network\+Properties}}
 
 
-Inheritance diagram for Network\+Properties\+:\nopagebreak
+Gets user input to create or edit a network.  
+
+
+
+
+Inheritance diagram for Network\+Properties\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -11,7 +17,8 @@ Inheritance diagram for Network\+Properties\+:\nopagebreak
 \end{figure}
 
 
-Collaboration diagram for Network\+Properties\+:\nopagebreak
+Collaboration diagram for Network\+Properties\+:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -21,93 +28,28 @@ Collaboration diagram for Network\+Properties\+:\nopagebreak
 \subsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{class_network_properties_a3d9dac6454f6e722360d9d77af85e4ce}{Network\+Properties} (Q\+Widget $\ast$parent=0)
-\item 
-\hyperlink{class_network_properties_a097b617788eebe80236c0041f8293422}{$\sim$\+Network\+Properties} ()
-\item 
-void \hyperlink{class_network_properties_a9dd17216f65e1c35012699e13547d984}{set\+Options} (\hyperlink{class_project}{Project} $\ast$project, \hyperlink{class_network}{Network} $\ast$\hyperlink{class_network_properties_ac166b4624361fe4f3003bbe5553ad18b}{network})
-\item 
-\hyperlink{class_network}{Network} $\ast$ \hyperlink{class_network_properties_ac166b4624361fe4f3003bbe5553ad18b}{network} ()
-\end{DoxyCompactItemize}
+\hyperlink{group___window_ga3d9dac6454f6e722360d9d77af85e4ce}{Network\+Properties} (Q\+Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em Class constructor. \end{DoxyCompactList}\item 
+\hyperlink{group___window_ga097b617788eebe80236c0041f8293422}{$\sim$\+Network\+Properties} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \hyperlink{group___window_ga9dd17216f65e1c35012699e13547d984}{set\+Options} (\hyperlink{class_project}{Project} $\ast$project, \hyperlink{class_network}{Network} $\ast$\hyperlink{group___window_gac166b4624361fe4f3003bbe5553ad18b}{network})
+\begin{DoxyCompactList}\small\item\em Set edit options. \end{DoxyCompactList}\item 
+\hyperlink{class_network}{Network} $\ast$ \hyperlink{group___window_gac166b4624361fe4f3003bbe5553ad18b}{network} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_network}{Network} used. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsubsection{Detailed Description}
+\subparagraph*{Overview}
 
+This class implements a dialog that will get user input to create or edit a network. All parameters are validated for their respective type.
 
-Definition at line \hyperlink{networkproperties_8h_source_l00013}{13} of file \hyperlink{networkproperties_8h_source}{networkproperties.\+h}.
+In order to verify user confirmation, check for the Q\+Dialog\+::\+Accepted response.
 
+To create a new network, use set\+Options(project, N\+U\+L\+L).
 
+Note that we use the Style Sheets feature from Qt in the color pickers. This was a decision based on the fact that there is no other easy way to setup a color picker button. 
 
-\subsubsection{Constructor \& Destructor Documentation}
-\hypertarget{class_network_properties_a3d9dac6454f6e722360d9d77af85e4ce}{}\index{Network\+Properties@{Network\+Properties}!Network\+Properties@{Network\+Properties}}
-\index{Network\+Properties@{Network\+Properties}!Network\+Properties@{Network\+Properties}}
-\paragraph[{Network\+Properties}]{\setlength{\rightskip}{0pt plus 5cm}Network\+Properties\+::\+Network\+Properties (
-\begin{DoxyParamCaption}
-\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0}}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [explicit]}}\label{class_network_properties_a3d9dac6454f6e722360d9d77af85e4ce}
-
-
-Definition at line \hyperlink{networkproperties_8cpp_source_l00008}{8} of file \hyperlink{networkproperties_8cpp_source}{networkproperties.\+cpp}.
-
-\hypertarget{class_network_properties_a097b617788eebe80236c0041f8293422}{}\index{Network\+Properties@{Network\+Properties}!````~Network\+Properties@{$\sim$\+Network\+Properties}}
-\index{````~Network\+Properties@{$\sim$\+Network\+Properties}!Network\+Properties@{Network\+Properties}}
-\paragraph[{$\sim$\+Network\+Properties}]{\setlength{\rightskip}{0pt plus 5cm}Network\+Properties\+::$\sim$\+Network\+Properties (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_network_properties_a097b617788eebe80236c0041f8293422}
-
-
-Definition at line \hyperlink{networkproperties_8cpp_source_l00026}{26} of file \hyperlink{networkproperties_8cpp_source}{networkproperties.\+cpp}.
-
-
-
-\subsubsection{Member Function Documentation}
-\hypertarget{class_network_properties_ac166b4624361fe4f3003bbe5553ad18b}{}\index{Network\+Properties@{Network\+Properties}!network@{network}}
-\index{network@{network}!Network\+Properties@{Network\+Properties}}
-\paragraph[{network}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Network} $\ast$ Network\+Properties\+::network (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)}\label{class_network_properties_ac166b4624361fe4f3003bbe5553ad18b}
-
-
-Definition at line \hyperlink{networkproperties_8cpp_source_l00050}{50} of file \hyperlink{networkproperties_8cpp_source}{networkproperties.\+cpp}.
-
-
-
-Here is the caller graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=324pt]{class_network_properties_ac166b4624361fe4f3003bbe5553ad18b_icgraph}
-\end{center}
-\end{figure}
-
-
-\hypertarget{class_network_properties_a9dd17216f65e1c35012699e13547d984}{}\index{Network\+Properties@{Network\+Properties}!set\+Options@{set\+Options}}
-\index{set\+Options@{set\+Options}!Network\+Properties@{Network\+Properties}}
-\paragraph[{set\+Options}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Properties\+::set\+Options (
-\begin{DoxyParamCaption}
-\item[{{\bf Project} $\ast$}]{project, }
-\item[{{\bf Network} $\ast$}]{network}
-\end{DoxyParamCaption}
-)}\label{class_network_properties_a9dd17216f65e1c35012699e13547d984}
-
-
-Definition at line \hyperlink{networkproperties_8cpp_source_l00031}{31} of file \hyperlink{networkproperties_8cpp_source}{networkproperties.\+cpp}.
-
-
-
-Here is the call graph for this function\+:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=324pt]{class_network_properties_a9dd17216f65e1c35012699e13547d984_cgraph}
-\end{center}
-\end{figure}
-
+Definition at line \hyperlink{networkproperties_8h_source_l00072}{72} of file \hyperlink{networkproperties_8h_source}{networkproperties.\+h}.
 
 
 

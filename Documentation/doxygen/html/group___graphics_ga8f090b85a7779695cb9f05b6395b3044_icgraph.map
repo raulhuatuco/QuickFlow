@@ -1,9 +1,0 @@
-<map id="Network::getLineByNodes" name="Network::getLineByNodes">
-<area shape="rect" id="node2" href="$group___graphics.html#gae02945131494987b3ff9b59b627719b4" title="Network::addLine" alt="" coords="239,81,363,108"/>
-<area shape="rect" id="node8" href="$group___graphics.html#ga1eef3317224a7a06348fce07e581a9ad" title="Network::removeLine" alt="" coords="228,132,375,159"/>
-<area shape="rect" id="node3" href="$import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="433,5,546,32"/>
-<area shape="rect" id="node4" href="$import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="433,56,546,83"/>
-<area shape="rect" id="node5" href="$import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="433,107,546,133"/>
-<area shape="rect" id="node6" href="$group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Network::fromJson" alt="" coords="423,157,556,184"/>
-<area shape="rect" id="node7" href="$class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="604,157,699,184"/>
-</map>

@@ -1,8 +1,8 @@
 <map id="Line::setNodes" name="Line::setNodes">
-<area shape="rect" id="node2" href="$group___graphics.html#gae02945131494987b3ff9b59b627719b4" title="Network::addLine" alt="" coords="164,81,288,108"/>
+<area shape="rect" id="node2" href="$group___models.html#gae02945131494987b3ff9b59b627719b4" title="Add line. " alt="" coords="164,81,288,108"/>
 <area shape="rect" id="node3" href="$import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="346,5,459,32"/>
 <area shape="rect" id="node4" href="$import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="346,56,459,83"/>
 <area shape="rect" id="node5" href="$import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="346,107,459,133"/>
-<area shape="rect" id="node6" href="$group___graphics.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Network::fromJson" alt="" coords="336,157,469,184"/>
+<area shape="rect" id="node6" href="$group___models.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Load from Json object. " alt="" coords="336,157,469,184"/>
 <area shape="rect" id="node7" href="$class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="517,157,612,184"/>
 </map>

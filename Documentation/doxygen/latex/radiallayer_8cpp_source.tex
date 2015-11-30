@@ -18,7 +18,7 @@
 \hypertarget{radiallayer_8cpp_source_l00014}{}\hyperlink{class_radial_layer_a971680f24ba6c516afedbc49d8c22cab}{00014} \textcolor{keywordtype}{void} \hyperlink{class_radial_layer_a971680f24ba6c516afedbc49d8c22cab}{RadialLayer::calculate}()
 00015 \{
 00016   \hyperlink{class_radial_layer_a65d67f20b05dd45f90ec4252376807b2}{Layer} *current = \textcolor{keyword}{new} \hyperlink{class_radial_layer_a65d67f20b05dd45f90ec4252376807b2}{Layer};
-00017   current->append(network\_->\hyperlink{group___graphics_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(0));
+00017   current->append(network\_->\hyperlink{group___models_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(0));
 00018   next(current);
 00019 \}
 00020 
@@ -54,7 +54,7 @@
 00050   \hyperlink{class_radial_layer_a65d67f20b05dd45f90ec4252376807b2}{Layer} *nextLayer = \textcolor{keyword}{new} \hyperlink{class_radial_layer_a65d67f20b05dd45f90ec4252376807b2}{Layer};
 00051 
 00052   \textcolor{keywordflow}{foreach}(\hyperlink{class_bar}{Bar} *bar, *current) \{
-00053     \textcolor{keywordflow}{foreach}(\hyperlink{class_line}{Line} *line, bar->\hyperlink{class_bar_a23b6d4319352ef0e77ad66aade4e0209}{lines}) \{
+00053     \textcolor{keywordflow}{foreach}(\hyperlink{class_line}{Line} *line, bar->\hyperlink{class_bar_a5aabf1f4ac22e20e9cb702a3a7e08eea}{lines}) \{
 00054       \textcolor{keywordflow}{if}(line->\hyperlink{group___models_gaeafd90e84ac2f8de2a879abe9e53eef3}{pNoI}() == bar) \{
 00055         \textcolor{keywordflow}{if}(line->\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF}() != NULL)
 00056           nextLayer->append(line->\hyperlink{group___models_gabbc73ddedd3075c33ae5331bd7c9829f}{pNoF}());

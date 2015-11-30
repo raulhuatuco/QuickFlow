@@ -1,0 +1,13 @@
+<map id="BarProperties::setOptions" name="BarProperties::setOptions">
+<area shape="rect" id="node2" href="$group___models.html#gade9a307fdb6a81871787899ec1af5833" title="Set bar network. " alt="" coords="243,5,360,32"/>
+<area shape="rect" id="node3" href="$group___models.html#gab0594d5d7313e8749bb85434b255db9a" title="Bar current network. " alt="" coords="425,31,521,57"/>
+<area shape="rect" id="node4" href="$group___models.html#ga88cd2506aaf0b19513e41f00608093e0" title="Voltage base (Vbase). " alt="" coords="226,107,377,133"/>
+<area shape="rect" id="node5" href="$group___models.html#ga8d1e70b2d11ed4245e81b8b20858079d" title="Set initial voltage. " alt="" coords="263,157,340,184"/>
+<area shape="rect" id="node6" href="$class_bar_properties.html#a65d09e7315764cd4ad33b5a0ded32090" title="BarProperties::bar" alt="" coords="238,208,365,235"/>
+<area shape="rect" id="node7" href="$group___models.html#gacf0fb781a73856bb7beb823304465e13" title="The bar id. " alt="" coords="271,259,331,285"/>
+<area shape="rect" id="node8" href="$group___models.html#gab3ed62a7f2eb9c41a0b84543f1ef8d3b" title="Initial Voltage. " alt="" coords="273,309,330,336"/>
+<area shape="rect" id="node9" href="$group___models.html#gac020fff2f22a9caab71f21205b5773f8" title="Shutn element. " alt="" coords="269,360,333,387"/>
+<area shape="rect" id="node10" href="$group___models.html#ga9af07eb85c2c76eb3bc73e25bb842c1e" title="Injected power. " alt="" coords="271,411,331,437"/>
+<area shape="rect" id="node11" href="$class_unit.html#a7fa103c31f9f069961b35b6371ff0c0a" title="Unit::voltageUnitToStr" alt="" coords="225,461,377,488"/>
+<area shape="rect" id="node12" href="$class_unit.html#ad1487441b5a7eb93a3eb0aeebe947725" title="Unit::powerUnitToStr" alt="" coords="229,512,374,539"/>
+</map>

@@ -26,8 +26,8 @@
 00022 \textcolor{comment}{ * SOFTWARE.}
 00023 \textcolor{comment}{ */}
 00024 
-00043 \textcolor{preprocessor}{#ifndef ABOUT\_H}
-00044 \textcolor{preprocessor}{#define ABOUT\_H}
+00043 \textcolor{preprocessor}{#ifndef WINDOW\_ABOUT\_H}
+00044 \textcolor{preprocessor}{#define WINDOW\_ABOUT\_H}
 00045 
 00046 \textcolor{preprocessor}{#include <QDialog>}
 00047 
@@ -36,34 +36,31 @@
 00050 \textcolor{keyword}{class }about;
 00051 \}
 00052 
-\hypertarget{about_8h_source_l00068}{}\hyperlink{class_about}{00068} \textcolor{keyword}{class }\hyperlink{class_about}{About} : \textcolor{keyword}{public} QDialog
-00069 \{
-00070   Q\_OBJECT
-00071 
-00072 \textcolor{keyword}{public}:
-00073   \textcolor{comment}{/*****************************************************************************}
-00074 \textcolor{comment}{  * Constructor.}
-00075 \textcolor{comment}{  *****************************************************************************/}
-00082   \textcolor{keyword}{explicit} \hyperlink{group___window_gab79599ebbcdeffe0a96e00f010e64177}{About}(QWidget *parent = 0);
-00083 
+\hypertarget{about_8h_source_l00061}{}\hyperlink{class_about}{00061} \textcolor{keyword}{class }\hyperlink{class_about}{About} : \textcolor{keyword}{public} QDialog
+00062 \{
+00063   Q\_OBJECT
+00064 
+00065 \textcolor{keyword}{public}:
+00066   \textcolor{comment}{/*****************************************************************************}
+00067 \textcolor{comment}{  * Public methods.}
+00068 \textcolor{comment}{  *****************************************************************************/}
+00075   \textcolor{keyword}{explicit} \hyperlink{group___window_gab79599ebbcdeffe0a96e00f010e64177}{About}(QWidget *parent = 0);
+00076 
+00081   \hyperlink{group___window_gace60197b1b610998908036ee1f802204}{~About}();
+00082 
+00083 \textcolor{keyword}{private} slots:
 00084   \textcolor{comment}{/*****************************************************************************}
-00085 \textcolor{comment}{  * Destructor.}
+00085 \textcolor{comment}{  * Slots.}
 00086 \textcolor{comment}{  *****************************************************************************/}
-00091   \hyperlink{group___window_gace60197b1b610998908036ee1f802204}{~About}();
+00091   \textcolor{keywordtype}{void} on\_ok\_clicked();
 00092 
-00093 \textcolor{keyword}{private} slots:
+00093 \textcolor{keyword}{private}:
 00094   \textcolor{comment}{/*****************************************************************************}
-00095 \textcolor{comment}{  * Ok button clicked.}
+00095 \textcolor{comment}{  * Private data.}
 00096 \textcolor{comment}{  *****************************************************************************/}
-00101   \textcolor{keywordtype}{void} on\_ok\_clicked();
+00100   Ui::about *ui;
+00101 \};
 00102 
-00103 \textcolor{keyword}{private}:
-00104   \textcolor{comment}{/*****************************************************************************}
-00105 \textcolor{comment}{  * Private data.}
-00106 \textcolor{comment}{  *****************************************************************************/}
-00110   Ui::about *ui;
-00111 \};
-00112 
-00113 \textcolor{preprocessor}{#endif // ABOUT\_H}
-00114 
+00103 \textcolor{preprocessor}{#endif // ABOUT\_H}
+00104 
 \end{DoxyCode}

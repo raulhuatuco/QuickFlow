@@ -2,32 +2,77 @@
 \label{searchbar_8h_source}\index{searchbar.\+h@{searchbar.\+h}}
 
 \begin{DoxyCode}
-00001 \textcolor{preprocessor}{#ifndef SEARCHBAR\_H}
-00002 \textcolor{preprocessor}{#define SEARCHBAR\_H}
-00003 
-00004 \textcolor{preprocessor}{#include <QDialog>}
-00005 \textcolor{preprocessor}{#include "\hyperlink{project_8h}{project.h}"}
-00006 
-00007 \textcolor{keyword}{namespace }\hyperlink{namespace_ui}{Ui}
-00008 \{
-00009 \textcolor{keyword}{class }\hyperlink{class_search_bar}{SearchBar};
-00010 \}
-00011 
-\hypertarget{searchbar_8h_source_l00012}{}\hyperlink{class_search_bar}{00012} \textcolor{keyword}{class }\hyperlink{class_search_bar}{SearchBar} : \textcolor{keyword}{public} QDialog
-00013 \{
-00014   Q\_OBJECT
-00015 
-00016 \textcolor{keyword}{public}:
-00017   \textcolor{keyword}{explicit} \hyperlink{class_search_bar_a75f8caf009094148f56149b00996ac84}{SearchBar}(QWidget *parent = 0);
-00018   \hyperlink{class_search_bar_a553f2c7b9c15e7ae39cf988a6ef8f786}{~SearchBar}();
-00019 
-00020   \textcolor{keywordtype}{void} \hyperlink{class_search_bar_a840eb8fbdea559d31a7c2af6a4cbc480}{setOptions}(\hyperlink{class_project}{Project} *project);
-00021 
-00022 \textcolor{keyword}{private}:
-00023   Ui::SearchBar *ui;
-00024   \hyperlink{class_project}{Project} *project\_;
-00025 
-00026 \};
-00027 
-00028 \textcolor{preprocessor}{#endif  // SEARCHBAR\_H}
+00001 \textcolor{comment}{/*}
+00002 \textcolor{comment}{ * The MIT License (MIT)}
+00003 \textcolor{comment}{ *}
+00004 \textcolor{comment}{ * Copyright (c) 2015 David Krepsky}
+00005 \textcolor{comment}{ *}
+00006 \textcolor{comment}{ * Permission is hereby granted, free of charge, to any person obtaining a copy}
+00007 \textcolor{comment}{ * of this software and associated documentation files (the "Software"), to deal}
+00008 \textcolor{comment}{ * in the Software without restriction, including without limitation the rights}
+00009 \textcolor{comment}{ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}
+00010 \textcolor{comment}{ * copies of the Software, and to permit persons to whom the Software is}
+00011 \textcolor{comment}{ * furnished to do so, subject to the following conditions:}
+00012 \textcolor{comment}{ *}
+00013 \textcolor{comment}{ * The above copyright notice and this permission notice shall be included in}
+00014 \textcolor{comment}{ * all copies or substantial portions of the Software.}
+00015 \textcolor{comment}{ *}
+00016 \textcolor{comment}{ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}
+00017 \textcolor{comment}{ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}
+00018 \textcolor{comment}{ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}
+00019 \textcolor{comment}{ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}
+00020 \textcolor{comment}{ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}
+00021 \textcolor{comment}{ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}
+00022 \textcolor{comment}{ * SOFTWARE.}
+00023 \textcolor{comment}{ */}
+00024 
+00043 \textcolor{preprocessor}{#ifndef WINDOW\_SEARCHBAR\_H}
+00044 \textcolor{preprocessor}{#define WINDOW\_SEARCHBAR\_H}
+00045 
+00046 \textcolor{preprocessor}{#include <QDialog>}
+00047 \textcolor{preprocessor}{#include "\hyperlink{project_8h}{project.h}"}
+00048 \textcolor{preprocessor}{#include "\hyperlink{bar_8h}{models/bar.h}"}
+00049 
+00050 \textcolor{keyword}{namespace }\hyperlink{namespace_ui}{Ui}
+00051 \{
+00052 \textcolor{keyword}{class }\hyperlink{class_search_bar}{SearchBar};
+00053 \}
+00054 
+\hypertarget{searchbar_8h_source_l00065}{}\hyperlink{class_search_bar}{00065} \textcolor{keyword}{class }\hyperlink{class_search_bar}{SearchBar} : \textcolor{keyword}{public} QDialog
+00066 \{
+00067   Q\_OBJECT
+00068 
+00069   \textcolor{comment}{/*****************************************************************************}
+00070 \textcolor{comment}{  * Public methods.}
+00071 \textcolor{comment}{  *****************************************************************************/}
+00072 \textcolor{keyword}{public}:
+00078   \textcolor{keyword}{explicit} \hyperlink{group___window_ga75f8caf009094148f56149b00996ac84}{SearchBar}(QWidget *parent = 0);
+00079 
+00083   \hyperlink{group___window_ga553f2c7b9c15e7ae39cf988a6ef8f786}{~SearchBar}();
+00084 
+00090   \textcolor{keywordtype}{void} \hyperlink{group___window_ga840eb8fbdea559d31a7c2af6a4cbc480}{setOptions}(\hyperlink{class_project}{Project} *project);
+00091 
+00099   \hyperlink{class_bar}{Bar} *\hyperlink{group___window_ga25ce5aca2c8db4e81e5357c9a4c01b56}{bar}();
+00100 
+00101   \textcolor{comment}{/*****************************************************************************}
+00102 \textcolor{comment}{  * Slots.}
+00103 \textcolor{comment}{  *****************************************************************************/}
+00104 \textcolor{keyword}{private} slots:
+00108   \textcolor{keywordtype}{void} on\_search\_clicked();
+00109 
+00113   \textcolor{keywordtype}{void} on\_cancel\_clicked();
+00114 
+00115 \textcolor{keyword}{private}:
+00116   \textcolor{comment}{/*****************************************************************************}
+00117 \textcolor{comment}{  * Private methods.}
+00118 \textcolor{comment}{  *****************************************************************************/}
+00122   Ui::SearchBar *ui;
+00123 
+00127   \hyperlink{class_project}{Project} *project\_;
+00128 
+00132   \hyperlink{class_bar}{Bar} *bar\_;
+00133 \};
+00134 
+00135 \textcolor{preprocessor}{#endif  // WINDOW\_SEARCHBAR\_H}
+00136 
 \end{DoxyCode}

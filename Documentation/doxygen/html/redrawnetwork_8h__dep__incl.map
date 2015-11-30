@@ -1,5 +1,5 @@
 <map id="redrawnetwork.h" name="redrawnetwork.h">
 <area shape="rect" id="node2" href="$import_8cpp.html" title="import.cpp" alt="" coords="5,80,88,107"/>
-<area shape="rect" id="node3" href="$redrawnetwork_8cpp.html" title="redrawnetwork.cpp" alt="" coords="113,80,245,107"/>
+<area shape="rect" id="node3" href="$redrawnetwork_8cpp.html" title="Implementation of RedrawNetwork class. " alt="" coords="113,80,245,107"/>
 <area shape="rect" id="node4" href="$quickflow_8cpp.html" title="Main window class implementation. " alt="" coords="269,80,371,107"/>
 </map>

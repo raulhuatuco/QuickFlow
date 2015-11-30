@@ -43,58 +43,63 @@
 00057 \textcolor{keyword}{class }\hyperlink{class_network}{Network};
 00058 QT\_END\_NAMESPACE
 00059 
-\hypertarget{redrawnetwork_8h_source_l00094}{}\hyperlink{class_redraw_network}{00094} \textcolor{keyword}{class }\hyperlink{class_redraw_network}{RedrawNetwork}
-00095 \{
-00096 \textcolor{keyword}{public}:
-00097   \textcolor{comment}{/*****************************************************************************}
-00098 \textcolor{comment}{  * Constructor.}
-00099 \textcolor{comment}{  *****************************************************************************/}
-00106   \hyperlink{class_redraw_network_a1fe3edb8c57780eb62f7de8f03dfeda3}{RedrawNetwork}(\hyperlink{class_network}{Network} *network);
-00107 
-00108   \textcolor{comment}{/*****************************************************************************}
-00109 \textcolor{comment}{  * Destructor.}
-00110 \textcolor{comment}{  *****************************************************************************/}
-00115   \hyperlink{class_redraw_network_ac7b5f7fdb2b88e7d8bb580834e93b1e8}{~RedrawNetwork}();
-00116 
-00117   \textcolor{comment}{/*****************************************************************************}
-00118 \textcolor{comment}{  * Sugiyama Fast algorithm.}
-00119 \textcolor{comment}{  *****************************************************************************/}
-00124   \textcolor{keywordtype}{void} \hyperlink{class_redraw_network_a94d53ddf8ee00c4ef6d56bb988333103}{sugiyamaFast}();
-00125 
-00126   \textcolor{comment}{/*****************************************************************************}
-00127 \textcolor{comment}{  * Sugiyama algorithm.}
-00128 \textcolor{comment}{  *****************************************************************************/}
-00133   \textcolor{keywordtype}{void} \hyperlink{class_redraw_network_aee0ae606982145e66bba825421d610f8}{sugiyama}();
-00134 
-00135   \textcolor{comment}{/*****************************************************************************}
-00136 \textcolor{comment}{  * Multilevel algorithm.}
-00137 \textcolor{comment}{  *****************************************************************************/}
-00142   \textcolor{keywordtype}{void} \hyperlink{class_redraw_network_a56a92ad06ae0198ee60160aa66aa0ce1}{multiLevel}();
-00143 
-00144 \textcolor{keyword}{private}:
-00145   \textcolor{comment}{/*****************************************************************************}
-00146 \textcolor{comment}{  * Private data.}
-00147 \textcolor{comment}{  *****************************************************************************/}
-00151   \hyperlink{class_network}{Network} *network\_;
-00152 
-00156   ogdf::Graph G;
-00157 
-00161   ogdf::GraphAttributes GA;
-00162 
-00168   QMap<int, ogdf::node> nodeMap;
-00169 
-00170   \textcolor{comment}{/*****************************************************************************}
-00171 \textcolor{comment}{  * Create OGDF graph.}
-00172 \textcolor{comment}{  *****************************************************************************/}
-00176   \textcolor{keywordtype}{void} createGraph();
-00177 
-00178   \textcolor{comment}{/*****************************************************************************}
-00179 \textcolor{comment}{  * Apply Changes.}
-00180 \textcolor{comment}{  *****************************************************************************/}
-00184   \textcolor{keywordtype}{void} applyChanges();
-00185 
-00186 \};
-00187 
-00188 \textcolor{preprocessor}{#endif // ALGORITHMS\_REDRAW\_H}
-00189 
+\hypertarget{redrawnetwork_8h_source_l00095}{}\hyperlink{class_redraw_network}{00095} \textcolor{keyword}{class }\hyperlink{class_redraw_network}{RedrawNetwork}
+00096 \{
+00097 \textcolor{keyword}{public}:
+00098   \textcolor{comment}{/*****************************************************************************}
+00099 \textcolor{comment}{  * Constructor.}
+00100 \textcolor{comment}{  *****************************************************************************/}
+00107   \hyperlink{group___algorithms_ga1fe3edb8c57780eb62f7de8f03dfeda3}{RedrawNetwork}(\hyperlink{class_network}{Network} *network);
+00108 
+00109   \textcolor{comment}{/*****************************************************************************}
+00110 \textcolor{comment}{  * Destructor.}
+00111 \textcolor{comment}{  *****************************************************************************/}
+00116   \hyperlink{group___algorithms_gac7b5f7fdb2b88e7d8bb580834e93b1e8}{~RedrawNetwork}();
+00117 
+00118   \textcolor{comment}{/*****************************************************************************}
+00119 \textcolor{comment}{  * Sugiyama Fast algorithm.}
+00120 \textcolor{comment}{  *****************************************************************************/}
+00125   \textcolor{keywordtype}{void} \hyperlink{group___algorithms_ga94d53ddf8ee00c4ef6d56bb988333103}{sugiyamaFast}();
+00126 
+00127   \textcolor{comment}{/*****************************************************************************}
+00128 \textcolor{comment}{  * Sugiyama algorithm.}
+00129 \textcolor{comment}{  *****************************************************************************/}
+00134   \textcolor{keywordtype}{void} \hyperlink{group___algorithms_gaee0ae606982145e66bba825421d610f8}{sugiyama}();
+00135 
+00136   \textcolor{comment}{/*****************************************************************************}
+00137 \textcolor{comment}{  * Multilevel algorithm.}
+00138 \textcolor{comment}{  *****************************************************************************/}
+00143   \textcolor{keywordtype}{void} \hyperlink{group___algorithms_ga56a92ad06ae0198ee60160aa66aa0ce1}{multiLevel}();
+00144 
+00145 \textcolor{keyword}{private}:
+00146   \textcolor{comment}{/*****************************************************************************}
+00147 \textcolor{comment}{  * Private data.}
+00148 \textcolor{comment}{  *****************************************************************************/}
+00152   \hyperlink{class_network}{Network} *network\_;
+00153 
+00157   ogdf::Graph *graph;
+00158 
+00162   ogdf::GraphAttributes *graphAttributes;
+00163 
+00169   QMap<int, ogdf::node> nodeMap;
+00170 
+00171   \textcolor{comment}{/*****************************************************************************}
+00172 \textcolor{comment}{  * Create OGDF graph.}
+00173 \textcolor{comment}{  *****************************************************************************/}
+00177   \textcolor{keywordtype}{void} createGraph();
+00178 
+00179   \textcolor{comment}{/*****************************************************************************}
+00180 \textcolor{comment}{  * Apply Changes.}
+00181 \textcolor{comment}{  *****************************************************************************/}
+00185   \textcolor{keywordtype}{void} applyChanges();
+00186 
+00187   \textcolor{comment}{/*****************************************************************************}
+00188 \textcolor{comment}{  * Remove Offset.}
+00189 \textcolor{comment}{  *****************************************************************************/}
+00193   \textcolor{keywordtype}{void} removeOffset();
+00194 
+00195 \};
+00196 
+00197 \textcolor{preprocessor}{#endif // ALGORITHMS\_REDRAW\_H}
+00198 
 \end{DoxyCode}

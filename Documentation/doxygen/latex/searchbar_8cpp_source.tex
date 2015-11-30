@@ -2,28 +2,122 @@
 \label{searchbar_8cpp_source}\index{searchbar.\+cpp@{searchbar.\+cpp}}
 
 \begin{DoxyCode}
-00001 \textcolor{preprocessor}{#include "\hyperlink{searchbar_8h}{searchbar.h}"}
-00002 \textcolor{preprocessor}{#include "ui\_searchbar.h"}
-00003 
-00004 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
-00005 
-\hypertarget{searchbar_8cpp_source_l00006}{}\hyperlink{class_search_bar_a75f8caf009094148f56149b00996ac84}{00006} \hyperlink{class_search_bar_a75f8caf009094148f56149b00996ac84}{SearchBar::SearchBar}(QWidget *parent) : QDialog(parent), ui(new 
-      \hyperlink{namespace_ui}{Ui}::\hyperlink{class_search_bar}{SearchBar})
-00007 \{
-00008   ui->setupUi(\textcolor{keyword}{this});
-00009 \}
-00010 
-\hypertarget{searchbar_8cpp_source_l00011}{}\hyperlink{class_search_bar_a553f2c7b9c15e7ae39cf988a6ef8f786}{00011} \hyperlink{class_search_bar_a553f2c7b9c15e7ae39cf988a6ef8f786}{SearchBar::~SearchBar}()
-00012 \{
-00013   \textcolor{keyword}{delete} ui;
-00014 \}
-00015 
-\hypertarget{searchbar_8cpp_source_l00016}{}\hyperlink{class_search_bar_a840eb8fbdea559d31a7c2af6a4cbc480}{00016} \textcolor{keywordtype}{void} \hyperlink{class_search_bar_a840eb8fbdea559d31a7c2af6a4cbc480}{SearchBar::setOptions}(\hyperlink{class_project}{Project} *project)
-00017 \{
-00018   project\_ = project;
-00019 
-00020   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
-00021     ui->networks->addItem(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
-00022   \}
-00023 \}
+00001 \textcolor{comment}{/*}
+00002 \textcolor{comment}{ * The MIT License (MIT)}
+00003 \textcolor{comment}{ *}
+00004 \textcolor{comment}{ * Copyright (c) 2015 David Krepsky}
+00005 \textcolor{comment}{ *}
+00006 \textcolor{comment}{ * Permission is hereby granted, free of charge, to any person obtaining a copy}
+00007 \textcolor{comment}{ * of this software and associated documentation files (the "Software"), to deal}
+00008 \textcolor{comment}{ * in the Software without restriction, including without limitation the rights}
+00009 \textcolor{comment}{ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell}
+00010 \textcolor{comment}{ * copies of the Software, and to permit persons to whom the Software is}
+00011 \textcolor{comment}{ * furnished to do so, subject to the following conditions:}
+00012 \textcolor{comment}{ *}
+00013 \textcolor{comment}{ * The above copyright notice and this permission notice shall be included in}
+00014 \textcolor{comment}{ * all copies or substantial portions of the Software.}
+00015 \textcolor{comment}{ *}
+00016 \textcolor{comment}{ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR}
+00017 \textcolor{comment}{ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,}
+00018 \textcolor{comment}{ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE}
+00019 \textcolor{comment}{ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER}
+00020 \textcolor{comment}{ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,}
+00021 \textcolor{comment}{ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE}
+00022 \textcolor{comment}{ * SOFTWARE.}
+00023 \textcolor{comment}{ */}
+00024 
+00043 \textcolor{preprocessor}{#include "\hyperlink{searchbar_8h}{searchbar.h}"}
+00044 \textcolor{preprocessor}{#include "ui\_searchbar.h"}
+00045 \textcolor{preprocessor}{#include <QMessageBox>}
+00046 \textcolor{preprocessor}{#include "\hyperlink{network_8h}{models/network.h}"}
+00047 
+00048 \textcolor{comment}{/*******************************************************************************}
+00049 \textcolor{comment}{* Constructor.}
+00050 \textcolor{comment}{*******************************************************************************/}
+\hypertarget{searchbar_8cpp_source_l00051}{}\hyperlink{group___window_ga75f8caf009094148f56149b00996ac84}{00051} \hyperlink{group___window_ga75f8caf009094148f56149b00996ac84}{SearchBar::SearchBar}(QWidget *parent) :
+00052   QDialog(parent),
+00053   ui(new \hyperlink{namespace_ui}{Ui}::\hyperlink{class_search_bar}{SearchBar}),
+00054   bar\_(NULL)
+00055 \{
+00056   ui->setupUi(\textcolor{keyword}{this});
+00057 
+00058   \textcolor{comment}{// Create validator.}
+00059   \textcolor{comment}{// Since id won't be greater than 1000000, the max boundary is set to 1000000.}
+00060   ui->id->setValidator(\textcolor{keyword}{new} QIntValidator(0, 1000000, \textcolor{keyword}{this}));
+00061 \}
+00062 
+00063 \textcolor{comment}{/*******************************************************************************}
+00064 \textcolor{comment}{* Destructor.}
+00065 \textcolor{comment}{*******************************************************************************/}
+\hypertarget{searchbar_8cpp_source_l00066}{}\hyperlink{group___window_ga553f2c7b9c15e7ae39cf988a6ef8f786}{00066} \hyperlink{group___window_ga553f2c7b9c15e7ae39cf988a6ef8f786}{SearchBar::~SearchBar}()
+00067 \{
+00068   \textcolor{keyword}{delete} ui;
+00069 \}
+00070 
+00071 \textcolor{comment}{/*******************************************************************************}
+00072 \textcolor{comment}{* Set options.}
+00073 \textcolor{comment}{*******************************************************************************/}
+\hypertarget{searchbar_8cpp_source_l00074}{}\hyperlink{group___window_ga840eb8fbdea559d31a7c2af6a4cbc480}{00074} \textcolor{keywordtype}{void} \hyperlink{group___window_ga840eb8fbdea559d31a7c2af6a4cbc480}{SearchBar::setOptions}(\hyperlink{class_project}{Project} *project)
+00075 \{
+00076   \textcolor{comment}{// Save project pointer and fill network combobox.}
+00077   project\_ = project;
+00078 
+00079   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, project->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00080     ui->networks->addItem(network->\hyperlink{class_network_ab6643733a517f930c60b06f5ffd78186}{name});
+00081   \}
+00082 \}
+00083 
+00084 \textcolor{comment}{/*******************************************************************************}
+00085 \textcolor{comment}{* Bar.}
+00086 \textcolor{comment}{*******************************************************************************/}
+\hypertarget{searchbar_8cpp_source_l00087}{}\hyperlink{group___window_ga25ce5aca2c8db4e81e5357c9a4c01b56}{00087} \hyperlink{class_bar}{Bar} *\hyperlink{group___window_ga25ce5aca2c8db4e81e5357c9a4c01b56}{SearchBar::bar}()
+00088 \{
+00089   \textcolor{keywordflow}{return} bar\_;
+00090 \}
+00091 
+00092 \textcolor{comment}{/*******************************************************************************}
+00093 \textcolor{comment}{* Accepted.}
+00094 \textcolor{comment}{*******************************************************************************/}
+00095 \textcolor{keywordtype}{void} SearchBar::on\_search\_clicked()
+00096 \{
+00097   \textcolor{comment}{// Check for empty data.}
+00098   \textcolor{keywordflow}{if}(ui->id->text().isEmpty()) \{
+00099     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"}, \textcolor{stringliteral}{"Parameter ID is empty."},
+00100                              QMessageBox::Ok);
+00101     ui->id->setFocus();
+00102     \textcolor{keywordflow}{return};
+00103   \}
+00104 
+00105   \textcolor{comment}{// Check for empty data.}
+00106   \textcolor{keywordflow}{if}(ui->networks->currentIndex() == -1) \{
+00107     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"},
+00108                              \textcolor{stringliteral}{"Parameter network is invalid."},
+00109                              QMessageBox::Ok);
+00110     ui->networks->setFocus();
+00111     \textcolor{keywordflow}{return};
+00112   \}
+00113 
+00114   \textcolor{comment}{// Search bar.}
+00115   \hyperlink{class_network}{Network} *network = project\_->\hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.value(ui->networks->currentText());
+00116   bar\_ = network->\hyperlink{group___models_ga04d524ce0fa0dd0d06deda92b1597af0}{getBarById}(ui->id->text().toInt());
+00117 
+00118   \textcolor{keywordflow}{if}(bar\_ == NULL) \{
+00119     QMessageBox::information(\textcolor{keyword}{this}, \textcolor{stringliteral}{"Invalid parameter"},
+00120                              \textcolor{stringliteral}{"Bar not found."},
+00121                              QMessageBox::Ok);
+00122     ui->id->setFocus();
+00123     \textcolor{keywordflow}{return};
+00124   \}
+00125 
+00126   accept();
+00127 \}
+00128 
+00129 \textcolor{comment}{/*******************************************************************************}
+00130 \textcolor{comment}{* Rejected.}
+00131 \textcolor{comment}{*******************************************************************************/}
+00132 \textcolor{keywordtype}{void} SearchBar::on\_cancel\_clicked()
+00133 \{
+00134   reject();
+00135 \}
+00136 
 \end{DoxyCode}

@@ -54,7 +54,7 @@ bool LineProperties::setOptions(Project *project, Line *line)
       ui->noF->addItem(QString::number(bar->id()));
     }
 
-    line_->network = network;
+    line_->setNetwork(network);
   } else {
     setWindowTitle(tr("Edit Line from node ") + QString::number(
                      line->nodes.first) + tr(" to node ") \
@@ -62,7 +62,7 @@ bool LineProperties::setOptions(Project *project, Line *line)
     line_ = line;
     isNew = false;
 
-    ui->network->addItem(line->network->name);
+    ui->network->addItem(line->network()->name);
     ui->network->setEnabled(false);
 
     // Fill line ids combobox.
@@ -222,7 +222,7 @@ void LineProperties::on_buttonBox_accepted()
     // Set noI and noF.
     line_->nodes = nodes;
     // Set network.
-    line_->network = network;
+    line_->setNetwork(network);
   }
 
   // Set length

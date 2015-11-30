@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['i',['i',['../group___models.html#gaf81e7055102816465bdf7e19afc2d547',1,'Line']]],
-  ['id',['id',['../class_bar.html#a9dc5c6a6d44fe412ae34ef8a881b8dce',1,'Bar']]],
-  ['impedancebase',['impedanceBase',['../group___graphics.html#gae6794c93d37df113778c37c2c702f6d9',1,'Network']]],
-  ['impedanceunit',['ImpedanceUnit',['../class_unit.html#a3747e779c805df24a71961290be3fbdf',1,'Unit::ImpedanceUnit()'],['../group___graphics.html#ga5f3d72699a723c64a89d22e34df708ff',1,'Network::impedanceUnit()'],['../class_project.html#ad0725b9aa4445dd6d21d4e15df482d3b',1,'Project::impedanceUnit()']]],
+  ['i',['i',['../group___models.html#ga2ad899adaa4f2e25b38c58e076db94ea',1,'Line']]],
+  ['id',['id',['../group___models.html#gacf0fb781a73856bb7beb823304465e13',1,'Bar']]],
+  ['impedancebase',['impedanceBase',['../group___models.html#gae6794c93d37df113778c37c2c702f6d9',1,'Network']]],
+  ['impedanceunit',['impedanceUnit',['../group___models.html#ga5f3d72699a723c64a89d22e34df708ff',1,'Network::impedanceUnit()'],['../class_project.html#ad0725b9aa4445dd6d21d4e15df482d3b',1,'Project::impedanceUnit()'],['../class_unit.html#a3747e779c805df24a71961290be3fbdf',1,'Unit::ImpedanceUnit()']]],
   ['impedanceunittostr',['impedanceUnitToStr',['../class_unit.html#ae3ca20f4b6530f04ca6aa138ec0fa7d2',1,'Unit']]],
   ['import_2ecpp',['import.cpp',['../import_8cpp.html',1,'']]],
   ['import_2eh',['import.h',['../import_8h.html',1,'']]],

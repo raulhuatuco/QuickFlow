@@ -14,6 +14,7 @@ var searchData=
   ['kmarginright',['kMarginRight',['../class_info_bar.html#aa16c67708cd2ab938e1dc8be5f168614',1,'InfoBar::kMarginRight()'],['../class_info_line.html#a0f0bd713ed9c1c8012bbd29dbd1db75e',1,'InfoLine::kMarginRight()']]],
   ['kmargintop',['kMarginTop',['../class_info_bar.html#a810c3286fc4d960d04ffbd31318ebff2',1,'InfoBar::kMarginTop()'],['../class_info_line.html#a995100424420038664880195f5e51f50',1,'InfoLine::kMarginTop()']]],
   ['kpi',['kPI',['../math__constants_8h.html#a368d99984512d9a6c6f18b37b4446431',1,'math_constants.h']]],
+  ['ksqrt3',['kSQRT3',['../math__constants_8h.html#a987f07b0b550988e3f3f9fb36d74142e',1,'math_constants.h']]],
   ['ktablecolums',['kTableColums',['../class_info_bar.html#a57e9e7c40a6fd2a56dd47a4512d65489',1,'InfoBar::kTableColums()'],['../class_info_line.html#a9fc071b08eb913cf3afc623835ad2fd8',1,'InfoLine::kTableColums()']]],
   ['ktablelinewidth',['kTableLineWidth',['../class_data_table.html#aa4aed4c624ca9a8e68c9ecc4d2b43458',1,'DataTable']]],
   ['ktablerows',['kTableRows',['../class_info_bar.html#ad54d2dd19a63caf9d2476aace60ae3c5',1,'InfoBar::kTableRows()'],['../class_info_line.html#a95cdc7a95cde6db7c6faceda995d26b9',1,'InfoLine::kTableRows()']]],

@@ -6,7 +6,7 @@
 00002 \textcolor{preprocessor}{#define WINDOWBARPROPERTIES\_H}
 00003 
 00004 \textcolor{preprocessor}{#include <QDialog>}
-00005 \textcolor{preprocessor}{#include "\hyperlink{customtypes_8h}{customtypes.h}"}
+00005 \textcolor{preprocessor}{#include "\hyperlink{unit_8h}{unit.h}"}
 00006 \textcolor{preprocessor}{#include "\hyperlink{project_8h}{project.h}"}
 00007 
 00008 \textcolor{keyword}{namespace }\hyperlink{namespace_ui}{Ui}
@@ -21,19 +21,21 @@
 00017 \textcolor{keyword}{public}:
 00018   \textcolor{keyword}{explicit} \hyperlink{class_bar_properties_a7c14a54f430cabfe872869799076025b}{BarProperties}(QWidget *parent = 0);
 00019   \hyperlink{class_bar_properties_a639b4da849970025a2935ee965d6a465}{~BarProperties}();
-00020   \textcolor{keywordtype}{void} \hyperlink{class_bar_properties_a80cba99404820272603c4da8fb708c05}{setOptions}(\hyperlink{class_project}{Project} *project, \hyperlink{class_bar}{Bar} *\hyperlink{class_bar_properties_a65d09e7315764cd4ad33b5a0ded32090}{bar});
+00020   \textcolor{keywordtype}{bool} \hyperlink{class_bar_properties_a0a9a2284b5aad8acbade86ccec7adbf8}{setOptions}(\hyperlink{class_project}{Project} *project, \hyperlink{class_bar}{Bar} *\hyperlink{class_bar_properties_a65d09e7315764cd4ad33b5a0ded32090}{bar});
 00021   \hyperlink{class_bar}{Bar} *\hyperlink{class_bar_properties_a65d09e7315764cd4ad33b5a0ded32090}{bar}();
 00022 
 00023 \textcolor{keyword}{private} slots:
 00024   \textcolor{keywordtype}{void} on\_buttonBox\_accepted();
 00025   \textcolor{keywordtype}{void} on\_buttonBox\_rejected();
 00026 
-00027 \textcolor{keyword}{private}:
-00028   Ui::BarProperties *ui;
-00029   \hyperlink{class_project}{Project} *project\_;
-00030   \hyperlink{class_bar}{Bar} *bar\_;
-00031   \textcolor{keywordtype}{bool} isNew;
-00032 \};
-00033 
-00034 \textcolor{preprocessor}{#endif // WINDOWBARPROPERTIES\_H}
+00027   \textcolor{keywordtype}{void} on\_network\_currentIndexChanged(\textcolor{keyword}{const} QString &arg1);
+00028   
+00029 \textcolor{keyword}{private}:
+00030   Ui::BarProperties *ui;
+00031   \hyperlink{class_project}{Project} *project\_;
+00032   \hyperlink{class_bar}{Bar} *bar\_;
+00033   \textcolor{keywordtype}{bool} isNew;
+00034 \};
+00035 
+00036 \textcolor{preprocessor}{#endif // WINDOWBARPROPERTIES\_H}
 \end{DoxyCode}

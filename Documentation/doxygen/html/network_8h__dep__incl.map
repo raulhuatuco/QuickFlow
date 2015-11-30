@@ -1,34 +1,38 @@
 <map id="network.h" name="network.h">
-<area shape="rect" id="node2" href="$import_8cpp.html" title="import.cpp" alt="" coords="185,304,268,331"/>
-<area shape="rect" id="node3" href="$import_8h.html" title="import.h" alt="" coords="208,229,277,256"/>
-<area shape="rect" id="node4" href="$quickflow_8cpp.html" title="Main window class implementation. " alt="" coords="714,304,817,331"/>
-<area shape="rect" id="node5" href="$radiallayer_8h.html" title="radiallayer.h" alt="" coords="1911,80,2003,107"/>
-<area shape="rect" id="node8" href="$redrawnetwork_8h.html" title="RedrawNetwork class definition. " alt="" coords="869,229,987,256"/>
-<area shape="rect" id="node10" href="$shirmoharmmadi_8h.html" title="shirmoharmmadi.h" alt="" coords="1490,229,1619,256"/>
-<area shape="rect" id="node11" href="$infobar_8cpp.html" title="infobar.cpp" alt="" coords="1695,229,1782,256"/>
-<area shape="rect" id="node12" href="$infoline_8cpp.html" title="infoline.cpp" alt="" coords="1347,304,1435,331"/>
-<area shape="rect" id="node13" href="$systemview_8h.html" title="systemview.h" alt="" coords="1691,80,1794,107"/>
-<area shape="rect" id="node15" href="$project_8h.html" title="project.h" alt="" coords="592,155,664,181"/>
-<area shape="rect" id="node19" href="$networkproperties_8h.html" title="networkproperties.h" alt="" coords="301,229,437,256"/>
-<area shape="rect" id="node26" href="$searchbar_8cpp.html" title="searchbar.cpp" alt="" coords="5,304,109,331"/>
-<area shape="rect" id="node27" href="$bar_8h.html" title="Bar class definition. " alt="" coords="1227,80,1277,107"/>
-<area shape="rect" id="node30" href="$line_8h.html" title="line class definition. " alt="" coords="1188,155,1241,181"/>
-<area shape="rect" id="node33" href="$network_8cpp.html" title="Implementation of Network class. " alt="" coords="2028,80,2121,107"/>
-<area shape="rect" id="node6" href="$radiallayer_8cpp.html" title="radiallayer.cpp" alt="" coords="1908,155,2015,181"/>
-<area shape="rect" id="node7" href="$shirmoharmnadi_8cpp.html" title="shirmoharmnadi.cpp" alt="" coords="1536,304,1675,331"/>
-<area shape="rect" id="node9" href="$redrawnetwork_8cpp.html" title="redrawnetwork.cpp" alt="" coords="862,304,994,331"/>
-<area shape="rect" id="node14" href="$systemview_8cpp.html" title="systemview.cpp" alt="" coords="1045,304,1163,331"/>
-<area shape="rect" id="node16" href="$quickflow_8h.html" title="Main window class definition. " alt="" coords="461,229,549,256"/>
-<area shape="rect" id="node18" href="$project_8cpp.html" title="project.cpp" alt="" coords="758,229,845,256"/>
-<area shape="rect" id="node21" href="$barproperties_8h.html" title="barproperties.h" alt="" coords="574,229,682,256"/>
-<area shape="rect" id="node23" href="$lineproperties_8h.html" title="lineproperties.h" alt="" coords="1063,229,1174,256"/>
-<area shape="rect" id="node25" href="$searchbar_8h.html" title="searchbar.h" alt="" coords="93,229,184,256"/>
-<area shape="rect" id="node17" href="$main_8cpp.html" title="main.cpp" alt="" coords="468,304,543,331"/>
-<area shape="rect" id="node20" href="$networkproperties_8cpp.html" title="networkproperties.cpp" alt="" coords="293,304,443,331"/>
-<area shape="rect" id="node22" href="$barproperties_8cpp.html" title="barproperties.cpp" alt="" coords="567,304,689,331"/>
-<area shape="rect" id="node24" href="$lineproperties_8cpp.html" title="lineproperties.cpp" alt="" coords="1186,304,1310,331"/>
-<area shape="rect" id="node28" href="$infobar_8h.html" title="infobar.h" alt="" coords="1485,155,1557,181"/>
-<area shape="rect" id="node29" href="$bar_8cpp.html" title="Implementation of Bar class. " alt="" coords="1266,155,1331,181"/>
-<area shape="rect" id="node31" href="$infoline_8h.html" title="infoline.h" alt="" coords="1340,229,1415,256"/>
-<area shape="rect" id="node32" href="$line_8cpp.html" title="Implementation of Line class. " alt="" coords="1249,229,1316,256"/>
+<area shape="rect" id="node2" href="$radiallayer_8h.html" title="radiallayer.h" alt="" coords="1199,155,1291,181"/>
+<area shape="rect" id="node3" href="$cespedes_8h.html" title="cespedes.h" alt="" coords="1371,229,1460,256"/>
+<area shape="rect" id="node4" href="$cespedes_8cpp.html" title="cespedes.cpp" alt="" coords="1852,304,1955,331"/>
+<area shape="rect" id="node5" href="$quickflow_8cpp.html" title="Main window class implementation. " alt="" coords="883,304,985,331"/>
+<area shape="rect" id="node7" href="$shirmoharmmadi_8h.html" title="Definition of Shirmoharmmadi algorithm. " alt="" coords="1217,229,1347,256"/>
+<area shape="rect" id="node9" href="$import_8cpp.html" title="import.cpp" alt="" coords="2337,304,2419,331"/>
+<area shape="rect" id="node10" href="$import_8h.html" title="import.h" alt="" coords="2343,229,2413,256"/>
+<area shape="rect" id="node11" href="$redrawnetwork_8h.html" title="RedrawNetwork class definition. " alt="" coords="2039,229,2157,256"/>
+<area shape="rect" id="node13" href="$infobar_8cpp.html" title="infobar.cpp" alt="" coords="2181,229,2268,256"/>
+<area shape="rect" id="node14" href="$infoline_8cpp.html" title="infoline.cpp" alt="" coords="2207,304,2295,331"/>
+<area shape="rect" id="node15" href="$systemview_8h.html" title="systemview.h" alt="" coords="221,80,324,107"/>
+<area shape="rect" id="node17" href="$project_8h.html" title="project.h" alt="" coords="671,155,743,181"/>
+<area shape="rect" id="node23" href="$networkproperties_8h.html" title="NetworkProperties class definition. " alt="" coords="177,229,313,256"/>
+<area shape="rect" id="node30" href="$searchbar_8cpp.html" title="Implementation of SearchBar class. " alt="" coords="1235,304,1339,331"/>
+<area shape="rect" id="node31" href="$bar_8h.html" title="Bar class definition. " alt="" coords="1647,80,1698,107"/>
+<area shape="rect" id="node34" href="$line_8h.html" title="Line class definition. " alt="" coords="1710,155,1763,181"/>
+<area shape="rect" id="node37" href="$network_8cpp.html" title="Implementation of Network class. " alt="" coords="2589,80,2682,107"/>
+<area shape="rect" id="node6" href="$radiallayer_8cpp.html" title="radiallayer.cpp" alt="" coords="1086,229,1193,256"/>
+<area shape="rect" id="node8" href="$shirmoharmmadi_8cpp.html" title="shirmoharmmadi.cpp" alt="" coords="1588,304,1731,331"/>
+<area shape="rect" id="node12" href="$redrawnetwork_8cpp.html" title="Implementation of RedrawNetwork class. " alt="" coords="2032,304,2164,331"/>
+<area shape="rect" id="node16" href="$systemview_8cpp.html" title="systemview.cpp" alt="" coords="346,304,463,331"/>
+<area shape="rect" id="node18" href="$quickflow_8h.html" title="Main window class definition. " alt="" coords="622,229,710,256"/>
+<area shape="rect" id="node20" href="$project_8cpp.html" title="project.cpp" alt="" coords="1484,229,1571,256"/>
+<area shape="rect" id="node21" href="$projectproperties_8h.html" title="ProjectProperties class definition. " alt="" coords="336,229,465,256"/>
+<area shape="rect" id="node25" href="$barproperties_8h.html" title="barproperties.h" alt="" coords="489,229,597,256"/>
+<area shape="rect" id="node27" href="$lineproperties_8h.html" title="lineproperties.h" alt="" coords="735,229,845,256"/>
+<area shape="rect" id="node29" href="$searchbar_8h.html" title="SearchBar class definition. " alt="" coords="971,229,1062,256"/>
+<area shape="rect" id="node19" href="$main_8cpp.html" title="main.cpp" alt="" coords="634,304,709,331"/>
+<area shape="rect" id="node22" href="$projectproperties_8cpp.html" title="Implementation of the ProjectProperties class. " alt="" coords="180,304,323,331"/>
+<area shape="rect" id="node24" href="$networkproperties_8cpp.html" title="Implementation of the NetworkProperties class. " alt="" coords="5,304,156,331"/>
+<area shape="rect" id="node26" href="$barproperties_8cpp.html" title="barproperties.cpp" alt="" coords="487,304,610,331"/>
+<area shape="rect" id="node28" href="$lineproperties_8cpp.html" title="lineproperties.cpp" alt="" coords="732,304,856,331"/>
+<area shape="rect" id="node32" href="$infobar_8h.html" title="infobar.h" alt="" coords="2007,155,2079,181"/>
+<area shape="rect" id="node33" href="$bar_8cpp.html" title="Implementation of Bar class. " alt="" coords="1468,155,1533,181"/>
+<area shape="rect" id="node35" href="$infoline_8h.html" title="infoline.h" alt="" coords="1889,229,1963,256"/>
+<area shape="rect" id="node36" href="$line_8cpp.html" title="Implementation of Line class. " alt="" coords="1697,229,1763,256"/>
 </map>

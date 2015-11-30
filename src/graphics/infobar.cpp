@@ -29,11 +29,13 @@ const double InfoBar::kBoxBaseWidth = 60.0;
  * Constructor.
  ******************************************************************************/
 InfoBar::InfoBar(Bar *bar) :
+  QGraphicsObject(),
   bar_(bar)
 {
   setZValue(2);
-  double px = bar->x() + bar->network->xOffset;
-  double py = bar->y() + bar->network->yOffset - bar->boundingRect().height() / 2;
+  double px = bar->x() + bar->network()->xOffset;
+  double py = bar->y() + bar->network()->yOffset - bar->boundingRect().height() /
+              2;
 
   setPos(px,py);
 }
@@ -71,7 +73,7 @@ void InfoBar::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
 
   // Draw head text.
   setHeadFont(painter);
-  QString headText = "(" + bar_->network->name + ") " + "Bar " +
+  QString headText = "(" + bar_->network()->name + ") " + "Bar " +
                      QString::number(bar_->id());
   drawHeadText(headRect, kMarginHeadTop, headText, painter);
 

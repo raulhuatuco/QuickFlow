@@ -35,7 +35,7 @@
  * This is the definition of the Shirmoharmmadi class.
  *
  * \author David Krepsky
- * \version 0.1
+ * \version 0.2
  * \date 11/2015
  * \copyright David Krepsky
  */
@@ -62,13 +62,22 @@
  * The article is included in the Docummentation folder.
  *
  * Workings:
- * First, it is created a layered structure of the network using RadialLayer
- * class. This class will help us travel trough the bars in the network.
- * Second, we do a backward sweep calculating the line currents, going from the
- * latest layer until we reach the slack bar.
- * Tird, we do a forward sweep, calculating every bar voltage.
- * Fourth, we measure the error and check for convergence. If the error criteria
- * isn't meet, we do another iteration (until max. iterations).
+ *  - First, it is created a layered structure of the network using RadialLayer
+ *    class. This class will help us travel trough the bars in the network.
+ *    This is refered to as the renumbering process at the article. Here, we use
+ *    an Object Oriented approach, creating a navigable structre.
+ *
+ *  - Second, we do a backward sweep calculating the line currents, going from
+ *    the latest layer until we reach the slack bar.
+ *
+ *  - Tird, we do a forward sweep, calculating every bar voltage.
+ *
+ *  - Fourth, we measure the error and check for convergence. If the error
+ *    criteria isn't meet, we do another iteration (until max. iterations).
+ *
+ * All the results are altomatically stored inside the bars and lines. Some data
+ * aboult time, total generation, used iterations and system loss are stored as
+ * public data in this class.
  *
  * Currently, networks must be radial, that is, all bars must connect to one and
  * only one bar from the previously layer (with exception of slack). Also, only
@@ -81,10 +90,11 @@
  * loss in the system and also the slack total generated power.
  *
  * \warning Only Slack and PQ bars are allowed.
- * \warning Network must be completelly radial (No loops allowed).
+ * \warning Network must be completelly radial (No meshes allowed).
  *
  * \todo Add support for PV bars.
  * \todo Add support for non-radial networks.
+ * \todo Compute total loss and total generated power.
  */
 class Shirmoharmmadi
 {
@@ -94,23 +104,33 @@ public:
    ****************************************************************************/
   /*!
    * \brief Total time used to calculate the solution, in milliseconds.
+   *
+   * This will count the time from the begining of the solve() fucntion till the
+   * end of it.
    */
   double duration;
 
   /*!
    * \brief Number of used iterations to obtain the solution.
+   *
+   * In case the network don't converge, this value will be set to -1.
    */
   int32_t usedIterations;
 
   /*!
    * \brief Total power generated at slark (Real power only).
+   *
+   * This is the total real power generated at the slack bar.
    */
   double slackGeneration;
 
   /*!
    * \brief Total loss of the system.
+   *
+   * Sum all the losses in the system, including both the reactive and active
+   * losses.
    */
-  double totalLoss;
+  complex<double> totalLoss;
 
   /*****************************************************************************
    * Public methods.
@@ -118,7 +138,7 @@ public:
   /*!
    * \brief Shirmoharmmadi class constructor.
    *
-   * Results are altomatically stored inside the elements.
+   *  Class constructor.
    *
    * \param[in,out] network Network object to be solved (must be valid).
    */
@@ -126,6 +146,8 @@ public:
 
   /*!
    * \brief Destructor.
+   *
+   * Class destructor.
    */
   ~Shirmoharmmadi();
 
@@ -150,36 +172,124 @@ private:
    */
   complex<double> oldSlackPower[3];
 
+  /*!
+   * \brief RadialLayer object to create a layered structure.
+   *
+   * This is used to navigate through the net.
+   */
+  RadialLayer radLayer;
+
   /*****************************************************************************
    * Private methods.
    ****************************************************************************/
   /*!
+    * \brief flatStart
+    *
+    * \todo Insert comment for flatStart in shirmuhammadi.
+    */
+  void flatStart();
+
+  /*!
+   * \brief Calculate bar current.
+   *
+   * Used to calculate a bar's current by the following equation:
+   *
+   * \code
+   * I = - conj((Sinjected - Sshunt)/Voltage).
+   * \endcode
+   *
+   * Here, the current is negated (minus signal before the conj() function)
+   * because we adopted that power beeing consumed at the bar does have a
+   * positive sign, so we need to negate bar current to make current going into
+   * the bar have a negative sign. This was make to complain with the article
+   * notation.
+   *
+   * \param[in] bar Bar which the current wil be calculated.
+   * \param[in] phase Current phase.
+   *
+   * \return The bar current.
+   */
+  void calcBarCurrent(Bar *bar);
+
+  /*!
+   * \brief calcLineLoss
+   *
+   * \todo Calc line loss.
+   */
+  void calcLineLoss();
+
+  /*!
    * \brief Execute the backward sweep.
    *
-   * The backward sweep will start at the farest layer and will moving in
-   * direction to the slack bar, calculating every line current.
+   * The backward sweep will start at the farest layer and will move in
+   * direction of slack bar, calculating every line current.
+   *
+   * The line \emph i current, refered to as Jl, is calculated by subtracting
+   * the end node (bar) current, then we add all lines current that emanate from
+   * the end node to the next layer.
+   * The equation that describes the line current calculation is as follows:
+   *
+   * \code
+   * Jl = - Ifinal_bar + sum(Jim)
+   * \endcode
+   *
+   * Where:
+   *  - Jl is the line current being calculated;
+   *  - Ifinal_bar is the line end node.
+   *  - Jim is the current of lines linking bar i (the final bar) to te bars m,
+   *    where m is composed of all bars that are one layer further.
    */
-  void doBackwardSweep(RadialLayer &radLayer);
+  void doBackwardSweep();
 
   /*!
    * \brief Execute the forward sweep.
    *
    * The forward sweep will start at the slack bar and will moving in
    * direction to the farest layer, calculating every bar voltage.
+   *
+   * The new voltage is calculated using the following equation:
+   *
+   * \code
+   * Vf = Vi - Jif*Z;
+   * \endcode
+   *
+   * Where:
+   *  - Vf is the end node of the line voltage.
+   *  - Vi is the initial node of the line voltage.
+   *  - Jif is the line current connecting bars i and f.
+   *  - Z is the impedance matrix of line Lij (line connecting nodes i and f).
    */
-  void doForwardSweep(RadialLayer &radLayer);
+  void doForwardSweep();
 
   /*!
    * \brief Compute slack bar current.
    *
-   * Will sum the current of every line connected to the slack bar.
+   * Will sum the current of every line connected to the slack bar, plus, will
+   * add the current used at the slack bar (by means of the injected power and
+   * shunt power).
+   *
+   * \todo Add slack comsumed power.
    */
   void computeSlackCurrent();
 
   /*!
-   * \brief Compute iteration max. error.
+   * \brief Compute iteration maximum error.
    *
    * Will get the greatest error produced by the iteration.
+   *
+   * This will compare how the power at the slack bar is changing.
+   * The error value is calculated as follows:
+   *
+   * First, we caculate the new slack bar total power, summing up every line
+   * current and multipling by the slack voltage.
+   *
+   * Second, we get the difference of this value with the slack power of the
+   * previous iteration.
+   *
+   * Trid, we compute the absolute value of power for the three phases (Both
+   * reactive and active powers).
+   *
+   * Fourth, we return the greatest value (which can be real or active).
    *
    * \return Returns the max. error found.
    */

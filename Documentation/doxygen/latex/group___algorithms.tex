@@ -3,13 +3,172 @@
 \subsubsection*{Files}
 \begin{DoxyCompactItemize}
 \item 
+file \hyperlink{redrawnetwork_8cpp}{redrawnetwork.\+cpp}
+\begin{DoxyCompactList}\small\item\em Implementation of \hyperlink{class_redraw_network}{Redraw\+Network} class. \end{DoxyCompactList}\item 
 file \hyperlink{redrawnetwork_8h}{redrawnetwork.\+h}
-\begin{DoxyCompactList}\small\item\em \hyperlink{class_redraw_network}{Redraw\+Network} class definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_redraw_network}{Redraw\+Network} class definition. \end{DoxyCompactList}\item 
+file \hyperlink{shirmoharmmadi_8h}{shirmoharmmadi.\+h}
+\begin{DoxyCompactList}\small\item\em Definition of \hyperlink{class_shirmoharmmadi}{Shirmoharmmadi} algorithm. \end{DoxyCompactList}\item 
+file \hyperlink{shirmoharmmadi_8h}{shirmoharmmadi.\+h}
+\begin{DoxyCompactList}\small\item\em Definition of \hyperlink{class_shirmoharmmadi}{Shirmoharmmadi} algorithm. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsubsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
 class \hyperlink{class_redraw_network}{Redraw\+Network}
-\begin{DoxyCompactList}\small\item\em Algorithm that reposition every element in a network. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Algorithm that reposition every element in a network. \end{DoxyCompactList}\item 
+class \hyperlink{class_shirmoharmmadi}{Shirmoharmmadi}
+\begin{DoxyCompactList}\small\item\em Solves a network with the \hyperlink{class_shirmoharmmadi}{Shirmoharmmadi} algorithm. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{group___algorithms_ga1fe3edb8c57780eb62f7de8f03dfeda3}{Redraw\+Network\+::\+Redraw\+Network} (\hyperlink{class_network}{Network} $\ast$network)
+\begin{DoxyCompactList}\small\item\em Class constructor. \end{DoxyCompactList}\item 
+\hyperlink{group___algorithms_gac7b5f7fdb2b88e7d8bb580834e93b1e8}{Redraw\+Network\+::$\sim$\+Redraw\+Network} ()
+\begin{DoxyCompactList}\small\item\em Class destructor. \end{DoxyCompactList}\item 
+void \hyperlink{group___algorithms_ga94d53ddf8ee00c4ef6d56bb988333103}{Redraw\+Network\+::sugiyama\+Fast} ()
+\begin{DoxyCompactList}\small\item\em Redraws using Sugiyama Fast algorithm. \end{DoxyCompactList}\item 
+void \hyperlink{group___algorithms_gaee0ae606982145e66bba825421d610f8}{Redraw\+Network\+::sugiyama} ()
+\begin{DoxyCompactList}\small\item\em Redraws using Sugiyama algorithm. \end{DoxyCompactList}\item 
+void \hyperlink{group___algorithms_ga56a92ad06ae0198ee60160aa66aa0ce1}{Redraw\+Network\+::multi\+Level} ()
+\begin{DoxyCompactList}\small\item\em Redraws with Multilevel algorithm. \end{DoxyCompactList}\item 
+\hyperlink{group___algorithms_gaa5833386f9b43019a318c81a3006e2b1}{Shirmoharmmadi\+::\+Shirmoharmmadi} (\hyperlink{class_network}{Network} $\ast$network)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_shirmoharmmadi}{Shirmoharmmadi} class constructor. \end{DoxyCompactList}\item 
+\hyperlink{group___algorithms_gac89016d70d3c99339af11f3b6f1f23b2}{Shirmoharmmadi\+::$\sim$\+Shirmoharmmadi} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+bool \hyperlink{group___algorithms_gacb4a06c62b5d97c25bea70acd477e715}{Shirmoharmmadi\+::solve} ()
+\begin{DoxyCompactList}\small\item\em Solve the power flow for the especified network. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsubsection{Detailed Description}
+
+
+\subsubsection{Function Documentation}
+\hypertarget{group___algorithms_ga56a92ad06ae0198ee60160aa66aa0ce1}{}\index{Algorithms@{Algorithms}!multi\+Level@{multi\+Level}}
+\index{multi\+Level@{multi\+Level}!Algorithms@{Algorithms}}
+\paragraph[{multi\+Level}]{\setlength{\rightskip}{0pt plus 5cm}void Redraw\+Network\+::multi\+Level (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___algorithms_ga56a92ad06ae0198ee60160aa66aa0ce1}
+Provides a nice way to see how a system expands from the slack bar. 
+
+Definition at line \hyperlink{redrawnetwork_8cpp_source_l00127}{127} of file \hyperlink{redrawnetwork_8cpp_source}{redrawnetwork.\+cpp}.
+
+\hypertarget{group___algorithms_ga1fe3edb8c57780eb62f7de8f03dfeda3}{}\index{Algorithms@{Algorithms}!Redraw\+Network@{Redraw\+Network}}
+\index{Redraw\+Network@{Redraw\+Network}!Algorithms@{Algorithms}}
+\paragraph[{Redraw\+Network}]{\setlength{\rightskip}{0pt plus 5cm}Redraw\+Network\+::\+Redraw\+Network (
+\begin{DoxyParamCaption}
+\item[{{\bf Network} $\ast$}]{network}
+\end{DoxyParamCaption}
+)}\label{group___algorithms_ga1fe3edb8c57780eb62f7de8f03dfeda3}
+A valid pointer to a \hyperlink{class_network}{Network} object is needed.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em network} & \hyperlink{class_network}{Network} to be redrawn. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{redrawnetwork_8cpp_source_l00058}{58} of file \hyperlink{redrawnetwork_8cpp_source}{redrawnetwork.\+cpp}.
+
+\hypertarget{group___algorithms_gaa5833386f9b43019a318c81a3006e2b1}{}\index{Algorithms@{Algorithms}!Shirmoharmmadi@{Shirmoharmmadi}}
+\index{Shirmoharmmadi@{Shirmoharmmadi}!Algorithms@{Algorithms}}
+\paragraph[{Shirmoharmmadi}]{\setlength{\rightskip}{0pt plus 5cm}Shirmoharmmadi\+::\+Shirmoharmmadi (
+\begin{DoxyParamCaption}
+\item[{{\bf Network} $\ast$}]{network}
+\end{DoxyParamCaption}
+)}\label{group___algorithms_gaa5833386f9b43019a318c81a3006e2b1}
+Results are altomatically stored inside the elements.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em network} & \hyperlink{class_network}{Network} object to be solved (must be valid). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{shirmoharmmadi_8cpp_source_l00054}{54} of file \hyperlink{shirmoharmmadi_8cpp_source}{shirmoharmmadi.\+cpp}.
+
+\hypertarget{group___algorithms_gacb4a06c62b5d97c25bea70acd477e715}{}\index{Algorithms@{Algorithms}!solve@{solve}}
+\index{solve@{solve}!Algorithms@{Algorithms}}
+\paragraph[{solve}]{\setlength{\rightskip}{0pt plus 5cm}bool Shirmoharmmadi\+::solve (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___algorithms_gacb4a06c62b5d97c25bea70acd477e715}
+\begin{DoxyReturn}{Returns}
+True if the solution converges, false otherwise. 
+\end{DoxyReturn}
+
+
+Definition at line \hyperlink{shirmoharmmadi_8cpp_source_l00071}{71} of file \hyperlink{shirmoharmmadi_8cpp_source}{shirmoharmmadi.\+cpp}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___algorithms_gacb4a06c62b5d97c25bea70acd477e715_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___algorithms_gaee0ae606982145e66bba825421d610f8}{}\index{Algorithms@{Algorithms}!sugiyama@{sugiyama}}
+\index{sugiyama@{sugiyama}!Algorithms@{Algorithms}}
+\paragraph[{sugiyama}]{\setlength{\rightskip}{0pt plus 5cm}void Redraw\+Network\+::sugiyama (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___algorithms_gaee0ae606982145e66bba825421d610f8}
+Really nice looking for radial networks. 
+
+Definition at line \hyperlink{redrawnetwork_8cpp_source_l00106}{106} of file \hyperlink{redrawnetwork_8cpp_source}{redrawnetwork.\+cpp}.
+
+\hypertarget{group___algorithms_ga94d53ddf8ee00c4ef6d56bb988333103}{}\index{Algorithms@{Algorithms}!sugiyama\+Fast@{sugiyama\+Fast}}
+\index{sugiyama\+Fast@{sugiyama\+Fast}!Algorithms@{Algorithms}}
+\paragraph[{sugiyama\+Fast}]{\setlength{\rightskip}{0pt plus 5cm}void Redraw\+Network\+::sugiyama\+Fast (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___algorithms_ga94d53ddf8ee00c4ef6d56bb988333103}
+This will draw faster than the Sugiyama, but with a lower quality result. 
+
+Definition at line \hyperlink{redrawnetwork_8cpp_source_l00085}{85} of file \hyperlink{redrawnetwork_8cpp_source}{redrawnetwork.\+cpp}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group___algorithms_ga94d53ddf8ee00c4ef6d56bb988333103_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___algorithms_gac7b5f7fdb2b88e7d8bb580834e93b1e8}{}\index{Algorithms@{Algorithms}!````~Redraw\+Network@{$\sim$\+Redraw\+Network}}
+\index{````~Redraw\+Network@{$\sim$\+Redraw\+Network}!Algorithms@{Algorithms}}
+\paragraph[{$\sim$\+Redraw\+Network}]{\setlength{\rightskip}{0pt plus 5cm}Redraw\+Network\+::$\sim$\+Redraw\+Network (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___algorithms_gac7b5f7fdb2b88e7d8bb580834e93b1e8}
+Free used memory. 
+
+Definition at line \hyperlink{redrawnetwork_8cpp_source_l00068}{68} of file \hyperlink{redrawnetwork_8cpp_source}{redrawnetwork.\+cpp}.
+
+\hypertarget{group___algorithms_gac89016d70d3c99339af11f3b6f1f23b2}{}\index{Algorithms@{Algorithms}!````~Shirmoharmmadi@{$\sim$\+Shirmoharmmadi}}
+\index{````~Shirmoharmmadi@{$\sim$\+Shirmoharmmadi}!Algorithms@{Algorithms}}
+\paragraph[{$\sim$\+Shirmoharmmadi}]{\setlength{\rightskip}{0pt plus 5cm}Shirmoharmmadi\+::$\sim$\+Shirmoharmmadi (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___algorithms_gac89016d70d3c99339af11f3b6f1f23b2}
+
+
+Definition at line \hyperlink{shirmoharmmadi_8cpp_source_l00063}{63} of file \hyperlink{shirmoharmmadi_8cpp_source}{shirmoharmmadi.\+cpp}.
+

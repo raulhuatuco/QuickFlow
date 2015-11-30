@@ -246,12 +246,12 @@ void SystemView::keyPressEvent(QKeyEvent *event)
             if(bar != NULL) {
               foreach(Line *line, bar->lines) {
                 scene()->removeItem(line);
-                line->network->removeLine(line);
+                line->network()->removeLine(line);
                 delete line;
               }
 
               scene()->removeItem(bar);
-              bar->network->removeBar(bar);
+              bar->network()->removeBar(bar);
               delete bar;
 
             } else {
@@ -259,7 +259,7 @@ void SystemView::keyPressEvent(QKeyEvent *event)
 
               if(line != NULL) {
                 scene()->removeItem(line);
-                line->network->removeLine(line);
+                line->network()->removeLine(line);
                 delete line;
               }
             }

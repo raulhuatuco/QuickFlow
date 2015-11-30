@@ -13,295 +13,257 @@
 00009 \textcolor{comment}{/*******************************************************************************}
 00010 \textcolor{comment}{ * Constructor.}
 00011 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00012}{}\hyperlink{class_project_aa007ecd17d5bc800e7a956cf666eea21}{00012} \hyperlink{class_project_aa007ecd17d5bc800e7a956cf666eea21}{Project::Project}() :
-00013   name(\textcolor{stringliteral}{""}),
-00014   filePath(\textcolor{stringliteral}{""})
-00015 \{
-00016 \}
-00017 
-00018 \textcolor{comment}{/*******************************************************************************}
-00019 \textcolor{comment}{ * Destructor.}
-00020 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00021}{}\hyperlink{class_project_ad165d61b76ee86ee9c27fd987a2a7b9e}{00021} \hyperlink{class_project_ad165d61b76ee86ee9c27fd987a2a7b9e}{Project::~Project}()
-00022 \{
-00023   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, \hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
-00024     \textcolor{keyword}{delete} network;
-00025   \}
-00026 \}
-00027 
-00028 \textcolor{comment}{/*******************************************************************************}
-00029 \textcolor{comment}{ * maxIterations.}
-00030 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00031}{}\hyperlink{class_project_ab9d6426396a75f2fcaeadcddcd0fac64}{00031} uint32\_t \hyperlink{class_project_ab9d6426396a75f2fcaeadcddcd0fac64}{Project::maxIterations}()
-00032 \{
-00033   \textcolor{keywordflow}{return} \hyperlink{group___graphics_ga318dee060bc577eacd67d332efbbe1b2}{Network::maxIterations};
-00034 \}
-00035 
-00036 \textcolor{comment}{/*******************************************************************************}
-00037 \textcolor{comment}{ * setMaxIterations.}
-00038 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00039}{}\hyperlink{class_project_af2046a5d542d3e3dd51cb9cb04604e8f}{00039} \textcolor{keywordtype}{void} \hyperlink{class_project_af2046a5d542d3e3dd51cb9cb04604e8f}{Project::setMaxIterations}(uint32\_t maxIterations)
-00040 \{
-00041   \hyperlink{group___graphics_ga318dee060bc577eacd67d332efbbe1b2}{Network::maxIterations} = \hyperlink{class_project_ab9d6426396a75f2fcaeadcddcd0fac64}{maxIterations};
-00042 \}
-00043 
-00044 \textcolor{comment}{/*******************************************************************************}
-00045 \textcolor{comment}{ * minError.}
-00046 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00047}{}\hyperlink{class_project_a457ed8d3b0ea5816f928977509f69a34}{00047} \textcolor{keywordtype}{double} \hyperlink{class_project_a457ed8d3b0ea5816f928977509f69a34}{Project::minError}()
-00048 \{
-00049   \textcolor{keywordflow}{return} \hyperlink{group___graphics_gabcdc973129d3dda7572b7a1c388da1b5}{Network::minError};
-00050 \}
-00051 
-00052 \textcolor{comment}{/*******************************************************************************}
-00053 \textcolor{comment}{ * setMinError.}
-00054 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00055}{}\hyperlink{class_project_a2cb776c39adb42a1113bf7887d0d4636}{00055} \textcolor{keywordtype}{void} \hyperlink{class_project_a2cb776c39adb42a1113bf7887d0d4636}{Project::setMinError}(\textcolor{keywordtype}{double} minError)
-00056 \{
-00057   \hyperlink{group___graphics_gabcdc973129d3dda7572b7a1c388da1b5}{Network::minError} = \hyperlink{class_project_a457ed8d3b0ea5816f928977509f69a34}{minError};
-00058 \}
-00059 
-00060 \textcolor{comment}{/*******************************************************************************}
-00061 \textcolor{comment}{ * voltageBase.}
-00062 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00063}{}\hyperlink{class_project_a4e857ccb6162f57f5d72f4e7199e4573}{00063} \textcolor{keywordtype}{double} \hyperlink{class_project_a4e857ccb6162f57f5d72f4e7199e4573}{Project::voltageBase}()
-00064 \{
-00065   \textcolor{keywordflow}{return} \hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{Network::voltageBase};
-00066 \}
-00067 
-00068 \textcolor{comment}{/*******************************************************************************}
-00069 \textcolor{comment}{ * setVoltageBase.}
-00070 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00071}{}\hyperlink{class_project_a494c3e89851f754188c7abaedbf77ef6}{00071} \textcolor{keywordtype}{void} \hyperlink{class_project_a494c3e89851f754188c7abaedbf77ef6}{Project::setVoltageBase}(\textcolor{keywordtype}{double} voltageBase)
-00072 \{
-00073   \hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{Network::voltageBase} = \hyperlink{class_project_a4e857ccb6162f57f5d72f4e7199e4573}{voltageBase};
-00074 \}
-00075 
-00076 \textcolor{comment}{/*******************************************************************************}
-00077 \textcolor{comment}{ * powerBase.}
-00078 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00079}{}\hyperlink{class_project_a1a417c6832182389fb501b92cade3f9d}{00079} \textcolor{keywordtype}{double} \hyperlink{class_project_a1a417c6832182389fb501b92cade3f9d}{Project::powerBase}()
-00080 \{
-00081   \textcolor{keywordflow}{return} \hyperlink{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{Network::powerBase};
-00082 \}
-00083 
-00084 \textcolor{comment}{/*******************************************************************************}
-00085 \textcolor{comment}{ * setPowerBase.}
-00086 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00087}{}\hyperlink{class_project_abb4df805b3cd3af509a41e657eb4bb83}{00087} \textcolor{keywordtype}{void} \hyperlink{class_project_abb4df805b3cd3af509a41e657eb4bb83}{Project::setPowerBase}(\textcolor{keywordtype}{double} powerBase)
-00088 \{
-00089   \hyperlink{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{Network::powerBase} = \hyperlink{class_project_a1a417c6832182389fb501b92cade3f9d}{powerBase};
-00090 \}
-00091 
-00092 \textcolor{comment}{/*******************************************************************************}
-00093 \textcolor{comment}{ * lengthUn.}
-00094 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00095}{}\hyperlink{class_project_a40cd2f59a4a708897e5997942c046f4d}{00095} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} \hyperlink{class_project_a40cd2f59a4a708897e5997942c046f4d}{Project::lengthUnit}()
-00096 \{
-00097   \textcolor{keywordflow}{return} \hyperlink{group___graphics_gae46c0e2bf39b343875e3c69066fe2652}{Network::lengthUnit};
-00098 \}
-00099 
-00100 \textcolor{comment}{/*******************************************************************************}
-00101 \textcolor{comment}{ * setLengthUn.}
-00102 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00103}{}\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{00103} \textcolor{keywordtype}{void} \hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{Project::setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} lengthUn)
-00104 \{
-00105   \hyperlink{group___graphics_gae46c0e2bf39b343875e3c69066fe2652}{Network::lengthUnit} = lengthUn;
-00106 \}
-00107 
-00108 \textcolor{comment}{/*******************************************************************************}
-00109 \textcolor{comment}{ * impedanceUn.}
-00110 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00111}{}\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{00111} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} \hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{Project::impedanceUnit}()
-00112 \{
-00113   \textcolor{keywordflow}{return} \hyperlink{group___graphics_ga5f3d72699a723c64a89d22e34df708ff}{Network::impedanceUnit};
-00114 \}
-00115 
-00116 \textcolor{comment}{/*******************************************************************************}
-00117 \textcolor{comment}{ * setImpedanceUn.}
-00118 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00119}{}\hyperlink{class_project_a995d050781923522ae2a02728346d199}{00119} \textcolor{keywordtype}{void} \hyperlink{class_project_a995d050781923522ae2a02728346d199}{Project::setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} impedanceUn)
-00120 \{
-00121   \hyperlink{group___graphics_ga5f3d72699a723c64a89d22e34df708ff}{Network::impedanceUnit} = impedanceUn;
-00122 \}
-00123 
-00124 \textcolor{comment}{/*******************************************************************************}
-00125 \textcolor{comment}{ * voltageUn.}
-00126 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00127}{}\hyperlink{class_project_a93b928093072ba15c24693b03a934e4e}{00127} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} \hyperlink{class_project_a93b928093072ba15c24693b03a934e4e}{Project::voltageUnit}()
-00128 \{
-00129   \textcolor{keywordflow}{return} \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit};
-00130 \}
-00131 
-00132 \textcolor{comment}{/*******************************************************************************}
-00133 \textcolor{comment}{ * setVoltageUn.}
-00134 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00135}{}\hyperlink{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{00135} \textcolor{keywordtype}{void} \hyperlink{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{Project::setVoltageUn}(\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} voltageUn)
-00136 \{
-00137   \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit} = voltageUn;
-00138 \}
-00139 
-00140 \textcolor{comment}{/*******************************************************************************}
-00141 \textcolor{comment}{ * powerUn.}
-00142 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00143}{}\hyperlink{class_project_a2a1bc35358d6189695d6e5b7dd547ffd}{00143} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} \hyperlink{class_project_a2a1bc35358d6189695d6e5b7dd547ffd}{Project::powerUnit}()
-00144 \{
-00145   \textcolor{keywordflow}{return} \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit};
-00146 \}
-00147 
-00148 \textcolor{comment}{/*******************************************************************************}
-00149 \textcolor{comment}{ * setPowerUn.}
-00150 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00151}{}\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{00151} \textcolor{keywordtype}{void} \hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{Project::setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} powerUn)
-00152 \{
-00153   \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit} = powerUn;
-00154 \}
-00155 
-00156 \textcolor{comment}{/*******************************************************************************}
-00157 \textcolor{comment}{ * currentUnit.}
-00158 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00159}{}\hyperlink{class_project_a0d22341fcc068be743b776df0a02f55e}{00159} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} \hyperlink{class_project_a0d22341fcc068be743b776df0a02f55e}{Project::currentUnit}()
-00160 \{
-00161   \textcolor{keywordflow}{return} \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit};
-00162 \}
-00163 
-00164 \textcolor{comment}{/*******************************************************************************}
-00165 \textcolor{comment}{ * setCurrentUnit.}
-00166 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00167}{}\hyperlink{class_project_a64d9800bc3acafcfa4d3f45ee5aacc6d}{00167} \textcolor{keywordtype}{void} \hyperlink{class_project_a64d9800bc3acafcfa4d3f45ee5aacc6d}{Project::setCurrentUnit}(\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit)
-00168 \{
-00169   \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit} = unit;
-00170 \}
-00171 
-00172 \textcolor{comment}{/*******************************************************************************}
-00173 \textcolor{comment}{ * save.}
-00174 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00175}{}\hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{00175} \textcolor{keywordtype}{bool} \hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{Project::save}()
-00176 \{
-00177   \textcolor{comment}{// Try to open file.}
-00178   QFile file;
-00179   file.setFileName(\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath});
+\hypertarget{project_8cpp_source_l00012}{}\hyperlink{class_project_aa007ecd17d5bc800e7a956cf666eea21}{00012} \hyperlink{class_project_aa007ecd17d5bc800e7a956cf666eea21}{Project::Project}()
+00013 \{
+00014 \}
+00015 
+00016 \textcolor{comment}{/*******************************************************************************}
+00017 \textcolor{comment}{ * Destructor.}
+00018 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00019}{}\hyperlink{class_project_ad165d61b76ee86ee9c27fd987a2a7b9e}{00019} \hyperlink{class_project_ad165d61b76ee86ee9c27fd987a2a7b9e}{Project::~Project}()
+00020 \{
+00021   \textcolor{keywordflow}{foreach}(\hyperlink{class_network}{Network} *network, \hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00022     \textcolor{keyword}{delete} network;
+00023   \}
+00024 \}
+00025 
+00026 \textcolor{comment}{/*******************************************************************************}
+00027 \textcolor{comment}{ * maxIterations.}
+00028 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00029}{}\hyperlink{class_project_ab9d6426396a75f2fcaeadcddcd0fac64}{00029} uint32\_t \hyperlink{class_project_ab9d6426396a75f2fcaeadcddcd0fac64}{Project::maxIterations}()
+00030 \{
+00031   \textcolor{keywordflow}{return} \hyperlink{group___models_ga318dee060bc577eacd67d332efbbe1b2}{Network::maxIterations};
+00032 \}
+00033 
+00034 \textcolor{comment}{/*******************************************************************************}
+00035 \textcolor{comment}{ * setMaxIterations.}
+00036 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00037}{}\hyperlink{class_project_af2046a5d542d3e3dd51cb9cb04604e8f}{00037} \textcolor{keywordtype}{void} \hyperlink{class_project_af2046a5d542d3e3dd51cb9cb04604e8f}{Project::setMaxIterations}(uint32\_t maxIterations)
+00038 \{
+00039   \hyperlink{group___models_ga318dee060bc577eacd67d332efbbe1b2}{Network::maxIterations} = \hyperlink{class_project_ab9d6426396a75f2fcaeadcddcd0fac64}{maxIterations};
+00040 \}
+00041 
+00042 \textcolor{comment}{/*******************************************************************************}
+00043 \textcolor{comment}{ * minError.}
+00044 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00045}{}\hyperlink{class_project_a457ed8d3b0ea5816f928977509f69a34}{00045} \textcolor{keywordtype}{double} \hyperlink{class_project_a457ed8d3b0ea5816f928977509f69a34}{Project::minError}()
+00046 \{
+00047   \textcolor{keywordflow}{return} \hyperlink{group___models_gabcdc973129d3dda7572b7a1c388da1b5}{Network::minError};
+00048 \}
+00049 
+00050 \textcolor{comment}{/*******************************************************************************}
+00051 \textcolor{comment}{ * setMinError.}
+00052 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00053}{}\hyperlink{class_project_a2cb776c39adb42a1113bf7887d0d4636}{00053} \textcolor{keywordtype}{void} \hyperlink{class_project_a2cb776c39adb42a1113bf7887d0d4636}{Project::setMinError}(\textcolor{keywordtype}{double} minError)
+00054 \{
+00055   \hyperlink{group___models_gabcdc973129d3dda7572b7a1c388da1b5}{Network::minError} = \hyperlink{class_project_a457ed8d3b0ea5816f928977509f69a34}{minError};
+00056 \}
+00057 
+00058 \textcolor{comment}{/*******************************************************************************}
+00059 \textcolor{comment}{ * lengthUn.}
+00060 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00061}{}\hyperlink{class_project_a40cd2f59a4a708897e5997942c046f4d}{00061} \hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} \hyperlink{class_project_a40cd2f59a4a708897e5997942c046f4d}{Project::lengthUnit}()
+00062 \{
+00063   \textcolor{keywordflow}{return} \hyperlink{group___models_gae46c0e2bf39b343875e3c69066fe2652}{Network::lengthUnit};
+00064 \}
+00065 
+00066 \textcolor{comment}{/*******************************************************************************}
+00067 \textcolor{comment}{ * setLengthUn.}
+00068 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00069}{}\hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{00069} \textcolor{keywordtype}{void} \hyperlink{class_project_a846ee2284b0856d461b35d78d9f8e1d6}{Project::setLengthUn}(\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit} lengthUn)
+00070 \{
+00071   \hyperlink{group___models_gae46c0e2bf39b343875e3c69066fe2652}{Network::lengthUnit} = lengthUn;
+00072 \}
+00073 
+00074 \textcolor{comment}{/*******************************************************************************}
+00075 \textcolor{comment}{ * impedanceUn.}
+00076 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00077}{}\hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{00077} \hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} \hyperlink{class_project_ad0725b9aa4445dd6d21d4e15df482d3b}{Project::impedanceUnit}()
+00078 \{
+00079   \textcolor{keywordflow}{return} \hyperlink{group___models_ga5f3d72699a723c64a89d22e34df708ff}{Network::impedanceUnit};
+00080 \}
+00081 
+00082 \textcolor{comment}{/*******************************************************************************}
+00083 \textcolor{comment}{ * setImpedanceUn.}
+00084 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00085}{}\hyperlink{class_project_a995d050781923522ae2a02728346d199}{00085} \textcolor{keywordtype}{void} \hyperlink{class_project_a995d050781923522ae2a02728346d199}{Project::setImpedanceUn}(\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit} impedanceUn)
+00086 \{
+00087   \hyperlink{group___models_ga5f3d72699a723c64a89d22e34df708ff}{Network::impedanceUnit} = impedanceUn;
+00088 \}
+00089 
+00090 \textcolor{comment}{/*******************************************************************************}
+00091 \textcolor{comment}{ * voltageUn.}
+00092 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00093}{}\hyperlink{class_project_a93b928093072ba15c24693b03a934e4e}{00093} \hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} \hyperlink{class_project_a93b928093072ba15c24693b03a934e4e}{Project::voltageUnit}()
+00094 \{
+00095   \textcolor{keywordflow}{return} \hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit};
+00096 \}
+00097 
+00098 \textcolor{comment}{/*******************************************************************************}
+00099 \textcolor{comment}{ * setVoltageUn.}
+00100 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00101}{}\hyperlink{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{00101} \textcolor{keywordtype}{void} \hyperlink{class_project_aa26b488b2e93c8a8c6b4423ce07df4a1}{Project::setVoltageUn}(\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit} voltageUn)
+00102 \{
+00103   \hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit} = voltageUn;
+00104 \}
+00105 
+00106 \textcolor{comment}{/*******************************************************************************}
+00107 \textcolor{comment}{ * powerUn.}
+00108 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00109}{}\hyperlink{class_project_a2a1bc35358d6189695d6e5b7dd547ffd}{00109} \hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} \hyperlink{class_project_a2a1bc35358d6189695d6e5b7dd547ffd}{Project::powerUnit}()
+00110 \{
+00111   \textcolor{keywordflow}{return} \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit};
+00112 \}
+00113 
+00114 \textcolor{comment}{/*******************************************************************************}
+00115 \textcolor{comment}{ * setPowerUn.}
+00116 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00117}{}\hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{00117} \textcolor{keywordtype}{void} \hyperlink{class_project_aa46b8645d2047c1a2e8d329b9ebbc120}{Project::setPowerUn}(\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit} powerUn)
+00118 \{
+00119   \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit} = powerUn;
+00120 \}
+00121 
+00122 \textcolor{comment}{/*******************************************************************************}
+00123 \textcolor{comment}{ * currentUnit.}
+00124 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00125}{}\hyperlink{class_project_a0d22341fcc068be743b776df0a02f55e}{00125} \hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} \hyperlink{class_project_a0d22341fcc068be743b776df0a02f55e}{Project::currentUnit}()
+00126 \{
+00127   \textcolor{keywordflow}{return} \hyperlink{group___models_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit};
+00128 \}
+00129 
+00130 \textcolor{comment}{/*******************************************************************************}
+00131 \textcolor{comment}{ * setCurrentUnit.}
+00132 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00133}{}\hyperlink{class_project_a64d9800bc3acafcfa4d3f45ee5aacc6d}{00133} \textcolor{keywordtype}{void} \hyperlink{class_project_a64d9800bc3acafcfa4d3f45ee5aacc6d}{Project::setCurrentUnit}(\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit} unit)
+00134 \{
+00135   \hyperlink{group___models_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit} = unit;
+00136 \}
+00137 
+00138 \textcolor{comment}{/*******************************************************************************}
+00139 \textcolor{comment}{ * save.}
+00140 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00141}{}\hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{00141} \textcolor{keywordtype}{bool} \hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{Project::save}()
+00142 \{
+00143   \textcolor{comment}{// Try to open file.}
+00144   QFile file;
+00145   file.setFileName(\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath});
+00146 
+00147   \textcolor{comment}{// Check for write permission.}
+00148   \textcolor{keywordflow}{if} (!file.open(QIODevice::WriteOnly))
+00149     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00150 
+00151   \textcolor{comment}{// Create Json Configuration.}
+00152   QJsonObject projectJson;
+00153 
+00154   \textcolor{comment}{// Add project settings.}
+00155   projectJson.insert(\textcolor{stringliteral}{"name"}, \hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name});
+00156 
+00157   \textcolor{comment}{// Add network settings.}
+00158   projectJson.insert(\textcolor{stringliteral}{"maxIterations"},
+00159                      static\_cast<int32\_t> (\hyperlink{group___models_ga318dee060bc577eacd67d332efbbe1b2}{Network::maxIterations}));
+00160   projectJson.insert(\textcolor{stringliteral}{"minError"}, \hyperlink{group___models_gabcdc973129d3dda7572b7a1c388da1b5}{Network::minError});
+00161   projectJson.insert(\textcolor{stringliteral}{"lengthUnit"}, \hyperlink{group___models_gae46c0e2bf39b343875e3c69066fe2652}{Network::lengthUnit});
+00162   projectJson.insert(\textcolor{stringliteral}{"impedanceUnit"}, \hyperlink{group___models_ga5f3d72699a723c64a89d22e34df708ff}{Network::impedanceUnit});
+00163   projectJson.insert(\textcolor{stringliteral}{"voltageUnit"}, \hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit});
+00164   projectJson.insert(\textcolor{stringliteral}{"powerUnit"}, \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
+00165   projectJson.insert(\textcolor{stringliteral}{"currentUnit"}, \hyperlink{group___models_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit});
+00166 
+00167   \textcolor{comment}{// Creates a QJsonArray filled with networks data.}
+00168   QJsonArray networkArray;
+00169   \textcolor{keywordflow}{foreach} (\hyperlink{class_network}{Network} *network, \hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
+00170     networkArray << network->\hyperlink{group___models_ga1bb9773d3935eefef84136d388786494}{toJson}();
+00171   \}
+00172   projectJson.insert(\textcolor{stringliteral}{"networkArray"}, networkArray);
+00173 
+00174   \textcolor{comment}{// Create a Json document to conver Json data to text.}
+00175   QJsonDocument jsonDoc(projectJson);
+00176 
+00177   \textcolor{comment}{// Write to file.}
+00178   qint64 err = file.write(jsonDoc.toJson());
+00179   file.close();
 00180 
-00181   \textcolor{comment}{// Check for write permission.}
-00182   \textcolor{keywordflow}{if} (!file.open(QIODevice::WriteOnly))
-00183     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
-00184 
-00185   \textcolor{comment}{// Create Json Configuration.}
-00186   QJsonObject projectJson;
-00187 
-00188   \textcolor{comment}{// Add project settings.}
-00189   projectJson.insert(\textcolor{stringliteral}{"name"}, \hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name});
-00190 
-00191   \textcolor{comment}{// Add network settings.}
-00192   projectJson.insert(\textcolor{stringliteral}{"maxIterations"},
-00193                      static\_cast<int32\_t> (\hyperlink{group___graphics_ga318dee060bc577eacd67d332efbbe1b2}{Network::maxIterations}));
-00194   projectJson.insert(\textcolor{stringliteral}{"minError"}, \hyperlink{group___graphics_gabcdc973129d3dda7572b7a1c388da1b5}{Network::minError});
-00195   projectJson.insert(\textcolor{stringliteral}{"voltageBase"}, \hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{Network::voltageBase});
-00196   projectJson.insert(\textcolor{stringliteral}{"powerBase"}, \hyperlink{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{Network::powerBase});
-00197   projectJson.insert(\textcolor{stringliteral}{"lengthUnit"}, \hyperlink{group___graphics_gae46c0e2bf39b343875e3c69066fe2652}{Network::lengthUnit});
-00198   projectJson.insert(\textcolor{stringliteral}{"impedanceUnit"}, \hyperlink{group___graphics_ga5f3d72699a723c64a89d22e34df708ff}{Network::impedanceUnit});
-00199   projectJson.insert(\textcolor{stringliteral}{"voltageUnit"}, \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit});
-00200   projectJson.insert(\textcolor{stringliteral}{"powerUnit"}, \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit});
-00201   projectJson.insert(\textcolor{stringliteral}{"currentUnit"}, \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit});
+00181   \textcolor{keywordflow}{return} (err > -1) ? \textcolor{keyword}{true} : \textcolor{keyword}{false};
+00182 \}
+00183 
+00184 \textcolor{comment}{/*******************************************************************************}
+00185 \textcolor{comment}{ * saveAs.}
+00186 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00187}{}\hyperlink{class_project_ad32a31d548ad38f4cbbe0f95879a68e5}{00187} \textcolor{keywordtype}{bool} \hyperlink{class_project_ad32a31d548ad38f4cbbe0f95879a68e5}{Project::saveAs}(QString fileName)
+00188 \{
+00189   \textcolor{comment}{// Save old path.}
+00190   QString oldpath;
+00191   oldpath = \hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath};
+00192 
+00193   \textcolor{comment}{// Set new path.}
+00194   \hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = fileName;
+00195 
+00196   \textcolor{comment}{// try to save.}
+00197   \textcolor{keywordflow}{if}(!\hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{save}()) \{
+00198     \textcolor{comment}{// Failed to save. Return to old path.}
+00199     \hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = oldpath;
+00200     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00201   \}
 00202 
-00203   \textcolor{comment}{// Creates a QJsonArray filled with networks data.}
-00204   QJsonArray networkArray;
-00205   \textcolor{keywordflow}{foreach} (\hyperlink{class_network}{Network} *network, \hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}) \{
-00206     networkArray << network->\hyperlink{group___graphics_ga1bb9773d3935eefef84136d388786494}{toJson}();
-00207   \}
-00208   projectJson.insert(\textcolor{stringliteral}{"networkArray"}, networkArray);
-00209 
-00210   \textcolor{comment}{// Create a Json document to conver Json data to text.}
-00211   QJsonDocument jsonDoc(projectJson);
-00212 
-00213   \textcolor{comment}{// Write to file.}
-00214   qint64 err = file.write(jsonDoc.toJson());
-00215   file.close();
-00216 
-00217   \textcolor{keywordflow}{return} (err > -1) ? \textcolor{keyword}{true} : \textcolor{keyword}{false};
-00218 \}
-00219 
-00220 \textcolor{comment}{/*******************************************************************************}
-00221 \textcolor{comment}{ * saveAs.}
-00222 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00223}{}\hyperlink{class_project_ad32a31d548ad38f4cbbe0f95879a68e5}{00223} \textcolor{keywordtype}{bool} \hyperlink{class_project_ad32a31d548ad38f4cbbe0f95879a68e5}{Project::saveAs}(QString fileName)
-00224 \{
-00225   \textcolor{comment}{// Save old path.}
-00226   QString oldpath;
-00227   oldpath = \hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath};
-00228 
-00229   \textcolor{comment}{// Set new path.}
-00230   \hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = fileName;
-00231 
-00232   \textcolor{comment}{// try to save.}
-00233   \textcolor{keywordflow}{if}(!\hyperlink{class_project_a596a875bc5be73bc5b1b71b6448c1e07}{save}()) \{
-00234     \textcolor{comment}{// Failed to save. Return to old path.}
-00235     \hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath} = oldpath;
-00236     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
-00237   \}
-00238 
-00239   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
-00240 \}
-00241 
-00242 \textcolor{comment}{/*******************************************************************************}
-00243 \textcolor{comment}{ * load.}
-00244 \textcolor{comment}{ ******************************************************************************/}
-\hypertarget{project_8cpp_source_l00245}{}\hyperlink{class_project_a1e373892a0383371132ce68fa5f8813d}{00245} \textcolor{keywordtype}{bool} \hyperlink{class_project_a1e373892a0383371132ce68fa5f8813d}{Project::load}()
-00246 \{
-00247   \textcolor{comment}{// Try to open file.}
-00248   QFile file;
-00249   file.setFileName(\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath});
-00250 
-00251   \textcolor{comment}{// Check for read permission.}
-00252   \textcolor{keywordflow}{if} (!file.open(QIODevice::ReadOnly))
-00253     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
-00254 
-00255   \textcolor{comment}{// Create Doc to transform text to json.}
-00256   QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
+00203   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+00204 \}
+00205 
+00206 \textcolor{comment}{/*******************************************************************************}
+00207 \textcolor{comment}{ * load.}
+00208 \textcolor{comment}{ ******************************************************************************/}
+\hypertarget{project_8cpp_source_l00209}{}\hyperlink{class_project_a1e373892a0383371132ce68fa5f8813d}{00209} \textcolor{keywordtype}{bool} \hyperlink{class_project_a1e373892a0383371132ce68fa5f8813d}{Project::load}()
+00210 \{
+00211   \textcolor{comment}{// Try to open file.}
+00212   QFile file;
+00213   file.setFileName(\hyperlink{class_project_a79f30adcefd0b72bd4ac7db724bc9531}{filePath});
+00214 
+00215   \textcolor{comment}{// Check for read permission.}
+00216   \textcolor{keywordflow}{if} (!file.open(QIODevice::ReadOnly))
+00217     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00218 
+00219   \textcolor{comment}{// Create Doc to transform text to json.}
+00220   QJsonDocument jsonDoc = QJsonDocument::fromJson(file.readAll());
+00221 
+00222   \textcolor{comment}{// Chech if file is valid.}
+00223   \textcolor{keywordflow}{if} (jsonDoc.isNull() || !jsonDoc.isObject())
+00224     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
+00225 
+00226   \textcolor{comment}{// Fill base Json object.}
+00227   QJsonObject projectJson;
+00228   projectJson = jsonDoc.object();
+00229 
+00230   \textcolor{comment}{// Extract project info.}
+00231   \hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name} = projectJson.value(\textcolor{stringliteral}{"name"}).toString();
+00232 
+00233   \textcolor{comment}{// Extract network info.}
+00234   \hyperlink{group___models_ga318dee060bc577eacd67d332efbbe1b2}{Network::maxIterations} = projectJson.value(\textcolor{stringliteral}{"maxIterations"}).toDouble();
+00235   \hyperlink{group___models_gabcdc973129d3dda7572b7a1c388da1b5}{Network::minError} = projectJson.value(\textcolor{stringliteral}{"minError"}).toDouble();
+00236   \hyperlink{group___models_gae46c0e2bf39b343875e3c69066fe2652}{Network::lengthUnit} =
+00237     \textcolor{keyword}{static\_cast<}\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit}\textcolor{keyword}{>} (projectJson.value(\textcolor{stringliteral}{"lengthUnit"}).toInt());
+00238   \hyperlink{group___models_ga5f3d72699a723c64a89d22e34df708ff}{Network::impedanceUnit} =
+00239     \textcolor{keyword}{static\_cast<}\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit}\textcolor{keyword}{>} (projectJson.value(\textcolor{stringliteral}{"impedanceUnit"}).toInt());
+00240   \hyperlink{group___models_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit} =
+00241     \textcolor{keyword}{static\_cast<}\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit}\textcolor{keyword}{>} (projectJson.value(\textcolor{stringliteral}{"voltageUnit"}).toInt());
+00242   \hyperlink{group___models_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit} =
+00243     \textcolor{keyword}{static\_cast<}\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit}\textcolor{keyword}{>} (projectJson.value(\textcolor{stringliteral}{"powerUnit"}).toInt());
+00244   \hyperlink{group___models_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit} =
+00245     \textcolor{keyword}{static\_cast<}\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit}\textcolor{keyword}{>} (projectJson.value(\textcolor{stringliteral}{"currentUnit"}).toInt());
+00246 
+00247   \textcolor{comment}{// Extract network data from a QJsonArray.}
+00248   QJsonArray networkArray(projectJson.value(\textcolor{stringliteral}{"networkArray"}).toArray());
+00249 
+00250   \textcolor{keywordflow}{foreach} (QJsonValue arrayValue, networkArray) \{
+00251     QJsonObject networkJson(arrayValue.toObject());
+00252 
+00253     \hyperlink{class_network}{Network} *network = \textcolor{keyword}{new} \hyperlink{class_network}{Network};
+00254     network->\hyperlink{group___models_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1}{fromJson}(networkJson);
+00255     \hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.insert(network->name, network);
+00256   \}
 00257 
-00258   \textcolor{comment}{// Chech if file is valid.}
-00259   \textcolor{keywordflow}{if} (jsonDoc.isNull() || !jsonDoc.isObject())
-00260     \textcolor{keywordflow}{return} \textcolor{keyword}{false};
-00261 
-00262   \textcolor{comment}{// Fill base Json object.}
-00263   QJsonObject projectJson;
-00264   projectJson = jsonDoc.object();
-00265 
-00266   \textcolor{comment}{// Extract project info.}
-00267   \hyperlink{class_project_a82dd2d1bc38f9fd08c9a811fcaa76b38}{name} = projectJson.value(\textcolor{stringliteral}{"name"}).toString();
-00268 
-00269   \textcolor{comment}{// Extract network info.}
-00270   \hyperlink{group___graphics_ga318dee060bc577eacd67d332efbbe1b2}{Network::maxIterations} = projectJson.value(\textcolor{stringliteral}{"maxIterations"}).toDouble();
-00271   \hyperlink{group___graphics_gabcdc973129d3dda7572b7a1c388da1b5}{Network::minError} = projectJson.value(\textcolor{stringliteral}{"minError"}).toDouble();
-00272   \hyperlink{group___graphics_ga7c1e79d9ac69df9a69f24eaf092fd5e5}{Network::voltageBase} = projectJson.value(\textcolor{stringliteral}{"voltageBase"}).toDouble();
-00273   \hyperlink{group___graphics_ga74bb7aa495d422f1f092acdf958df989}{Network::powerBase} = projectJson.value(\textcolor{stringliteral}{"powerBase"}).toDouble();
-00274   \hyperlink{group___graphics_gae46c0e2bf39b343875e3c69066fe2652}{Network::lengthUnit} =
-00275     \textcolor{keyword}{static\_cast<}\hyperlink{class_unit_a8c8921f7b225ad6063b1cb573425b9a0}{Unit::LengthUnit}\textcolor{keyword}{>} (projectJson.value(\textcolor{stringliteral}{"lengthUnit"}).toInt());
-00276   \hyperlink{group___graphics_ga5f3d72699a723c64a89d22e34df708ff}{Network::impedanceUnit} =
-00277     \textcolor{keyword}{static\_cast<}\hyperlink{class_unit_a3747e779c805df24a71961290be3fbdf}{Unit::ImpedanceUnit}\textcolor{keyword}{>} (projectJson.value(\textcolor{stringliteral}{"impedanceUnit"}).toInt());
-00278   \hyperlink{group___graphics_gacde031ef95f5c05565ee35769f2ed89e}{Network::voltageUnit} =
-00279     \textcolor{keyword}{static\_cast<}\hyperlink{class_unit_a55b07dfa9457e1eca2c7194fe0cfc3c1}{Unit::VoltageUnit}\textcolor{keyword}{>} (projectJson.value(\textcolor{stringliteral}{"voltageUnit"}).toInt());
-00280   \hyperlink{group___graphics_ga9504015bc566f4a3d3b4d4a86000293b}{Network::powerUnit} =
-00281     \textcolor{keyword}{static\_cast<}\hyperlink{class_unit_ace265ae255370ccacfd5370337572c3b}{Unit::PowerUnit}\textcolor{keyword}{>} (projectJson.value(\textcolor{stringliteral}{"powerUnit"}).toInt());
-00282   \hyperlink{group___graphics_gac6a26db5fef2b1dd2a00faf6340d1702}{Network::currentUnit} =
-00283     \textcolor{keyword}{static\_cast<}\hyperlink{class_unit_a0794cf6c9682f48296dd4a5315389787}{Unit::CurrentUnit}\textcolor{keyword}{>} (projectJson.value(\textcolor{stringliteral}{"currentUnit"}).toInt());
-00284 
-00285   \textcolor{comment}{// Extract network data from a QJsonArray.}
-00286   QJsonArray networkArray(projectJson.value(\textcolor{stringliteral}{"networkArray"}).toArray());
-00287 
-00288   \textcolor{keywordflow}{foreach} (QJsonValue arrayValue, networkArray) \{
-00289     QJsonObject networkJson(arrayValue.toObject());
-00290 
-00291     \hyperlink{class_network}{Network} *network = \textcolor{keyword}{new} \hyperlink{class_network}{Network};
-00292     network->\hyperlink{group___graphics_ga2aef0f6c0d9569ec4d6b948d1ef0d5f1}{fromJson}(networkJson);
-00293     \hyperlink{class_project_aa98126154cab59769a431668e6f17daf}{networks}.insert(network->name, network);
-00294   \}
-00295 
-00296 \textcolor{comment}{// Close file}
-00297   file.close();
-00298 
-00299   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
-00300 \}
-00301 
-00302 
+00258 \textcolor{comment}{// Close file}
+00259   file.close();
+00260 
+00261   \textcolor{keywordflow}{return} \textcolor{keyword}{true};
+00262 \}
+00263 
+00264 
 \end{DoxyCode}

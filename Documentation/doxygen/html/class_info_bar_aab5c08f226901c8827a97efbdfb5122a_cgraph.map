@@ -1,3 +1,4 @@
 <map id="InfoBar::InfoBar" name="InfoBar::InfoBar">
-<area shape="rect" id="node2" href="$group___models.html#ga8279d8109019cc7e139e2023690496be" title="Bar bounding rect. " alt="" coords="168,5,299,32"/>
+<area shape="rect" id="node2" href="$group___models.html#gab0594d5d7313e8749bb85434b255db9a" title="Bar current network. " alt="" coords="185,5,281,32"/>
+<area shape="rect" id="node3" href="$group___models.html#ga8279d8109019cc7e139e2023690496be" title="Bar bounding rect. " alt="" coords="168,56,299,83"/>
 </map>

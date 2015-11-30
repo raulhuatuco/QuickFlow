@@ -100,7 +100,7 @@ void NetworkProperties::setOptions(Project *project, Network *network)
               "\nborder-radius: 6px;" \
               "\nbackground-color: %1;" \
               "\nselection-background-color: %2;").arg(
-        network->barSlackFillColor.name()).arg(network->barSlackFillColor.name());
+        network->slackBarColor.name()).arg(network->slackBarColor.name());
     ui->slackColor->setStyleSheet(slackColor);
 
     QString pqColor =
@@ -108,7 +108,7 @@ void NetworkProperties::setOptions(Project *project, Network *network)
               "\nborder-radius: 6px;" \
               "\nbackground-color: %1;" \
               "\nselection-background-color: %2;").arg(
-        network->barPqFillColor.name()).arg(network->barPqFillColor.name());
+        network->pqBarColor.name()).arg(network->pqBarColor.name());
     ui->pqColor->setStyleSheet(pqColor);
 
     QString lineColor =
@@ -124,7 +124,7 @@ void NetworkProperties::setOptions(Project *project, Network *network)
               "\nborder-radius: 6px;" \
               "\nbackground-color: %1;" \
               "\nselection-background-color: %2;").arg(
-        network->barStrokeColor.name()).arg(network->barStrokeColor.name());
+        network->barContourColor.name()).arg(network->barContourColor.name());
     ui->barBorderColor->setStyleSheet(borderColor);
 
     // Initialize bases.
@@ -276,9 +276,9 @@ void NetworkProperties::on_buttonBox_accepted()
 
   // Fill network data.
   network_->name = ui->networkName->text();
-  network_->barSlackFillColor = slack;
-  network_->barPqFillColor = pq;
-  network_->barStrokeColor = barBorder;
+  network_->slackBarColor = slack;
+  network_->pqBarColor = pq;
+  network_->barContourColor = barBorder;
   network_->lineColor = line;
   network_->xOffset = ui->xOffset->text().toDouble();
   network_->yOffset = ui->yOffset->text().toDouble();

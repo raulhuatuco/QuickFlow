@@ -11,10 +11,18 @@ file \hyperlink{about_8cpp}{about.\+cpp}
 \begin{DoxyCompactList}\small\item\em Implementation of the \hyperlink{class_about}{About} dialog class. \end{DoxyCompactList}\item 
 file \hyperlink{about_8h}{about.\+h}
 \begin{DoxyCompactList}\small\item\em \hyperlink{class_about}{About} class definition. \end{DoxyCompactList}\item 
-file \hyperlink{newproject_8cpp}{newproject.\+cpp}
-\begin{DoxyCompactList}\small\item\em Implementation of the \hyperlink{class_new_project}{New\+Project} class. \end{DoxyCompactList}\item 
-file \hyperlink{newproject_8h}{newproject.\+h}
-\begin{DoxyCompactList}\small\item\em \hyperlink{class_new_project}{New\+Project} class definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
+file \hyperlink{networkproperties_8cpp}{networkproperties.\+cpp}
+\begin{DoxyCompactList}\small\item\em Implementation of the \hyperlink{class_network_properties}{Network\+Properties} class. \end{DoxyCompactList}\item 
+file \hyperlink{networkproperties_8h}{networkproperties.\+h}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_network_properties}{Network\+Properties} class definition. \end{DoxyCompactList}\item 
+file \hyperlink{projectproperties_8cpp}{projectproperties.\+cpp}
+\begin{DoxyCompactList}\small\item\em Implementation of the \hyperlink{class_project_properties}{Project\+Properties} class. \end{DoxyCompactList}\item 
+file \hyperlink{projectproperties_8h}{projectproperties.\+h}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_project_properties}{Project\+Properties} class definition. \end{DoxyCompactList}\item 
+file \hyperlink{searchbar_8cpp}{searchbar.\+cpp}
+\begin{DoxyCompactList}\small\item\em Implementation of \hyperlink{class_search_bar}{Search\+Bar} class. \end{DoxyCompactList}\item 
+file \hyperlink{searchbar_8h}{searchbar.\+h}
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_search_bar}{Search\+Bar} class definition. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsubsection*{Namespaces}
 \begin{DoxyCompactItemize}
 \item 
@@ -27,8 +35,12 @@ class \hyperlink{class_quick_flow}{Quick\+Flow}
 \begin{DoxyCompactList}\small\item\em This is the main window of the software. \end{DoxyCompactList}\item 
 class \hyperlink{class_about}{About}
 \begin{DoxyCompactList}\small\item\em Window to display information about the software. \end{DoxyCompactList}\item 
-class \hyperlink{class_new_project}{New\+Project}
-\begin{DoxyCompactList}\small\item\em Gets user input to create a new project. \end{DoxyCompactList}\end{DoxyCompactItemize}
+class \hyperlink{class_network_properties}{Network\+Properties}
+\begin{DoxyCompactList}\small\item\em Gets user input to create or edit a network. \end{DoxyCompactList}\item 
+class \hyperlink{class_project_properties}{Project\+Properties}
+\begin{DoxyCompactList}\small\item\em Gets user input to create or edit a project. \end{DoxyCompactList}\item 
+class \hyperlink{class_search_bar}{Search\+Bar}
+\begin{DoxyCompactList}\small\item\em Window to search for a bar inside a network. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -46,10 +58,30 @@ void \hyperlink{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}{Quick\+Flow\+
 \begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
 \hyperlink{group___window_gace60197b1b610998908036ee1f802204}{About\+::$\sim$\+About} ()
 \begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
-\hyperlink{group___window_ga011ff7a4c380f74bdafa4fdaed510c42}{New\+Project\+::\+New\+Project} (Q\+Widget $\ast$parent=0)
-\begin{DoxyCompactList}\small\item\em \hyperlink{class_new_project}{New\+Project} constructor. \end{DoxyCompactList}\item 
-\hyperlink{group___window_gae65155941598f4272f3df0b2f1428c78}{New\+Project\+::$\sim$\+New\+Project} ()
-\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\hyperlink{group___window_ga3d9dac6454f6e722360d9d77af85e4ce}{Network\+Properties\+::\+Network\+Properties} (Q\+Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em Class constructor. \end{DoxyCompactList}\item 
+\hyperlink{group___window_ga097b617788eebe80236c0041f8293422}{Network\+Properties\+::$\sim$\+Network\+Properties} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \hyperlink{group___window_ga9dd17216f65e1c35012699e13547d984}{Network\+Properties\+::set\+Options} (\hyperlink{class_project}{Project} $\ast$project, \hyperlink{class_network}{Network} $\ast$network)
+\begin{DoxyCompactList}\small\item\em Set edit options. \end{DoxyCompactList}\item 
+\hyperlink{class_network}{Network} $\ast$ \hyperlink{group___window_gac166b4624361fe4f3003bbe5553ad18b}{Network\+Properties\+::network} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_network}{Network} used. \end{DoxyCompactList}\item 
+\hyperlink{group___window_gad98f3b25db75d19fc7d99b65157fc3f0}{Project\+Properties\+::\+Project\+Properties} (Q\+Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_project_properties}{Project\+Properties} constructor. \end{DoxyCompactList}\item 
+\hyperlink{group___window_ga8e0d4371b770784e85648926ded1f70a}{Project\+Properties\+::$\sim$\+Project\+Properties} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \hyperlink{group___window_gaa9b9347f570a52e17e4debb4f03be625}{Project\+Properties\+::set\+Options} (\hyperlink{class_project}{Project} $\ast$project)
+\begin{DoxyCompactList}\small\item\em Set the project to be edited. \end{DoxyCompactList}\item 
+\hyperlink{class_project}{Project} $\ast$ \hyperlink{group___window_ga241ef3f82071d6091e4addbda53a634c}{Project\+Properties\+::project} ()
+\begin{DoxyCompactList}\small\item\em \hyperlink{class_project}{Project} being edited. \end{DoxyCompactList}\item 
+\hyperlink{group___window_ga75f8caf009094148f56149b00996ac84}{Search\+Bar\+::\+Search\+Bar} (Q\+Widget $\ast$parent=0)
+\begin{DoxyCompactList}\small\item\em Constructor. \end{DoxyCompactList}\item 
+\hyperlink{group___window_ga553f2c7b9c15e7ae39cf988a6ef8f786}{Search\+Bar\+::$\sim$\+Search\+Bar} ()
+\begin{DoxyCompactList}\small\item\em Destructor. \end{DoxyCompactList}\item 
+void \hyperlink{group___window_ga840eb8fbdea559d31a7c2af6a4cbc480}{Search\+Bar\+::set\+Options} (\hyperlink{class_project}{Project} $\ast$project)
+\begin{DoxyCompactList}\small\item\em Set the project where the networks resides. \end{DoxyCompactList}\item 
+\hyperlink{class_bar}{Bar} $\ast$ \hyperlink{group___window_ga25ce5aca2c8db4e81e5357c9a4c01b56}{Search\+Bar\+::bar} ()
+\begin{DoxyCompactList}\small\item\em Return the bar found. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \subsubsection*{Variables}
 \begin{DoxyCompactItemize}
 \item 
@@ -79,6 +111,22 @@ Create the class.
 
 Definition at line \hyperlink{about_8cpp_source_l00049}{49} of file \hyperlink{about_8cpp_source}{about.\+cpp}.
 
+\hypertarget{group___window_ga25ce5aca2c8db4e81e5357c9a4c01b56}{}\index{Window@{Window}!bar@{bar}}
+\index{bar@{bar}!Window@{Window}}
+\paragraph[{bar}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Bar} $\ast$ Search\+Bar\+::bar (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___window_ga25ce5aca2c8db4e81e5357c9a4c01b56}
+Will always return a valid pointer.
+
+\begin{DoxyReturn}{Returns}
+Pointer to the bar found. 
+\end{DoxyReturn}
+
+
+Definition at line \hyperlink{searchbar_8cpp_source_l00087}{87} of file \hyperlink{searchbar_8cpp_source}{searchbar.\+cpp}.
+
 \hypertarget{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}{}\index{Window@{Window}!close\+Event@{close\+Event}}
 \index{close\+Event@{close\+Event}!Window@{Window}}
 \paragraph[{close\+Event}]{\setlength{\rightskip}{0pt plus 5cm}void Quick\+Flow\+::close\+Event (
@@ -88,7 +136,7 @@ Definition at line \hyperlink{about_8cpp_source_l00049}{49} of file \hyperlink{a
 )\hspace{0.3cm}{\ttfamily [protected]}}\label{group___window_gac8cc1bb329961a0781ffed7b6f2ab402}
 This event will check if there is something to be saved and, if so, confirm the user will to save or discard the changes. 
 
-Definition at line \hyperlink{quickflow_8cpp_source_l00744}{744} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+Definition at line \hyperlink{quickflow_8cpp_source_l00760}{760} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
 
 \hypertarget{group___window_ga5d9148467ef65c48419bf020ee107a45}{}\index{Window@{Window}!is\+Altered@{is\+Altered}}
 \index{is\+Altered@{is\+Altered}!Window@{Window}}
@@ -107,15 +155,41 @@ Must be replaced by Qt undo framework.
 \end{DoxyNote}
 
 
-Definition at line \hyperlink{quickflow_8cpp_source_l00118}{118} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+Definition at line \hyperlink{quickflow_8cpp_source_l00119}{119} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
 
-\hypertarget{group___window_ga011ff7a4c380f74bdafa4fdaed510c42}{}\index{Window@{Window}!New\+Project@{New\+Project}}
-\index{New\+Project@{New\+Project}!Window@{Window}}
-\paragraph[{New\+Project}]{\setlength{\rightskip}{0pt plus 5cm}New\+Project\+::\+New\+Project (
+\hypertarget{group___window_gac166b4624361fe4f3003bbe5553ad18b}{}\index{Window@{Window}!network@{network}}
+\index{network@{network}!Window@{Window}}
+\paragraph[{network}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Network} $\ast$ Network\+Properties\+::network (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___window_gac166b4624361fe4f3003bbe5553ad18b}
+\begin{DoxyReturn}{Returns}
+Pointer to the nerwork edited/created. 
+\end{DoxyReturn}
+
+
+Definition at line \hyperlink{networkproperties_8cpp_source_l00151}{151} of file \hyperlink{networkproperties_8cpp_source}{networkproperties.\+cpp}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=324pt]{group___window_gac166b4624361fe4f3003bbe5553ad18b_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___window_ga3d9dac6454f6e722360d9d77af85e4ce}{}\index{Window@{Window}!Network\+Properties@{Network\+Properties}}
+\index{Network\+Properties@{Network\+Properties}!Window@{Window}}
+\paragraph[{Network\+Properties}]{\setlength{\rightskip}{0pt plus 5cm}Network\+Properties\+::\+Network\+Properties (
 \begin{DoxyParamCaption}
 \item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily [explicit]}}\label{group___window_ga011ff7a4c380f74bdafa4fdaed510c42}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\label{group___window_ga3d9dac6454f6e722360d9d77af85e4ce}
 
 \begin{DoxyParams}[1]{Parameters}
 \mbox{\tt in}  & {\em parent} & Parent widget. \\
@@ -123,7 +197,49 @@ Definition at line \hyperlink{quickflow_8cpp_source_l00118}{118} of file \hyperl
 \end{DoxyParams}
 
 
-Definition at line \hyperlink{newproject_8cpp_source_l00056}{56} of file \hyperlink{newproject_8cpp_source}{newproject.\+cpp}.
+Definition at line \hyperlink{networkproperties_8cpp_source_l00053}{53} of file \hyperlink{networkproperties_8cpp_source}{networkproperties.\+cpp}.
+
+\hypertarget{group___window_ga241ef3f82071d6091e4addbda53a634c}{}\index{Window@{Window}!project@{project}}
+\index{project@{project}!Window@{Window}}
+\paragraph[{project}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Project} $\ast$ Project\+Properties\+::project (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___window_ga241ef3f82071d6091e4addbda53a634c}
+\begin{DoxyReturn}{Returns}
+Address of the project being edited. 
+\end{DoxyReturn}
+
+
+Definition at line \hyperlink{projectproperties_8cpp_source_l00144}{144} of file \hyperlink{projectproperties_8cpp_source}{projectproperties.\+cpp}.
+
+
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{group___window_ga241ef3f82071d6091e4addbda53a634c_icgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___window_gad98f3b25db75d19fc7d99b65157fc3f0}{}\index{Window@{Window}!Project\+Properties@{Project\+Properties}}
+\index{Project\+Properties@{Project\+Properties}!Window@{Window}}
+\paragraph[{Project\+Properties}]{\setlength{\rightskip}{0pt plus 5cm}Project\+Properties\+::\+Project\+Properties (
+\begin{DoxyParamCaption}
+\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\label{group___window_gad98f3b25db75d19fc7d99b65157fc3f0}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{projectproperties_8cpp_source_l00055}{55} of file \hyperlink{projectproperties_8cpp_source}{projectproperties.\+cpp}.
 
 \hypertarget{group___window_ga7689e2608835392fce3f4c95a7a542db}{}\index{Window@{Window}!Quick\+Flow@{Quick\+Flow}}
 \index{Quick\+Flow@{Quick\+Flow}!Window@{Window}}
@@ -141,7 +257,23 @@ Here, we must initialize the user interface and load the software settings, upda
 \end{DoxyParams}
 
 
-Definition at line \hyperlink{quickflow_8cpp_source_l00070}{70} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+Definition at line \hyperlink{quickflow_8cpp_source_l00071}{71} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+
+\hypertarget{group___window_ga75f8caf009094148f56149b00996ac84}{}\index{Window@{Window}!Search\+Bar@{Search\+Bar}}
+\index{Search\+Bar@{Search\+Bar}!Window@{Window}}
+\paragraph[{Search\+Bar}]{\setlength{\rightskip}{0pt plus 5cm}Search\+Bar\+::\+Search\+Bar (
+\begin{DoxyParamCaption}
+\item[{Q\+Widget $\ast$}]{parent = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\label{group___window_ga75f8caf009094148f56149b00996ac84}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em parent} & Parent widget. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{searchbar_8cpp_source_l00051}{51} of file \hyperlink{searchbar_8cpp_source}{searchbar.\+cpp}.
 
 \hypertarget{group___window_ga4b63ea5ca52a9eea14db0a22b5a133f8}{}\index{Window@{Window}!set\+Altered@{set\+Altered}}
 \index{set\+Altered@{set\+Altered}!Window@{Window}}
@@ -159,7 +291,84 @@ If {\bfseries altered} is true, enable the save action and set altered\+\_\+ to 
 \end{DoxyParams}
 
 
-Definition at line \hyperlink{quickflow_8cpp_source_l00126}{126} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+Definition at line \hyperlink{quickflow_8cpp_source_l00127}{127} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+
+\hypertarget{group___window_ga840eb8fbdea559d31a7c2af6a4cbc480}{}\index{Window@{Window}!set\+Options@{set\+Options}}
+\index{set\+Options@{set\+Options}!Window@{Window}}
+\paragraph[{set\+Options}]{\setlength{\rightskip}{0pt plus 5cm}void Search\+Bar\+::set\+Options (
+\begin{DoxyParamCaption}
+\item[{{\bf Project} $\ast$}]{project}
+\end{DoxyParamCaption}
+)}\label{group___window_ga840eb8fbdea559d31a7c2af6a4cbc480}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em project} & \hyperlink{class_project}{Project} that contains the networks to be searched. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{searchbar_8cpp_source_l00074}{74} of file \hyperlink{searchbar_8cpp_source}{searchbar.\+cpp}.
+
+\hypertarget{group___window_ga9dd17216f65e1c35012699e13547d984}{}\index{Window@{Window}!set\+Options@{set\+Options}}
+\index{set\+Options@{set\+Options}!Window@{Window}}
+\paragraph[{set\+Options}]{\setlength{\rightskip}{0pt plus 5cm}void Network\+Properties\+::set\+Options (
+\begin{DoxyParamCaption}
+\item[{{\bf Project} $\ast$}]{project, }
+\item[{{\bf Network} $\ast$}]{network}
+\end{DoxyParamCaption}
+)}\label{group___window_ga9dd17216f65e1c35012699e13547d984}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em project} & \hyperlink{class_project}{Project} in use. \\
+\hline
+\mbox{\tt in,out}  & {\em network} & \hyperlink{class_network}{Network} to be edited. To create a new one, pass N\+U\+L\+L to this parameter. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{networkproperties_8cpp_source_l00084}{84} of file \hyperlink{networkproperties_8cpp_source}{networkproperties.\+cpp}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{group___window_ga9dd17216f65e1c35012699e13547d984_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{group___window_gaa9b9347f570a52e17e4debb4f03be625}{}\index{Window@{Window}!set\+Options@{set\+Options}}
+\index{set\+Options@{set\+Options}!Window@{Window}}
+\paragraph[{set\+Options}]{\setlength{\rightskip}{0pt plus 5cm}void Project\+Properties\+::set\+Options (
+\begin{DoxyParamCaption}
+\item[{{\bf Project} $\ast$}]{project}
+\end{DoxyParamCaption}
+)}\label{group___window_gaa9b9347f570a52e17e4debb4f03be625}
+To create a new project, pass N\+U\+L\+L as the parameter.
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in,out}  & {\em project} & \hyperlink{class_project}{Project} to be edited. If N\+U\+L\+L, a new project is created. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line \hyperlink{projectproperties_8cpp_source_l00106}{106} of file \hyperlink{projectproperties_8cpp_source}{projectproperties.\+cpp}.
+
+
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=333pt]{group___window_gaa9b9347f570a52e17e4debb4f03be625_cgraph}
+\end{center}
+\end{figure}
+
 
 \hypertarget{group___window_gace60197b1b610998908036ee1f802204}{}\index{Window@{Window}!````~About@{$\sim$\+About}}
 \index{````~About@{$\sim$\+About}!Window@{Window}}
@@ -172,16 +381,27 @@ Destroy user interface.
 
 Definition at line \hyperlink{about_8cpp_source_l00059}{59} of file \hyperlink{about_8cpp_source}{about.\+cpp}.
 
-\hypertarget{group___window_gae65155941598f4272f3df0b2f1428c78}{}\index{Window@{Window}!````~New\+Project@{$\sim$\+New\+Project}}
-\index{````~New\+Project@{$\sim$\+New\+Project}!Window@{Window}}
-\paragraph[{$\sim$\+New\+Project}]{\setlength{\rightskip}{0pt plus 5cm}New\+Project\+::$\sim$\+New\+Project (
+\hypertarget{group___window_ga097b617788eebe80236c0041f8293422}{}\index{Window@{Window}!````~Network\+Properties@{$\sim$\+Network\+Properties}}
+\index{````~Network\+Properties@{$\sim$\+Network\+Properties}!Window@{Window}}
+\paragraph[{$\sim$\+Network\+Properties}]{\setlength{\rightskip}{0pt plus 5cm}Network\+Properties\+::$\sim$\+Network\+Properties (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}\label{group___window_gae65155941598f4272f3df0b2f1428c78}
+)}\label{group___window_ga097b617788eebe80236c0041f8293422}
+
+
+Definition at line \hyperlink{networkproperties_8cpp_source_l00076}{76} of file \hyperlink{networkproperties_8cpp_source}{networkproperties.\+cpp}.
+
+\hypertarget{group___window_ga8e0d4371b770784e85648926ded1f70a}{}\index{Window@{Window}!````~Project\+Properties@{$\sim$\+Project\+Properties}}
+\index{````~Project\+Properties@{$\sim$\+Project\+Properties}!Window@{Window}}
+\paragraph[{$\sim$\+Project\+Properties}]{\setlength{\rightskip}{0pt plus 5cm}Project\+Properties\+::$\sim$\+Project\+Properties (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___window_ga8e0d4371b770784e85648926ded1f70a}
 Destroy user interface. 
 
-Definition at line \hyperlink{newproject_8cpp_source_l00095}{95} of file \hyperlink{newproject_8cpp_source}{newproject.\+cpp}.
+Definition at line \hyperlink{projectproperties_8cpp_source_l00098}{98} of file \hyperlink{projectproperties_8cpp_source}{projectproperties.\+cpp}.
 
 \hypertarget{group___window_ga985823a0db64246b3a15eed2f397e0a4}{}\index{Window@{Window}!````~Quick\+Flow@{$\sim$\+Quick\+Flow}}
 \index{````~Quick\+Flow@{$\sim$\+Quick\+Flow}!Window@{Window}}
@@ -192,7 +412,18 @@ Definition at line \hyperlink{newproject_8cpp_source_l00095}{95} of file \hyperl
 )}\label{group___window_ga985823a0db64246b3a15eed2f397e0a4}
 Must delete the user interface. 
 
-Definition at line \hyperlink{quickflow_8cpp_source_l00109}{109} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+Definition at line \hyperlink{quickflow_8cpp_source_l00110}{110} of file \hyperlink{quickflow_8cpp_source}{quickflow.\+cpp}.
+
+\hypertarget{group___window_ga553f2c7b9c15e7ae39cf988a6ef8f786}{}\index{Window@{Window}!````~Search\+Bar@{$\sim$\+Search\+Bar}}
+\index{````~Search\+Bar@{$\sim$\+Search\+Bar}!Window@{Window}}
+\paragraph[{$\sim$\+Search\+Bar}]{\setlength{\rightskip}{0pt plus 5cm}Search\+Bar\+::$\sim$\+Search\+Bar (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{group___window_ga553f2c7b9c15e7ae39cf988a6ef8f786}
+
+
+Definition at line \hyperlink{searchbar_8cpp_source_l00066}{66} of file \hyperlink{searchbar_8cpp_source}{searchbar.\+cpp}.
 
 
 

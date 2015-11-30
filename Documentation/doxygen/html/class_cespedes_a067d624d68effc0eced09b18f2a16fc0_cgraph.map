@@ -1,0 +1,7 @@
+<map id="Cespedes::solve" name="Cespedes::solve">
+<area shape="rect" id="node2" href="$group___models.html#ga88cd2506aaf0b19513e41f00608093e0" title="Voltage base (Vbase). " alt="" coords="173,5,324,32"/>
+<area shape="rect" id="node3" href="$group___models.html#ga8d1e70b2d11ed4245e81b8b20858079d" title="Set initial voltage. " alt="" coords="210,56,287,83"/>
+<area shape="rect" id="node4" href="$class_radial_layer.html#a971680f24ba6c516afedbc49d8c22cab" title="RadialLayer::calculate" alt="" coords="173,107,324,133"/>
+<area shape="rect" id="node6" href="$group___models.html#ga6fdbd7d04d12a3f1215c92e2e20eabdb" title="Power base (Sbase). " alt="" coords="177,157,321,184"/>
+<area shape="rect" id="node5" href="$group___models.html#ga04d524ce0fa0dd0d06deda92b1597af0" title="Get bar pointer by id. " alt="" coords="372,107,516,133"/>
+</map>

@@ -52,7 +52,8 @@
  * Constructor.
  ******************************************************************************/
 Shirmoharmmadi::Shirmoharmmadi(Network *network) :
-  network_(network)
+  network_(network),
+  radLayer(network)
 {
 
 }
@@ -74,28 +75,22 @@ bool Shirmoharmmadi::solve()
   QElapsedTimer timer;
   timer.start();
 
-  // Set Initial voltage to 1pu.
-  double initialVoltage = network_->voltageBase();
-  foreach(Bar *bar, network_->bars) {
-    bar->setV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
-    bar->setV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
-    bar->setV(2, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
-  }
+  // Initialize data.
+  flatStart();
 
   // Initialize at iteration 0 and error inf;
   uint32_t iteration = 0;
   double iterationError = qInf();
 
   // Create a radial layer to operate the algorithm.
-  RadialLayer radLayer(network_);
   radLayer.calculate();
 
   do {
     // Calculates the backward sweep.
-    doBackwardSweep(radLayer);
+    doBackwardSweep();
 
     // Calculates the forward sweep.
-    doForwardSweep(radLayer);
+    doForwardSweep();
 
     // Calculate Slack current.
     computeSlackCurrent();
@@ -107,8 +102,10 @@ bool Shirmoharmmadi::solve()
   } while(( iterationError > network_->minError) &&
           (iteration < network_->maxIterations));
 
-  duration = timer.elapsed();
+  calcLineLoss();
+
   usedIterations = iteration;
+  duration = timer.elapsed();
 
   if (iteration < network_->maxIterations)
     return true;
@@ -117,9 +114,74 @@ bool Shirmoharmmadi::solve()
 }
 
 /*******************************************************************************
+ * Flat start.
+ ******************************************************************************/
+void Shirmoharmmadi::flatStart()
+{
+
+  double initialVoltage = network_->voltageBase();
+
+  // Initialize bars.
+  foreach(Bar *bar, network_->bars) {
+    // Set Initial voltage to 1pu.
+    bar->setRV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
+    bar->setRV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
+    bar->setRV(2, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
+
+    // Set initial current to 0 amps.
+    bar->setRI(0, 0.0);
+    bar->setRI(1, 0.0);
+    bar->setRI(2, 0.0);
+  }
+
+  foreach(Line *line, network_->lines) {
+    // Reset current.
+    line->setI(0, 0.0);
+    line->setI(1, 0.0);
+    line->setI(2, 0.0);
+
+    // Reset loss.
+    line->setLoss(0, 0.0);
+    line->setLoss(1, 0.0);
+    line->setLoss(2, 0.0);
+  }
+}
+
+/*******************************************************************************
+ * Bar current.
+ ******************************************************************************/
+void Shirmoharmmadi::calcBarCurrent(Bar *bar)
+{
+  complex<double> i[3];
+
+  i[0] = -conj((bar->si(0) - bar->sh(0))/ bar->rV(0));
+  i[1] = -conj((bar->si(1) - bar->sh(1))/ bar->rV(1));
+  i[2] = -conj((bar->si(2) - bar->sh(2))/ bar->rV(2));
+
+  bar->setRI(0, i[0]);
+  bar->setRI(1, i[1]);
+  bar->setRI(2, i[2]);
+}
+
+void Shirmoharmmadi::calcLineLoss()
+{
+  complex<double> loss[3];
+
+  foreach(Line *line, network_->lines) {
+    loss[0] = (line->pNoI()->rV(0) - line->pNoF()->rV(0))*conj(line->i(0));
+    loss[1] = (line->pNoI()->rV(1) - line->pNoF()->rV(1))*conj(line->i(1));
+    loss[2] = (line->pNoI()->rV(2) - line->pNoF()->rV(2))*conj(line->i(2));
+
+    line->setLoss(0, loss[0]);
+    line->setLoss(1, loss[1]);
+    line->setLoss(2, loss[2]);
+  }
+}
+
+/*******************************************************************************
  * Backward sweep.
  ******************************************************************************/
-void Shirmoharmmadi::doBackwardSweep(RadialLayer &radLayer)
+void Shirmoharmmadi::doBackwardSweep()
 {
   // Creates a list to mark lines that has beed processed.
   QList<Line *> processedLines;
@@ -149,6 +211,7 @@ void Shirmoharmmadi::doBackwardSweep(RadialLayer &radLayer)
           }
 
           // Remove Bar I.
+          calcBarCurrent(bar);
           iLine[0] -= bar->rI(0, Unit::kAmperePerUnit);
           iLine[1] -= bar->rI(1, Unit::kAmperePerUnit);
           iLine[2] -= bar->rI(2, Unit::kAmperePerUnit);
@@ -167,7 +230,7 @@ void Shirmoharmmadi::doBackwardSweep(RadialLayer &radLayer)
 /*******************************************************************************
  * Forward sweep.
  ******************************************************************************/
-void Shirmoharmmadi::doForwardSweep(RadialLayer &radLayer)
+void Shirmoharmmadi::doForwardSweep()
 {
 // Creates a list to mark lines that has beed processed.
   QList<Line *> processedLines;
@@ -226,6 +289,10 @@ void Shirmoharmmadi::computeSlackCurrent()
     iSlack[1] -= sline->i(1, Unit::kAmperePerUnit);
     iSlack[2] -= sline->i(2, Unit::kAmperePerUnit);
   }
+
+  slack->setRI(0, iSlack[0]);
+  slack->setRI(1, iSlack[1]);
+  slack->setRI(2, iSlack[2]);
 
   complex<double> siSlack[3];
   siSlack[0] = slack->rV(0)*conj(iSlack[0]);

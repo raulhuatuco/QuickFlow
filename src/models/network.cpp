@@ -35,20 +35,23 @@
  * This is the implementation of the Network class.
  *
  * \author David Krepsky
- * \version 0.2
+ * \version 0.3
  * \date 11/2015
  * \copyright David Krepsky
  */
 
 #include "models/network.h"
-
 #include <QJsonArray>
 
 /*******************************************************************************
  * Constants.
  ******************************************************************************/
+// 15.0 seens to be a nice size for bar icons.
 const double Network::barIconSize = 15.0;
+
+// 4.0 also looks good.
 const double Network::lineWidth = 4.0;
+
 const QColor Network::selectedColor = Qt::red;
 
 /*******************************************************************************
@@ -72,9 +75,9 @@ Unit::CurrentUnit Network::currentUnit = Unit::kAmpere;
  * Constructor.
  ******************************************************************************/
 Network::Network() :
-  barStrokeColor(Qt::gray),
-  barSlackFillColor(Qt::green),
-  barPqFillColor(Qt::blue),
+  barContourColor(Qt::gray),
+  slackBarColor(Qt::green),
+  pqBarColor(Qt::blue),
   lineColor(Qt::black)
 {
 }
@@ -84,12 +87,13 @@ Network::Network() :
  ******************************************************************************/
 Network::~Network()
 {
-  foreach(Bar *bar, bars) {
-    delete bar;
-  }
-
-  foreach(Line *line, lines) {
-    delete line;
+  // By deleting all bars, we make sure all lines are also deleted, because bars
+  // will altomatically remove all lines they are connected with.
+  foreach(QPointer<Bar> bar, bars) {
+    // We need to check for dangling pointer because, on program termination,
+    // some bars will have problems on deletion.
+    if(!bar.isNull())
+      delete bar;
   }
 }
 
@@ -98,14 +102,19 @@ Network::~Network()
  ******************************************************************************/
 bool Network::addBar(Bar *bar)
 {
-  // Check if bar exists.
-  if(getBarById(bar->id()) != NULL)
-    return false;
+  if(bar != NULL) {
+    // Check if bar exists.
+    if(getBarById(bar->id()) != NULL)
+      return false;
 
-  bars.insert(bar->id(), bar);
-  bar->network = this;
+    QPointer<Bar> newBar(bar);
+    bars.insert(bar->id(), newBar);
+    bar->setNetwork(this);
 
-  return true;
+    return true;
+  }
+
+  return false;
 }
 
 /*******************************************************************************
@@ -124,7 +133,7 @@ bool Network::addLine(Line *line)
   if ((pNoI == NULL) || (pNoF == NULL))
     return false;
 
-  line->network = this;
+  line->setNetwork(this);
 
   line->setNodes(pNoI, pNoF);
 
@@ -134,7 +143,7 @@ bool Network::addLine(Line *line)
 }
 
 /*******************************************************************************
- * Remove bar.
+ * Remove bar by id.
  ******************************************************************************/
 void Network::removeBar(int32_t id)
 {
@@ -142,7 +151,7 @@ void Network::removeBar(int32_t id)
 }
 
 /*******************************************************************************
- * Remove bar.
+ * Remove bar by pointer.
  ******************************************************************************/
 void Network::removeBar(Bar *bar)
 {
@@ -150,7 +159,7 @@ void Network::removeBar(Bar *bar)
 }
 
 /*******************************************************************************
- * Remove line.
+ * Remove line by nodes.
  ******************************************************************************/
 void Network::removeLine(QPair<int32_t, int32_t> nodes)
 {
@@ -158,7 +167,7 @@ void Network::removeLine(QPair<int32_t, int32_t> nodes)
 }
 
 /*******************************************************************************
- * Remove line.
+ * Remove line by pointers.
  ******************************************************************************/
 void Network::removeLine(Line *line)
 {
@@ -191,9 +200,9 @@ QJsonObject Network::toJson()
   netJson.insert("name", name);
   netJson.insert("xOffset", xOffset);
   netJson.insert("yOffset", yOffset);
-  netJson.insert("barStrokeColor", barStrokeColor.name());
-  netJson.insert("barSlackFillColor", barSlackFillColor.name());
-  netJson.insert("barPqFillColor", barPqFillColor.name());
+  netJson.insert("barStrokeColor", barContourColor.name());
+  netJson.insert("barSlackFillColor", slackBarColor.name());
+  netJson.insert("barPqFillColor", pqBarColor.name());
   netJson.insert("lineColor", lineColor.name());
   netJson.insert("voltageBase", voltageBase_);
   netJson.insert("powerBase", powerBase_);
@@ -221,9 +230,9 @@ void Network::fromJson(QJsonObject &netJson)
   name = netJson.value("name").toString();
   xOffset = netJson.value("xOffset").toDouble();
   yOffset = netJson.value("yOffset").toDouble();
-  barStrokeColor.setNamedColor(netJson.value("barStrokeColor").toString());
-  barSlackFillColor.setNamedColor(netJson.value("barSlackFillColor").toString());
-  barPqFillColor.setNamedColor(netJson.value("barPqFillColor").toString());
+  barContourColor.setNamedColor(netJson.value("barStrokeColor").toString());
+  slackBarColor.setNamedColor(netJson.value("barSlackFillColor").toString());
+  pqBarColor.setNamedColor(netJson.value("barPqFillColor").toString());
   lineColor.setNamedColor(netJson.value("lineColor").toString());
   voltageBase_ = netJson.value("voltageBase").toDouble();
   powerBase_ = netJson.value("powerBase").toDouble();

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['usediterations',['usedIterations',['../class_shirmoharmmadi.html#afdd22da0145b033c47f4f8a6bbd37d0d',1,'Shirmoharmmadi']]]
+  ['totalloss',['totalLoss',['../class_cespedes.html#ae1a95c3c22fff9c230fd528d9b191966',1,'Cespedes::totalLoss()'],['../class_shirmoharmmadi.html#a0c02ead0472b54a84fc746a13b8d02b2',1,'Shirmoharmmadi::totalLoss()']]]
 ];

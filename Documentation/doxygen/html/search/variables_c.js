@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['voltagebase',['voltageBase',['../group___graphics.html#ga7c1e79d9ac69df9a69f24eaf092fd5e5',1,'Network']]],
-  ['voltageunit',['voltageUnit',['../group___graphics.html#gacde031ef95f5c05565ee35769f2ed89e',1,'Network']]]
+  ['usediterations',['usedIterations',['../class_cespedes.html#a28bead7e9c77462986e1471c50294d9e',1,'Cespedes::usedIterations()'],['../class_shirmoharmmadi.html#afdd22da0145b033c47f4f8a6bbd37d0d',1,'Shirmoharmmadi::usedIterations()']]]
 ];

@@ -2,13 +2,13 @@
 \label{lineproperties_8h_source}\index{lineproperties.\+h@{lineproperties.\+h}}
 
 \begin{DoxyCode}
-00001 \textcolor{preprocessor}{#ifndef LINEPROPERTIES\_H}
-00002 \textcolor{preprocessor}{#define LINEPROPERTIES\_H}
+00001 \textcolor{preprocessor}{#ifndef WINDOW\_LINEPROPERTIES\_H}
+00002 \textcolor{preprocessor}{#define WINDOW\_LINEPROPERTIES\_H}
 00003 
 00004 \textcolor{preprocessor}{#include <QDialog>}
 00005 \textcolor{preprocessor}{#include <QMap>}
 00006 \textcolor{preprocessor}{#include <QLineEdit>}
-00007 \textcolor{preprocessor}{#include "\hyperlink{customtypes_8h}{customtypes.h}"}
+00007 \textcolor{preprocessor}{#include "\hyperlink{unit_8h}{unit.h}"}
 00008 \textcolor{preprocessor}{#include "\hyperlink{project_8h}{project.h}"}
 00009 \textcolor{preprocessor}{#include "\hyperlink{line_8h}{models/line.h}"}
 00010 \textcolor{preprocessor}{#include "\hyperlink{bar_8h}{models/bar.h}"}
@@ -26,7 +26,7 @@
 00022   \textcolor{keyword}{explicit} \hyperlink{class_line_properties_a0bc0d7c02db0a4ea920d040f76679fec}{LineProperties}(QWidget *parent = 0);
 00023   \hyperlink{class_line_properties_a59017a6580f2e02dc492522d9267de29}{~LineProperties}();
 00024 
-00025   \textcolor{keywordtype}{void} \hyperlink{class_line_properties_ad434fc8e65787648a44737fb9f46b475}{setOptions}(\hyperlink{class_project}{Project} *project, \hyperlink{class_line}{Line} *\hyperlink{class_line_properties_ae99691d680b4df7bac3419b5588bd777}{line});
+00025   \textcolor{keywordtype}{bool} \hyperlink{class_line_properties_ac14e88843b60ac7130a11c057306379a}{setOptions}(\hyperlink{class_project}{Project} *project, \hyperlink{class_line}{Line} *\hyperlink{class_line_properties_ae99691d680b4df7bac3419b5588bd777}{line});
 00026 
 00027   \hyperlink{class_line}{Line} *\hyperlink{class_line_properties_ae99691d680b4df7bac3419b5588bd777}{line}();
 00028 

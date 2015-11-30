@@ -1,9 +1,0 @@
-<map id="Network::addLine" name="Network::addLine">
-<area shape="rect" id="node2" href="$group___graphics.html#ga8f090b85a7779695cb9f05b6395b3044" title="Network::getLineByNodes" alt="" coords="177,5,352,32"/>
-<area shape="rect" id="node3" href="$group___graphics.html#ga04d524ce0fa0dd0d06deda92b1597af0" title="Network::getBarById" alt="" coords="193,56,337,83"/>
-<area shape="rect" id="node4" href="$group___models.html#gaeeab146e6c1d7d1a688a2764a9c9a170" title="Line::setNodes" alt="" coords="209,107,320,133"/>
-<area shape="rect" id="node5" href="$group___models.html#gaeafd90e84ac2f8de2a879abe9e53eef3" title="Line::pNoI" alt="" coords="429,31,511,57"/>
-<area shape="rect" id="node6" href="$group___models.html#gabbc73ddedd3075c33ae5331bd7c9829f" title="Line::pNoF" alt="" coords="427,81,513,108"/>
-<area shape="rect" id="node7" href="$group___models.html#ga8cbd2f62d92e69ce6c8d561b682464b6" title="Add line to bar. " alt="" coords="423,132,517,159"/>
-<area shape="rect" id="node8" href="$group___models.html#ga8fdb12651d4bc592616d241386b066b3" title="Line::updatePosition" alt="" coords="400,183,540,209"/>
-</map>

@@ -1,8 +1,0 @@
-<map id="Network::currentBase" name="Network::currentBase">
-<area shape="rect" id="node2" href="$group___models.html#ga8a009531f01430aa68eba739bb0dc2ea" title="Result bar current. " alt="" coords="211,5,270,32"/>
-<area shape="rect" id="node5" href="$group___models.html#gaf81e7055102816465bdf7e19afc2d547" title="Line::i" alt="" coords="212,107,269,133"/>
-<area shape="rect" id="node7" href="$group___models.html#ga9e55b06dc3e385838fdd13d5580438ef" title="Line::setI" alt="" coords="203,56,279,83"/>
-<area shape="rect" id="node3" href="$class_info_bar.html#afa011ce96bb99021d2cbf5b24c7276bb" title="InfoBar::paint" alt="" coords="356,5,456,32"/>
-<area shape="rect" id="node4" href="$class_shirmoharmmadi.html#acb4a06c62b5d97c25bea70acd477e715" title="Shirmoharmmadi::solve" alt="" coords="327,56,485,83"/>
-<area shape="rect" id="node6" href="$class_info_line.html#ac696c9944716774dfe85a40ac5a434e1" title="InfoLine::paint" alt="" coords="354,107,458,133"/>
-</map>

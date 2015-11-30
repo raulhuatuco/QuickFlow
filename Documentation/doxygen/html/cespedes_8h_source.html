@@ -96,20 +96,72 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a href="cespedes_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CESPEDES_H</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CESPEDES_H</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
-<div class="line"><a name="l00005"></a><span class="lineno"><a class="line" href="class_cespedes.html">    5</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_cespedes.html">Cespedes</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  <a class="code" href="class_cespedes.html#a99ce54693c7ff065d8973167cee9caa7">Cespedes</a>();</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;};</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;QMap&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;complex&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="radiallayer_8h.html">radiallayer.h</a>&quot;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="bar_8h.html">models/bar.h</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="line_8h.html">models/line.h</a>&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="network_8h.html">models/network.h</a>&quot;</span></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#endif // CESPEDES_H</span></div>
-<div class="ttc" id="class_cespedes_html"><div class="ttname"><a href="class_cespedes.html">Cespedes</a></div><div class="ttdef"><b>Definition:</b> <a href="cespedes_8h_source.html#l00005">cespedes.h:5</a></div></div>
-<div class="ttc" id="class_cespedes_html_a99ce54693c7ff065d8973167cee9caa7"><div class="ttname"><a href="class_cespedes.html#a99ce54693c7ff065d8973167cee9caa7">Cespedes::Cespedes</a></div><div class="ttdeci">Cespedes()</div><div class="ttdef"><b>Definition:</b> <a href="cespedes_8cpp_source.html#l00003">cespedes.cpp:3</a></div></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="class_cespedes.html">   11</a></span>&#160;<span class="keyword">class </span><a class="code" href="class_cespedes.html">Cespedes</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">    * Public data.</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">    ****************************************************************************/</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="class_cespedes.html#a815e35adbc446c937d164186a634b5a0">   20</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="class_cespedes.html#a815e35adbc446c937d164186a634b5a0">duration</a>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="class_cespedes.html#a28bead7e9c77462986e1471c50294d9e">   25</a></span>&#160;  int32_t <a class="code" href="class_cespedes.html#a28bead7e9c77462986e1471c50294d9e">usedIterations</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="class_cespedes.html#a74591c697b8b471f6c0450a561d30591">   30</a></span>&#160;  <span class="keywordtype">double</span> <a class="code" href="class_cespedes.html#a74591c697b8b471f6c0450a561d30591">slackGeneration</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="class_cespedes.html#ae1a95c3c22fff9c230fd528d9b191966">   35</a></span>&#160;  complex&lt;double&gt; <a class="code" href="class_cespedes.html#ae1a95c3c22fff9c230fd528d9b191966">totalLoss</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="class_cespedes.html#ad0b43c0c5ea7935c8dcb4dcf3d79ff7c">Cespedes</a>(<a class="code" href="class_network.html">Network</a> *network);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordtype">bool</span> <a class="code" href="class_cespedes.html#a067d624d68effc0eced09b18f2a16fc0">solve</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">   * Private data.</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <a class="code" href="class_network.html">Network</a> *network_;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  QMap&lt;Bar *, complex&lt;double&gt; &gt; barPower[3];</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  QMap&lt;Line *, complex&lt;double&gt; &gt; lineLoss[3];</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="comment">/*****************************************************************************</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">   * Private methods.</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">   ****************************************************************************/</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keywordtype">void</span> doBackwardSweep(<a class="code" href="class_radial_layer.html">RadialLayer</a> &amp;radLayer);</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="keywordtype">void</span> doForwardSweep(<a class="code" href="class_radial_layer.html">RadialLayer</a> &amp;radLayer);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="keywordtype">void</span> computeLosses();</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keywordtype">double</span> maxError();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="keywordtype">double</span> solveBiquadratic(<span class="keywordtype">double</span> b, <span class="keywordtype">double</span> c);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;};</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif // CESPEDES_H</span></div>
+<div class="ttc" id="class_cespedes_html"><div class="ttname"><a href="class_cespedes.html">Cespedes</a></div><div class="ttdef"><b>Definition:</b> <a href="cespedes_8h_source.html#l00011">cespedes.h:11</a></div></div>
+<div class="ttc" id="class_cespedes_html_a067d624d68effc0eced09b18f2a16fc0"><div class="ttname"><a href="class_cespedes.html#a067d624d68effc0eced09b18f2a16fc0">Cespedes::solve</a></div><div class="ttdeci">bool solve()</div><div class="ttdoc">Solve the power flow for the especified network. </div><div class="ttdef"><b>Definition:</b> <a href="cespedes_8cpp_source.html#l00017">cespedes.cpp:17</a></div></div>
+<div class="ttc" id="bar_8h_html"><div class="ttname"><a href="bar_8h.html">bar.h</a></div><div class="ttdoc">Bar class definition. </div></div>
+<div class="ttc" id="class_cespedes_html_a28bead7e9c77462986e1471c50294d9e"><div class="ttname"><a href="class_cespedes.html#a28bead7e9c77462986e1471c50294d9e">Cespedes::usedIterations</a></div><div class="ttdeci">int32_t usedIterations</div><div class="ttdoc">Number of used iterations to obtain the solution. </div><div class="ttdef"><b>Definition:</b> <a href="cespedes_8h_source.html#l00025">cespedes.h:25</a></div></div>
+<div class="ttc" id="radiallayer_8h_html"><div class="ttname"><a href="radiallayer_8h.html">radiallayer.h</a></div></div>
+<div class="ttc" id="class_cespedes_html_ae1a95c3c22fff9c230fd528d9b191966"><div class="ttname"><a href="class_cespedes.html#ae1a95c3c22fff9c230fd528d9b191966">Cespedes::totalLoss</a></div><div class="ttdeci">complex&lt; double &gt; totalLoss</div><div class="ttdoc">Total loss of the system. </div><div class="ttdef"><b>Definition:</b> <a href="cespedes_8h_source.html#l00035">cespedes.h:35</a></div></div>
+<div class="ttc" id="class_cespedes_html_a74591c697b8b471f6c0450a561d30591"><div class="ttname"><a href="class_cespedes.html#a74591c697b8b471f6c0450a561d30591">Cespedes::slackGeneration</a></div><div class="ttdeci">double slackGeneration</div><div class="ttdoc">Total power generated at slark (Real power only). </div><div class="ttdef"><b>Definition:</b> <a href="cespedes_8h_source.html#l00030">cespedes.h:30</a></div></div>
+<div class="ttc" id="network_8h_html"><div class="ttname"><a href="network_8h.html">network.h</a></div><div class="ttdoc">Network class definition. </div></div>
+<div class="ttc" id="class_radial_layer_html"><div class="ttname"><a href="class_radial_layer.html">RadialLayer</a></div><div class="ttdef"><b>Definition:</b> <a href="radiallayer_8h_source.html#l00006">radiallayer.h:6</a></div></div>
+<div class="ttc" id="class_cespedes_html_a815e35adbc446c937d164186a634b5a0"><div class="ttname"><a href="class_cespedes.html#a815e35adbc446c937d164186a634b5a0">Cespedes::duration</a></div><div class="ttdeci">double duration</div><div class="ttdoc">Total time used to calculate the solution, in milliseconds. </div><div class="ttdef"><b>Definition:</b> <a href="cespedes_8h_source.html#l00020">cespedes.h:20</a></div></div>
+<div class="ttc" id="class_cespedes_html_ad0b43c0c5ea7935c8dcb4dcf3d79ff7c"><div class="ttname"><a href="class_cespedes.html#ad0b43c0c5ea7935c8dcb4dcf3d79ff7c">Cespedes::Cespedes</a></div><div class="ttdeci">Cespedes(Network *network)</div><div class="ttdef"><b>Definition:</b> <a href="cespedes_8cpp_source.html#l00011">cespedes.cpp:11</a></div></div>
+<div class="ttc" id="class_network_html"><div class="ttname"><a href="class_network.html">Network</a></div><div class="ttdoc">Represents a power distribution system. </div><div class="ttdef"><b>Definition:</b> <a href="network_8h_source.html#l00094">network.h:94</a></div></div>
+<div class="ttc" id="line_8h_html"><div class="ttname"><a href="line_8h.html">line.h</a></div><div class="ttdoc">Line class definition. </div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Nov 2 2015 07:26:43 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Nov 30 2015 03:42:14 for Quick Flow by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.9.1
 </small></address>
