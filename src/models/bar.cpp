@@ -595,7 +595,7 @@ void Bar::showInfo()
   // if multiple items are selected, we don't want to show the info box.
   if(!(scene()->selectedItems().size() >= 1)) {
     // Check if box already exists.
-    if (infoBar == NULL) {
+    if (infoBar.isNull()) {
       // Create a new box.
       infoBar = new InfoBar(this);
       scene()->addItem(infoBar);
@@ -608,10 +608,9 @@ void Bar::showInfo()
  ******************************************************************************/
 void Bar::hideInfo()
 {
-  if (infoBar != NULL) {
-    scene()->removeItem(infoBar);
+  if (!infoBar.isNull()) {
     delete infoBar;
-    infoBar = NULL;
+    infoBar.clear();
   }
 }
 

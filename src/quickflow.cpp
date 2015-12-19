@@ -43,6 +43,7 @@
 #include "quickflow.h"
 #include "ui_quickflow.h"
 
+#include <QtCore>
 
 #include "window/projectproperties.h"
 #include "window/networkproperties.h"
@@ -101,6 +102,16 @@ QuickFlow::QuickFlow(QWidget *parent)
     createSettings();
   }
 
+  QFile f(":qdarkstyle/style.qss");
+
+  if (!f.exists()) {
+    printf("Unable to set stylesheet, file not found\n");
+  } else {
+    f.open(QFile::ReadOnly | QFile::Text);
+    QTextStream ts(&f);
+    qApp->setStyleSheet(ts.readAll());
+  }
+  
   connectSignals();
 }
 
@@ -725,6 +736,45 @@ void QuickFlow::on_actionSettings_triggered()
 }
 
 /*******************************************************************************
+ * Export image action.
+ ******************************************************************************/
+void QuickFlow::on_actionExport_image_triggered()
+{
+
+  // Get file location from user.
+  QFileDialog imgFile(this);
+  imgFile.setAcceptMode(QFileDialog::AcceptSave);
+  QStringList filters;
+  filters << "PNG (*.png)";
+  filters << "JPG (*.jpg)";
+  filters << "BMP (*.bmp)";
+
+  imgFile.setNameFilters(filters);
+  QString initialPath = QStandardPaths::standardLocations(
+                          QStandardPaths::DocumentsLocation)[0] + "/QuickFlow";
+  imgFile.setDirectory(initialPath);
+
+  // Check if user has canceled the opening.
+  if (imgFile.exec() != QDialog::Accepted) {
+    return;
+  }
+
+  QString imgPath =  imgFile.selectedFiles()[0];
+
+  double w = ui->systemView->scene()->sceneRect().width();
+  double h = ui->systemView->scene()->sceneRect().height();
+
+  QImage img(static_cast<int> (w), static_cast<int> (h),
+             QImage::Format_ARGB32_Premultiplied);
+  QPainter p(&img);
+  p.setRenderHint(QPainter::Antialiasing);
+  ui->systemView->scene()->render(&p);
+  p.end();
+  img.save(imgPath);
+}
+
+
+/*******************************************************************************
  * About action.
  ******************************************************************************/
 void QuickFlow::on_actionAbout_triggered()
@@ -940,40 +990,7 @@ void QuickFlow::disconnectSignals()
  * \}
  */
 
-
-
-void QuickFlow::on_actionExport_image_triggered()
+void QuickFlow::on_actionExport_triggered()
 {
 
-  // Get file location from user.
-  QFileDialog imgFile(this);
-  imgFile.setAcceptMode(QFileDialog::AcceptSave);
-  QStringList filters;
-  filters << "PNG (*.png)";
-  filters << "JPG (*.jpg)";
-  filters << "BMP (*.bmp)";
-
-  imgFile.setNameFilters(filters);
-  QString initialPath = QStandardPaths::standardLocations(
-                          QStandardPaths::DocumentsLocation)[0] + "/QuickFlow";
-  imgFile.setDirectory(initialPath);
-
-  // Check if user has canceled the opening.
-  if (imgFile.exec() != QDialog::Accepted) {
-    return;
-  }
-
-  QString imgPath =  imgFile.selectedFiles()[0];
-
-  double w = ui->systemView->scene()->sceneRect().width();
-  double h = ui->systemView->scene()->sceneRect().height();
-
-  QImage img(static_cast<int> (w), static_cast<int> (h),
-             QImage::Format_ARGB32_Premultiplied);
-  img.fill(ui->systemView->backgroundBrush().color());
-  QPainter p(&img);
-  p.setRenderHint(QPainter::Antialiasing);
-  ui->systemView->scene()->render(&p);
-  p.end();
-  img.save(imgPath);
 }

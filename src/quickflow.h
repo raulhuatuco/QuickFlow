@@ -354,6 +354,8 @@ private slots:
   
   void on_actionExport_image_triggered();
   
+  void on_actionExport_triggered();
+  
 protected:
   /*****************************************************************************
   * Close event.

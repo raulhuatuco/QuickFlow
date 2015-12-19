@@ -68,8 +68,8 @@ void Cespedes::flatStart()
   double initialVoltage = network_->voltageBase();
   foreach(Bar *bar, network_->bars) {
     bar->setV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
-    bar->setV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
-    bar->setV(2, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
+    bar->setV(1, std::polar(initialVoltage, 0.0), Unit::kVolts);
+    bar->setV(2, std::polar(initialVoltage, 0.0), Unit::kVolts);
     barPower[0].insert(bar, 0.0);
     barPower[1].insert(bar, 0.0);
     barPower[2].insert(bar, 0.0);
@@ -98,7 +98,6 @@ void Cespedes::flatStart()
 
 void Cespedes::doBackwardSweep(RadialLayer &radLayer)
 {
-
   for (int i = (radLayer.width()-1); i>0; i--) {
 
 // Process every bar in the layer.
@@ -110,7 +109,7 @@ void Cespedes::doBackwardSweep(RadialLayer &radLayer)
       barS[2] = bar->si(2) - bar->sh(2);
 
       foreach (Line *line, bar->lines) {
-        if(line->nodes.second > bar->id()) {
+        if(radLayer.layers.at(i-1)->indexOf(line->pNoI()) == -1) {
           barS[0] += barPower[0].value(line->pNoF());
           barS[1] += barPower[1].value(line->pNoF());
           barS[2] += barPower[2].value(line->pNoF());
@@ -135,7 +134,7 @@ void Cespedes::doForwardSweep(RadialLayer &radLayer)
       Line *line;
 
       foreach(Line *montanteLine, bar->lines) {
-        if(montanteLine->nodes.first < bar->id()) {
+        if(radLayer.layers.at(i-1)->indexOf(montanteLine->pNoI()) != -1) {
           line = montanteLine;
           break;
         }
@@ -152,33 +151,50 @@ void Cespedes::doForwardSweep(RadialLayer &radLayer)
       Q[1] = barPower[1][bar].imag();
       Q[2] = barPower[2][bar].imag();
 
-      double R[3];
+      double R[6];
       R[0] = line->z(0).real();
-      R[1] = line->z(3).real();
-      R[2] = line->z(5).real();
+      R[1] = line->z(1).real();
+      R[2] = line->z(2).real();
+      R[3] = line->z(3).real();
+      R[4] = line->z(4).real();
+      R[5] = line->z(5).real();
 
-      double X[3];
+      double X[6];
       X[0] = line->z(0).imag();
-      X[1] = line->z(3).imag();
-      X[2] = line->z(5).imag();
+      X[1] = line->z(1).imag();
+      X[2] = line->z(2).imag();
+      X[3] = line->z(3).imag();
+      X[4] = line->z(4).imag();
+      X[5] = line->z(5).imag();
 
       double Vs[3];
       Vs[0] = abs(line->pNoI()->rV(0));
       Vs[1] = abs(line->pNoI()->rV(1));
       Vs[2] = abs(line->pNoI()->rV(2));
 
-
       double b[3];
       double c[3];
 
-      b[0] = 2*(P[0]*R[0] + Q[0]*X[0]) - Vs[0]*Vs[0];
-      c[0] = (P[0]*P[0] + Q[0]*Q[0])*(R[0]*R[0] + X[0]*X[0]);
+      b[0] = 2*(P[0]*R[0] + Q[0]*X[0] + P[1]*R[1] + Q[1]*X[1] + P[2]*R[2] + Q[2]*X[2])
+             - Vs[0]*Vs[0];
 
-      b[1] = 2*(P[1]*R[1] + Q[1]*X[1]) - Vs[1]*Vs[1];
-      c[1] = (P[1]*P[1] + Q[1]*Q[1])*(R[1]*R[1] + X[1]*X[1]);
+      c[0] = (P[0]*P[0] + Q[0]*Q[0])*(R[0]*R[0] + X[0]*X[0]) +
+             (P[1]*P[1] + Q[1]*Q[1])*(R[1]*R[1] + X[1]*X[1]) + (P[2]*P[2] + Q[2]*Q[2])*
+             (R[2]*R[2] + X[2]*X[2]);
 
-      b[2] = 2*(P[2]*R[2] + Q[2]*X[2]) - Vs[2]*Vs[2];
-      c[2] = (P[2]*P[2] + Q[2]*Q[2])*(R[2]*R[2] + X[2]*X[2]);
+      b[1] = 2*(P[0]*R[1] + Q[0]*X[1] + P[1]*R[3] + Q[1]*X[3] + P[2]*R[4] + Q[2]*X[4])
+             - Vs[1]*Vs[1];
+
+      c[1] = (P[0]*P[0] + Q[0]*Q[0])*(R[1]*R[1] + X[1]*X[1]) +
+             (P[1]*P[1] + Q[1]*Q[1])*(R[3]*R[3] + X[3]*X[3]) + (P[2]*P[2] + Q[2]*Q[2])*
+             (R[4]*R[4] + X[4]*X[4]);
+
+      b[2] = 2*(P[0]*R[2] + Q[0]*X[2] + P[1]*R[4] + Q[1]*X[4] + P[2]*R[5] + Q[2]*X[5])
+             - Vs[2]*Vs[2];
+
+      c[2] = (P[0]*P[0] + Q[0]*Q[0])*(R[2]*R[2] + X[2]*X[2]) +
+             (P[1]*P[1] + Q[1]*Q[1])*(R[4]*R[4] + X[4]*X[4]) + (P[2]*P[2] + Q[2]*Q[2])*
+             (R[5]*R[5] + X[5]*X[5]);
 
       double Vr[3];
       Vr[0] = solveBiquadratic(b[0], c[0]);
@@ -186,10 +202,9 @@ void Cespedes::doForwardSweep(RadialLayer &radLayer)
       Vr[2] = solveBiquadratic(b[2], c[2]);
 
       bar->setRV(0, std::polar(Vr[0], 0.0));
-      bar->setRV(1, std::polar(Vr[1], 120.0*kPI/180.0));
-      bar->setRV(2, std::polar(Vr[2], 240.0*kPI/180.0));
+      bar->setRV(1, std::polar(Vr[1], 0.0));
+      bar->setRV(2, std::polar(Vr[2], 0.0));
     }
-
   }
 }
 
@@ -211,13 +226,30 @@ void Cespedes::computeLosses()
 
     double R[3];
     R[0] = line->z(0).real();
-    R[1] = line->z(1).real();
-    R[2] = line->z(2).real();
+    R[1] = line->z(3).real();
+    R[2] = line->z(5).real();
 
     double X[3];
     X[0] = line->z(0).imag();
     X[1] = line->z(3).imag();
     X[2] = line->z(5).imag();
+
+//    double R[3];
+//    R[0] = line->z(0).real();
+//    R[1] = line->z(1).real();
+//    R[2] = line->z(2).real();
+//    R[3] = line->z(3).real();
+//    R[4] = line->z(4).real();
+//    R[5] = line->z(5).real();
+
+//    double X[3];
+//    X[0] = line->z(0).imag();
+//    X[1] = line->z(1).imag();
+//    X[2] = line->z(2).imag();
+//    X[3] = line->z(3).imag();
+//    X[4] = line->z(4).imag();
+//    X[5] = line->z(5).imag();
+
 
     double Vr[3];
     Vr[0] = abs(line->pNoF()->rV(0));
@@ -234,9 +266,34 @@ void Cespedes::computeLosses()
     Lq[1] = X[1]*(P[1]*P[1] + Q[1]*Q[1])/(Vr[1]*Vr[1]);
     Lq[2] = X[2]*(P[2]*P[2] + Q[2]*Q[2])/(Vr[2]*Vr[2]);
 
+
+//    Lp[0] = R[0]*(P[0]*P[0] + Q[0]*Q[0])/(Vr[0]*Vr[0]) + R[1]*
+//            (P[1]*P[1] + Q[1]*Q[1])/(Vr[1]*Vr[1]) + R[2]*(P[2]*P[2] + Q[2]*Q[2])/
+//            (Vr[2]*Vr[2]);
+//    Lp[1] = R[1]*(P[0]*P[0] + Q[0]*Q[0])/(Vr[0]*Vr[0]) + R[3]*
+//            (P[1]*P[1] + Q[1]*Q[1])/(Vr[1]*Vr[1]) + R[4]*(P[2]*P[2] + Q[2]*Q[2])/
+//            (Vr[2]*Vr[2]);
+//    Lp[2] = R[2]*(P[0]*P[0] + Q[0]*Q[0])/(Vr[0]*Vr[0]) + R[4]*
+//            (P[1]*P[1] + Q[1]*Q[1])/(Vr[1]*Vr[1]) + R[5]*(P[2]*P[2] + Q[2]*Q[2])/
+//            (Vr[2]*Vr[2]);
+
+//    Lq[0] = X[0]*(P[0]*P[0] + Q[0]*Q[0])/(Vr[0]*Vr[0]) + X[1]*
+//            (P[1]*P[1] + Q[1]*Q[1])/(Vr[1]*Vr[1]) + X[2]*(P[2]*P[2] + Q[2]*Q[2])/
+//            (Vr[2]*Vr[2]);
+//    Lq[1] = X[1]*(P[0]*P[0] + Q[0]*Q[0])/(Vr[0]*Vr[0]) + X[3]*
+//            (P[1]*P[1] + Q[1]*Q[1])/(Vr[1]*Vr[1]) + X[4]*(P[2]*P[2] + Q[2]*Q[2])/
+//            (Vr[2]*Vr[2]);
+//    Lq[2] = X[2]*(P[0]*P[0] + Q[0]*Q[0])/(Vr[0]*Vr[0]) + X[4]*
+//            (P[1]*P[1] + Q[1]*Q[1])/(Vr[1]*Vr[1]) + X[5]*(P[2]*P[2] + Q[2]*Q[2])/
+//            (Vr[2]*Vr[2]);
+
+
     lineLoss[0][line] = complex<double> (Lp[0], Lq[0]);
     lineLoss[1][line] = complex<double> (Lp[1], Lq[1]);
     lineLoss[2][line] = complex<double> (Lp[2], Lq[2]);
+
+
+
   }
 }
 
@@ -280,9 +337,20 @@ void Cespedes::calcLineCurrent()
   complex<double> i[3];
 
   foreach(Line *line, network_->lines) {
-    i[0] = sqrt(abs(line->loss(0))/ abs(line->z(0)));
-    i[1] = sqrt(abs(line->loss(1))/ abs(line->z(1)));
-    i[2] = sqrt(abs(line->loss(2))/ abs(line->z(2)));
+    if((abs(line->loss(0))  > 0.0) || (abs(line->z(0)) > 0.0))
+      i[0] = sqrt(abs(line->loss(0)/line->z(0)));
+    else
+      i[0] = 0.0;
+
+    if((abs(line->loss(1))  > 0.0) || (abs(line->z(3)) > 0.0))
+      i[1] = sqrt(abs(line->loss(1)/line->z(3)));
+    else
+      i[1] = 0.0;
+
+    if((abs(line->loss(2))  > 0.0) || (abs(line->z(5)) > 0.0))
+      i[2] = sqrt(abs(line->loss(2)/line->z(5)));
+    else
+      i[2] = 0.0;
 
     line->setI(0, i[0]);
     line->setI(1, i[1]);

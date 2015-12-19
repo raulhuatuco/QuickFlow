@@ -125,13 +125,13 @@ void Shirmoharmmadi::flatStart()
   foreach(Bar *bar, network_->bars) {
     // Set Initial voltage to 1pu.
     bar->setRV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
-    bar->setRV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
-    bar->setRV(2, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
+    bar->setRV(1, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
+    bar->setRV(2, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
 
     // Set initial current to 0 amps.
     bar->setRI(0, 0.0);
-    bar->setRI(1, 120.0);
-    bar->setRI(2, -120.0);
+    bar->setRI(1, 0.0);
+    bar->setRI(2, 0.0);
   }
 
   foreach(Line *line, network_->lines) {

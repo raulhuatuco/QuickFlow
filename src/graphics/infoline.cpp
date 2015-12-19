@@ -114,7 +114,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   dataTable.setText(table3x0, 3, 0);
 
   // Current Phase A.
-  QString table1x1 = QString::number(abs(line_->i(0, Network::currentUnit))*3.0,
+  QString table1x1 = QString::number(abs(line_->i(0, Network::currentUnit)),
                                      'g', 6);
   table1x1.append(" / ");
   table1x1.append(QString::number(arg(line_->i(0,
@@ -131,7 +131,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   dataTable.setText(table1x2, 1, 2);
 
   // Current Phase B.
-  QString table2x1 = QString::number(abs(line_->i(1, Network::currentUnit))*3.0,
+  QString table2x1 = QString::number(abs(line_->i(1, Network::currentUnit)),
                                      'g', 6);
   table2x1.append(" / ");
   table2x1.append(QString::number(arg(line_->i(1,
@@ -148,7 +148,7 @@ void InfoLine::paint(QPainter *painter, const QStyleOptionGraphicsItem *option,
   dataTable.setText(table2x2, 2, 2);
 
   // Current Phase C.
-  QString table3x1 = QString::number(abs(line_->i(2, Network::currentUnit))*3.0,
+  QString table3x1 = QString::number(abs(line_->i(2, Network::currentUnit)),
                                      'g', 6);
   table3x1.append(" / ");
   table3x1.append(QString::number(arg(line_->i(2,

@@ -110,6 +110,7 @@ FORMS    += \
 # Resources.
 RESOURCES += \
     img/img.qrc \
+    styles/style.qrc
 
 # Windows configuration.
 win32 {

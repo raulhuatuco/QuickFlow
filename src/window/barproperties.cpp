@@ -82,8 +82,8 @@ bool BarProperties::setOptions(Project *project, Bar *bar)
     double initialVoltage = bar_->network()->voltageBase();
 
     bar_->setV(0, std::polar(initialVoltage, 0.0), Unit::kVolts);
-    bar_->setV(1, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
-    bar_->setV(2, std::polar(initialVoltage, 240.0*kPI/180.0), Unit::kVolts);
+    bar_->setV(1, std::polar(initialVoltage, -120.0*kPI/180.0), Unit::kVolts);
+    bar_->setV(2, std::polar(initialVoltage, 120.0*kPI/180.0), Unit::kVolts);
 
   } else {
     // Store parameters.

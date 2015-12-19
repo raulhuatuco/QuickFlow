@@ -469,7 +469,7 @@ private:
   * This is necessary so we can delete the information box when the item
   * selection changes to unselected.
   */
-  InfoBar *infoBar;
+  QPointer<InfoBar> infoBar;
 
   /*!
    * \brief Bar voltage.
