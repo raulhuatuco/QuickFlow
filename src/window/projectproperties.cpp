@@ -90,6 +90,9 @@ ProjectProperties::ProjectProperties(QWidget *parent)
   QString initialPath = QStandardPaths::standardLocations(
                           QStandardPaths::DocumentsLocation)[0] + "/QuickFlow";
   ui->path->setText(initialPath);
+  
+  // Set search path button style.
+  ui->location->setProperty("searchFile", true);
 }
 
 /*******************************************************************************

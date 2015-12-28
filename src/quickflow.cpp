@@ -1,7 +1,7 @@
 /*
  * The MIT License (MIT)
  *
- * Copyright (c) 2015 David Krepsky
+ * Copyright (c) 2015-2016 David Krepsky
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -102,16 +102,31 @@ QuickFlow::QuickFlow(QWidget *parent)
     createSettings();
   }
 
-//  QFile f(":qdarkstyle/style.qss");
-
-//  if (!f.exists()) {
-//    printf("Unable to set stylesheet, file not found\n");
-//  } else {
-//    f.open(QFile::ReadOnly | QFile::Text);
-//    QTextStream ts(&f);
-//    qApp->setStyleSheet(ts.readAll());
-//  }
+  QActionGroup *solvers = new QActionGroup(this);
+  solvers->setExclusive(true);
+  solvers->addAction(ui->actionShirmoharmmadi);
+  solvers->addAction(ui->actionCespedes);
+  ui->menuSolver->addAction(ui->actionShirmoharmmadi);
+  ui->menuSolver->addAction(ui->actionCespedes);
   
+
+
+  QFile f(":theme/bluesky/bluesky.qss");
+
+  if (!f.exists()) {
+    printf("Unable to set stylesheet, file not found\n");
+  } else {
+    f.open(QFile::ReadOnly | QFile::Text);
+    QTextStream ts(&f);
+    qApp->setStyleSheet(ts.readAll());
+  }
+  
+  QVBoxLayout *mainLayout = new QVBoxLayout(ui->centralWidget);
+  mainLayout->setSpacing(0);
+  mainLayout->setMargin(0);
+  mainLayout->setContentsMargins(0,0,0,0);
+  mainLayout->addWidget(ui->systemView);
+
   connectSignals();
 }
 

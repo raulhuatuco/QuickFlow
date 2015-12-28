@@ -17,23 +17,7 @@
    <item row="1" column="0">
     <widget class="QGroupBox" name="groupBox_4">
      <property name="styleSheet">
-      <string notr="true">QGroupBox {
-border: 1px solid gray;
-margin-top: 20px;
-}
-
-QGroupBox::title
-{
-    subcontrol-origin: margin;	
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border: 1px solid #0b477b;
-    border-bottom: none;
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-        stop: 0 #001520, stop: 1 #000809);
-    padding: 2 2px;
-    color: white;   
-}</string>
+      <string notr="true"/>
      </property>
      <property name="title">
       <string>Colors</string>
@@ -254,23 +238,7 @@ selection-background-color: black;</string>
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox_3">
      <property name="styleSheet">
-      <string notr="true">QGroupBox {
-border: 1px solid gray;
-margin-top: 20px;
-}
-
-QGroupBox::title
-{
-    subcontrol-origin: margin;	
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
-    border: 1px solid #0b477b;
-    border-bottom: none;
-    background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-        stop: 0 #001520, stop: 1 #000809);
-    padding: 2 2px;
-    color: white;   
-}</string>
+      <string notr="true"/>
      </property>
      <property name="title">
       <string>Attributes</string>

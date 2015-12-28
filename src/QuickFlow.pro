@@ -110,7 +110,7 @@ FORMS    += \
 # Resources.
 RESOURCES += \
     img/img.qrc \
-    styles/dark/style.qrc
+    theme/bluesky/bluesky.qrc
 
 # Windows configuration.
 win32 {
