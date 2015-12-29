@@ -19,5 +19,7 @@
         <file>newproject.png</file>
         <file>save-as.png</file>
         <file>about.png</file>
+        <file>AppIcon.png</file>
+        <file>splash.png</file>
     </qresource>
 </RCC>

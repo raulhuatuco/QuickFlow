@@ -16,6 +16,10 @@
   <property name="windowTitle">
    <string>QuickFlow</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="img/img.qrc">
+    <normaloff>:/AppIcon.png</normaloff>:/AppIcon.png</iconset>
+  </property>
   <property name="autoFillBackground">
    <bool>false</bool>
   </property>
