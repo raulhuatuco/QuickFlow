@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1092</width>
-    <height>742</height>
+    <width>1024</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="focusPolicy">
@@ -73,7 +73,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1092</width>
+     <width>1024</width>
      <height>25</height>
     </rect>
    </property>
