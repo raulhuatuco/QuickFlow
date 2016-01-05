@@ -120,6 +120,7 @@ private:
    */
   void saveLineLoss();
 
+  void calcVoltageAngle(RadialLayer &radLayer);
 };
 
 #endif // CESPEDES_H

@@ -141,6 +141,7 @@
     <addaction name="actionRun"/>
     <addaction name="separator"/>
     <addaction name="menuSolver"/>
+    <addaction name="actionOptimize_Network"/>
     <addaction name="menuRedraw"/>
     <addaction name="separator"/>
     <addaction name="actionSettings"/>
@@ -553,6 +554,14 @@
   <action name="actionExport_image">
    <property name="text">
     <string>Export image</string>
+   </property>
+  </action>
+  <action name="actionOptimize_Network">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Optimize Network</string>
    </property>
   </action>
  </widget>

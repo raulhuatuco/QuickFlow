@@ -71,10 +71,6 @@ class QuickFlow : public QMainWindow
   Q_OBJECT
 
 public:
-  /*****************************************************************************
-  * Const.
-  *****************************************************************************/
-  static const QString kVersion;
 
   /*****************************************************************************
   * Constructor.
@@ -351,11 +347,11 @@ private slots:
   void on_editLine(QObject *line);
 
   void on_actionSettings_triggered();
-  
+
   void on_actionExport_image_triggered();
-  
+
   void on_actionExport_triggered();
-  
+
 protected:
   /*****************************************************************************
   * Close event.

@@ -300,8 +300,8 @@ void Shirmoharmmadi::computeSlackCurrent()
   siSlack[2] = slack->rV(2)*conj(iSlack[2]);
 
   slack->setSi(0, siSlack[0]);
-  slack->setSi(1, siSlack[2]);
-  slack->setSi(2, siSlack[1]);
+  slack->setSi(1, siSlack[1]);
+  slack->setSi(2, siSlack[2]);
 }
 
 /*******************************************************************************
@@ -316,16 +316,16 @@ double Shirmoharmmadi::maxError()
 
   complex<double> deltaS[3];
 
-  deltaS[0] = slack->si(0, Unit::kVA) - oldSlackPower[0];
-  deltaS[1] = slack->si(1, Unit::kVA) - oldSlackPower[1];
-  deltaS[2] = slack->si(2, Unit::kVA) - oldSlackPower[2];
+  deltaS[0] = slack->si(0) - oldSlackPower[0];
+  deltaS[1] = slack->si(1) - oldSlackPower[1];
+  deltaS[2] = slack->si(2) - oldSlackPower[2];
 
   for (int i=0; i<3; i++) {
     double realError;
     double imagError;
 
-    realError = abs(deltaS[i].real());
-    imagError = abs(deltaS[i].imag());
+    realError = fabs(deltaS[i].real());
+    imagError = fabs(deltaS[i].imag());
 
     if(realError > maxError) {
       maxError = realError;
@@ -336,9 +336,9 @@ double Shirmoharmmadi::maxError()
     }
   }
 
-  oldSlackPower[0] = slack->si(0, Unit::kVA);
-  oldSlackPower[1] = slack->si(1, Unit::kVA);
-  oldSlackPower[2] = slack->si(2, Unit::kVA);
+  oldSlackPower[0] = slack->si(0);
+  oldSlackPower[1] = slack->si(1);
+  oldSlackPower[2] = slack->si(2);
 
   return maxError;
 }

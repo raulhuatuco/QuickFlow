@@ -70,7 +70,8 @@ SOURCES += main.cpp\
     algorithms/redrawnetwork.cpp \
     algorithms/shirmoharmmadi.cpp \
     window/projectproperties.cpp \
-    unit.cpp
+    unit.cpp \
+    algorithms/barreduction.cpp
     
 # Project header files.
 HEADERS  += \
@@ -95,7 +96,8 @@ HEADERS  += \
     window/searchbar.h \
     algorithms/redrawnetwork.h \
     window/projectproperties.h \
-    unit.h
+    unit.h \
+    algorithms/barreduction.h
 
 # Forms.
 FORMS    += \

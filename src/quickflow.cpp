@@ -60,11 +60,12 @@
 #include "algorithms/redrawnetwork.h"
 #include "algorithms/shirmoharmmadi.h"
 #include "algorithms/cespedes.h"
+#include "algorithms/barreduction.h"
 
 /*****************************************************************************
 * Const.
 *****************************************************************************/
-const QString QuickFlow::kVersion = "0.0.5";
+extern QString version;
 
 /*******************************************************************************
  * Constructor.
@@ -81,17 +82,11 @@ QuickFlow::QuickFlow(QWidget *parent)
   // Adjust initial interface to disable project related actions.
   noProjectInterface();
 
-  // Set application info.
-  QCoreApplication::setOrganizationName("DKrepsky");
-  QCoreApplication::setOrganizationDomain("dkrepsky.blogspot.com.br");
-  QCoreApplication::setApplicationName("QuickFlow");
-  QCoreApplication::setApplicationVersion(kVersion);
-
   // Check for settings existence and version.
   settings = new QSettings(this);
 
   if (settings->contains("version")) {
-    if (settings->value("version").toString() == kVersion)
+    if (settings->value("version").toString() == version)
       // If exists and is in the current version, use it.
       loadSettings();
     else
@@ -108,7 +103,7 @@ QuickFlow::QuickFlow(QWidget *parent)
   solvers->addAction(ui->actionCespedes);
   ui->menuSolver->addAction(ui->actionShirmoharmmadi);
   ui->menuSolver->addAction(ui->actionCespedes);
-  
+
 
 
   QFile f(":theme/bluesky/bluesky.qss");
@@ -120,7 +115,7 @@ QuickFlow::QuickFlow(QWidget *parent)
     QTextStream ts(&f);
     qApp->setStyleSheet(ts.readAll());
   }
-  
+
   QVBoxLayout *mainLayout = new QVBoxLayout(ui->centralWidget);
   mainLayout->setSpacing(0);
   mainLayout->setMargin(0);
@@ -711,6 +706,16 @@ void QuickFlow::on_actionSearch_Bar_triggered()
 void QuickFlow::on_actionRun_triggered()
 {
   foreach(Network *network, project->networks) {
+    BarReduction optimizer;
+
+    if(ui->actionOptimize_Network->isChecked()) {
+      optimizer.setNetwork(network);
+      int32_t rbars = optimizer.reduce();
+      QMessageBox::information(this, "Bar reduction",
+                               "Reduced: " + QString::number(rbars) + " bars \n",
+                               QMessageBox::Ok);
+    }
+
     if(ui->actionShirmoharmmadi->isChecked()) {
 
       Shirmoharmmadi fluxo(network);
@@ -732,6 +737,10 @@ void QuickFlow::on_actionRun_triggered()
                                    *network->powerBase()) + " Watts, " +  QString::number(fluxo.totalLoss.imag()
                                        *network->powerBase()) + " VAR, ",
                                QMessageBox::Ok);
+    }
+
+    if(ui->actionOptimize_Network->isChecked()) {
+      optimizer.expand();
     }
   }
 
@@ -877,7 +886,7 @@ void QuickFlow::saveSettings()
 void QuickFlow::createSettings()
 {
   // Save version.
-  settings->setValue("version", kVersion);
+  settings->setValue("version", version);
 
 //  systemView background.
   QBrush bkbrush;

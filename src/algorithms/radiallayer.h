@@ -7,12 +7,13 @@ class RadialLayer
 {
 public:
   typedef QVector<Bar *> Layer;
-  
+
   QVector<Layer *> layers;
 
   RadialLayer(Network *network);
   ~RadialLayer();
-  
+
+  void setNetwork(Network *network);
   void calculate();
   void reset();
   int32_t height();
@@ -20,7 +21,7 @@ public:
 
 private:
   Network *network_;
-  
+
   void next(Layer *current);
 };
 

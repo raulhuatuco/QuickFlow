@@ -11,6 +11,11 @@ RadialLayer::~RadialLayer()
   reset();
 }
 
+void RadialLayer::setNetwork(Network *network)
+{
+  network_ = network;
+}
+
 void RadialLayer::calculate()
 {
   Layer *current = new Layer;
