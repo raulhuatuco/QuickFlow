@@ -789,7 +789,8 @@ void QuickFlow::on_actionExport_image_triggered()
   double h = ui->systemView->scene()->sceneRect().height();
 
   QImage img(static_cast<int> (w), static_cast<int> (h),
-             QImage::Format_ARGB32_Premultiplied);
+             QImage::Format_ARGB32);
+             img.fill(Qt::transparent);
   QPainter p(&img);
   p.setRenderHint(QPainter::Antialiasing);
   ui->systemView->scene()->render(&p);
