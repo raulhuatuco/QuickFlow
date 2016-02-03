@@ -1,9 +1,0 @@
-<map id="Network::voltageBase" name="Network::voltageBase">
-<area shape="rect" id="node2" href="$class_bar_properties.html#a0a9a2284b5aad8acbade86ccec7adbf8" title="BarProperties::setOptions" alt="" coords="204,5,376,32"/>
-<area shape="rect" id="node3" href="$class_cespedes.html#a067d624d68effc0eced09b18f2a16fc0" title="Solve the power flow for the especified network. " alt="" coords="230,56,350,83"/>
-<area shape="rect" id="node4" href="$import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="233,107,347,133"/>
-<area shape="rect" id="node5" href="$import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="233,157,347,184"/>
-<area shape="rect" id="node6" href="$import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="233,208,347,235"/>
-<area shape="rect" id="node7" href="$group___window.html#ga9dd17216f65e1c35012699e13547d984" title="Set edit options. " alt="" coords="221,259,359,301"/>
-<area shape="rect" id="node8" href="$group___algorithms.html#gacb4a06c62b5d97c25bea70acd477e715" title="Solve the power flow for the especified network. " alt="" coords="211,325,369,352"/>
-</map>

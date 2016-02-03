@@ -1,8 +1,0 @@
-<map id="SystemView::keyPressEvent" name="SystemView::keyPressEvent">
-<area shape="rect" id="node2" href="$group___models.html#gaa4cfa330c9c53ddaf86c8f5c17ba1ee0" title="Network. " alt="" coords="270,5,370,32"/>
-<area shape="rect" id="node3" href="$group___models.html#ga1eef3317224a7a06348fce07e581a9ad" title="Remove line. " alt="" coords="247,56,393,83"/>
-<area shape="rect" id="node5" href="$group___models.html#gab0594d5d7313e8749bb85434b255db9a" title="Bar current network. " alt="" coords="272,107,368,133"/>
-<area shape="rect" id="node6" href="$group___models.html#ga997ce4f03d316b9f138f2e64e6ca400c" title="Remove bar. " alt="" coords="249,157,391,184"/>
-<area shape="rect" id="node4" href="$group___models.html#ga8f090b85a7779695cb9f05b6395b3044" title="Get line by nodes. " alt="" coords="441,56,616,83"/>
-<area shape="rect" id="node7" href="$group___models.html#ga04d524ce0fa0dd0d06deda92b1597af0" title="Get bar pointer by id. " alt="" coords="457,157,601,184"/>
-</map>

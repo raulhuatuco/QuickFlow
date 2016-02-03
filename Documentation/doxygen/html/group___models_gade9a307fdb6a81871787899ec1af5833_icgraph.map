@@ -1,9 +1,0 @@
-<map id="Bar::setNetwork" name="Bar::setNetwork">
-<area shape="rect" id="node2" href="$class_bar_properties.html#a0a9a2284b5aad8acbade86ccec7adbf8" title="BarProperties::setOptions" alt="" coords="171,31,343,57"/>
-<area shape="rect" id="node3" href="$group___models.html#ga8c5dfef0216731246f7411e1a5fbee01" title="Add bar. " alt="" coords="197,81,317,108"/>
-<area shape="rect" id="node4" href="$import_8h.html#ab30ac380d5e14f830ebc8eb839fbbdf0" title="importTxtType1" alt="" coords="401,5,514,32"/>
-<area shape="rect" id="node5" href="$import_8h.html#aef466de21b145a0fdf215dd1a6409924" title="importTxtType2" alt="" coords="401,56,514,83"/>
-<area shape="rect" id="node6" href="$import_8h.html#acd1a54d4b2a28043b1489f0be7423ecd" title="importTxtType3" alt="" coords="401,107,514,133"/>
-<area shape="rect" id="node7" href="$group___models.html#ga2aef0f6c0d9569ec4d6b948d1ef0d5f1" title="Load from Json object. " alt="" coords="391,157,524,184"/>
-<area shape="rect" id="node8" href="$class_project.html#a1e373892a0383371132ce68fa5f8813d" title="Project::load" alt="" coords="572,157,667,184"/>
-</map>

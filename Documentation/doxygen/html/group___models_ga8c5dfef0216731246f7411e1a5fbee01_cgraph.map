@@ -1,6 +1,0 @@
-<map id="Network::addBar" name="Network::addBar">
-<area shape="rect" id="node2" href="$group___models.html#ga04d524ce0fa0dd0d06deda92b1597af0" title="Get bar pointer by id. " alt="" coords="173,5,317,32"/>
-<area shape="rect" id="node3" href="$group___models.html#gacf0fb781a73856bb7beb823304465e13" title="The bar id. " alt="" coords="215,56,275,83"/>
-<area shape="rect" id="node4" href="$group___models.html#gade9a307fdb6a81871787899ec1af5833" title="Set bar network. " alt="" coords="187,107,304,133"/>
-<area shape="rect" id="node5" href="$group___models.html#gab0594d5d7313e8749bb85434b255db9a" title="Bar current network. " alt="" coords="365,107,461,133"/>
-</map>
