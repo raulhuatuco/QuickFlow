@@ -307,6 +307,87 @@ void Network::setPowerBase(double power)
   powerBase_ = power;
 }
 
+void Network::exportData(QTextStream &stream)
+{
+  stream << "--------------------------------------------------------------------------------" << endl;
+  stream << "Network: " << name << endl;
+  stream << "Bars: " << QString::number(bars.size()) << endl;
+  stream << "Lines: " << QString::number(lines.size()) << endl;
+  stream << "--------------------------------------------------------------------------------" << endl << endl;
+
+
+  stream.setFieldWidth(15);
+  stream.setFieldAlignment(QTextStream::AlignRight);
+  stream.setRealNumberPrecision(10);
+  stream << "Id";
+  stream << "Voltage_A_Abs";
+  stream << "Voltage_A_Phas";
+  stream << "Voltage_B_Abs";
+  stream << "Voltage_B_Phas";
+  stream << "Voltage_C_Abs";
+  stream << "Voltage_C_Phas";
+  stream << "Current_A_Abs";
+  stream << "Current_A_Phas";
+  stream << "Current_B_Abs";
+  stream << "Current_B_Phas";
+  stream << "Current_C_Abs";
+  stream << "Current_C_Phas";
+  stream << "Load_A_Real";
+  stream << "Load_A_Imag";
+  stream << "Load_B_Real";
+  stream << "Load_B_Imag";
+  stream << "Load_C_Real";
+  stream << "Load_C_Imag";
+  stream << "Shunt_A_Real";
+  stream << "Shunt_A_Imag";
+  stream << "Shunt_B_Real";
+  stream << "Shunt_B_Imag";
+  stream << "Shunt_C_Real";
+  stream << "Shunt_C_Imag";
+  stream << endl;
+
+  foreach(Bar *bar, bars) {
+    bar->exportData(stream);
+  }
+  
+  stream << endl;
+  
+  stream << "Initial_Bar";
+  stream << "Final_Bar";
+  stream << "Current_A_Abs";
+  stream << "Current_A_Phas";
+  stream << "Current_B_Abs";
+  stream << "Current_B_Phas";
+  stream << "Current_C_Abs";
+  stream << "Current_C_Phas";
+  stream << "Loss_A_Real";
+  stream << "Loss_A_Imag";
+  stream << "Loss_B_Real";
+  stream << "Loss_B_Imag";
+  stream << "Loss_C_Real";
+  stream << "Loss_C_Imag";
+  stream << "Zaa_Real";
+  stream << "Zaa_Imag";
+  stream << "Zab_Real";
+  stream << "Zab_Imag";
+  stream << "Zac_Real";
+  stream << "Zac_Imag";
+  stream << "Zbb_Real";
+  stream << "Zbb_Imag";
+  stream << "Zbc_Real";
+  stream << "Zbc_Imag";
+  stream << "Zcc_Real";
+  stream << "Zcc_Imag";
+  stream << endl;
+  
+  foreach(Line *line, lines){
+    line->exportData(stream);
+  }
+  
+  stream.setFieldWidth(1);
+  stream << endl;
+}
+
 /*!
  * \}
  */

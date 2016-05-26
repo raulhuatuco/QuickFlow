@@ -47,6 +47,7 @@
 #include <QGraphicsObject>
 #include <QPointer>
 #include <complex>
+#include <QTextStream>
 #include "unit.h"
 #include "models/line.h"
 #include "models/network.h"
@@ -393,6 +394,8 @@ public:
    */
   QRectF boundingRect() const Q_DECL_OVERRIDE;
 
+  void exportData(QTextStream &stream);
+  
 signals:
   /*****************************************************************************
   * Signals.

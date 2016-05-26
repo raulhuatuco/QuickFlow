@@ -512,6 +512,37 @@ QVariant Line::itemChange(QGraphicsItem::GraphicsItemChange change,
   return QGraphicsObject::itemChange(change, value);
 }
 
+void Line::exportData(QTextStream &stream)
+{
+  stream << nodes.first;
+  stream << nodes.second;
+  stream << abs(i(0, Unit::kAmpere));
+  stream << arg(i(0, Unit::kAmpere))*180/M_PI;
+  stream << abs(i(1, Unit::kAmpere));
+  stream << arg(i(1, Unit::kAmpere))*180/M_PI;
+  stream << abs(i(2, Unit::kAmpere));
+  stream << arg(i(2, Unit::kAmpere))*180/M_PI;
+  stream << loss(0, Unit::kVA).real();
+  stream << loss(0, Unit::kVA).imag();
+  stream << loss(1, Unit::kVA).real();
+  stream << loss(1, Unit::kVA).imag();
+  stream << loss(2, Unit::kVA).real();
+  stream << loss(2, Unit::kVA).imag();
+  stream << z(0, Unit::kOhm).real();
+  stream << z(0, Unit::kOhm).imag();
+  stream << z(1, Unit::kOhm).real();
+  stream << z(1, Unit::kOhm).imag();
+  stream << z(2, Unit::kOhm).real();
+  stream << z(2, Unit::kOhm).imag();
+  stream << z(3, Unit::kOhm).real();
+  stream << z(3, Unit::kOhm).imag();
+  stream << z(4, Unit::kOhm).real();
+  stream << z(4, Unit::kOhm).imag();
+  stream << z(5, Unit::kOhm).real();
+  stream << z(5, Unit::kOhm).imag();
+  stream << endl;
+}
+
 /*******************************************************************************
  * mouseDoubleClickEvent.
  ******************************************************************************/

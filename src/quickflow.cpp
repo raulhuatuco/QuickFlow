@@ -1017,5 +1017,28 @@ void QuickFlow::disconnectSignals()
 
 void QuickFlow::on_actionExport_triggered()
 {
+// Get file location from user.
+  QFileDialog txtFile(this);
+  txtFile.setAcceptMode(QFileDialog::AcceptSave);
+  txtFile.setFileMode(QFileDialog::AnyFile);
+  txtFile.setConfirmOverwrite(true);
+  txtFile.setDefaultSuffix(".txt");
+  txtFile.setNameFilter(tr("Text File (*.txt)"));
+  QString initialPath = QStandardPaths::standardLocations(
+                          QStandardPaths::DocumentsLocation)[0] + "/QuickFlow";
+  txtFile.setDirectory(initialPath);
+  txtFile.selectFile(project->name + "_result.txt");
 
+  // Check if user has canceled the opening.
+  if (txtFile.exec() != QDialog::Accepted) {
+    return;
+  }
+
+  // Grab filename.
+  QString fileName = txtFile.selectedFiles()[0];
+
+  if(!project->exportData(fileName))
+    QMessageBox::critical(this, "Can't export data",
+                        "Can't export data!",
+                        QMessageBox::Ok);
 }

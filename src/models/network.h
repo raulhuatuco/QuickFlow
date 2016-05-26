@@ -49,6 +49,7 @@
 #include <QJsonObject>
 #include <QMap>
 #include <QPointer>
+#include <QTextStream>
 #include <cstdint>
 #include "unit.h"
 #include "models/bar.h"
@@ -454,6 +455,8 @@ public:
    */
   void setPowerBase(double power);
 
+  void exportData(QTextStream &stream);
+  
 private:
   /*****************************************************************************
    * Private data.

@@ -3,8 +3,12 @@
 #include <QDir>
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QTextStream>
+#include <QDateTime>
 #include "models/bar.h"
 #include "models/line.h"
+
+extern QString version;
 
 /*******************************************************************************
  * Constructor.
@@ -259,6 +263,32 @@ bool Project::load()
 // Close file
   file.close();
 
+  return true;
+}
+
+bool Project::exportData(QString &fileName)
+{
+  // Try to open file.
+  QFile file;
+  file.setFileName(fileName);
+
+  // Check for read permission.
+  if (!file.open(QIODevice::WriteOnly))
+    return false;
+
+  QTextStream stream(&file); // Text stream used to parse lines.
+  stream << "QuickFLow Export" << endl;
+  stream << "Version: " << version << endl;
+  stream << "Project name: " << name << endl;
+  stream << "Date: " << QDateTime::currentDateTime().toString() << endl;
+  stream << endl;
+
+  foreach (Network *network, networks) {
+    network->exportData(stream);
+  }
+  
+  file.flush();
+  file.close();
   return true;
 }
 

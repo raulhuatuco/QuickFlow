@@ -56,6 +56,8 @@ public:
 
   bool load();
 
+  bool exportData(QString &fileName);
+  
 private:
 };
 

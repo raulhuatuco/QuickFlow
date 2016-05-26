@@ -46,6 +46,8 @@
 #include <QJsonObject>
 #include <QGraphicsObject>
 #include <QPointer>
+#include <QTextStream>
+#include <QPair>
 #include <complex>
 #include "models/bar.h"
 #include "models/network.h"
@@ -432,6 +434,8 @@ public:
   QVariant itemChange(GraphicsItemChange change,
                       const QVariant &value) Q_DECL_OVERRIDE;
 
+  void exportData(QTextStream &stream);
+  
 signals:
   /*****************************************************************************
    * Signals.

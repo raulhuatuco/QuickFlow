@@ -513,6 +513,36 @@ QRectF Bar::boundingRect() const
                 Network::barIconSize, Network::barIconSize);
 }
 
+void Bar::exportData(QTextStream &stream)
+{
+  stream << id_;
+  stream << abs(rV(0, Unit::kVolts));
+  stream << arg(rV(0, Unit::kVolts))*180/M_PI;
+  stream << abs(rV(1, Unit::kVolts));
+  stream << arg(rV(1, Unit::kVolts))*180/M_PI;
+  stream << abs(rV(2, Unit::kVolts));
+  stream << arg(rV(2, Unit::kVolts))*180/M_PI;
+  stream << abs(rI(0, Unit::kAmpere));
+  stream << arg(rI(0, Unit::kAmpere))*180/M_PI;
+  stream << abs(rI(1, Unit::kAmpere));
+  stream << arg(rI(1, Unit::kAmpere))*180/M_PI;
+  stream << abs(rI(2, Unit::kAmpere));
+  stream << arg(rI(2, Unit::kAmpere))*180/M_PI;
+  stream << si(0, Unit::kVA).real();
+  stream << si(0, Unit::kVA).imag();
+  stream << si(1, Unit::kVA).real();
+  stream << si(1, Unit::kVA).imag();
+  stream << si(2, Unit::kVA).real();
+  stream << si(2, Unit::kVA).imag();
+  stream << sh(0,Unit::kVA).real();
+  stream << sh(0,Unit::kVA).imag();
+  stream << sh(1,Unit::kVA).real();
+  stream << sh(1,Unit::kVA).imag();
+  stream << sh(2,Unit::kVA).real();
+  stream << sh(2,Unit::kVA).imag();
+  stream << endl;
+}
+
 /*******************************************************************************
  * mouseDoubleClickEvent.
  ******************************************************************************/
